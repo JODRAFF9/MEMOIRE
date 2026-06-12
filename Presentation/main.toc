@@ -1,0 +1,22 @@
+\babel@toc {french}{}\relax 
+\beamer@sectionintoc {1}{Introduction}{3}{0}{1}
+\beamer@subsectionintoc {1}{1}{Contexte et importance du secteur informel}{3}{0}{1}
+\beamer@subsectionintoc {1}{2}{Problématique et objectifs}{6}{0}{1}
+\beamer@sectionintoc {2}{Revue de la littérature}{10}{0}{2}
+\beamer@subsectionintoc {2}{1}{Revue théorique}{10}{0}{2}
+\beamer@subsectionintoc {2}{2}{Revue empirique}{11}{0}{2}
+\beamer@sectionintoc {3}{Méthodologie}{12}{0}{3}
+\beamer@subsectionintoc {3}{1}{Données}{12}{0}{3}
+\beamer@subsectionintoc {3}{2}{Modèle VAR multisectoriel}{13}{0}{3}
+\beamer@subsectionintoc {3}{3}{Tests et transmission}{15}{0}{3}
+\beamer@sectionintoc {4}{Statistiques descriptives}{16}{0}{4}
+\beamer@subsectionintoc {4}{1}{Évolution générale}{16}{0}{4}
+\beamer@sectionintoc {5}{Résultats économétriques}{18}{0}{5}
+\beamer@subsectionintoc {5}{1}{Stationnarité}{18}{0}{5}
+\beamer@subsectionintoc {5}{2}{Mesures de persistance}{21}{0}{5}
+\beamer@subsectionintoc {5}{3}{Transmission du secteur formel}{22}{0}{5}
+\beamer@sectionintoc {6}{Conclusion et recommandations}{26}{0}{6}
+\beamer@subsectionintoc {6}{1}{Conclusion générale}{26}{0}{6}
+\beamer@subsectionintoc {6}{2}{Recommandations}{30}{0}{6}
+\beamer@subsectionintoc {6}{3}{Limites et perspectives}{32}{0}{6}
+\beamer@sectionintoc {7}{Graphiques descriptifs}{35}{0}{7}

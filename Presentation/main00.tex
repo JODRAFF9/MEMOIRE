@@ -1,0 +1,450 @@
+\documentclass[10pt,aspectratio=169]{beamer}
+
+\usetheme{Warsaw}
+% Thème couleur personnalisé marron/doré
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{headline}{%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=2.8ex,dp=1ex,center]{section in head/foot}%
+    \scriptsize%
+    \insertsectionnavigationhorizontal{\paperwidth}{}{}%
+  \end{beamercolorbox}%
+}
+\setbeamercolor{section in head/foot}{bg=marron, fg=white}
+\setbeamertemplate{footline}{%
+  \leavevmode%
+  \hbox{%
+    \begin{beamercolorbox}[wd=0.18\paperwidth,ht=2.6ex,dp=1ex,center]{author in head/foot}%
+      \scriptsize \insertframenumber/\inserttotalframenumber
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=0.50\paperwidth,ht=2.6ex,dp=1ex,center]{author in head/foot}%
+      \scriptsize Sié Rachid TRAORÉ et Fallou NGOM
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=0.32\paperwidth,ht=2.6ex,dp=1ex,center]{title in head/foot}%
+      \scriptsize Élèves Ingénieurs Statisticiens Économistes
+    \end{beamercolorbox}%
+  }%
+}
+\setbeamertemplate{caption}[numbered]
+\setbeamertemplate{blocks}[default]
+
+% Couleurs personnalisées
+\definecolor{marron}{RGB}{101, 83, 45}
+\definecolor{dore}{RGB}{184, 134, 11}
+\setbeamercolor{frametitle}{bg=marron, fg=white}
+\setbeamercolor{title}{bg=marron, fg=white}
+\setbeamercolor{subtitle}{fg=white}
+\setbeamercolor{structure}{fg=marron}
+\setbeamercolor{palette primary}{bg=marron, fg=white}
+\setbeamercolor{palette secondary}{bg=marron!85!black, fg=white}
+\setbeamercolor{palette tertiary}{bg=dore!85!black, fg=white}
+\setbeamercolor{palette quaternary}{bg=marron!70!black, fg=white}
+\setbeamercolor{alerted text}{fg=dore!85!black}
+\setbeamercolor{block title}{bg=marron, fg=white}
+\setbeamercolor{block body}{bg=marron!6, fg=black}
+\setbeamercolor{alertblock title}{bg=dore!85!black, fg=white}
+\setbeamercolor{alertblock body}{bg=dore!10, fg=black}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+
+\title[Persistance des chocs]{Persistance des chocs sur le secteur informel sénégalais}
+\subtitle{}
+\author[]{Sié Rachid TRAORÉ \and Fallou NGOM}
+\institute[]{}
+\date{}
+
+
+\begin{document}
+
+\begingroup
+\setbeamertemplate{headline}{}
+\begin{frame}
+  \centering
+  \vspace{0.45cm}
+  \begin{beamercolorbox}[sep=8pt,center,rounded=true,shadow=true]{title}
+    {\LARGE\bfseries\color{white} Persistance des chocs sur le secteur informel sénégalais\par}
+  \end{beamercolorbox}
+  \vspace{0.55cm}
+  {\large Sié Rachid TRAORÉ et Fallou NGOM\par}\vspace{0.15cm}
+  {\small Élèves Ingénieurs Statisticiens Économistes\par}
+  \vfill
+  {\small Sous la supervision de Mme Ramlatou DIALLO\par}\vspace{0.12cm}
+  {\small Ingénieure Statisticienne Économiste\par}
+  \vspace{0.25cm}
+  {\small Mai 2026\par}
+\end{frame}
+\endgroup
+
+\begin{frame}{Plan de la présentation}
+  \tableofcontents
+\end{frame}
+
+
+\section[Intro]{Introduction}
+
+\begin{frame}{Introduction (1/3)}
+  \begin{block}{Contexte général}
+    \begin{itemize}
+      \item Le secteur informel occupe une place centrale dans les économies en développement.
+      \item Au Sénégal, il contribue fortement à la production et à l'emploi.
+      \item Les économies ont subi plusieurs chocs majeurs : crise financière, COVID-19, inflation importée, sécheresses.
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}{Introduction (2/3)}
+  \begin{block}{Question centrale}
+    Les effets des chocs économiques sur les branches du secteur informel sénégalais sont-ils transitoires ou permanents ?
+
+    \vspace{0.25cm}
+    \textbf{Enjeux de l'analyse}
+    \begin{itemize}
+      \item Les chocs peuvent s'estomper avec le temps.
+      \pause
+      \item Ils peuvent aussi laisser des cicatrices durables.
+      \pause
+      \item L'étude teste aussi la transmission du formel vers l'informel.
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}{Introduction (3/3)}
+  \begin{block}{Objectif général}
+    Mesurer la persistance des chocs économiques sur le secteur informel sénégalais.
+  \end{block}
+  \pause
+  \begin{block}{Objectifs spécifiques}
+    \begin{itemize}
+      \item Tester les propriétés stochastiques des séries.
+      \item Mesurer la persistance agrégée et sectorielle.
+      \item Évaluer la contribution des chocs issus du secteur formel.
+    \end{itemize}
+  \end{block}
+  \pause
+  \begin{block}{Hypothèses}
+    \begin{enumerate}
+      \item[H1] Les chocs ont un caractère permanent.
+      \item[H2] La persistance varie selon les branches.
+      \item[H3] Les chocs du secteur formel contribuent à la persistance de l'informel.
+    \end{enumerate}
+  \end{block}
+\end{frame}
+
+\section[Revue]{Revue de la littérature}
+
+\begin{frame}{Revue théorique : chocs transitoires}
+  \begin{itemize}
+    \item L'approche traditionnelle considère l'activité économique comme stationnaire autour d'une tendance déterministe.
+    \item Dans cette logique, les chocs provoquent des fluctuations cycliques de court terme.
+    \item À long terme, l'économie revient vers sa trajectoire initiale de croissance.
+    \item Appliquée à l'informel, cette vision suppose que les perturbations n'affectent pas durablement le niveau de valeur ajoutée.
+  \end{itemize}
+  \begin{block}{Implication empirique}
+    Les écarts à la tendance doivent progressivement disparaître après un choc.
+  \end{block}
+\end{frame}
+
+\begin{frame}{Revue théorique : chocs permanents}
+  \begin{itemize}
+    \item Nelson et Plosser remettent en cause l'idée d'une tendance déterministe stable.
+    \item Si une série possède une racine unitaire, un choc modifie son niveau de long terme.
+    \item Les chocs ne sont donc plus seulement cycliques : ils peuvent laisser des effets permanents.
+    \item Cette approche justifie l'utilisation des tests de racine unitaire pour mesurer la persistance.
+  \end{itemize}
+  \begin{alertblock}{Lien avec le mémoire}
+    Une forte persistance signifie que l'informel peut conserver durablement les traces des crises économiques.
+  \end{alertblock}
+\end{frame}
+
+\begin{frame}{Revue théorique : approche multisectorielle}
+  \begin{itemize}
+    \item Pesaran, Pierse et Lee proposent une analyse désagrégée de la persistance des chocs.
+    \item L'approche multisectorielle tient compte des interdépendances entre branches d'activité.
+    \item Elle évite de masquer les différences sectorielles derrière une mesure agrégée unique.
+    \item Elle permet aussi d'isoler des chocs macroéconomiques identifiés, ici ceux du secteur formel.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Revue empirique : principaux constats}
+  \begin{itemize}
+    \item Les études sur les pays industrialisés montrent que la persistance varie selon les secteurs et la source du choc.
+    \item Les travaux désagrégés indiquent que l'agrégation peut sous-estimer la persistance réelle.
+    \item Dans les économies en développement, les fragilités structurelles renforcent souvent les effets durables des chocs.
+    \item Le secteur informel reste peu étudié malgré son poids dans l'emploi et la production.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Revue empirique : apport de l'étude}
+  \begin{itemize}
+    \item L'étude applique l'approche multisectorielle au cas du secteur informel sénégalais.
+    \item Elle couvre sept branches informelles sur la période 1980--2022.
+    \item Elle mesure à la fois la persistance agrégée et la persistance sectorielle.
+    \item Elle teste explicitement la transmission des chocs du secteur formel vers l'informel.
+  \end{itemize}
+  \begin{block}{Contribution}
+    L'analyse relie la littérature sur la persistance des chocs à la problématique spécifique de l'économie informelle au Sénégal.
+  \end{block}
+\end{frame}
+
+\section[Méthodo]{Méthodologie}
+
+\begin{frame}{Données}
+  \begin{itemize}
+    \item Source principale : données de l'ANSD.
+    \item Période d'analyse : 1980--2022.
+    \item Variable étudiée : valeur ajoutée sectorielle à prix constant, en logarithme.
+    \item Sept branches de l'informel : agriculture, manufacture, commerce, transport, hébergement-restauration, immobilier et reste de l'informel.
+    \item Les séries antérieures à 2014 sont reconstituées par prolongement fondé sur des ratios.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Approche multisectorielle : système VAR}
+  \begin{block}{Principe}
+    Les branches de l'informel sont modélisées simultanément afin de tenir compte de leurs interdépendances.
+  \end{block}
+  \begin{equation*}
+    \mathbf{y}_t = \mathbf{a} + A_1 \mathbf{y}_{t-1} + A_2 \mathbf{y}_{t-2} + \cdots + A_p \mathbf{y}_{t-p} + \mathbf{u}_t
+  \end{equation*}
+  \begin{itemize}
+    \item $\mathbf{y}_t$ regroupe les valeurs ajoutées des branches informelles ;
+    \item $A_1,\ldots,A_p$ mesurent les effets retardés entre branches ;
+    \item $\mathbf{u}_t$ contient les innovations sectorielles.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Persistance agrégée dans le modèle multisectoriel}
+  \begin{block}{Réponse de long terme}
+    Dans un VAR, la matrice de long terme mesure l'effet cumulé d'un choc sur l'ensemble du système.
+  \end{block}
+  \begin{equation*}
+    C(1) = \left(I - A_1 - A_2 - \cdots - A_p\right)^{-1}
+  \end{equation*}
+  \begin{equation*}
+    P_i = \mathbf{e}_i' C(1) \mathbf{u}_t
+  \end{equation*}
+  \begin{itemize}
+    \item $C(1)$ résume les effets cumulés des chocs ;
+    \item $P_i$ mesure la persistance dans la branche $i$ ;
+    \item cette formulation permet de comparer les secteurs entre eux.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Identification des chocs du secteur formel}
+  \begin{block}{Objectif}
+    Tester si les chocs issus du secteur formel expliquent une partie de la dynamique de l'informel.
+  \end{block}
+  \begin{equation*}
+    \triangle y^{INF}_t = \alpha + \sum_{k=1}^{p} \beta_k \triangle y^{INF}_{t-k}
+    + \sum_{s=0}^{r} \gamma_s v^{F}_{t-s} + \eta_t
+  \end{equation*}
+  \begin{itemize}
+    \item $v^F_t$ représente le choc identifié du secteur formel ;
+    \item $\gamma_s$ mesure sa transmission contemporaine et retardée vers l'informel.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Tests d'hypothèses sur la transmission}
+  \begin{block}{Effet du secteur formel sur l'informel}
+    Deux restrictions permettent de distinguer absence d'effet, effet transitoire et effet permanent.
+  \end{block}
+  \begin{align*}
+    H_1 &: \gamma_0 = \gamma_1 = \cdots = \gamma_r = 0 \\
+    H_2 &: \sum_{s=0}^{r} \gamma_s = 0
+  \end{align*}
+  \begin{itemize}
+    \item Si $H_1$ n'est pas rejetée : pas de transmission significative ;
+    \item si $H_1$ est rejetée mais $H_2$ acceptée : effet seulement transitoire ;
+    \item si $H_2$ est rejetée : effet permanent du choc formel.
+  \end{itemize}
+\end{frame}
+
+
+\section[Stats desc.]{Statistiques descriptives}
+
+\begin{frame}{Statistiques descriptives}
+  \footnotesize
+  \begin{block}{Évolution générale des séries}
+    \begin{itemize}
+      \item Les valeurs ajoutées sectorielles informelles à prix constants, en logarithme, suivent globalement une tendance haussière sur 1980--2022.
+      \item Des ruptures apparaissent autour des crises : années 1980, dévaluation de 1994, crise de 2008--2009 et COVID-19.
+      \item Ces évolutions motivent l'analyse économétrique de la persistance des chocs.
+    \end{itemize}
+  \end{block}
+  \vspace{-0.1cm}
+  \begin{block}{Lecture par branche}
+    \begin{itemize}
+      \item L'agriculture reste fragile ; le commerce et l'immobilier affichent une trajectoire plus régulière.
+      \item L'hébergement-restauration, la manufacture, le transport et le reste de l'informel présentent des chocs visibles suivis d'une reprise.
+      \item L'observation graphique suggère des effets parfois transitoires, à confirmer par l'analyse économétrique.
+    \end{itemize}
+  \end{block}
+  \vspace{-0.05cm}
+  \begin{center}
+    \hyperlink{graphiquesdesc}{\beamerbutton{Voir les graphiques descriptifs}}
+  \end{center}
+\end{frame}
+
+\section[Résultats]{Résultats économétriques}
+
+\begin{frame}{Stationnarité et cointégration}
+  \begin{itemize}
+    \item Les tests ADF, Phillips--Perron et KPSS indiquent une non-stationnarité en niveau.
+    \item Les séries deviennent stationnaires en différence première.
+    \item La procédure de Johansen met en évidence cinq relations de cointégration.
+    \item Ces résultats justifient l'utilisation d'une modélisation multisectorielle.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Persistance agrégée et sectorielle}
+  \begin{table}
+    \centering
+    \small
+    \begin{tabular}{lcc}
+      \toprule
+      Branche & Mesure de persistance & Lecture \\
+      \midrule
+      Agriculture & 1,08--1,15 & Effets très persistants \\
+      Manufacture & 1,06--1,14 & Effets très persistants \\
+      Transport & 0,91--0,97 & Effets plutôt transitoires \\
+      Ensemble informel & 1,06 & Effets durables \\
+      \bottomrule
+    \end{tabular}
+  \end{table}
+  \begin{itemize}
+    \item Une persistance supérieure à l'unité suggère des effets durables, voire amplifiés.
+    \item Les résultats confirment une forte hétérogénéité sectorielle.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Transmission des chocs du secteur formel}
+  \begin{itemize}
+    \item Les tests de Fisher ne mettent pas en évidence de transmission statistiquement significative.
+    \item Les p-values sont comprises entre 0,255 et 0,856 selon les branches.
+    \item L'hypothèse H3 n'est donc pas retenue.
+    \item Ce résultat suggère une segmentation structurelle entre les sphères formelle et informelle.
+  \end{itemize}
+  \begin{alertblock}{Interprétation}
+    L'informel sénégalais semble fonctionner selon une logique productive largement autonome par rapport au secteur formel.
+  \end{alertblock}
+\end{frame}
+
+\begin{frame}{Validation des hypothèses}
+  \begin{table}
+    \centering
+    \begin{tabular}{clc}
+      \toprule
+      Hypothèse & Résultat attendu & Décision \\
+      \midrule
+      H1 & Chocs permanents dans l'informel & Validée \\
+      H2 & Hétérogénéité sectorielle & Validée \\
+      H3 & Transmission du formel vers l'informel & Non validée \\
+      \bottomrule
+    \end{tabular}
+  \end{table}
+\end{frame}
+
+
+\section[Conclusion]{Conclusion et recommandations}
+
+\begin{frame}{Conclusion et recommandations}
+  \begin{columns}[T]
+    \begin{column}{0.48\textwidth}
+      \begin{block}{Conclusion}
+        \begin{itemize}
+          \item Les chocs économiques laissent des effets durables sur le secteur informel sénégalais.
+          \item La persistance agrégée est estimée à 1,06.
+          \item L'agriculture et la manufacture sont les branches les plus vulnérables.
+          \item La non-transmission du formel confirme une segmentation dualiste.
+        \end{itemize}
+      \end{block}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \begin{block}{Recommandations}
+        \begin{itemize}
+          \item Cibler les soutiens publics par branche.
+          \item Renforcer le crédit, l'assurance et la diversification des revenus.
+          \item Favoriser une formalisation graduelle et incitative.
+          \item Améliorer la production statistique sur l'informel.
+        \end{itemize}
+      \end{block}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Limites et pistes de recherche}
+  \begin{columns}[T]
+    \begin{column}{0.48\textwidth}
+      \begin{alertblock}{Limites}
+        \begin{itemize}
+          \item La reconstitution des données avant 2014 introduit une incertitude statistique.
+          \item L'analyse retient principalement les chocs du secteur formel.
+        \end{itemize}
+      \end{alertblock}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \begin{block}{Pistes}
+        \begin{itemize}
+          \item Intégrer des chocs climatiques, inflationnistes, sanitaires ou institutionnels.
+          \item Étendre l'analyse avec des séries plus longues et plus désagrégées.
+          \item Comparer le Sénégal à d'autres économies à forte informalité.
+        \end{itemize}
+      \end{block}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\section[Graphiques]{Graphiques descriptifs}
+
+\begin{frame}{Graphique : agriculture informelle}
+  \hypertarget{graphiquesdesc}{}
+  \centering
+  \includegraphics[width=0.92\linewidth,height=0.74\textheight,keepaspectratio]{prism-uploads/agriculture.jpg}
+\end{frame}
+
+\begin{frame}{Graphique : commerce informel}
+  \centering
+  \includegraphics[width=0.92\linewidth,height=0.74\textheight,keepaspectratio]{prism-uploads/Commerce.jpg}
+\end{frame}
+
+\begin{frame}{Graphique : hébergement et restauration}
+  \centering
+  \includegraphics[width=0.92\linewidth,height=0.74\textheight,keepaspectratio]{prism-uploads/hebergement.jpg}
+\end{frame}
+
+\begin{frame}{Graphique : immobilier informel}
+  \centering
+  \includegraphics[width=0.92\linewidth,height=0.74\textheight,keepaspectratio]{prism-uploads/Immobilier.jpg}
+\end{frame}
+
+\begin{frame}{Graphique : manufacture informelle}
+  \centering
+  \includegraphics[width=0.92\linewidth,height=0.74\textheight,keepaspectratio]{prism-uploads/Manufacture.jpg}
+\end{frame}
+
+\begin{frame}{Graphique : transport informel}
+  \centering
+  \includegraphics[width=0.92\linewidth,height=0.74\textheight,keepaspectratio]{prism-uploads/transport.jpg}
+\end{frame}
+
+\begin{frame}{Graphique : reste de l'informel}
+  \centering
+  \includegraphics[width=0.92\linewidth,height=0.74\textheight,keepaspectratio]{prism-uploads/autre.jpg}
+\end{frame}
+
+
+\begin{frame}
+  \begin{center}
+    \Huge Merci de votre attention
+    \vspace{0.6cm}
+
+    \large Questions et échanges
+  \end{center}
+\end{frame}
+
+\end{document}

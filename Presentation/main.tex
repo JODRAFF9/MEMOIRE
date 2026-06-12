@@ -1,0 +1,706 @@
+% ============================================================
+%  main.tex — Présentation ENSAE
+%  Persistance des chocs sur le secteur informel sénégalais
+%  Compilable avec : pdflatex main.tex  (deux passes)
+% ============================================================
+\documentclass[10pt,aspectratio=169]{beamer}
+
+% ── Thème principal ────────────────────────────────────────
+\usetheme{Antibes}
+\useoutertheme{tree}
+
+% ── Palette bronze / noir ──────────────────────────────────
+\definecolor{marron}{RGB}{112,84,44}
+\definecolor{marronmed}{RGB}{139,100,60}
+\definecolor{dore}{RGB}{184,134,11}
+\definecolor{dorepale}{RGB}{245,230,200}
+\colorlet{mybronze}{marron}
+
+\setbeamercolor{structure}{fg=mybronze}
+\setbeamercolor{palette primary}{bg=black, fg=white}
+\setbeamercolor{palette secondary}{bg=mybronze, fg=white}
+\setbeamercolor{palette tertiary}{bg=black, fg=white}
+\setbeamercolor{palette quaternary}{bg=mybronze, fg=white}
+\setbeamercolor{titlelike}{parent=palette secondary}
+\setbeamercolor{headline}{bg=black, fg=white}
+\setbeamercolor{frametitle}{bg=mybronze, fg=white}
+\setbeamercolor{title}{fg=white}
+\setbeamercolor{subtitle}{fg=dorepale}
+\setbeamercolor{section in head/foot}{bg=black, fg=white}
+\setbeamercolor{subsection in head/foot}{bg=mybronze, fg=white}
+\setbeamercolor{block title}{bg=mybronze, fg=white}
+\setbeamercolor{block body}{bg=dorepale, fg=black}
+\setbeamercolor{block title alerted}{bg=marronmed, fg=white}
+\setbeamercolor{block body alerted}{bg=dorepale!60, fg=black}
+\setbeamercolor{alerted text}{fg=dore}
+\setbeamercolor{item}{fg=mybronze}
+\setbeamercolor{subitem}{fg=marronmed}
+
+
+% ── Page de garde personnalisée avec TikZ ────────────────────
+\setbeamercolor{author}{fg=black}
+\setbeamercolor{institute}{fg=gray!70!black}
+
+\makeatletter
+\setbeamertemplate{title page}{%
+  \begin{tikzpicture}[remember picture,overlay]
+    \fill[mybronze!7] (current page.south west) rectangle (current page.north east);
+    \fill[white] (current page.north west) rectangle ([yshift=-1.05cm]current page.north east);
+    \fill[mybronze] ([yshift=-1.05cm]current page.north west) rectangle ([yshift=-1.17cm]current page.north east);
+    \fill[white,rounded corners=18pt] ([xshift=1.05cm,yshift=-1.48cm]current page.north west)
+      rectangle ([xshift=-1.05cm,yshift=0.70cm]current page.south east);
+    \draw[mybronze!24,line width=0.9pt,rounded corners=18pt] ([xshift=1.05cm,yshift=-1.48cm]current page.north west)
+      rectangle ([xshift=-1.05cm,yshift=0.70cm]current page.south east);
+    \node[opacity=0.038] at ([yshift=-0.18cm]current page.center)
+      {\includegraphics[width=0.50\paperwidth]{prism-uploads/ENSAE.png}};
+    \fill[black,opacity=0.10,rounded corners=12pt] ([xshift=2.2cm,yshift=-3.28cm]current page.north west)
+      rectangle ([xshift=-2.2cm,yshift=-4.96cm]current page.north east);
+    \fill[mybronze,rounded corners=12pt] ([xshift=2.22cm,yshift=-3.20cm]current page.north west)
+      rectangle ([xshift=-2.22cm,yshift=-4.86cm]current page.north east);
+    \draw[dore!85,line width=0.9pt,rounded corners=12pt] ([xshift=2.37cm,yshift=-3.25cm]current page.north west)
+      rectangle ([xshift=-2.37cm,yshift=-4.81cm]current page.north east);
+    \fill[dore!60,rounded corners=2pt] ([xshift=2.74cm,yshift=-4.82cm]current page.north west)
+      rectangle ([xshift=-2.74cm,yshift=-4.91cm]current page.north east);
+    \fill[white,opacity=0.10] ([xshift=2.2cm,yshift=-3.20cm]current page.north west)
+      rectangle ([xshift=2.70cm,yshift=-4.86cm]current page.north west);
+    \fill[white,opacity=0.08] ([xshift=-2.70cm,yshift=-3.20cm]current page.north east)
+      rectangle ([xshift=-2.15cm,yshift=-4.86cm]current page.north east);
+    \node[anchor=west,text=black,font=\scriptsize\bfseries] at ([xshift=0.55cm,yshift=-0.52cm]current page.north west) {Présentation du mémoire de groupe};
+    \node[anchor=east,text=black,font=\scriptsize\bfseries] at ([xshift=-0.55cm,yshift=-0.52cm]current page.north east) {ENSAE Pierre Ndiaye};
+
+  \end{tikzpicture}%
+
+  \begin{center}
+    \vspace{-0.1cm}
+    \includegraphics[width=0.13\paperwidth,height=2cm]{prism-uploads/ENSAE.png}\par
+    \vspace{0.06cm}
+    {\small\textcolor{gray!65!black}{École Nationale de la Statistique et de l'Analyse Économique}}\par
+    {\small\textcolor{gray!65!black}{Pierre Ndiaye}}\par
+
+    \vspace{0.44cm}
+    \begin{minipage}{0.70\paperwidth}
+      \centering
+      {\usebeamerfont{title}\bfseries\color{white}\inserttitle\par}%
+    \end{minipage}\par
+
+    \vspace{0.55cm}
+    \hspace{-7cm}{\scriptsize\textcolor{gray!70!black}{Présenté par :}}\par
+    \vspace{0.03cm}
+    {\small\textcolor{mybronze}{\textbf{Fallou NGOM\\Sié Rachid TRAORÉ}}}\par
+    \vspace{0.04cm}
+    {\small\textcolor{gray!70!black}{Élèves Ingénieurs Statisticiens Économistes en fin de formation}}\par
+
+    \vspace{0.16cm}
+    \hspace{-5cm}{\scriptsize\textcolor{gray!70!black}{Sous la supervision de}}\par
+    \vspace{0.03cm}
+    {\small\textcolor{mybronze}{\textbf{Mme Ramlatou DIALLO}}}\par
+    \vspace{0.03cm}
+    {\small\textcolor{gray!70!black}{Cheffe du Bureau des Enquêtes de Conjoncture - ANSD}}\par
+
+    \vfill
+    {\small\textcolor{mybronze}{\textbf{\insertdate}}}\par
+    \vspace{0.12cm}
+  \end{center}%
+}
+\makeatother
+
+% ── Pied de page ────────────────────────────────────────────
+\setbeamertemplate{footline}{%
+  \leavevmode%
+  \begin{beamercolorbox}[wd=.33\paperwidth,ht=2.25ex,dp=1ex,left]{palette secondary}%
+    \hspace{0.3cm}\tiny Diapositive~\insertframenumber/\inserttotalframenumber%
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.34\paperwidth,ht=2.25ex,dp=1ex,center]{palette secondary}%
+    \tiny\insertshortauthor%
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.33\paperwidth,ht=2.25ex,dp=1ex,right]{palette secondary}%
+    \tiny ENSAE Pierre Ndiaye\hspace{0.3cm}
+  \end{beamercolorbox}%
+}
+
+% ── Symboles de navigation supprimés ────────────────────────
+\setbeamertemplate{navigation symbols}{}
+
+% ── Légendes numérotées ──────────────────────────────────────
+\setbeamertemplate{caption}[numbered]
+
+% ── Blocs avec coins arrondis ────────────────────────────────
+\setbeamertemplate{blocks}[rounded][shadow=false]
+
+% ── Puces ────────────────────────────────────────────────────
+\setbeamertemplate{itemize item}{\color{marron}$\blacktriangleright$}
+\setbeamertemplate{itemize subitem}{\color{dore}$\triangleright$}
+
+% ── Packages ────────────────────────────────────────────────
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{array}
+\usepackage{colortbl}
+\usepackage{multirow}
+\usepackage{ragged2e}
+\usepackage{tikz}
+\usetikzlibrary{positioning,arrows.meta,shapes}
+
+% ── Justification des textes ────────────────────────────────
+\AtBeginEnvironment{frame}{\justifying}
+\addtobeamertemplate{block begin}{}{\justifying}
+\addtobeamertemplate{block alerted begin}{}{\justifying}
+\addtobeamertemplate{block example begin}{}{\justifying}
+
+% ── Métadonnées ──────────────────────────────────────────────
+\title[Persistance des chocs sur le secteur informel sénégalais]{%
+  Persistance des chocs sur le secteur informel sénégalais}
+\author[Sié\,Rachid TRAORÉ - Fallou NGOM]{%
+  Sié Rachid TRAORÉ \and Fallou NGOM}
+\institute[ENSAE]{%
+  École Nationale de la Statistique et de l'Analyse Économique\\
+  Pierre Ndiaye (ENSAE)}
+\date{Juin 2026}
+
+% ============================================================
+\begin{document}
+% ============================================================
+
+% ── Page de garde (sans en-tête) ────────────────────────────
+\begin{frame}[plain,noframenumbering]
+  \titlepage
+\end{frame}
+
+% ── Plan ────────────────────────────────────────────────────
+\begin{frame}{Plan de la présentation}
+  \tableofcontents[hideallsubsections]
+\end{frame}
+
+% ============================================================
+\section[Introduction]{Introduction}
+% ============================================================
+
+\subsection{Contexte et importance du secteur informel}
+
+\begin{frame}{Contexte général}
+  \begin{block}{Poids du secteur informel au Sénégal - ENSIS réalisée en 2011}
+    \begin{itemize}
+      \item Contribue à plus de \textbf{41,6\,\%} du PIB sénégalais.
+      \item Emploie environ \textbf{48,8\,\%} de la main-d'œuvre nationale.
+      \item Source principale de revenus pour les ménages vulnérables.
+      \item Secteur hétérogène touchant plusieurs branches comme : 
+      \pause
+    \end{itemize}
+    \begin{itemize}
+      \item[] \hspace{0.4cm}\small agriculture, commerce, transport ;
+      \item[] \hspace{0.4cm}\small manufacture, hébergement, immobilier, etc.
+    \end{itemize}
+  \end{block}
+  \pause
+  \begin{alertblock}{Chocs économiques récents}
+    \begin{itemize}
+      \item COVID-19 : choc sanitaire sans précédent (2020--2021),
+      \item Phénomène de l'inflation,
+      \item Perturbations géopolitiques et sécheresses récurrentes.
+    \end{itemize}
+  \end{alertblock}
+\end{frame}
+
+\subsection{Problématique et objectifs}
+
+\begin{frame}{Problématique}
+  \begin{block}{Question de recherche}
+      \justifying
+      \large
+      \textit{Les effets des chocs économiques sur les branches
+      du secteur informel sénégalais sont-ils
+      \textbf{transitoires} ou \textbf{permanents} ?}
+  \end{block}
+  \medskip
+  \begin{block}{Chocs transitoires}
+    L'économie \textbf{revient} vers sa trajectoire initiale après un choc.
+  \end{block}
+  \begin{alertblock}{Chocs permanents}
+    Le choc \textbf{modifie durablement} le niveau de long terme.
+  \end{alertblock}
+\end{frame}
+
+\begin{frame}{Objectifs et hypothèses}
+  \begin{block}{Objectif général}
+    Mesurer la persistance des chocs économiques sur le secteur informel sénégalais.
+  \end{block}
+  \pause
+  \begin{block}{Objectifs spécifiques}
+    \begin{itemize}
+      \item Tester les propriétés stochastiques des séries sectorielles.
+      \item Mesurer la persistance agrégée et désagrégée des chocs.
+      \item Évaluer la contribution des chocs issus du secteur formel.
+    \end{itemize}
+  \end{block}
+  \pause
+  \begin{block}{Hypothèses de recherche}
+    \begin{enumerate}
+      \item[H1] Les chocs ont un caractère \textbf{permanent} sur le secteur informel.
+      \item[H2] La persistance \textbf{varie} selon les branches.
+      \item[H3] Les chocs du secteur formel \textbf{contribuent} à la persistance de l'informel.
+    \end{enumerate}
+  \end{block}
+\end{frame}
+
+% ============================================================
+\section[Revue]{Revue de la littérature}
+% ============================================================
+
+\subsection{Revue théorique}
+
+\begin{frame}[shrink=8]{Approches théoriques}
+\vspace{1cm}
+  \begin{block}{Approche traditionnelle - Chocs transitoires}
+    \begin{itemize}
+      \item Activité stationnaire autour d'une tendance déterministe.
+      \item Les fluctuations sont cycliques et réversibles.
+      \item Long terme : retour à la trajectoire initiale.
+    \end{itemize}
+  \end{block}
+  \begin{alertblock}{ Nelson \& Plosser (1982) - Chocs permanents}
+    \begin{itemize}
+      \item Racine unitaire : un choc modifie le niveau de \textbf{long terme}.
+      \item Dépendance au sentier après un choc.
+    \end{itemize}
+  \end{alertblock}
+\end{frame}
+
+\subsection{Revue empirique}
+
+\begin{frame}[shrink=16]{Revue empirique --- tableau synthétique}
+  \small
+  \begin{table}
+    \centering
+    \caption{Principaux travaux sur la persistance des chocs}
+    \renewcommand{\arraystretch}{1.25}
+    \begin{tabular}{>{\bfseries}p{2.9cm} p{1.8cm} p{2.5cm} p{4.1cm}}
+      \toprule
+      Auteur(s) & Pays & Méthode & Résultat principal \\
+      \midrule
+      Pesaran, Pierse \& Lee (1993) & États-Unis & VAR désagrégé ; cointégration & L'agrégation masque une forte hétérogénéité sectorielle de la persistance \\
+      Rouy (1997) & France & Analyse désagrégée de l'industrie manufacturière & Identification des sources et impacts de long terme des chocs industriels \\
+      Hamdad, Malika (1999) & Canada & Approche désagrégée, 1870--1996 & Les chocs sectoriels peuvent produire des effets persistants différenciés \\
+      Lee, Pesaran \& Pierse (1992) & Royaume-Uni & Profils de persistance ; VAR désagrégé & Mise en évidence d'une persistance sectorielle hétérogène dans les fluctuations de production \\
+      \bottomrule
+    \end{tabular}
+  \end{table}
+  \begin{alertblock}{Lacune identifiée}
+    Peu d'études appliquent l'approche multisectorielle de persistance à l'économie informelle d'un pays d'Afrique subsaharienne.
+  \end{alertblock}
+\end{frame}
+
+% ============================================================
+\section[Méthodologie]{Méthodologie}
+% ============================================================
+
+\subsection{Données}
+
+\begin{frame}{Données}
+  \begin{block}{Source et période}
+    \begin{itemize}
+      \item \textbf{Source} : Agence Nationale de la Statistique et de la\\
+            Démographie (ANSD).
+      \item \textbf{Période} : 1980--2022 (43 observations annuelles).
+      \item \textbf{Variable} : Logarithme des valeurs ajoutées des branches d'activités à prix constants.
+    \end{itemize}
+  \end{block}
+  \begin{block}{Sept branches de l'informel}
+    \centering\smallskip
+    \begin{tabular}{ccc}
+      Agriculture & Manufacture & Commerce \\
+      Transport & Hébergement-Restauration & Immobilier \\
+      \multicolumn{3}{c}{Reste de l'informel}
+    \end{tabular}
+  \end{block}
+\end{frame}
+
+\subsection{Modèle VAR multisectoriel}
+
+\begin{frame}[shrink=32]{Modèle VAR multisectoriel}
+  \begin{block}{VAR en différences premières}
+    \begin{equation}
+      \Delta\mathbf{y}_{t} = \mathbf{a} + A_{1}\Delta\mathbf{y}_{t-1} + A_{2}\Delta\mathbf{y}_{t-2}
+      + \cdots + A_{p}\Delta\mathbf{y}_{t-p} + \mathbf{u}_{t}
+    \end{equation}
+    avec
+    $\mathbf{y}_{t} \in \mathbb{R}^{7}$ le vecteur du logarithme des valeurs ajoutées informelles,
+    et $\Delta\mathbf{y}_{t}=\mathbf{y}_{t}-\mathbf{y}_{t-1}$.
+    Ainsi, $\mathbf{a},\mathbf{u}_{t} \in \mathbb{R}^{7}$,
+    $A_{j} \in \mathbb{R}^{7\times 7}$ pour $j \in \{1,\ldots,p\}$, et
+    $\Sigma_{u}=\mathrm{Var}(\mathbf{u}_{t}) \in \mathbb{S}_{+}^{7}$.
+  \end{block}
+  \begin{block}{Écriture branche par branche}
+    Pour tout $i \in \{1,\ldots,7\}$ :
+    \begin{equation}
+      \Delta y_{i,t}=a_{i}
+      +\sum_{j=1}^{p}\sum_{\ell=1}^{7} a_{i\ell,j}\,\Delta y_{\ell,t-j}
+      +u_{i,t}
+    \end{equation}
+    où $a_{i\ell,j}$ mesure l'effet retardé de la branche $\ell$ sur la branche $i$.
+  \end{block}
+  \begin{block}{Mesure de la persistance agrégée}
+    La matrice de long terme $C(1) \in \mathbb{R}^{7\times 7}$ résume l'effet cumulé des chocs :
+    \begin{equation}
+      C(1) = \bigl(I_{7} - A_{1} - A_{2} - \cdots - A_{p}\bigr)^{-1}
+    \end{equation}
+    Pour $i \in \{1,\ldots,7\}$, avec $\mathbf{e}_{i} \in \mathbb{R}^{7}$ le $i$-ième vecteur canonique :
+    \begin{equation}
+      P_{i} = \mathbf{e}_{i}^{\prime}\,C(1)\,\Sigma_{u}\,C(1)^{\prime}\,\mathbf{e}_{i}
+      \in \mathbb{R}_{+}
+    \end{equation}
+  \end{block}
+\end{frame}
+
+\begin{frame}[shrink=18]{Description des trois modèles VAR}
+  \begin{block}{Modèle M1 : VAR non restreint}
+    Le modèle complet reprend l'écriture branche par branche et comprend $(7p+1)$ paramètres par équation. Pour tout $i \in \{1,\ldots,7\}$ :
+    \begin{equation}
+      \Delta y_{i,t}=a_i+
+      \sum_{j=1}^{p} a_{ii,j}\Delta y_{i,t-j}
+      +\sum_{j=1}^{p}\sum_{\substack{1\leq \ell\leq 7\\ \ell\neq i}}
+      a_{i\ell,j}\Delta y_{\ell,t-j}+u_{i,t}.
+    \end{equation}
+  \end{block}
+  \begin{block}{Modèle M2 : VAR agrégé restreint}
+    Cette version impose $7p(7-2)$ contraintes : $\Delta y_{i,t}$ dépend des retards de la branche $i$ et d'une agrégation des six autres branches.
+    \begin{equation}
+      \Delta y_{i,t}=a_i+
+      \sum_{j=1}^{p} a_{ii,j}\Delta y_{i,t-j}
+      +\sum_{j=1}^{p} b_{i,j}\Delta y_{-i,t-j}+u_{i,t},
+      \quad \Delta y_{-i,t}=\sum_{\substack{1\leq \ell\leq 7\\ \ell\neq i}}\Delta y_{\ell,t}.
+    \end{equation}
+  \end{block}
+  \begin{alertblock}{Modèle M3 : VAR parcimonieux}
+    Le troisième modèle part de M2 et conserve uniquement les coefficients significatifs parmi $a_{ii,j}$ et $b_{i,j}$, afin d'obtenir une spécification plus parcimonieuse.
+  \end{alertblock}
+\end{frame}
+
+\subsection{Tests et transmission}
+
+\begin{frame}[shrink=25]{Transmission des chocs du secteur formel}
+  \begin{block}{Équation de transmission}
+    Pour chaque branche $i \in \{1,\ldots,7\}$ :
+    \begin{equation}
+      \Delta y^{\mathrm{INF}}_{i,t} = \alpha_{i}
+      + \sum_{k=1}^{p}\beta_{i,k}\,\Delta y^{\mathrm{INF}}_{i,t-k}
+      + \sum_{s=0}^{r}\gamma_{i,s}\,v^{F}_{t-s}
+      + \eta_{i,t}
+    \end{equation}
+    avec $p,r \in \mathbb{N}^{*}$, $y^{\mathrm{INF}}_{i,t},v^{F}_{t},\eta_{i,t} \in \mathbb{R}$,
+    et $\alpha_{i},\beta_{i,k},\gamma_{i,s} \in \mathbb{R}$.
+    Le terme $v^{F}_{t}$ désigne le choc identifié du secteur formel.
+  \end{block}
+  \begin{block}{Hypothèses sur les coefficients $\gamma_{i,s}$}
+    Pour $i \in \{1,\ldots,7\}$ et $s \in \{0,\ldots,r\}$ :
+    \begin{align}
+      H_{1,i} &: \gamma_{i,0} = \gamma_{i,1} = \cdots = \gamma_{i,r} = 0
+             \quad\text{(pas de transmission)} \notag\\
+      H_{2,i} &: \textstyle\sum_{s=0}^{r}\gamma_{i,s} = 0
+             \quad\text{(transmission transitoire uniquement)} \notag
+    \end{align}
+    \begin{itemize}
+      \item $H_{1,i}$ non rejetée : \textbf{aucune} transmission significative.
+      \item $H_{1,i}$ rejetée, $H_{2,i}$ acceptée : effet \textbf{transitoire}.
+      \item $H_{2,i}$ rejetée : effet \textbf{permanent} du choc formel.
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+% ============================================================
+\section[Statistiques desc.]{Statistiques descriptives}
+% ============================================================
+
+\subsection{Évolution générale}
+
+\begin{frame}{Statistiques descriptives}
+  \footnotesize
+  \begin{block}{Évolution générale des séries}
+    \begin{itemize}
+      \item Les valeurs ajoutées sectorielles informelles à prix constants, en logarithme, suivent globalement une tendance haussière sur 1980--2022.
+      \item Des ruptures apparaissent autour des crises : années 1980, dévaluation de 1994, crise de 2008--2009 et COVID-19.
+      \item Ces évolutions motivent l'analyse économétrique de la persistance des chocs.
+    \end{itemize}
+  \end{block}
+  \pause
+  \vspace{-0.1cm}
+  \begin{block}{Lecture par branche}
+    \begin{itemize}
+      \item L'agriculture reste fragile ; le commerce et l'immobilier affichent une trajectoire plus régulière.
+      \item L'hébergement-restauration, la manufacture, le transport et le reste de l'informel présentent des chocs visibles suivis d'une reprise.
+      \item L'observation graphique suggère des effets parfois transitoires, à confirmer par l'analyse économétrique.
+    \end{itemize}
+  \end{block}
+  \vspace{-0.05cm}
+  \begin{center}
+    \hypertarget{retourgraph}{}%
+    \hyperlink{graphiquesdesc}{\beamerbutton{Voir les graphiques descriptifs}}
+  \end{center}
+  \vspace{0.1cm}
+\end{frame}
+
+
+% ============================================================
+\section[Résultats]{Résultats économétriques}
+% ============================================================
+
+\subsection{Stationnarité}
+
+
+\begin{frame}{Résultats de stationnarité}
+  \begin{block}{Tests ADF, PP et KPSS}
+    \begin{itemize}
+      \item \textbf{En niveau} : non-stationnarité confirmée pour les 7 branches.
+      \item \textbf{En différence première} : stationnarité acquise --- intégration $I(1)$.
+      \item Résultats cohérents entre les trois tests.
+    \end{itemize}
+  \end{block}
+  \pause
+  \begin{block}{Lag optimal}
+    Lag retenu : \textbf{$p=4$}.
+  \end{block}
+  \pause
+  \begin{alertblock}{Implication pour la modélisation}
+    Les séries sont transformées en différences premières afin de travailler sur des dynamiques stationnaires.
+  \end{alertblock}
+\end{frame}
+
+\subsection{Mesures de persistance}
+
+
+
+\begin{frame}[shrink=30]{Persistance agrégée et sectorielle}
+  \begin{table}
+    \centering
+    \caption{Mesure de persistance sectorielle et agrégée}
+    \renewcommand{\arraystretch}{1.15}
+    \scriptsize
+    \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lccc>{\raggedright\arraybackslash}p{3.1cm}@{}}
+      \toprule
+      Branche & M1 & M2 & M3 & Lecture \\
+      \midrule
+      Agriculture              & \begin{tabular}[t]{@{}c@{}}1,15\\{\scriptsize(0,20)}\end{tabular} & \begin{tabular}[t]{@{}c@{}}1,05\\{\scriptsize(0,18)}\end{tabular} & \begin{tabular}[t]{@{}c@{}}1,08\\{\scriptsize(0,19)}\end{tabular} & Persistant \\
+      Manufacture              & \begin{tabular}[t]{@{}c@{}}1,06\\{\scriptsize(0,20)}\end{tabular} & \begin{tabular}[t]{@{}c@{}}1,14\\{\scriptsize(0,20)}\end{tabular} & \begin{tabular}[t]{@{}c@{}}1,07\\{\scriptsize(0,19)}\end{tabular} & Persistant \\
+      Commerce                 & \begin{tabular}[t]{@{}c@{}}0,95\\{\scriptsize(0,17)}\end{tabular} & \begin{tabular}[t]{@{}c@{}}1,01\\{\scriptsize(0,17)}\end{tabular} & \begin{tabular}[t]{@{}c@{}}0,98\\{\scriptsize(0,17)}\end{tabular} & Modérément persistant \\
+      Transport                & \begin{tabular}[t]{@{}c@{}}0,91\\{\scriptsize(0,16)}\end{tabular} & \begin{tabular}[t]{@{}c@{}}0,97\\{\scriptsize(0,18)}\end{tabular} & \begin{tabular}[t]{@{}c@{}}0,96\\{\scriptsize(0,18)}\end{tabular} & Plutôt transitoire \\
+      Hébergement              & \begin{tabular}[t]{@{}c@{}}0,71\\{\scriptsize(0,12)}\end{tabular} & \begin{tabular}[t]{@{}c@{}}1,01\\{\scriptsize(0,17)}\end{tabular} & \begin{tabular}[t]{@{}c@{}}0,96\\{\scriptsize(0,16)}\end{tabular} & Effet variable \\
+      Immobilier               & \begin{tabular}[t]{@{}c@{}}1,01\\{\scriptsize(0,17)}\end{tabular} & \begin{tabular}[t]{@{}c@{}}1,02\\{\scriptsize(0,18)}\end{tabular} & \begin{tabular}[t]{@{}c@{}}1,08\\{\scriptsize(0,18)}\end{tabular} & Persistant \\
+      Autre                    & \begin{tabular}[t]{@{}c@{}}0,99\\{\scriptsize(0,16)}\end{tabular} & \begin{tabular}[t]{@{}c@{}}1,03\\{\scriptsize(0,18)}\end{tabular} & \begin{tabular}[t]{@{}c@{}}1,01\\{\scriptsize(0,17)}\end{tabular} & Modérément persistant \\
+      \midrule
+      \textbf{Informel}        & \multicolumn{3}{c}{\begin{tabular}[t]{@{}c@{}}\textbf{1,06}\\{\scriptsize\textbf{(0,19)}}\end{tabular}} & \textbf{Effets durables} \\
+      \bottomrule
+    \end{tabular*}
+  \end{table}
+  \vspace{-0.1cm}
+  \begin{block}{Lecture}
+    Les valeurs entre parenthèses sont les écarts-types. Les résultats confirment une persistance élevée pour l'agriculture, la manufacture et l'immobilier.
+  \end{block}
+\end{frame}
+
+\subsection{Transmission du secteur formel}
+
+\begin{frame}{Transmission des chocs du secteur formel}
+  \begin{block}{Tests de Fisher sur $H_{1}$}
+    \begin{itemize}
+      \item Aucune branche ne montre de transmission significative au seuil de 5\,\%.
+      \item $p$-values comprises entre \textbf{0,255} et \textbf{0,856} selon les branches.
+      \item $H_{1}$ (absence de transmission) ne peut être rejetée.
+    \end{itemize}
+  \end{block}
+  \pause
+  \begin{alertblock}{Résultat central : segmentation dualiste}
+    \begin{itemize}
+      \item Le secteur formel \textbf{ne transmet pas} ses chocs vers l'informel.
+      \item L'informel sénégalais suit une logique productive largement autonome.
+      \item \textbf{H3 non validée} --- segmentation structurelle confirmée.
+    \end{itemize}
+  \end{alertblock}
+  \pause
+  \begin{block}{Mécanismes explicatifs}
+    Faible intégration des marchés, différence de clientèle,\\
+    absorption des chocs par des mécanismes propres à l'informel.
+  \end{block}
+\end{frame}
+
+\begin{frame}{Validation des hypothèses --- Synthèse}
+  \begin{table}
+    \centering
+    \caption{Bilan des hypothèses de recherche}
+    \renewcommand{\arraystretch}{2}
+    \begin{tabular}{c p{3.5cm} p{6cm} c}
+      \toprule
+      Hyp. & Énoncé & Résultat & Décision \\
+      \midrule
+      H1 & Chocs permanents dans l'informel
+         & Persistance agrégée supérieure à 1 : $P_{\text{agg}}=1{,}06$ & \textbf{Validée} \\[4pt]
+      H2 & Hétérogénéité sectorielle
+         & Forte persistance en agriculture ($1{,}08$--$1{,}15$) ; effet plus faible en transport ($0{,}91$--$0{,}97$)
+         & \textbf{Validée} \\[4pt]
+      H3 & Transmission formel $\to$ informel
+         & Aucune transmission significative : $p$-values entre $0{,}255$ et $0{,}856$
+         & \textbf{Rejetée} \\
+      \bottomrule
+    \end{tabular}
+  \end{table}
+\end{frame}
+
+% ============================================================
+\section[Conclusion]{Conclusion et recommandations}
+% ============================================================
+
+\subsection{Conclusion générale}
+
+\begin{frame}{Conclusion générale}
+  \begin{block}{Principaux résultats}
+    \begin{enumerate}
+      \item Les chocs économiques laissent des effets \textbf{durables} sur l'informel \\
+            (persistance agrégée $= 1{,}06$).
+      \pause
+      \item Agriculture et manufacture sont les branches \textbf{les plus vulnérables}.
+      \pause
+      \item Absence de transmission significative du formel :
+            \textbf{segmentation dualiste} confirmée.
+      \pause
+      \item H1 et H2 \textbf{validées} ;
+            H3 \textbf{non validée}.
+    \end{enumerate}
+  \end{block}
+\end{frame}
+
+\subsection{Recommandations}
+
+\begin{frame}{Recommandations de politique économique}
+  \begin{block}{Soutien aux acteurs informels}
+    \begin{itemize}
+      \item Cibler les soutiens par branche selon la vulnérabilité.
+      \item Développer le micro-crédit et l'assurance-chocs.
+      \item Encourager la diversification des revenus.
+    \end{itemize}
+  \end{block}
+  \pause
+  \begin{block}{Résilience et formalisation}
+    \begin{itemize}
+      \item Favoriser une transition formelle graduelle et incitative.
+      \item Simplifier la fiscalité pour les petites unités.
+      \item Améliorer la production statistique sur l'informel.
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\subsection{Limites et perspectives}
+
+\begin{frame}[shrink=8]{Limites et perspectives de recherche}
+  \begin{alertblock}{Limites de l'étude}
+    \begin{itemize}
+      \item Reconstitution des données avant 2014 : incertitude statistique.
+      \item Seuls les chocs du formel sont testés comme source externe.
+      \item Données annuelles : dynamiques infra-annuelles non captées.
+      \item Modèle VAR linéaire : pas d'asymétrie de réaction.
+    \end{itemize}
+  \end{alertblock}
+  \pause
+  \begin{block}{Contribution}
+    Première application de la mesure de persistance multisectorielle à l'économie informelle sénégalaise.
+  \end{block}
+\end{frame}
+
+% ── Diapositive de clôture ───────────────────────────────────
+\begingroup
+\setbeamertemplate{headline}{}
+\setbeamertemplate{footline}{}
+\begin{frame}[noframenumbering]
+  \begin{center}
+    \vspace{1.5cm}
+    {\Huge\textcolor{marron}{\textbf{Merci de votre attention}}}\\[1cm]
+    \begin{tikzpicture}
+      \draw[marron,line width=2pt] (0,0) -- (8,0);
+    \end{tikzpicture}\\[0.8cm]
+    {\large\textit{Questions et échanges}}\\[1cm]
+    \small
+    \textbf{Sié Rachid TRAORÉ} \quad|\quad \textbf{Fallou NGOM}\\[0.3cm]
+    \textit{Sous la supervision de Mme Ramlatou DIALLO}\\[0.2cm]
+    ENSAE Pierre Ndiaye --- Mai 2026
+  \end{center}
+\end{frame}
+\endgroup
+
+% ============================================================
+\section[Graphiques]{Graphiques descriptifs}
+% ============================================================
+
+\begin{frame}{Graphique : agriculture informelle}
+  \hypertarget{graphiquesdesc}{}
+  \begin{block}{Agriculture informelle}
+    \centering
+    \includegraphics[width=0.88\linewidth,height=0.60\textheight,keepaspectratio]{prism-uploads/agriculture.jpg}
+  \end{block}
+  \centering
+  \vspace{-0.05cm}
+  \hyperlink{retourgraph}{\beamerbutton{Retour}}
+\end{frame}
+
+\begin{frame}{Graphique : commerce informel}
+  \begin{block}{Commerce informel}
+    \centering
+    \includegraphics[width=0.88\linewidth,height=0.60\textheight,keepaspectratio]{prism-uploads/Commerce.jpg}
+  \end{block}
+  \centering
+  \vspace{-0.05cm}
+  \hyperlink{retourgraph}{\beamerbutton{Retour}}
+\end{frame}
+
+\begin{frame}{Graphique : hébergement et restauration}
+  \begin{block}{Hébergement et restauration}
+    \centering
+    \includegraphics[width=0.88\linewidth,height=0.60\textheight,keepaspectratio]{prism-uploads/hebergement.jpg}
+  \end{block}
+  \centering
+  \vspace{-0.05cm}
+  \hyperlink{retourgraph}{\beamerbutton{Retour}}
+\end{frame}
+
+\begin{frame}{Graphique : immobilier informel}
+  \begin{block}{Immobilier informel}
+    \centering
+    \includegraphics[width=0.88\linewidth,height=0.60\textheight,keepaspectratio]{prism-uploads/Immobilier.jpg}
+  \end{block}
+  \centering
+  \vspace{-0.05cm}
+  \hyperlink{retourgraph}{\beamerbutton{Retour}}
+\end{frame}
+
+\begin{frame}{Graphique : manufacture informelle}
+  \begin{block}{Manufacture informelle}
+    \centering
+    \includegraphics[width=0.88\linewidth,height=0.60\textheight,keepaspectratio]{prism-uploads/Manufacture.jpg}
+  \end{block}
+  \centering
+  \vspace{-0.05cm}
+  \hyperlink{retourgraph}{\beamerbutton{Retour}}
+\end{frame}
+
+\begin{frame}{Graphique : transport informel}
+  \begin{block}{Transport informel}
+    \centering
+    \includegraphics[width=0.88\linewidth,height=0.60\textheight,keepaspectratio]{prism-uploads/transport.jpg}
+  \end{block}
+  \centering
+  \vspace{-0.05cm}
+  \hyperlink{retourgraph}{\beamerbutton{Retour}}
+\end{frame}
+
+\begin{frame}{Graphique : reste de l'informel}
+  \begin{block}{Reste de l'informel}
+    \centering
+    \includegraphics[width=0.88\linewidth,height=0.60\textheight,keepaspectratio]{prism-uploads/autre.jpg}
+  \end{block}
+  \centering
+  \vspace{-0.05cm}
+  \hyperlink{retourgraph}{\beamerbutton{Retour}}
+\end{frame}
+
+
+\end{document}
