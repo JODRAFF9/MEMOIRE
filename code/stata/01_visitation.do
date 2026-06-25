@@ -27,5 +27,5 @@ di "Modalites s13aq14 (2018) :"
 tabulate s13aq14, missing
 
 use "$BASE_2021/s13_2_me_sen2021.dta", clear
-di "Modalites s13aq14 (2021) :"
-tabulate s13aq14, missing
+di "Modalites s13q19 (2021) :"
+tabulate s13q19, missing
