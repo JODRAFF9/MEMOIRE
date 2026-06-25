@@ -1,0 +1,115 @@
+---
+title: "Impact des transferts de migrants sur la pauvreté multidimensionnelle des enfants au Sénégal"
+author: "Sié Rachid TRAORÉ — ENSAE Pierre Ndiaye"
+date: "`r format(Sys.Date(), '%d %B %Y')`"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    toc_depth: 3
+    theme: flatly
+    number_sections: true
+  pdf_document:
+    toc: true
+    number_sections: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE,
+                      fig.width = 8, fig.height = 5)
+source("config.R")
+source("utils.R")
+```
+
+# Chargement des bases
+
+```{r chargement}
+ind_2018   <- lire_stata(BASE_2018, "ehcvm_individu_sen2018.dta")
+men_2018   <- lire_stata(BASE_2018, "ehcvm_menage_sen2018.dta")
+wel_2018   <- lire_stata(BASE_2018, "ehcvm_welfare_sen2018.dta")
+s13a1_2018 <- lire_stata(BASE_2018, "s13a_1_me_sen2018.dta")
+s13a2_2018 <- lire_stata(BASE_2018, "s13a_2_me_sen2018.dta")
+
+ind_2021   <- lire_stata(BASE_2021, "ehcvm_individu_sen2021.dta")
+men_2021   <- lire_stata(BASE_2021, "ehcvm_menage_sen2021.dta")
+wel_2021   <- lire_stata(BASE_2021, "ehcvm_welfare_sen2021.dta")
+s13a1_2021 <- lire_stata(BASE_2021, "s13a_1_me_sen2021.dta")
+s13a2_2021 <- lire_stata(BASE_2021, "s13a_2_me_sen2021.dta")
+```
+
+# Visitation des bases
+
+## Individus
+
+```{r vis-ind}
+visiter(ind_2018, "Individus 2018-2019")
+visiter(ind_2021, "Individus 2021-2022")
+```
+
+## Transferts reçus (S13A)
+
+```{r vis-s13a}
+visiter(s13a1_2018, "S13A-1 — 2018-2019")
+visiter(s13a1_2021, "S13A-1 — 2021-2022")
+
+cat("\nModalites s13aq14 (lieu expediteur) — 2018:\n")
+print(table(s13a2_2018$s13aq14, useNA = "ifany"))
+cat("\nModalites s13aq14 (lieu expediteur) — 2021:\n")
+print(table(s13a2_2021$s13aq14, useNA = "ifany"))
+```
+
+# Variable de traitement
+
+```{r traitement, child="02_traitement.R", eval=FALSE}
+```
+
+```{r load-traitement}
+traitement_2018 <- readRDS(file.path(OUTPUT_DIR, "traitement_2018.rds"))
+traitement_2021 <- readRDS(file.path(OUTPUT_DIR, "traitement_2021.rds"))
+
+data.frame(
+  Vague            = c("2018-2019", "2021-2022"),
+  Traites          = c(sum(traitement_2018$D), sum(traitement_2021$D)),
+  Total            = c(nrow(traitement_2018), nrow(traitement_2021)),
+  `Prevalence (%)` = c(round(taux(traitement_2018$D)*100,1),
+                        round(taux(traitement_2021$D)*100,1))
+) |>
+  kableExtra::kbl(caption = "Prévalence des transferts de migrants") |>
+  kableExtra::kable_styling(bootstrap_options = c("striped","hover"))
+```
+
+# Indicateurs de déprivation
+
+## Alkire-Foster (M0 = H × A)
+
+```{r af}
+enfants_2018 <- readRDS(file.path(OUTPUT_DIR, "enfants_dep_2018.rds"))
+enfants_2021 <- readRDS(file.path(OUTPUT_DIR, "enfants_dep_2021.rds"))
+
+for (annee in c(2018, 2021)) {
+  df  <- if (annee == 2018) enfants_2018 else enfants_2021
+  idx <- indices_af(df$score_dep)
+  cat(sprintf("AF %d : H=%.3f  A=%.3f  M0=%.3f\n", annee, idx$H, idx$A, idx$M0))
+}
+```
+
+## MODA UNICEF
+
+```{r moda}
+for (annee in c(2018, 2021)) {
+  df <- if (annee == 2018) enfants_2018 else enfants_2021
+  cat(sprintf("\nMODA %d :\n", annee))
+  df |>
+    dplyr::group_by(groupe_moda) |>
+    dplyr::summarise(n = dplyr::n(),
+                     `Pauvres (%)` = round(taux(pauvre_MODA)*100, 1),
+                     .groups = "drop") |>
+    kableExtra::kbl() |>
+    kableExtra::kable_styling() |>
+    print()
+}
+```
+
+# Estimation PSM-DD
+
+*(À compléter après construction des covariables)*
