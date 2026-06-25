@@ -13,21 +13,23 @@ s13a1_2021, _ = lire_stata(BASE_2021, "s13_1_me_sen2021.dta")
 s13a2_2021, _ = lire_stata(BASE_2021, "s13_2_me_sen2021.dta")
 
 
-def construire_traitement(s13a1, s13a2, code_etr=CODE_ETRANGER):
+# col_lieu  : variable "lieu de résidence de l'expéditeur"  (2018: s13aq14 | 2021: s13q19)
+# col_indic : indicateur général de réception               (2018: s13aq04 | 2021: s13q09)
+def construire_traitement(s13a1, s13a2, col_lieu, col_indic, code_etr=CODE_ETRANGER):
     etrangers = (
-        s13a2[s13a2["s13aq14"] == code_etr][ID]
+        s13a2[s13a2[col_lieu] == code_etr][ID]
         .drop_duplicates()
         .assign(transfert_migrant=1)
     )
     return (
-        s13a1[ID + ["s13aq04"]]
+        s13a1[ID + [col_indic]]
         .merge(etrangers, on=ID, how="left")
         .assign(D=lambda x: x["transfert_migrant"].fillna(0).astype(int))
     )
 
 
-traitement_2018 = construire_traitement(s13a1_2018, s13a2_2018)
-traitement_2021 = construire_traitement(s13a1_2021, s13a2_2021)
+traitement_2018 = construire_traitement(s13a1_2018, s13a2_2018, col_lieu="s13aq14", col_indic="s13aq04")
+traitement_2021 = construire_traitement(s13a1_2021, s13a2_2021, col_lieu="s13q19",  col_indic="s13q09")
 
 print("\nPrevalence des transferts de migrants :")
 for annee, df in [("2018-2019", traitement_2018), ("2021-2022", traitement_2021)]:

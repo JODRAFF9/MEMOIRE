@@ -13,9 +13,11 @@ s13a2_2021 <- lire_stata(BASE_2021, "s13_2_me_sen2021.dta")
 
 ID <- c("grappe", "menage")
 
-construire_traitement <- function(s13a1, s13a2, code_etr = CODE_ETRANGER) {
+# col_lieu : nom de la variable "lieu de residence de l'expediteur"
+#   2018 -> s13aq14  |  2021 -> s13q19
+construire_traitement <- function(s13a1, s13a2, col_lieu, code_etr = CODE_ETRANGER) {
   etrangers <- s13a2 |>
-    dplyr::filter(s13aq14 == code_etr) |>
+    dplyr::filter(.data[[col_lieu]] == code_etr) |>
     dplyr::distinct(across(all_of(ID))) |>
     dplyr::mutate(transfert_migrant = 1L)
 
@@ -24,8 +26,8 @@ construire_traitement <- function(s13a1, s13a2, code_etr = CODE_ETRANGER) {
     dplyr::mutate(D = dplyr::coalesce(transfert_migrant, 0L))
 }
 
-traitement_2018 <- construire_traitement(s13a1_2018, s13a2_2018)
-traitement_2021 <- construire_traitement(s13a1_2021, s13a2_2021)
+traitement_2018 <- construire_traitement(s13a1_2018, s13a2_2018, col_lieu = "s13aq14")
+traitement_2021 <- construire_traitement(s13a1_2021, s13a2_2021, col_lieu = "s13q19")
 
 cat("\n>>> Prevalence des transferts de migrants :\n")
 prevalence(traitement_2018$D, "2018-2019")
