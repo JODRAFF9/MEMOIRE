@@ -11,7 +11,10 @@ dir.create(OUTPUT_DIR, showWarnings = FALSE, recursive = TRUE)
 SEED          <- 123
 K_SEUIL       <- 1/3    # seuil Alkire-Foster
 N_BOOT        <- 1000   # replications bootstrap
-CODE_ETRANGER <- 3      # modalite s13aq14 = "Etranger" (a confirmer)
+# s13aq14 / s13q19 : lieu de residence de l'expediteur
+# 1 = Meme ville/village  |  2 = Meme region  |  3 = Ailleurs au pays
+# >= 4 = pays etranger (Benin, Burkina, France, Espagne, Italie, etc.)
+CODE_ETRANGER_MIN <- 4L  # transferts de migrants = code >= 4
 
 packages <- c(
   "haven",       # lecture .dta

@@ -8,7 +8,7 @@ do "code/stata/config.do"
 /* ── 2018-2019 ─────────────────────────────────────────────── */
 
 use "$BASE_2018/s13a_2_me_sen2018.dta", clear
-keep if s13aq14 == $CODE_ETRANGER
+keep if s13aq14 >= $CODE_ETRANGER_MIN
 bysort grappe menage: keep if _n == 1
 gen transfert_migrant = 1
 save "$TEMP/etrangers_2018.dta", replace
@@ -25,7 +25,7 @@ save "$TEMP/traitement_2018.dta", replace
 /* NB: 2021 renomme s13aq14 -> s13q19 (lieu de l'expediteur)  */
 
 use "$BASE_2021/s13_2_me_sen2021.dta", clear
-keep if s13q19 == $CODE_ETRANGER
+keep if s13q19 >= $CODE_ETRANGER_MIN
 bysort grappe menage: keep if _n == 1
 gen transfert_migrant = 1
 save "$TEMP/etrangers_2021.dta", replace

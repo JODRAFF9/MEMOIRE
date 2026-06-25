@@ -11,7 +11,8 @@ global LOGS      "code/stata/logs"
 global SEED          123
 global K_SEUIL       0.3333
 global N_BOOT        1000
-global CODE_ETRANGER 3     /* modalite s13aq14 = Etranger (a confirmer) */
+/* s13aq14 / s13q19 : 1=Meme ville  2=Meme region  3=Ailleurs au pays  >=4=Etranger */
+global CODE_ETRANGER_MIN 4
 
 set seed $SEED
 set more off

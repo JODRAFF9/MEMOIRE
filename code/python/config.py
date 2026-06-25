@@ -13,6 +13,7 @@ OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 SEED          = 123
 K_SEUIL       = 1/3    # seuil Alkire-Foster
 N_BOOT        = 1000   # replications bootstrap
-CODE_ETRANGER = 3      # modalite s13aq14 = "Etranger" (a confirmer)
+# s13aq14 / s13q19 : 1=Meme ville  2=Meme region  3=Ailleurs au pays  >=4=Etranger
+CODE_ETRANGER_MIN = 4  # transferts de migrants = code >= 4
 
 ID = ["grappe", "menage"]
