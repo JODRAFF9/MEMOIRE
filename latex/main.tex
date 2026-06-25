@@ -1,0 +1,160 @@
+% ============================================================
+%  main.tex — Mémoire de fin d'études
+%  Impact des transferts de migrants sur la pauvreté multidimensionnelle
+%  des enfants au Sénégal – ENSAE Dakar
+%  Compilable avec : pdflatex main.tex (deux passes)
+% ============================================================
+
+\documentclass[12pt, a4paper, twoside]{report}
+
+% ── Encodage & langue ───────────────────────────────────────
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{csquotes}
+
+% ── Mise en page ────────────────────────────────────────────
+\usepackage[
+  top=2.5cm, bottom=2.5cm,
+  left=3cm, right=2.5cm,
+  headheight=14pt
+]{geometry}
+\usepackage{setspace}
+\onehalfspacing
+
+% ── Police ──────────────────────────────────────────────────
+\usepackage{lmodern}
+\usepackage{microtype}
+
+% ── En-têtes et pieds de page ───────────────────────────────
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LE]{\small\leftmark}
+\fancyhead[RO]{\small\rightmark}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% ── Couleurs ────────────────────────────────────────────────
+\usepackage[dvipsnames]{xcolor}
+\definecolor{marron}{RGB}{112,84,44}
+\definecolor{dore}{RGB}{184,134,11}
+\definecolor{dorepale}{RGB}{245,230,200}
+\definecolor{bleufonce}{RGB}{0,51,102}
+
+% ── Mathématiques ───────────────────────────────────────────
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{bm}
+
+% ── Figures & tableaux ──────────────────────────────────────
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{subfigure}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{caption}
+\captionsetup{font=small, labelfont=bf, labelsep=period}
+
+% ── Tableaux avancés ────────────────────────────────────────
+\usepackage{tabularx}
+\usepackage{threeparttable}
+
+% ── Liens & PDF ─────────────────────────────────────────────
+\usepackage[
+  colorlinks=true,
+  linkcolor=marron,
+  citecolor=marron,
+  urlcolor=bleufonce,
+  bookmarks=true,
+  pdftitle={Impact des transferts de migrants sur la pauvreté multidimensionnelle des enfants au Sénégal},
+  pdfauthor={Sié Rachid TRAORÉ},
+  pdfsubject={Mémoire de fin d'études – ENSAE Dakar}
+]{hyperref}
+
+% ── Bibliographie ───────────────────────────────────────────
+\usepackage[
+  backend=biber,
+  style=apa,
+  sorting=nyt,
+  maxcitenames=2,
+  maxbibnames=99
+]{biblatex}
+\addbibresource{references.bib}
+
+% ── Listes & énumérations ───────────────────────────────────
+\usepackage{enumitem}
+\setlist[itemize]{noitemsep, topsep=4pt}
+\setlist[enumerate]{noitemsep, topsep=4pt}
+
+% ── Annexes ─────────────────────────────────────────────────
+\usepackage{appendix}
+
+% ── Théorèmes ───────────────────────────────────────────────
+\theoremstyle{plain}
+\newtheorem{theoreme}{Théorème}[chapter]
+\newtheorem{proposition}{Proposition}[chapter]
+\newtheorem{lemme}{Lemme}[chapter]
+\theoremstyle{definition}
+\newtheorem{definition}{Définition}[chapter]
+\newtheorem{exemple}{Exemple}[chapter]
+\theoremstyle{remark}
+\newtheorem{remarque}{Remarque}[chapter]
+
+% ── Commandes personnalisées ─────────────────────────────────
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+
+% ── Informations du document ─────────────────────────────────
+\title{%
+  Impact des transferts de migrants sur la pauvreté multidimensionnelle des enfants au Sénégal
+}
+\author{Sié Rachid TRAORÉ}
+\date{Juin 2026}
+
+% ============================================================
+\begin{document}
+
+% ── Page de garde ────────────────────────────────────────────
+\input{styles/pagedeGarde}
+
+% ── Pages liminaires (numérotation romaine) ──────────────────
+\frontmatter
+
+\input{chapitres/dedicace}
+\input{chapitres/remerciements}
+\input{chapitres/resume}
+\input{chapitres/abstract}
+
+% Tables des matières, figures, tableaux
+\tableofcontents
+\listoffigures
+\listoftables
+
+\input{chapitres/abreviations}
+
+% ── Corps du mémoire (numérotation arabe) ────────────────────
+\mainmatter
+
+\input{chapitres/introduction}
+\input{chapitres/chapitre1}
+\input{chapitres/chapitre2}
+\input{chapitres/chapitre3}
+\input{chapitres/chapitre4}
+\input{chapitres/conclusion}
+
+% ── Bibliographie ────────────────────────────────────────────
+\printbibliography[heading=bibintoc, title={Références bibliographiques}]
+
+% ── Annexes ──────────────────────────────────────────────────
+\begin{appendices}
+  \input{annexes/annexe_A}
+  \input{annexes/annexe_B}
+\end{appendices}
+
+\end{document}

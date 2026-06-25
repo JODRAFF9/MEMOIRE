@@ -1,0 +1,166 @@
+\chapter{Cadre méthodologique}
+\label{chap:methodo}
+
+\section{Mesure de la pauvreté multidimensionnelle des enfants}
+
+\subsection{Cadre conceptuel : l'approche Alkire-Foster}
+
+Nous adoptons la méthode d'Alkire-Foster \parencite{alkire2011} pour construire un Indice de Pauvreté Multidimensionnelle (IPM) adapté aux enfants. Soit $n$ enfants, $d$ dimensions et $y_{ij}$ la réalisation de l'indicateur $j$ pour l'enfant $i$. Pour chaque dimension $j$, on définit un seuil de privation $z_j$. L'enfant $i$ est privé dans la dimension $j$ si $y_{ij} < z_j$.
+
+\subsection{Dimensions et indicateurs retenus}
+
+\begin{table}[H]
+  \centering
+  \caption{Dimensions, indicateurs et seuils de privation}
+  \label{tab:ipm_indicateurs}
+  \begin{tabular}{llll}
+    \toprule
+    Dimension    & Indicateur              & Seuil de privation              & Poids \\
+    \midrule
+    \multirow{2}{*}{Éducation}
+                 & Fréquentation scolaire  & Enfant non scolarisé (6--17 ans) & 1/6   \\
+                 & Retard scolaire         & Retard $\geq$ 2 ans              & 1/6   \\
+    \midrule
+    \multirow{2}{*}{Santé}
+                 & Suivi nutritionnel      & Pas de suivi dans les 12 mois   & 1/6   \\
+                 & Vaccination             & Vaccination incomplète (0--5 ans)& 1/6   \\
+    \midrule
+    \multirow{2}{*}{Niveau de vie}
+                 & Accès à l'eau potable   & Eau non améliorée               & 1/6   \\
+                 & Assainissement          & Toilettes non améliorées        & 1/6   \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\subsection{Construction de l'IPM-Enfant}
+
+\textbf{Étape 1 – Identification :}
+
+On construit le vecteur de privations $c_i = \sum_{j=1}^{d} w_j g_{ij}$ où $g_{ij} = \mathbf{1}[y_{ij} < z_j]$ et $w_j$ est le poids de la dimension $j$.
+
+Un enfant est considéré comme multidimensionnellement pauvre si $c_i \geq k$, avec $k = 1/3$ (seuil inter-dimensionnel).
+
+\textbf{Étape 2 – Agrégation :}
+
+L'IPM-Enfant est calculé comme :
+\begin{equation}
+  M_0 = H \times A
+  \label{eq:ipm}
+\end{equation}
+où $H = q/n$ est l'incidence de la pauvreté (proportion d'enfants pauvres) et $A = \frac{1}{q}\sum_{i: c_i \geq k} c_i$ est l'intensité moyenne de la pauvreté parmi les pauvres.
+
+\section{Stratégie d'identification causale}
+
+\subsection{Le problème du biais de sélection}
+
+L'estimation naïve de l'impact des transferts souffre d'un biais de sélection : les ménages qui reçoivent des transferts diffèrent systématiquement des ménages non-bénéficiaires en termes de caractéristiques observables (niveau d'éducation du chef de ménage, localisation géographique, etc.) et inobservables (réseau social, propension à migrer, etc.).
+
+Formellement, l'effet moyen du traitement sur les traités (ATT) est :
+\begin{equation}
+  \tau_{ATT} = \E[Y_i(1) - Y_i(0) \mid D_i = 1]
+  \label{eq:att}
+\end{equation}
+où $Y_i(1)$ est l'IPM de l'enfant si le ménage reçoit des transferts, $Y_i(0)$ l'IPM contrefactuel et $D_i = 1$ si le ménage reçoit des transferts.
+
+\subsection{L'appariement par score de propension (PSM)}
+
+\subsubsection{Principe}
+
+Le PSM, introduit par \textcite{rosenbaum1983}, consiste à construire le contrefactuel pour les traités en les appariant avec des non-traités ayant une probabilité similaire de recevoir le traitement (score de propension).
+
+\subsubsection{Estimation du score de propension}
+
+Le score de propension est estimé par un modèle probit :
+\begin{equation}
+  p(X_i) = P(D_i = 1 \mid X_i) = \Phi(X_i'\beta)
+  \label{eq:probit}
+\end{equation}
+où $X_i$ est le vecteur des covariables observées et $\Phi$ la fonction de répartition de la loi normale.
+
+Les covariables retenues pour le modèle de propension sont :
+\begin{itemize}
+  \item Caractéristiques du chef de ménage : âge, sexe, niveau d'éducation, statut matrimonial ;
+  \item Caractéristiques du ménage : taille, milieu de résidence, région ;
+  \item Actifs du ménage.
+\end{itemize}
+
+\subsubsection{Algorithme d'appariement}
+
+Nous utilisons la méthode d'appariement par les $k$ plus proches voisins (\textit{k-nearest neighbors matching}) avec $k=4$ et remplacement, ainsi que l'appariement par noyau (\textit{kernel matching}) pour vérifier la robustesse.
+
+\subsection{La double différence (DD)}
+
+\subsubsection{Principe et hypothèse d'identification}
+
+La méthode de la double différence exploite la dimension temporelle des données EHCVM I (2018--2019) et EHCVM II (2021--2022). L'estimateur DD compare l'évolution de l'IPM entre les deux vagues pour les ménages traités par rapport aux non-traités :
+\begin{equation}
+  \hat{\tau}_{DD} = \left(\bar{Y}^1_{t=2} - \bar{Y}^1_{t=1}\right) - \left(\bar{Y}^0_{t=2} - \bar{Y}^0_{t=1}\right)
+  \label{eq:dd}
+\end{equation}
+
+L'hypothèse centrale est celle des \textit{tendances parallèles} : en l'absence de traitement, l'évolution de l'IPM aurait été identique pour les traités et les non-traités.
+
+\subsection{L'estimateur PSM-Double différence}
+
+\subsubsection{Principe de la combinaison}
+
+Nous combinons PSM et DD pour contrôler simultanément :
+\begin{itemize}
+  \item Les biais liés aux différences observables entre traités et non-traités (PSM) ;
+  \item Les biais liés aux effets fixes individuels inobservables constants dans le temps (DD).
+\end{itemize}
+
+L'estimateur PSM-DD est :
+\begin{equation}
+  \hat{\tau}_{PSM-DD} = \frac{1}{n_T}\sum_{i \in \mathcal{T}} \left[\Delta Y_i - \sum_{j \in \mathcal{C}} w_{ij} \Delta Y_j\right]
+  \label{eq:psm-dd}
+\end{equation}
+où $\Delta Y_i = Y_{i,t=2} - Y_{i,t=1}$, $\mathcal{T}$ est l'ensemble des traités, $\mathcal{C}$ l'ensemble des non-traités et $w_{ij}$ les poids d'appariement issus du PSM.
+
+\section{Données : EHCVM I et II}
+
+\subsection{Présentation des enquêtes}
+
+Les Enquêtes Harmonisées sur les Conditions de Vie des Ménages (EHCVM) sont réalisées sous l'égide de l'UEMOA. Nous utilisons :
+\begin{itemize}
+  \item \textbf{EHCVM I (2018--2019)} : première vague réalisée au Sénégal ;
+  \item \textbf{EHCVM II (2021--2022)} : deuxième vague permettant de constituer un panel.
+\end{itemize}
+
+\subsection{Echantillon d'analyse}
+
+Notre population cible est les enfants âgés de 0 à 17 ans résidant dans les ménages enquêtés dans les deux vagues. Après nettoyage et appariement des deux bases, notre échantillon comprend ... enfants.
+
+\subsection{Variable de traitement}
+
+Un ménage est considéré comme traité ($D_i = 1$) s'il a reçu des transferts de migrants au cours des 12 derniers mois.
+
+\subsection{Statistiques descriptives}
+
+\begin{table}[H]
+  \centering
+  \caption{Statistiques descriptives selon le statut de réception de transferts}
+  \label{tab:stats_desc}
+  \begin{tabularx}{\linewidth}{Xcccc}
+    \toprule
+    Variable & \multicolumn{2}{c}{Bénéficiaires} & \multicolumn{2}{c}{Non-bénéficiaires} \\
+    \cmidrule(lr){2-3} \cmidrule(lr){4-5}
+             & Moy. & Éc.-t. & Moy. & Éc.-t. \\
+    \midrule
+    IPM-Enfant           & & & & \\
+    Incidence ($H$)      & & & & \\
+    Intensité ($A$)      & & & & \\
+    \midrule
+    \textit{Covariables} & & & & \\
+    Âge chef ménage      & & & & \\
+    Chef féminin         & & & & \\
+    Taille du ménage     & & & & \\
+    Milieu urbain        & & & & \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\section*{Conclusion du chapitre}
+\addcontentsline{toc}{section}{Conclusion du chapitre 2}
+
+Ce chapitre a présenté le cadre méthodologique de l'étude...
