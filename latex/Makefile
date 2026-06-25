@@ -1,15 +1,17 @@
 # Compilation du mémoire LaTeX
+# Utilise biber (pas bibtex) — requis par biblatex style=apa
 MAIN = main
-LATEX = pdflatex
-BIBER = biber
 
-all: $(MAIN).pdf
+# Méthode recommandée : latexmk gère automatiquement les passes
+pdf:
+	latexmk -pdf $(MAIN).tex
 
-$(MAIN).pdf: $(MAIN).tex
-	$(LATEX) $(MAIN)
-	$(BIBER) $(MAIN)
-	$(LATEX) $(MAIN)
-	$(LATEX) $(MAIN)
+# Méthode manuelle : 4 étapes dans l'ordre
+manual:
+	pdflatex -interaction=nonstopmode $(MAIN).tex
+	biber $(MAIN)
+	pdflatex -interaction=nonstopmode $(MAIN).tex
+	pdflatex -interaction=nonstopmode $(MAIN).tex
 
 clean:
 	rm -f *.aux *.log *.toc *.lof *.lot *.out *.bbl *.bcf *.blg *.run.xml *.synctex.gz
@@ -18,4 +20,4 @@ clean:
 cleanall: clean
 	rm -f $(MAIN).pdf
 
-.PHONY: all clean cleanall
+.PHONY: pdf manual clean cleanall
