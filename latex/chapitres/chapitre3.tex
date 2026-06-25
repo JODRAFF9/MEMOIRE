@@ -1,0 +1,114 @@
+\chapter{Résultats empiriques}
+\label{chap:resultats}
+
+\section{Pauvreté multidimensionnelle des enfants au Sénégal : état des lieux}
+
+\subsection{Résultats EHCVM I (2018--2019)}
+
+...
+
+\subsection{Résultats EHCVM II (2021--2022)}
+
+...
+
+\subsection{Évolution entre les deux vagues}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.85\linewidth]{figures/evolution_ipm.pdf}
+  \caption{Évolution de l'IPM-Enfant entre EHCVM I et EHCVM II}
+  \label{fig:evolution_ipm}
+\end{figure}
+
+\section{Estimation du score de propension}
+
+\subsection{Résultats du modèle probit}
+
+\begin{table}[H]
+  \centering
+  \caption{Modèle probit pour l'estimation du score de propension}
+  \label{tab:probit}
+  \begin{tabular}{lcc}
+    \toprule
+    Variable & Coefficient & Écart-type \\
+    \midrule
+    Âge du chef de ménage       & & \\
+    Chef de ménage féminin      & & \\
+    Niveau d'éducation (primaire) & & \\
+    Niveau d'éducation (secondaire) & & \\
+    Niveau d'éducation (supérieur) & & \\
+    Taille du ménage            & & \\
+    Milieu urbain               & & \\
+    \midrule
+    Constante                   & & \\
+    \midrule
+    Pseudo-$R^2$                & \multicolumn{2}{c}{} \\
+    Observations                & \multicolumn{2}{c}{} \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\subsection{Vérification de la qualité de l'appariement}
+
+\subsubsection{Support commun}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\linewidth]{figures/support_commun.pdf}
+  \caption{Distribution du score de propension avant et après appariement}
+  \label{fig:support}
+\end{figure}
+
+\subsubsection{Équilibre des covariables}
+
+\begin{table}[H]
+  \centering
+  \caption{Test d'équilibre des covariables avant et après appariement}
+  \label{tab:balance}
+  \begin{tabular}{lcccc}
+    \toprule
+    Variable & \multicolumn{2}{c}{Avant appariement} & \multicolumn{2}{c}{Après appariement} \\
+    \cmidrule(lr){2-3} \cmidrule(lr){4-5}
+             & Diff. std. & $p$-valeur & Diff. std. & $p$-valeur \\
+    \midrule
+    ... & & & & \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\section{Impact des transferts de migrants sur la pauvreté multidimensionnelle des enfants}
+
+\subsection{Résultats PSM}
+
+\begin{table}[H]
+  \centering
+  \caption{Effet des transferts sur l'IPM-Enfant - estimateur PSM (ATT)}
+  \label{tab:psm_att}
+  \begin{tabular}{lccc}
+    \toprule
+    Méthode d'appariement & ATT & Éc.-t. & $p$-valeur \\
+    \midrule
+    Plus proche voisin ($k=1$)  & & & \\
+    Plus proches voisins ($k=4$) & & & \\
+    Appariement par noyau        & & & \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\subsection{Résultats PSM-Double différence}
+
+...
+
+\subsection{Effets par dimension}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.85\linewidth]{figures/effets_dimensions.pdf}
+  \caption{Impact des transferts par dimension de la pauvreté multidimensionnelle}
+  \label{fig:effets_dim}
+\end{figure}
+
+\section*{Conclusion du chapitre}
+\addcontentsline{toc}{section}{Conclusion du chapitre 3}
+
+...

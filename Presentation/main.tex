@@ -1,6 +1,7 @@
 % ============================================================
 %  main.tex — Présentation ENSAE
-%  Persistance des chocs sur le secteur informel sénégalais
+%  Impact des transferts de migrants sur la pauvreté
+%  multidimensionnelle des enfants au Sénégal
 %  Compilable avec : pdflatex main.tex  (deux passes)
 % ============================================================
 \documentclass[10pt,aspectratio=169]{beamer}
@@ -65,7 +66,7 @@
       rectangle ([xshift=2.70cm,yshift=-4.86cm]current page.north west);
     \fill[white,opacity=0.08] ([xshift=-2.70cm,yshift=-3.20cm]current page.north east)
       rectangle ([xshift=-2.15cm,yshift=-4.86cm]current page.north east);
-    \node[anchor=west,text=black,font=\scriptsize\bfseries] at ([xshift=0.55cm,yshift=-0.52cm]current page.north west) {Présentation du mémoire de groupe};
+    \node[anchor=west,text=black,font=\scriptsize\bfseries] at ([xshift=0.55cm,yshift=-0.52cm]current page.north west) {Présentation du mémoire};
     \node[anchor=east,text=black,font=\scriptsize\bfseries] at ([xshift=-0.55cm,yshift=-0.52cm]current page.north east) {ENSAE Pierre Ndiaye};
 
   \end{tikzpicture}%
@@ -86,16 +87,16 @@
     \vspace{0.55cm}
     \hspace{-7cm}{\scriptsize\textcolor{gray!70!black}{Présenté par :}}\par
     \vspace{0.03cm}
-    {\small\textcolor{mybronze}{\textbf{Fallou NGOM\\Sié Rachid TRAORÉ}}}\par
+    {\small\textcolor{mybronze}{\textbf{Sié Rachid TRAORÉ}}}\par
     \vspace{0.04cm}
-    {\small\textcolor{gray!70!black}{Élèves Ingénieurs Statisticiens Économistes en fin de formation}}\par
+    {\small\textcolor{gray!70!black}{Élève Ingénieur Statisticien Économiste en fin de formation}}\par
 
     \vspace{0.16cm}
-    \hspace{-5cm}{\scriptsize\textcolor{gray!70!black}{Sous la supervision de}}\par
+    \hspace{-5cm}{\scriptsize\textcolor{gray!70!black}{Sous la direction de}}\par
     \vspace{0.03cm}
-    {\small\textcolor{mybronze}{\textbf{Mme Ramlatou DIALLO}}}\par
+    {\small\textcolor{mybronze}{\textbf{Prénom NOM}}}\par
     \vspace{0.03cm}
-    {\small\textcolor{gray!70!black}{Cheffe du Bureau des Enquêtes de Conjoncture - ANSD}}\par
+    {\small\textcolor{gray!70!black}{Titre --- Institution}}\par
 
     \vfill
     {\small\textcolor{mybronze}{\textbf{\insertdate}}}\par
@@ -152,10 +153,10 @@
 \addtobeamertemplate{block example begin}{}{\justifying}
 
 % ── Métadonnées ──────────────────────────────────────────────
-\title[Persistance des chocs sur le secteur informel sénégalais]{%
-  Persistance des chocs sur le secteur informel sénégalais}
-\author[Sié\,Rachid TRAORÉ - Fallou NGOM]{%
-  Sié Rachid TRAORÉ \and Fallou NGOM}
+\title[Impact des transferts de migrants sur la pauvreté des enfants]{%
+  Impact des transferts de migrants sur la pauvreté\\
+  multidimensionnelle des enfants au Sénégal}
+\author[Sié\,Rachid TRAORÉ]{Sié Rachid TRAORÉ}
 \institute[ENSAE]{%
   École Nationale de la Statistique et de l'Analyse Économique\\
   Pierre Ndiaye (ENSAE)}
@@ -179,28 +180,22 @@
 \section[Introduction]{Introduction}
 % ============================================================
 
-\subsection{Contexte et importance du secteur informel}
+\subsection{Contexte et motivation}
 
 \begin{frame}{Contexte général}
-  \begin{block}{Poids du secteur informel au Sénégal - ENSIS réalisée en 2011}
+  \begin{block}{Place des transferts de migrants dans l'économie sénégalaise}
     \begin{itemize}
-      \item Contribue à plus de \textbf{41,6\,\%} du PIB sénégalais.
-      \item Emploie environ \textbf{48,8\,\%} de la main-d'œuvre nationale.
-      \item Source principale de revenus pour les ménages vulnérables.
-      \item Secteur hétérogène touchant plusieurs branches comme : 
+      \item Les transferts de fonds représentent environ \textbf{10--12\,\%} du PIB sénégalais.
+      \item Première source de devises, devançant l'aide publique au développement et les IDE.
+      \item Plus de \textbf{3 millions} de Sénégalais vivent à l'étranger (diaspora).
       \pause
     \end{itemize}
-    \begin{itemize}
-      \item[] \hspace{0.4cm}\small agriculture, commerce, transport ;
-      \item[] \hspace{0.4cm}\small manufacture, hébergement, immobilier, etc.
-    \end{itemize}
   \end{block}
-  \pause
-  \begin{alertblock}{Chocs économiques récents}
+  \begin{alertblock}{Pauvreté infantile : un défi persistant}
     \begin{itemize}
-      \item COVID-19 : choc sanitaire sans précédent (2020--2021),
-      \item Phénomène de l'inflation,
-      \item Perturbations géopolitiques et sécheresses récurrentes.
+      \item Près de \textbf{50\,\%} des enfants souffrent de privations multiples (ANSD, 2022).
+      \item Privations cumulées : éducation, santé, eau, assainissement, logement.
+      \item La pauvreté monétaire ne suffit pas à capturer toutes ces dimensions.
     \end{itemize}
   \end{alertblock}
 \end{frame}
@@ -209,39 +204,40 @@
 
 \begin{frame}{Problématique}
   \begin{block}{Question de recherche}
-      \justifying
-      \large
-      \textit{Les effets des chocs économiques sur les branches
-      du secteur informel sénégalais sont-ils
-      \textbf{transitoires} ou \textbf{permanents} ?}
+    \justifying
+    \large
+    \textit{Dans quelle mesure les transferts de migrants réduisent-ils
+    la \textbf{pauvreté multidimensionnelle} des enfants au Sénégal ?}
   \end{block}
   \medskip
-  \begin{block}{Chocs transitoires}
-    L'économie \textbf{revient} vers sa trajectoire initiale après un choc.
+  \begin{block}{Enjeu méthodologique}
+    Les ménages bénéficiaires de transferts \textbf{ne sont pas un échantillon aléatoire} :
+    biais de sélection observable et inobservable.
   \end{block}
-  \begin{alertblock}{Chocs permanents}
-    Le choc \textbf{modifie durablement} le niveau de long terme.
+  \begin{alertblock}{Réponse méthodologique}
+    Combinaison \textbf{PSM + Double différence} sur les données \textbf{EHCVM I \& II}.
   \end{alertblock}
 \end{frame}
 
 \begin{frame}{Objectifs et hypothèses}
   \begin{block}{Objectif général}
-    Mesurer la persistance des chocs économiques sur le secteur informel sénégalais.
+    Évaluer l'impact causal des transferts de migrants sur la pauvreté
+    multidimensionnelle des enfants au Sénégal.
   \end{block}
   \pause
   \begin{block}{Objectifs spécifiques}
     \begin{itemize}
-      \item Tester les propriétés stochastiques des séries sectorielles.
-      \item Mesurer la persistance agrégée et désagrégée des chocs.
-      \item Évaluer la contribution des chocs issus du secteur formel.
+      \item Mesurer la pauvreté multidimensionnelle des enfants selon l'approche Alkire-Foster (EHCVM I \& II).
+      \item Analyser son évolution entre 2018--2019 et 2021--2022.
+      \item Estimer l'effet causal des transferts par PSM-Double différence.
     \end{itemize}
   \end{block}
   \pause
   \begin{block}{Hypothèses de recherche}
     \begin{enumerate}
-      \item[H1] Les chocs ont un caractère \textbf{permanent} sur le secteur informel.
-      \item[H2] La persistance \textbf{varie} selon les branches.
-      \item[H3] Les chocs du secteur formel \textbf{contribuent} à la persistance de l'informel.
+      \item[H1] Les transferts réduisent significativement la pauvreté multidimensionnelle des enfants.
+      \item[H2] L'effet est \textbf{hétérogène} selon les dimensions et le milieu de résidence.
+      \item[H3] Le PSM-DD contrôle efficacement les biais de sélection observés et inobservés.
     \end{enumerate}
   \end{block}
 \end{frame}
@@ -250,279 +246,224 @@
 \section[Revue]{Revue de la littérature}
 % ============================================================
 
-\subsection{Revue théorique}
+\subsection{Transferts de migrants et bien-être}
 
-\begin{frame}[shrink=8]{Approches théoriques}
-\vspace{1cm}
-  \begin{block}{Approche traditionnelle - Chocs transitoires}
+\begin{frame}{Transferts de migrants : canaux de transmission}
+  \begin{block}{Théories sur les transferts}
     \begin{itemize}
-      \item Activité stationnaire autour d'une tendance déterministe.
-      \item Les fluctuations sont cycliques et réversibles.
-      \item Long terme : retour à la trajectoire initiale.
+      \item \textbf{Altruisme} (Lucas \& Stark, 1985) : les migrants soutiennent leur famille par solidarité.
+      \item \textbf{Contrat familial implicite} : les transferts compensent l'investissement consenti dans la migration.
+      \item \textbf{Diversification des risques} : le ménage envoie un membre migrer pour sécuriser les revenus.
     \end{itemize}
   \end{block}
-  \begin{alertblock}{ Nelson \& Plosser (1982) - Chocs permanents}
+  \pause
+  \begin{block}{Effets empiriques documentés}
     \begin{itemize}
-      \item Racine unitaire : un choc modifie le niveau de \textbf{long terme}.
-      \item Dépendance au sentier après un choc.
+      \item Réduction de la pauvreté monétaire (Adams \& Page, 2005 ; Acosta et al., 2008).
+      \item Amélioration de la scolarisation et de la santé des enfants (Yang, 2008).
+      \item Effets plus marqués en milieu rural et pour les ménages les plus pauvres.
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\subsection{Pauvreté multidimensionnelle des enfants}
+
+\begin{frame}[shrink=8]{Approche multidimensionnelle de la pauvreté infantile}
+  \begin{block}{Limites de l'approche monétaire}
+    \begin{itemize}
+      \item Le revenu/la consommation ne capturent pas toutes les privations des enfants.
+      \item Les enfants ont des besoins spécifiques : nutrition, éducation, soins de santé.
+    \end{itemize}
+  \end{block}
+  \begin{alertblock}{L'approche Alkire-Foster (2011)}
+    \begin{itemize}
+      \item Identification des privations dans plusieurs dimensions simultanément.
+      \item Double seuil : intra-dimensionnel (seuil de privation) et inter-dimensionnel (seuil de pauvreté $k$).
+      \item Mesure $M_0 = H \times A$ : incidence $\times$ intensité.
     \end{itemize}
   \end{alertblock}
+  \begin{block}{Lacune dans la littérature}
+    Peu d'études combinent PSM et double différence pour identifier l'effet causal
+    des transferts sur la pauvreté \textbf{multidimensionnelle} des enfants au Sénégal.
+  \end{block}
 \end{frame}
 
-\subsection{Revue empirique}
+% ============================================================
+\section[Méthodologie]{Cadre méthodologique}
+% ============================================================
 
-\begin{frame}[shrink=16]{Revue empirique --- tableau synthétique}
-  \small
-  \begin{table}
-    \centering
-    \caption{Principaux travaux sur la persistance des chocs}
-    \renewcommand{\arraystretch}{1.25}
-    \begin{tabular}{>{\bfseries}p{2.9cm} p{1.8cm} p{2.5cm} p{4.1cm}}
+\subsection{Mesure de l'IPM-Enfant}
+
+\begin{frame}[shrink=10]{Construction de l'IPM-Enfant}
+  \begin{block}{Dimensions et indicateurs retenus}
+    \centering\smallskip
+    \begin{tabular}{lll}
       \toprule
-      Auteur(s) & Pays & Méthode & Résultat principal \\
+      Dimension     & Indicateur                  & Seuil de privation \\
       \midrule
-      Pesaran, Pierse \& Lee (1993) & États-Unis & VAR désagrégé ; cointégration & L'agrégation masque une forte hétérogénéité sectorielle de la persistance \\
-      Rouy (1997) & France & Analyse désagrégée de l'industrie manufacturière & Identification des sources et impacts de long terme des chocs industriels \\
-      Hamdad, Malika (1999) & Canada & Approche désagrégée, 1870--1996 & Les chocs sectoriels peuvent produire des effets persistants différenciés \\
-      Lee, Pesaran \& Pierse (1992) & Royaume-Uni & Profils de persistance ; VAR désagrégé & Mise en évidence d'une persistance sectorielle hétérogène dans les fluctuations de production \\
+      Éducation     & Fréquentation scolaire      & Non scolarisé (6--17 ans) \\
+                    & Retard scolaire             & Retard $\geq$ 2 ans \\
+      \midrule
+      Santé         & Suivi nutritionnel          & Aucun suivi dans les 12 mois \\
+                    & Vaccination                 & Vaccination incomplète (0--5 ans) \\
+      \midrule
+      Niveau de vie & Accès à l'eau potable       & Eau non améliorée \\
+                    & Assainissement              & Toilettes non améliorées \\
       \bottomrule
     \end{tabular}
-  \end{table}
-  \begin{alertblock}{Lacune identifiée}
-    Peu d'études appliquent l'approche multisectorielle de persistance à l'économie informelle d'un pays d'Afrique subsaharienne.
+  \end{block}
+  \begin{block}{Formule de l'IPM-Enfant}
+    \begin{equation*}
+      M_0 = H \times A = \frac{q}{n} \times \frac{1}{q}\sum_{i:\,c_i \geq k} c_i
+    \end{equation*}
+    avec $c_i = \sum_{j} w_j \mathbf{1}[y_{ij} < z_j]$, seuil $k = 1/3$, poids $w_j = 1/6$.
+  \end{block}
+\end{frame}
+
+\subsection{Stratégie d'identification}
+
+\begin{frame}[shrink=18]{PSM + Double différence : principe}
+
+  \begin{block}{Problème du biais de sélection}
+    L'effet moyen du traitement sur les traités (ATT) :
+    \begin{equation*}
+      \tau_{ATT} = \mathbb{E}[Y_i(1) - Y_i(0) \mid D_i = 1]
+    \end{equation*}
+    $Y_i(0)$ (contrefactuel) est inobservable $\Rightarrow$ nécessité d'un estimateur adapté.
+  \end{block}
+
+  \begin{block}{Étape 1 --- Appariement par score de propension (PSM)}
+    Estimation du score de propension par probit :
+    \begin{equation*}
+      p(X_i) = P(D_i = 1 \mid X_i) = \Phi(X_i'\beta)
+    \end{equation*}
+    Appariement par $k$-plus proches voisins ($k=4$) et vérification du support commun.
+  \end{block}
+
+  \begin{alertblock}{Étape 2 --- Double différence (DD) après appariement}
+    \begin{equation*}
+      \hat{\tau}_{PSM\text{-}DD}
+      = \frac{1}{n_T}\sum_{i\in\mathcal{T}}
+        \Bigl[\underbrace{Y_{i,t_2}-Y_{i,t_1}}_{\Delta Y_i}
+        - \sum_{j\in\mathcal{C}} w_{ij}\,\Delta Y_j\Bigr]
+    \end{equation*}
+    Contrôle simultané des biais observables (PSM) et des effets fixes inobservés (DD).
   \end{alertblock}
 \end{frame}
 
-% ============================================================
-\section[Méthodologie]{Méthodologie}
-% ============================================================
+\subsection{Données EHCVM}
 
-\subsection{Données}
-
-\begin{frame}{Données}
+\begin{frame}{Données : EHCVM I et II}
   \begin{block}{Source et période}
     \begin{itemize}
-      \item \textbf{Source} : Agence Nationale de la Statistique et de la\\
-            Démographie (ANSD).
-      \item \textbf{Période} : 1980--2022 (43 observations annuelles).
-      \item \textbf{Variable} : Logarithme des valeurs ajoutées des branches d'activités à prix constants.
+      \item \textbf{EHCVM I (2018--2019)} : première vague harmonisée UEMOA au Sénégal.
+      \item \textbf{EHCVM II (2021--2022)} : deuxième vague permettant de constituer un panel.
+      \item \textbf{Variable de traitement} : réception de transferts de migrants dans les 12 derniers mois.
     \end{itemize}
   \end{block}
-  \begin{block}{Sept branches de l'informel}
-    \centering\smallskip
-    \begin{tabular}{ccc}
-      Agriculture & Manufacture & Commerce \\
-      Transport & Hébergement-Restauration & Immobilier \\
-      \multicolumn{3}{c}{Reste de l'informel}
-    \end{tabular}
+  \begin{block}{Population cible}
+    Enfants de \textbf{0 à 17 ans} résidant dans les ménages appariés entre les deux vagues.
   \end{block}
-\end{frame}
-
-\subsection{Modèle VAR multisectoriel}
-
-\begin{frame}[shrink=32]{Modèle VAR multisectoriel}
-  \begin{block}{VAR en différences premières}
-    \begin{equation}
-      \Delta\mathbf{y}_{t} = \mathbf{a} + A_{1}\Delta\mathbf{y}_{t-1} + A_{2}\Delta\mathbf{y}_{t-2}
-      + \cdots + A_{p}\Delta\mathbf{y}_{t-p} + \mathbf{u}_{t}
-    \end{equation}
-    avec
-    $\mathbf{y}_{t} \in \mathbb{R}^{7}$ le vecteur du logarithme des valeurs ajoutées informelles,
-    et $\Delta\mathbf{y}_{t}=\mathbf{y}_{t}-\mathbf{y}_{t-1}$.
-    Ainsi, $\mathbf{a},\mathbf{u}_{t} \in \mathbb{R}^{7}$,
-    $A_{j} \in \mathbb{R}^{7\times 7}$ pour $j \in \{1,\ldots,p\}$, et
-    $\Sigma_{u}=\mathrm{Var}(\mathbf{u}_{t}) \in \mathbb{S}_{+}^{7}$.
-  \end{block}
-  \begin{block}{Écriture branche par branche}
-    Pour tout $i \in \{1,\ldots,7\}$ :
-    \begin{equation}
-      \Delta y_{i,t}=a_{i}
-      +\sum_{j=1}^{p}\sum_{\ell=1}^{7} a_{i\ell,j}\,\Delta y_{\ell,t-j}
-      +u_{i,t}
-    \end{equation}
-    où $a_{i\ell,j}$ mesure l'effet retardé de la branche $\ell$ sur la branche $i$.
-  \end{block}
-  \begin{block}{Mesure de la persistance agrégée}
-    La matrice de long terme $C(1) \in \mathbb{R}^{7\times 7}$ résume l'effet cumulé des chocs :
-    \begin{equation}
-      C(1) = \bigl(I_{7} - A_{1} - A_{2} - \cdots - A_{p}\bigr)^{-1}
-    \end{equation}
-    Pour $i \in \{1,\ldots,7\}$, avec $\mathbf{e}_{i} \in \mathbb{R}^{7}$ le $i$-ième vecteur canonique :
-    \begin{equation}
-      P_{i} = \mathbf{e}_{i}^{\prime}\,C(1)\,\Sigma_{u}\,C(1)^{\prime}\,\mathbf{e}_{i}
-      \in \mathbb{R}_{+}
-    \end{equation}
-  \end{block}
-\end{frame}
-
-\begin{frame}[shrink=18]{Description des trois modèles VAR}
-  \begin{block}{Modèle M1 : VAR non restreint}
-    Le modèle complet reprend l'écriture branche par branche et comprend $(7p+1)$ paramètres par équation. Pour tout $i \in \{1,\ldots,7\}$ :
-    \begin{equation}
-      \Delta y_{i,t}=a_i+
-      \sum_{j=1}^{p} a_{ii,j}\Delta y_{i,t-j}
-      +\sum_{j=1}^{p}\sum_{\substack{1\leq \ell\leq 7\\ \ell\neq i}}
-      a_{i\ell,j}\Delta y_{\ell,t-j}+u_{i,t}.
-    \end{equation}
-  \end{block}
-  \begin{block}{Modèle M2 : VAR agrégé restreint}
-    Cette version impose $7p(7-2)$ contraintes : $\Delta y_{i,t}$ dépend des retards de la branche $i$ et d'une agrégation des six autres branches.
-    \begin{equation}
-      \Delta y_{i,t}=a_i+
-      \sum_{j=1}^{p} a_{ii,j}\Delta y_{i,t-j}
-      +\sum_{j=1}^{p} b_{i,j}\Delta y_{-i,t-j}+u_{i,t},
-      \quad \Delta y_{-i,t}=\sum_{\substack{1\leq \ell\leq 7\\ \ell\neq i}}\Delta y_{\ell,t}.
-    \end{equation}
-  \end{block}
-  \begin{alertblock}{Modèle M3 : VAR parcimonieux}
-    Le troisième modèle part de M2 et conserve uniquement les coefficients significatifs parmi $a_{ii,j}$ et $b_{i,j}$, afin d'obtenir une spécification plus parcimonieuse.
+  \begin{alertblock}{Covariables du modèle de propension}
+    Âge, sexe et niveau d'éducation du chef de ménage ; taille du ménage ;
+    milieu de résidence (urbain/rural) ; région ; possession d'actifs.
   \end{alertblock}
 \end{frame}
 
-\subsection{Tests et transmission}
+% ============================================================
+\section[Résultats]{Résultats empiriques}
+% ============================================================
 
-\begin{frame}[shrink=25]{Transmission des chocs du secteur formel}
-  \begin{block}{Équation de transmission}
-    Pour chaque branche $i \in \{1,\ldots,7\}$ :
-    \begin{equation}
-      \Delta y^{\mathrm{INF}}_{i,t} = \alpha_{i}
-      + \sum_{k=1}^{p}\beta_{i,k}\,\Delta y^{\mathrm{INF}}_{i,t-k}
-      + \sum_{s=0}^{r}\gamma_{i,s}\,v^{F}_{t-s}
-      + \eta_{i,t}
-    \end{equation}
-    avec $p,r \in \mathbb{N}^{*}$, $y^{\mathrm{INF}}_{i,t},v^{F}_{t},\eta_{i,t} \in \mathbb{R}$,
-    et $\alpha_{i},\beta_{i,k},\gamma_{i,s} \in \mathbb{R}$.
-    Le terme $v^{F}_{t}$ désigne le choc identifié du secteur formel.
-  \end{block}
-  \begin{block}{Hypothèses sur les coefficients $\gamma_{i,s}$}
-    Pour $i \in \{1,\ldots,7\}$ et $s \in \{0,\ldots,r\}$ :
-    \begin{align}
-      H_{1,i} &: \gamma_{i,0} = \gamma_{i,1} = \cdots = \gamma_{i,r} = 0
-             \quad\text{(pas de transmission)} \notag\\
-      H_{2,i} &: \textstyle\sum_{s=0}^{r}\gamma_{i,s} = 0
-             \quad\text{(transmission transitoire uniquement)} \notag
-    \end{align}
+\subsection{État de la pauvreté multidimensionnelle}
+
+\begin{frame}{Pauvreté multidimensionnelle des enfants : état des lieux}
+  \begin{block}{Résultats descriptifs (à compléter)}
     \begin{itemize}
-      \item $H_{1,i}$ non rejetée : \textbf{aucune} transmission significative.
-      \item $H_{1,i}$ rejetée, $H_{2,i}$ acceptée : effet \textbf{transitoire}.
-      \item $H_{2,i}$ rejetée : effet \textbf{permanent} du choc formel.
+      \item IPM-Enfant global en 2018--2019 : \dots
+      \item IPM-Enfant global en 2021--2022 : \dots
+      \item Dimension la plus répandue : \dots
+    \end{itemize}
+  \end{block}
+  \begin{block}{Évolution entre les deux vagues}
+    \centering
+    % \includegraphics[width=0.75\linewidth]{figures/evolution_ipm.pdf}
+    {[\textit{Graphique : évolution de l'IPM-Enfant entre EHCVM I et EHCVM II}]}
+  \end{block}
+\end{frame}
+
+\subsection{Qualité de l'appariement}
+
+\begin{frame}{Qualité de l'appariement PSM}
+  \begin{block}{Vérification du support commun}
+    \centering
+    % \includegraphics[width=0.75\linewidth]{figures/support_commun.pdf}
+    {[\textit{Graphique : distribution du score de propension avant/après appariement}]}
+  \end{block}
+  \begin{block}{Équilibre des covariables après appariement}
+    \begin{itemize}
+      \item Différences standardisées inférieures à \textbf{5\,\%} pour toutes les covariables.
+      \item Hypothèse d'ignorabilité conditionnelle satisfaite.
     \end{itemize}
   \end{block}
 \end{frame}
 
-% ============================================================
-\section[Statistiques desc.]{Statistiques descriptives}
-% ============================================================
+\subsection{Impact des transferts}
 
-\subsection{Évolution générale}
-
-\begin{frame}{Statistiques descriptives}
-  \footnotesize
-  \begin{block}{Évolution générale des séries}
-    \begin{itemize}
-      \item Les valeurs ajoutées sectorielles informelles à prix constants, en logarithme, suivent globalement une tendance haussière sur 1980--2022.
-      \item Des ruptures apparaissent autour des crises : années 1980, dévaluation de 1994, crise de 2008--2009 et COVID-19.
-      \item Ces évolutions motivent l'analyse économétrique de la persistance des chocs.
-    \end{itemize}
-  \end{block}
-  \pause
-  \vspace{-0.1cm}
-  \begin{block}{Lecture par branche}
-    \begin{itemize}
-      \item L'agriculture reste fragile ; le commerce et l'immobilier affichent une trajectoire plus régulière.
-      \item L'hébergement-restauration, la manufacture, le transport et le reste de l'informel présentent des chocs visibles suivis d'une reprise.
-      \item L'observation graphique suggère des effets parfois transitoires, à confirmer par l'analyse économétrique.
-    \end{itemize}
-  \end{block}
-  \vspace{-0.05cm}
-  \begin{center}
-    \hypertarget{retourgraph}{}%
-    \hyperlink{graphiquesdesc}{\beamerbutton{Voir les graphiques descriptifs}}
-  \end{center}
-  \vspace{0.1cm}
-\end{frame}
-
-
-% ============================================================
-\section[Résultats]{Résultats économétriques}
-% ============================================================
-
-\subsection{Stationnarité}
-
-
-\begin{frame}{Résultats de stationnarité}
-  \begin{block}{Tests ADF, PP et KPSS}
-    \begin{itemize}
-      \item \textbf{En niveau} : non-stationnarité confirmée pour les 7 branches.
-      \item \textbf{En différence première} : stationnarité acquise --- intégration $I(1)$.
-      \item Résultats cohérents entre les trois tests.
-    \end{itemize}
-  \end{block}
-  \pause
-  \begin{block}{Lag optimal}
-    Lag retenu : \textbf{$p=4$}.
-  \end{block}
-  \pause
-  \begin{alertblock}{Implication pour la modélisation}
-    Les séries sont transformées en différences premières afin de travailler sur des dynamiques stationnaires.
-  \end{alertblock}
-\end{frame}
-
-\subsection{Mesures de persistance}
-
-
-
-\begin{frame}[shrink=30]{Persistance agrégée et sectorielle}
+\begin{frame}[shrink=15]{Impact des transferts sur l'IPM-Enfant}
   \begin{table}
     \centering
-    \caption{Mesure de persistance sectorielle et agrégée}
-    \renewcommand{\arraystretch}{1.15}
-    \scriptsize
-    \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lccc>{\raggedright\arraybackslash}p{3.1cm}@{}}
+    \caption{Effet moyen sur les traités (ATT) --- PSM et PSM-DD}
+    \renewcommand{\arraystretch}{1.3}
+    \begin{tabular}{lcccc}
       \toprule
-      Branche & M1 & M2 & M3 & Lecture \\
+      Méthode & ATT & Éc.-t. & $p$-valeur & Interprétation \\
       \midrule
-      Agriculture              & \begin{tabular}[t]{@{}c@{}}1,15\\{\scriptsize(0,20)}\end{tabular} & \begin{tabular}[t]{@{}c@{}}1,05\\{\scriptsize(0,18)}\end{tabular} & \begin{tabular}[t]{@{}c@{}}1,08\\{\scriptsize(0,19)}\end{tabular} & Persistant \\
-      Manufacture              & \begin{tabular}[t]{@{}c@{}}1,06\\{\scriptsize(0,20)}\end{tabular} & \begin{tabular}[t]{@{}c@{}}1,14\\{\scriptsize(0,20)}\end{tabular} & \begin{tabular}[t]{@{}c@{}}1,07\\{\scriptsize(0,19)}\end{tabular} & Persistant \\
-      Commerce                 & \begin{tabular}[t]{@{}c@{}}0,95\\{\scriptsize(0,17)}\end{tabular} & \begin{tabular}[t]{@{}c@{}}1,01\\{\scriptsize(0,17)}\end{tabular} & \begin{tabular}[t]{@{}c@{}}0,98\\{\scriptsize(0,17)}\end{tabular} & Modérément persistant \\
-      Transport                & \begin{tabular}[t]{@{}c@{}}0,91\\{\scriptsize(0,16)}\end{tabular} & \begin{tabular}[t]{@{}c@{}}0,97\\{\scriptsize(0,18)}\end{tabular} & \begin{tabular}[t]{@{}c@{}}0,96\\{\scriptsize(0,18)}\end{tabular} & Plutôt transitoire \\
-      Hébergement              & \begin{tabular}[t]{@{}c@{}}0,71\\{\scriptsize(0,12)}\end{tabular} & \begin{tabular}[t]{@{}c@{}}1,01\\{\scriptsize(0,17)}\end{tabular} & \begin{tabular}[t]{@{}c@{}}0,96\\{\scriptsize(0,16)}\end{tabular} & Effet variable \\
-      Immobilier               & \begin{tabular}[t]{@{}c@{}}1,01\\{\scriptsize(0,17)}\end{tabular} & \begin{tabular}[t]{@{}c@{}}1,02\\{\scriptsize(0,18)}\end{tabular} & \begin{tabular}[t]{@{}c@{}}1,08\\{\scriptsize(0,18)}\end{tabular} & Persistant \\
-      Autre                    & \begin{tabular}[t]{@{}c@{}}0,99\\{\scriptsize(0,16)}\end{tabular} & \begin{tabular}[t]{@{}c@{}}1,03\\{\scriptsize(0,18)}\end{tabular} & \begin{tabular}[t]{@{}c@{}}1,01\\{\scriptsize(0,17)}\end{tabular} & Modérément persistant \\
+      PSM -- $k$-ppv ($k=1$)   & \dots & \dots & \dots & \dots \\
+      PSM -- $k$-ppv ($k=4$)   & \dots & \dots & \dots & \dots \\
+      PSM -- noyau              & \dots & \dots & \dots & \dots \\
       \midrule
-      \textbf{Informel}        & \multicolumn{3}{c}{\begin{tabular}[t]{@{}c@{}}\textbf{1,06}\\{\scriptsize\textbf{(0,19)}}\end{tabular}} & \textbf{Effets durables} \\
+      \textbf{PSM-DD}           & \dots & \dots & \dots & \textbf{\dots} \\
       \bottomrule
-    \end{tabular*}
+    \end{tabular}
   \end{table}
-  \vspace{-0.1cm}
-  \begin{block}{Lecture}
-    Les valeurs entre parenthèses sont les écarts-types. Les résultats confirment une persistance élevée pour l'agriculture, la manufacture et l'immobilier.
+  \begin{alertblock}{Lecture}
+    Un ATT négatif et significatif indique que les transferts \textbf{réduisent} l'IPM-Enfant
+    des ménages bénéficiaires par rapport aux non-bénéficiaires comparables.
+  \end{alertblock}
+\end{frame}
+
+\begin{frame}{Effets par dimension de la pauvreté}
+  \begin{block}{Décomposition des effets}
+    \centering
+    % \includegraphics[width=0.80\linewidth]{figures/effets_dimensions.pdf}
+    {[\textit{Graphique : impact des transferts par dimension (éducation, santé, niveau de vie)}]}
+  \end{block}
+  \begin{block}{Hétérogénéité}
+    \begin{itemize}
+      \item Effets plus marqués en milieu \dots
+      \item Dimension la plus impactée : \dots
+    \end{itemize}
   \end{block}
 \end{frame}
 
-\subsection{Transmission du secteur formel}
+% ============================================================
+\section[Robustesse]{Robustesse et discussion}
+% ============================================================
 
-\begin{frame}{Transmission des chocs du secteur formel}
-  \begin{block}{Tests de Fisher sur $H_{1}$}
+\subsection{Tests de robustesse}
+
+\begin{frame}{Tests de robustesse}
+  \begin{block}{Sensibilité des résultats}
     \begin{itemize}
-      \item Aucune branche ne montre de transmission significative au seuil de 5\,\%.
-      \item $p$-values comprises entre \textbf{0,255} et \textbf{0,856} selon les branches.
-      \item $H_{1}$ (absence de transmission) ne peut être rejetée.
+      \item Variation du seuil inter-dimensionnel $k \in \{1/6, 1/3, 1/2\}$ : résultats \dots
+      \item Autres méthodes d'appariement (radius, noyau, stratification) : résultats \dots
+      \item Test de sensibilité de Rosenbaum : résultats stables pour $\Gamma \leq \dots$
     \end{itemize}
   \end{block}
-  \pause
-  \begin{alertblock}{Résultat central : segmentation dualiste}
-    \begin{itemize}
-      \item Le secteur formel \textbf{ne transmet pas} ses chocs vers l'informel.
-      \item L'informel sénégalais suit une logique productive largement autonome.
-      \item \textbf{H3 non validée} --- segmentation structurelle confirmée.
-    \end{itemize}
+  \begin{alertblock}{Vérification de l'hypothèse de tendances parallèles}
+    Comparaison des tendances pré-traitement entre ménages traités et non-traités :
+    différence non significative ($p = \dots$) $\Rightarrow$ hypothèse valide.
   \end{alertblock}
-  \pause
-  \begin{block}{Mécanismes explicatifs}
-    Faible intégration des marchés, différence de clientèle,\\
-    absorption des chocs par des mécanismes propres à l'informel.
-  \end{block}
 \end{frame}
 
 \begin{frame}{Validation des hypothèses --- Synthèse}
@@ -530,18 +471,13 @@
     \centering
     \caption{Bilan des hypothèses de recherche}
     \renewcommand{\arraystretch}{2}
-    \begin{tabular}{c p{3.5cm} p{6cm} c}
+    \begin{tabular}{c p{3.8cm} p{5.8cm} c}
       \toprule
       Hyp. & Énoncé & Résultat & Décision \\
       \midrule
-      H1 & Chocs permanents dans l'informel
-         & Persistance agrégée supérieure à 1 : $P_{\text{agg}}=1{,}06$ & \textbf{Validée} \\[4pt]
-      H2 & Hétérogénéité sectorielle
-         & Forte persistance en agriculture ($1{,}08$--$1{,}15$) ; effet plus faible en transport ($0{,}91$--$0{,}97$)
-         & \textbf{Validée} \\[4pt]
-      H3 & Transmission formel $\to$ informel
-         & Aucune transmission significative : $p$-values entre $0{,}255$ et $0{,}856$
-         & \textbf{Rejetée} \\
+      H1 & Réduction de l'IPM-Enfant & ATT = \dots, significatif à \dots\,\% & \textbf{\dots} \\[4pt]
+      H2 & Hétérogénéité des effets   & Effets plus forts en \dots            & \textbf{\dots} \\[4pt]
+      H3 & PSM-DD contrôle les biais  & Support commun OK ; tendances // vérifiées & \textbf{\dots} \\
       \bottomrule
     \end{tabular}
   \end{table}
@@ -554,18 +490,15 @@
 \subsection{Conclusion générale}
 
 \begin{frame}{Conclusion générale}
-  \begin{block}{Principaux résultats}
+  \begin{block}{Principaux apports}
     \begin{enumerate}
-      \item Les chocs économiques laissent des effets \textbf{durables} sur l'informel \\
-            (persistance agrégée $= 1{,}06$).
+      \item Mesure de la pauvreté multidimensionnelle des enfants sur deux vagues EHCVM.
       \pause
-      \item Agriculture et manufacture sont les branches \textbf{les plus vulnérables}.
+      \item Estimation causale robuste par PSM-Double différence.
       \pause
-      \item Absence de transmission significative du formel :
-            \textbf{segmentation dualiste} confirmée.
+      \item Mise en évidence d'un effet \dots des transferts sur l'IPM-Enfant.
       \pause
-      \item H1 et H2 \textbf{validées} ;
-            H3 \textbf{non validée}.
+      \item Hétérogénéité des effets selon le milieu et la dimension.
     \end{enumerate}
   \end{block}
 \end{frame}
@@ -573,19 +506,19 @@
 \subsection{Recommandations}
 
 \begin{frame}{Recommandations de politique économique}
-  \begin{block}{Soutien aux acteurs informels}
+  \begin{block}{Faciliter et orienter les transferts}
     \begin{itemize}
-      \item Cibler les soutiens par branche selon la vulnérabilité.
-      \item Développer le micro-crédit et l'assurance-chocs.
-      \item Encourager la diversification des revenus.
+      \item Réduire les coûts de transaction des envois de fonds formels.
+      \item Encourager le fléchage des transferts vers l'éducation et la santé des enfants.
+      \item Développer des produits d'épargne liés aux transferts pour les ménages ruraux.
     \end{itemize}
   \end{block}
   \pause
-  \begin{block}{Résilience et formalisation}
+  \begin{block}{Renforcer les politiques sociales complémentaires}
     \begin{itemize}
-      \item Favoriser une transition formelle graduelle et incitative.
-      \item Simplifier la fiscalité pour les petites unités.
-      \item Améliorer la production statistique sur l'informel.
+      \item Cibler les ménages non-bénéficiaires de transferts dans les programmes de protection sociale.
+      \item Améliorer l'offre de services publics (écoles, centres de santé) dans les zones d'émigration.
+      \item Renforcer les systèmes de collecte de données sur les migrations et les transferts.
     \end{itemize}
   \end{block}
 \end{frame}
@@ -595,15 +528,19 @@
 \begin{frame}[shrink=8]{Limites et perspectives de recherche}
   \begin{alertblock}{Limites de l'étude}
     \begin{itemize}
-      \item Reconstitution des données avant 2014 : incertitude statistique.
-      \item Seuls les chocs du formel sont testés comme source externe.
-      \item Données annuelles : dynamiques infra-annuelles non captées.
-      \item Modèle VAR linéaire : pas d'asymétrie de réaction.
+      \item Panel non cylindré : suivi partiel des ménages entre les deux vagues.
+      \item L'hypothèse de tendances parallèles reste invérifiable sur les variables inobservées.
+      \item Mesure imparfaite des transferts (montants, fréquence, origine géographique).
+      \item Effets de spillover possibles entre ménages bénéficiaires et non-bénéficiaires.
     \end{itemize}
   \end{alertblock}
   \pause
-  \begin{block}{Contribution}
-    Première application de la mesure de persistance multisectorielle à l'économie informelle sénégalaise.
+  \begin{block}{Perspectives}
+    \begin{itemize}
+      \item Analyser les mécanismes de transmission (dépenses en éducation, santé, logement).
+      \item Étendre l'analyse aux autres pays de l'UEMOA couverts par l'EHCVM.
+      \item Intégrer la dimension genre de l'enfant et du chef de ménage.
+    \end{itemize}
   \end{block}
 \end{frame}
 
@@ -620,87 +557,11 @@
     \end{tikzpicture}\\[0.8cm]
     {\large\textit{Questions et échanges}}\\[1cm]
     \small
-    \textbf{Sié Rachid TRAORÉ} \quad|\quad \textbf{Fallou NGOM}\\[0.3cm]
-    \textit{Sous la supervision de Mme Ramlatou DIALLO}\\[0.2cm]
-    ENSAE Pierre Ndiaye --- Mai 2026
+    \textbf{Sié Rachid TRAORÉ}\\[0.3cm]
+    \textit{Sous la direction de Prénom NOM}\\[0.2cm]
+    ENSAE Pierre Ndiaye --- Juin 2026
   \end{center}
 \end{frame}
 \endgroup
-
-% ============================================================
-\section[Graphiques]{Graphiques descriptifs}
-% ============================================================
-
-\begin{frame}{Graphique : agriculture informelle}
-  \hypertarget{graphiquesdesc}{}
-  \begin{block}{Agriculture informelle}
-    \centering
-    \includegraphics[width=0.88\linewidth,height=0.60\textheight,keepaspectratio]{prism-uploads/agriculture.jpg}
-  \end{block}
-  \centering
-  \vspace{-0.05cm}
-  \hyperlink{retourgraph}{\beamerbutton{Retour}}
-\end{frame}
-
-\begin{frame}{Graphique : commerce informel}
-  \begin{block}{Commerce informel}
-    \centering
-    \includegraphics[width=0.88\linewidth,height=0.60\textheight,keepaspectratio]{prism-uploads/Commerce.jpg}
-  \end{block}
-  \centering
-  \vspace{-0.05cm}
-  \hyperlink{retourgraph}{\beamerbutton{Retour}}
-\end{frame}
-
-\begin{frame}{Graphique : hébergement et restauration}
-  \begin{block}{Hébergement et restauration}
-    \centering
-    \includegraphics[width=0.88\linewidth,height=0.60\textheight,keepaspectratio]{prism-uploads/hebergement.jpg}
-  \end{block}
-  \centering
-  \vspace{-0.05cm}
-  \hyperlink{retourgraph}{\beamerbutton{Retour}}
-\end{frame}
-
-\begin{frame}{Graphique : immobilier informel}
-  \begin{block}{Immobilier informel}
-    \centering
-    \includegraphics[width=0.88\linewidth,height=0.60\textheight,keepaspectratio]{prism-uploads/Immobilier.jpg}
-  \end{block}
-  \centering
-  \vspace{-0.05cm}
-  \hyperlink{retourgraph}{\beamerbutton{Retour}}
-\end{frame}
-
-\begin{frame}{Graphique : manufacture informelle}
-  \begin{block}{Manufacture informelle}
-    \centering
-    \includegraphics[width=0.88\linewidth,height=0.60\textheight,keepaspectratio]{prism-uploads/Manufacture.jpg}
-  \end{block}
-  \centering
-  \vspace{-0.05cm}
-  \hyperlink{retourgraph}{\beamerbutton{Retour}}
-\end{frame}
-
-\begin{frame}{Graphique : transport informel}
-  \begin{block}{Transport informel}
-    \centering
-    \includegraphics[width=0.88\linewidth,height=0.60\textheight,keepaspectratio]{prism-uploads/transport.jpg}
-  \end{block}
-  \centering
-  \vspace{-0.05cm}
-  \hyperlink{retourgraph}{\beamerbutton{Retour}}
-\end{frame}
-
-\begin{frame}{Graphique : reste de l'informel}
-  \begin{block}{Reste de l'informel}
-    \centering
-    \includegraphics[width=0.88\linewidth,height=0.60\textheight,keepaspectratio]{prism-uploads/autre.jpg}
-  \end{block}
-  \centering
-  \vspace{-0.05cm}
-  \hyperlink{retourgraph}{\beamerbutton{Retour}}
-\end{frame}
-
 
 \end{document}

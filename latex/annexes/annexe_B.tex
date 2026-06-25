@@ -1,0 +1,31 @@
+\chapter{Code R pour la mise en œuvre de la méthode PSM-DD}
+\label{ann:B}
+
+\section{Nettoyage et fusion des bases EHCVM I et II}
+
+Les principales étapes de traitement des données sont :
+\begin{enumerate}
+  \item Importation des bases EHCVM I et II sous R ;
+  \item Harmonisation des variables entre les deux vagues ;
+  \item Identification des ménages présents dans les deux vagues (panel) ;
+  \item Construction des indicateurs de privation pour chaque dimension de l'IPM ;
+  \item Calcul de l'IPM-Enfant selon la méthode Alkire-Foster.
+\end{enumerate}
+
+\section{Estimation du score de propension}
+
+Le score de propension est estimé à l'aide de la fonction \texttt{glm()} sous R avec la famille \texttt{binomial(link = "probit")}.
+
+\section{Appariement}
+
+L'appariement est réalisé avec le package \texttt{MatchIt} \parencite{ho2011matchit} et la double différence est calculée après appariement.
+
+@article{ho2011matchit,
+  author  = {Ho, Daniel E. and Imai, Kosuke and King, Gary and Stuart, Elizabeth A.},
+  title   = {MatchIt: Nonparametric Preprocessing for Parametric Causal Inference},
+  journal = {Journal of Statistical Software},
+  year    = {2011},
+  volume  = {42},
+  number  = {8},
+  pages   = {1--28}
+}

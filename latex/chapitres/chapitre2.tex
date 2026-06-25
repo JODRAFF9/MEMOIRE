@@ -1,0 +1,592 @@
+\chapter{Cadre methodologique}
+\label{chap:methodo}
+
+Ce chapitre presente l'architecture methodologique de l'etude. Nous exposons
+successivement la construction de l'indice de pauvrete multidimensionnelle
+adapte aux enfants senegalais (IPM-Enfant), les donnees mobilisees, et la
+strategie d'identification causale fondee sur la combinaison du score de
+propension et de la double difference.
+
+% ─────────────────────────────────────────────────────────────────────────────
+\section{Mesure de la pauvrete multidimensionnelle des enfants}
+% ─────────────────────────────────────────────────────────────────────────────
+
+\subsection{Fondements conceptuels : l'approche des capabilites et la methode
+Alkire-Foster}
+
+La mesure monetaire de la pauvrete, fondee sur le revenu ou la consommation
+par habitant, presente des limites bien documentees pour saisir les conditions
+de vie des enfants. Elle ne rend pas compte des privations dans des dimensions
+essentielles au developpement humain - education, sante, acces a l'eau et a
+l'assainissement - qui peuvent persister meme en l'absence de deficience
+monetaire, et elle ne capte pas la simultaneite des privations qui caracterise
+les situations de grande vulnerabilite \parencite{sen1999, gordon2003}.
+
+L'approche par les capabilites de \textcite{sen1985} fournit un socle
+conceptuel plus adapte : ce qui importe n'est pas seulement les ressources
+dont dispose un individu, mais sa capacite reelle a fonctionner -- a etre
+nourri, eduque, en bonne sante. Appliquee aux enfants, cette approche invite
+a mesurer les manques dans chacune des dimensions fondamentales du bien-etre
+infantile plutot que de ramener la pauvrete a une seule metrique monetaire.
+
+La methode d'Alkire-Foster \parencite{alkire2007, alkire2011} operationnalise
+ce cadre conceptuel en deux etapes -- identification et agregation -- et
+satisfait un ensemble de proprietes axiomatiques souhaitables (invariance
+d'echelle, monotonie, sensibilite a l'intensite). Elle est aujourd'hui
+utilisee comme fondement methodologique de l'Indice de Developpement Humain
+(IDH) ajuste aux inegalites du PNUD \parencite{pnud2010} et est adaptee a
+plusieurs contextes nationaux en Afrique subsaharienne
+\parencite{batana2013, batiston2013}.
+
+\subsection{Dimensions, indicateurs et seuils retenus}
+
+Le choix des dimensions et indicateurs repond a deux contraintes : leur
+pertinence conceptuelle pour le bien-etre de l'enfant au Senegal, et leur
+disponibilite dans les deux vagues de l'EHCVM. Nous retenons trois grandes
+dimensions -- education, sante et niveau de vie -- declinee chacune en deux
+indicateurs, soit $d = 6$ indicateurs au total, chacun affecte d'un poids
+egal de $w_j = 1/6$.
+
+\begin{table}[H]
+  \centering
+  \caption{Dimensions, indicateurs et seuils de privation de l'IPM-Enfant}
+  \label{tab:ipm_indicateurs}
+  \begin{threeparttable}
+    \begin{tabular}{p{2.5cm}p{3.5cm}p{5.5cm}c}
+      \toprule
+      Dimension    & Indicateur              & Seuil de privation                       & Poids \\
+      \midrule
+      \multirow{2}{2.5cm}{Education}
+                   & Frequentation scolaire  & Enfant de 6 a 17 ans non scolarise        & 1/6   \\[4pt]
+                   & Retard scolaire         & Retard scolaire superieur ou egal a 2 ans & 1/6   \\
+      \midrule
+      \multirow{2}{2.5cm}{Sante}
+                   & Suivi nutritionnel      & Aucune consultation de sante dans
+                                              les 12 derniers mois                       & 1/6   \\[4pt]
+                   & Vaccination             & Vaccination incomplete pour les enfants
+                                              de 0 a 5 ans                               & 1/6   \\
+      \midrule
+      \multirow{2}{2.5cm}{Niveau de vie}
+                   & Acces a l'eau potable   & Eau de boisson non amelioree              & 1/6   \\[4pt]
+                   & Assainissement          & Toilettes ou latrines non ameliorees      & 1/6   \\
+      \bottomrule
+    \end{tabular}
+    \begin{tablenotes}
+      \small
+      \item \textit{Note :} Les definitions des sources ameliorees d'eau et
+      d'assainissement suivent les normes JMP (Joint Monitoring Programme
+      WHO/UNICEF). Le retard scolaire est mesure par la difference entre
+      l'age de l'enfant et l'age theorique correspondant a son niveau.
+    \end{tablenotes}
+  \end{threeparttable}
+\end{table}
+
+Le choix du seuil de frequentation scolaire (6-17 ans) correspond au cycle
+primaire et secondaire au Senegal. Les indicateurs de sante refletent les deux
+formes les plus documentees de deprivation sanitaire chez l'enfant en Afrique
+subsaharienne : le defaut de suivi preventif et le retard vaccinal
+\parencite{unicef2007}. Les indicateurs de niveau de vie renseignent sur les
+conditions environnementales du developpement de l'enfant au sein du menage.
+
+\subsection{Construction de l'IPM-Enfant}
+
+\subsubsection{Etape 1 : identification des prive et des multidimensionnellement
+pauvres}
+
+Soit $n$ enfants, $d = 6$ indicateurs et $y_{ij}$ la valeur de l'indicateur
+$j$ pour l'enfant $i$. On definit pour chaque indicateur un seuil de privation
+$z_j$. La variable de privation elementaire est :
+\begin{equation}
+  g_{ij} = \mathbf{1}\left[y_{ij} < z_j\right]
+  \label{eq:privation}
+\end{equation}
+
+Le score de privation pondere de l'enfant $i$ est :
+\begin{equation}
+  c_i = \sum_{j=1}^{d} w_j \, g_{ij}
+  \label{eq:score}
+\end{equation}
+
+Avec des poids egaux $w_j = 1/6$, le score $c_i$ varie entre 0 et 1. Un
+enfant est qualifie de \textit{multidimensionnellement pauvre} si son score
+de privation depasse le seuil inter-dimensionnel $k$ :
+\begin{equation}
+  \rho_k(y_i; z) =
+  \begin{cases}
+    1 & \text{si } c_i \geq k \\
+    0 & \text{sinon}
+  \end{cases}
+  \label{eq:identification}
+\end{equation}
+
+Nous retenons $k = 1/3$, ce qui signifie qu'un enfant est considere comme
+pauvre s'il est prive dans au moins deux indicateurs sur six (soit au moins
+$1/3$ du score total). Ce seuil correspond a celui utilise par le PNUD pour
+l'IPM mondial et est conforme aux recommandations de \textcite{alkire2013}.
+
+\subsubsection{Etape 2 : agregation -- l'IPM-Enfant}
+
+La mesure agregee $M_0$ est obtenue en multipliant l'incidence de la pauvrete
+$H$ par son intensite moyenne $A$ :
+\begin{equation}
+  M_0 = H \times A
+  \label{eq:ipm}
+\end{equation}
+
+L'incidence $H$ designe la proportion d'enfants multidimensionnellement
+pauvres parmi l'ensemble des enfants enquetes :
+\begin{equation}
+  H = \frac{q}{n}
+  \label{eq:incidence}
+\end{equation}
+ou $q = \sum_{i=1}^{n} \rho_k(y_i; z)$ est le nombre d'enfants pauvres.
+
+L'intensite moyenne $A$ mesure la part moyenne des privations subies par les
+enfants pauvres :
+\begin{equation}
+  A = \frac{1}{q} \sum_{i=1}^{n} \rho_k(y_i; z) \cdot c_i
+  \label{eq:intensite}
+\end{equation}
+
+La mesure $M_0$ est donc l'esperance du score de privation pondere, calculee
+sur l'ensemble de la population (et pas seulement sur les pauvres). Elle
+satisfait la \textit{monotonicite dimensionnelle} : si un enfant pauvre acquiert
+une privation supplementaire, $M_0$ augmente strictement.
+
+\subsubsection{Decomposabilite par sous-groupes et par dimensions}
+
+Une propriete cle de $M_0$ est sa \textit{decomposabilite} : la mesure
+d'ensemble est la moyenne ponderee des mesures des sous-groupes. Pour un
+groupe $\ell$ de taille $n_\ell$, on a :
+\begin{equation}
+  M_0 = \sum_{\ell} \frac{n_\ell}{n} \, M_0^\ell
+  \label{eq:decomp_groupe}
+\end{equation}
+
+De meme, la contribution de chaque dimension $j$ a l'IPM-Enfant est :
+\begin{equation}
+  \text{Contribution}_j = \frac{w_j \, \sum_{i=1}^{n} \rho_k(y_i;z) \, g_{ij}}{q \cdot A}
+  \label{eq:decomp_dim}
+\end{equation}
+
+Ces proprietes permettront d'analyser l'heterogeneite des resultats selon le
+milieu de residence, le genre et la region, ainsi que d'identifier les
+dimensions sur lesquelles les transferts ont le plus d'effet.
+
+% ─────────────────────────────────────────────────────────────────────────────
+\section{Donnees : les enquetes EHCVM I et II}
+% ─────────────────────────────────────────────────────────────────────────────
+
+\subsection{Presentation des enquetes harmonisees sur les conditions de vie
+des menages}
+
+Les Enquetes Harmonisees sur les Conditions de Vie des Menages (EHCVM) sont
+realisees dans le cadre du programme statistique de l'UEMOA (Union Economique
+et Monetaire Ouest-Africaine). Elles ont ete concues pour permettre des
+comparaisons temporelles et spatiales entre les pays membres.
+
+\textbf{L'EHCVM I (2018-2019)} constitue la premiere vague nationale au
+Senegal \parencite{ansd2019}. Elle couvre l'ensemble des 14 regions du pays
+et a enquete un echantillon representatif de menages a travers un plan de
+sondage stratifie a deux degres -- strate (region x milieu) comme unite
+primaire, puis menage comme unite finale. La base de donnees contient des
+informations detaillees sur les caracteristiques demographiques, l'acces aux
+services sociaux de base, les conditions de logement, les depenses de
+consommation, et les sources de revenus incluant les transferts recus de
+l'etranger.
+
+\textbf{L'EHCVM II (2021-2022)} constitue la deuxieme vague \parencite{ansd2022}.
+Elle a ete realisee selon le meme protocole d'echantillonnage, permettant la
+reconstitution d'un pseudo-panel au niveau des zones de residence. La periode
+d'enquete couvre les annees 2021 a 2022, offrant ainsi une fenetre temporelle
+qui inclut les effets de la reprise economique post-Covid-19 et les evolutions
+structurelles des flux migratoires.
+
+\subsection{Construction de l'echantillon d'analyse}
+
+\subsubsection{Population cible}
+
+Notre unite d'analyse est l'enfant. Sont inclus dans l'echantillon tous les
+enfants ages de 0 a 17 ans residant dans les menages enquetes dans les deux
+vagues de l'EHCVM.
+
+\subsubsection{Constitution du pseudo-panel}
+
+En l'absence d'un panel strict -- les memes menages suivis dans les deux
+vagues -- nous construisons un \textit{pseudo-panel} \parencite{deaton1997}.
+La strategie consiste a apparier les cellules de cohorte definies par des
+groupes d'age et des zones de residence, supposees stables entre les deux
+vagues. Nous utilisons les identifiants de grappe disponibles dans les deux
+bases pour relier les observations.
+
+\subsubsection{Criteres d'inclusion et de nettoyage}
+
+Les etapes de nettoyage suivantes sont appliquees :
+\begin{enumerate}
+  \item \textit{Restriction a l'age} : conservation des enfants de 0 a 17 ans
+        presents dans les deux vagues ;
+  \item \textit{Coherence des informations} : suppression des observations
+        pour lesquelles plus de deux indicateurs de l'IPM-Enfant sont
+        manquants ;
+  \item \textit{Variables de traitement} : seuls les menages pour lesquels
+        l'information sur les transferts recus est disponible dans les deux
+        vagues sont retenus.
+\end{enumerate}
+
+\subsection{Variable de traitement : reception de transferts de migrants}
+
+La variable de traitement $D_i$ est definie a partir de la section des
+enquetes EHCVM relative aux transferts. Un menage est considere comme
+\textit{traite} ($D_i = 1$) s'il a declare avoir recu des transferts provenant
+d'un membre emigre au cours des 12 mois precedant l'enquete. Cette definition
+est conforme a celle adoptee dans la litterature empirique africaine sur les
+remittances \parencite{azam2016, combes2019}.
+
+Deux statuts de traitement sont distingues :
+\begin{itemize}
+  \item \textbf{Traitement stable} : menage beneficiaire dans les deux vagues
+        (traite persistant) ;
+  \item \textbf{Traitement entrant} : menage non-beneficiaire en vague I,
+        beneficiaire en vague II.
+\end{itemize}
+
+L'analyse principale porte sur le statut de beneficiaire tel que renseigne
+dans chaque vague. Des analyses de sensibilite explorent la robustesse des
+resultats selon la definition du traitement.
+
+\subsection{Variables de l'IPM-Enfant dans les bases EHCVM}
+
+\begin{table}[H]
+  \centering
+  \caption{Correspondance entre indicateurs IPM-Enfant et variables EHCVM}
+  \label{tab:correspondance}
+  \begin{tabular}{p{3cm}p{4.5cm}p{4.5cm}}
+    \toprule
+    Indicateur IPM       & Variable EHCVM I          & Variable EHCVM II \\
+    \midrule
+    Frequentation scolaire & Scolarisation actuelle    & Scolarisation actuelle \\
+    Retard scolaire        & Age et niveau actuel      & Age et niveau actuel \\
+    Suivi nutritionnel     & Consultation 12 derniers  & Consultation 12 derniers \\
+                           & mois                      & mois \\
+    Vaccination            & Carnet de vaccination     & Carnet de vaccination \\
+    Eau potable            & Source d'eau de boisson   & Source d'eau de boisson \\
+    Assainissement         & Type de toilettes         & Type de toilettes \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\subsection{Covariables du modele de propension}
+
+Les covariables retenues pour l'estimation du score de propension sont
+selectionnees sur la base de deux criteres : (i) elles doivent etre des
+determinants a la fois de la reception de transferts et du niveau de pauvrete
+multidimensionnelle des enfants, et (ii) elles doivent etre observables
+anterieurement ou simultanement a la decision de transfert, de sorte qu'elles
+ne soient pas affectees par le traitement lui-meme.
+
+\begin{table}[H]
+  \centering
+  \caption{Covariables du modele de propension}
+  \label{tab:covariables}
+  \begin{tabular}{p{4.5cm}p{7cm}}
+    \toprule
+    Groupe                        & Variables \\
+    \midrule
+    Caracteristiques du chef      & Age, sexe (feminin = 1), niveau
+    de menage                     & d'education (aucun / primaire / secondaire
+                                  & et plus), statut matrimonial \\
+    \midrule
+    Composition du menage         & Taille du menage, ratio de dependance,
+                                  & nombre d'enfants de moins de 5 ans \\
+    \midrule
+    Localisation                  & Milieu de residence (urbain = 1),
+                                  & region administrative (14 regions) \\
+    \midrule
+    Actifs et patrimoine          & Possession de terres agricoles,
+                                  & acces a l'electricite \\
+    \midrule
+    Caracteristiques migratoires  & Presence d'un emigre dans le menage,
+    du menage                     & nombre d'annees de migration \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+% ─────────────────────────────────────────────────────────────────────────────
+\section{Strategie d'identification causale : PSM combine a la double
+difference}
+% ─────────────────────────────────────────────────────────────────────────────
+
+\subsection{Le cadre des resultats potentiels}
+
+Pour formaliser le probleme causal, nous adoptons le cadre de Rubin
+\parencite{angrist2009}. Pour chaque enfant $i$, on definit deux resultats
+potentiels : $Y_i(1)$ l'IPM-Enfant si le menage recoit des transferts, et
+$Y_i(0)$ l'IPM-Enfant si le menage n'en recoit pas. L'effet individuel du
+traitement est $\tau_i = Y_i(1) - Y_i(0)$.
+
+Le probleme fondamental de l'inference causale est qu'un seul de ces deux
+resultats est observe pour chaque enfant. On observe :
+\begin{equation}
+  Y_i = D_i \cdot Y_i(1) + (1 - D_i) \cdot Y_i(0)
+  \label{eq:observed}
+\end{equation}
+
+Le parametre d'interet est l'effet moyen du traitement sur les traites (ATT) :
+\begin{equation}
+  \tau_{ATT} = \E\left[Y_i(1) - Y_i(0) \mid D_i = 1\right]
+  \label{eq:att}
+\end{equation}
+
+L'estimateur naif $\E[Y_i \mid D_i = 1] - \E[Y_i \mid D_i = 0]$ est biaise
+car les menages beneficiaires et non-beneficiaires different systematiquement,
+tant sur des caracteristiques observables qu'inobservables (biais de
+selection).
+
+\subsection{L'appariement par score de propension}
+
+\subsubsection{Hypotheses d'identification du PSM}
+
+Le PSM repose sur deux hypotheses fondamentales :
+
+\begin{itemize}
+  \item \textbf{Independance conditionnelle (CIA)} : conditionnellement aux
+        covariables observees $X_i$, les resultats potentiels sont independants
+        du statut de traitement :
+        \begin{equation}
+          \left(Y_i(0),\, Y_i(1)\right) \perp D_i \mid X_i
+          \label{eq:cia}
+        \end{equation}
+        Cette hypothese implique que, une fois controlees les caracteristiques
+        observables, la selection dans le traitement est aleatoire.
+
+  \item \textbf{Support commun (overlap)} : pour chaque profil de covariables,
+        il existe une probabilite strictement positive d'etre traite ou
+        non-traite :
+        \begin{equation}
+          0 < P(D_i = 1 \mid X_i) < 1
+          \label{eq:overlap}
+        \end{equation}
+        Cette condition garantit que l'appariement est possible pour chaque
+        traite.
+\end{itemize}
+
+\textcite{rosenbaum1983} ont montre que si la CIA est satisfaite pour $X_i$,
+elle l'est egalement pour le \textit{score de propension} $p(X_i) = P(D_i = 1
+\mid X_i)$, ce qui reduit le probleme de dimension de $\dim(X)$ a une seule
+dimension.
+
+\subsubsection{Estimation du score de propension par un modele probit}
+
+Le score de propension est estime par un modele probit :
+\begin{equation}
+  p(X_i) = P(D_i = 1 \mid X_i) = \Phi\left(X_i'\hat{\beta}\right)
+  \label{eq:probit}
+\end{equation}
+ou $\Phi$ est la fonction de repartition de la loi normale standard et
+$\hat{\beta}$ le vecteur de coefficients estime par maximum de vraisemblance.
+Le choix du probit est standard dans la litterature PSM
+\parencite{caliendo2008} et robuste aux distributions non normales des
+covariables discretes.
+
+La qualite du modele de propension est evaluee par la statistique du Chi-deux
+du rapport de vraisemblance, la courbe ROC et la verification graphique des
+distributions de scores entre traites et temoins.
+
+\subsubsection{Algorithmes d'appariement}
+
+Nous implementons trois algorithmes d'appariement dont les resultats sont
+compares pour verifier la robustesse :
+
+\begin{enumerate}
+  \item \textbf{Appariement aux $k$ plus proches voisins} ($k$-NN) avec
+        $k = 4$ et remplacement : chaque traite est apparie avec les 4
+        non-traites dont le score de propension est le plus proche.
+        L'estimateur de l'ATT est :
+        \begin{equation}
+          \hat{\tau}_{k\text{-NN}} = \frac{1}{n_T} \sum_{i \in \mathcal{T}}
+          \left[Y_i - \frac{1}{k}\sum_{j \in \mathcal{N}(i)} Y_j\right]
+          \label{eq:knn}
+        \end{equation}
+        ou $\mathcal{N}(i)$ est l'ensemble des $k$ plus proches voisins de $i$
+        dans $\mathcal{C}$.
+
+  \item \textbf{Appariement par noyau gaussien} : chaque traite est compare
+        a une moyenne ponderee de l'ensemble des non-traites, avec des poids
+        decroissant avec la distance en score de propension :
+        \begin{equation}
+          \hat{\tau}_{\text{kernel}} = \frac{1}{n_T} \sum_{i \in \mathcal{T}}
+          \left[Y_i - \frac{\sum_{j \in \mathcal{C}} K\!\left(\frac{p_i - p_j}{h}\right) Y_j}
+          {\sum_{j \in \mathcal{C}} K\!\left(\frac{p_i - p_j}{h}\right)}\right]
+          \label{eq:kernel}
+        \end{equation}
+        ou $K(\cdot)$ est un noyau gaussien et $h$ la largeur de bande
+        optimisee par validation croisee.
+
+  \item \textbf{Appariement par rayon} (\textit{caliper matching}) : l'
+        appariement est restreint aux non-traites dont le score se situe dans
+        un rayon $\epsilon = 0{,}05$ autour du score du traite, eliminant les
+        appariements de mauvaise qualite.
+\end{enumerate}
+
+\subsubsection{Tests d'equilibre apres appariement}
+
+La qualite de l'appariement est evaluee par les tests d'equilibre des
+covariables entre le groupe des traites et le groupe de controle apparie. Nous
+utilisons :
+\begin{itemize}
+  \item Le \textit{standardised bias} (SB) de \textcite{rosenbaum1983} :
+        \begin{equation}
+          SB_j = 100 \cdot \frac{\bar{X}_{1j} - \bar{X}_{0j}}
+          {\sqrt{0{,}5\left(V_{1j} + V_{0j}\right)}}
+          \label{eq:sb}
+        \end{equation}
+        Un $|SB| < 10$ indique un bon equilibre \parencite{caliendo2008} ;
+  \item Le test $t$ d'egalite des moyennes avant et apres appariement ;
+  \item La statistique pseudo-$R^2$ du modele de propension : un $R^2$
+        faible apres appariement indique que les covariables n'expliquent plus
+        le statut de traitement.
+\end{itemize}
+
+\subsection{La double difference}
+
+\subsubsection{Principe et hypothese d'identification}
+
+La methode de double difference (DD) exploite la dimension temporelle de nos
+donnees -- les deux vagues EHCVM -- pour controler les effets fixes individuels
+inobservables. L'estimateur DD compare l'evolution de l'IPM-Enfant entre les
+deux periodes pour les menages traites par rapport aux non-traites :
+\begin{equation}
+  \hat{\tau}_{DD} = \underbrace{\left(\bar{Y}^1_{t=2} - \bar{Y}^1_{t=1}\right)}_{\text{variation traites}}
+  - \underbrace{\left(\bar{Y}^0_{t=2} - \bar{Y}^0_{t=1}\right)}_{\text{variation temoins}}
+  \label{eq:dd}
+\end{equation}
+
+L'hypothese fondamentale est celle des \textit{tendances paralleles} : en
+l'absence du traitement, l'IPM-Enfant aurait evolue de maniere identique dans
+les groupes traite et temoin :
+\begin{equation}
+  \E\left[Y_i(0)_{t=2} - Y_i(0)_{t=1} \mid D_i = 1\right]
+  = \E\left[Y_i(0)_{t=2} - Y_i(0)_{t=1} \mid D_i = 0\right]
+  \label{eq:parallel}
+\end{equation}
+
+Cette hypothese, non testable directement (en l'absence de periodes pre-
+traitement multiples), est evaluee de maniere indirecte en verifiant l'equilibre
+des tendances pre-traitement sur des variables correlees a l'IPM-Enfant.
+
+\subsubsection{Formulation econometrique}
+
+En notation econometrique, l'estimateur DD peut etre obtenu par la regression :
+\begin{equation}
+  Y_{it} = \alpha + \beta_1 D_i + \beta_2 \mathbf{1}[t=2] + \tau \cdot D_i \times
+  \mathbf{1}[t=2] + \varepsilon_{it}
+  \label{eq:reg_dd}
+\end{equation}
+ou $\alpha$ est une constante, $D_i$ l'indicateur de traitement, $\mathbf{1}[t=2]$
+l'indicateur de la seconde periode, et $\tau$ le coefficient d'interet estimant
+l'effet du traitement. Les erreurs standards sont robustes a l'heteroscedaticite
+et groupees au niveau du menage.
+
+\subsection{L'estimateur PSM-Double difference}
+
+\subsubsection{Rationale de la combinaison}
+
+La combinaison PSM-DD, introduite par \textcite{heckman1997} et
+\textcite{heckman1998}, vise a neutraliser simultanement deux sources de biais :
+
+\begin{itemize}
+  \item \textbf{Le biais lie aux differences observables} : le PSM construit
+        un groupe de controle dont les caracteristiques observables ($X_i$)
+        sont comparables a celles des traites, eliminant le biais de selection
+        sur les observables ;
+  \item \textbf{Le biais lie aux effets fixes inobservables} : la double
+        difference soustrait les differences permanentes entre traites et
+        temoins, controlant ainsi les caracteristiques inobservables stables
+        dans le temps (motivation, reseau social, etc.).
+\end{itemize}
+
+La combinaison est donc preferable a chaque methode prise isolement :
+le PSM seul ne controle pas les inobservables ; la DD seule ne garantit
+pas la comparabilite des groupes sur les observables, et peut souffrir
+d'une violation de l'hypothese de tendances paralleles si les caracteristiques
+de depart different trop \parencite{smith2005}.
+
+\subsubsection{L'estimateur PSM-DD}
+
+L'estimateur PSM-DD est formule comme suit. Pour chaque enfant traite $i
+\in \mathcal{T}$, on calcule la variation temporelle de son IPM-Enfant :
+$\Delta Y_i = Y_{i,t=2} - Y_{i,t=1}$. L'ATT est ensuite estime en comparant
+cette variation a celle d'un contrefactuel construit par appariement sur le
+score de propension :
+\begin{equation}
+  \hat{\tau}_{PSM-DD} = \frac{1}{n_T} \sum_{i \in \mathcal{T}}
+  \left[\Delta Y_i - \sum_{j \in \mathcal{C}(i)} w_{ij} \cdot \Delta Y_j\right]
+  \label{eq:psm-dd}
+\end{equation}
+ou $\Delta Y_i = Y_{i,t=2} - Y_{i,t=1}$ est la variation intra-individuelle,
+$\mathcal{C}(i)$ l'ensemble des temoins apparies pour le traite $i$ et $w_{ij}$
+les poids d'appariement issus du PSM (tels que $\sum_{j \in \mathcal{C}(i)}
+w_{ij} = 1$).
+
+\subsubsection{Inferece statistique}
+
+Les ecarts-types de $\hat{\tau}_{PSM-DD}$ sont calcules par \textit{bootstrap}
+(1\,000 replications), conformement aux recommandations de
+\textcite{caliendo2008}. Le bootstrap permet de tenir compte de la variabilite
+liee a l'estimation du score de propension dans le calcul de la precision de
+l'estimateur final.
+
+\subsection{Analyses d'heterogeneite et de robustesse}
+
+\subsubsection{Analyses d'heterogeneite}
+
+Afin de verifier l'hypothese H2, nous estimons l'effet PSM-DD separement pour :
+\begin{itemize}
+  \item Le milieu de residence (urbain / rural) ;
+  \item Le genre de l'enfant (filles / garcons) ;
+  \item Chaque dimension de privation prise separement.
+\end{itemize}
+
+\subsubsection{Tests de robustesse}
+
+La robustesse des resultats est verifiee par trois types de tests :
+
+\begin{enumerate}
+  \item \textbf{Sensibilite au choix d'algorithme d'appariement} :
+        comparaison des resultats obtenus avec les appariements $k$-NN ($k =
+        1, 4$), par noyau et par rayon ;
+
+  \item \textbf{Test de Rosenbaum (sensibilite aux biais caches)} :
+        le test des bornes de sensibilite \parencite{rosenbaum2002} evalue
+        dans quelle mesure un facteur inobservable devrait modifier la
+        probabilite de traitement pour invalider les conclusions causales. Pour
+        un parametre $\Gamma$, si les resultats restent significatifs pour
+        $\Gamma \geq 2$, ils sont consideres comme robustes ;
+
+  \item \textbf{Test placebo} : l'estimateur PSM-DD est re-estime en
+        utilisant comme variable de resultat des dimensions de bien-etre que
+        les transferts ne devraient pas affecter (actifs de long terme,
+        caracteristiques du logement preexistantes). Des effets nuls sur ces
+        placebo renforcent la validite de l'identification.
+\end{enumerate}
+
+% ─────────────────────────────────────────────────────────────────────────────
+\section*{Conclusion du chapitre}
+\addcontentsline{toc}{section}{Conclusion du chapitre 2}
+% ─────────────────────────────────────────────────────────────────────────────
+
+Ce chapitre a presente l'architecture methodologique de la recherche articulee
+autour de trois elements. Premierement, l'IPM-Enfant construit selon l'approche
+Alkire-Foster avec six indicateurs repartis en trois dimensions (education,
+sante, niveau de vie), un seuil inter-dimensionnel de $k = 1/3$ et une mesure
+agregee $M_0 = H \times A$ decomposable par groupes et par dimensions.
+Deuxiemement, les donnees des deux vagues de l'EHCVM (2018-2019 et 2021-2022)
+qui constituent le socle empirique et permettent la constitution d'un pseudo-
+panel. Troisiemement, la strategie d'identification PSM-DD qui combine
+appariement par score de propension et double difference pour controler
+simultanement les biais de selection observables et les effets fixes
+inobservables stables dans le temps.
+
+Le chapitre suivant presente les resultats empiriques de cette double strategie :
+etat de la pauvrete multidimensionnelle des enfants senegalais, qualite de
+l'appariement et estimation de l'effet causal des transferts de migrants.

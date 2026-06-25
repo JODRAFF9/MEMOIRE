@@ -1,0 +1,117 @@
+\chapter*{Introduction generale}
+\addcontentsline{toc}{chapter}{Introduction generale}
+\markboth{Introduction generale}{Introduction generale}
+
+Le Senegal, a l'instar de nombreux pays d'Afrique subsaharienne, se caracterise
+par une dependance structurelle aux transferts de fonds envoyes par sa diaspora.
+Selon la Banque mondiale \parencite{worldbank2023}, ces flux representent entre
+10 et 12\% du produit interieur brut senegalais, depassant largement les
+investissements directs etrangers et l'aide publique au developpement. Cette
+realite traduit l'ampleur des liens economiques qui unissent les menages
+senegalais a leurs membres etablis a l'etranger -- en France, en Italie, en
+Espagne, aux Etats-Unis et dans de nombreux autres pays. La diaspora senegalaise,
+estimee a plus de trois millions de personnes \parencite{ndiaye2013}, constitue
+ainsi un acteur economique majeur dont les envois de fonds conditionnent le
+quotidien de plusieurs centaines de milliers de menages.
+
+Parallelement, la pauvrete infantile demeure l'un des defis les plus pressants
+du developpement senegalais. Selon les resultats de l'Enquete Harmonisee sur
+les Conditions de Vie des Menages de 2021-2022 \parencite{ansd2022}, pres de
+37,5\% de la population senegalaise vit en dessous du seuil de pauvrete
+monetaire national, avec de fortes disparites entre milieux urbain et rural.
+Mais au-dela de la dimension monetaire, les enfants subissent des privations
+cumulees dans des domaines fondamentaux pour leur developpement : l'acces a
+l'education, aux soins de sante, a l'eau potable et a l'assainissement. Ces
+privations multiples, qui echappent aux mesures traditionnelles basees sur le
+revenu ou la consommation, ont des consequences durables sur le capital humain
+et les perspectives d'avenir des generations futures.
+
+La question de l'impact des transferts de migrants sur le bien-etre des enfants
+se situe a la jonction de ces deux realites. Si plusieurs travaux ont documente
+l'effet des remittances sur la scolarisation \parencite{cox2003, acosta2011},
+la sante \parencite{hildebrandt2005, amuedo2007} ou la consommation des menages
+\parencite{adams2005, yang2008}, l'analyse de leur impact sur la pauvrete
+multidimensionnelle des enfants -- entendue comme la privation simultanee dans
+plusieurs dimensions du bien-etre -- reste insuffisamment exploree dans le
+contexte senegalais. Cette lacune est d'autant plus notable que les bases de
+donnees disponibles offrent desormais des opportunites methodologiques inedites
+pour aborder cette question de maniere rigoureuse.
+
+La principale difficulte methodologique dans cette litterature tient au biais de
+selection : les menages qui recoivent des transferts de migrants ne constituent
+pas un echantillon aleatoire de la population. Ils different systematiquement
+des menages non-beneficiaires, tant en termes de caracteristiques observables
+(niveau d'education du chef de menage, zone de residence, patrimoine) qu'en
+termes de caracteristiques inobservables (reseaux sociaux, propension a migrer,
+qualite des liens familiaux). Une comparaison naive des niveaux de pauvrete
+entre beneficiaires et non-beneficiaires produirait des estimations biaisees,
+rendant toute conclusion causale hasardeuse.
+
+Pour surmonter cette difficulte, le present travail combine deux methodes
+d'evaluation d'impact : l'appariement par score de propension (PSM), introduit
+par \textcite{rosenbaum1983} et operationnalise par \textcite{heckman1997},
+et la methode de la double difference (DD). La disponibilite de deux vagues de
+l'Enquete Harmonisee sur les Conditions de Vie des Menages -- l'EHCVM I
+(2018-2019) et l'EHCVM II (2021-2022) -- constitue une opportunite unique pour
+mettre en oeuvre cette strategie d'identification combinee, qui permet de
+controler simultanement les biais de selection observables et les effets fixes
+inobservables stables dans le temps.
+
+\bigskip
+
+\textbf{Question de recherche.} Dans quelle mesure les transferts de migrants
+reduisent-ils la pauvrete multidimensionnelle des enfants au Senegal ?
+
+\bigskip
+
+\textbf{Objectif general.} Ce memoire vise a evaluer l'impact causal des
+transferts de migrants sur la pauvrete multidimensionnelle des enfants au Senegal,
+a partir des donnees EHCVM I et II, en mobilisant une approche PSM combinee
+a la double difference.
+
+\medskip
+
+\textbf{Objectifs specifiques :}
+\begin{enumerate}
+  \item Construire un Indice de Pauvrete Multidimensionnelle adapte aux enfants
+        senegalais (IPM-Enfant), en suivant l'approche d'Alkire-Foster
+        \parencite{alkire2011}, a partir des dimensions de l'education, de la
+        sante et du niveau de vie ;
+  \item Analyser l'evolution de la pauvrete multidimensionnelle des enfants entre
+        les deux vagues de l'EHCVM (2018-2019 et 2021-2022), en distinguant les
+        milieux de residence et les regions ;
+  \item Estimer l'effet causal des transferts de migrants sur l'IPM-Enfant a
+        l'aide de l'estimateur PSM-Double difference, et analyser
+        l'heterogeneite des effets selon le milieu de residence, le genre de
+        l'enfant et la dimension de privation.
+\end{enumerate}
+
+\medskip
+
+\textbf{Hypotheses de recherche :}
+\begin{enumerate}
+  \item[H1] Les menages beneficiaires de transferts de migrants presentent une
+            pauvrete multidimensionnelle des enfants significativement plus faible
+            que les menages non-beneficiaires aux caracteristiques comparables.
+  \item[H2] L'effet des transferts est heterogene selon les dimensions de la
+            pauvrete et le milieu de residence : il est plus marque en milieu rural
+            et davantage perceptible dans les dimensions education et sante.
+  \item[H3] La combinaison PSM-Double difference produit des estimations de l'effet
+            causal moins biaisees que les approches naives, en controlant a la fois
+            la selection observee et les facteurs inobservables stables dans le temps.
+\end{enumerate}
+
+\bigskip
+
+Ce memoire s'organise en quatre chapitres. Le \textbf{premier chapitre} dresse
+une revue de la litterature sur les transferts de migrants, la pauvrete
+multidimensionnelle des enfants et les methodes d'evaluation d'impact, en
+identifiant les lacunes auxquelles ce travail entend repondre. Le
+\textbf{deuxieme chapitre} presente le cadre methodologique : construction de
+l'IPM-Enfant selon l'approche Alkire-Foster, presentation des donnees EHCVM I
+et II, et strategie d'identification PSM-Double difference. Le
+\textbf{troisieme chapitre} expose les resultats empiriques, incluant l'etat
+de la pauvrete multidimensionnelle des enfants, la qualite de l'appariement et
+l'effet estime des transferts. Le \textbf{quatrieme chapitre} discute la
+robustesse des resultats, l'heterogeneite des effets et les implications de
+politique economique.
