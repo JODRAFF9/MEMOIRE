@@ -242,13 +242,10 @@ d'un membre emigre au cours des 12 mois precedant l'enquete. Cette definition
 est conforme a celle adoptee dans la litterature empirique africaine sur les
 remittances \parencite{azam2016, combes2019}.
 
-Deux statuts de traitement sont distingues :
-\begin{itemize}
-  \item \textbf{Traitement stable} : menage beneficiaire dans les deux vagues
-        (traite persistant) ;
-  \item \textbf{Traitement entrant} : menage non-beneficiaire en vague I,
-        beneficiaire en vague II.
-\end{itemize}
+Deux statuts de traitement sont distingues. Le \textbf{traitement stable}
+correspond au menage beneficiaire dans les deux vagues (traite persistant),
+tandis que le \textbf{traitement entrant} designe le menage non-beneficiaire
+en vague I devenu beneficiaire en vague II.
 
 L'analyse principale porte sur le statut de beneficiaire tel que renseigne
 dans chaque vague. Des analyses de sensibilite explorent la robustesse des
@@ -348,29 +345,23 @@ selection).
 
 \subsubsection{Hypotheses d'identification du PSM}
 
-Le PSM repose sur deux hypotheses fondamentales :
-
-\begin{itemize}
-  \item \textbf{Independance conditionnelle (CIA)} : conditionnellement aux
-        covariables observees $X_i$, les resultats potentiels sont independants
-        du statut de traitement :
-        \begin{equation}
-          \left(Y_i(0),\, Y_i(1)\right) \perp D_i \mid X_i
-          \label{eq:cia}
-        \end{equation}
-        Cette hypothese implique que, une fois controlees les caracteristiques
-        observables, la selection dans le traitement est aleatoire.
-
-  \item \textbf{Support commun (overlap)} : pour chaque profil de covariables,
-        il existe une probabilite strictement positive d'etre traite ou
-        non-traite :
-        \begin{equation}
-          0 < P(D_i = 1 \mid X_i) < 1
-          \label{eq:overlap}
-        \end{equation}
-        Cette condition garantit que l'appariement est possible pour chaque
-        traite.
-\end{itemize}
+Le PSM repose sur deux hypotheses fondamentales. La premiere est
+l'\textbf{independance conditionnelle} (CIA) : conditionnellement aux
+covariables observees $X_i$, les resultats potentiels sont independants du
+statut de traitement,
+\begin{equation}
+  \left(Y_i(0),\, Y_i(1)\right) \perp D_i \mid X_i,
+  \label{eq:cia}
+\end{equation}
+ce qui implique que, une fois controlees les caracteristiques observables,
+la selection dans le traitement est aleatoire. La seconde est le
+\textbf{support commun} (overlap) : pour chaque profil de covariables, il
+existe une probabilite strictement positive d'etre traite ou non-traite,
+\begin{equation}
+  0 < P(D_i = 1 \mid X_i) < 1,
+  \label{eq:overlap}
+\end{equation}
+ce qui garantit que l'appariement est realisable pour chaque traite.
 
 \textcite{rosenbaum1983} ont montre que si la CIA est satisfaite pour $X_i$,
 elle l'est egalement pour le \textit{score de propension} $p(X_i) = P(D_i = 1
@@ -432,22 +423,18 @@ compares pour verifier la robustesse :
 
 \subsubsection{Tests d'equilibre apres appariement}
 
-La qualite de l'appariement est evaluee par les tests d'equilibre des
-covariables entre le groupe des traites et le groupe de controle apparie. Nous
-utilisons :
-\begin{itemize}
-  \item Le \textit{standardised bias} (SB) de \textcite{rosenbaum1983} :
-        \begin{equation}
-          SB_j = 100 \cdot \frac{\bar{X}_{1j} - \bar{X}_{0j}}
-          {\sqrt{0{,}5\left(V_{1j} + V_{0j}\right)}}
-          \label{eq:sb}
-        \end{equation}
-        Un $|SB| < 10$ indique un bon equilibre \parencite{caliendo2008} ;
-  \item Le test $t$ d'egalite des moyennes avant et apres appariement ;
-  \item La statistique pseudo-$R^2$ du modele de propension : un $R^2$
-        faible apres appariement indique que les covariables n'expliquent plus
-        le statut de traitement.
-\end{itemize}
+La qualite de l'appariement est evaluee par trois indicateurs complementaires.
+Le premier est le \textit{standardised bias} (SB) de \textcite{rosenbaum1983},
+\begin{equation}
+  SB_j = 100 \cdot \frac{\bar{X}_{1j} - \bar{X}_{0j}}
+  {\sqrt{0{,}5\left(V_{1j} + V_{0j}\right)}},
+  \label{eq:sb}
+\end{equation}
+un $|SB| < 10$ indiquant un bon equilibre \parencite{caliendo2008}. Le
+deuxieme est le test $t$ d'egalite des moyennes avant et apres appariement.
+Le troisieme est la statistique pseudo-$R^2$ du modele de propension : un
+$R^2$ faible apres appariement confirme que les covariables n'expliquent plus
+le statut de traitement, signe d'un appariement reussi.
 
 \subsection{La double difference}
 
@@ -494,18 +481,13 @@ et groupees au niveau du menage.
 \subsubsection{Rationale de la combinaison}
 
 La combinaison PSM-DD, introduite par \textcite{heckman1997} et
-\textcite{heckman1998}, vise a neutraliser simultanement deux sources de biais :
-
-\begin{itemize}
-  \item \textbf{Le biais lie aux differences observables} : le PSM construit
-        un groupe de controle dont les caracteristiques observables ($X_i$)
-        sont comparables a celles des traites, eliminant le biais de selection
-        sur les observables ;
-  \item \textbf{Le biais lie aux effets fixes inobservables} : la double
-        difference soustrait les differences permanentes entre traites et
-        temoins, controlant ainsi les caracteristiques inobservables stables
-        dans le temps (motivation, reseau social, etc.).
-\end{itemize}
+\textcite{heckman1998}, vise a neutraliser simultanement deux sources de biais.
+D'une part, le PSM construit un groupe de controle dont les caracteristiques
+observables ($X_i$) sont comparables a celles des traites, eliminant le biais
+de selection sur les observables. D'autre part, la double difference soustrait
+les differences permanentes entre traites et temoins, controlant ainsi les
+caracteristiques inobservables stables dans le temps telles que la motivation
+ou les reseaux sociaux.
 
 La combinaison est donc preferable a chaque methode prise isolement :
 le PSM seul ne controle pas les inobservables ; la DD seule ne garantit
@@ -542,35 +524,24 @@ l'estimateur final.
 
 \subsubsection{Analyses d'heterogeneite}
 
-Afin de verifier l'hypothese H2, nous estimons l'effet PSM-DD separement pour :
-\begin{itemize}
-  \item Le milieu de residence (urbain / rural) ;
-  \item Le genre de l'enfant (filles / garcons) ;
-  \item Chaque dimension de privation prise separement.
-\end{itemize}
+Afin de verifier l'hypothese H2, nous estimons l'effet PSM-DD separement selon
+le milieu de residence (urbain et rural), le genre de l'enfant (filles et
+garcons), et chaque dimension de privation prise isolement.
 
 \subsubsection{Tests de robustesse}
 
-La robustesse des resultats est verifiee par trois types de tests :
-
-\begin{enumerate}
-  \item \textbf{Sensibilite au choix d'algorithme d'appariement} :
-        comparaison des resultats obtenus avec les appariements $k$-NN ($k =
-        1, 4$), par noyau et par rayon ;
-
-  \item \textbf{Test de Rosenbaum (sensibilite aux biais caches)} :
-        le test des bornes de sensibilite \parencite{rosenbaum2002} evalue
-        dans quelle mesure un facteur inobservable devrait modifier la
-        probabilite de traitement pour invalider les conclusions causales. Pour
-        un parametre $\Gamma$, si les resultats restent significatifs pour
-        $\Gamma \geq 2$, ils sont consideres comme robustes ;
-
-  \item \textbf{Test placebo} : l'estimateur PSM-DD est re-estime en
-        utilisant comme variable de resultat des dimensions de bien-etre que
-        les transferts ne devraient pas affecter (actifs de long terme,
-        caracteristiques du logement preexistantes). Des effets nuls sur ces
-        placebo renforcent la validite de l'identification.
-\end{enumerate}
+La robustesse des resultats est verifiee par trois types de tests. Le premier
+porte sur la \textbf{sensibilite au choix d'algorithme d'appariement} : les
+resultats obtenus avec les appariements $k$-NN ($k = 1$ et $k = 4$), par
+noyau et par rayon sont compares. Le deuxieme est le \textbf{test des bornes
+de sensibilite de Rosenbaum} \parencite{rosenbaum2002}, qui evalue dans quelle
+mesure un facteur inobservable devrait modifier la probabilite de traitement
+pour invalider les conclusions causales -- si les resultats restent significatifs
+pour $\Gamma \geq 2$, ils sont consideres comme robustes. Le troisieme est un
+\textbf{test placebo} : l'estimateur PSM-DD est re-estime en utilisant comme
+variable de resultat des dimensions de bien-etre que les transferts ne devraient
+pas affecter (actifs de long terme, caracteristiques du logement preexistantes) ;
+des effets nuls sur ces placebo renforcent la validite de l'identification.
 
 % ─────────────────────────────────────────────────────────────────────────────
 \section*{Conclusion du chapitre}
