@@ -17,7 +17,7 @@
 \usepackage[
   top=2.5cm, bottom=2.5cm,
   left=3cm, right=2.5cm,
-  headheight=14pt
+  headheight=15pt
 ]{geometry}
 \usepackage{setspace}
 \onehalfspacing
@@ -118,7 +118,8 @@
 \input{styles/pagedeGarde}
 
 % ── Pages liminaires (numérotation romaine) ──────────────────
-\frontmatter
+\pagenumbering{roman}
+\setcounter{page}{1}
 
 \input{chapitres/dedicace}
 \input{chapitres/remerciements}
@@ -133,7 +134,9 @@
 \input{chapitres/abreviations}
 
 % ── Corps du mémoire (numérotation arabe) ────────────────────
-\mainmatter
+\cleardoublepage
+\pagenumbering{arabic}
+\setcounter{page}{1}
 
 \input{chapitres/introduction}
 \input{chapitres/chapitre1}
