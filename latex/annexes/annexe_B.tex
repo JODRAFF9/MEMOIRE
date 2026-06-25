@@ -1,23 +1,70 @@
-\chapter{Code R pour la mise en oeuvre de la methode PSM-DD}
+\section{Code de mise en \oe{}uvre --- PSM-DD sous R}
 \label{ann:B}
 
-\section{Nettoyage et fusion des bases EHCVM I et II}
+Cette annexe presente les principales etapes du code R utilise pour la mise
+en oeuvre de l'estimateur PSM-DD. Le code complet est disponible dans le
+depot GitHub du projet (\texttt{code/R/}).
 
-Les principales etapes de traitement des donnees sont :
-\begin{enumerate}
-  \item Importation des bases EHCVM I et II sous R ;
-  \item Harmonisation des variables entre les deux vagues ;
-  \item Identification des menages presents dans les deux vagues (panel) ;
-  \item Construction des indicateurs de privation pour chaque dimension de l'IPM ;
-  \item Calcul de l'IPM-Enfant selon la methode Alkire-Foster.
-\end{enumerate}
+\subsection{Configuration et chargement des données}
 
-\section{Estimation du score de propension}
+\begin{verbatim}
+# config.R
+BASE_2018 <- "Base/2018-2019/SEN_2018_EHCVM_v02_M_Stata"
+BASE_2021 <- "Base/2021-2022/SEN_2021_EHCVM-2_v01_M_STATA14"
+OUTPUT_DIR <- "code/R/output"
+K_SEUIL <- 1/3       # seuil Alkire-Foster
+N_BOOT  <- 1000      # réplications bootstrap
+CODE_ETRANGER_MIN <- 4L  # codes >= 4 = transferts migrants
+\end{verbatim}
 
-Le score de propension est estime a l'aide de la fonction \texttt{glm()} sous R
-avec la famille \texttt{binomial(link = "probit")}.
+\subsection{Construction de la variable de traitement}
 
-\section{Appariement}
+\begin{verbatim}
+# 02_traitement.R
+construire_traitement <- function(s13a1, s13a2, col_lieu,
+                                  code_etr_min = CODE_ETRANGER_MIN) {
+  etrangers <- s13a2 |>
+    dplyr::filter(.data[[col_lieu]] >= code_etr_min) |>
+    dplyr::distinct(across(all_of(ID))) |>
+    dplyr::mutate(transfert_migrant = 1L)
+  s13a1 |>
+    dplyr::left_join(etrangers, by = ID) |>
+    dplyr::mutate(D = dplyr::coalesce(transfert_migrant, 0L))
+}
+traitement_2018 <- construire_traitement(s13a1_2018, s13a2_2018,
+                                          col_lieu = "s13aq14")
+traitement_2021 <- construire_traitement(s13a1_2021, s13a2_2021,
+                                          col_lieu = "s13q19")
+\end{verbatim}
 
-L'appariement est realise avec le package \texttt{MatchIt} \parencite{ho2011}
-et la double difference est calculee apres appariement.
+\subsection{Estimation du score de propension et appariement}
+
+\begin{verbatim}
+# 04_psm_dd.R
+formule_probit <- D ~ hhsize + log_pcexp + milieu + region
+
+# Modèle probit
+probit_mod <- glm(formule_probit, data = base_t0,
+                  family = binomial(link = "probit"))
+
+# Appariement k-NN (k=4)
+match_knn <- MatchIt::matchit(formule_probit, data = base_t0,
+                               method = "nearest",
+                               distance = "glm", link = "probit",
+                               ratio = 4, replace = FALSE)
+\end{verbatim}
+
+\subsection{Estimateur PSM-DD}
+
+\begin{verbatim}
+# Double différence après appariement
+for (outcome in c("pauvre_AF", "pauvre_MODA")) {
+  formule_dd <- as.formula(paste(outcome, "~ factor(t) * D"))
+  mod_dd <- lm(formule_dd, data = pseudo_panel)
+  mod_dd_rob <- lmtest::coeftest(
+    mod_dd,
+    vcov = sandwich::vcovCL(mod_dd, cluster = ~grappe)
+  )
+  print(mod_dd_rob)
+}
+\end{verbatim}
