@@ -8,8 +8,8 @@ source("code/R/utils.R")
 
 s13a1_2018 <- lire_stata(BASE_2018, "s13a_1_me_sen2018.dta")
 s13a2_2018 <- lire_stata(BASE_2018, "s13a_2_me_sen2018.dta")
-s13a1_2021 <- lire_stata(BASE_2021, "s13a_1_me_sen2021.dta")
-s13a2_2021 <- lire_stata(BASE_2021, "s13a_2_me_sen2021.dta")
+s13a1_2021 <- lire_stata(BASE_2021, "s13_1_me_sen2021.dta")
+s13a2_2021 <- lire_stata(BASE_2021, "s13_2_me_sen2021.dta")
 
 ID <- c("grappe", "menage")
 

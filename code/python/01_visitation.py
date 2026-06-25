@@ -18,8 +18,8 @@ s13a2_2018, m = lire_stata(BASE_2018, "s13a_2_me_sen2018.dta")       ; visiter(s
 ind_2021,   m = lire_stata(BASE_2021, "ehcvm_individu_sen2021.dta")  ; visiter(ind_2021, m, "Individus 2021-2022")
 men_2021,   m = lire_stata(BASE_2021, "ehcvm_menage_sen2021.dta")    ; visiter(men_2021, m, "Menages 2021-2022")
 wel_2021,   m = lire_stata(BASE_2021, "ehcvm_welfare_sen2021.dta")   ; visiter(wel_2021, m, "Welfare 2021-2022")
-s13a1_2021, m = lire_stata(BASE_2021, "s13a_1_me_sen2021.dta")       ; visiter(s13a1_2021, m, "Transferts S13A-1 (2021-2022)")
-s13a2_2021, m = lire_stata(BASE_2021, "s13a_2_me_sen2021.dta")       ; visiter(s13a2_2021, m, "Transferts S13A-2 (2021-2022)")
+s13a1_2021, m = lire_stata(BASE_2021, "s13_1_me_sen2021.dta")       ; visiter(s13a1_2021, m, "Transferts S13A-1 (2021-2022)")
+s13a2_2021, m = lire_stata(BASE_2021, "s13_2_me_sen2021.dta")       ; visiter(s13a2_2021, m, "Transferts S13A-2 (2021-2022)")
 
 # Modalites s13aq14
 print("\nModalites s13aq14 (2018) :")

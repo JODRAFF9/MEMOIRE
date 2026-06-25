@@ -9,8 +9,8 @@ from utils import lire_stata, taux
 
 s13a1_2018, _ = lire_stata(BASE_2018, "s13a_1_me_sen2018.dta")
 s13a2_2018, _ = lire_stata(BASE_2018, "s13a_2_me_sen2018.dta")
-s13a1_2021, _ = lire_stata(BASE_2021, "s13a_1_me_sen2021.dta")
-s13a2_2021, _ = lire_stata(BASE_2021, "s13a_2_me_sen2021.dta")
+s13a1_2021, _ = lire_stata(BASE_2021, "s13_1_me_sen2021.dta")
+s13a2_2021, _ = lire_stata(BASE_2021, "s13_2_me_sen2021.dta")
 
 
 def construire_traitement(s13a1, s13a2, code_etr=CODE_ETRANGER):

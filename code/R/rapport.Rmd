@@ -33,8 +33,8 @@ s13a2_2018 <- lire_stata(BASE_2018, "s13a_2_me_sen2018.dta")
 ind_2021   <- lire_stata(BASE_2021, "ehcvm_individu_sen2021.dta")
 men_2021   <- lire_stata(BASE_2021, "ehcvm_menage_sen2021.dta")
 wel_2021   <- lire_stata(BASE_2021, "ehcvm_welfare_sen2021.dta")
-s13a1_2021 <- lire_stata(BASE_2021, "s13a_1_me_sen2021.dta")
-s13a2_2021 <- lire_stata(BASE_2021, "s13a_2_me_sen2021.dta")
+s13a1_2021 <- lire_stata(BASE_2021, "s13_1_me_sen2021.dta")
+s13a2_2021 <- lire_stata(BASE_2021, "s13_2_me_sen2021.dta")
 ```
 
 # Visitation des bases

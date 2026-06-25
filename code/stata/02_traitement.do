@@ -23,13 +23,13 @@ save "$TEMP/traitement_2018.dta", replace
 
 /* ── 2021-2022 ─────────────────────────────────────────────── */
 
-use "$BASE_2021/s13a_2_me_sen2021.dta", clear
+use "$BASE_2021/s13_2_me_sen2021.dta", clear
 keep if s13aq14 == $CODE_ETRANGER
 bysort grappe menage: keep if _n == 1
 gen transfert_migrant = 1
 save "$TEMP/etrangers_2021.dta", replace
 
-use "$BASE_2021/s13a_1_me_sen2021.dta", clear
+use "$BASE_2021/s13_1_me_sen2021.dta", clear
 merge m:1 grappe menage using "$TEMP/etrangers_2021.dta", ///
     keepusing(transfert_migrant) nogenerate
 replace transfert_migrant = 0 if missing(transfert_migrant)
