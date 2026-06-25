@@ -1,0 +1,100 @@
+\babel@toc {french}{}\relax 
+\contentsline {chapter}{Dedicace}{ii}{chapter*.1}%
+\contentsline {chapter}{Remerciements}{iii}{chapter*.2}%
+\contentsline {chapter}{Resume}{iv}{chapter*.3}%
+\contentsline {chapter}{Abstract}{v}{chapter*.4}%
+\contentsline {chapter}{Liste des abréviations}{ix}{chapter*.8}%
+\contentsline {chapter}{Introduction generale}{1}{chapter*.9}%
+\contentsline {chapter}{\numberline {1}Revue de la litterature}{4}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Les transferts de migrants : definitions, ampleur et theories}{4}{section.1.1}%
+\contentsline {subsection}{\numberline {1.1.1}Definitions et mesure}{4}{subsection.1.1.1}%
+\contentsline {subsection}{\numberline {1.1.2}Ampleur et tendances}{4}{subsection.1.1.2}%
+\contentsline {subsection}{\numberline {1.1.3}Theories des motivations a transferer}{5}{subsection.1.1.3}%
+\contentsline {section}{\numberline {1.2}Pauvrete multidimensionnelle : approche conceptuelle et mesure}{6}{section.1.2}%
+\contentsline {subsection}{\numberline {1.2.1}Limites de l'approche monetaire}{6}{subsection.1.2.1}%
+\contentsline {subsection}{\numberline {1.2.2}L'approche Alkire-Foster}{6}{subsection.1.2.2}%
+\contentsline {subsection}{\numberline {1.2.3}Pauvrete multidimensionnelle des enfants}{7}{subsection.1.2.3}%
+\contentsline {section}{\numberline {1.3}Impact des transferts sur le bien-etre des menages : revue empirique}{7}{section.1.3}%
+\contentsline {subsection}{\numberline {1.3.1}Effets sur la pauvrete monetaire}{7}{subsection.1.3.1}%
+\contentsline {subsection}{\numberline {1.3.2}Effets sur l'education des enfants}{8}{subsection.1.3.2}%
+\contentsline {subsection}{\numberline {1.3.3}Effets sur la sante des enfants}{8}{subsection.1.3.3}%
+\contentsline {subsection}{\numberline {1.3.4}Effets sur les conditions de logement et de vie}{9}{subsection.1.3.4}%
+\contentsline {section}{\numberline {1.4}Impact des transferts sur la pauvrete multidimensionnelle : bilan et lacunes}{9}{section.1.4}%
+\contentsline {subsection}{\numberline {1.4.1}Travaux combinant transferts et pauvrete multidimensionnelle}{9}{subsection.1.4.1}%
+\contentsline {subsection}{\numberline {1.4.2}Methodes d'identification causale}{9}{subsection.1.4.2}%
+\contentsline {subsection}{\numberline {1.4.3}Lacunes de la litterature et contribution de ce travail}{10}{subsection.1.4.3}%
+\contentsline {section}{Conclusion du chapitre 1}{11}{section*.10}%
+\contentsline {chapter}{\numberline {2}Cadre methodologique}{12}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Mesure de la pauvrete multidimensionnelle des enfants}{12}{section.2.1}%
+\contentsline {subsection}{\numberline {2.1.1}Fondements conceptuels : l'approche des capabilites et la methode Alkire-Foster}{12}{subsection.2.1.1}%
+\contentsline {subsection}{\numberline {2.1.2}Dimensions, indicateurs et seuils retenus}{13}{subsection.2.1.2}%
+\contentsline {subsection}{\numberline {2.1.3}Construction de l'IPM-Enfant}{14}{subsection.2.1.3}%
+\contentsline {subsubsection}{Etape 1 : identification des prive et des multidimensionnellement pauvres}{14}{section*.13}%
+\contentsline {subsubsection}{Etape 2 : agregation -- l'IPM-Enfant}{14}{section*.14}%
+\contentsline {subsubsection}{Decomposabilite par sous-groupes et par dimensions}{15}{section*.15}%
+\contentsline {section}{\numberline {2.2}Donnees : les enquetes EHCVM I et II}{15}{section.2.2}%
+\contentsline {subsection}{\numberline {2.2.1}Presentation des enquetes harmonisees sur les conditions de vie des menages}{15}{subsection.2.2.1}%
+\contentsline {subsection}{\numberline {2.2.2}Construction de l'echantillon d'analyse}{16}{subsection.2.2.2}%
+\contentsline {subsubsection}{Population cible}{16}{section*.16}%
+\contentsline {subsubsection}{Constitution du pseudo-panel}{16}{section*.17}%
+\contentsline {subsubsection}{Criteres d'inclusion et de nettoyage}{16}{section*.18}%
+\contentsline {subsection}{\numberline {2.2.3}Variable de traitement : reception de transferts de migrants}{16}{subsection.2.2.3}%
+\contentsline {subsection}{\numberline {2.2.4}Variables de l'IPM-Enfant dans les bases EHCVM}{17}{subsection.2.2.4}%
+\contentsline {subsection}{\numberline {2.2.5}Covariables du modele de propension}{17}{subsection.2.2.5}%
+\contentsline {section}{\numberline {2.3}Strategie d'identification causale : PSM combine a la double difference}{18}{section.2.3}%
+\contentsline {subsection}{\numberline {2.3.1}Le cadre des resultats potentiels}{18}{subsection.2.3.1}%
+\contentsline {subsection}{\numberline {2.3.2}L'appariement par score de propension}{18}{subsection.2.3.2}%
+\contentsline {subsubsection}{Hypotheses d'identification du PSM}{18}{section*.21}%
+\contentsline {subsubsection}{Estimation du score de propension par un modele probit}{19}{section*.22}%
+\contentsline {subsubsection}{Algorithmes d'appariement}{19}{section*.23}%
+\contentsline {subsubsection}{Tests d'equilibre apres appariement}{20}{section*.24}%
+\contentsline {subsection}{\numberline {2.3.3}La double difference}{20}{subsection.2.3.3}%
+\contentsline {subsubsection}{Principe et hypothese d'identification}{20}{section*.25}%
+\contentsline {subsubsection}{Formulation econometrique}{20}{section*.26}%
+\contentsline {subsection}{\numberline {2.3.4}L'estimateur PSM-Double difference}{21}{subsection.2.3.4}%
+\contentsline {subsubsection}{Rationale de la combinaison}{21}{section*.27}%
+\contentsline {subsubsection}{L'estimateur PSM-DD}{21}{section*.28}%
+\contentsline {subsubsection}{Inferece statistique}{21}{section*.29}%
+\contentsline {subsection}{\numberline {2.3.5}Analyses d'heterogeneite et de robustesse}{22}{subsection.2.3.5}%
+\contentsline {subsubsection}{Analyses d'heterogeneite}{22}{section*.30}%
+\contentsline {subsubsection}{Tests de robustesse}{22}{section*.31}%
+\contentsline {section}{Conclusion du chapitre 2}{22}{section*.32}%
+\contentsline {chapter}{\numberline {3}Résultats empiriques}{23}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Pauvreté multidimensionnelle des enfants au Sénégal : état des lieux}{23}{section.3.1}%
+\contentsline {subsection}{\numberline {3.1.1}Résultats EHCVM I (2018--2019)}{23}{subsection.3.1.1}%
+\contentsline {subsection}{\numberline {3.1.2}Résultats EHCVM II (2021--2022)}{23}{subsection.3.1.2}%
+\contentsline {subsection}{\numberline {3.1.3}Évolution entre les deux vagues}{23}{subsection.3.1.3}%
+\contentsline {section}{\numberline {3.2}Estimation du score de propension}{24}{section.3.2}%
+\contentsline {subsection}{\numberline {3.2.1}Résultats du modèle probit}{24}{subsection.3.2.1}%
+\contentsline {subsection}{\numberline {3.2.2}Vérification de la qualité de l'appariement}{24}{subsection.3.2.2}%
+\contentsline {subsubsection}{Support commun}{24}{section*.35}%
+\contentsline {subsubsection}{Équilibre des covariables}{25}{section*.37}%
+\contentsline {section}{\numberline {3.3}Impact des transferts de migrants sur la pauvreté multidimensionnelle des enfants}{25}{section.3.3}%
+\contentsline {subsection}{\numberline {3.3.1}Résultats PSM}{25}{subsection.3.3.1}%
+\contentsline {subsection}{\numberline {3.3.2}Résultats PSM-Double différence}{25}{subsection.3.3.2}%
+\contentsline {subsection}{\numberline {3.3.3}Effets par dimension}{25}{subsection.3.3.3}%
+\contentsline {section}{Conclusion du chapitre 3}{26}{section*.41}%
+\contentsline {chapter}{\numberline {4}Robustesse, hétérogénéité et implications}{27}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Tests de robustesse}{27}{section.4.1}%
+\contentsline {subsection}{\numberline {4.1.1}Sensibilité au choix du seuil inter-dimensionnel}{27}{subsection.4.1.1}%
+\contentsline {subsection}{\numberline {4.1.2}Sensibilité au choix des indicateurs}{27}{subsection.4.1.2}%
+\contentsline {subsection}{\numberline {4.1.3}Sensibilité au choix de la méthode d'appariement}{27}{subsection.4.1.3}%
+\contentsline {subsection}{\numberline {4.1.4}Test de biais caché de Rosenbaum}{27}{subsection.4.1.4}%
+\contentsline {section}{\numberline {4.2}Analyse de l'hétérogénéité des effets}{28}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}Selon le milieu de résidence}{28}{subsection.4.2.1}%
+\contentsline {subsection}{\numberline {4.2.2}Selon le sexe de l'enfant}{28}{subsection.4.2.2}%
+\contentsline {subsection}{\numberline {4.2.3}Selon la tranche d'âge}{28}{subsection.4.2.3}%
+\contentsline {subsection}{\numberline {4.2.4}Selon le montant des transferts}{28}{subsection.4.2.4}%
+\contentsline {section}{\numberline {4.3}Discussion et implications de politique économique}{28}{section.4.3}%
+\contentsline {subsection}{\numberline {4.3.1}Interprétation des résultats}{28}{subsection.4.3.1}%
+\contentsline {subsection}{\numberline {4.3.2}Implications pour les politiques publiques}{28}{subsection.4.3.2}%
+\contentsline {section}{Conclusion du chapitre 4}{28}{section*.43}%
+\contentsline {chapter}{Conclusion generale}{29}{chapter*.44}%
+\contentsline {chapter}{\numberline {A}Résultats complémentaires de l'appariement}{30}{chapter.1.A}%
+\contentsline {section}{\numberline {A.1}Tests d'équilibre détaillés avant et après appariement}{30}{section.1.A.1}%
+\contentsline {section}{\numberline {A.2}Résultats PSM avec différentes méthodes d'appariement}{30}{section.1.A.2}%
+\contentsline {section}{\numberline {A.3}Test de sensibilité de Rosenbaum}{30}{section.1.A.3}%
+\contentsline {chapter}{\numberline {B}Code R pour la mise en oeuvre de la methode PSM-DD}{31}{chapter.1.B}%
+\contentsline {section}{\numberline {B.1}Nettoyage et fusion des bases EHCVM I et II}{31}{section.1.B.1}%
+\contentsline {section}{\numberline {B.2}Estimation du score de propension}{31}{section.1.B.2}%
+\contentsline {section}{\numberline {B.3}Appariement}{31}{section.1.B.3}%
