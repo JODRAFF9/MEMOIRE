@@ -14,14 +14,14 @@ foreach annee in 2018 2021 {
     else               local base "$BASE_2021"
 
     use "`base'/ehcvm_individu_sen`annee'.dta", clear
-    keep if b4 <= 17 & !missing(b4)     /* b4 = age (a confirmer) */
+    keep if age <= 17 & !missing(age)     /* age = Age en annees */
     gen annee = `annee'
 
     /* Groupes d'age MODA */
     gen groupe_moda = .
-    replace groupe_moda = 1 if b4 <= 4
-    replace groupe_moda = 2 if b4 >= 5  & b4 <= 14
-    replace groupe_moda = 3 if b4 >= 15 & b4 <= 17
+    replace groupe_moda = 1 if age <= 4
+    replace groupe_moda = 2 if age >= 5  & age <= 14
+    replace groupe_moda = 3 if age >= 15 & age <= 17
     label define grp 1 "0-4 ans" 2 "5-14 ans" 3 "15-17 ans"
     label values groupe_moda grp
 

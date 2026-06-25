@@ -13,7 +13,7 @@ ind_2018, _ = lire_stata(BASE_2018, "ehcvm_individu_sen2018.dta")
 ind_2021, _ = lire_stata(BASE_2021, "ehcvm_individu_sen2021.dta")
 
 
-def extraire_enfants(ind, annee, col_age="b4"):
+def extraire_enfants(ind, annee, col_age="age"):
     df = ind[ind[col_age] <= 17].copy()
     df["annee"] = annee
     df["age"]   = df[col_age]

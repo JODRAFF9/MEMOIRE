@@ -14,7 +14,7 @@ ID <- c("grappe", "menage")
 
 # ── Enfants 0-17 ans ─────────────────────────────────────────
 
-extraire_enfants <- function(ind, annee, col_age = "b4") {
+extraire_enfants <- function(ind, annee, col_age = "age") {
   ind |>
     dplyr::filter(.data[[col_age]] <= 17) |>
     dplyr::mutate(
