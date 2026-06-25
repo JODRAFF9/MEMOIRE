@@ -126,8 +126,14 @@
 \input{chapitres/resume}
 \input{chapitres/abstract}
 
-% Tables des matières, figures, tableaux
-\tableofcontents
+% ── Sommaire (chapitres uniquement) ─────────────────────────
+{
+  \renewcommand{\contentsname}{Sommaire}
+  \setcounter{tocdepth}{0}
+  \tableofcontents
+  \setcounter{tocdepth}{3}
+}
+
 \listoffigures
 \listoftables
 
@@ -153,5 +159,12 @@
   \input{annexes/annexe_A}
   \input{annexes/annexe_B}
 \end{appendices}
+
+% ── Table des matières complète ──────────────────────────────
+{
+  \renewcommand{\contentsname}{Table des matières}
+  \setcounter{tocdepth}{3}
+  \tableofcontents
+}
 
 \end{document}
