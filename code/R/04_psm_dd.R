@@ -1,25 +1,64 @@
 # ============================================================
 #  04_psm_dd.R — Estimation PSM-DD (Heckman et al. 1997/1998)
-#  ATT sur pauvre_MODA (UNICEF-MODA, k >= 2)
+#  ATT sur pauvre_AF et pauvre_MODA
 # ============================================================
 
 source("code/R/config.R")
 source("code/R/utils.R")
 
-# Lecture des bases enrichies produites par 03_deprivation.R
 enfants_2018 <- readRDS(file.path(OUTPUT_DIR, "enfants_dep_2018.rds"))
 enfants_2021 <- readRDS(file.path(OUTPUT_DIR, "enfants_dep_2021.rds"))
+traitement_2018 <- readRDS(file.path(OUTPUT_DIR, "traitement_2018.rds"))
+traitement_2021 <- readRDS(file.path(OUTPUT_DIR, "traitement_2021.rds"))
 
-# toutes les covariables (D, welfare, privations) sont déjà dans ces bases
-# via la fusion réalisée dans 00_fusion.R
+# Welfare : pcexp, hhsize, region, milieu + caracteristiques du CM
+wel_2018 <- lire_stata(BASE_2018, "ehcvm_welfare_sen2018.dta")
+wel_2021 <- lire_stata(BASE_2021, "ehcvm_welfare_sen2021.dta")
 
 ID <- c("grappe", "menage")
 
-base_2018 <- enfants_2018 |>
-  dplyr::mutate(t = 0L, annee = 2018)
+# ── Variables welfare selectionnees ──────────────────────────
+# hgender (sexe CM), hage (age CM), heduc (education CM), hmstat (situation famille CM)
+# region, milieu, hhsize, pcexp
 
-base_2021 <- enfants_2021 |>
-  dplyr::mutate(t = 1L, annee = 2021)
+VARS_WEL <- c(ID, "pcexp", "hhsize", "region", "milieu",
+              "hgender", "hage", "heduc", "hmstat")
+
+sel_wel <- function(wel) {
+  vars_dispo <- intersect(VARS_WEL, names(wel))
+  wel |>
+    dplyr::select(dplyr::all_of(vars_dispo)) |>
+    dplyr::mutate(dplyr::across(where(haven::is.labelled), haven::zap_labels))
+}
+
+# ── Fusion base analytique ────────────────────────────────────
+
+construire_base <- function(enfants, traitement, welfare, annee, t_val) {
+  enfants |>
+    dplyr::mutate(dplyr::across(where(haven::is.labelled), haven::zap_labels)) |>
+    dplyr::left_join(traitement |>
+                       dplyr::mutate(dplyr::across(where(haven::is.labelled),
+                                                   haven::zap_labels)) |>
+                       dplyr::select(dplyr::all_of(c(ID, "D"))),
+                     by = ID) |>
+    dplyr::left_join(sel_wel(welfare), by = ID) |>
+    dplyr::mutate(
+      annee     = annee,
+      t         = t_val,
+      log_pcexp = log(pcexp + 1),
+      # Facteurs pour le probit
+      f_milieu  = as.factor(dplyr::coalesce(milieu, 1L)),
+      f_region  = as.factor(dplyr::coalesce(region, 1L)),
+      f_heduc   = as.factor(dplyr::coalesce(heduc,  0L)),
+      f_hmstat  = as.factor(dplyr::coalesce(hmstat, 1L)),
+      hgender_n = dplyr::coalesce(as.integer(hgender), 1L),
+      hage_n    = dplyr::coalesce(as.numeric(hage), median(as.numeric(hage), na.rm=TRUE)),
+      hhsize_n  = dplyr::coalesce(as.numeric(hhsize), median(as.numeric(hhsize), na.rm=TRUE))
+    )
+}
+
+base_2018 <- construire_base(enfants_2018, traitement_2018, wel_2018, 2018, 0)
+base_2021 <- construire_base(enfants_2021, traitement_2021, wel_2021, 2021, 1)
 
 pseudo_panel <- dplyr::bind_rows(
   dplyr::mutate(base_2018, dplyr::across(where(haven::is.labelled), haven::zap_labels)),
@@ -35,8 +74,10 @@ pseudo_panel |>
   dplyr::group_by(annee, D) |>
   dplyr::summarise(
     n          = dplyr::n(),
+    pct_AF     = round(taux(pauvre_AF) * 100, 1),
     pct_MODA   = round(taux(pauvre_MODA) * 100, 1),
-    dep_moy    = round(taux(nb_dep), 2),
+    score_moy  = round(taux(score_dep), 3),
+    dep_moda   = round(taux(nb_dep), 2),
     pcexp_moy  = round(taux(pcexp), 0),
     .groups    = "drop"
   ) |>
@@ -134,7 +175,7 @@ cat("Panel apparie :", nrow(panel_apparie), "obs\n")
 # delta = ATT_DD
 
 cat("\n=== Double Difference (sans appariement) ===\n")
-for (outcome in c("pauvre_MODA")) {
+for (outcome in c("pauvre_AF", "pauvre_MODA")) {
   formule_dd <- as.formula(paste(outcome, "~ factor(t) + D + factor(t):D"))
   mod_dd <- lm(formule_dd, data = pseudo_panel)
   mod_dd_rob <- lmtest::coeftest(
@@ -149,7 +190,7 @@ for (outcome in c("pauvre_MODA")) {
 # ATT_PSM-DD = (1/nT) * sum_{i in T} [DeltaY_i - sum_j w_ij DeltaY_j]
 
 cat("\n=== PSM-DD (Heckman 1997/1998) ===\n")
-for (outcome in c("pauvre_MODA")) {
+for (outcome in c("pauvre_AF", "pauvre_MODA")) {
   formule_dd <- as.formula(paste(outcome, "~ factor(t) + D + factor(t):D"))
   mod_psm_dd <- lm(formule_dd, data = panel_apparie,
                    weights = panel_apparie$weights)
@@ -167,7 +208,7 @@ cat("\n=== Heterogeneite par milieu ===\n")
 for (mil in c(1, 2)) {
   panel_mil <- panel_apparie |> dplyr::filter(f_milieu == mil)
   label_mil <- if (mil == 1) "Urbain" else "Rural"
-  for (outcome in c("pauvre_MODA")) {
+  for (outcome in c("pauvre_AF", "pauvre_MODA")) {
     formule_dd <- as.formula(paste(outcome, "~ factor(t) + D + factor(t):D"))
     if (nrow(panel_mil) > 30) {
       mod <- lm(formule_dd, data = panel_mil)
@@ -208,7 +249,7 @@ psm_dd_boot <- function(data, outcome, B = N_BOOT) {
 }
 
 cat("\n=== Bootstrap PSM-DD (", N_BOOT, "replications) ===\n")
-for (outcome in c("pauvre_MODA")) {
+for (outcome in c("pauvre_AF", "pauvre_MODA")) {
   res <- psm_dd_boot(panel_apparie, outcome)
   cat(sprintf("  %s : ATT=%.4f  SE=%.4f  IC95=[%.4f, %.4f]\n",
               outcome, res$mean, res$se, res$ci95[1], res$ci95[2]))
