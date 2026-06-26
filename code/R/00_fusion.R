@@ -128,6 +128,10 @@ prep_deprivation_individu <- function(ind, s01) {
   ind <- ajouter_hhid(ind) |>
     dplyr::mutate(dplyr::across(where(haven::is.labelled), haven::zap_labels))
 
+  # alfab (2018) → alfa (2021)
+  if ("alfa" %in% names(ind) && !"alfab" %in% names(ind))
+    ind <- dplyr::rename(ind, alfab = alfa)
+
   ind |>
     dplyr::left_join(s01_acte, by = c("hhid", "numind")) |>
     dplyr::mutate(
