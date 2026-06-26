@@ -3,8 +3,6 @@
    D = 1 si menage a recu un transfert de l'etranger
    ============================================================ */
 
-do "code/stata/config.do"
-
 /* ── 2018-2019 ─────────────────────────────────────────────── */
 
 use "$BASE_2018/s13a_2_me_sen2018.dta", clear

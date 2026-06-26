@@ -18,8 +18,6 @@
                       s01q00a (2018) / membres__id (2021) = cle individuelle
    ============================================================ */
 
-do "code/stata/config.do"
-do "code/stata/utils.do"
 
 /* ============================================================
    BOUCLE SUR LES DEUX ANNEES

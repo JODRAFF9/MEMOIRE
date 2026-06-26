@@ -2,6 +2,7 @@
    main.do — Script maitre (executer dans l'ordre)
    ============================================================ */
 
+ cd "C:\Users\Bmd\Documents\ISE\Cours\ISE3\Memoire"
 capture log close
 log using "code/stata/logs/analyse.log", replace
 
