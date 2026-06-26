@@ -5,7 +5,7 @@
 %  Compilation : latexmk -pdf main.tex  (biber obligatoire, pas bibtex)
 % ============================================================
 
-\documentclass[12pt, a4paper, twoside]{article}
+\documentclass[12pt, a4paper, twoside]{report}
 
 % ── Encodage & langue ───────────────────────────────────────
 \usepackage[utf8]{inputenc}
@@ -70,8 +70,8 @@
 
 % ── Bibliographie (biber requis) ─────────────────────────────
 \usepackage[
-  backend=biber,
-  style=apa,
+  backend=bibtex,
+  style=authoryear,
   sorting=nyt,
   maxcitenames=2,
   maxbibnames=99
