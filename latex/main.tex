@@ -79,6 +79,12 @@
 ]{biblatex}
 \addbibresource{references.bib}
 
+% Supprimer la mise en gras des noms d'auteurs dans les citations APA
+\renewcommand*{\mkbibnamefamily}[1]{#1}
+\renewcommand*{\mkbibnamegiven}[1]{#1}
+\renewcommand*{\mkbibnameprefix}[1]{#1}
+\renewcommand*{\mkbibnamesuffix}[1]{#1}
+
 % ── Listes & énumérations ───────────────────────────────────
 \usepackage{enumitem}
 \setlist[itemize]{noitemsep, topsep=4pt}
