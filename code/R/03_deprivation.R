@@ -78,7 +78,7 @@ enfants_2021 <- ajouter_nutri(enfants_2021)
 #
 # Chaque groupe a ses propres indicateurs actifs.
 # nb_dep = nombre de privations observées pour ce groupe
-# pauvre_MODA = 1 si nb_dep >= 2
+# pauvre_MODA = 1 si nb_dep >= 4
 
 construire_moda <- function(df) {
   df |>
@@ -117,7 +117,7 @@ construire_moda <- function(df) {
 
         TRUE ~ NA_real_
       ),
-      pauvre_MODA = as.integer(!is.na(nb_dep) & nb_dep >= 2)
+      pauvre_MODA = as.integer(!is.na(nb_dep) & nb_dep >= 4)
     ) |>
     dplyr::ungroup()
 }
