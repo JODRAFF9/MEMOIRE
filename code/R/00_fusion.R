@@ -115,11 +115,11 @@ prep_deprivation_individu <- function(ind, s01) {
   s01 <- ajouter_hhid(s01) |>
     dplyr::mutate(dplyr::across(where(haven::is.labelled), haven::zap_labels))
 
-  # Clé individu : s01q00a (2018) ou s01q00aa (2021) → renommé numind
+  # Clé individu : s01q00a (2018) ou membres__id (2021) → renommé numind
   if ("s01q00a" %in% names(s01) && !"numind" %in% names(s01))
     s01 <- dplyr::rename(s01, numind = s01q00a)
-  if ("s01q00aa" %in% names(s01) && !"numind" %in% names(s01))
-    s01 <- dplyr::rename(s01, numind = s01q00aa)
+  if ("membres__id" %in% names(s01) && !"numind" %in% names(s01))
+    s01 <- dplyr::rename(s01, numind = membres__id)
 
   s01_acte <- s01 |>
     dplyr::select(hhid, numind,
