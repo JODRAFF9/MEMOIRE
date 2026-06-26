@@ -278,83 +278,100 @@ indicateurs retenus, en coherence avec l'EHCVM et la methodologie N-MODA.
 
 \begin{table}[H]
   \centering
-  \caption{Dimensions, indicateurs et seuils de privation -- approche MODA}
+  \caption{Dimensions, indicateurs et seuils de privation -- N-MODA Senegal (ANSD/UNICEF 2024)}
   \label{tab:moda_indicateurs}
   \begin{threeparttable}
   \small
-  \begin{tabular}{p{1.7cm}p{2.3cm}p{5.2cm}p{2.8cm}}
+  \begin{tabular}{p{2.0cm}p{3.8cm}p{4.2cm}p{2.0cm}}
     \toprule
-    Groupe & Dimension & Indicateur de privation & Variables EHCVM \\
+    Dimension & Indicateurs de privation & Seuil / Definition & Variables EHCVM \\
     \midrule
-    \multirow{5}{1.7cm}{\textbf{0-4 ans}}
-      & Sante          & Maladie sans consultation (\texttt{mal30j}=1, \texttt{con30j}=0) & \texttt{ehcvm\_individu} \\[3pt]
-      & Nutrition      & Maladie recente (proxy malnutrition) & \texttt{mal30j} \\[3pt]
-      & Eau            & Source non amelioree (saisonniere) & \texttt{eauboi\_ss/sp} \\[3pt]
-      & Assainissement & Toilettes non saines ou evacuation inadequate & \texttt{toilet}, \texttt{eva\_toi} \\[3pt]
-      & Logement       & Materiau precaire (mur, toit ou sol) & \texttt{mur}, \texttt{toi}, \texttt{sol} \\
+    \textbf{Assainissement}
+      & Toilettes non ameliorees & Sanitaires non conformes normes JMP & \texttt{toilet} \\[2pt]
+      & Partage des toilettes & Installation partagee entre menages & \texttt{partag\_toi} \\
     \midrule
-    \multirow{5}{1.7cm}{\textbf{5-14 ans}}
-      & Education      & Non-scolarise (\texttt{scol}=0, 6--14 ans) & \texttt{ehcvm\_individu} \\[3pt]
-      & Sante          & Maladie sans consultation & \texttt{mal30j}, \texttt{con30j} \\[3pt]
-      & Eau            & Source non amelioree & \texttt{eauboi\_ss/sp} \\[3pt]
-      & Assainissement & Toilettes non saines & \texttt{toilet}, \texttt{eva\_toi} \\[3pt]
-      & Logement       & Materiau precaire & \texttt{mur}, \texttt{toi}, \texttt{sol} \\
+    \textbf{Eau}
+      & Source non amelioree & Codes non-JMP (seche ou pluies) & \texttt{eauboi\_ss/sp} \\[2pt]
+      & Temps d'acces $> 30$ min & Saison seche ou pluies & \texttt{tps\_eau\_ss/sp} \\
     \midrule
-    \multirow{5}{1.7cm}{\textbf{15-17 ans}}
-      & Education      & Non-scolarise & \texttt{scol} \\[3pt]
-      & Travail        & Actif economique (\texttt{activ7j} $\in \{1,2\}$) & \texttt{ehcvm\_individu} \\[3pt]
-      & Eau            & Source non amelioree & \texttt{eauboi\_ss/sp} \\[3pt]
-      & Assainissement & Toilettes non saines & \texttt{toilet}, \texttt{eva\_toi} \\[3pt]
-      & Logement       & Materiau precaire & \texttt{mur}, \texttt{toi}, \texttt{sol} \\
+    \textbf{Logement}
+      & Gestion des ordures inadequate & Brulee, depot sauvage ou autre & \texttt{ordure} \\[2pt]
+      & Surpeuplement $> 3$ pers./piece & Rapport personnes/pieces & \texttt{nbpiec} \\
+    \midrule
+    \textbf{Nutrition}
+      & Diversite alimentaire insuffisante & Moins de 4 groupes alimentaires & \texttt{s14q*} \\[2pt]
+      & Insecurite alimentaire & Saut de repas ou faim dans le menage & \texttt{s14q*} \\
+    \midrule
+    \textbf{Sante}
+      & Combustible solide & Bois, charbon ou dechets pour cuisiner & \texttt{combust} \\[2pt]
+      & Acces aux soins & Pas d'acces a pied a une structure & \texttt{acces\_sante} \\
+    \midrule
+    \multirow{3}{2.0cm}{\textbf{Protection de l'enfant}}
+      & Absence d'acte de naissance & \textit{0--14 ans} : \texttt{acte\_nais} = 0 & \texttt{acte\_nais} \\[2pt]
+      & Travail des enfants & \textit{5--14 ans} : \texttt{activ7j} $\in \{1,2\}$ & \texttt{activ7j} \\[2pt]
+      & Separation parentale & Ne vit pas avec 2 parents biologiques & \texttt{lien} \\
+    \midrule
+    \multirow{3}{2.0cm}{\textbf{Education}}
+      & Non-scolarisation & \textit{5--14 ans} : \texttt{scol} = 0 & \texttt{scol} \\[2pt]
+      & Illettrisme & \textit{15--17 ans} : pas de lecture/ecriture & \texttt{alfab} \\[2pt]
+      & NEET & \textit{15--17 ans} : ni etude, ni emploi & \texttt{scol}, \texttt{activ7j} \\
     \bottomrule
   \end{tabular}
   \begin{tablenotes}
     \small
-    \item \textit{Note :} Le rapport N-MODA Senegal \parencite{ansd2024} retient 7 dimensions avec un seuil $k=4$.
-    Nos donnees EHCVM permettent de couvrir 5 dimensions operationnelles par groupe ; nous retenons
-    $k = 2$ privations simultanees comme seuil de pauvrete multidimensionnelle, conforme a la
-    convention MODA de base \parencite{deneubourg2012} et coherent avec le nombre de dimensions disponibles.
+    \item \textit{Source :} \textcite{ansd2024}. Methodologie N-MODA Senegal (National Multiple Overlapping
+    Deprivation Analysis). \textit{Approche union} intra-dimension : un enfant est prive dans une dimension
+    s'il l'est dans \textit{au moins un} de ses indicateurs. \textit{Seuil inter-dimensionnel :} $k = 4$
+    (enfant multidimensionnellement pauvre si prive dans au moins 4 dimensions sur 7 simultanement).
+    H = 50{,}7\,\%, A = 72{,}2\,\%, $M_0 = 0{,}366$ en 2018-2019 selon \textcite{ansd2024}.
   \end{tablenotes}
   \end{threeparttable}
 \end{table}
 
 \paragraph{Mesures MODA.}
 
-Pour chaque enfant $i$ du groupe $g$ et chaque dimension $j \in \mathcal{D}_g$,
-la variable de privation elementaire est $d_{ij}^g = \mathbf{1}[y_{ij} <
-z_j^g]$ et le score de privation totale est $s_i^g = \sum_{j \in \mathcal{D}_g}
-d_{ij}^g$. Trois mesures synthetiques sont derivees.
+Pour chaque enfant $i$ et chaque dimension $j \in \{1, \ldots, 7\}$, la variable
+de privation est $d_{ij} = \mathbf{1}[\text{prive dans au moins un indicateur
+de la dimension } j]$ (approche union intra-dimension). Le \textit{score de
+privation} de l'enfant $i$ est le nombre de dimensions dans lesquelles il est prive :
+\begin{equation}
+  s_i = \sum_{j=1}^{7} d_{ij}.
+  \label{eq:score_moda}
+\end{equation}
 
 Le \textbf{taux de privation par dimension} mesure la prevalence de chaque
 privation :
 \begin{equation}
-  H_j^g = \frac{1}{n_g} \sum_{i=1}^{n_g} d_{ij}^g.
+  H_j = \frac{1}{n} \sum_{i=1}^{n} d_{ij}.
   \label{eq:hj}
 \end{equation}
 
-Le \textbf{taux de privation multiple} pour un seuil $k$ mesure la proportion
-d'enfants souffrant d'au moins $k$ privations simultanees :
+Le \textbf{taux de pauvrete multidimensionnelle} $H$ (incidence) est la part
+d'enfants prives dans au moins $k$ dimensions simultanement :
 \begin{equation}
-  P_k^g = \frac{1}{n_g} \sum_{i=1}^{n_g} \mathbf{1}\left[s_i^g \geq k\right].
+  H = \frac{1}{n} \sum_{i=1}^{n} \mathbf{1}\left[s_i \geq k\right].
   \label{eq:pk}
 \end{equation}
-Nous retenons $k = 2$ comme seuil principal de pauvrete multidimensionnelle
-MODA, en accord avec la convention de base de la methode \parencite{deneubourg2012}.
+Conformement a la methodologie N-MODA Senegal \parencite{ansd2024}, nous
+retenons $k = 4$ : un enfant est considere multidimensionnellement pauvre s'il
+est prive dans au moins 4 des 7 dimensions simultanement.
 
-L'\textbf{intensite moyenne} des privations parmi les enfants prives est :
+L'\textbf{intensite moyenne} des privations parmi les enfants pauvres est :
 \begin{equation}
-  \bar{s}^g = \frac{\sum_{i:\,s_i^g \geq 1} s_i^g}{\sum_i \mathbf{1}[s_i^g \geq 1]}.
+  A = \frac{1}{q} \sum_{i:\,s_i \geq k} \frac{s_i}{7},
   \label{eq:intensite_moda}
 \end{equation}
+ou $q$ est le nombre d'enfants pauvres. L'indice synthetique $M_0 = H \times A$
+mesure la pauvrete multidimensionnelle ajustee pour l'intensite.
 
 \subsubsection{Variables de résultat dans l'estimation PSM-DD}
 
-Les deux approches fournissent des variables de resultat complementaires qui
-sont estimees dans le cadre PSM-DD. L'approche Alkire-Foster fournit l'IPM-
-Enfant $M_0$ (et ses composantes $H$ et $A$) comme mesure synthetique unique.
-L'approche MODA fournit le taux de privation multiple $P_2^g$ (au moins deux
-privations simultanees) par groupe d'age comme mesure principale, et $H_j^g$
-par dimension comme mesures secondaires.
+Les deux approches fournissent des variables de resultat complementaires estimees
+dans le cadre PSM-DD. L'approche Alkire-Foster fournit l'IPM-Enfant $M_0$ (et
+ses composantes $H$ et $A$) comme mesure synthetique unique. L'approche N-MODA
+fournit l'indicateur binaire \texttt{pauvre\_MODA} (prive dans au moins $k=4$
+dimensions sur 7) comme variable de resultat principale, et les taux de
+privation par dimension $H_j$ comme mesures secondaires.
 
 % ─────────────────────────────────────────────────────────────────────────────
 \subsection{Stratégie d'identification causale : PSM-Double différence}
