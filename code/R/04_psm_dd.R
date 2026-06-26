@@ -124,11 +124,14 @@ match_knn <- MatchIt::matchit(formule_probit, data = base_t0,
 cat("\n=== Bilan appariement k-NN ===\n")
 print(summary(match_knn, un = FALSE))
 
-# Balance plot
+# Balance plot — SMD uniquement (binary/factor via différences standardisées)
 cobalt::love.plot(match_knn,
+                  stats       = "mean.diffs",
+                  binary      = "std",        # standardise aussi les variables binaires/facteurs
                   threshold   = 0.1,
                   title       = "Balance avant/apres appariement (k-NN)",
                   var.order   = "unadjusted",
+                  stars       = "std",        # marque les SMD d'une étoile dans la légende
                   colors      = c("steelblue", "tomato"))
 
 # ── Appariement 2 : Kernel (Epanechnikov) ────────────────────
