@@ -2,8 +2,6 @@
    01_visitation.do — Exploration des deux bases EHCVM
    ============================================================ */
 
-do "code/stata/config.do"
-do "code/stata/utils.do"
 
 /* ── EHCVM I (2018-2019) ─────────────────────────────────── */
 

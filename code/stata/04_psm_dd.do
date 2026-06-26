@@ -3,9 +3,6 @@
    ATT sur pauvre_AF et pauvre_MODA
    ============================================================ */
 
-do "code/stata/config.do"
-do "code/stata/utils.do"
-
 /* ============================================================
    1. Construction de la base analytique (pseudo-panel)
    ============================================================ */
