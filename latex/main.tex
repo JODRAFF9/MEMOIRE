@@ -178,9 +178,12 @@
 \end{appendices}
 
 % ── Table des matières complète ──────────────────────────────
+\clearpage
 {
   \renewcommand{\contentsname}{Table des matières}
   \setcounter{tocdepth}{3}
+  \phantomsection
+  \addcontentsline{toc}{section}{Table des matières}
   \tableofcontents
 }
 
