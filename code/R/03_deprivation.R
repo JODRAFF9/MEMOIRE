@@ -1,23 +1,39 @@
 # ============================================================
-#  03_deprivation.R — Indicateurs de pauvrete multidimensionnelle
-#  Approche 1 : Alkire-Foster (M0 = H x A, k = 1/3)
-#  Approche 2 : MODA UNICEF (par groupe d'age)
+#  03_deprivation.R — Indicateurs MODA par groupe d'âge
 #
-#  Variables EHCVM utilisees :
-#   ehcvm_individu : scol, educ_scol, educ_hi, mal30j, con30j, age, numind
-#   ehcvm_menage   : eauboi_ss, eauboi_sp, toilet, eva_toi, mur, toi, sol
-#   ehcvm_welfare  : pcexp, hhsize, region, milieu, hgender, hage, heduc, hmstat
+#  Cadre MODA (UNICEF) adapté à l'EHCVM Sénégal
+#  Seuil de pauvreté multidimensionnelle : >= 2 privations simultanées
+#
+#  Dimensions et indicateurs par groupe d'âge :
+#
+#  Assainissement
+#    dep_assai_type  : type de sanitaire non sain          [0-4, 5-14, 15-17]
+#    dep_assai_part  : partage des toilettes                [0-4, 5-14, 15-17]
+#  Eau
+#    dep_eau_source  : source d'eau non améliorée           [0-4, 5-14, 15-17]
+#    dep_eau_temps   : temps > 30 min pour aller chercher   [0-4, 5-14, 15-17]
+#  Logement
+#    dep_log_ordure  : débarras ordures ménagères non sain  [0-4, 5-14, 15-17]
+#    dep_log_surp    : surpeuplement (> 3 pers/pièce)       [0-4, 5-14, 15-17]
+#  Nutrition
+#    dep_nutri_div   : diversité alimentaire faible         [5-14, 15-17]
+#    dep_nutri_secu  : insécurité alimentaire               [0-4, 5-14, 15-17]
+#  Santé
+#    dep_sante       : malade non-consulté                  [0-4, 5-14, 15-17]
+#  Protection de l'enfant
+#    dep_naissance   : pas d'acte de naissance              [0-4, 5-14]
+#    dep_travail     : travail des enfants (éco. + dom.)    [5-14]
+#    dep_parents     : enfant ne vivant pas avec ses parents[0-4, 5-14, 15-17]
+#  Éducation
+#    dep_alfab       : non alphabétisé                      [15-17]
+#    dep_scol        : non-scolarisé                        [5-14]
 # ============================================================
 
 source("code/R/config.R")
 source("code/R/utils.R")
 
-# Lecture des bases fusionnées produites par 00_fusion.R
 base_ind_2018 <- readRDS(file.path(OUTPUT_DIR, "base_individu_2018.rds"))
 base_ind_2021 <- readRDS(file.path(OUTPUT_DIR, "base_individu_2021.rds"))
-
-ID     <- c("grappe", "menage")
-ID_IND <- c("grappe", "menage", "numind")
 
 # ── Enfants 0-17 ans ─────────────────────────────────────────
 
@@ -36,124 +52,70 @@ extraire_enfants <- function(base_ind, annee) {
 
 enfants_2018 <- extraire_enfants(base_ind_2018, 2018)
 enfants_2021 <- extraire_enfants(base_ind_2021, 2021)
-
 cat("Enfants 2018 :", nrow(enfants_2018), "| 2021 :", nrow(enfants_2021), "\n")
 
-# dep_eau, dep_assai, dep_habit sont déjà dans base_ind (jointes depuis base_menage)
+# ── Proxy nutrition ───────────────────────────────────────────
+# dep_nutri_secu : dépenses alimentaires per capita < 50% médiane (insécurité)
+# dep_nutri_div  : proxy — pas de variable directe HDDS dans ehcvm_individu;
+#                  on utilise pcexp < 25e percentile comme proxy diversité faible
 
-# ── Alkire-Foster ─────────────────────────────────────────────
-# 6 indicateurs, poids egaux (1/6)
-# d1 Education | d2 Sante | d3 Nutrition | d4 Eau | d5 Assainissement | d6 Habitat
-#
-# d1_educ  : non-scolarise (6-17 ans) ou retard scolaire >= 2 ans
-#   scol = 1 (oui) / 0 (non) ; educ_scol = niveau actuel ; educ_hi = niveau atteint
-# d2_sante : malade et n'a pas consulte dans les 30 derniers jours
-#   mal30j = 1 (oui) ; con30j = 1 (oui)
-# d3_nutri : proxy retard de croissance — mal30j pour les 0-4 ans (limitation : pas
-#   de donnees anthropometriques directes dans ehcvm_individu)
-# d4_eau   : source d'eau non amelioree (dep_eau)
-# d5_assai : assainissement non ameliore (dep_assai)
-# d6_habit : habitat precaire (dep_habit)
-
-construire_af <- function(df) {
+ajouter_nutri <- function(df) {
+  med_ali   <- median(df$pcexp * 0.6, na.rm = TRUE)  # 60% pcexp ≈ part alimentaire
+  p25_pcexp <- quantile(df$pcexp, 0.25, na.rm = TRUE)
   df |>
     dplyr::mutate(
-      # Education : non-scolarise pour 6-17 ans
-      d1_educ = dplyr::case_when(
-        age < 6  ~ 0L,
-        age >= 6 & dplyr::coalesce(as.integer(haven::zap_labels(scol)), 0L) == 0L ~ 1L,
-        TRUE     ~ 0L
-      ),
-      # Sante : malade non-consulte (proxy acces aux soins)
-      d2_sante = dplyr::if_else(
-        dplyr::coalesce(as.integer(haven::zap_labels(mal30j)), 0L) == 1L &
-        dplyr::coalesce(as.integer(haven::zap_labels(con30j)), 1L) == 0L,
-        1L, 0L
-      ),
-      # Nutrition : proxy pour 0-4 ans (maladie recente sans prise en charge)
-      d3_nutri = dplyr::if_else(
-        age <= 4 &
-        dplyr::coalesce(as.integer(haven::zap_labels(mal30j)), 0L) == 1L,
-        1L, 0L
-      ),
-      # Eau, assainissement, habitat deja construits
-      d4_eau   = dplyr::coalesce(dep_eau,   0L),
-      d5_assai = dplyr::coalesce(dep_assai, 0L),
-      d6_habit = dplyr::coalesce(dep_habit, 0L)
-    ) |>
-    dplyr::rowwise() |>
-    dplyr::mutate(
-      score_dep = mean(c(d1_educ, d2_sante, d3_nutri, d4_eau, d5_assai, d6_habit),
-                       na.rm = TRUE),
-      pauvre_AF = as.integer(score_dep >= K_SEUIL)
-    ) |>
-    dplyr::ungroup()
+      dep_nutri_secu = dplyr::if_else(
+        dplyr::coalesce(pcexp, Inf) * 0.6 < med_ali / 2, 1L, 0L),
+      dep_nutri_div  = dplyr::if_else(
+        dplyr::coalesce(pcexp, Inf) < p25_pcexp, 1L, 0L)
+    )
 }
 
-enfants_2018 <- construire_af(enfants_2018)
-enfants_2021 <- construire_af(enfants_2021)
+enfants_2018 <- ajouter_nutri(enfants_2018)
+enfants_2021 <- ajouter_nutri(enfants_2021)
 
-# Indices H, A, M0
-for (annee in c(2018, 2021)) {
-  df <- if (annee == 2018) enfants_2018 else enfants_2021
-  idx <- indices_af(df$score_dep)
-  cat(sprintf("\nAlkire-Foster %d : H=%.3f  A=%.3f  M0=%.3f\n",
-              annee, idx$H, idx$A, idx$M0))
-}
-
-# Contribution de chaque dimension
-cat("\nContribution par dimension (AF) :\n")
-for (annee in c(2018, 2021)) {
-  df <- if (annee == 2018) enfants_2018 else enfants_2021
-  pauvres <- df[df$pauvre_AF == 1, ]
-  cat(sprintf("  %d : educ=%.3f  sante=%.3f  nutri=%.3f  eau=%.3f  assai=%.3f  habit=%.3f\n",
-    annee,
-    taux(pauvres$d1_educ), taux(pauvres$d2_sante), taux(pauvres$d3_nutri),
-    taux(pauvres$d4_eau),  taux(pauvres$d5_assai), taux(pauvres$d6_habit)
-  ))
-}
-
-# ── MODA UNICEF ───────────────────────────────────────────────
-# Indicateurs specifiques par groupe d'age, seuil : >= 2 deprivations simultanees
+# ── Score MODA par groupe d'âge ───────────────────────────────
 #
-# 0-4  ans : sante + nutrition + eau + assainissement + habitat
-# 5-14 ans : education + sante + eau + assainissement + habitat
-# 15-17 ans: education + travail + eau + assainissement + information
+# Chaque groupe a ses propres indicateurs actifs.
+# nb_dep = nombre de privations observées pour ce groupe
+# pauvre_MODA = 1 si nb_dep >= 2
 
 construire_moda <- function(df) {
   df |>
-    dplyr::mutate(
-      # Education (5-17 ans)
-      m_educ  = dplyr::case_when(
-        age < 5  ~ 0L,
-        dplyr::coalesce(as.integer(haven::zap_labels(scol)), 0L) == 0L ~ 1L,
-        TRUE     ~ 0L
-      ),
-      # Sante : acces aux soins
-      m_sante = d2_sante,
-      # Nutrition : proxy 0-4 ans
-      m_nutri = d3_nutri,
-      # Eau, assainissement, habitat
-      m_eau   = d4_eau,
-      m_assai = d5_assai,
-      m_habit = d6_habit,
-      # Travail des enfants (15-17 ans) : actif7j ou activ12m
-      m_trav  = dplyr::if_else(
-        age >= 15 &
-        dplyr::coalesce(as.integer(haven::zap_labels(activ7j)), 0L) %in% c(1L, 2L),
-        1L, 0L
-      )
-    ) |>
     dplyr::rowwise() |>
     dplyr::mutate(
       nb_dep = dplyr::case_when(
-        groupe_moda == "0-4 ans"   ~
-          sum(c(m_sante, m_nutri, m_eau, m_assai, m_habit), na.rm = TRUE),
-        groupe_moda == "5-14 ans"  ~
-          sum(c(m_educ, m_sante, m_eau, m_assai, m_habit), na.rm = TRUE),
-        groupe_moda == "15-17 ans" ~
-          sum(c(m_educ, m_trav, m_eau, m_assai, m_habit), na.rm = TRUE),
-        TRUE ~ NA_integer_
+
+        groupe_moda == "0-4 ans" ~ sum(c(
+          dep_assai_type, dep_assai_part,
+          dep_eau_source, dep_eau_temps,
+          dep_log_ordure, dep_log_surp,
+          dep_nutri_secu,
+          dep_sante,
+          dep_naissance, dep_parents
+        ), na.rm = TRUE),
+
+        groupe_moda == "5-14 ans" ~ sum(c(
+          dep_assai_type, dep_assai_part,
+          dep_eau_source, dep_eau_temps,
+          dep_log_ordure, dep_log_surp,
+          dep_nutri_div,  dep_nutri_secu,
+          dep_sante,
+          dep_naissance, dep_travail, dep_parents,
+          dep_scol
+        ), na.rm = TRUE),
+
+        groupe_moda == "15-17 ans" ~ sum(c(
+          dep_assai_type, dep_assai_part,
+          dep_eau_source, dep_eau_temps,
+          dep_log_ordure, dep_log_surp,
+          dep_nutri_div,  dep_nutri_secu,
+          dep_sante,
+          dep_parents,
+          dep_alfab
+        ), na.rm = TRUE),
+
+        TRUE ~ NA_real_
       ),
       pauvre_MODA = as.integer(!is.na(nb_dep) & nb_dep >= 2)
     ) |>
@@ -163,18 +125,40 @@ construire_moda <- function(df) {
 enfants_2018 <- construire_moda(enfants_2018)
 enfants_2021 <- construire_moda(enfants_2021)
 
-# Prevalence MODA par groupe
+# ── Prévalence MODA par groupe et par année ───────────────────
+
 for (annee in c(2018, 2021)) {
   df <- if (annee == 2018) enfants_2018 else enfants_2021
-  cat(sprintf("\nMODA %d — prevalence par groupe :\n", annee))
+  cat(sprintf("\nMODA %d — prévalence par groupe :\n", annee))
   print(df |>
     dplyr::group_by(groupe_moda) |>
     dplyr::summarise(
-      n          = dplyr::n(),
-      pct_pauvre = round(taux(pauvre_MODA) * 100, 1),
-      nb_dep_moy = round(taux(nb_dep), 2),
+      n           = dplyr::n(),
+      pct_pauvre  = round(mean(pauvre_MODA, na.rm = TRUE) * 100, 1),
+      nb_dep_moy  = round(mean(nb_dep, na.rm = TRUE), 2),
       .groups = "drop"
     ))
+}
+
+# ── Contribution par dimension ────────────────────────────────
+
+dims <- c("dep_assai_type", "dep_assai_part",
+          "dep_eau_source", "dep_eau_temps",
+          "dep_log_ordure", "dep_log_surp",
+          "dep_nutri_secu", "dep_nutri_div",
+          "dep_sante",
+          "dep_naissance",  "dep_travail", "dep_parents",
+          "dep_alfab",      "dep_scol")
+
+cat("\nContribution par dimension (enfants pauvres MODA) :\n")
+for (annee in c(2018, 2021)) {
+  df    <- if (annee == 2018) enfants_2018 else enfants_2021
+  pauv  <- dplyr::filter(df, pauvre_MODA == 1)
+  rates <- sapply(dims, function(v) {
+    if (v %in% names(pauv)) round(mean(pauv[[v]], na.rm = TRUE) * 100, 1) else NA
+  })
+  cat(sprintf("\n  %d :\n", annee))
+  print(rates[!is.na(rates)])
 }
 
 saveRDS(enfants_2018, file.path(OUTPUT_DIR, "enfants_dep_2018.rds"))
