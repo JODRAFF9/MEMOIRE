@@ -150,11 +150,13 @@ s11_dep_2021 <- prep_s11(s11_2021, 2021)
 
 # ── Acte de naissance depuis s01_me ──────────────────────────
 # s01q05 : 1=Oui 2=Non (2018) / 1=Oui 2=Non 3=nc (2021)
-# Numind dans s01_me pour jointure individuelle
+# Cle individuelle : s01q00a (2018) / membres__id (2021) → renommee numind
 
-prep_acte_nais <- function(s01) {
+prep_acte_nais <- function(s01, annee) {
+  v_id <- if (annee == 2018) "s01q00a" else "membres__id"
   s01 |>
     dplyr::mutate(dplyr::across(where(haven::is.labelled), haven::zap_labels)) |>
+    dplyr::rename(numind = dplyr::all_of(v_id)) |>
     dplyr::select(dplyr::all_of(c(ID_IND, "s01q05"))) |>
     dplyr::mutate(
       m_acte_nais = dplyr::if_else(
@@ -164,8 +166,8 @@ prep_acte_nais <- function(s01) {
     dplyr::select(dplyr::all_of(c(ID_IND, "m_acte_nais")))
 }
 
-acte_2018 <- prep_acte_nais(s01_2018)
-acte_2021 <- prep_acte_nais(s01_2021)
+acte_2018 <- prep_acte_nais(s01_2018, 2018)
+acte_2021 <- prep_acte_nais(s01_2021, 2021)
 
 # ── Construction indicateurs niveau menage ────────────────────
 
