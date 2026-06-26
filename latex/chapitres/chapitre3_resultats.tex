@@ -1,0 +1,112 @@
+\section{Résultats des estimations}
+\label{sec:resultats}
+
+\subsection{Estimation du score de propension}
+
+\subsubsection{Résultats du modèle probit}
+
+\begin{table}[H]
+  \centering
+  \caption{Modèle probit pour l'estimation du score de propension}
+  \label{tab:probit}
+  \begin{tabular}{lcc}
+    \toprule
+    Variable & Coefficient & Écart-type \\
+    \midrule
+    Âge du chef de ménage        & & \\
+    Chef de ménage féminin       & & \\
+    Niveau d'éducation (primaire)  & & \\
+    Niveau d'éducation (secondaire) & & \\
+    Niveau d'éducation (supérieur)  & & \\
+    Taille du ménage             & & \\
+    Milieu urbain                & & \\
+    \midrule
+    Constante                    & & \\
+    \midrule
+    Pseudo-$R^2$                 & \multicolumn{2}{c}{} \\
+    Observations                 & \multicolumn{2}{c}{} \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\subsubsection{Vérification de la qualité de l'appariement}
+
+\paragraph{Support commun.}
+
+\begin{figure}[H]
+  \centering
+  \fbox{\parbox{0.8\linewidth}{\centering\vspace{2cm}
+    [Figure : Distribution du score de propension avant et après appariement]\\
+    \textit{(à générer à partir de MatchIt/R)}
+  \vspace{2cm}}}
+  \caption{Distribution du score de propension avant et après appariement}
+  \label{fig:support}
+\end{figure}
+
+\paragraph{Équilibre des covariables.}
+
+\begin{table}[H]
+  \centering
+  \caption{Test d'équilibre des covariables avant et après appariement}
+  \label{tab:balance}
+  \begin{tabular}{lcccc}
+    \toprule
+    Variable & \multicolumn{2}{c}{Avant appariement} & \multicolumn{2}{c}{Après appariement} \\
+    \cmidrule(lr){2-3} \cmidrule(lr){4-5}
+             & Biais std. & $p$-valeur & Biais std. & $p$-valeur \\
+    \midrule
+    \ldots & & & & \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\subsection{Impact des transferts de migrants sur la pauvreté multidimensionnelle}
+
+\subsubsection{Résultats PSM}
+
+\begin{table}[H]
+  \centering
+  \caption{Effet des transferts sur l'IPM-Enfant --- estimateur PSM (ATT)}
+  \label{tab:psm_att}
+  \begin{tabular}{lccc}
+    \toprule
+    Méthode d'appariement & ATT & Éc.-t. & $p$-valeur \\
+    \midrule
+    Plus proche voisin ($k=1$)   & & & \\
+    Plus proches voisins ($k=4$) & & & \\
+    Appariement par noyau        & & & \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\subsubsection{Résultats PSM-Double différence}
+
+\begin{table}[H]
+  \centering
+  \caption{Effet des transferts sur la pauvreté multidimensionnelle --- estimateur PSM-DD (ATT)}
+  \label{tab:psmdd_att}
+  \begin{tabular}{lcccc}
+    \toprule
+    Variable de résultat & ATT & Éc.-t. (bootstrap) & IC 95\% & $p$-valeur \\
+    \midrule
+    IPM-Enfant $M_0$ (AF)           & & & & \\
+    Incidence $H$ (AF)               & & & & \\
+    Intensité $A$ (AF)               & & & & \\
+    Pauvreté MODA 0--4 ans ($P_2$)  & & & & \\
+    Pauvreté MODA 5--14 ans ($P_2$) & & & & \\
+    Pauvreté MODA 15--17 ans ($P_2$)& & & & \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\subsubsection{Effets par dimension}
+
+\begin{figure}[H]
+  \centering
+  \fbox{\parbox{0.85\linewidth}{\centering\vspace{2cm}
+    [Figure : Impact des transferts par dimension de la pauvreté multidimensionnelle]\\
+    \textit{(à générer à partir des résultats PSM-DD)}
+  \vspace{2cm}}}
+  \caption{Impact des transferts par dimension de la pauvreté multidimensionnelle (ATT)}
+  \label{fig:effets_dim}
+\end{figure}

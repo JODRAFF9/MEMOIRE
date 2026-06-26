@@ -1,7 +1,7 @@
-\chapter{Cadre methodologique}
-\label{chap:methodo}
+\section{Données et méthodologie}
+\label{sec:methodo}
 
-Ce chapitre presente l'architecture methodologique de la recherche. La mesure
+Cette section presente l'architecture methodologique de la recherche. La mesure
 de la pauvrete multidimensionnelle des enfants mobilise deux approches
 complementaires : l'approche Alkire-Foster, qui fournit un indice synthetique
 agregeable et decomposable (IPM-Enfant), et l'approche MODA (Multiple
@@ -13,10 +13,146 @@ mise en oeuvre sur les deux vagues de l'Enquete Harmonisee sur les Conditions
 de Vie des Menages (EHCVM I et II).
 
 % ─────────────────────────────────────────────────────────────────────────────
-\section{Mesure de la pauvrete multidimensionnelle des enfants}
+\subsection{Données : les enquêtes EHCVM I et II}
 % ─────────────────────────────────────────────────────────────────────────────
 
-\subsection{Fondements conceptuels}
+\subsubsection{Présentation des enquêtes}
+
+Les Enquetes Harmonisees sur les Conditions de Vie des Menages (EHCVM) sont
+realisees dans le cadre du programme statistique de l'UEMOA. L'\textbf{EHCVM
+I (2018-2019)} est la premiere vague nationale au Senegal \parencite{ansd2019},
+reposant sur un plan de sondage stratifie a deux degres (regions x milieux
+comme strates, zones de denombrements comme unites primaires). L'\textbf{EHCVM
+II (2021-2022)} reproduit le meme protocole \parencite{ansd2022}, permettant
+la constitution d'un pseudo-panel au niveau des zones de residence. La fenetre
+temporelle 2018-2022 couvre une periode de transformations importantes des
+flux migratoires senegalais et de leurs effets sur les menages.
+
+\subsubsection{Construction de l'échantillon}
+
+Notre population cible est l'ensemble des enfants ages de 0 a 17 ans residant
+dans les menages enquetes dans les deux vagues. L'EHCVM I couvre 7\,120 menages
+(vagues 1 et 2 reunies), et l'EHCVM II 7\,120 menages selon le meme plan de
+sondage, avec un sous-echantillon panel identifie par la variable \texttt{PanelHH}
+\parencite{ansd2019, ansd2022}.
+
+Deux types de pseudo-panel sont utilises selon la strategie d'identification :
+\begin{enumerate}
+  \item \textbf{Pseudo-panel au niveau des zones de residence} : les menages des
+  deux vagues sont agreg\'es par grappe de sondage (unites primaires), conformement
+  a la methodologie de \textcite{deaton1997}. Ceci est l'approche par defaut
+  pour la double difference, dans laquelle les grappes jouent le role d'unites
+  observees dans le temps.
+  \item \textbf{Panel strictement cylindre} (sous-echantillon) : les menages
+  identifies comme panel dans les deux vagues via \texttt{PanelHH} constituent
+  un echantillon de suivi plus rigoureux, qui est utilise dans les tests de
+  robustesse.
+\end{enumerate}
+
+Apres nettoyage (exclusion des observations avec plus de deux indicateurs de
+privation manquants, et des menages sans information sur les transferts),
+l'echantillon final retient les enfants pour lesquels l'integralite des
+indicateurs des deux approches (AF et MODA) ainsi que la variable de traitement
+sont disponibles dans les deux vagues. La limite principale de cette construction
+est l'attrition potentielle entre les deux vagues, qui peut introduire un biais
+si les menages perdus sont systematiquement differents des menages retenus
+-- cette limite est discutee dans la conclusion.
+
+\subsubsection{Variable de traitement}
+
+La variable de traitement $D_i \in \{0, 1\}$ indique si le menage de l'enfant
+$i$ a recu des transferts d'un membre emigre a l'etranger au cours des 12 mois
+precedant l'enquete, conformement aux conventions de la litterature empirique
+sur les remittances en Afrique \parencite{azam2016, combes2019}.
+
+La construction de cette variable repose sur les modules de transferts des
+deux vagues EHCVM. Dans chaque vague, deux fichiers sont mobilises :
+\texttt{s13a\_1} (identification des menages ayant recu au moins un transfert)
+et \texttt{s13a\_2} (caracteristiques de chaque transfert et de son expediteur).
+Un menage est classe comme beneficiaire ($D=1$) si au moins un transfert recoit
+a un expediteur dont le lieu de residence est code $\geq 4$ dans la nomenclature
+EHCVM (variable \texttt{s13aq14} en 2018, \texttt{s13q19} en 2021), les codes
+1 a 3 correspondant a des destinations interieures au Senegal (meme ville, meme
+region, ailleurs dans le pays). Cette definition exclut les transferts internes
+(interregionaux) qui relevent d'une logique de redistribution domestique distincte
+des envois de la diaspora internationale \parencite{ndiaye2013}.
+
+\subsubsection{Correspondance entre indicateurs et modules EHCVM}
+
+\begin{table}[H]
+  \centering
+  \caption{Correspondance entre indicateurs (AF et MODA) et variables EHCVM}
+  \label{tab:correspondance}
+  \small
+  \begin{tabular}{p{2.2cm}p{1.5cm}p{2.5cm}p{2.8cm}p{2.5cm}}
+    \toprule
+    Indicateur & Approche & Fichier & Variable & Seuil de privation \\
+    \midrule
+    Scolarisation   & AF + MODA & \texttt{ehcvm\_individu} & \texttt{scol}       & $= 0$ (non-scolarise) \\
+    Suivi sante     & AF + MODA & \texttt{ehcvm\_individu} & \texttt{mal30j}, \texttt{con30j} & Malade et non-consulte \\
+    Nutrition/proxy & AF + MODA & \texttt{ehcvm\_individu} & \texttt{mal30j}     & $= 1$ pour 0--4 ans \\
+    Eau potable     & AF + MODA & \texttt{ehcvm\_menage}   & \texttt{eauboi\_ss}, \texttt{eauboi\_sp} & $= 0$ \\
+    Assainissement  & AF + MODA & \texttt{ehcvm\_menage}   & \texttt{toilet}, \texttt{eva\_toi} & $= 0$ \\
+    Habitat         & AF + MODA & \texttt{ehcvm\_menage}   & \texttt{mur}, \texttt{toi}, \texttt{sol} & $= 0$ \\
+    Travail enfant  & MODA      & \texttt{ehcvm\_individu} & \texttt{activ7j}    & Actif (15--17 ans) \\
+    \bottomrule
+  \end{tabular}
+  \begin{minipage}{\linewidth}
+    \small\vspace{2pt}
+    \textit{Note :} \texttt{eauboi\_ss}/\texttt{eauboi\_sp} : acces a l'eau potable
+    en saison seche/pluie (1 = ameliore). \texttt{toilet}/\texttt{eva\_toi} : toilettes
+    et evacuation des excreta sains (1 = conformes JMP). \texttt{mur}/\texttt{toi}/\texttt{sol} :
+    materiaux definitifs pour murs, toit, sol (1 = definitifs).
+  \end{minipage}
+\end{table}
+
+\subsubsection{Covariables du modèle de propension}
+
+Le modele probit estime la probabilite qu'un menage recoive des transferts
+en fonction de ses caracteristiques pre-transfert observees. Les covariables
+sont choisies pour satisfaire l'hypothese d'independance conditionnelle (CIA)
+tout en evitant d'inclure des variables potentiellement affectees par le traitement.
+
+\begin{table}[H]
+  \centering
+  \caption{Covariables du modèle de propension et sources EHCVM}
+  \label{tab:covariables}
+  \small
+  \begin{tabular}{p{2.2cm}p{3.5cm}p{2.8cm}p{2.5cm}}
+    \toprule
+    Groupe & Variable & Fichier EHCVM & Variable EHCVM \\
+    \midrule
+    \multirow{4}{2.2cm}{Chef de menage}
+      & Age du CM            & \texttt{ehcvm\_welfare} & \texttt{hage} \\
+      & Sexe (feminin = 1)   & \texttt{ehcvm\_welfare} & \texttt{hgender} \\
+      & Niveau d'education   & \texttt{ehcvm\_welfare} & \texttt{heduc} \\
+      & Statut matrimonial   & \texttt{ehcvm\_welfare} & \texttt{hmstat} \\
+    \midrule
+    \multirow{2}{2.2cm}{Composition}
+      & Taille du menage     & \texttt{ehcvm\_welfare} & \texttt{hhsize} \\
+      & Bien-etre initial    & \texttt{ehcvm\_welfare} & \texttt{pcexp} \\
+    \midrule
+    \multirow{2}{2.2cm}{Localisation}
+      & Milieu (urbain = 1)  & \texttt{ehcvm\_welfare} & \texttt{milieu} \\
+      & Region (14 regions)  & \texttt{ehcvm\_welfare} & \texttt{region} \\
+    \bottomrule
+  \end{tabular}
+  \begin{minipage}{\linewidth}
+    \small\vspace{2pt}
+    \textit{Note :} CM = chef de menage. \texttt{pcexp} est transformee en
+    logarithme (\texttt{log\_pcexp}) pour reduire l'asymetrie de la distribution.
+    \texttt{region} est traitee comme un facteur a 14 modalites.
+    La specification finale est : $D \sim \texttt{hhsize} + \log(\texttt{pcexp})
+    + \texttt{milieu} + \texttt{region} + \texttt{hgender} + \texttt{hage}
+    + \texttt{heduc} + \texttt{hmstat}$.
+  \end{minipage}
+\end{table}
+
+% ─────────────────────────────────────────────────────────────────────────────
+\subsection{Mesure de la pauvreté multidimensionnelle des enfants}
+% ─────────────────────────────────────────────────────────────────────────────
+
+\subsubsection{Fondements conceptuels}
 
 Les mesures monetaires de la pauvrete ne rendent pas compte des conditions
 de vie des enfants pour deux raisons fondamentales. D'une part, elles supposent
@@ -34,11 +170,9 @@ Dans ce cadre, deux methodes de mesure de la pauvrete multidimensionnelle
 des enfants sont adoptees, chacune apportant une information complementaire
 sur les privations subies.
 
-% ─────────────────────────────────────────────────────────────────────────────
-\subsection{Premiere approche : l'indice Alkire-Foster (IPM-Enfant)}
-% ─────────────────────────────────────────────────────────────────────────────
+\subsubsection{Première approche : l'indice Alkire-Foster (IPM-Enfant)}
 
-\subsubsection{Principe et construction}
+\paragraph{Principe et construction.}
 
 La methode d'Alkire-Foster \parencite{alkire2007, alkire2011} construit un
 indice synthetique de pauvrete multidimensionnelle en deux etapes. Soit $n$
@@ -72,7 +206,7 @@ pauvres. La mesure $M_0$ est decomposable par groupe de population et par
 dimension, ce qui permet d'analyser la contribution de chaque region, milieu
 et dimension a la pauvrete globale.
 
-\subsubsection{Dimensions et indicateurs retenus}
+\paragraph{Dimensions et indicateurs retenus.}
 
 \begin{table}[H]
   \centering
@@ -105,12 +239,9 @@ et dimension a la pauvrete globale.
   \end{threeparttable}
 \end{table}
 
-% ─────────────────────────────────────────────────────────────────────────────
-\subsection{Deuxieme approche : MODA (Multiple Overlapping Deprivation
-Analysis)}
-% ─────────────────────────────────────────────────────────────────────────────
+\subsubsection{Deuxième approche : MODA (Multiple Overlapping Deprivation Analysis)}
 
-\subsubsection{Specificites de l'approche MODA}
+\paragraph{Spécificités de l'approche MODA.}
 
 L'approche MODA, developpee par \textcite{deneubourg2012} au sein du bureau
 de recherche de l'UNICEF et appliquee en Afrique subsaharienne par
@@ -136,10 +267,14 @@ privations par age et de leurs combinaisons. Dans notre etude, les deux
 mesures constituent des variables de resultat alternatives pour l'estimation
 PSM-DD, permettant de verifier la robustesse des conclusions.
 
-\subsubsection{Groupes d'age et dimensions retenus}
+\paragraph{Groupes d'âge et dimensions retenus.}
 
-Suivant \textcite{deneubourg2012} et leur adaptation au contexte senegalais
-\parencite{unicef2016}, nous distinguons trois groupes d'age :
+Suivant \textcite{deneubourg2012} et l'adaptation nationale N-MODA developpee
+pour le Senegal lors d'un atelier participatif rassemblant l'ANSD et les
+ministeres sectoriels \parencite{ansd2024}, nous distinguons trois groupes
+d'age avec des indicateurs adaptes aux droits specifiques de chaque phase de
+l'enfance. Le tableau~\ref{tab:moda_indicateurs} presente les dimensions et
+indicateurs retenus, en coherence avec l'EHCVM et la methodologie N-MODA.
 
 \begin{table}[H]
   \centering
@@ -147,40 +282,43 @@ Suivant \textcite{deneubourg2012} et leur adaptation au contexte senegalais
   \label{tab:moda_indicateurs}
   \begin{threeparttable}
   \small
-  \begin{tabular}{p{1.8cm}p{2.5cm}p{5.2cm}p{2.5cm}}
+  \begin{tabular}{p{1.7cm}p{2.3cm}p{5.2cm}p{2.8cm}}
     \toprule
-    Groupe & Dimension & Indicateur de privation & Seuil \\
+    Groupe & Dimension & Indicateur de privation & Variables EHCVM \\
     \midrule
-    \multirow{5}{1.8cm}{\textbf{0-4 ans}}
-      & Nutrition      & Retard de croissance ou emaciation   & Z-score $< -2$ \\[3pt]
-      & Sante          & Vaccination incomplete                & Moins de 6 vaccins \\[3pt]
-      & Eau            & Source d'eau non amelioree           & Normes JMP \\[3pt]
-      & Assainissement & Toilettes non ameliorees             & Normes JMP \\[3pt]
-      & Logement       & Surpeuplement ou sol precaire        & $>3$ pers./piece \\
+    \multirow{5}{1.7cm}{\textbf{0-4 ans}}
+      & Sante          & Maladie sans consultation (\texttt{mal30j}=1, \texttt{con30j}=0) & \texttt{ehcvm\_individu} \\[3pt]
+      & Nutrition      & Maladie recente (proxy malnutrition) & \texttt{mal30j} \\[3pt]
+      & Eau            & Source non amelioree (saisonniere) & \texttt{eauboi\_ss/sp} \\[3pt]
+      & Assainissement & Toilettes non saines ou evacuation inadequate & \texttt{toilet}, \texttt{eva\_toi} \\[3pt]
+      & Logement       & Materiau precaire (mur, toit ou sol) & \texttt{mur}, \texttt{toi}, \texttt{sol} \\
     \midrule
-    \multirow{5}{1.8cm}{\textbf{5-14 ans}}
-      & Education      & Non-scolarisation                    & Non inscrit \\[3pt]
-      & Education      & Retard scolaire severe               & $\geq 2$ ans \\[3pt]
-      & Eau            & Source d'eau non amelioree           & Normes JMP \\[3pt]
-      & Assainissement & Toilettes non ameliorees             & Normes JMP \\[3pt]
-      & Logement       & Materiaux precaires                  & Sol en terre \\
+    \multirow{5}{1.7cm}{\textbf{5-14 ans}}
+      & Education      & Non-scolarise (\texttt{scol}=0, 6--14 ans) & \texttt{ehcvm\_individu} \\[3pt]
+      & Sante          & Maladie sans consultation & \texttt{mal30j}, \texttt{con30j} \\[3pt]
+      & Eau            & Source non amelioree & \texttt{eauboi\_ss/sp} \\[3pt]
+      & Assainissement & Toilettes non saines & \texttt{toilet}, \texttt{eva\_toi} \\[3pt]
+      & Logement       & Materiau precaire & \texttt{mur}, \texttt{toi}, \texttt{sol} \\
     \midrule
-    \multirow{5}{1.8cm}{\textbf{15-17 ans}}
-      & Education      & Non-scolarisation ou abandon         & Non inscrit au secondaire \\[3pt]
-      & Travail        & Travail des enfants                  & $> 28$h/semaine \\[3pt]
-      & Eau            & Source d'eau non amelioree           & Normes JMP \\[3pt]
-      & Assainissement & Toilettes non ameliorees             & Normes JMP \\[3pt]
-      & Information    & Aucun acces media                   & Pas de TV/radio/internet \\
+    \multirow{5}{1.7cm}{\textbf{15-17 ans}}
+      & Education      & Non-scolarise & \texttt{scol} \\[3pt]
+      & Travail        & Actif economique (\texttt{activ7j} $\in \{1,2\}$) & \texttt{ehcvm\_individu} \\[3pt]
+      & Eau            & Source non amelioree & \texttt{eauboi\_ss/sp} \\[3pt]
+      & Assainissement & Toilettes non saines & \texttt{toilet}, \texttt{eva\_toi} \\[3pt]
+      & Logement       & Materiau precaire & \texttt{mur}, \texttt{toi}, \texttt{sol} \\
     \bottomrule
   \end{tabular}
   \begin{tablenotes}
     \small
-    \item \textit{Note :} Normes JMP : Joint Monitoring Programme OMS/UNICEF.
+    \item \textit{Note :} Le rapport N-MODA Senegal \parencite{ansd2024} retient 7 dimensions avec un seuil $k=4$.
+    Nos donnees EHCVM permettent de couvrir 5 dimensions operationnelles par groupe ; nous retenons
+    $k = 2$ privations simultanees comme seuil de pauvrete multidimensionnelle, conforme a la
+    convention MODA de base \parencite{deneubourg2012} et coherent avec le nombre de dimensions disponibles.
   \end{tablenotes}
   \end{threeparttable}
 \end{table}
 
-\subsubsection{Mesures MODA}
+\paragraph{Mesures MODA.}
 
 Pour chaque enfant $i$ du groupe $g$ et chaque dimension $j \in \mathcal{D}_g$,
 la variable de privation elementaire est $d_{ij}^g = \mathbf{1}[y_{ij} <
@@ -200,7 +338,8 @@ d'enfants souffrant d'au moins $k$ privations simultanees :
   P_k^g = \frac{1}{n_g} \sum_{i=1}^{n_g} \mathbf{1}\left[s_i^g \geq k\right].
   \label{eq:pk}
 \end{equation}
-Nous calculons $P_k^g$ pour $k \in \{1, 2, 3\}$.
+Nous retenons $k = 2$ comme seuil principal de pauvrete multidimensionnelle
+MODA, en accord avec la convention de base de la methode \parencite{deneubourg2012}.
 
 L'\textbf{intensite moyenne} des privations parmi les enfants prives est :
 \begin{equation}
@@ -208,9 +347,7 @@ L'\textbf{intensite moyenne} des privations parmi les enfants prives est :
   \label{eq:intensite_moda}
 \end{equation}
 
-% ─────────────────────────────────────────────────────────────────────────────
-\subsection{Variables de resultat dans l'estimation PSM-DD}
-% ─────────────────────────────────────────────────────────────────────────────
+\subsubsection{Variables de résultat dans l'estimation PSM-DD}
 
 Les deux approches fournissent des variables de resultat complementaires qui
 sont estimees dans le cadre PSM-DD. L'approche Alkire-Foster fournit l'IPM-
@@ -220,96 +357,10 @@ privations simultanees) par groupe d'age comme mesure principale, et $H_j^g$
 par dimension comme mesures secondaires.
 
 % ─────────────────────────────────────────────────────────────────────────────
-\section{Donnees : les enquetes EHCVM I et II}
+\subsection{Stratégie d'identification causale : PSM-Double différence}
 % ─────────────────────────────────────────────────────────────────────────────
 
-\subsection{Presentation des enquetes}
-
-Les Enquetes Harmonisees sur les Conditions de Vie des Menages (EHCVM) sont
-realisees dans le cadre du programme statistique de l'UEMOA. L'\textbf{EHCVM
-I (2018-2019)} est la premiere vague nationale au Senegal \parencite{ansd2019},
-reposant sur un plan de sondage stratifie a deux degres (regions x milieux
-comme strates, zones de denombrements comme unites primaires). L'\textbf{EHCVM
-II (2021-2022)} reproduit le meme protocole \parencite{ansd2022}, permettant
-la constitution d'un pseudo-panel au niveau des zones de residence. La fenetre
-temporelle 2018-2022 couvre une periode de transformations importantes des
-flux migratoires senegalais et de leurs effets sur les menages.
-
-\subsection{Construction de l'echantillon}
-
-Notre population cible est l'ensemble des enfants ages de 0 a 17 ans residant
-dans les menages enquetes. Le pseudo-panel est construit en appariant les deux
-vagues au niveau des zones de residence \parencite{deaton1997}. Apres nettoyage
-(exclusion des observations avec plus de deux indicateurs manquants dans l'une
-ou l'autre approche) et harmonisation des variables entre vagues, l'echantillon
-final retient les enfants pour lesquels l'information sur les transferts et
-l'ensemble des indicateurs des deux approches sont disponibles dans les deux
-vagues.
-
-\subsection{Variable de traitement}
-
-La variable de traitement $D_i \in \{0, 1\}$ indique si le menage de l'enfant
-$i$ a recu des transferts d'un membre emigre au cours des 12 mois precedant
-l'enquete, conform\'{e}ment aux conventions de la litterature empirique sur les
-remittances en Afrique \parencite{azam2016, combes2019}.
-
-\subsection{Correspondance entre indicateurs et modules EHCVM}
-
-\begin{table}[H]
-  \centering
-  \caption{Correspondance entre indicateurs (AF et MODA) et modules EHCVM}
-  \label{tab:correspondance}
-  \begin{tabular}{p{2.5cm}p{3cm}p{3.5cm}p{3.5cm}}
-    \toprule
-    Indicateur & Approche & Module EHCVM I & Module EHCVM II \\
-    \midrule
-    Scolarisation, retard & AF + MODA & Education & Education \\
-    Vaccination           & AF + MODA & Sante      & Sante \\
-    Suivi nutritionnel    & AF        & Sante      & Sante \\
-    Malnutrition (z-score)& MODA      & Anthropometrie & Anthropometrie \\
-    Eau potable           & AF + MODA & Logement   & Logement \\
-    Assainissement        & AF + MODA & Logement   & Logement \\
-    Logement/materiaux    & MODA      & Logement   & Logement \\
-    Travail enfant        & MODA      & Emploi     & Emploi \\
-    Acces media           & MODA      & Equipement & Equipement \\
-    \bottomrule
-  \end{tabular}
-\end{table}
-
-\subsection{Covariables du modele de propension}
-
-\begin{table}[H]
-  \centering
-  \caption{Covariables du modele de propension}
-  \label{tab:covariables}
-  \begin{tabular}{p{4cm}p{8cm}}
-    \toprule
-    Groupe & Variables \\
-    \midrule
-    Chef de menage  & Age, sexe (feminin = 1), niveau d'education
-                      (aucun / primaire / secondaire et plus),
-                      statut matrimonial \\
-    \midrule
-    Composition     & Taille du menage, ratio de dependance,
-                      nombre d'enfants de moins de 5 ans \\
-    \midrule
-    Localisation    & Milieu de residence (urbain = 1),
-                      region administrative (14 regions) \\
-    \midrule
-    Patrimoine      & Possession de terres agricoles,
-                      acces a l'electricite \\
-    \midrule
-    Migration       & Presence d'un emigre dans le menage,
-                      duree d'emigration \\
-    \bottomrule
-  \end{tabular}
-\end{table}
-
-% ─────────────────────────────────────────────────────────────────────────────
-\section{Strategie d'identification causale : PSM-Double difference}
-% ─────────────────────────────────────────────────────────────────────────────
-
-\subsection{Le cadre des resultats potentiels}
+\subsubsection{Le cadre des résultats potentiels}
 
 Pour chaque enfant $i$, on definit deux resultats potentiels : $Y_i(1)$ la
 mesure de pauvrete (AF ou MODA) si le menage recoit des transferts, et
@@ -324,7 +375,7 @@ L'estimateur naif est biaise car les menages beneficiaires et non-beneficiaires
 different systematiquement sur des caracteristiques observables et inobservables
 (biais de selection).
 
-\subsection{L'appariement par score de propension (PSM)}
+\subsubsection{L'appariement par score de propension (PSM)}
 
 Le PSM repose sur deux hypotheses. La premiere est l'\textbf{independance
 conditionnelle} (CIA) : conditionnellement aux covariables observees $X_i$,
@@ -373,7 +424,7 @@ La qualite de l'appariement est evaluee par le biais standardise
 un $|SB| < 10$ indiquant un equilibre satisfaisant \parencite{caliendo2008},
 ainsi que par le test $t$ d'egalite des moyennes et la statistique pseudo-$R^2$.
 
-\subsection{La double difference (DD)}
+\subsubsection{La double différence (DD)}
 
 La DD exploite la dimension temporelle des deux vagues EHCVM pour controler
 les effets fixes inobservables stables dans le temps :
@@ -383,10 +434,13 @@ les effets fixes inobservables stables dans le temps :
   \label{eq:dd}
 \end{equation}
 sous l'hypothese de \textit{tendances paralleles} :
-$\E[Y_i(0)_{t=2} - Y_i(0)_{t=1} \mid D_i = 1] = \E[Y_i(0)_{t=2} -
-Y_i(0)_{t=1} \mid D_i = 0]$.
+\begin{equation}
+  \E\!\left[Y_i(0)_{t=2} - Y_i(0)_{t=1} \mid D_i = 1\right]
+  = \E\!\left[Y_i(0)_{t=2} - Y_i(0)_{t=1} \mid D_i = 0\right].
+  \label{eq:parallel}
+\end{equation}
 
-\subsection{L'estimateur PSM-DD}
+\subsubsection{L'estimateur PSM-DD}
 
 La combinaison PSM-DD proposee par \textcite{heckman1997} et
 \textcite{heckman1998} neutralise simultanement le biais lie aux differences
@@ -402,7 +456,7 @@ ou $\Delta Y_i = Y_{i,t=2} - Y_{i,t=1}$ est la variation intra-individuelle
 de la variable de resultat (AF ou MODA). Les ecarts-types sont calcules par
 bootstrap (1\,000 replications) \parencite{caliendo2008}.
 
-\subsection{Analyses d'heterogeneite et de robustesse}
+\subsubsection{Analyses d'hétérogénéité et de robustesse}
 
 Les analyses d'heterogeneite estiment l'effet PSM-DD separement selon le
 milieu de residence (urbain et rural), le groupe d'age (pour les mesures MODA),
@@ -410,20 +464,3 @@ le genre et chaque dimension de privation. La robustesse est verifiee par la
 comparaison entre les trois algorithmes d'appariement, le test des bornes de
 Rosenbaum \parencite{rosenbaum2002} et un test placebo sur des dimensions
 non affectables par les transferts.
-
-% ─────────────────────────────────────────────────────────────────────────────
-\section*{Conclusion du chapitre}
-\addcontentsline{toc}{section}{Conclusion du chapitre 2}
-% ─────────────────────────────────────────────────────────────────────────────
-
-Ce chapitre a presente le cadre methodologique articule autour de deux approches
-de mesure complementaires et d'une strategie d'identification commune. La mesure
-Alkire-Foster fournit un IPM-Enfant synthetique ($M_0 = H \times A$) avec six
-indicateurs ponderes equitablement, decomposable par groupes et dimensions.
-La mesure MODA fournit une analyse des privations superposees disaggregee par
-groupe d'age (0-4, 5-14 et 15-17 ans), avec des indicateurs adaptes aux droits
-specifiques de chaque stade de developpement. Les deux mesures constituent des
-variables de resultat alternatives dans l'estimateur PSM-DD, qui controle
-simultanement les biais de selection observables et les effets fixes
-inobservables stables dans le temps, a partir des deux vagues EHCVM
-(2018-2019 et 2021-2022).

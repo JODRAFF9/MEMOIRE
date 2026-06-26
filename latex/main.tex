@@ -2,10 +2,10 @@
 %  main.tex - Memoire de fin d'etudes
 %  Impact des transferts de migrants sur la pauvrete multidimensionnelle
 %  des enfants au Senegal - ENSAE Dakar
-%  Compilable avec : pdflatex main.tex (deux passes)
+%  Compilation : latexmk -pdf main.tex  (biber obligatoire, pas bibtex)
 % ============================================================
 
-\documentclass[12pt, a4paper, twoside]{report}
+\documentclass[12pt, a4paper, twoside]{article}
 
 % ── Encodage & langue ───────────────────────────────────────
 \usepackage[utf8]{inputenc}
@@ -17,7 +17,7 @@
 \usepackage[
   top=2.5cm, bottom=2.5cm,
   left=3cm, right=2.5cm,
-  headheight=15pt
+  headheight=28pt
 ]{geometry}
 \usepackage{setspace}
 \onehalfspacing
@@ -35,7 +35,7 @@
 \fancyfoot[C]{\thepage}
 \renewcommand{\headrulewidth}{0.4pt}
 
-% ── Couleurs (neutralisees pour le moment) ───────────────────
+% ── Couleurs ─────────────────────────────────────────────────
 \usepackage{xcolor}
 
 % ── Mathématiques ───────────────────────────────────────────
@@ -68,7 +68,7 @@
   pdfsubject={Memoire de fin d'etudes - ENSAE Dakar}
 ]{hyperref}
 
-% ── Bibliographie ───────────────────────────────────────────
+% ── Bibliographie (biber requis) ─────────────────────────────
 \usepackage[
   backend=biber,
   style=apa,
@@ -86,16 +86,16 @@
 % ── Annexes ─────────────────────────────────────────────────
 \usepackage{appendix}
 
-% ── Théorèmes ───────────────────────────────────────────────
+% ── Théorèmes (numérotés par section dans article) ───────────
 \theoremstyle{plain}
-\newtheorem{theoreme}{Théorème}[chapter]
-\newtheorem{proposition}{Proposition}[chapter]
-\newtheorem{lemme}{Lemme}[chapter]
+\newtheorem{theoreme}{Théorème}[section]
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{lemme}{Lemme}[section]
 \theoremstyle{definition}
-\newtheorem{definition}{Définition}[chapter]
-\newtheorem{exemple}{Exemple}[chapter]
+\newtheorem{definition}{Définition}[section]
+\newtheorem{exemple}{Exemple}[section]
 \theoremstyle{remark}
-\newtheorem{remarque}{Remarque}[chapter]
+\newtheorem{remarque}{Remarque}[section]
 
 % ── Commandes personnalisées ─────────────────────────────────
 \newcommand{\E}{\mathbb{E}}
@@ -103,6 +103,10 @@
 \newcommand{\Cov}{\mathrm{Cov}}
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\N}{\mathbb{N}}
+
+% ── Numérotation des sections ────────────────────────────────
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
 
 % ── Informations du document ─────────────────────────────────
 \title{%
@@ -126,7 +130,7 @@
 \input{chapitres/resume}
 \input{chapitres/abstract}
 
-% ── Sommaire (chapitres uniquement) ─────────────────────────
+% ── Sommaire (sections uniquement) ──────────────────────────
 {
   \renewcommand{\contentsname}{Sommaire}
   \setcounter{tocdepth}{0}
@@ -144,11 +148,25 @@
 \pagenumbering{arabic}
 \setcounter{page}{1}
 
+% 1. Introduction
 \input{chapitres/introduction}
+
+% 2. Revue de la littérature
 \input{chapitres/chapitre1}
+
+% 3. Données et méthodologie
 \input{chapitres/chapitre2}
-\input{chapitres/chapitre3}
+
+% 4. Statistiques descriptives
+\input{chapitres/chapitre3_stats}
+
+% 5. Résultats des estimations
+\input{chapitres/chapitre3_resultats}
+
+% 6. Discussion
 \input{chapitres/chapitre4}
+
+% 7. Conclusion et recommandations
 \input{chapitres/conclusion}
 
 % ── Bibliographie ────────────────────────────────────────────
