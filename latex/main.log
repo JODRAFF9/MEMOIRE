@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.5) (preloaded format=pdflatex 2026.6.4)  25 JUN 2026 13:36
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.5) (preloaded format=pdflatex 2026.6.4)  26 JUN 2026 00:43
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1391,58 +1391,33 @@ LaTeX Warning: Citation 'ansd2022' on page 6 undefined on input line 123.
 {C:/Users/Bmd/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-rm.enc}{C:/Us
 ers/Bmd/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathsy.enc}]
 
-LaTeX Warning: Citation 'townsend1979' on page 7 undefined on input line 131.
+LaTeX Warning: Citation 'roelen2008' on page 7 undefined on input line 137.
 
 
-LaTeX Warning: Citation 'gordon2003' on page 7 undefined on input line 131.
+LaTeX Warning: Citation 'deneubourg2012' on page 7 undefined on input line 140.
 
 
-LaTeX Warning: Citation 'unicef2007' on page 7 undefined on input line 135.
+
+LaTeX Warning: Citation '' on page 7 undefined on input line 140.
 
 
-LaTeX Warning: Citation '' on page 7 undefined on input line 135.
+LaTeX Warning: Citation 'demilliano2014' on page 7 undefined on input line 153.
 
 
-LaTeX Warning: Citation 'ba2017' on page 7 undefined on input line 139.
+
+LaTeX Warning: Citation '' on page 7 undefined on input line 153.
 
 
-LaTeX Warning: Citation '' on page 7 undefined on input line 139.
+LaTeX Warning: Citation 'townsend1979' on page 7 undefined on input line 165.
 
 
-LaTeX Warning: Citation 'adams2005' on page 7 undefined on input line 151.
+LaTeX Warning: Citation 'gordon2003' on page 7 undefined on input line 165.
 
 
-LaTeX Warning: Citation '' on page 7 undefined on input line 151.
+LaTeX Warning: Citation 'unicef2007' on page 7 undefined on input line 169.
 
 
-LaTeX Warning: Citation 'acosta2008' on page 7 undefined on input line 154.
-
-
-LaTeX Warning: Citation '' on page 7 undefined on input line 154.
-
-
-LaTeX Warning: Citation 'taylor2008' on page 7 undefined on input line 158.
-
-
-LaTeX Warning: Citation '' on page 7 undefined on input line 158.
-
-
-LaTeX Warning: Citation 'azam2016' on page 7 undefined on input line 162.
-
-
-LaTeX Warning: Citation '' on page 7 undefined on input line 162.
-
-
-Overfull \hbox (59.47467pt too wide) in paragraph at lines 158--164
-[]\T1/lmr/m/n/12 (-20) Ces re-sul-tats glo-baux masquent une he-te-ro-ge-neite 
-consi-de-rable. [][]
- []
-
-
-Overfull \hbox (59.12634pt too wide) in paragraph at lines 158--164
-\T1/lmr/m/n/12 (-20) representes parmi les fa-mi-lies de mi-grants. Dans le con
-texte afri-cain, [][]
- []
+LaTeX Warning: Citation '' on page 7 undefined on input line 169.
 
 
 Package fancyhdr Warning: \headheight is too small (15.0pt): 
@@ -1453,96 +1428,120 @@ Package fancyhdr Warning: \headheight is too small (15.0pt):
 
 [7]
 
-LaTeX Warning: Citation 'cox2003' on page 8 undefined on input line 168.
+LaTeX Warning: Citation 'ba2017' on page 8 undefined on input line 173.
 
 
-LaTeX Warning: Citation '' on page 8 undefined on input line 168.
+LaTeX Warning: Citation '' on page 8 undefined on input line 173.
 
 
-LaTeX Warning: Citation 'acosta2011' on page 8 undefined on input line 175.
+LaTeX Warning: Citation 'adams2005' on page 8 undefined on input line 185.
 
 
-LaTeX Warning: Citation '' on page 8 undefined on input line 175.
+LaTeX Warning: Citation '' on page 8 undefined on input line 185.
 
 
-LaTeX Warning: Citation 'yang2008' on page 8 undefined on input line 177.
+LaTeX Warning: Citation 'acosta2008' on page 8 undefined on input line 188.
 
 
-LaTeX Warning: Citation '' on page 8 undefined on input line 177.
+LaTeX Warning: Citation '' on page 8 undefined on input line 188.
 
 
-LaTeX Warning: Citation 'mansuri2006' on page 8 undefined on input line 182.
+LaTeX Warning: Citation 'taylor2008' on page 8 undefined on input line 192.
 
 
-LaTeX Warning: Citation '' on page 8 undefined on input line 182.
+LaTeX Warning: Citation '' on page 8 undefined on input line 192.
 
 
-Overfull \hbox (5.35442pt too wide) in paragraph at lines 182--187
-[]\T1/lmr/m/n/12 (-20) Les re-sul-tats sont moins uni-voques pour l'Afrique. []
-[]
+LaTeX Warning: Citation 'azam2016' on page 8 undefined on input line 196.
+
+
+LaTeX Warning: Citation '' on page 8 undefined on input line 196.
+
+
+Overfull \hbox (59.47467pt too wide) in paragraph at lines 192--198
+[]\T1/lmr/m/n/12 (-20) Ces re-sul-tats glo-baux masquent une he-te-ro-ge-neite 
+consi-de-rable. [][]
  []
 
 
-LaTeX Warning: Citation 'hildebrandt2005' on page 8 undefined on input line 190
-.
+Overfull \hbox (59.12634pt too wide) in paragraph at lines 192--198
+\T1/lmr/m/n/12 (-20) representes parmi les fa-mi-lies de mi-grants. Dans le con
+texte afri-cain, [][]
+ []
 
 
-LaTeX Warning: Citation '' on page 8 undefined on input line 190.
+LaTeX Warning: Citation 'cox2003' on page 8 undefined on input line 202.
 
 
-LaTeX Warning: Citation 'amuedo2007' on page 8 undefined on input line 197.
+LaTeX Warning: Citation '' on page 8 undefined on input line 202.
 
 
-LaTeX Warning: Citation '' on page 8 undefined on input line 197.
+LaTeX Warning: Citation 'acosta2011' on page 8 undefined on input line 209.
 
 
-LaTeX Warning: Citation 'antman2012' on page 8 undefined on input line 200.
+LaTeX Warning: Citation '' on page 8 undefined on input line 209.
 
 
-LaTeX Warning: Citation '' on page 8 undefined on input line 200.
+LaTeX Warning: Citation 'yang2008' on page 8 undefined on input line 211.
 
 
-LaTeX Warning: Citation 'calero2009' on page 8 undefined on input line 204.
-
-
-LaTeX Warning: Citation '' on page 8 undefined on input line 204.
+LaTeX Warning: Citation '' on page 8 undefined on input line 211.
 
 [8]
 
-LaTeX Warning: Citation 'yang2008' on page 9 undefined on input line 214.
-
-
-LaTeX Warning: Citation '' on page 9 undefined on input line 214.
-
-
-LaTeX Warning: Citation 'combes2019' on page 9 undefined on input line 216.
+LaTeX Warning: Citation 'mansuri2006' on page 9 undefined on input line 216.
 
 
 LaTeX Warning: Citation '' on page 9 undefined on input line 216.
 
 
-LaTeX Warning: Citation 'gubert2002' on page 9 undefined on input line 224.
-
-
-LaTeX Warning: Citation 'azam2016' on page 9 undefined on input line 224.
-
-
-LaTeX Warning: Citation 'acosta2008' on page 9 undefined on input line 233.
-
-
-LaTeX Warning: Citation '' on page 9 undefined on input line 233.
-
-
-LaTeX Warning: Citation 'mckenzie2012' on page 9 undefined on input line 236.
-
-
-LaTeX Warning: Citation '' on page 9 undefined on input line 236.
-
-
-Overfull \hbox (17.09421pt too wide) in paragraph at lines 231--239
-\T1/lmr/m/n/12 (-20) leurs re-sul-tats souffrent de l'en-do-ge-neite des trans-
-ferts. [][]
+Overfull \hbox (5.35442pt too wide) in paragraph at lines 216--221
+[]\T1/lmr/m/n/12 (-20) Les re-sul-tats sont moins uni-voques pour l'Afrique. []
+[]
  []
+
+
+LaTeX Warning: Citation 'hildebrandt2005' on page 9 undefined on input line 224
+.
+
+
+LaTeX Warning: Citation '' on page 9 undefined on input line 224.
+
+
+LaTeX Warning: Citation 'amuedo2007' on page 9 undefined on input line 231.
+
+
+LaTeX Warning: Citation '' on page 9 undefined on input line 231.
+
+
+LaTeX Warning: Citation 'antman2012' on page 9 undefined on input line 234.
+
+
+LaTeX Warning: Citation '' on page 9 undefined on input line 234.
+
+
+LaTeX Warning: Citation 'calero2009' on page 9 undefined on input line 238.
+
+
+LaTeX Warning: Citation '' on page 9 undefined on input line 238.
+
+
+LaTeX Warning: Citation 'yang2008' on page 9 undefined on input line 248.
+
+
+LaTeX Warning: Citation '' on page 9 undefined on input line 248.
+
+
+LaTeX Warning: Citation 'combes2019' on page 9 undefined on input line 250.
+
+
+LaTeX Warning: Citation '' on page 9 undefined on input line 250.
+
+
+LaTeX Warning: Citation 'gubert2002' on page 9 undefined on input line 258.
+
+
+LaTeX Warning: Citation 'azam2016' on page 9 undefined on input line 258.
 
 
 Package fancyhdr Warning: \headheight is too small (15.0pt): 
@@ -1553,61 +1552,80 @@ Package fancyhdr Warning: \headheight is too small (15.0pt):
 
 [9]
 
-LaTeX Warning: Citation 'yang2008' on page 10 undefined on input line 250.
+LaTeX Warning: Citation 'acosta2008' on page 10 undefined on input line 267.
 
 
-LaTeX Warning: Citation '' on page 10 undefined on input line 250.
+LaTeX Warning: Citation '' on page 10 undefined on input line 267.
 
 
-LaTeX Warning: Citation 'acosta2011' on page 10 undefined on input line 252.
+LaTeX Warning: Citation 'mckenzie2012' on page 10 undefined on input line 270.
 
 
-LaTeX Warning: Citation '' on page 10 undefined on input line 252.
+LaTeX Warning: Citation '' on page 10 undefined on input line 270.
 
 
-Overfull \hbox (85.79pt too wide) in paragraph at lines 249--255
+Overfull \hbox (17.09421pt too wide) in paragraph at lines 265--273
+\T1/lmr/m/n/12 (-20) leurs re-sul-tats souffrent de l'en-do-ge-neite des trans-
+ferts. [][]
+ []
+
+
+LaTeX Warning: Citation 'yang2008' on page 10 undefined on input line 284.
+
+
+LaTeX Warning: Citation '' on page 10 undefined on input line 284.
+
+
+LaTeX Warning: Citation 'acosta2011' on page 10 undefined on input line 286.
+
+
+LaTeX Warning: Citation '' on page 10 undefined on input line 286.
+
+
+Overfull \hbox (85.79pt too wide) in paragraph at lines 283--289
 []\T1/lmr/m/n/12 (-20) Plusieurs stra-te-gies d'iden-ti-fi-ca-tion ont ete uti-
 li-sees dans la lit-te-ra-ture. [][]
  []
 
 
-LaTeX Warning: Citation 'rosenbaum1983' on page 10 undefined on input line 256.
+LaTeX Warning: Citation 'rosenbaum1983' on page 10 undefined on input line 290.
 
 
 
-LaTeX Warning: Citation '' on page 10 undefined on input line 256.
+LaTeX Warning: Citation '' on page 10 undefined on input line 290.
 
 
-LaTeX Warning: Citation 'heckman1997' on page 10 undefined on input line 257.
+LaTeX Warning: Citation 'heckman1997' on page 10 undefined on input line 291.
 
 
-LaTeX Warning: Citation '' on page 10 undefined on input line 257.
+LaTeX Warning: Citation '' on page 10 undefined on input line 291.
 
 
-LaTeX Warning: Citation 'caliendo2008' on page 10 undefined on input line 260.
+LaTeX Warning: Citation 'caliendo2008' on page 10 undefined on input line 294.
 
 
-LaTeX Warning: Citation '' on page 10 undefined on input line 260.
+LaTeX Warning: Citation '' on page 10 undefined on input line 294.
 
 
-Overfull \hbox (72.76405pt too wide) in paragraph at lines 256--262
+Overfull \hbox (72.76405pt too wide) in paragraph at lines 290--296
 []\T1/lmr/m/n/12 (-20) L'appariement par score de pro-pen-sion (PSM), in-tro-du
 it par [][]
  []
 
+[10]
 
-LaTeX Warning: Citation 'heckman1998' on page 10 undefined on input line 265.
-
-
-LaTeX Warning: Citation 'smith2005' on page 10 undefined on input line 265.
+LaTeX Warning: Citation 'heckman1998' on page 11 undefined on input line 299.
 
 
-LaTeX Warning: Citation 'card1994' on page 10 undefined on input line 267.
+LaTeX Warning: Citation 'smith2005' on page 11 undefined on input line 299.
 
 
-LaTeX Warning: Citation 'angrist2009' on page 10 undefined on input line 267.
+LaTeX Warning: Citation 'card1994' on page 11 undefined on input line 301.
 
-[10]) (chapitres/chapitre2.tex
+
+LaTeX Warning: Citation 'angrist2009' on page 11 undefined on input line 301.
+
+) (chapitres/chapitre2.tex
 
 Package fancyhdr Warning: \headheight is too small (15.0pt): 
 (fancyhdr)                Make it at least 25.2232pt, for example:
@@ -1615,181 +1633,209 @@ Package fancyhdr Warning: \headheight is too small (15.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-10.2232pt}.
 
-[11]
+[11] [12]
 Chapitre 2.
 
-LaTeX Warning: Citation 'sen1999' on page 12 undefined on input line 23.
+LaTeX Warning: Citation 'deaton1997' on page 13 undefined on input line 24.
 
 
-LaTeX Warning: Citation 'gordon2003' on page 12 undefined on input line 23.
+LaTeX Warning: Citation 'gordon2003' on page 13 undefined on input line 27.
 
 
-LaTeX Warning: Citation 'sen1985' on page 12 undefined on input line 25.
+LaTeX Warning: Citation 'sen1999' on page 13 undefined on input line 27.
 
 
-LaTeX Warning: Citation '' on page 12 undefined on input line 25.
+LaTeX Warning: Citation 'sen1985' on page 13 undefined on input line 28.
 
 
-LaTeX Warning: Citation 'alkire2007' on page 12 undefined on input line 32.
+LaTeX Warning: Citation '' on page 13 undefined on input line 28.
 
 
-LaTeX Warning: Citation 'alkire2011' on page 12 undefined on input line 32.
+LaTeX Warning: Citation 'alkire2007' on page 13 undefined on input line 43.
 
 
-LaTeX Warning: Citation 'pnud2010' on page 12 undefined on input line 37.
+LaTeX Warning: Citation 'alkire2011' on page 13 undefined on input line 43.
 
-
-LaTeX Warning: Citation 'battiston2013' on page 12 undefined on input line 39.
-
-[12
+[13
 
 ]
 
 LaTeX Font Warning: Font shape `T1/lmr/bx/sc' undefined
-(Font)              using `T1/lmr/bx/n' instead on input line 52.
+(Font)              using `T1/lmr/bx/n' instead on input line 80.
 
 
-Underfull \hbox (badness 1490) in paragraph at lines 60--60
+Underfull \hbox (badness 1490) in paragraph at lines 88--88
 []|\T1/lmr/m/n/12 (+20) Frequentation sco-
  []
 
 
-Underfull \hbox (badness 1038) in paragraph at lines 70--70
-[]|\T1/lmr/m/n/12 (+20) Acces a l'eau po-
+Underfull \hbox (badness 1888) in paragraph at lines 93--93
+[]|\T1/lmr/m/n/12 (+20) Vaccination in-com-plete (0-5
+ []
+
+
+Underfull \hbox (badness 1231) in paragraph at lines 96--96
+[]|\T1/lmr/m/n/12 (+20) Source d'eau non ame-lio-ree
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 97--97
+[]|\T1/lmr/m/n/12 (+20) Toilettes non ame-lio-rees
  []
 
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10.95> on input line 76.
+(Font)              <10.95> on input line 102.
 
-LaTeX Warning: Citation 'unicef2007' on page 13 undefined on input line 88.
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[13]
+ [14{C:/Users/Bmd/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathex.en
+c}]
 
-LaTeX Warning: Citation 'alkire2013' on page 14 undefined on input line 125.
-
-
-LaTeX Warning: Citation '' on page 14 undefined on input line 125.
-
-[14{C:/Users/Bmd/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathex.enc
-}]
-
-LaTeX Warning: Citation 'ansd2019' on page 15 undefined on input line 189.
+LaTeX Warning: Citation 'deneubourg2012' on page 15 undefined on input line 115
+.
 
 
-LaTeX Warning: Citation 'ansd2022' on page 15 undefined on input line 198.
+LaTeX Warning: Citation '' on page 15 undefined on input line 115.
+
+
+LaTeX Warning: Citation 'demilliano2014' on page 15 undefined on input line 117
+.
+
+
+LaTeX Warning: Citation '' on page 15 undefined on input line 117.
 
 [15]
 
-LaTeX Warning: Citation 'deaton1997' on page 16 undefined on input line 216.
+LaTeX Warning: Citation 'deneubourg2012' on page 16 undefined on input line 141
+.
 
 
-LaTeX Warning: Citation 'azam2016' on page 16 undefined on input line 243.
+LaTeX Warning: Citation '' on page 16 undefined on input line 141.
 
 
-LaTeX Warning: Citation 'combes2019' on page 16 undefined on input line 243.
+LaTeX Warning: Citation 'unicef2016' on page 16 undefined on input line 142.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 264--264
-[]|\T1/lmr/m/n/12 (+20) Frequentation
+Underfull \hbox (badness 10000) in paragraph at lines 170--170
+[]|$\OML/lmm/m/it/10.95 >
  []
 
 
-Underfull \hbox (badness 4229) in paragraph at lines 266--266
-[]|\T1/lmr/m/n/12 (+20) Suivi nu-tri-tion-
+Underfull \hbox (badness 10000) in paragraph at lines 173--174
+[]|\T1/lmr/m/n/10.95 (+20) Pas de
+ []
+
+
+Overfull \hbox (15.56757pt too wide) in paragraph at lines 173--174
+\T1/lmr/m/n/10.95 (-20) TV/radio/internet| 
  []
 
 [16]
-Underfull \hbox (badness 6220) in paragraph at lines 306--307
-[]|\T1/lmr/m/n/12 (+20) Caracteristiques mi-gra-
- []
+
+LaTeX Warning: Citation 'ansd2019' on page 17 undefined on input line 230.
 
 
-LaTeX Warning: Citation 'angrist2009' on page 17 undefined on input line 321.
+LaTeX Warning: Citation 'ansd2022' on page 17 undefined on input line 233.
+
+
+LaTeX Warning: Citation 'deaton1997' on page 17 undefined on input line 242.
 
 [17]
 
-LaTeX Warning: Citation 'rosenbaum1983' on page 18 undefined on input line 366.
+LaTeX Warning: Citation 'azam2016' on page 18 undefined on input line 254.
 
 
-
-LaTeX Warning: Citation '' on page 18 undefined on input line 366.
-
-[18]
-
-LaTeX Warning: Citation 'caliendo2008' on page 19 undefined on input line 381.
+LaTeX Warning: Citation 'combes2019' on page 18 undefined on input line 254.
 
 
-LaTeX Warning: Citation 'rosenbaum1983' on page 19 undefined on input line 427.
+Underfull \hbox (badness 10000) in paragraph at lines 266--266
+[]|\T1/lmr/m/n/12 (+20) Scolarisation,
+ []
 
 
+Underfull \hbox (badness 10000) in paragraph at lines 268--268
+[]|\T1/lmr/m/n/12 (+20) Suivi nu-tri-
+ []
 
-LaTeX Warning: Citation '' on page 19 undefined on input line 427.
+
+Underfull \hbox (badness 10000) in paragraph at lines 269--269
+[]|\T1/lmr/m/n/12 (+20) Malnutrition
+ []
+
+
+Overfull \hbox (4.60043pt too wide) in paragraph at lines 271--271
+[]|\T1/lmr/m/n/12 (-20) Assainissement| 
+ []
+
+
+Overfull \hbox (34.5737pt too wide) in paragraph at lines 272--272
+[]|\T1/lmr/m/n/12 (-20) Logement/materiaux| 
+ []
+
+
+Underfull \hbox (badness 1448) in paragraph at lines 293--295
+[]|\T1/lmr/m/n/12 (+20) Taille du me-nage, ra-tio de de-pen-dance,
+ []
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-
-
-Package fancyhdr Warning: \headheight is too small (15.0pt): 
-(fancyhdr)                Make it at least 25.2232pt, for example:
-(fancyhdr)                \setlength{\headheight}{25.2232pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-10.2232pt}.
-
+ [18]
 [19]
 
-LaTeX Warning: Citation 'caliendo2008' on page 20 undefined on input line 433.
-
-[20]
-
-LaTeX Warning: Citation 'heckman1997' on page 21 undefined on input line 483.
-
-
-LaTeX Warning: Citation '' on page 21 undefined on input line 483.
-
-
-LaTeX Warning: Citation 'heckman1998' on page 21 undefined on input line 484.
-
-
-LaTeX Warning: Citation '' on page 21 undefined on input line 484.
-
-
-LaTeX Warning: Citation 'smith2005' on page 21 undefined on input line 496.
-
-
-LaTeX Warning: Citation 'caliendo2008' on page 21 undefined on input line 519.
-
-
-LaTeX Warning: Citation '' on page 21 undefined on input line 519.
-
-
-Underfull \vbox (badness 2027) has occurred while \output is active []
+LaTeX Warning: Citation 'rosenbaum1983' on page 20 undefined on input line 338.
 
 
 
-Package fancyhdr Warning: \headheight is too small (15.0pt): 
-(fancyhdr)                Make it at least 25.2232pt, for example:
-(fancyhdr)                \setlength{\headheight}{25.2232pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-10.2232pt}.
-
-[21]
-
-LaTeX Warning: Citation 'rosenbaum2002' on page 22 undefined on input line 537.
+LaTeX Warning: Citation '' on page 20 undefined on input line 338.
 
 
-) (chapitres/chapitre3.tex [22]
+LaTeX Warning: Citation 'rosenbaum1983' on page 20 undefined on input line 367.
+
+
+
+LaTeX Warning: Citation 'caliendo2008' on page 20 undefined on input line 373.
+
+
+Underfull \vbox (badness 6944) has occurred while \output is active []
+
+ [20]
+
+LaTeX Warning: Citation 'heckman1997' on page 21 undefined on input line 391.
+
+
+LaTeX Warning: Citation '' on page 21 undefined on input line 391.
+
+
+LaTeX Warning: Citation 'heckman1998' on page 21 undefined on input line 392.
+
+
+LaTeX Warning: Citation '' on page 21 undefined on input line 392.
+
+
+Overfull \hbox (156.63304pt too wide) in paragraph at lines 391--395
+[]\T1/lmr/m/n/12 (-20) La com-bi-nai-son PSM-DD pro-po-see par [][] et [][]
+ []
+
+
+LaTeX Warning: Citation 'caliendo2008' on page 21 undefined on input line 403.
+
+
+LaTeX Warning: Citation 'rosenbaum2002' on page 21 undefined on input line 411.
+
+
+) (chapitres/chapitre3.tex [21]
 Chapitre 3.
 
 Underfull \vbox (badness 3354) has occurred while \output is active []
 
- [23
+ [22
 
 ]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [24])
-(chapitres/chapitre4.tex
+ [23])
+(chapitres/chapitre4.tex [24]
 
 Package fancyhdr Warning: \headheight is too small (15.0pt): 
 (fancyhdr)                Make it at least 27.7595pt, for example:
@@ -1797,29 +1843,29 @@ Package fancyhdr Warning: \headheight is too small (15.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-12.7595pt}.
 
-[25] [26]
+[25]
 Chapitre 4.
 
-LaTeX Warning: Citation 'rosenbaum2002' on page 27 undefined on input line 20.
+LaTeX Warning: Citation 'rosenbaum2002' on page 26 undefined on input line 20.
 
 
-LaTeX Warning: Citation '' on page 27 undefined on input line 20.
+LaTeX Warning: Citation '' on page 26 undefined on input line 20.
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [27
+ [26
 
 ])
-(chapitres/conclusion.tex [28])
+(chapitres/conclusion.tex [27])
 
 LaTeX Warning: Empty bibliography on input line 155.
 
-(annexes/annexe_A.tex [29
+(annexes/annexe_A.tex [28
 
 ]
 Annexe A.
-) (annexes/annexe_B.tex [30
+) (annexes/annexe_B.tex [29
 
 ]
 Annexe B.
@@ -1834,15 +1880,15 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             See the microtype manual for details.
 
 
-LaTeX Warning: Citation 'ho2011' on page 31 undefined on input line 22.
+LaTeX Warning: Citation 'ho2011' on page 30 undefined on input line 22.
 
-) [31
+) [30
 
 ] (main.toc)
 \tf@toc=\write8
 \openout8 = `main.toc'.
 
- [32
+ [31
 
 ] (main.aux)
  ***********
@@ -1857,7 +1903,7 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 LaTeX Warning: There were undefined references.
 
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: DF08FF7CC523E137DCC69627B39D7689;24711.
+(rerunfilecheck)             Checksum: 61E2011172B72D0EFD439EFE923C7701;21750.
 
 Package biblatex Warning: Please (re)run Biber on the file:
 (biblatex)                main
@@ -1868,32 +1914,33 @@ Package logreq Info: Writing requests to 'main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 27700 strings out of 467683
- 488501 string characters out of 5415690
- 1460291 words of memory out of 5000000
- 55916 multiletter control sequences out of 15000+600000
- 727675 words of font info for 216 fonts, out of 8000000 for 9000
+ 27642 strings out of 467683
+ 487847 string characters out of 5415690
+ 1464861 words of memory out of 5000000
+ 55899 multiletter control sequences out of 15000+600000
+ 726551 words of font info for 206 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  75i,13n,79p,1199b,2815s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/Bmd/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx10.pfb>
 <C:/Users/Bmd/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx12.pfb><C
 :/Users/Bmd/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmcsc10.pfb><C:
 /Users/Bmd/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmex10.pfb><C:/U
-sers/Bmd/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi12.pfb><C:/Use
-rs/Bmd/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi6.pfb><C:/Users/
-Bmd/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi8.pfb><C:/Users/Bmd
-/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr10.pfb><C:/Users/Bmd/Ap
-pData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr12.pfb><C:/Users/Bmd/AppDa
-ta/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr8.pfb><C:/Users/Bmd/AppData/L
-ocal/Programs/MiKTeX/fonts/type1/public/lm/lmri10.pfb><C:/Users/Bmd/AppData/Loc
-al/Programs/MiKTeX/fonts/type1/public/lm/lmri12.pfb><C:/Users/Bmd/AppData/Local
-/Programs/MiKTeX/fonts/type1/public/lm/lmsy10.pfb><C:/Users/Bmd/AppData/Local/P
-rograms/MiKTeX/fonts/type1/public/lm/lmsy8.pfb><C:/Users/Bmd/AppData/Local/Prog
-rams/MiKTeX/fonts/type1/public/lm/lmtt12.pfb><C:/Users/Bmd/AppData/Local/Progra
-ms/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on main.pdf (43 pages, 450262 bytes).
+sers/Bmd/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi10.pfb><C:/Use
+rs/Bmd/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi12.pfb><C:/Users
+/Bmd/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi6.pfb><C:/Users/Bm
+d/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi8.pfb><C:/Users/Bmd/A
+ppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr10.pfb><C:/Users/Bmd/AppD
+ata/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr12.pfb><C:/Users/Bmd/AppData
+/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr8.pfb><C:/Users/Bmd/AppData/Loc
+al/Programs/MiKTeX/fonts/type1/public/lm/lmri10.pfb><C:/Users/Bmd/AppData/Local
+/Programs/MiKTeX/fonts/type1/public/lm/lmri12.pfb><C:/Users/Bmd/AppData/Local/P
+rograms/MiKTeX/fonts/type1/public/lm/lmsy10.pfb><C:/Users/Bmd/AppData/Local/Pro
+grams/MiKTeX/fonts/type1/public/lm/lmsy8.pfb><C:/Users/Bmd/AppData/Local/Progra
+ms/MiKTeX/fonts/type1/public/lm/lmtt12.pfb><C:/Users/Bmd/AppData/Local/Programs
+/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on main.pdf (42 pages, 444033 bytes).
 PDF statistics:
- 796 PDF objects out of 1000 (max. 8388607)
- 197 named destinations out of 1000 (max. 500000)
- 54553 words of extra memory for PDF output out of 61914 (max. 10000000)
+ 746 PDF objects out of 1000 (max. 8388607)
+ 176 named destinations out of 1000 (max. 500000)
+ 54473 words of extra memory for PDF output out of 61914 (max. 10000000)
 

@@ -60,7 +60,10 @@ construire_base <- function(enfants, traitement, welfare, annee, t_val) {
 base_2018 <- construire_base(enfants_2018, traitement_2018, wel_2018, 2018, 0)
 base_2021 <- construire_base(enfants_2021, traitement_2021, wel_2021, 2021, 1)
 
-pseudo_panel <- dplyr::bind_rows(base_2018, base_2021)
+pseudo_panel <- dplyr::bind_rows(
+  dplyr::mutate(base_2018, dplyr::across(where(haven::is.labelled), haven::zap_labels)),
+  dplyr::mutate(base_2021, dplyr::across(where(haven::is.labelled), haven::zap_labels))
+)
 
 cat("Base analytique :", nrow(pseudo_panel),
     "obs | traites :", sum(pseudo_panel$D == 1, na.rm = TRUE), "\n")
