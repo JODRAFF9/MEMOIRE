@@ -1,0 +1,4568 @@
+<!DOCTYPE html>
+<html><head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src data:; style-src 'unsafe-inline' data:">
+		<title>Rapport Zotero</title>
+		<link rel="stylesheet" type="text/css" href="data:text/css;base64,Ym9keSB7Cgljb2xvci1zY2hlbWU6IGxpZ2h0IGRhcms7CgkvKiBUaGVzZSBzaG91bGQgYmUgdGhlIGRlZmF1bHRzLCBidXQganVzdCBpbiBjYXNlOiAqLwoJYmFja2dyb3VuZDogQ2FudmFzOwoJY29sb3I6IENhbnZhc1RleHQ7Cn0KCmEgewoJdGV4dC1kZWNvcmF0aW9uOiB1bmRlcmxpbmU7Cn0KCmJvZHkgewoJcGFkZGluZzogMDsKfQoKdWwucmVwb3J0IGxpLml0ZW0gewoJYm9yZGVyLXRvcDogNHB4IHNvbGlkICM1NTU7CglwYWRkaW5nLXRvcDogMWVtOwoJcGFkZGluZy1sZWZ0OiAxZW07CglwYWRkaW5nLXJpZ2h0OiAxZW07CgltYXJnaW4tYm90dG9tOiAyZW07Cn0KCmgxLCBoMiwgaDMsIGg0LCBoNSwgaDYgewoJZm9udC13ZWlnaHQ6IG5vcm1hbDsKfQoKaDIgewoJbWFyZ2luOiAwIDAgLjVlbTsKfQoKaDIucGFyZW50SXRlbSB7Cglmb250LXdlaWdodDogNjAwOwoJZm9udC1zaXplOiAxZW07CglwYWRkaW5nOiAwIDAgLjVlbTsKCWJvcmRlci1ib3R0b206IDFweCBzb2xpZCAjY2NjOwp9CgovKiBJZiBjb21iaW5pbmcgY2hpbGRyZW4sIGRpc3BsYXkgcGFyZW50IHNsaWdodGx5IGxhcmdlciAqLwp1bC5yZXBvcnQuY29tYmluZUNoaWxkSXRlbXMgaDIucGFyZW50SXRlbSB7Cglmb250LXNpemU6IDEuMWVtOwoJcGFkZGluZy1ib3R0b206IC43NWVtOwoJbWFyZ2luLWJvdHRvbTogLjRlbTsKfQoKaDIucGFyZW50SXRlbSAudGl0bGUgewoJZm9udC13ZWlnaHQ6IG5vcm1hbDsKfQoKaDMgewoJbWFyZ2luLWJvdHRvbTogLjZlbTsKCWZvbnQtd2VpZ2h0OiA2MDAgIWltcG9ydGFudDsKCWZvbnQtc2l6ZTogMWVtOwoJZGlzcGxheTogYmxvY2s7Cn0KCi8qIE1ldGFkYXRhIHRhYmxlICovCnRoIHsKCXZlcnRpY2FsLWFsaWduOiB0b3A7Cgl0ZXh0LWFsaWduOiByaWdodDsKCXdpZHRoOiAxNSU7Cgl3aGl0ZS1zcGFjZTogbm93cmFwOwp9Cgp0ZCB7CglwYWRkaW5nLWxlZnQ6IC41ZW07Cn0KCgp1bC5yZXBvcnQsIHVsLm5vdGVzLCB1bC50YWdzIHsKCWxpc3Qtc3R5bGU6IG5vbmU7CgltYXJnaW4tbGVmdDogMDsKCXBhZGRpbmctbGVmdDogMDsKfQoKLyogVGFncyAqLwpoMy50YWdzIHsKCWZvbnQtc2l6ZTogMS4xZW07Cn0KCnVsLnRhZ3MgewoJbGluZS1oZWlnaHQ6IDEuNzVlbTsKCWxpc3Qtc3R5bGU6IG5vbmU7Cn0KCnVsLnRhZ3MgbGkgewoJZGlzcGxheTogaW5saW5lOwp9Cgp1bC50YWdzIGxpOm5vdCg6bGFzdC1jaGlsZCk6YWZ0ZXIgewoJY29udGVudDogJywgJzsKfQoKCi8qIENoaWxkIG5vdGVzICovCmgzLm5vdGVzIHsKCWZvbnQtc2l6ZTogMS4xZW07Cn0KCnVsLm5vdGVzIHsKCW1hcmdpbi1ib3R0b206IDEuMmVtOwp9Cgp1bC5ub3RlcyA+IGxpOmZpcnN0LWNoaWxkIHAgewoJbWFyZ2luLXRvcDogMDsKfQoKdWwubm90ZXMgPiBsaSB7CglwYWRkaW5nOiAuN2VtIDA7Cn0KCnVsLm5vdGVzID4gbGk6bm90KDpsYXN0LWNoaWxkKSB7Cglib3JkZXItYm90dG9tOiAxcHggI2NjYyBzb2xpZDsKfQoKCnVsLm5vdGVzID4gbGkgcDpmaXJzdC1jaGlsZCB7CgltYXJnaW4tdG9wOiAwOwp9Cgp1bC5ub3RlcyA+IGxpIHA6bGFzdC1jaGlsZCB7CgltYXJnaW4tYm90dG9tOiAwOwp9CgovKiBBZGQgcXVvdGF0aW9uIG1hcmtzIGFyb3VuZCBibG9ja3F1b3RlICovCnVsLm5vdGVzID4gbGkgYmxvY2txdW90ZSBwOm5vdCg6ZW1wdHkpOmJlZm9yZSwKbGkubm90ZSBibG9ja3F1b3RlIHA6bm90KDplbXB0eSk6YmVmb3JlIHsKCWNvbnRlbnQ6ICfigJwnOwp9Cgp1bC5ub3RlcyA+IGxpIGJsb2NrcXVvdGUgcDpub3QoOmVtcHR5KTpsYXN0LWNoaWxkOmFmdGVyLApsaS5ub3RlIGJsb2NrcXVvdGUgcDpub3QoOmVtcHR5KTpsYXN0LWNoaWxkOmFmdGVyIHsKCWNvbnRlbnQ6ICfigJ0nOwp9CgovKiBQcmVzZXJ2ZSB3aGl0ZXNwYWNlIG9uIHBsYWludGV4dCBub3RlcyAqLwp1bC5ub3RlcyBsaSBwLnBsYWludGV4dCwgbGkubm90ZSBwLnBsYWludGV4dCwgZGl2Lm5vdGUgcC5wbGFpbnRleHQgewoJd2hpdGUtc3BhY2U6IHByZS13cmFwOwp9CgovKiBEaXNwbGF5IHRhZ3Mgd2l0aGluIGNoaWxkIG5vdGVzIGlubGluZSAqLwp1bC5ub3RlcyBoMy50YWdzIHsKCWRpc3BsYXk6IGlubGluZTsKCWZvbnQtc2l6ZTogMWVtOwp9Cgp1bC5ub3RlcyBoMy50YWdzOmFmdGVyIHsKCWNvbnRlbnQ6ICcgJzsKfQoKdWwubm90ZXMgdWwudGFncyB7CglkaXNwbGF5OiBpbmxpbmU7Cn0KCnVsLm5vdGVzIHVsLnRhZ3MgbGk6bm90KDpsYXN0LWNoaWxkKTphZnRlciB7Cgljb250ZW50OiAnLCAnOwp9CgoKLyogQ2hpbGQgYXR0YWNobWVudHMgKi8KaDMuYXR0YWNobWVudHMgewoJZm9udC1zaXplOiAxLjFlbTsKfQoKdWwuYXR0YWNobWVudHMgbGkgewoJcGFkZGluZy10b3A6IC41ZW07Cn0KCnVsLmF0dGFjaG1lbnRzIGRpdi5ub3RlIHsKCW1hcmdpbi1sZWZ0OiAyZW07Cn0KCnVsLmF0dGFjaG1lbnRzIGRpdi5ub3RlIHA6Zmlyc3QtY2hpbGQgewoJbWFyZ2luLXRvcDogLjc1ZW07Cn0KCmRpdiB0YWJsZSB7Cglib3JkZXItY29sbGFwc2U6IGNvbGxhcHNlOwp9CgpkaXYgdGFibGUgdGQsIGRpdiB0YWJsZSB0aCB7Cglib3JkZXI6IDFweCAjY2NjIHNvbGlkOwoJYm9yZGVyLWNvbGxhcHNlOiBjb2xsYXBzZTsKCXdvcmQtYnJlYWs6IGJyZWFrLWFsbDsKfQoKZGl2IHRhYmxlIHRkIHA6ZW1wdHk6OmFmdGVyLCBkaXYgdGFibGUgdGggcDplbXB0eTo6YWZ0ZXIgewoJY29udGVudDogIlwwMGEwIjsKfQoKZGl2IHRhYmxlIHRkICo6Zmlyc3QtY2hpbGQsIGRpdiB0YWJsZSB0aCAqOmZpcnN0LWNoaWxkIHsKCW1hcmdpbi10b3A6IDA7Cn0KCmRpdiB0YWJsZSB0ZCAqOmxhc3QtY2hpbGQsIGRpdiB0YWJsZSB0aCAqOmxhc3QtY2hpbGQgewoJbWFyZ2luLWJvdHRvbTogMDsKfQo=">
+		<link rel="stylesheet" type="text/css" media="screen,projection" href="data:text/css;base64,LyogR2VuZXJpYyBzdHlsZXMgKi8KYm9keSB7Cglmb250OiA2Mi41JSBHZW9yZ2lhLCBUaW1lcywgc2VyaWY7Cgl3aWR0aDogNzgwcHg7CgltYXJnaW46IDAgYXV0bzsKfQoKaDIgewoJZm9udC1zaXplOiAxLjVlbTsKCWxpbmUtaGVpZ2h0OiAxLjVlbTsKCWZvbnQtZmFtaWx5OiBHZW9yZ2lhLCBUaW1lcywgc2VyaWY7Cn0KCnAgewoJbGluZS1oZWlnaHQ6IDEuNWVtOwp9CgphOmFueS1saW5rIHsKCWNvbG9yOiAjOTAwOwp9CgphOmhvdmVyLCBhOmFjdGl2ZSB7Cgljb2xvcjogIzc3NzsKfQoKQG1lZGlhIChwcmVmZXJzLWNvbG9yLXNjaGVtZTogZGFyaykgewoJYTphbnktbGluayB7CgkJY29sb3I6ICNmMDA7Cgl9CgoJYTpob3ZlciwgYTphY3RpdmUgewoJCWNvbG9yOiAjOTk5OwoJfQp9CgoKdWwucmVwb3J0IHsKCWZvbnQtc2l6ZTogMS40ZW07Cgl3aWR0aDogNjgwcHg7CgltYXJnaW46IDAgYXV0bzsKCXBhZGRpbmc6IDIwcHggMjBweDsKfQoKLyogTWV0YWRhdGEgdGFibGUgKi8KdGFibGUgewoJYm9yZGVyOiAxcHggI2NjYyBzb2xpZDsKCW92ZXJmbG93OiBhdXRvOwoJd2lkdGg6IDEwMCU7CgltYXJnaW46IC4xZW0gYXV0byAuNzVlbTsKCXBhZGRpbmc6IDAuNWVtOwp9Cg==">
+		<link rel="stylesheet" type="text/css" media="print" href="data:text/css;base64,Ym9keSB7Cglmb250OiAxMnB0ICJUaW1lcyBOZXcgUm9tYW4iLCBUaW1lcywgR2VvcmdpYSwgc2VyaWY7CgltYXJnaW46IDA7Cgl3aWR0aDogYXV0bzsKfQoKLyogUGFnZSBCcmVha3MgKHBhZ2UtYnJlYWstaW5zaWRlIG9ubHkgcmVjb2duaXplZCBieSBPcGVyYSkgKi8KaDEsIGgyLCBoMywgaDQsIGg1LCBoNiB7CglwYWdlLWJyZWFrLWFmdGVyOiBhdm9pZDsKCXBhZ2UtYnJlYWstaW5zaWRlOiBhdm9pZDsKfQoKdWwsIG9sLCBkbCB7CglwYWdlLWJyZWFrLWluc2lkZTogYXZvaWQ7Cgljb2xvci1hZGp1c3Q6IGV4YWN0Owp9CgpoMiB7Cglmb250LXNpemU6IDEuM2VtOwoJbGluZS1oZWlnaHQ6IDEuM2VtOwp9CgphIHsKCWNvbG9yOiBpbmhlcml0OwoJdGV4dC1kZWNvcmF0aW9uOiBub25lOwp9Cg==">
+	</head>
+	<body>
+		<ul class="report combineChildItems">
+			<li id="item_PZ5ZDQFE" class="item journalArticle">
+			<h2>A Longitudinal Study of Bicultural Acceptance Attitudes, Peer 
+Support, Perceived Health, and Life Satisfaction among Multicultural 
+Adolescents in South Korea</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Article de revue</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Yiran Li</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Yuyu Gu</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>In-Jin Yoon</td>
+					</tr>
+					<tr>
+					<th>Résumé</th>
+						<td>This study examined the longitudinal relationships among 
+bicultural acceptance attitudes, peer support, perceived health, and 
+life satisfaction. A three-wave autoregressive cross-lagged panel model 
+was tested in a nationally representative sample of 2,271 multicultural 
+adolescents in South Korea. All core psychological constructs exhibited 
+significant temporal stability and dynamic cross-lagged associations. 
+Previous bicultural acceptance attitudes significantly predicted 
+subsequent peer support and perceived health, which contributed to 
+higher life satisfaction over time. Sequential mediation analyses 
+confirmed that bicultural acceptance attitudes at Time 1 indirectly 
+influenced life satisfaction at Time 3 through peer support and 
+perceived health at Time 2. The proposed longitudinal mediation model 
+demonstrated excellent fit (χ² = 86.910, df = 53, CFI = 0.996, 
+TLI = 0.993, RMSEA = 0.017, SRMR = 0.014), even after adjusting for key 
+demographic and contextual variables, including biological sex, age, 
+number of close friends, academic concerns, and parental educational 
+aspiration. These findings emphasized the developmental significance of 
+bicultural adaptation, indicating that acceptance of both heritage and 
+host cultures fosters supportive peer relationships and better health 
+perceptions, which subsequently enhances subjective well-being. This 
+study provides empirical evidence for the cascading effects of 
+identity-related attitudes on adolescent life satisfaction, contributing
+ to the literature on the development of multicultural youth.</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>2026-06-01</td>
+					</tr>
+					<tr>
+					<th>DOI</th>
+						<td><a href="http://doi.org/10.1007/s12187-026-10342-1">10.1007/s12187-026-10342-1</a></td>
+					</tr>
+					<tr>
+					<th>URL</th>
+						<td><a href="https://doi.org/10.1007/s12187-026-10342-1">https://doi.org/10.1007/s12187-026-10342-1</a></td>
+					</tr>
+					<tr>
+					<th>Consulté le</th>
+						<td>25/06/2026 23:51:18</td>
+					</tr>
+					<tr>
+					<th>Langue</th>
+						<td>en</td>
+					</tr>
+					<tr>
+					<th>Catalogue de bibl.</th>
+						<td>Springer Link</td>
+					</tr>
+					<tr>
+					<th>Volume</th>
+						<td>19</td>
+					</tr>
+					<tr>
+					<th>Pages</th>
+						<td>1325-1352</td>
+					</tr>
+					<tr>
+					<th>Publication</th>
+						<td>Child Indicators Research</td>
+					</tr>
+					<tr>
+					<th>ISSN</th>
+						<td>1874-8988</td>
+					</tr>
+					<tr>
+					<th>Numéro</th>
+						<td>3</td>
+					</tr>
+					<tr>
+					<th>Abrév. de revue</th>
+						<td>Child Ind Res</td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>25/06/2026 23:51:18</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>25/06/2026 23:51:18</td>
+					</tr>
+				</tbody></table>
+				<h3 class="tags">Marqueurs :</h3>
+				<ul class="tags">
+					<li>Bicultural Acceptance Attitudes</li>
+					<li>Life satisfaction</li>
+					<li>Longitudinal mediation</li>
+					<li>Multicultural Adolescents</li>
+					<li>Peer Support</li>
+					<li>Perceived health</li>
+				</ul>
+			</li>
+
+
+			<li id="item_P4A57CTD" class="item preprint">
+			<h2>Acute Multidimensional Poverty: A New Index for Developing Countries</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Prépublication</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Sabina Alkire</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Maria Emma Santos</td>
+					</tr>
+					<tr>
+					<th>Résumé</th>
+						<td>This paper presents a new Multidimensional Poverty Index (MPI)
+ for 104 developing countries. It is the first time multidimensional 
+poverty is estimated using micro datasets (household surveys) for such a
+ large number of countries which cover about 78 percent of the world's 
+population. The MPI has the mathematical structure of one of the Alkire 
+and Foster poverty multidimensional measures and it is composed of ten 
+indicators corresponding to same three dimensions as the Human 
+Development Index: Education, Health and Standard of Living. The MPI 
+captures a set of direct deprivations that batter a person at the same 
+time. This tool could be used to target the poorest, track the 
+Millennium Development Goals, and design policies that directly address 
+the interlocking deprivations poor people experience. This paper 
+presents the methodology and components in the MPI, describes main 
+results, and shares basic robustness tests.</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>2010-07-01</td>
+					</tr>
+					<tr>
+					<th>DOI</th>
+						<td><a href="http://doi.org/10.2139/ssrn.1815243">10.2139/ssrn.1815243</a></td>
+					</tr>
+					<tr>
+					<th>URL</th>
+						<td><a href="https://papers.ssrn.com/abstract=1815243">https://papers.ssrn.com/abstract=1815243</a></td>
+					</tr>
+					<tr>
+					<th>Consulté le</th>
+						<td>26/06/2026 00:03:08</td>
+					</tr>
+					<tr>
+					<th>Titre abrégé</th>
+						<td>Acute Multidimensional Poverty</td>
+					</tr>
+					<tr>
+					<th>Langue</th>
+						<td>en</td>
+					</tr>
+					<tr>
+					<th>Catalogue de bibl.</th>
+						<td>papers.ssrn.com</td>
+					</tr>
+					<tr>
+					<th>Lieu</th>
+						<td>Rochester, NY</td>
+					</tr>
+					<tr>
+					<th>Dépôt</th>
+						<td>Social Science Research Network</td>
+					</tr>
+					<tr>
+					<th>Genre</th>
+						<td>SSRN Scholarly Paper</td>
+					</tr>
+					<tr>
+					<th>Identifiant dans l'archive</th>
+						<td>1815243</td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>26/06/2026 00:03:08</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>26/06/2026 00:03:08</td>
+					</tr>
+				</tbody></table>
+				<h3 class="tags">Marqueurs :</h3>
+				<ul class="tags">
+					<li>Capability Approach</li>
+					<li>HDI</li>
+					<li>HPI</li>
+					<li>Human Development</li>
+					<li>Multidimensional Poverty</li>
+					<li>Multidimensional Welfare</li>
+					<li>Poverty Measurement</li>
+				</ul>
+				<h3 class="attachments">Pièces jointes</h3>
+				<ul class="attachments">
+					<li id="item_EEFBMLKM">Full Text PDF					</li>
+				</ul>
+			</li>
+
+
+			<li id="item_KV86L7CB" class="item journalArticle">
+			<h2>Cantril Ladder or Overall Life Satisfaction? Comparing 0–10 Summary Indicators of Adolescent Wellbeing</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Article de revue</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Jose Marquez</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Wanying Zhou</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Leoni Boyle</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Laura Taylor</td>
+					</tr>
+					<tr>
+					<th>Résumé</th>
+						<td>Despite widespread use in wellbeing research, little is known 
+about whether the Cantril Ladder (CL) and Overall Life Satisfaction 
+(OLS) questions (both 0–10 single-item indicators) capture the same 
+construct in adolescent populations. We analysed data from 6,445 
+students aged 11–18 in 38 International Baccalaureate schools across 24 
+countries. We compared CL and OLS using descriptive statistics, 
+confirmatory factor analysis (CFA), regression models, and subgroup 
+analyses. Mean CL and OLS scores were similar, but response 
+distributions differed: OLS showed more extreme values and negative 
+skew. In a CFA including other life evaluation measures, both OLS and CL
+ items loaded on a shared life evaluation latent factor, but OLS showed 
+higher loadings. OLS also showed stronger predictive validity than CL 
+across measures of life evaluation, affect, and eudaimonic wellbeing. 
+Subgroup analyses revealed interpretive differences across age, gender, 
+and language groups (English, Spanish, and French). Both CL and OLS are 
+valid indicators of adolescent life evaluation, but they are not 
+interchangeable. OLS may be preferable as a summary measure due to 
+stronger predictive performance, while CL may offer more consistent 
+subgroup comparability. Researchers should consider these trade-offs 
+when selecting or interpreting single-item measures of adolescent 
+wellbeing.</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>2026-06-01</td>
+					</tr>
+					<tr>
+					<th>DOI</th>
+						<td><a href="http://doi.org/10.1007/s12187-026-10338-x">10.1007/s12187-026-10338-x</a></td>
+					</tr>
+					<tr>
+					<th>URL</th>
+						<td><a href="https://doi.org/10.1007/s12187-026-10338-x">https://doi.org/10.1007/s12187-026-10338-x</a></td>
+					</tr>
+					<tr>
+					<th>Consulté le</th>
+						<td>25/06/2026 23:49:56</td>
+					</tr>
+					<tr>
+					<th>Titre abrégé</th>
+						<td>Cantril Ladder or Overall Life Satisfaction?</td>
+					</tr>
+					<tr>
+					<th>Langue</th>
+						<td>en</td>
+					</tr>
+					<tr>
+					<th>Catalogue de bibl.</th>
+						<td>Springer Link</td>
+					</tr>
+					<tr>
+					<th>Volume</th>
+						<td>19</td>
+					</tr>
+					<tr>
+					<th>Pages</th>
+						<td>1111-1131</td>
+					</tr>
+					<tr>
+					<th>Publication</th>
+						<td>Child Indicators Research</td>
+					</tr>
+					<tr>
+					<th>ISSN</th>
+						<td>1874-8988</td>
+					</tr>
+					<tr>
+					<th>Numéro</th>
+						<td>3</td>
+					</tr>
+					<tr>
+					<th>Abrév. de revue</th>
+						<td>Child Ind Res</td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>25/06/2026 23:49:56</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>25/06/2026 23:49:56</td>
+					</tr>
+				</tbody></table>
+				<h3 class="tags">Marqueurs :</h3>
+				<ul class="tags">
+					<li>Adolescent wellbeing</li>
+					<li>Cantril ladder</li>
+					<li>Life satisfaction</li>
+					<li>Measurement validity</li>
+					<li>Socio-demographic variation</li>
+				</ul>
+				<h3 class="attachments">Pièces jointes</h3>
+				<ul class="attachments">
+					<li id="item_KD4VMXU9">Full Text PDF					</li>
+				</ul>
+			</li>
+
+
+			<li id="item_J9WWYZDH" class="item journalArticle">
+			<h2>Cantril Ladder or Overall Life Satisfaction? Comparing 0–10 Summary Indicators of Adolescent Wellbeing</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Article de revue</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Jose Marquez</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Wanying Zhou</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Leoni Boyle</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Laura Taylor</td>
+					</tr>
+					<tr>
+					<th>Résumé</th>
+						<td>Despite widespread use in wellbeing research, little is known 
+about whether the Cantril Ladder (CL) and Overall Life Satisfaction 
+(OLS) questions (both 0–10 single-item indicators) capture the same 
+construct in adolescent populations. We analysed data from 6,445 
+students aged 11–18 in 38 International Baccalaureate schools across 24 
+countries. We compared CL and OLS using descriptive statistics, 
+confirmatory factor analysis (CFA), regression models, and subgroup 
+analyses. Mean CL and OLS scores were similar, but response 
+distributions differed: OLS showed more extreme values and negative 
+skew. In a CFA including other life evaluation measures, both OLS and CL
+ items loaded on a shared life evaluation latent factor, but OLS showed 
+higher loadings. OLS also showed stronger predictive validity than CL 
+across measures of life evaluation, affect, and eudaimonic wellbeing. 
+Subgroup analyses revealed interpretive differences across age, gender, 
+and language groups (English, Spanish, and French). Both CL and OLS are 
+valid indicators of adolescent life evaluation, but they are not 
+interchangeable. OLS may be preferable as a summary measure due to 
+stronger predictive performance, while CL may offer more consistent 
+subgroup comparability. Researchers should consider these trade-offs 
+when selecting or interpreting single-item measures of adolescent 
+wellbeing.</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>2026-06-01</td>
+					</tr>
+					<tr>
+					<th>DOI</th>
+						<td><a href="http://doi.org/10.1007/s12187-026-10338-x">10.1007/s12187-026-10338-x</a></td>
+					</tr>
+					<tr>
+					<th>URL</th>
+						<td><a href="https://doi.org/10.1007/s12187-026-10338-x">https://doi.org/10.1007/s12187-026-10338-x</a></td>
+					</tr>
+					<tr>
+					<th>Consulté le</th>
+						<td>25/06/2026 23:50:04</td>
+					</tr>
+					<tr>
+					<th>Titre abrégé</th>
+						<td>Cantril Ladder or Overall Life Satisfaction?</td>
+					</tr>
+					<tr>
+					<th>Langue</th>
+						<td>en</td>
+					</tr>
+					<tr>
+					<th>Catalogue de bibl.</th>
+						<td>Springer Link</td>
+					</tr>
+					<tr>
+					<th>Volume</th>
+						<td>19</td>
+					</tr>
+					<tr>
+					<th>Pages</th>
+						<td>1111-1131</td>
+					</tr>
+					<tr>
+					<th>Publication</th>
+						<td>Child Indicators Research</td>
+					</tr>
+					<tr>
+					<th>ISSN</th>
+						<td>1874-8988</td>
+					</tr>
+					<tr>
+					<th>Numéro</th>
+						<td>3</td>
+					</tr>
+					<tr>
+					<th>Abrév. de revue</th>
+						<td>Child Ind Res</td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>25/06/2026 23:50:04</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>25/06/2026 23:50:04</td>
+					</tr>
+				</tbody></table>
+				<h3 class="tags">Marqueurs :</h3>
+				<ul class="tags">
+					<li>Adolescent wellbeing</li>
+					<li>Cantril ladder</li>
+					<li>Life satisfaction</li>
+					<li>Measurement validity</li>
+					<li>Socio-demographic variation</li>
+				</ul>
+				<h3 class="attachments">Pièces jointes</h3>
+				<ul class="attachments">
+					<li id="item_FLK6KWD9">Full Text PDF					</li>
+				</ul>
+			</li>
+
+
+			<li id="item_IG6ISDRI" class="item webpage">
+			<h2>Child Indicators Research</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Page Web</td>
+					</tr>
+					<tr>
+					<th>Résumé</th>
+						<td>Child Indicators Research presents a range of research on 
+children’s well-being. This includes measurements and indicators of 
+children&amp;apos;s well-being and their ...</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>2026</td>
+					</tr>
+					<tr>
+					<th>URL</th>
+						<td><a href="https://link.springer.com/journal/12187">https://link.springer.com/journal/12187</a></td>
+					</tr>
+					<tr>
+					<th>Consulté le</th>
+						<td>25/06/2026 23:46:41</td>
+					</tr>
+					<tr>
+					<th>Langue</th>
+						<td>en</td>
+					</tr>
+					<tr>
+					<th>Titre du site Web</th>
+						<td>SpringerLink</td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>25/06/2026 23:46:41</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>25/06/2026 23:46:41</td>
+					</tr>
+				</tbody></table>
+				<h3 class="attachments">Pièces jointes</h3>
+				<ul class="attachments">
+					<li id="item_GY8GNJR2">Snapshot					</li>
+				</ul>
+			</li>
+
+
+			<li id="item_G698HCAR" class="item journalArticle">
+			<h2>Children’s multidimensional deprivation, monetary poverty and undernutrition in Ethiopia</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Article de revue</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Getachew Yirga Belete</td>
+					</tr>
+					<tr>
+					<th>Résumé</th>
+						<td>Child well-being is multidimensional and inequality in 
+intrahousehold resource allocation is evident. Yet, there is scant 
+evidence linking inequality-adjusted monetary, nutritional and 
+multidimensional measures of child well-being. After identifying 
+children as money-poor using resource shares adjusting inequality in 
+intrahousehold resource allocation, this study extends the traditional 
+multidimensional deprivation index by including a monetary dimension. It
+ then looks at the overlaps between those well-being measures. Using the
+ 2013/14 Ethiopian Living Standard Measurement Study data, we find that 
+multidimensional child deprivation is high and varies with demography 
+and geography. The probability of falling into multidimensional 
+deprivation and average intensity of it increase with the number of 
+children. Indices for urban children rise when a monetary indicator is 
+included. Although stunted and multidimensionally-deprived children 
+concentrate more at the lower expenditure levels, there is evidence that
+ the monetarily non-poor households still host deprived children. 
+Depending on the type of poverty measure considered, 10% to a quarter of
+ monetarily non-poor children are deprived multidimensionally. After 
+controlling for child-, head-, household- and community-level effects, 
+including shocks and common health effects, we find no evidence 
+suggesting children’s nutrition is related to expenditures. 
+Specifically, 60% of money-poor under-7 children and 46% living in 
+money-poor households are not stunted while about two-thirds of stunted 
+children are not found in the money-poorest 20 or 40% of 
+children/households. Use of only monetary information to targeting is 
+questioned.</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>2022-12-01</td>
+					</tr>
+					<tr>
+					<th>DOI</th>
+						<td><a href="http://doi.org/10.1007/s11150-021-09568-5">10.1007/s11150-021-09568-5</a></td>
+					</tr>
+					<tr>
+					<th>URL</th>
+						<td><a href="https://doi.org/10.1007/s11150-021-09568-5">https://doi.org/10.1007/s11150-021-09568-5</a></td>
+					</tr>
+					<tr>
+					<th>Consulté le</th>
+						<td>26/06/2026 00:01:51</td>
+					</tr>
+					<tr>
+					<th>Langue</th>
+						<td>en</td>
+					</tr>
+					<tr>
+					<th>Catalogue de bibl.</th>
+						<td>Springer Link</td>
+					</tr>
+					<tr>
+					<th>Volume</th>
+						<td>20</td>
+					</tr>
+					<tr>
+					<th>Pages</th>
+						<td>1087-1118</td>
+					</tr>
+					<tr>
+					<th>Publication</th>
+						<td>Review of Economics of the Household</td>
+					</tr>
+					<tr>
+					<th>ISSN</th>
+						<td>1573-7152</td>
+					</tr>
+					<tr>
+					<th>Numéro</th>
+						<td>4</td>
+					</tr>
+					<tr>
+					<th>Abrév. de revue</th>
+						<td>Rev Econ Household</td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>26/06/2026 00:01:51</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>26/06/2026 00:01:51</td>
+					</tr>
+				</tbody></table>
+				<h3 class="tags">Marqueurs :</h3>
+				<ul class="tags">
+					<li>Child monetary poverty</li>
+					<li>Ethiopia</li>
+					<li>I14</li>
+					<li>I32</li>
+					<li>I38</li>
+					<li>Multidimensional deprivation</li>
+					<li>Undernutrition</li>
+				</ul>
+			</li>
+
+
+			<li id="item_MJR2XFQC" class="item journalArticle">
+			<h2>Co-Producing Sexual and Reproductive Health and Rights 
+Indicators-repurposing the Consensual (Poverty) Approach for 
+Out-of-School Girls</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Article de revue</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Marco Pomati</td>
+					</tr>
+					<tr>
+					<th>Résumé</th>
+						<td>Despite advancements in the measurement of poverty, efforts to
+ assess its drivers and effects often fail to incorporate 
+context-specific needs. Adolescents in poor communities face 
+significantly higher barriers in accessing sexual and reproductive 
+health rights (SRHR), yet one of the main challenges in assessing 
+improvements in SRHR remains in creating questionnaires that capture 
+local norms and access to rights in ways relevant to out-of-school 
+adolescents. Failing to tackle this runs the risk of imposing external 
+monitoring and evaluation standards, while over-focusing on local norms 
+and preferences can reiterate injustices, underestimating presence and 
+levels of unmet need. These issues have been at the heart of poverty 
+measurement given the relative nature of need and the difficulty of 
+measuring its fulfilment, particularly among those most oppressed, 
+excluded and impoverished. This paper presents the first adaptation of 
+the Consensual Approach to co-produce measurement and evaluation of an 
+SRHR project for out-of-school adolescent girls. The results show that 
+SRHR-related rights and needs were widely endorsed, with little evidence
+ of adaptive preference; yet deprivation was stark: education 
+deprivation dominated (mainly due to affordability), roughly 20% lacked 
+autonomy in key relationship aspects, and roughly 1/5 faced 
+contraception barriers driven by norms. This paper argues that the 
+Consensual Approach can improve the range and wording of existing SRHR 
+questionnaires and provide a solid base for informing and assessing SRHR
+ programmes reducing.</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>2026-06-01</td>
+					</tr>
+					<tr>
+					<th>DOI</th>
+						<td><a href="http://doi.org/10.1007/s12187-026-10337-y">10.1007/s12187-026-10337-y</a></td>
+					</tr>
+					<tr>
+					<th>URL</th>
+						<td><a href="https://doi.org/10.1007/s12187-026-10337-y">https://doi.org/10.1007/s12187-026-10337-y</a></td>
+					</tr>
+					<tr>
+					<th>Consulté le</th>
+						<td>25/06/2026 23:50:47</td>
+					</tr>
+					<tr>
+					<th>Langue</th>
+						<td>en</td>
+					</tr>
+					<tr>
+					<th>Catalogue de bibl.</th>
+						<td>Springer Link</td>
+					</tr>
+					<tr>
+					<th>Volume</th>
+						<td>19</td>
+					</tr>
+					<tr>
+					<th>Pages</th>
+						<td>1219-1250</td>
+					</tr>
+					<tr>
+					<th>Publication</th>
+						<td>Child Indicators Research</td>
+					</tr>
+					<tr>
+					<th>ISSN</th>
+						<td>1874-8988</td>
+					</tr>
+					<tr>
+					<th>Numéro</th>
+						<td>3</td>
+					</tr>
+					<tr>
+					<th>Abrév. de revue</th>
+						<td>Child Ind Res</td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>25/06/2026 23:50:47</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>25/06/2026 23:50:47</td>
+					</tr>
+				</tbody></table>
+				<h3 class="tags">Marqueurs :</h3>
+				<ul class="tags">
+					<li>Co-production</li>
+					<li>Consensual Approach</li>
+					<li>Mixed methods</li>
+					<li>Out-of-school adolescents</li>
+					<li>Poverty</li>
+					<li>Sexual and Reproductive Health and Rights</li>
+					<li>Social norms</li>
+					<li>SRHR</li>
+				</ul>
+				<h3 class="attachments">Pièces jointes</h3>
+				<ul class="attachments">
+					<li id="item_PUEV4ENZ">Full Text PDF					</li>
+				</ul>
+			</li>
+
+
+			<li id="item_UCSQFVSW" class="item webpage">
+			<h2>Co-Producing Sexual and Reproductive Health and Rights 
+Indicators-repurposing the Consensual (Poverty) Approach for 
+Out-of-School Girls | Child Indicators Research | Springer Nature Link</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Page Web</td>
+					</tr>
+					<tr>
+					<th>URL</th>
+						<td><a href="https://link.springer.com/article/10.1007/s12187-026-10337-y">https://link.springer.com/article/10.1007/s12187-026-10337-y</a></td>
+					</tr>
+					<tr>
+					<th>Consulté le</th>
+						<td>25/06/2026 23:50:33</td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>25/06/2026 23:50:33</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>25/06/2026 23:50:33</td>
+					</tr>
+				</tbody></table>
+				<h3 class="attachments">Pièces jointes</h3>
+				<ul class="attachments">
+					<li id="item_VPH2KHH4">Co-Producing Sexual and Reproductive Health 
+and Rights Indicators-repurposing the Consensual (Poverty) Approach for 
+Out-of-School Girls | Child Indicators Research | Springer Nature Link		
+			</li>
+				</ul>
+			</li>
+
+
+			<li id="item_MABYZSMK" class="item journalArticle">
+			<h2>Comparative Study of Life Quality Between Migrant Children and Local Students in Small and Medium-Sized Cities in China</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Article de revue</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Junhua Zhang</td>
+					</tr>
+					<tr>
+					<th>Résumé</th>
+						<td>Every child deserves a fair chance in life. However, migrant 
+children are at higher risk of developing mental health problems. The 
+problem of migrant children who have left their hukou registration place
+ for 6 months or longer with their parents from rural areas to cities in
+ China has become a unique social issue in the social transformation of 
+China. However, even up to this day, little is known about life 
+satisfaction of migrant children in small and medium-sized cities. To 
+investigate the current situation of migrant children’s life 
+satisfaction, several scales including Chinese Adolescent Students’ Life
+ Satisfaction Questionnaire, Social Economic Status Scale, Social 
+Support Rating Scale and big five inventory were used to obtain data on 
+142 migrant children and 165 local primary school students. Results 
+showed that migrant children’s life satisfaction was significantly lower
+ when compared to local non-migrant students. The study also highlighted
+ that subjective and objective support, utilization of support, 
+conscientiousness and parent’s educational level were predictive factors
+ of life satisfaction. Migrant children’ life satisfaction was not 
+optimistic and social support was significantly influencing factors of 
+migrant children’s life satisfaction, so they need a support system of 
+government, school, community, family to help them through difficulties.</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>2018-12-01</td>
+					</tr>
+					<tr>
+					<th>DOI</th>
+						<td><a href="http://doi.org/10.1007/s10560-018-0545-5">10.1007/s10560-018-0545-5</a></td>
+					</tr>
+					<tr>
+					<th>URL</th>
+						<td><a href="https://doi.org/10.1007/s10560-018-0545-5">https://doi.org/10.1007/s10560-018-0545-5</a></td>
+					</tr>
+					<tr>
+					<th>Consulté le</th>
+						<td>25/06/2026 23:58:30</td>
+					</tr>
+					<tr>
+					<th>Langue</th>
+						<td>en</td>
+					</tr>
+					<tr>
+					<th>Catalogue de bibl.</th>
+						<td>Springer Link</td>
+					</tr>
+					<tr>
+					<th>Volume</th>
+						<td>35</td>
+					</tr>
+					<tr>
+					<th>Pages</th>
+						<td>649-655</td>
+					</tr>
+					<tr>
+					<th>Publication</th>
+						<td>Child and Adolescent Social Work Journal</td>
+					</tr>
+					<tr>
+					<th>ISSN</th>
+						<td>1573-2797</td>
+					</tr>
+					<tr>
+					<th>Numéro</th>
+						<td>6</td>
+					</tr>
+					<tr>
+					<th>Abrév. de revue</th>
+						<td>Child Adolesc Soc Work J</td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>25/06/2026 23:58:30</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>25/06/2026 23:58:30</td>
+					</tr>
+				</tbody></table>
+				<h3 class="tags">Marqueurs :</h3>
+				<ul class="tags">
+					<li>Migrant children</li>
+					<li>Quality of life</li>
+					<li>Small and medium-sized cities</li>
+					<li>Social support</li>
+				</ul>
+				<h3 class="attachments">Pièces jointes</h3>
+				<ul class="attachments">
+					<li id="item_2VFIALUJ">Full Text PDF					</li>
+				</ul>
+			</li>
+
+
+			<li id="item_7E22LW4U" class="item journalArticle">
+			<h2>Comparing the Extent and Levels of Child Poverty by the Income and Multidimensional Deprivation Approach in China</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Article de revue</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Di Qi</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Yichao Wu</td>
+					</tr>
+					<tr>
+					<th>Résumé</th>
+						<td>Based on the newly published China Family Panel Studies Survey
+ dataset in 2014, this paper estimated and compared the child poverty 
+situations in China by the unidimensional income poverty approach and 
+the multidimensional poverty approach. The Minimum Living Security 
+Standard (MLSS) poverty line produced by the provincial government 
+separately in the urban and rural areas was used to estimate child 
+poverty rate by the income approach. While under the multidimensional 
+deprivation approach, five dimensions with in total twenty deprivation 
+indicators that could reflect the actual living standards were selected 
+to measure the extent of multidimensional poverty among Chinese 
+children. These five dimensions include the dimension of child health, 
+child nutritional status, the dimension of education, child care and 
+protection as well as children’s access to basic facilities at the 
+household level that are vital for children’s survival and development. 
+The results show, there is almost no significant difference in the child
+ income poverty rate between rural and urban areas, whereas the 
+multidimensional poverty rate of rural and urban children has 
+significant disparities as measured using the multidimensional 
+deprivation approach, no matter their performance in the single 
+deprivation indicator or the aggregated deprivation index. The estimated
+ results at the provincial level also indicate that the income approach 
+could not accurately measure the extent and levels of child poverty. The
+ results using the multidimensional poverty measures show that the 
+disparities among children in China existed in a variety of areas 
+including nutritional status, the early educational levels, the extent 
+of care and protection from parents and caregivers, the social 
+protection levels and the deprivation in access to basic facilities at 
+the household level. This indicates that, there’re multiple 
+vulnerabilities and disadvantages faced by poor children in China beyond
+ the household income, which will severely affected children’s 
+development of capabilities. To achieve the goal of minimizing the gaps 
+between poor and non-poor children and helping poor children out of 
+poverty, the government should consider measuring child poverty using 
+the multidimensional deprivation approach and regularly monitoring the 
+extent and levels of child poverty as well as the progress in child 
+poverty reduction. In addition, a comprehensive strategy of social 
+assistance and security should be implemented to help address multiple 
+disadvantages faced by the poor children.</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>2019-04-01</td>
+					</tr>
+					<tr>
+					<th>DOI</th>
+						<td><a href="http://doi.org/10.1007/s12187-018-9544-5">10.1007/s12187-018-9544-5</a></td>
+					</tr>
+					<tr>
+					<th>URL</th>
+						<td><a href="https://doi.org/10.1007/s12187-018-9544-5">https://doi.org/10.1007/s12187-018-9544-5</a></td>
+					</tr>
+					<tr>
+					<th>Consulté le</th>
+						<td>26/06/2026 00:02:13</td>
+					</tr>
+					<tr>
+					<th>Langue</th>
+						<td>en</td>
+					</tr>
+					<tr>
+					<th>Catalogue de bibl.</th>
+						<td>Springer Link</td>
+					</tr>
+					<tr>
+					<th>Volume</th>
+						<td>12</td>
+					</tr>
+					<tr>
+					<th>Pages</th>
+						<td>627-645</td>
+					</tr>
+					<tr>
+					<th>Publication</th>
+						<td>Child Indicators Research</td>
+					</tr>
+					<tr>
+					<th>ISSN</th>
+						<td>1874-8988</td>
+					</tr>
+					<tr>
+					<th>Numéro</th>
+						<td>2</td>
+					</tr>
+					<tr>
+					<th>Abrév. de revue</th>
+						<td>Child Ind Res</td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>26/06/2026 00:02:13</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>26/06/2026 00:02:13</td>
+					</tr>
+				</tbody></table>
+				<h3 class="tags">Marqueurs :</h3>
+				<ul class="tags">
+					<li>Child poverty</li>
+					<li>Income poverty</li>
+					<li>Minimum living security scheme</li>
+					<li>Multidimensional deprivation</li>
+					<li>Regional disparities</li>
+				</ul>
+			</li>
+
+
+			<li id="item_9SA44KQS" class="item journalArticle">
+			<h2>Divergent Pathways: How Social Exclusion Differentially Impacts Migrant vs. Non-Migrant Children’s Well-Being</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Article de revue</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Jing Li</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Xiaoyang Li</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Xiaoyang Hou</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Guiru Liu</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Yadong Ding</td>
+					</tr>
+					<tr>
+					<th>Résumé</th>
+						<td>This study examines how social rejection and social ignorance 
+impact multidimensional well-being (physical, psychological, social, 
+academic) among Chinese children, testing psychological need 
+satisfaction as a mediator and comparing rural-to-urban migrant and 
+non-migrant peers. A questionnaire survey was administered to 2,090 
+fourth- to sixth-grade students in China, including 1,071 migrant 
+children and 1,019 non-migrant children. Structural equation modeling of
+ survey data revealed: Both exclusion types directly reduced all 
+well-being domains and indirectly via impaired psychological need 
+satisfaction; Migrant children showed stronger vulnerability: social 
+rejection more severely harmed their academic well-being, while social 
+ignorance more significantly damaged physical well-being; psychological 
+need satisfaction mediation pathways were invariant across groups. 
+Results underscore exclusion’s multidimensional harms while highlighting
+ migrant children’s unique risks, urging context-specific interventions 
+to bolster psychological needs and equity.</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>2026-04-01</td>
+					</tr>
+					<tr>
+					<th>DOI</th>
+						<td><a href="http://doi.org/10.1007/s12187-025-10317-8">10.1007/s12187-025-10317-8</a></td>
+					</tr>
+					<tr>
+					<th>URL</th>
+						<td><a href="https://doi.org/10.1007/s12187-025-10317-8">https://doi.org/10.1007/s12187-025-10317-8</a></td>
+					</tr>
+					<tr>
+					<th>Consulté le</th>
+						<td>25/06/2026 23:57:37</td>
+					</tr>
+					<tr>
+					<th>Titre abrégé</th>
+						<td>Divergent Pathways</td>
+					</tr>
+					<tr>
+					<th>Langue</th>
+						<td>en</td>
+					</tr>
+					<tr>
+					<th>Catalogue de bibl.</th>
+						<td>Springer Link</td>
+					</tr>
+					<tr>
+					<th>Volume</th>
+						<td>19</td>
+					</tr>
+					<tr>
+					<th>Pages</th>
+						<td>703-728</td>
+					</tr>
+					<tr>
+					<th>Publication</th>
+						<td>Child Indicators Research</td>
+					</tr>
+					<tr>
+					<th>ISSN</th>
+						<td>1874-8988</td>
+					</tr>
+					<tr>
+					<th>Numéro</th>
+						<td>2</td>
+					</tr>
+					<tr>
+					<th>Abrév. de revue</th>
+						<td>Child Ind Res</td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>25/06/2026 23:57:37</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>25/06/2026 23:57:37</td>
+					</tr>
+				</tbody></table>
+				<h3 class="tags">Marqueurs :</h3>
+				<ul class="tags">
+					<li>Migrant children</li>
+					<li>Psychological need satisfaction</li>
+					<li>Social exclusion</li>
+					<li>Well-being</li>
+				</ul>
+			</li>
+
+
+			<li id="item_3MRBNV2D" class="item bookSection">
+			<h2>Economic Effects of Remittances on Migrants’ Country of Origin</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Chapitre de livre</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Barış Alpaslan</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Aysegul Kayaoglu</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Jürgen Meckl</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Joaquín Naval</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Michaella Vanore</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Thomas H.W. Ziesemer</td>
+					</tr>
+					<tr>
+						<th class="editor">Éditeur</th>
+						<td>Karima Kourtit</td>
+					</tr>
+					<tr>
+						<th class="editor">Éditeur</th>
+						<td>Bruce Newbold</td>
+					</tr>
+					<tr>
+						<th class="editor">Éditeur</th>
+						<td>Peter Nijkamp</td>
+					</tr>
+					<tr>
+						<th class="editor">Éditeur</th>
+						<td>Mark Partridge</td>
+					</tr>
+					<tr>
+					<th>Résumé</th>
+						<td>The potential development impacts of migrant remittances have 
+been subject of extensive theoretical and empirical explorations. This 
+chapter reviews the economic effects of remittances on migrants’ 
+countries of origin, focusing specifically on how the receipts of 
+remittances shape norms, consumption, investment and inequality at the 
+household level, and how these household-level impacts shape 
+country-level outcomes. The reviewed literature suggests that the 
+effects of remittances on economic outcomes are context-specific and 
+shaped by the heterogeneity of migrants, their motivations to migrate, 
+and the development status and institutional settings in their countries
+ of origin. The review of household-level studies nevertheless 
+identifies overall positive effects of remittances on consumption more 
+generally, and on durable goods specifically for the not-too-poor 
+households; they also demonstrate positive effects on households’ 
+agricultural production, household expenditures on education and 
+physical capital investment and entrepreneurial activities. Much in line
+ with the findings from household studies, the macroeconomic studies 
+demonstrate generally positive effects of remittances on poverty 
+reduction, living standards, health and education expenditures and 
+improving institutions. Both household and macro-level studies suggest 
+mixed results related to the impact of remittances on inequality, 
+however, and macro studies demonstrate particularly mixed and even 
+negative direct effects of remittances on economic growth.</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>2021</td>
+					</tr>
+					<tr>
+					<th>DOI</th>
+						<td><a href="http://doi.org/10.1007/978-3-030-48291-6_20">10.1007/978-3-030-48291-6_20</a></td>
+					</tr>
+					<tr>
+					<th>URL</th>
+						<td><a href="https://doi.org/10.1007/978-3-030-48291-6_20">https://doi.org/10.1007/978-3-030-48291-6_20</a></td>
+					</tr>
+					<tr>
+					<th>Consulté le</th>
+						<td>26/06/2026 00:09:26</td>
+					</tr>
+					<tr>
+					<th>Langue</th>
+						<td>en</td>
+					</tr>
+					<tr>
+					<th>Catalogue de bibl.</th>
+						<td>Springer Link</td>
+					</tr>
+					<tr>
+					<th>Maison d’édition</th>
+						<td>Springer International Publishing</td>
+					</tr>
+					<tr>
+					<th>Lieu</th>
+						<td>Cham</td>
+					</tr>
+					<tr>
+					<th>ISBN</th>
+						<td>978-3-030-48291-6</td>
+					</tr>
+					<tr>
+					<th>Pages</th>
+						<td>449-483</td>
+					</tr>
+					<tr>
+					<th>Titre du livre</th>
+						<td>The Economic Geography of Cross-Border Migration</td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>26/06/2026 00:09:26</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>26/06/2026 00:09:26</td>
+					</tr>
+				</tbody></table>
+			</li>
+
+
+			<li id="item_X5TK553N" class="item journalArticle">
+			<h2>Exploring Latent Profiles of Subjective Well-Being in First-Year Middle School Students</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Article de revue</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Dayoung Kwon</td>
+					</tr>
+					<tr>
+					<th>Résumé</th>
+						<td>This study aimed to classify subjective well-being (SWB) among
+ first-year middle school students using latent profile analysis and to 
+examine variables associated with profile membership. Data were drawn 
+from the Longitudinal Study of Gyeongnam Education, with gender, 
+academic competitiveness (AC), and self-efficacy (SE) included as 
+predictors. Three latent profiles emerged: a Vulnerable well-being 
+group, a Moderate adjustment group, and a Resilient well-being group. AC
+ and SE were significantly associated with profile membership, whereas 
+gender showed no significant association. Higher SE was linked to a 
+greater likelihood of belonging to the Resilient group relative to the 
+Vulnerable group. In the Moderate group, both AC and SE were significant
+ predictors, with increases in these variables corresponding to higher 
+probabilities of membership. These findings underscore the role of AC 
+and SE in understanding variations in students’ SWB and offer practical 
+implications for supporting students during the transition to middle 
+school.</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>2026-06-01</td>
+					</tr>
+					<tr>
+					<th>DOI</th>
+						<td><a href="http://doi.org/10.1007/s12187-026-10335-0">10.1007/s12187-026-10335-0</a></td>
+					</tr>
+					<tr>
+					<th>URL</th>
+						<td><a href="https://doi.org/10.1007/s12187-026-10335-0">https://doi.org/10.1007/s12187-026-10335-0</a></td>
+					</tr>
+					<tr>
+					<th>Consulté le</th>
+						<td>25/06/2026 23:49:50</td>
+					</tr>
+					<tr>
+					<th>Langue</th>
+						<td>en</td>
+					</tr>
+					<tr>
+					<th>Catalogue de bibl.</th>
+						<td>Springer Link</td>
+					</tr>
+					<tr>
+					<th>Volume</th>
+						<td>19</td>
+					</tr>
+					<tr>
+					<th>Pages</th>
+						<td>1091-1109</td>
+					</tr>
+					<tr>
+					<th>Publication</th>
+						<td>Child Indicators Research</td>
+					</tr>
+					<tr>
+					<th>ISSN</th>
+						<td>1874-8988</td>
+					</tr>
+					<tr>
+					<th>Numéro</th>
+						<td>3</td>
+					</tr>
+					<tr>
+					<th>Abrév. de revue</th>
+						<td>Child Ind Res</td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>25/06/2026 23:49:50</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>25/06/2026 23:49:50</td>
+					</tr>
+				</tbody></table>
+				<h3 class="tags">Marqueurs :</h3>
+				<ul class="tags">
+					<li>Academic competitiveness</li>
+					<li>Latent profiles</li>
+					<li>Middle school students</li>
+					<li>Self-efficacy</li>
+					<li>Subjective well-being</li>
+				</ul>
+			</li>
+
+
+			<li id="item_SBUSRSPK" class="item bookSection">
+			<h2>Impact of Remittances in Developing Countries</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Chapitre de livre</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Manuel Orozco</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Caryn Gay Ellis</td>
+					</tr>
+					<tr>
+						<th class="editor">Éditeur</th>
+						<td>Rudolf Anich</td>
+					</tr>
+					<tr>
+						<th class="editor">Éditeur</th>
+						<td>Jonathan Crush</td>
+					</tr>
+					<tr>
+						<th class="editor">Éditeur</th>
+						<td>Susanne Melde</td>
+					</tr>
+					<tr>
+						<th class="editor">Éditeur</th>
+						<td>John O. Oucho</td>
+					</tr>
+					<tr>
+					<th>Résumé</th>
+						<td>The link between remittances and development lies at a point 
+where the economic activities of migrants intersect in a way that 
+transforms the material base of migrants, their relatives and their 
+societies. There is continued, growing interest in migration and 
+development in policymaking and academia, with institutions increasingly
+ recognizing the impact of migrants and migration flows on development. 
+Migrants and their families’ financial activities not only impact 
+national economies and financial systems; they also demonstrate an 
+active capacity to build assets in relation to remittances through money
+ management and formal financial tools.</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>2014</td>
+					</tr>
+					<tr>
+					<th>DOI</th>
+						<td><a href="http://doi.org/10.1007/978-94-017-9023-9_5">10.1007/978-94-017-9023-9_5</a></td>
+					</tr>
+					<tr>
+					<th>URL</th>
+						<td><a href="https://doi.org/10.1007/978-94-017-9023-9_5">https://doi.org/10.1007/978-94-017-9023-9_5</a></td>
+					</tr>
+					<tr>
+					<th>Consulté le</th>
+						<td>26/06/2026 00:08:30</td>
+					</tr>
+					<tr>
+					<th>Langue</th>
+						<td>en</td>
+					</tr>
+					<tr>
+					<th>Catalogue de bibl.</th>
+						<td>Springer Link</td>
+					</tr>
+					<tr>
+					<th>Maison d’édition</th>
+						<td>Springer Netherlands</td>
+					</tr>
+					<tr>
+					<th>Lieu</th>
+						<td>Dordrecht</td>
+					</tr>
+					<tr>
+					<th>ISBN</th>
+						<td>978-94-017-9023-9</td>
+					</tr>
+					<tr>
+					<th>Pages</th>
+						<td>89-118</td>
+					</tr>
+					<tr>
+					<th>Titre du livre</th>
+						<td>A New Perspective on Human Mobility in the South</td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>26/06/2026 00:08:30</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>26/06/2026 00:08:30</td>
+					</tr>
+				</tbody></table>
+				<h3 class="tags">Marqueurs :</h3>
+				<ul class="tags">
+					<li>Bank Account</li>
+					<li>Credit Union</li>
+					<li>Financial Institution</li>
+					<li>Financial Service</li>
+					<li>Money Laundering</li>
+				</ul>
+			</li>
+
+
+			<li id="item_DS2CC3ZT" class="item journalArticle">
+			<h2>Influences of school climate and social-emotional characteristics
+ on adolescent wellbeing in New Zealand: Evidence from PISA 2022</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Article de revue</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Valerie Sotardi</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Jinjing Fang</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Xin Ren</td>
+					</tr>
+					<tr>
+					<th>Résumé</th>
+						<td>This study aimed to identify how school climate shapes 
+adolescent wellbeing, and the extent to which social–emotional 
+characteristics (SECs) explain these associations, using nationally 
+representative data from New Zealand secondary schools (N = 3,575 
+students; 168 schools) in the 2022 Programme for International Student 
+Assessment (PISA) linked with school-level administrative indicators. A 
+two-level multilevel structural equation model (MSEM) was estimated to 
+examine direct and indirect relations between five dimensions of school 
+climate, seven SECs, and two wellbeing outcomes (life satisfaction and 
+psychosomatic symptoms), while accounting for student- and school-level 
+demographics. At the within-school level, more positive relational and 
+belonging-focused climates were associated with higher SECs and better 
+wellbeing, whereas greater exposure to bullying and school risk was 
+linked to poorer emotional regulation and elevated psychosomatic 
+symptoms. SECs—particularly stress resistance and emotional 
+control—partially mediated the associations between school climate and 
+wellbeing, indicating that socio–emotional functioning is a key 
+mechanism linking school experiences to students’ subjective wellbeing. 
+At the between-school level, school gender composition, size, and 
+geographic context showed modest associations with average wellbeing, 
+whereas school socioeconomic composition was not uniquely related once 
+other contextual factors were considered. Overall, the findings 
+underscore the central role of relationally supportive and emotionally 
+safe school environments, and of SECs, in promoting adolescent 
+wellbeing.</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>2026-06-01</td>
+					</tr>
+					<tr>
+					<th>DOI</th>
+						<td><a href="http://doi.org/10.1007/s12187-026-10345-y">10.1007/s12187-026-10345-y</a></td>
+					</tr>
+					<tr>
+					<th>URL</th>
+						<td><a href="https://doi.org/10.1007/s12187-026-10345-y">https://doi.org/10.1007/s12187-026-10345-y</a></td>
+					</tr>
+					<tr>
+					<th>Consulté le</th>
+						<td>25/06/2026 23:50:13</td>
+					</tr>
+					<tr>
+					<th>Titre abrégé</th>
+						<td>Influences of school climate and social-emotional characteristics on adolescent wellbeing in New Zealand</td>
+					</tr>
+					<tr>
+					<th>Langue</th>
+						<td>en</td>
+					</tr>
+					<tr>
+					<th>Catalogue de bibl.</th>
+						<td>Springer Link</td>
+					</tr>
+					<tr>
+					<th>Volume</th>
+						<td>19</td>
+					</tr>
+					<tr>
+					<th>Pages</th>
+						<td>1133-1161</td>
+					</tr>
+					<tr>
+					<th>Publication</th>
+						<td>Child Indicators Research</td>
+					</tr>
+					<tr>
+					<th>ISSN</th>
+						<td>1874-8988</td>
+					</tr>
+					<tr>
+					<th>Numéro</th>
+						<td>3</td>
+					</tr>
+					<tr>
+					<th>Abrév. de revue</th>
+						<td>Child Ind Res</td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>25/06/2026 23:50:13</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>25/06/2026 23:50:13</td>
+					</tr>
+				</tbody></table>
+				<h3 class="tags">Marqueurs :</h3>
+				<ul class="tags">
+					<li>Multilevel structural equation modelling (MSEM)</li>
+					<li>New Zealand</li>
+					<li>PISA</li>
+					<li>School climate</li>
+					<li>Secondary school</li>
+					<li>Social-emotional learning</li>
+					<li>Wellbeing</li>
+				</ul>
+				<h3 class="attachments">Pièces jointes</h3>
+				<ul class="attachments">
+					<li id="item_5HRGBZA2">Full Text PDF					</li>
+				</ul>
+			</li>
+
+
+			<li id="item_SMF8KDGM" class="item book">
+			<h2>International Migration, Remittances, and the Brain Drain</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Livre</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Palgrave Macmillan UK</td>
+					</tr>
+					<tr>
+					<th>Résumé</th>
+						<td>International migration, the movement of people across 
+international boundaries, has enormous economic, social and cultural 
+implications in both origin and destination countries. Using original 
+research, this title examines the determinants of migration, the impact 
+of remittances and migration on poverty, welfare, and investment 
+decisions, and the consequences of brain drain, brain gain, and brain 
+waste.</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>2005-10-15</td>
+					</tr>
+					<tr>
+					<th>Langue</th>
+						<td>en</td>
+					</tr>
+					<tr>
+					<th>Catalogue de bibl.</th>
+						<td>Google Books</td>
+					</tr>
+					<tr>
+					<th>Extra</th>
+						<td>Google-Books-ID: sia3EQAAQBAJ</td>
+					</tr>
+					<tr>
+					<th>Maison d’édition</th>
+						<td>World Bank Publications</td>
+					</tr>
+					<tr>
+					<th>ISBN</th>
+						<td>978-0-8213-6374-4</td>
+					</tr>
+					<tr>
+					<th>Nb de pages</th>
+						<td>292</td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>26/06/2026 00:09:42</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>26/06/2026 00:09:42</td>
+					</tr>
+				</tbody></table>
+				<h3 class="tags">Marqueurs :</h3>
+				<ul class="tags">
+					<li>Business &amp; Economics / Development / Business Development</li>
+					<li>Business &amp; Economics / Development / Economic Development</li>
+				</ul>
+				<h3 class="attachments">Pièces jointes</h3>
+				<ul class="attachments">
+					<li id="item_FTSY7X5N">Google Books Link					</li>
+				</ul>
+			</li>
+
+
+			<li id="item_8WIUGSAA" class="item journalArticle">
+			<h2>Interventions for Rural Migrant Children in China: A Scoping Review</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Article de revue</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Jia Zhuang</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Feifei Tong</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Siyun Xie</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Davy Tsz Kit Ng</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Jiebiao Wang</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Wai Chan</td>
+					</tr>
+					<tr>
+					<th>Résumé</th>
+						<td>The large-scale rural-to-urban migration in China has resulted
+ in more than 50 million rural migrant children facing various 
+significant challenges. Despite the increasing intervention efforts that
+ have emerged in response, a comprehensive synthesis of existing studies
+ remains lacking. This scoping review attempts to fill this gap by 
+identifying the issues addressed in existing intervention studies, 
+examining the methodologies used, and highlighting gaps in current 
+approaches to inform future efforts aimed at enhancing the well-being 
+and development of rural migrant children. A scoping review was 
+conducted using a systematic search of four English and one Chinese 
+databases. Studies were screened for eligibility based on predefined 
+criteria. Data from the included studies were charted, focusing on 
+intervention characteristics, evaluation methods, and sample features. A
+ total of 23 Chinese and 14 English articles were selected for final 
+review. 70 codes of intervention focus were retrieved and categorized 
+into five dimensions, consisting of psychological wellbeing, physical 
+health and safety, personal empowerment, social wellbeing, and academic 
+development. Among them, psychological wellbeing emerged as the primary 
+focus of interventions, with 27 relevant codes being extracted from 16 
+studies. While current interventions were likely to take a deficit-based
+ approach to address migrant children’s temporary psychological and 
+social issues, future intervention research might consider applying a 
+strength-based approach to nurture migrant children’s overall competence
+ and resilience in a long run. In addition, a holistic approach is 
+recommended to integrate resources and support from the migrant 
+children’s micro-system in one intervention to enhance its 
+effectiveness.</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>2026-05-18</td>
+					</tr>
+					<tr>
+					<th>DOI</th>
+						<td><a href="http://doi.org/10.1007/s10560-026-01112-7">10.1007/s10560-026-01112-7</a></td>
+					</tr>
+					<tr>
+					<th>URL</th>
+						<td><a href="https://doi.org/10.1007/s10560-026-01112-7">https://doi.org/10.1007/s10560-026-01112-7</a></td>
+					</tr>
+					<tr>
+					<th>Consulté le</th>
+						<td>25/06/2026 23:58:12</td>
+					</tr>
+					<tr>
+					<th>Titre abrégé</th>
+						<td>Interventions for Rural Migrant Children in China</td>
+					</tr>
+					<tr>
+					<th>Langue</th>
+						<td>en</td>
+					</tr>
+					<tr>
+					<th>Catalogue de bibl.</th>
+						<td>Springer Link</td>
+					</tr>
+					<tr>
+					<th>Publication</th>
+						<td>Child and Adolescent Social Work Journal</td>
+					</tr>
+					<tr>
+					<th>ISSN</th>
+						<td>1573-2797</td>
+					</tr>
+					<tr>
+					<th>Abrév. de revue</th>
+						<td>Child Adolesc Soc Work J</td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>25/06/2026 23:58:12</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>25/06/2026 23:58:12</td>
+					</tr>
+				</tbody></table>
+				<h3 class="tags">Marqueurs :</h3>
+				<ul class="tags">
+					<li>China</li>
+					<li>Intervention</li>
+					<li>Rural migrant children</li>
+					<li>Scoping review</li>
+					<li>Wellbeing and development</li>
+				</ul>
+				<h3 class="attachments">Pièces jointes</h3>
+				<ul class="attachments">
+					<li id="item_JX9UW3LN">Full Text PDF					</li>
+				</ul>
+			</li>
+
+
+			<li id="item_GJNHUQBF" class="item journalArticle">
+			<h2>Is School Readiness At Age 5-6 Associated With Academic 
+Performance At Age 14-15? A Prospective Cohort Study of Data From the 
+Longitudinal Study of Australian Children</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Article de revue</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Elizabeth L. J. Edyvane</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Alyssa C. P. Sawyer</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Catherine R. Chittleborough</td>
+					</tr>
+					<tr>
+					<th>Résumé</th>
+						<td>Research has consistently placed early school readiness as a 
+significant predictor of academic performance across primary schooling. 
+Less is known about the effects of school readiness on academic 
+performance in the high school years. This prospective cohort study aims
+ to examine the association between school readiness at age 5–6 years 
+and academic performance at age 14–15 years. The present study used data
+ from the Baby Cohort of the Longitudinal Study of Australian Children 
+(n = 1,161), linked to data from the Australian Early Development Census
+ (AEDC), a measure of teacher-reported school readiness at Year 1, and 
+the National Assessment Program – Literacy and Numeracy (NAPLAN), a 
+standardised measure of academic performance at Year 9. School readiness
+ domains measuring physical, cognitive, social, emotional, and 
+communication skills were compared to NAPLAN domains on reading, 
+writing, spelling, grammar, and numeracy. School readiness was found to 
+be associated with academic performance, even after adjustment for a 
+range of child and family characteristics. Cognitive skills at school 
+entry were found to be the most consistently associated with numeracy 
+performance in high school, OR = 9.08, 95% CI [3.93, 20.98], followed by
+ social competency and spelling skills, OR = 3.68, 95% CI [1.95, 6.94]. A
+ holistic understanding of the role of school readiness in later 
+academic performance may aid in understanding whether policies directed 
+at reducing poor academic achievement should focus on the preschool 
+years to support the development of school readiness as a long-term 
+preventive approach.</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>2026-06-01</td>
+					</tr>
+					<tr>
+					<th>DOI</th>
+						<td><a href="http://doi.org/10.1007/s12187-026-10336-z">10.1007/s12187-026-10336-z</a></td>
+					</tr>
+					<tr>
+					<th>URL</th>
+						<td><a href="https://doi.org/10.1007/s12187-026-10336-z">https://doi.org/10.1007/s12187-026-10336-z</a></td>
+					</tr>
+					<tr>
+					<th>Consulté le</th>
+						<td>25/06/2026 23:50:27</td>
+					</tr>
+					<tr>
+					<th>Titre abrégé</th>
+						<td>Is School Readiness At Age 5-6 Associated With Academic Performance At Age 14-15?</td>
+					</tr>
+					<tr>
+					<th>Langue</th>
+						<td>en</td>
+					</tr>
+					<tr>
+					<th>Catalogue de bibl.</th>
+						<td>Springer Link</td>
+					</tr>
+					<tr>
+					<th>Volume</th>
+						<td>19</td>
+					</tr>
+					<tr>
+					<th>Pages</th>
+						<td>1191-1217</td>
+					</tr>
+					<tr>
+					<th>Publication</th>
+						<td>Child Indicators Research</td>
+					</tr>
+					<tr>
+					<th>ISSN</th>
+						<td>1874-8988</td>
+					</tr>
+					<tr>
+					<th>Numéro</th>
+						<td>3</td>
+					</tr>
+					<tr>
+					<th>Abrév. de revue</th>
+						<td>Child Ind Res</td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>25/06/2026 23:50:27</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>25/06/2026 23:50:27</td>
+					</tr>
+				</tbody></table>
+				<h3 class="tags">Marqueurs :</h3>
+				<ul class="tags">
+					<li>Academic performance</li>
+					<li>AEDC</li>
+					<li>NAPLAN</li>
+					<li>School readiness</li>
+				</ul>
+				<h3 class="attachments">Pièces jointes</h3>
+				<ul class="attachments">
+					<li id="item_CPNESIMB">Full Text PDF					</li>
+				</ul>
+			</li>
+
+
+			<li id="item_INWPHB38" class="item journalArticle">
+			<h2>Mapping Childhood Health Across the COVID-19 Period: Lifestyle and Environmental Profiles in Madrid – The ASOMAD Study</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Article de revue</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Alicia Portals-Riomao</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Asmaa Nehari</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Marcela González-Gross</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Carlos Quesada-González</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Eva Gesteiro</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Augusto G. Zapico</td>
+					</tr>
+					<tr>
+					<th>Résumé</th>
+						<td>To identify multidomain health profiles in schoolchildren in 
+Madrid during and after the COVID-19 pandemic, and examine their 
+associations with socioeconomic status (SES), school type, sex, age and 
+study wave. Cross-sectional study of 8–12-year-old children from public,
+ semiprivate and private schools in Madrid (2020–2023), selected through
+ stratified multistage sampling. Anthropometry, fitness, lifestyle, 
+emotional well-being and parental behaviours were assessed with 
+standardised protocols and validated questionnaires. K-means clustering 
+derived multidimensional health profiles; multinomial logistic 
+regression examined sociodemographic associations.&nbsp;Five distinct 
+profiles emerged: a compensated profile (Cluster 0) with high BMI, low 
+strength and good diet quality; a favourable lifestyle profile (Cluster 
+1) with very high MVPA and good emotional well-being; a healthiest 
+profile (Cluster 2) with optimal BMI, diet, strength and low screen 
+exposure; a least favourable profile (Cluster 3) with low emotional 
+well-being and very high screen time; and a mixed-risk profile (Cluster 
+4) with low diet quality and elevated screen exposure. Children in 
+higher SES groups were much more likely to belong to the healthiest 
+profile and less likely to appear in least favourable or mixed-risk 
+profiles. Public-school children had lower odds of belonging to the 
+favourable lifestyle profile than those in private schools. The 
+healthiest profile became more frequent in 2022–2023 than in 2020–2021, 
+but high-risk profiles persisted in disadvantaged 
+groups.&nbsp;Multidimensional profiles reveal cumulative lifestyle and 
+social risks across the COVID-19 period and support equity-oriented 
+interventions targeting physical, emotional and family environments.</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>2026-06-01</td>
+					</tr>
+					<tr>
+					<th>DOI</th>
+						<td><a href="http://doi.org/10.1007/s12187-026-10341-2">10.1007/s12187-026-10341-2</a></td>
+					</tr>
+					<tr>
+					<th>URL</th>
+						<td><a href="https://doi.org/10.1007/s12187-026-10341-2">https://doi.org/10.1007/s12187-026-10341-2</a></td>
+					</tr>
+					<tr>
+					<th>Consulté le</th>
+						<td>25/06/2026 23:51:09</td>
+					</tr>
+					<tr>
+					<th>Titre abrégé</th>
+						<td>Mapping Childhood Health Across the COVID-19 Period</td>
+					</tr>
+					<tr>
+					<th>Langue</th>
+						<td>en</td>
+					</tr>
+					<tr>
+					<th>Catalogue de bibl.</th>
+						<td>Springer Link</td>
+					</tr>
+					<tr>
+					<th>Volume</th>
+						<td>19</td>
+					</tr>
+					<tr>
+					<th>Pages</th>
+						<td>1305-1324</td>
+					</tr>
+					<tr>
+					<th>Publication</th>
+						<td>Child Indicators Research</td>
+					</tr>
+					<tr>
+					<th>ISSN</th>
+						<td>1874-8988</td>
+					</tr>
+					<tr>
+					<th>Numéro</th>
+						<td>3</td>
+					</tr>
+					<tr>
+					<th>Abrév. de revue</th>
+						<td>Child Ind Res</td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>25/06/2026 23:51:09</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>25/06/2026 23:51:09</td>
+					</tr>
+				</tbody></table>
+				<h3 class="attachments">Pièces jointes</h3>
+				<ul class="attachments">
+					<li id="item_73BEKPTJ">Full Text PDF					</li>
+				</ul>
+			</li>
+
+
+			<li id="item_HKFAXKY9" class="item journalArticle">
+			<h2>Mapping Intra-Household Inequality and Multidimensional Child Poverty in India</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Article de revue</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Swati Dutta</td>
+					</tr>
+					<tr>
+					<th>Résumé</th>
+						<td>While India has made substantial progress in reducing overall 
+poverty, child-specific deprivations remain widespread and unevenly 
+distributed within households. Conventional poverty measurement treats 
+the household as the unit of analysis, masking intra-household 
+disparities that disproportionately affect children, especially girls 
+and younger siblings. This study addresses this gap by applying an 
+individual-level analysis of child poverty using the Oxford Poverty and 
+Human Development Initiative (OPHI) framework. Specifically, we 
+construct a child-centered Multidimensional Poverty Index based on 
+National Family and Health Survey (NFHS)-4 (2015–16) and NFHS-5 
+(2019–21), incorporating two core child-specific indicators: 
+malnutrition and school attendance/completion. These indicators reflect 
+essential dimensions of child development and are aligned with OPHI’s 
+multidimensional poverty measurement strategies, particularly 
+disaggregation by age, gender, and the identification of intra-household
+ disparities. By examining co-occurrence with malnourished and 
+out-of-school siblings, the study exposes the coexistence of resilience 
+and deprivation within the same household. Intra-household inequality is
+ analyzed across states, rural-urban locations, and social groups using 
+hierarchical clustering techniques. Results reveal a significant decline
+ in child multidimensional poverty over time but persistent inequality 
+within households, with 21% of children in MPI-poor households 
+experiencing unequal nutrition and 14.6% unequal school access. States 
+such as Bihar, Uttar Pradesh, and Jharkhand are identified as doubly 
+burdened, with high child poverty and high intra-household inequality. 
+The study highlights the need for region-specific, child-centric 
+policies that recognize intra-household dynamics. It advocates for 
+disaggregated tracking, targeted support for pioneer children, 
+integration of gender- and age-sensitive frameworks into poverty 
+alleviation strategies to ensure that no child remains invisible in the 
+policy discourse.</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>2026-06-01</td>
+					</tr>
+					<tr>
+					<th>DOI</th>
+						<td><a href="http://doi.org/10.1007/s12187-026-10340-3">10.1007/s12187-026-10340-3</a></td>
+					</tr>
+					<tr>
+					<th>URL</th>
+						<td><a href="https://doi.org/10.1007/s12187-026-10340-3">https://doi.org/10.1007/s12187-026-10340-3</a></td>
+					</tr>
+					<tr>
+					<th>Consulté le</th>
+						<td>25/06/2026 23:47:41</td>
+					</tr>
+					<tr>
+					<th>Langue</th>
+						<td>en</td>
+					</tr>
+					<tr>
+					<th>Catalogue de bibl.</th>
+						<td>Springer Link</td>
+					</tr>
+					<tr>
+					<th>Volume</th>
+						<td>19</td>
+					</tr>
+					<tr>
+					<th>Pages</th>
+						<td>1271-1303</td>
+					</tr>
+					<tr>
+					<th>Publication</th>
+						<td>Child Indicators Research</td>
+					</tr>
+					<tr>
+					<th>ISSN</th>
+						<td>1874-8988</td>
+					</tr>
+					<tr>
+					<th>Numéro</th>
+						<td>3</td>
+					</tr>
+					<tr>
+					<th>Abrév. de revue</th>
+						<td>Child Ind Res</td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>25/06/2026 23:47:41</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>25/06/2026 23:47:41</td>
+					</tr>
+				</tbody></table>
+				<h3 class="tags">Marqueurs :</h3>
+				<ul class="tags">
+					<li>Child deprivation</li>
+					<li>Child poverty</li>
+					<li>India</li>
+					<li>Intrahousehold inequality</li>
+					<li>Multidimensional poverty index</li>
+					<li>Pioneer children</li>
+				</ul>
+			</li>
+
+
+			<li id="item_EYQ4E8LD" class="item report">
+			<h2>Migrant remittances: Alternative money transfer channels</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Rapport</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Martina Metzger</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Tim Riedler</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Jennifer Pédussel Wu</td>
+					</tr>
+					<tr>
+					<th>Résumé</th>
+						<td>This paper first explores the role of digital financial 
+services, e.g. mobile money systems and cryptocurrency-based systems, 
+and their impact on the choice of migrants to send remittances. Secondly
+ we discuss whether alternative remittances sending channels increase 
+access to financial services for remittance-sending and 
+remittance-receiving households. Africa, and in particularly Kenya, are 
+pioneers in alternative money transfer systems and of tailor-made 
+regulatory initiatives to address digital financial services. Thus, our 
+paper focuses on the technologies of the Kenyan mobile money system, 
+M-Pesa, and the major cryptocurrency, Bitcoin, and based on that takes 
+into account selected experiences of other Sub-Saharan African 
+countries. We find that in comparison to traditional remittances sending
+ channels, mobile money transfer channels are often superior in terms of
+ service-related features as costs of transfers for sending and 
+receiving households, speed of delivery, availability and access to the 
+remittances by receiving households or security of transactions. More 
+importantly, mobile cash systems can fulfil the SDG goal of the 3 per 
+cent fee more than 10 years earlier than envisaged in 2030. On the other
+ side, the choice to use a specific transfer channel might be restricted
+ by the lack of physical and technological availability of providers and
+ means, and technological illiteracy. In addition, sending and receiving
+ households might be cautious to use mobile cash systems due to a lack 
+of trust in the system, the providers or regulatory authorities. 
+Accordingly, financial inclusion beyond e-payments and outreach to the 
+poor is not an automatism. In contrast, the use of Bitcoin-based 
+transfer systems is more ambivalent; these systems are technically more 
+challenging both in terms of infrastructure and literacy and more 
+vulnerable to fraud. Some findings also indicate that Bitcoin is an 
+incomplete and inferior substitute to which migrants refer to if their 
+first option is not available or suffers from severe deficiencies. 
+Future research also needs to differentiate sending and receiving 
+households stronger according to personal features in order to deepen 
+our understanding about the choices of and restrictions of vulnerable 
+groups who would benefit the most from using mobile cash systems.</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>2019</td>
+					</tr>
+					<tr>
+					<th>URL</th>
+						<td><a href="https://www.econstor.eu/handle/10419/204586">https://www.econstor.eu/handle/10419/204586</a></td>
+					</tr>
+					<tr>
+					<th>Consulté le</th>
+						<td>26/06/2026 00:04:08</td>
+					</tr>
+					<tr>
+					<th>Titre abrégé</th>
+						<td>Migrant remittances</td>
+					</tr>
+					<tr>
+					<th>Langue</th>
+						<td>eng</td>
+					</tr>
+					<tr>
+					<th>Catalogue de bibl.</th>
+						<td>www.econstor.eu</td>
+					</tr>
+					<tr>
+					<th>Licence</th>
+						<td>http://www.econstor.eu/dspace/Nutzungsbedingungen</td>
+					</tr>
+					<tr>
+					<th>Institution</th>
+						<td>Working Paper</td>
+					</tr>
+					<tr>
+					<th>N° du rapport</th>
+						<td>127/2019</td>
+					</tr>
+					<tr>
+					<th>Type de rapport</th>
+						<td>Working Paper</td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>26/06/2026 00:04:08</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>26/06/2026 00:04:08</td>
+					</tr>
+				</tbody></table>
+				<h3 class="attachments">Pièces jointes</h3>
+				<ul class="attachments">
+					<li id="item_D64MNMY4">Full Text PDF					</li>
+				</ul>
+			</li>
+
+
+			<li id="item_UQRHCZG3" class="item journalArticle">
+			<h2>Migration Remittances and Development: A Review of Global Evidence</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Article de revue</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>John Page</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Sonia Plaza</td>
+					</tr>
+					<tr>
+					<th>Résumé</th>
+						<td>A considerable amount of research has been conducted on the 
+topic of migration and remittances over the last few years. Early 
+studies on immigration policy assumed that migrants leave their 
+countries, settle in a new country, start integrating in their new 
+society, and abandon their ties with their country of origin. Today, 
+however, globalization makes it possible for immigrants to remain 
+connected with their native countries while residing abroad. To address 
+the latest developments on migration and remittances, the authors 
+provide a global survey of the analytical and empirical literature on 
+these issues. This paper reviews evidence on how migrants contribute to 
+the economic development of their countries of origin. In addition to 
+describing the state of knowledge regarding flows of people and migrant 
+remittances worldwide, it focuses on the current literature dealing with
+ the development impact of transfers of money, knowledge, and skills by 
+migrants back to their home countries. The paper also examines the 
+complex question of the impact of highly skilled migration on labor 
+sending countries. There is a continuing debate over what role migration
+ should play in the mix of policies available in order to promote 
+economic development. Although mechanisms for liberalizing goods, 
+services and capital markets are in place, the international mobility of
+ labor still faces stringent restrictions. The paper, therefore, reviews
+ proposed mechanisms to strengthen the governance of international 
+migration, including policy options to make migration management 
+bilateral, regional, or global. It also considers the relationship 
+between international trade and development policies and migration 
+policies, including how to tap to the diaspora.</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>2006-12-01</td>
+					</tr>
+					<tr>
+					<th>DOI</th>
+						<td><a href="http://doi.org/10.1093/jae/ejl035">10.1093/jae/ejl035</a></td>
+					</tr>
+					<tr>
+					<th>URL</th>
+						<td><a href="https://doi.org/10.1093/jae/ejl035">https://doi.org/10.1093/jae/ejl035</a></td>
+					</tr>
+					<tr>
+					<th>Consulté le</th>
+						<td>26/06/2026 00:07:52</td>
+					</tr>
+					<tr>
+					<th>Titre abrégé</th>
+						<td>Migration Remittances and Development</td>
+					</tr>
+					<tr>
+					<th>Catalogue de bibl.</th>
+						<td>Silverchair</td>
+					</tr>
+					<tr>
+					<th>Volume</th>
+						<td>15</td>
+					</tr>
+					<tr>
+					<th>Pages</th>
+						<td>245-336</td>
+					</tr>
+					<tr>
+					<th>Publication</th>
+						<td>Journal of African Economies</td>
+					</tr>
+					<tr>
+					<th>ISSN</th>
+						<td>0963-8024</td>
+					</tr>
+					<tr>
+					<th>Numéro</th>
+						<td>suppl_2</td>
+					</tr>
+					<tr>
+					<th>Abrév. de revue</th>
+						<td>J Afr Econ</td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>26/06/2026 00:07:52</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>26/06/2026 00:07:52</td>
+					</tr>
+				</tbody></table>
+			</li>
+
+
+			<li id="item_DA277NX9" class="item journalArticle">
+			<h2>Multidimensional Child Deprivation and Poverty Measurement: Case Study of Bosnia and Herzegovina</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Article de revue</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Yekaterina Chzhen</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Lucia Ferrone</td>
+					</tr>
+					<tr>
+					<th>Résumé</th>
+						<td>This study applies UNICEF’s rights-based multiple overlapping 
+deprivation analysis framework to a single country case study—Bosnia and
+ Herzegovina (BiH). Using data from the Extended Living Standards 
+Measurement Survey 2011 for children aged 5–15, the paper analyses the 
+incidence and intensity of multidimensional child deprivation and 
+examines its relationship to household-based monetary poverty, drawing 
+on differences between rural and urban areas. Seven dimensions of 
+deprivation have been identified using the child rights framework: 
+Nutrition, Clothing, Educational Resources, Leisure, Social 
+Participation, Information and Housing. We find that the majority of 
+school-age children in BiH are deprived in one or more dimensions and 
+one in four are deprived in three or more dimensions out of seven. 
+Children in consumption poor households are more likely to be deprived 
+in every dimension analysed separately and in a greater number of 
+dimensions at once. Nevertheless, the degree of overlap between poverty 
+and multidimensional deprivation is moderate, suggesting that child 
+deprivation cannot be eradicated solely by increasing households’ 
+consumption capacity. Finally, the study finds no significant 
+differences by type of area in multidimensional deprivation rates for 
+consumption-poor children aged 5–15. In contrast, non-poor children in 
+rural areas are substantially more likely to be deprived in three or 
+more dimensions at once than their counterparts in urban areas. Overall,
+ these results call for a multifaceted policy approach targeting both 
+the demand for and supply of children’s goods and services.</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>2017-04-01</td>
+					</tr>
+					<tr>
+					<th>DOI</th>
+						<td><a href="http://doi.org/10.1007/s11205-016-1291-8">10.1007/s11205-016-1291-8</a></td>
+					</tr>
+					<tr>
+					<th>URL</th>
+						<td><a href="https://doi.org/10.1007/s11205-016-1291-8">https://doi.org/10.1007/s11205-016-1291-8</a></td>
+					</tr>
+					<tr>
+					<th>Consulté le</th>
+						<td>26/06/2026 00:01:16</td>
+					</tr>
+					<tr>
+					<th>Titre abrégé</th>
+						<td>Multidimensional Child Deprivation and Poverty Measurement</td>
+					</tr>
+					<tr>
+					<th>Langue</th>
+						<td>en</td>
+					</tr>
+					<tr>
+					<th>Catalogue de bibl.</th>
+						<td>Springer Link</td>
+					</tr>
+					<tr>
+					<th>Volume</th>
+						<td>131</td>
+					</tr>
+					<tr>
+					<th>Pages</th>
+						<td>999-1014</td>
+					</tr>
+					<tr>
+					<th>Publication</th>
+						<td>Social Indicators Research</td>
+					</tr>
+					<tr>
+					<th>ISSN</th>
+						<td>1573-0921</td>
+					</tr>
+					<tr>
+					<th>Numéro</th>
+						<td>3</td>
+					</tr>
+					<tr>
+					<th>Abrév. de revue</th>
+						<td>Soc Indic Res</td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>26/06/2026 00:01:16</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>26/06/2026 00:01:16</td>
+					</tr>
+				</tbody></table>
+				<h3 class="tags">Marqueurs :</h3>
+				<ul class="tags">
+					<li>Bosnia and Herzegovina</li>
+					<li>Child poverty</li>
+					<li>Child well-being</li>
+					<li>I31</li>
+					<li>I32</li>
+					<li>J13</li>
+					<li>Multidimensional poverty</li>
+				</ul>
+			</li>
+
+
+			<li id="item_5YSUD8WW" class="item journalArticle">
+			<h2>Multidimensional Child Deprivation in Ireland: A New Child Rights-Informed Approach</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Article de revue</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Chloe O’Hanlon</td>
+					</tr>
+					<tr>
+					<th>Résumé</th>
+						<td>Despite an increasing body of literature that conceptualises 
+child poverty as distinct from household poverty, it is still commonly 
+measured as the proportion of children living in low-income households. 
+This study used longitudinal data from the Growing Up in Ireland study 
+on a cohort of children born in 2008. The child rights framework was 
+applied to identify six dimensions of child deprivation: nutrition, 
+access to healthcare, protection from violence, access to information, 
+leisure, and housing. The study’s objective was to combine these 
+dimensions into an index of child deprivation to investigate the 
+relationship between child deprivation and household income at ages 9 
+and 13. Our analyses show that household income poverty alone is 
+insufficient for identifying deprived children. However, low income 
+remains a statistically significant predictor of child deprivation. 
+Children whose mothers were single, younger, or had a lower level of 
+education were more likely to experience multidimensional deprivation at
+ ages 9 and 13. At age 13, girls were at a higher risk of deprivation 
+than boys. Overall, this study highlights the potential of 
+rights-informed multidimensional deprivation indices to identify areas 
+of deprivation that are less sensitive to household income. The study 
+indicates the advantages of using child-centred indices over 
+household-level measures when suggesting policy interventions to combat 
+child deprivation in higher-income countries.</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>2026-06-01</td>
+					</tr>
+					<tr>
+					<th>DOI</th>
+						<td><a href="http://doi.org/10.1007/s12187-026-10347-w">10.1007/s12187-026-10347-w</a></td>
+					</tr>
+					<tr>
+					<th>URL</th>
+						<td><a href="https://doi.org/10.1007/s12187-026-10347-w">https://doi.org/10.1007/s12187-026-10347-w</a></td>
+					</tr>
+					<tr>
+					<th>Consulté le</th>
+						<td>25/06/2026 23:48:31</td>
+					</tr>
+					<tr>
+					<th>Titre abrégé</th>
+						<td>Multidimensional Child Deprivation in Ireland</td>
+					</tr>
+					<tr>
+					<th>Langue</th>
+						<td>en</td>
+					</tr>
+					<tr>
+					<th>Catalogue de bibl.</th>
+						<td>Springer Link</td>
+					</tr>
+					<tr>
+					<th>Volume</th>
+						<td>19</td>
+					</tr>
+					<tr>
+					<th>Pages</th>
+						<td>1417-1446</td>
+					</tr>
+					<tr>
+					<th>Publication</th>
+						<td>Child Indicators Research</td>
+					</tr>
+					<tr>
+					<th>ISSN</th>
+						<td>1874-8988</td>
+					</tr>
+					<tr>
+					<th>Numéro</th>
+						<td>3</td>
+					</tr>
+					<tr>
+					<th>Abrév. de revue</th>
+						<td>Child Ind Res</td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>25/06/2026 23:48:31</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>25/06/2026 23:48:31</td>
+					</tr>
+				</tbody></table>
+				<h3 class="tags">Marqueurs :</h3>
+				<ul class="tags">
+					<li>Child poverty</li>
+					<li>Child rights</li>
+					<li>Inequalities</li>
+					<li>Ireland</li>
+					<li>Multidimensional deprivation</li>
+				</ul>
+				<h3 class="attachments">Pièces jointes</h3>
+				<ul class="attachments">
+					<li id="item_4IMQ5LKY">Full Text PDF					</li>
+				</ul>
+			</li>
+
+
+			<li id="item_H5KC97E5" class="item journalArticle">
+			<h2>Multidimensional Child Deprivation in Ireland: A New Child Rights-Informed Approach</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Article de revue</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Chloe O’Hanlon</td>
+					</tr>
+					<tr>
+					<th>Résumé</th>
+						<td>Despite an increasing body of literature that conceptualises 
+child poverty as distinct from household poverty, it is still commonly 
+measured as the proportion of children living in low-income households. 
+This study used longitudinal data from the Growing Up in Ireland study 
+on a cohort of children born in 2008. The child rights framework was 
+applied to identify six dimensions of child deprivation: nutrition, 
+access to healthcare, protection from violence, access to information, 
+leisure, and housing. The study’s objective was to combine these 
+dimensions into an index of child deprivation to investigate the 
+relationship between child deprivation and household income at ages 9 
+and 13. Our analyses show that household income poverty alone is 
+insufficient for identifying deprived children. However, low income 
+remains a statistically significant predictor of child deprivation. 
+Children whose mothers were single, younger, or had a lower level of 
+education were more likely to experience multidimensional deprivation at
+ ages 9 and 13. At age 13, girls were at a higher risk of deprivation 
+than boys. Overall, this study highlights the potential of 
+rights-informed multidimensional deprivation indices to identify areas 
+of deprivation that are less sensitive to household income. The study 
+indicates the advantages of using child-centred indices over 
+household-level measures when suggesting policy interventions to combat 
+child deprivation in higher-income countries.</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>2026-06-01</td>
+					</tr>
+					<tr>
+					<th>DOI</th>
+						<td><a href="http://doi.org/10.1007/s12187-026-10347-w">10.1007/s12187-026-10347-w</a></td>
+					</tr>
+					<tr>
+					<th>URL</th>
+						<td><a href="https://doi.org/10.1007/s12187-026-10347-w">https://doi.org/10.1007/s12187-026-10347-w</a></td>
+					</tr>
+					<tr>
+					<th>Consulté le</th>
+						<td>26/06/2026 00:02:00</td>
+					</tr>
+					<tr>
+					<th>Titre abrégé</th>
+						<td>Multidimensional Child Deprivation in Ireland</td>
+					</tr>
+					<tr>
+					<th>Langue</th>
+						<td>en</td>
+					</tr>
+					<tr>
+					<th>Catalogue de bibl.</th>
+						<td>Springer Link</td>
+					</tr>
+					<tr>
+					<th>Volume</th>
+						<td>19</td>
+					</tr>
+					<tr>
+					<th>Pages</th>
+						<td>1417-1446</td>
+					</tr>
+					<tr>
+					<th>Publication</th>
+						<td>Child Indicators Research</td>
+					</tr>
+					<tr>
+					<th>ISSN</th>
+						<td>1874-8988</td>
+					</tr>
+					<tr>
+					<th>Numéro</th>
+						<td>3</td>
+					</tr>
+					<tr>
+					<th>Abrév. de revue</th>
+						<td>Child Ind Res</td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>26/06/2026 00:02:00</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>26/06/2026 00:02:00</td>
+					</tr>
+				</tbody></table>
+				<h3 class="tags">Marqueurs :</h3>
+				<ul class="tags">
+					<li>Child poverty</li>
+					<li>Child rights</li>
+					<li>Inequalities</li>
+					<li>Ireland</li>
+					<li>Multidimensional deprivation</li>
+				</ul>
+				<h3 class="attachments">Pièces jointes</h3>
+				<ul class="attachments">
+					<li id="item_AND4FJJH">Full Text PDF					</li>
+				</ul>
+			</li>
+
+
+			<li id="item_UJFKNGC6" class="item report">
+			<h2>Multiple Overlapping Deprivation Analysis for the European Union (EU-MODA): Technical Note</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Rapport</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>2014-01-31</td>
+					</tr>
+					<tr>
+					<th>DOI</th>
+						<td><a href="http://doi.org/10.18356/355832ee-en">10.18356/355832ee-en</a></td>
+					</tr>
+					<tr>
+					<th>URL</th>
+						<td><a href="https://www.un-ilibrary.org/content/papers/25206796/87">https://www.un-ilibrary.org/content/papers/25206796/87</a></td>
+					</tr>
+					<tr>
+					<th>Consulté le</th>
+						<td>25/06/2026 23:30:04</td>
+					</tr>
+					<tr>
+					<th>Titre abrégé</th>
+						<td>Multiple Overlapping Deprivation Analysis for the European Union (EU-MODA)</td>
+					</tr>
+					<tr>
+					<th>Langue</th>
+						<td>en</td>
+					</tr>
+					<tr>
+					<th>Catalogue de bibl.</th>
+						<td>DOI.org (Crossref)</td>
+					</tr>
+					<tr>
+					<th>Extra</th>
+						<td>Series: Innocenti Working Papers
+Volume: 2014/01</td>
+					</tr>
+					<tr>
+					<th>N° du rapport</th>
+						<td>2014/01</td>
+					</tr>
+					<tr>
+					<th>Type de rapport</th>
+						<td>Innocenti Working Papers</td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>25/06/2026 23:30:04</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>25/06/2026 23:30:04</td>
+					</tr>
+				</tbody></table>
+			</li>
+
+
+			<li id="item_4QGEHD5H" class="item journalArticle">
+			<h2>Peer Spillover Effects in Children’s Subjective Well-Being: Evidence from 24 Countries</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Article de revue</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Robert Rudolf</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Jaeyoon Lee</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Suah Jeon</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Bong Joo Lee</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Sunsuk Kim</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Jaejin Ahn</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Joan Paek Yoo</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Shinhye Lee</td>
+					</tr>
+					<tr>
+					<th>Résumé</th>
+						<td>Using data from the third wave of Children’s Worlds’ 
+International Survey on Children’s Well-Being from 44,903 children 
+across 24 countries / territories and four continents, this study 
+examines the association between peer subjective well-being (SWB) and 
+individual SWB of 10- and 12-year-old children. We investigate measures 
+of cognitive SWB (overall life satisfaction, Children’s Worlds 
+Subjective Well-Being Scale (CW-SWBS)) and affective SWB (positive and 
+negative affect). Controlling for individual, household, peer and school
+ characteristics, results indicate a robust positive association between
+ peer well-being and individual well-being for all cognitive and 
+affective measures. Our findings further suggest significantly stronger 
+spillovers for girls compared to boys at age 12, and for 12-year-old 
+girls compared to 10-year-old girls. Lastly, associations are found to 
+be stronger in low- and middle-income countries, while insignificant in 
+many high-income countries. These findings highlight the value of 
+fostering emotionally supportive school environments to improve 
+children’s global well-being.</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>2026-06-01</td>
+					</tr>
+					<tr>
+					<th>DOI</th>
+						<td><a href="http://doi.org/10.1007/s12187-025-10334-7">10.1007/s12187-025-10334-7</a></td>
+					</tr>
+					<tr>
+					<th>URL</th>
+						<td><a href="https://doi.org/10.1007/s12187-025-10334-7">https://doi.org/10.1007/s12187-025-10334-7</a></td>
+					</tr>
+					<tr>
+					<th>Consulté le</th>
+						<td>25/06/2026 23:49:43</td>
+					</tr>
+					<tr>
+					<th>Titre abrégé</th>
+						<td>Peer Spillover Effects in Children’s Subjective Well-Being</td>
+					</tr>
+					<tr>
+					<th>Langue</th>
+						<td>en</td>
+					</tr>
+					<tr>
+					<th>Catalogue de bibl.</th>
+						<td>Springer Link</td>
+					</tr>
+					<tr>
+					<th>Volume</th>
+						<td>19</td>
+					</tr>
+					<tr>
+					<th>Pages</th>
+						<td>1063-1090</td>
+					</tr>
+					<tr>
+					<th>Publication</th>
+						<td>Child Indicators Research</td>
+					</tr>
+					<tr>
+					<th>ISSN</th>
+						<td>1874-8988</td>
+					</tr>
+					<tr>
+					<th>Numéro</th>
+						<td>3</td>
+					</tr>
+					<tr>
+					<th>Abrév. de revue</th>
+						<td>Child Ind Res</td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>25/06/2026 23:49:43</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>25/06/2026 23:49:43</td>
+					</tr>
+				</tbody></table>
+				<h3 class="tags">Marqueurs :</h3>
+				<ul class="tags">
+					<li>Children</li>
+					<li>Emotional contagion</li>
+					<li>Gender</li>
+					<li>Peer influence</li>
+					<li>School climate</li>
+					<li>Subjective well-being</li>
+				</ul>
+			</li>
+
+
+			<li id="item_F8XINZYI" class="item bookSection">
+			<h2>Perspectives on Migration Theory – Economics</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Chapitre de livre</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Michael J. Greenwood</td>
+					</tr>
+					<tr>
+						<th class="editor">Éditeur</th>
+						<td>Michael J. White</td>
+					</tr>
+					<tr>
+					<th>Résumé</th>
+						<td>Early work on migration was based on limited data referring to
+ life-time migration and was primarily descriptive. Although numerous 
+hypotheses were developed, the lack of data prevented the development of
+ theoretical models. This condition prevailed during the last quarter of
+ the nineteenth century and beyond the first quarter of the twentieth 
+century. In the late 1930s, British economists began to develop 
+theoretical underpinnings for their empirical research, and a short time
+ later this theory would be further developed into the gravity model, 
+which was the earliest theoretical approach to interregional migration. 
+Later, economists would place migration in an investment context, and 
+present discounted value would become a key concept underlying the study
+ of migration decisions. This idea led to a focus on the time horizon of
+ an intended move and also on the discount rate itself. Search-theoretic
+ models also had their roots in present-value concepts. The more recent 
+availability of microdata opened many new areas of migration research 
+and provided numerous important insights into the study of migration. 
+Now specific characteristics, such as age and education, can be taken 
+into account, and the migration of individuals with these types of 
+characteristics may be studied.</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>2016</td>
+					</tr>
+					<tr>
+					<th>DOI</th>
+						<td><a href="http://doi.org/10.1007/978-94-017-7282-2_3">10.1007/978-94-017-7282-2_3</a></td>
+					</tr>
+					<tr>
+					<th>URL</th>
+						<td><a href="https://doi.org/10.1007/978-94-017-7282-2_3">https://doi.org/10.1007/978-94-017-7282-2_3</a></td>
+					</tr>
+					<tr>
+					<th>Consulté le</th>
+						<td>26/06/2026 00:07:30</td>
+					</tr>
+					<tr>
+					<th>Langue</th>
+						<td>en</td>
+					</tr>
+					<tr>
+					<th>Catalogue de bibl.</th>
+						<td>Springer Link</td>
+					</tr>
+					<tr>
+					<th>Maison d’édition</th>
+						<td>Springer Netherlands</td>
+					</tr>
+					<tr>
+					<th>Lieu</th>
+						<td>Dordrecht</td>
+					</tr>
+					<tr>
+					<th>ISBN</th>
+						<td>978-94-017-7282-2</td>
+					</tr>
+					<tr>
+					<th>Pages</th>
+						<td>31-40</td>
+					</tr>
+					<tr>
+					<th>Titre du livre</th>
+						<td>International Handbook of Migration and Population Distribution</td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>26/06/2026 00:07:30</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>26/06/2026 00:07:30</td>
+					</tr>
+				</tbody></table>
+				<h3 class="tags">Marqueurs :</h3>
+				<ul class="tags">
+					<li>Compensated differences</li>
+					<li>Composition</li>
+					<li>Conditional logit</li>
+					<li>Consequences</li>
+					<li>Determinants</li>
+					<li>Disequilibrium theories (where the words model and theories could be dropped in these four)</li>
+					<li>Equilibrium theories</li>
+					<li>Gravity model</li>
+					<li>Human-capital model</li>
+					<li>Job search</li>
+					<li>Micro data</li>
+					<li>Opportunities</li>
+					<li>Present value</li>
+					<li>Selectivity</li>
+					<li>Utility</li>
+				</ul>
+			</li>
+
+
+			<li id="item_CEZIQ9ZX" class="item journalArticle">
+			<h2>Remittances and economic growth: a blessing for middle-income countries, ineffective for low-income countries</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Article de revue</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>SeyedSoroosh Azizi</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Abed Aftabi</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Mohsen Azizkhani</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Kiana Yektansani</td>
+					</tr>
+					<tr>
+					<th>Résumé</th>
+						<td>This study investigates the impact of international 
+remittances on the economic growth of remittance-receiving countries, 
+using data from 113 developing countries between 1990 and 2015.The 
+authors used a novel approach to address the potential endogeneity of 
+remittances. The authors estimated bilateral remittances and use them to
+ create weighted indicators of remittance-sending countries, which the 
+authors then use as instruments for remittance inflows to 
+remittance-receiving countries.The results indicate that while 
+remittances have a positive impact on economic growth in developing 
+countries with high human capital, they do not contribute to growth in 
+developing countries with low human capital. The authors also examined 
+the channels through which remittances affect growth. The findings 
+suggested that remittances do not impact labor supply in developing 
+countries with high human capital, but they reduce labor supply in 
+countries with low human capital. Additionally, remittances increase 
+investment in physical capital in developing countries with high human 
+capital, but they do not have an effect on investment in developing 
+countries with low human capital.The authors investigated the impact of 
+remittances on economic growth using a novel approach to address the 
+endogeneity of remittances. Additionally, the authors examined the 
+different indirect channels through which remittances can impact 
+economic growth, such as their effect on labor supply and investment.</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>2023-12-14</td>
+					</tr>
+					<tr>
+					<th>DOI</th>
+						<td><a href="http://doi.org/10.1108/JES-04-2023-0207">10.1108/JES-04-2023-0207</a></td>
+					</tr>
+					<tr>
+					<th>URL</th>
+						<td><a href="https://doi.org/10.1108/JES-04-2023-0207">https://doi.org/10.1108/JES-04-2023-0207</a></td>
+					</tr>
+					<tr>
+					<th>Consulté le</th>
+						<td>26/06/2026 00:14:42</td>
+					</tr>
+					<tr>
+					<th>Titre abrégé</th>
+						<td>Remittances and economic growth</td>
+					</tr>
+					<tr>
+					<th>Catalogue de bibl.</th>
+						<td>Silverchair</td>
+					</tr>
+					<tr>
+					<th>Volume</th>
+						<td>51</td>
+					</tr>
+					<tr>
+					<th>Pages</th>
+						<td>1285-1303</td>
+					</tr>
+					<tr>
+					<th>Publication</th>
+						<td>Journal of Economic Studies</td>
+					</tr>
+					<tr>
+					<th>ISSN</th>
+						<td>0144-3585</td>
+					</tr>
+					<tr>
+					<th>Numéro</th>
+						<td>6</td>
+					</tr>
+					<tr>
+					<th>Abrév. de revue</th>
+						<td>Journal of Economic Studies</td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>26/06/2026 00:14:42</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>26/06/2026 00:14:42</td>
+					</tr>
+				</tbody></table>
+				<h3 class="attachments">Pièces jointes</h3>
+				<ul class="attachments">
+					<li id="item_MB2SP27D">Snapshot					</li>
+				</ul>
+			</li>
+
+
+			<li id="item_K66DR375" class="item journalArticle">
+			<h2>Remittances and economic growth: a blessing for middle-income countries, ineffective for low-income countries</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Article de revue</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>SeyedSoroosh Azizi</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Abed Aftabi</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Mohsen Azizkhani</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Kiana Yektansani</td>
+					</tr>
+					<tr>
+					<th>Résumé</th>
+						<td>Purpose
+              This study investigates the impact of international 
+remittances on the economic growth of remittance-receiving countries, 
+using data from 113 developing countries between 1990 and 2015.
+            
+            
+              Design/methodology/approach
+              The authors used a novel approach to address the potential
+ endogeneity of remittances. The authors estimated bilateral remittances
+ and use them to create weighted indicators of remittance-sending 
+countries, which the authors then use as instruments for remittance 
+inflows to remittance-receiving countries.
+            
+            
+              Findings
+              The results indicate that while remittances have a 
+positive impact on economic growth in developing countries with high 
+human capital, they do not contribute to growth in developing countries 
+with low human capital. The authors also examined the channels through 
+which remittances affect growth. The findings suggested that remittances
+ do not impact labor supply in developing countries with high human 
+capital, but they reduce labor supply in countries with low human 
+capital. Additionally, remittances increase investment in physical 
+capital in developing countries with high human capital, but they do not
+ have an effect on investment in developing countries with low human 
+capital.
+            
+            
+              Originality/value
+              The authors investigated the impact of remittances on 
+economic growth using a novel approach to address the endogeneity of 
+remittances. Additionally, the authors examined the different indirect 
+channels through which remittances can impact economic growth, such as 
+their effect on labor supply and investment.</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>2024-08-13</td>
+					</tr>
+					<tr>
+					<th>DOI</th>
+						<td><a href="http://doi.org/10.1108/JES-04-2023-0207">10.1108/JES-04-2023-0207</a></td>
+					</tr>
+					<tr>
+					<th>URL</th>
+						<td><a href="http://www.emerald.com/jes/article/51/6/1285-1303/1228554">http://www.emerald.com/jes/article/51/6/1285-1303/1228554</a></td>
+					</tr>
+					<tr>
+					<th>Consulté le</th>
+						<td>26/06/2026 00:15:42</td>
+					</tr>
+					<tr>
+					<th>Titre abrégé</th>
+						<td>Remittances and economic growth</td>
+					</tr>
+					<tr>
+					<th>Langue</th>
+						<td>en</td>
+					</tr>
+					<tr>
+					<th>Catalogue de bibl.</th>
+						<td>DOI.org (Crossref)</td>
+					</tr>
+					<tr>
+					<th>Licence</th>
+						<td>https://www.emerald.com/insight/site-policies</td>
+					</tr>
+					<tr>
+					<th>Volume</th>
+						<td>51</td>
+					</tr>
+					<tr>
+					<th>Pages</th>
+						<td>1285-1303</td>
+					</tr>
+					<tr>
+					<th>Publication</th>
+						<td>Journal of Economic Studies</td>
+					</tr>
+					<tr>
+					<th>ISSN</th>
+						<td>0144-3585</td>
+					</tr>
+					<tr>
+					<th>Numéro</th>
+						<td>6</td>
+					</tr>
+					<tr>
+					<th>Abrév. de revue</th>
+						<td>JES</td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>26/06/2026 00:15:42</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>26/06/2026 00:15:42</td>
+					</tr>
+				</tbody></table>
+			</li>
+
+
+			<li id="item_C367AL54" class="item bookSection">
+			<h2>Remittances and Household Welfare</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Chapitre de livre</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Serge Feld</td>
+					</tr>
+					<tr>
+						<th class="editor">Éditeur</th>
+						<td>Serge Feld</td>
+					</tr>
+					<tr>
+					<th>Résumé</th>
+						<td>The analysis focuses on the impact of remittances on the 
+general improvement of the living standards of the families of migrants 
+who remain in the country. It first examines the positive impact on the 
+different poverty lines of the population and then the effects on the 
+reduction of income inequality. This question is the subject of research
+ offering very contrasting results and we suggests new avenues of 
+evaluation.</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>2021</td>
+					</tr>
+					<tr>
+					<th>DOI</th>
+						<td><a href="http://doi.org/10.1007/978-3-030-75513-3_7">10.1007/978-3-030-75513-3_7</a></td>
+					</tr>
+					<tr>
+					<th>URL</th>
+						<td><a href="https://doi.org/10.1007/978-3-030-75513-3_7">https://doi.org/10.1007/978-3-030-75513-3_7</a></td>
+					</tr>
+					<tr>
+					<th>Consulté le</th>
+						<td>26/06/2026 00:09:05</td>
+					</tr>
+					<tr>
+					<th>Langue</th>
+						<td>en</td>
+					</tr>
+					<tr>
+					<th>Catalogue de bibl.</th>
+						<td>Springer Link</td>
+					</tr>
+					<tr>
+					<th>Maison d’édition</th>
+						<td>Springer International Publishing</td>
+					</tr>
+					<tr>
+					<th>Lieu</th>
+						<td>Cham</td>
+					</tr>
+					<tr>
+					<th>ISBN</th>
+						<td>978-3-030-75513-3</td>
+					</tr>
+					<tr>
+					<th>Pages</th>
+						<td>103-122</td>
+					</tr>
+					<tr>
+					<th>Titre du livre</th>
+						<td>International Migration, Remittances and Brain Drain: Impacts on Development</td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>26/06/2026 00:09:05</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>26/06/2026 00:09:05</td>
+					</tr>
+				</tbody></table>
+				<h3 class="tags">Marqueurs :</h3>
+				<ul class="tags">
+					<li>Health expenditure</li>
+					<li>Remittance poverty</li>
+					<li>Remittances education</li>
+					<li>Remittances household</li>
+					<li>Remittances inequality</li>
+				</ul>
+			</li>
+
+
+			<li id="item_NP5A7HBZ" class="item webpage">
+			<h2>Remittances and Household Welfare | Springer Nature Link</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Page Web</td>
+					</tr>
+					<tr>
+					<th>URL</th>
+						<td><a href="https://link.springer.com/chapter/10.1007/978-3-030-75513-3_7?fromPaywallRec=true">https://link.springer.com/chapter/10.1007/978-3-030-75513-3_7?fromPaywallRec=true</a></td>
+					</tr>
+					<tr>
+					<th>Consulté le</th>
+						<td>26/06/2026 00:04:41</td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>26/06/2026 00:04:41</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>26/06/2026 00:04:41</td>
+					</tr>
+				</tbody></table>
+			</li>
+
+
+			<li id="item_8SALCI6N" class="item book">
+			<h2>Remittances: Development Impact and Future Prospects</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Livre</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Samuel Munzele Maimbo</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Dilip K. Ratha</td>
+					</tr>
+					<tr>
+					<th>Résumé</th>
+						<td>Remittances explores policy options for enhancing the poverty 
+alleviation impact of remittance money in recipient countries, and 
+addressees concerns about increasing migration and inequality. It looks 
+at new technologies that allow remittance service providers to reduce 
+direct transaction costs and open new channels, enhancing convenience 
+for remitters and improving levels of transparency and accountability 
+for regulators and policy makers. Importantly, it also establishes a 
+baseline for further research and collaborative effort, showing the 
+areas where the international financial institutions, particularly the 
+World Bank, can add value to enhance the positive impact of remittance 
+flows and minimize less welcome effects</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>2012</td>
+					</tr>
+					<tr>
+					<th>Titre abrégé</th>
+						<td>Remittances</td>
+					</tr>
+					<tr>
+					<th>Langue</th>
+						<td>en</td>
+					</tr>
+					<tr>
+					<th>Catalogue de bibl.</th>
+						<td>K10plus ISBN</td>
+					</tr>
+					<tr>
+					<th>Maison d’édition</th>
+						<td>World Bank</td>
+					</tr>
+					<tr>
+					<th>Lieu</th>
+						<td>Washington, DC</td>
+					</tr>
+					<tr>
+					<th>ISBN</th>
+						<td>978-0-8213-5794-1</td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>26/06/2026 00:14:46</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>26/06/2026 00:14:46</td>
+					</tr>
+				</tbody></table>
+				<h3 class="attachments">Pièces jointes</h3>
+				<ul class="attachments">
+					<li id="item_2CYQ8VTF">content.pdf					</li>
+				</ul>
+			</li>
+
+
+			<li id="item_5KK8I36I" class="item journalArticle">
+			<h2>School Well-Being From a Social Justice Perspective: A Multimodal Study of Student Voices</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Article de revue</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Lorena Ramírez Casas del Valle</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Verónica López Leiva</td>
+					</tr>
+					<tr>
+					<th>Résumé</th>
+						<td>Studies on well-being among adolescents at school need to 
+consider contextual and community factors involved in school 
+experiences. Drawing from Community Psychology, this study addressed 
+school well-being from a social justice perspective, emphasizing the 
+conditions and opportunities that schools generate for the development 
+of students’ well-being. We used a qualitative multiple case study to 
+analyze how students construct and signify school well-being from their 
+different self-identified social positions in Chilean public schools. 
+Fifty-nine adolescents from two classrooms of two public schools in 
+Chile participated in a five-week data production process which included
+ a workshop, photo-elicitations of what made them feel good and bad in 
+their schools, and a follow-up semi-structured interviews of their 
+photos The analysis was carried out from a sociosemiotic and critical 
+perspective, using tools of visual grammar and the valuation model. 
+Results showed that students constructed school well-being as having 
+close social relationships at school, being supported and cared for at 
+school, and participating and being accepted at school. Adolescents who 
+self-identified as having a behavioral problem, disability, being a 
+migrant student described being supported in their difficulties as an 
+important condition for their well-being at school. Migrant boys 
+emphasized non-discrimination due to their migrant status and being 
+recognized and included as equals by their peers. We discuss how 
+dimensions that can promote well-being in schools are those that favor 
+more inclusive educational policies and school practices, because they 
+promote fair institutional conditions for the well-being of all 
+students.</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>2026-06-01</td>
+					</tr>
+					<tr>
+					<th>DOI</th>
+						<td><a href="http://doi.org/10.1007/s12187-026-10348-9">10.1007/s12187-026-10348-9</a></td>
+					</tr>
+					<tr>
+					<th>URL</th>
+						<td><a href="https://doi.org/10.1007/s12187-026-10348-9">https://doi.org/10.1007/s12187-026-10348-9</a></td>
+					</tr>
+					<tr>
+					<th>Consulté le</th>
+						<td>25/06/2026 23:52:19</td>
+					</tr>
+					<tr>
+					<th>Titre abrégé</th>
+						<td>School Well-Being From a Social Justice Perspective</td>
+					</tr>
+					<tr>
+					<th>Langue</th>
+						<td>en</td>
+					</tr>
+					<tr>
+					<th>Catalogue de bibl.</th>
+						<td>Springer Link</td>
+					</tr>
+					<tr>
+					<th>Volume</th>
+						<td>19</td>
+					</tr>
+					<tr>
+					<th>Pages</th>
+						<td>1473-1497</td>
+					</tr>
+					<tr>
+					<th>Publication</th>
+						<td>Child Indicators Research</td>
+					</tr>
+					<tr>
+					<th>ISSN</th>
+						<td>1874-8988</td>
+					</tr>
+					<tr>
+					<th>Numéro</th>
+						<td>3</td>
+					</tr>
+					<tr>
+					<th>Abrév. de revue</th>
+						<td>Child Ind Res</td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>25/06/2026 23:52:19</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>25/06/2026 23:52:19</td>
+					</tr>
+				</tbody></table>
+				<h3 class="tags">Marqueurs :</h3>
+				<ul class="tags">
+					<li>Adolescents</li>
+					<li>Discourses</li>
+					<li>School</li>
+					<li>Social justice</li>
+					<li>Well-being</li>
+				</ul>
+			</li>
+
+
+			<li id="item_CNPJMGG5" class="item journalArticle">
+			<h2>Self-Efficacy and Parental Monitoring as Mediators in the Relationship Between Poverty, Emotional and Behavioral Problems</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Article de revue</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Burak Erkenekli</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Nilüfer Koçtürk</td>
+					</tr>
+					<tr>
+					<th>Résumé</th>
+						<td>Child poverty is a global issue that affects all of humanity, 
+especially children. The purpose of this study is to examine the 
+mediating roles of self-efficacy and parental monitoring in the 
+relationship between child poverty and emotional and behavioral 
+problems. This study was conducted using a relational model with368 
+students enrolled in state middle schools and their parents, residing in
+ socioeconomically disadvantaged regions of Türkiye. The data was 
+analyzed using the parallel mediation model. The findings revealed that 
+self-efficacy partially mediated the relationship between child poverty 
+and emotional and behavioral problems, while parental monitoring 
+partially mediated the relationship between child poverty and behavioral
+ problems. Given the correlational nature of the study, these findings 
+reflect indirect associations rather than causal effects. Nevertheless, 
+the results highlight the potential importance of individual and 
+familial protective factors in understanding how child poverty relates 
+to students’ emotional and behavioral outcomes. Based on these findings,
+ future research is encouraged to further investigate the roles of 
+self-efficacy and parental monitoring in similar contexts, preferably 
+using longitudinal or multi-method designs. Practitioners should 
+consider the relevance of these factors when designing supportive 
+programs, and policymakers should take into account family and child 
+psychosocial variables when developing strategies to address child 
+poverty.</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>2026-06-01</td>
+					</tr>
+					<tr>
+					<th>DOI</th>
+						<td><a href="http://doi.org/10.1007/s12187-026-10350-1">10.1007/s12187-026-10350-1</a></td>
+					</tr>
+					<tr>
+					<th>URL</th>
+						<td><a href="https://doi.org/10.1007/s12187-026-10350-1">https://doi.org/10.1007/s12187-026-10350-1</a></td>
+					</tr>
+					<tr>
+					<th>Consulté le</th>
+						<td>25/06/2026 23:52:09</td>
+					</tr>
+					<tr>
+					<th>Langue</th>
+						<td>en</td>
+					</tr>
+					<tr>
+					<th>Catalogue de bibl.</th>
+						<td>Springer Link</td>
+					</tr>
+					<tr>
+					<th>Volume</th>
+						<td>19</td>
+					</tr>
+					<tr>
+					<th>Pages</th>
+						<td>1447-1472</td>
+					</tr>
+					<tr>
+					<th>Publication</th>
+						<td>Child Indicators Research</td>
+					</tr>
+					<tr>
+					<th>ISSN</th>
+						<td>1874-8988</td>
+					</tr>
+					<tr>
+					<th>Numéro</th>
+						<td>3</td>
+					</tr>
+					<tr>
+					<th>Abrév. de revue</th>
+						<td>Child Ind Res</td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>25/06/2026 23:52:09</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>25/06/2026 23:52:09</td>
+					</tr>
+				</tbody></table>
+				<h3 class="tags">Marqueurs :</h3>
+				<ul class="tags">
+					<li>Behavioral problems</li>
+					<li>Emotional problems</li>
+					<li>Parental monitoring</li>
+					<li>Poverty</li>
+					<li>Self-efficacy</li>
+				</ul>
+				<h3 class="attachments">Pièces jointes</h3>
+				<ul class="attachments">
+					<li id="item_PYSCWHY7">Full Text PDF					</li>
+				</ul>
+			</li>
+
+
+			<li id="item_GBLSUNNA" class="item webpage">
+			<h2>Self-Efficacy and Parental Monitoring as Mediators in the 
+Relationship Between Poverty, Emotional and Behavioral Problems | Child 
+Indicators Research | Springer Nature Link</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Page Web</td>
+					</tr>
+					<tr>
+					<th>URL</th>
+						<td><a href="https://link.springer.com/article/10.1007/s12187-026-10350-1">https://link.springer.com/article/10.1007/s12187-026-10350-1</a></td>
+					</tr>
+					<tr>
+					<th>Consulté le</th>
+						<td>25/06/2026 23:52:05</td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>25/06/2026 23:52:05</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>25/06/2026 23:52:05</td>
+					</tr>
+				</tbody></table>
+			</li>
+
+
+			<li id="item_DRWKT5AR" class="item journalArticle">
+			<h2>Self-reported Health, Anxiety, Depression, Insomnia, and Fatigue 
+in Adolescents With Difficulties/disabilities in Developing Countries: A
+ Cross-sectional Study in Educational Settings</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Article de revue</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Ángel Denche-Zamorano</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Sabina Barrios-Fernandez</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Elisa Sofía Silveira-Saraiva</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Luisa Gámez-Calvo</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>María Ángeles García-Gil</td>
+					</tr>
+					<tr>
+					<th>Résumé</th>
+						<td>Understanding and addressing mental health in adolescents with
+ sensory (vision and hearing), physical, health and participation 
+difficulties/disabilities is particularly relevant in low- and 
+middle-income countries, where structural and educational barriers may 
+intensify vulnerability. This study examined the associations between 
+functional difficulties/disabilities and self-perceived health (SPH), 
+insomnia, fatigue, anxiety and depression in adolescents, and estimated 
+the risk of presenting these conditions according to disability status. A
+ cross-sectional study was conducted with data from 34,604 adolescents 
+aged 15–16 years from seven participating countries in the PISA 
+Development Survey (PISA-D). A descriptive analysis was performed to 
+characterise the sample. Non-parametric statistical tests were used to 
+examine dependence between variables (chi-square test) and differences 
+in proportions between groups (z-test for independent proportions). 
+Finally, odds ratios with 95% confidence intervals were estimated for 
+negative SPH, insomnia, fatigue, anxiety and depression in adolescents 
+with versus without difficulty/disability conditions. Adolescents with 
+functional difficulties/disabilities showed the highest risks for 
+negative self-perceived health (OR up to 3.19), followed by fatigue (up 
+to 2.46) and insomnia (up to 2.41). Increased risks were also observed 
+for anxiety (up to 2.12) and depression (up to 2.05). All associations 
+were statistically significant (p &lt; 0.05). Targeted, school-based 
+strategies are needed to identify and support these students early.</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>2026-06-01</td>
+					</tr>
+					<tr>
+					<th>DOI</th>
+						<td><a href="http://doi.org/10.1007/s12187-026-10339-w">10.1007/s12187-026-10339-w</a></td>
+					</tr>
+					<tr>
+					<th>URL</th>
+						<td><a href="https://doi.org/10.1007/s12187-026-10339-w">https://doi.org/10.1007/s12187-026-10339-w</a></td>
+					</tr>
+					<tr>
+					<th>Consulté le</th>
+						<td>25/06/2026 23:50:54</td>
+					</tr>
+					<tr>
+					<th>Titre abrégé</th>
+						<td>Self-reported Health, Anxiety, Depression, Insomnia, and 
+Fatigue in Adolescents With Difficulties/disabilities in Developing 
+Countries</td>
+					</tr>
+					<tr>
+					<th>Langue</th>
+						<td>en</td>
+					</tr>
+					<tr>
+					<th>Catalogue de bibl.</th>
+						<td>Springer Link</td>
+					</tr>
+					<tr>
+					<th>Volume</th>
+						<td>19</td>
+					</tr>
+					<tr>
+					<th>Pages</th>
+						<td>1251-1269</td>
+					</tr>
+					<tr>
+					<th>Publication</th>
+						<td>Child Indicators Research</td>
+					</tr>
+					<tr>
+					<th>ISSN</th>
+						<td>1874-8988</td>
+					</tr>
+					<tr>
+					<th>Numéro</th>
+						<td>3</td>
+					</tr>
+					<tr>
+					<th>Abrév. de revue</th>
+						<td>Child Ind Res</td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>25/06/2026 23:50:54</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>25/06/2026 23:50:54</td>
+					</tr>
+				</tbody></table>
+				<h3 class="tags">Marqueurs :</h3>
+				<ul class="tags">
+					<li>Adolescents</li>
+					<li>Developing countries</li>
+					<li>Disabilities</li>
+					<li>Education</li>
+					<li>Mental health</li>
+					<li>Self-reported health</li>
+				</ul>
+				<h3 class="attachments">Pièces jointes</h3>
+				<ul class="attachments">
+					<li id="item_ENCYC6HE">Full Text PDF					</li>
+				</ul>
+			</li>
+
+
+			<li id="item_QH6FJQCY" class="item journalArticle">
+			<h2>The Impact of COVID-19 School Closures on Student Belonging: a Difference-in-Differences (DiD) Analysis</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Article de revue</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Askhat Makhmetov</td>
+					</tr>
+					<tr>
+					<th>Résumé</th>
+						<td>The COVID-19 pandemic exacerbated a pre-existing global crisis
+ in adolescent mental health, with government-mandated school closures 
+disrupting the social and emotional development of millions. This study 
+investigates the causal impact of these policies on students’ sense of 
+school belonging, a critical determinant of well-being, within the 
+under-researched context of eight post-Soviet countries. A 
+quasi-experimental Difference-in-Differences (DiD) design was employed, 
+using nationally representative data from the Programme for 
+International Student Assessment (PISA) for 112,272 students in 2018 
+(pre-pandemic) and 2022 (post-pandemic). The study critically examines 
+the sensitivity of causal estimates to the policy’s operational 
+definition by testing two distinct measures of school closure duration: a
+ simplistic measure based only on full closures and a comprehensive 
+measure accounting for the total duration of educational disruption 
+(full and partial closures). The analysis reveals a stark methodological
+ sensitivity. A simplistic definition of school closures produced a 
+counter-intuitive and misleading positive effect on school belonging. In
+ contrast, the comprehensive definition accounting for total disruption 
+revealed a statistically significant negative causal effect. Prolonged 
+educational disruption suppressed the post-pandemic recovery of 
+students’ sense of school belonging by approximately 0.086 standard 
+deviations (B=−0.086, p&lt;.001). This study provides robust causal 
+evidence that prolonged school closures inflicted significant social 
+costs on adolescents by hindering their integration into the school 
+community. More importantly, it demonstrates that the validity of policy
+ evaluation is critically dependent on the precise and context-aware 
+operationalization of the intervention. These findings underscore the 
+need for policymakers to consider the severe social-emotional 
+consequences of disconnecting students from school and for researchers 
+to exercise caution in defining policy variables in causal analyses.</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>2026-06-01</td>
+					</tr>
+					<tr>
+					<th>DOI</th>
+						<td><a href="http://doi.org/10.1007/s12187-026-10343-0">10.1007/s12187-026-10343-0</a></td>
+					</tr>
+					<tr>
+					<th>URL</th>
+						<td><a href="https://doi.org/10.1007/s12187-026-10343-0">https://doi.org/10.1007/s12187-026-10343-0</a></td>
+					</tr>
+					<tr>
+					<th>Consulté le</th>
+						<td>25/06/2026 23:51:22</td>
+					</tr>
+					<tr>
+					<th>Titre abrégé</th>
+						<td>The Impact of COVID-19 School Closures on Student Belonging</td>
+					</tr>
+					<tr>
+					<th>Langue</th>
+						<td>en</td>
+					</tr>
+					<tr>
+					<th>Catalogue de bibl.</th>
+						<td>Springer Link</td>
+					</tr>
+					<tr>
+					<th>Volume</th>
+						<td>19</td>
+					</tr>
+					<tr>
+					<th>Pages</th>
+						<td>1353-1370</td>
+					</tr>
+					<tr>
+					<th>Publication</th>
+						<td>Child Indicators Research</td>
+					</tr>
+					<tr>
+					<th>ISSN</th>
+						<td>1874-8988</td>
+					</tr>
+					<tr>
+					<th>Numéro</th>
+						<td>3</td>
+					</tr>
+					<tr>
+					<th>Abrév. de revue</th>
+						<td>Child Ind Res</td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>25/06/2026 23:51:22</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>25/06/2026 23:51:22</td>
+					</tr>
+				</tbody></table>
+				<h3 class="tags">Marqueurs :</h3>
+				<ul class="tags">
+					<li>COVID-19</li>
+					<li>Difference-in-Differences</li>
+					<li>Policy evaluation</li>
+					<li>Post-Soviet</li>
+					<li>School belonging</li>
+					<li>School closures</li>
+				</ul>
+			</li>
+
+
+			<li id="item_Q3SSB5G5" class="item journalArticle">
+			<h2>The impact of migrant remittances on economic development: empirical evidence from the developing world</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Article de revue</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Muhammad Azam Khan</td>
+					</tr>
+					<tr>
+					<th>Résumé</th>
+						<td>Given the growing interest in the role of remittance inflows 
+in economic development in developing countries, this study aims to 
+explore the impact of migrant remittances on human capital, as measured 
+by per capita health expenditures and gross secondary school enrollment,
+ as well as on economic growth measured through real GDP per capita. The
+ study utilizes pooled cross-country annual panel balanced data to 
+investigate the role of remittances from 1995 to 2020 in 61 developing 
+nations. The fixed-effects estimator is preferred over the 
+random-effects estimator based on the Hausman test. Additionally, the 
+two-step generalized method of moments is implemented for a robustness 
+check. The empirical results reveal that remittance inflows have a 
+significant impact on education and health despite positive impact of 
+migrant remittances on economic growth, thereby confirming the positive 
+contribution of migrant remittances to the economic development of 
+developing economies. Migrant remittances have the greatest impact on 
+health in upper–middle-income countries, followed by that in low-income 
+and middle-income countries in the sub-sample analysis. The impact of 
+remittances on education is the highest in low-income countries, 
+followed by that in middle-income and upper–middle-income countries. 
+These findings from a policy perspective suggest the allocation of 
+remittance inflows into sectors that bolster economic development and 
+improve social welfare. The study suggests developing economies to 
+formulate effective policies for diverting remittances to productive 
+sectors.</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>2025-04-01</td>
+					</tr>
+					<tr>
+					<th>DOI</th>
+						<td><a href="http://doi.org/10.1007/s40847-024-00329-5">10.1007/s40847-024-00329-5</a></td>
+					</tr>
+					<tr>
+					<th>URL</th>
+						<td><a href="https://doi.org/10.1007/s40847-024-00329-5">https://doi.org/10.1007/s40847-024-00329-5</a></td>
+					</tr>
+					<tr>
+					<th>Consulté le</th>
+						<td>26/06/2026 00:04:35</td>
+					</tr>
+					<tr>
+					<th>Titre abrégé</th>
+						<td>The impact of migrant remittances on economic development</td>
+					</tr>
+					<tr>
+					<th>Langue</th>
+						<td>en</td>
+					</tr>
+					<tr>
+					<th>Catalogue de bibl.</th>
+						<td>Springer Link</td>
+					</tr>
+					<tr>
+					<th>Volume</th>
+						<td>27</td>
+					</tr>
+					<tr>
+					<th>Pages</th>
+						<td>323-351</td>
+					</tr>
+					<tr>
+					<th>Publication</th>
+						<td>Journal of Social and Economic Development</td>
+					</tr>
+					<tr>
+					<th>ISSN</th>
+						<td>2199-6873</td>
+					</tr>
+					<tr>
+					<th>Numéro</th>
+						<td>1</td>
+					</tr>
+					<tr>
+					<th>Abrév. de revue</th>
+						<td>J. Soc. Econ. Dev.</td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>26/06/2026 00:04:35</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>26/06/2026 00:04:35</td>
+					</tr>
+				</tbody></table>
+				<h3 class="tags">Marqueurs :</h3>
+				<ul class="tags">
+					<li>C33</li>
+					<li>Developing world</li>
+					<li>Economic growth</li>
+					<li>F24</li>
+					<li>GMM</li>
+					<li>Human capital</li>
+					<li>I10</li>
+					<li>I20</li>
+					<li>Migrants’ remittances</li>
+					<li>O10</li>
+					<li>O15</li>
+					<li>Traditional estimators</li>
+				</ul>
+			</li>
+
+
+			<li id="item_VJZAX5PD" class="item journalArticle">
+			<h2>The Role of Health Service Regions in Children’s Subjective Well-Being: A Cross-Sectional Study</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Article de revue</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Kubra Sultan Dengiz</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Deniz Kocoglu-Tanyer</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Zeynep Sacıkara</td>
+					</tr>
+					<tr>
+					<th>Résumé</th>
+						<td>This study aims to examine the relationship between 
+sociodemographic characteristics and subjective well-being among 
+school-aged children and to reveal differences in this relationship 
+across family health center (FHC) regions.&nbsp;The sample consisted of 
+2135 secondary school students aged 11-14 years living in 22 family FHC 
+regions in three central districts (A, B, C) of a city in Türkiye. Data 
+was collected using a sociodemographic characteristics questionnaire and
+ the Children’s Subjective Well-Being Index (CWEBI). Individual-level 
+variables (age, number of siblings, mother's and father's working 
+status, perceived economic situation, mother's education, father's 
+education and regional-level variables (perceived neighborhood economic 
+status, district) were created, and data analysis was performed using a 
+Multilevel Linear Mixed Model (HLM).&nbsp;While a negative school 
+environment characterized 50% of FHC regions, 36.4% exhibited more 
+adverse conditions in terms of material deprivation, neighborhood 
+characteristics, and personal well-being. Additionally, 12.5% of FHC 
+regions showed negative features in family relationships, and 9.0% 
+showed negative features in peers relationship. Participants' subjective
+ well-being differed significantly across the FHCs in which the school 
+was located. Furthermore, the HLM results indicated significant 
+variation in subjective well-being levels across FHC regions, after 
+controlling for sociodemographic and residential characteristics. The 
+number of siblings, the family's perceived economic status, perceived 
+neighborhood economic status, and the neighbourhood's district were 
+associated with components of subjective well-being.&nbsp;Children's 
+subjective well-being was associated with individual and regional risk 
+factors, and, for all indicators except material deprivation, this 
+relationship differed across study regions.</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>2026-06-01</td>
+					</tr>
+					<tr>
+					<th>DOI</th>
+						<td><a href="http://doi.org/10.1007/s12187-026-10351-0">10.1007/s12187-026-10351-0</a></td>
+					</tr>
+					<tr>
+					<th>URL</th>
+						<td><a href="https://doi.org/10.1007/s12187-026-10351-0">https://doi.org/10.1007/s12187-026-10351-0</a></td>
+					</tr>
+					<tr>
+					<th>Consulté le</th>
+						<td>25/06/2026 23:52:26</td>
+					</tr>
+					<tr>
+					<th>Titre abrégé</th>
+						<td>The Role of Health Service Regions in Children’s Subjective Well-Being</td>
+					</tr>
+					<tr>
+					<th>Langue</th>
+						<td>en</td>
+					</tr>
+					<tr>
+					<th>Catalogue de bibl.</th>
+						<td>Springer Link</td>
+					</tr>
+					<tr>
+					<th>Volume</th>
+						<td>19</td>
+					</tr>
+					<tr>
+					<th>Pages</th>
+						<td>1499-1516</td>
+					</tr>
+					<tr>
+					<th>Publication</th>
+						<td>Child Indicators Research</td>
+					</tr>
+					<tr>
+					<th>ISSN</th>
+						<td>1874-8988</td>
+					</tr>
+					<tr>
+					<th>Numéro</th>
+						<td>3</td>
+					</tr>
+					<tr>
+					<th>Abrév. de revue</th>
+						<td>Child Ind Res</td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>25/06/2026 23:52:26</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>25/06/2026 23:52:26</td>
+					</tr>
+				</tbody></table>
+				<h3 class="tags">Marqueurs :</h3>
+				<ul class="tags">
+					<li>Child health</li>
+					<li>Children</li>
+					<li>Nursing</li>
+					<li>Subjective wellbeing, health service, region</li>
+				</ul>
+				<h3 class="attachments">Pièces jointes</h3>
+				<ul class="attachments">
+					<li id="item_Q4GSVSCZ">Full Text PDF					</li>
+				</ul>
+			</li>
+
+
+			<li id="item_9EYH6VVC" class="item journalArticle">
+			<h2>The role of remittances in building resilience through adaptive 
+capacities amid environmental and socioeconomic vulnerabilities: A 
+systematic literature review</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Article de revue</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Ikram Ullah</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Niraj Prakash Joshi</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Luni Piya</td>
+					</tr>
+					<tr>
+					<th>Résumé</th>
+						<td>This systematic review examines how financial and social 
+remittances contribute to resilience under environmental and 
+socioeconomic stress by synthesizing 79 peer-reviewed studies published 
+between 2002 and 2025. Guided by a Disaster Resilience Integrated 
+Framework for Transformation (DRIFT)-informed, stage-based framework, we
+ analyze resilience before, during, and after disasters, linking each 
+phase to capacities such as consumption smoothing, livelihood 
+diversification, asset-based adaptation, social capital, and 
+institutional empowerment. Remittance-resilience research expanded 
+rapidly after 2020, with most studies focusing on Asia and Africa and 
+fewer in Latin America, Europe, and Pacific Small Island Developing 
+States. Financial remittances primarily support immediate stabilization 
+and asset repair, whereas social remittances strengthen skills, 
+networks, risk awareness, and collective action that underpin 
+longer-term adjustment. Regional patterns differ: Asian cases emphasize 
+consumption smoothing and housing upgrades, while African studies 
+highlight diversification and institutional pathways. Our review 
+contributes by mapping remittance roles across household, community, and
+ system levels; linking micro-level mechanisms to governance and market 
+conditions; and offering a comparative regional synthesis. Key 
+constraints include dependency risks, unequal access by gender and 
+income, and market or institutional volatility. Policy priorities 
+include integrating remittances into national adaptation and disaster 
+risk reduction strategies, reducing transfer costs through digital 
+rails, leveraging diaspora co-financing, and strengthening financial and
+ digital literacy to enhance inclusive, shock-responsive resilience 
+aligned with Sustainable Development Goals 11, 13, and 16.</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>2025-01-01</td>
+					</tr>
+					<tr>
+					<th>DOI</th>
+						<td><a href="http://doi.org/10.1016/j.crm.2025.100769">10.1016/j.crm.2025.100769</a></td>
+					</tr>
+					<tr>
+					<th>URL</th>
+						<td><a href="https://www.sciencedirect.com/science/article/pii/S221209632500083X">https://www.sciencedirect.com/science/article/pii/S221209632500083X</a></td>
+					</tr>
+					<tr>
+					<th>Consulté le</th>
+						<td>26/06/2026 00:06:17</td>
+					</tr>
+					<tr>
+					<th>Titre abrégé</th>
+						<td>The role of remittances in building resilience through adaptive capacities amid environmental and socioeconomic vulnerabilities</td>
+					</tr>
+					<tr>
+					<th>Catalogue de bibl.</th>
+						<td>ScienceDirect</td>
+					</tr>
+					<tr>
+					<th>Volume</th>
+						<td>50</td>
+					</tr>
+					<tr>
+					<th>Pages</th>
+						<td>100769</td>
+					</tr>
+					<tr>
+					<th>Publication</th>
+						<td>Climate Risk Management</td>
+					</tr>
+					<tr>
+					<th>ISSN</th>
+						<td>2212-0963</td>
+					</tr>
+					<tr>
+					<th>Abrév. de revue</th>
+						<td>Climate Risk Management</td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>26/06/2026 00:06:17</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>26/06/2026 00:06:17</td>
+					</tr>
+				</tbody></table>
+				<h3 class="tags">Marqueurs :</h3>
+				<ul class="tags">
+					<li>Adaptive strategy</li>
+					<li>Disaster risk reduction</li>
+					<li>Remittance</li>
+					<li>Resilience</li>
+					<li>Vulnerability</li>
+				</ul>
+			</li>
+
+
+			<li id="item_DKTFSRIU" class="item journalArticle">
+			<h2>Unravelling Geographical Disparities in Child Social Exclusion in Australia: An Augmented Index and Temporal Comparisons</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Article de revue</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Riyana Miranti</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Ben Freyens</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Yogi Vidyattama</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Robert Tanton</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Gul Rukh Shakir</td>
+					</tr>
+					<tr>
+					<th>Résumé</th>
+						<td>The Child Social Exclusion (CSE) index, a multi-dimensional 
+measure of child disadvantage in Australia, serves as a vital area-based
+ indicator of the risk of social exclusion for Australian children. The 
+aim of our study is twofold. First, we develop an augmented index using 
+data from the 2021 Australian Census, supplemented by additional 
+administrative and microsimulation data. We augment the original core 
+index’s key social exclusion domains (socio-economic status, education, 
+connectedness, access to housing and health) with (i) a new community 
+and environment domain, known to matter for child wellbeing but rarely 
+before included in empirical field work and (ii) financial hardships, 
+asthma, and mental health indicators, that extend the socio-economic and
+ health domains. Second, we compare the core index across 2021 and 2016 
+to provide further depth on the latest disparities in the country. The 
+findings show that close to half of the children living in regional 
+areas lived in the most and second most excluded quintiles of the index.
+ This far exceeds the equivalent share in the greater capital cities 
+(36%). Our trend findings also indicate a persistent pattern of 
+geographical disadvantage among children over time, highlighting the 
+ongoing nature of this issue.</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>2026-06-01</td>
+					</tr>
+					<tr>
+					<th>DOI</th>
+						<td><a href="http://doi.org/10.1007/s12187-025-10330-x">10.1007/s12187-025-10330-x</a></td>
+					</tr>
+					<tr>
+					<th>URL</th>
+						<td><a href="https://doi.org/10.1007/s12187-025-10330-x">https://doi.org/10.1007/s12187-025-10330-x</a></td>
+					</tr>
+					<tr>
+					<th>Consulté le</th>
+						<td>25/06/2026 23:50:22</td>
+					</tr>
+					<tr>
+					<th>Titre abrégé</th>
+						<td>Unravelling Geographical Disparities in Child Social Exclusion in Australia</td>
+					</tr>
+					<tr>
+					<th>Langue</th>
+						<td>en</td>
+					</tr>
+					<tr>
+					<th>Catalogue de bibl.</th>
+						<td>Springer Link</td>
+					</tr>
+					<tr>
+					<th>Volume</th>
+						<td>19</td>
+					</tr>
+					<tr>
+					<th>Pages</th>
+						<td>1163-1190</td>
+					</tr>
+					<tr>
+					<th>Publication</th>
+						<td>Child Indicators Research</td>
+					</tr>
+					<tr>
+					<th>ISSN</th>
+						<td>1874-8988</td>
+					</tr>
+					<tr>
+					<th>Numéro</th>
+						<td>3</td>
+					</tr>
+					<tr>
+					<th>Abrév. de revue</th>
+						<td>Child Ind Res</td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>25/06/2026 23:50:22</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>25/06/2026 23:50:22</td>
+					</tr>
+				</tbody></table>
+				<h3 class="tags">Marqueurs :</h3>
+				<ul class="tags">
+					<li>Australia</li>
+					<li>Child social exclusion</li>
+					<li>Disadvantage</li>
+					<li>Small area</li>
+				</ul>
+				<h3 class="attachments">Pièces jointes</h3>
+				<ul class="attachments">
+					<li id="item_AUEH8HEA">Full Text PDF					</li>
+				</ul>
+			</li>
+
+
+			<li id="item_TY7SQQDP" class="item journalArticle">
+			<h2>Washington State Case Management Kinship Navigator Program: an Evaluation of Child Wellbeing Outcomes</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Article de revue</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>John Fowler</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Tamarie Willis</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Lexi West</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Sierra Wollenhall</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Rosalyn Alber</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Amanda Krotke-Crandall</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Geene Delaplane</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Angelique Day</td>
+					</tr>
+					<tr>
+					<th>Résumé</th>
+						<td>Roughly 10% of children globally are estimated to be living in
+ kinship care arrangements. Kinship caregivers often report needing 
+assistance accessing benefits and services to help in their caregiving 
+role. Kinship navigation programs are one way that governments help 
+kinship caregivers meet the needs associated with caregiving. This 
+quasi-experimental study assessed the effectiveness of the U.S. state of
+ Washington’s case management kinship navigator program on child 
+wellbeing as compared with receiving services-as-usual (referral and 
+information only). Logistic regressions were run on a propensity score 
+matched sample of children (N = 434) in both formal (arranged by the 
+child welfare authority) and informal (self-arranged) kinship care 
+arrangements. The results indicated that the case management kinship 
+navigator model can help reduce placement instability, improve the 
+physical health of children by increasing preventative care visits and 
+reducing the number of emergency room visits, and reduce children’s 
+absences from school and early childhood programs. These results 
+indicate that the case management kinship navigator program can be a 
+protective factor for child wellbeing for children in both formal and 
+informal kinship arrangements. Future studies should examine the 
+generalizability of these results to populations beyond the U.S. state 
+of Washington.</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>2026-06-01</td>
+					</tr>
+					<tr>
+					<th>DOI</th>
+						<td><a href="http://doi.org/10.1007/s12187-026-10344-z">10.1007/s12187-026-10344-z</a></td>
+					</tr>
+					<tr>
+					<th>URL</th>
+						<td><a href="https://doi.org/10.1007/s12187-026-10344-z">https://doi.org/10.1007/s12187-026-10344-z</a></td>
+					</tr>
+					<tr>
+					<th>Consulté le</th>
+						<td>25/06/2026 23:51:32</td>
+					</tr>
+					<tr>
+					<th>Titre abrégé</th>
+						<td>Washington State Case Management Kinship Navigator Program</td>
+					</tr>
+					<tr>
+					<th>Langue</th>
+						<td>en</td>
+					</tr>
+					<tr>
+					<th>Catalogue de bibl.</th>
+						<td>Springer Link</td>
+					</tr>
+					<tr>
+					<th>Volume</th>
+						<td>19</td>
+					</tr>
+					<tr>
+					<th>Pages</th>
+						<td>1371-1391</td>
+					</tr>
+					<tr>
+					<th>Publication</th>
+						<td>Child Indicators Research</td>
+					</tr>
+					<tr>
+					<th>ISSN</th>
+						<td>1874-8988</td>
+					</tr>
+					<tr>
+					<th>Numéro</th>
+						<td>3</td>
+					</tr>
+					<tr>
+					<th>Abrév. de revue</th>
+						<td>Child Ind Res</td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>25/06/2026 23:51:32</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>25/06/2026 23:51:32</td>
+					</tr>
+				</tbody></table>
+				<h3 class="tags">Marqueurs :</h3>
+				<ul class="tags">
+					<li>Child wellbeing</li>
+					<li>Education</li>
+					<li>Kinship navigation</li>
+					<li>Placement stability</li>
+					<li>Program evaluation</li>
+					<li>Quasi-experimental design</li>
+				</ul>
+			</li>
+
+		</ul>
+	
+</body></html>
