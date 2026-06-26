@@ -8,8 +8,10 @@
 #    - s13a_1 + s13a_2 : modules transferts (construction variable D)
 #
 #  Clés de jointure :
-#    - Niveau ménage  : grappe + menage
-#    - Niveau individu: grappe + menage + numind
+#    - ehcvm_menage  : hhid seulement (pas de grappe/menage séparés)
+#    - ehcvm_individu: grappe + menage + numind (et hhid = grappe*1000 + menage)
+#    - s13 files     : grappe + menage → on calcule hhid = grappe*1000 + menage
+#    - ehcvm_welfare : selon disponibilité (hhid ou grappe+menage)
 #
 #  Sorties :
 #    output/base_menage_2018.rds   — une ligne par ménage, 2018
@@ -21,31 +23,43 @@
 source("code/R/config.R")
 source("code/R/utils.R")
 
-ID_MEN <- c("grappe", "menage")
-ID_IND <- c("grappe", "menage", "numind")
+# ── Utilitaire : clé de jointure selon les colonnes disponibles ──
+# Retourne "hhid" si présent, sinon c("grappe", "menage")
+cle_jointure <- function(df) {
+  if ("hhid" %in% names(df)) "hhid" else c("grappe", "menage")
+}
+
+# Assure que hhid est présent dans un df qui a grappe+menage
+ajouter_hhid <- function(df) {
+  if (!"hhid" %in% names(df) && all(c("grappe", "menage") %in% names(df))) {
+    df <- dplyr::mutate(df, hhid = as.integer(grappe) * 1000L + as.integer(menage))
+  }
+  df
+}
 
 # ── Fonction : variable traitement (transfert de l'étranger) ──
-# s13a_1 : liste des ménages ayant déclaré recevoir des transferts
-# s13a_2 : détail par envoi (lieu de résidence de l'expéditeur)
-# Code >= CODE_ETRANGER_MIN → pays étranger
 
 construire_traitement <- function(s13a1, s13a2, col_lieu) {
+  s13a1 <- ajouter_hhid(s13a1)
+  s13a2 <- ajouter_hhid(s13a2)
+
   etrangers <- s13a2 |>
     dplyr::filter(.data[[col_lieu]] >= CODE_ETRANGER_MIN) |>
-    dplyr::distinct(dplyr::across(dplyr::all_of(ID_MEN))) |>
+    dplyr::distinct(hhid) |>
     dplyr::mutate(transfert_migrant = 1L)
 
   s13a1 |>
-    dplyr::select(dplyr::all_of(ID_MEN)) |>
+    dplyr::select(hhid) |>
     dplyr::distinct() |>
-    dplyr::left_join(etrangers, by = ID_MEN) |>
+    dplyr::left_join(etrangers, by = "hhid") |>
     dplyr::mutate(D = dplyr::coalesce(transfert_migrant, 0L)) |>
-    dplyr::select(dplyr::all_of(ID_MEN), D)
+    dplyr::select(hhid, D)
 }
 
 # ── Fonction : indicateurs de privation niveau ménage ─────────
 
 prep_deprivation_menage <- function(men) {
+  men <- ajouter_hhid(men)
   men |>
     dplyr::mutate(
       dep_eau   = dplyr::if_else(
@@ -65,26 +79,28 @@ prep_deprivation_menage <- function(men) {
         1L, 0L
       )
     ) |>
-    dplyr::select(dplyr::all_of(ID_MEN), dep_eau, dep_assai, dep_habit)
+    dplyr::select(hhid, dep_eau, dep_assai, dep_habit)
 }
 
 # ── Fonction : fusion base ménage ─────────────────────────────
-# Résultat : une ligne par ménage avec toutes les covariables
 
 fusionner_menage <- function(men, wel, traitement, annee) {
-  VARS_WEL <- c(ID_MEN, "pcexp", "hhsize", "region", "milieu",
+  VARS_WEL <- c("pcexp", "hhsize", "region", "milieu",
                 "hgender", "hage", "heduc", "hmstat")
-  vars_dispo <- intersect(VARS_WEL, names(wel))
 
   dep_men <- prep_deprivation_menage(men)
 
+  wel <- ajouter_hhid(wel)
+  cle_wel <- cle_jointure(wel)
+  vars_dispo <- intersect(c(cle_wel, VARS_WEL), names(wel))
   wel_sel <- wel |>
     dplyr::select(dplyr::all_of(vars_dispo)) |>
-    dplyr::mutate(dplyr::across(where(haven::is.labelled), haven::zap_labels))
+    dplyr::mutate(dplyr::across(where(haven::is.labelled), haven::zap_labels)) |>
+    dplyr::rename_with(~ "hhid", dplyr::any_of("hhid"))
 
   dep_men |>
-    dplyr::left_join(wel_sel,      by = ID_MEN) |>
-    dplyr::left_join(traitement,   by = ID_MEN) |>
+    dplyr::left_join(wel_sel,    by = "hhid") |>
+    dplyr::left_join(traitement, by = "hhid") |>
     dplyr::mutate(
       annee     = annee,
       D         = dplyr::coalesce(D, 0L),
@@ -102,13 +118,15 @@ fusionner_menage <- function(men, wel, traitement, annee) {
 }
 
 # ── Fonction : fusion base individuelle ───────────────────────
-# Résultat : une ligne par individu avec covariables ménage jointes
 
 fusionner_individu <- function(ind, base_men, annee, col_age = "age") {
+  ind <- ajouter_hhid(ind)
   ind |>
-    dplyr::mutate(dplyr::across(where(haven::is.labelled), haven::zap_labels)) |>
-    dplyr::mutate(age = as.integer(.data[[col_age]])) |>
-    dplyr::left_join(base_men, by = ID_MEN) |>
+    dplyr::mutate(
+      dplyr::across(where(haven::is.labelled), haven::zap_labels),
+      age = as.integer(.data[[col_age]])
+    ) |>
+    dplyr::left_join(base_men, by = "hhid") |>
     dplyr::mutate(annee = annee)
 }
 
@@ -118,17 +136,15 @@ fusionner_individu <- function(ind, base_men, annee, col_age = "age") {
 
 cat("\n>>> Chargement EHCVM 2018-2019 ...\n")
 
-ind_2018    <- lire_stata(BASE_2018, "ehcvm_individu_sen2018.dta")
-men_2018    <- lire_stata(BASE_2018, "ehcvm_menage_sen2018.dta")
-wel_2018    <- lire_stata(BASE_2018, "ehcvm_welfare_sen2018.dta")
-s13a1_2018  <- lire_stata(BASE_2018, "s13a_1_me_sen2018.dta")
-s13a2_2018  <- lire_stata(BASE_2018, "s13a_2_me_sen2018.dta")
+ind_2018   <- lire_stata(BASE_2018, "ehcvm_individu_sen2018.dta")
+men_2018   <- lire_stata(BASE_2018, "ehcvm_menage_sen2018.dta")
+wel_2018   <- lire_stata(BASE_2018, "ehcvm_welfare_sen2018.dta")
+s13a1_2018 <- lire_stata(BASE_2018, "s13a_1_me_sen2018.dta")
+s13a2_2018 <- lire_stata(BASE_2018, "s13a_2_me_sen2018.dta")
 
-traitement_2018 <- construire_traitement(s13a1_2018, s13a2_2018,
-                                         col_lieu = "s13aq14")
-
-base_men_2018 <- fusionner_menage(men_2018, wel_2018, traitement_2018, 2018)
-base_ind_2018 <- fusionner_individu(ind_2018, base_men_2018, 2018)
+traitement_2018 <- construire_traitement(s13a1_2018, s13a2_2018, col_lieu = "s13aq14")
+base_men_2018   <- fusionner_menage(men_2018, wel_2018, traitement_2018, 2018)
+base_ind_2018   <- fusionner_individu(ind_2018, base_men_2018, 2018)
 
 cat(sprintf("  Ménages 2018 : %d  |  Individus : %d  |  Traités : %d (%.1f%%)\n",
     nrow(base_men_2018),
@@ -145,17 +161,15 @@ saveRDS(base_ind_2018, file.path(OUTPUT_DIR, "base_individu_2018.rds"))
 
 cat("\n>>> Chargement EHCVM 2021-2022 ...\n")
 
-ind_2021    <- lire_stata(BASE_2021, "ehcvm_individu_sen2021.dta")
-men_2021    <- lire_stata(BASE_2021, "ehcvm_menage_sen2021.dta")
-wel_2021    <- lire_stata(BASE_2021, "ehcvm_welfare_sen2021.dta")
-s13a1_2021  <- lire_stata(BASE_2021, "s13_1_me_sen2021.dta")
-s13a2_2021  <- lire_stata(BASE_2021, "s13_2_me_sen2021.dta")
+ind_2021   <- lire_stata(BASE_2021, "ehcvm_individu_sen2021.dta")
+men_2021   <- lire_stata(BASE_2021, "ehcvm_menage_sen2021.dta")
+wel_2021   <- lire_stata(BASE_2021, "ehcvm_welfare_sen2021.dta")
+s13a1_2021 <- lire_stata(BASE_2021, "s13_1_me_sen2021.dta")
+s13a2_2021 <- lire_stata(BASE_2021, "s13_2_me_sen2021.dta")
 
-traitement_2021 <- construire_traitement(s13a1_2021, s13a2_2021,
-                                         col_lieu = "s13q19")
-
-base_men_2021 <- fusionner_menage(men_2021, wel_2021, traitement_2021, 2021)
-base_ind_2021 <- fusionner_individu(ind_2021, base_men_2021, 2021)
+traitement_2021 <- construire_traitement(s13a1_2021, s13a2_2021, col_lieu = "s13q19")
+base_men_2021   <- fusionner_menage(men_2021, wel_2021, traitement_2021, 2021)
+base_ind_2021   <- fusionner_individu(ind_2021, base_men_2021, 2021)
 
 cat(sprintf("  Ménages 2021 : %d  |  Individus : %d  |  Traités : %d (%.1f%%)\n",
     nrow(base_men_2021),
@@ -172,7 +186,6 @@ saveRDS(base_ind_2021, file.path(OUTPUT_DIR, "base_individu_2021.rds"))
 
 cat("\n>>> Vérifications ...\n")
 
-# Taux de correspondance individu → ménage
 for (annee in c(2018, 2021)) {
   base_ind <- if (annee == 2018) base_ind_2018 else base_ind_2021
   pct_match <- mean(!is.na(base_ind$pcexp)) * 100
@@ -180,14 +193,13 @@ for (annee in c(2018, 2021)) {
               annee, pct_match))
 }
 
-# Doublons sur clé ménage
 for (annee in c(2018, 2021)) {
   base_men <- if (annee == 2018) base_men_2018 else base_men_2021
-  n_dup <- sum(duplicated(base_men[, ID_MEN]))
+  n_dup <- sum(duplicated(base_men$hhid))
   if (n_dup > 0)
-    warning(sprintf("  %d doublons sur clé ménage — %d", annee, n_dup))
+    warning(sprintf("  %d doublons sur hhid — %d", annee, n_dup))
   else
-    cat(sprintf("  %d : aucun doublon sur clé ménage ✓\n", annee))
+    cat(sprintf("  %d : aucun doublon sur hhid ✓\n", annee))
 }
 
 cat("\nFusion terminée. Fichiers sauvegardés dans", OUTPUT_DIR, "\n")
