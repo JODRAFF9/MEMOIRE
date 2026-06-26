@@ -59,9 +59,9 @@ prep_deprivation_menage <- function(men) {
         1L, 0L
       ),
       dep_habit = dplyr::if_else(
-        dplyr::coalesce(as.integer(haven::zap_labels(mur)), 1L) == 0L |
-        dplyr::coalesce(as.integer(haven::zap_labels(toi)), 1L) == 0L |
-        dplyr::coalesce(as.integer(haven::zap_labels(sol)), 1L) == 0L,
+        dplyr::coalesce(as.integer(haven::zap_labels(mur)),  1L) == 0L |
+        dplyr::coalesce(as.integer(haven::zap_labels(toit)), 1L) == 0L |
+        dplyr::coalesce(as.integer(haven::zap_labels(sol)),  1L) == 0L,
         1L, 0L
       )
     ) |>
