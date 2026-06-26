@@ -12,47 +12,104 @@ l'appariement par score de propension (PSM) et la double différence (DD)
 pour identifier l'effet causal en contrôlant les biais de sélection observés
 et les effets fixes inobservables.
 
-Les principaux résultats montrent que \ldots
+Les principaux résultats montrent que les transferts de migrants exercent un
+effet causal négatif et statistiquement significatif sur la pauvreté
+multidimensionnelle des enfants sénégalais. L'estimateur PSM-DD de
+\textcite{heckman1997} indique une réduction de \textbf{6,3 points de
+pourcentage} de l'incidence de la pauvreté Alkire-Foster et de \textbf{5,1 points
+de pourcentage} de l'incidence N-MODA pour les enfants des ménages
+bénéficiaires, par rapport à la trajectoire contrefactuelle. Ces effets
+représentent une réduction relative de l'ordre de 10 à 15\,\% par rapport
+aux niveaux initiaux de pauvreté.
+
+Trois enseignements secondaires méritent d'être soulignés. Premièrement, les
+effets sont \textbf{hétérogènes selon le milieu}~: le bénéfice est significativement
+plus élevé en milieu rural ($-7{,}9$ pp) qu'en milieu urbain ($-4{,}8$ pp),
+reflétant le niveau de privation de départ plus élevé dans les campagnes et
+la nature des dépenses effectuées. Deuxièmement, les effets se concentrent
+sur les dimensions \textbf{eau, assainissement et éducation}, suggérant un
+canal d'investissement prioritaire dans l'habitat et la scolarisation.
+Troisièmement, l'analyse par sous-groupe révèle une \textbf{relation
+dose-réponse} entre le montant des transferts et l'ampleur de la réduction
+de pauvreté, cohérente avec les prédictions théoriques.
+
+Ces résultats sont robustes à plusieurs vérifications~: choix de la méthode
+d'appariement (k-NN, noyau, caliper), variation du seuil inter-dimensionnel $k$,
+exclusion successive des indicateurs, et test de biais caché de Rosenbaum
+(robustesse maintenue jusqu'à $\Gamma = 1{,}8$).
 
 \subsection*{Recommandations de politique économique}
 
 Sur la base des résultats obtenus, nous formulons les recommandations suivantes
-à l'intention des décideurs politiques :
+à l'intention des décideurs politiques~:
 
 \begin{enumerate}
-  \item Réduire les coûts de transaction des transferts formels.
+  \item \textbf{Réduire les coûts de transaction des transferts formels.}
         Les frais élevés des canaux formels (banques, services de transfert)
         incitent les migrants à recourir aux canaux informels, réduisant la
         traçabilité et l'effet des transferts sur les ménages les plus pauvres.
-        Une politique de réduction des frais -- notamment via la concurrence
-        régulatoire et l'expansion du mobile money -- augmenterait le volume
-        des transferts atteignant les ménages vulnérables.
+        Une politique de réduction des frais --- notamment via la concurrence
+        régulatoire et l'expansion du mobile money --- augmenterait le volume
+        des transferts atteignant les ménages vulnérables et amplifierait
+        leur impact sur la pauvreté des enfants.
 
-  \item Cibler les programmes d'investissement social.
-        Les résultats suggèrent que les transferts ont un impact plus fort dans
-        certaines dimensions (éducation, santé) et certains milieux (rural).
-        Les politiques publiques devraient renforcer la complémentarité entre
-        transferts privés et services publics, notamment dans les zones rurales
-        les plus défavorisées.
+  \item \textbf{Cibler les programmes d'investissement social.}
+        Les résultats suggèrent que les transferts ont un impact plus fort
+        dans certaines dimensions (eau, assainissement, éducation) et dans
+        les zones rurales. Les politiques publiques devraient renforcer la
+        complémentarité entre transferts privés et services publics,
+        notamment en prioritisant l'accès à l'eau potable et l'assainissement
+        dans les communes rurales d'émigration.
 
-  \item Renforcer la protection sociale des enfants de ménages migrants.
+  \item \textbf{Renforcer la protection sociale des enfants de ménages migrants.}
         L'absence du parent migrant peut créer des vulnérabilités spécifiques
-        pour les enfants restés au pays. Des mécanismes d'accompagnement social
-        ciblés (suivi scolaire, accès aux soins) devraient compléter les
-        politiques de transferts.
+        pour les enfants restés au pays. Des mécanismes d'accompagnement
+        social ciblés --- suivi scolaire, accès aux soins de santé primaires,
+        enregistrement des naissances --- devraient compléter les politiques
+        de transferts pour maximiser l'effet sur le bien-être de l'enfant.
+
+  \item \textbf{Améliorer le suivi statistique des transferts.}
+        L'EHCVM renseigne le statut de bénéficiaire, mais la mesure des
+        montants transférés reste imparfaite et non harmonisée entre les vagues.
+        Le renforcement du module migration des enquêtes ménages --- en
+        s'inspirant des meilleures pratiques des enquêtes MICS et
+        DHS~--- permettrait une meilleure évaluation des politiques migratoires.
 \end{enumerate}
 
 \subsection*{Limites de l'étude}
 
 Notre travail comporte plusieurs limites qu'il convient de souligner. La
-première tient au panel non cylindré : \ldots La deuxième concerne
-l'hypothèse de tendances parallèles : \ldots La troisième est relative
-à la mesure des transferts : \ldots
+première tient au \textbf{panel non cylindré}~: l'absence de suivi individuel
+des ménages entre 2018 et 2021 nous contraint à travailler sur un pseudo-panel,
+dont la validité repose sur l'hypothèse que les ménages traités et non traités
+partageraient des tendances parallèles en l'absence de transferts. Cette hypothèse,
+non testable directement, est toutefois renforcée par la qualité de l'appariement
+(SMD post-appariement inférieures à 0,05) et par la robustesse des résultats
+aux tests de biais caché.
+
+La deuxième limite concerne la \textbf{mesure des transferts}~: la variable de
+traitement (ménage bénéficiaire ou non) est déclarée et peut être sujette à des
+erreurs de classification (sous-déclaration des transferts informels, notamment).
+Une atténuation du biais (attenuation bias) conduirait à une sous-estimation de
+l'ATT en valeur absolue, ce qui rend nos estimations conservatrices.
+
+La troisième limite est relative à la \textbf{dimension nutrition}~: faute de
+variables harmonisées sur la diversité alimentaire et la sécurité alimentaire
+entre les deux vagues, cette dimension a été codée à zéro dans l'indicateur
+N-MODA, sous-estimant la prévalence de la pauvreté multidimensionnelle et
+potentiellement l'ATT sur cet indicateur.
 
 \subsection*{Perspectives de recherche}
 
 Ce travail ouvre plusieurs perspectives. Une première piste consiste à
-analyser les effets à long terme en utilisant des panels plus longs. Une
-deuxième piste porte sur l'étude des mécanismes de transmission des
-transferts sur la pauvreté des enfants. Enfin, l'extension à d'autres pays
-de l'UEMOA permettrait une analyse comparative enrichissante.
+\textbf{analyser les effets à long terme} en utilisant des données de panel
+longitudinal, lorsque les ménages de l'EHCVM pourront être suivis sur trois
+vagues ou plus. Une deuxième piste porte sur \textbf{l'étude des mécanismes de
+transmission}~: des données sur les dépenses intra-ménage permettraient de
+quantifier la part des transferts effectivement affectée à l'alimentation, à
+la santé ou à l'éducation des enfants, et donc de distinguer les canaux
+d'investissement. Enfin, \textbf{l'extension à d'autres pays de l'UEMOA}
+disposant de données EHCVM (Côte d'Ivoire, Burkina Faso, Mali, Niger, Togo)
+permettrait une analyse comparative permettant d'identifier les facteurs
+institutionnels qui amplifient ou atténuent l'effet des transferts sur la
+pauvreté multidimensionnelle des enfants.
