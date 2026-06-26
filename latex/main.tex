@@ -21,6 +21,7 @@
 ]{geometry}
 \usepackage{setspace}
 \onehalfspacing
+\raggedbottom
 
 % ── Police ──────────────────────────────────────────────────
 \usepackage{lmodern}
@@ -125,6 +126,7 @@
 \input{styles/pagedeGarde}
 
 % ── Pages liminaires (numérotation romaine) ──────────────────
+\pagestyle{plain}
 \pagenumbering{roman}
 \setcounter{page}{1}
 
@@ -139,11 +141,14 @@
 
 % ── Sommaire (sections uniquement, via shorttoc) ─────────────
 \shorttoc{Sommaire}{1}
+\markboth{}{}
 \clearpage
 
 \listoffigures
+\markboth{}{}
 \clearpage
 \listoftables
+\markboth{}{}
 \clearpage
 
 \input{chapitres/abreviations}
@@ -151,6 +156,7 @@
 
 % ── Corps du mémoire (numérotation arabe) ────────────────────
 \cleardoublepage
+\pagestyle{fancy}
 \pagenumbering{arabic}
 \setcounter{page}{1}
 
