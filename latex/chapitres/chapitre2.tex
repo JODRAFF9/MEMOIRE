@@ -282,29 +282,29 @@ indicateurs retenus, en coherence avec l'EHCVM et la methodologie N-MODA.
   \label{tab:moda_indicateurs}
   \begin{threeparttable}
   \small
-  \begin{tabular}{p{1.8cm}p{2.4cm}p{5.5cm}p{2.3cm}}
+  \begin{tabular}{p{1.7cm}p{2.3cm}p{5.2cm}p{2.8cm}}
     \toprule
-    Groupe & Dimension & Indicateur de privation & Variable EHCVM \\
+    Groupe & Dimension & Indicateur de privation & Variables EHCVM \\
     \midrule
-    \multirow{6}{1.8cm}{\textbf{0-4 ans}}
-      & Sante          & Maladie sans consultation (\texttt{mal30j}=1 et \texttt{con30j}=0) & \texttt{ehcvm\_individu} \\[3pt]
-      & Nutrition      & Maladie recente (proxy retard de croissance) & \texttt{mal30j} \\[3pt]
-      & Eau            & Source d'eau non amelioree (ss ou sp) & \texttt{eauboi\_ss}, \texttt{eauboi\_sp} \\[3pt]
-      & Assainissement & Toilettes inadequates ou evacuation non saine & \texttt{toilet}, \texttt{eva\_toi} \\[3pt]
+    \multirow{5}{1.7cm}{\textbf{0-4 ans}}
+      & Sante          & Maladie sans consultation (\texttt{mal30j}=1, \texttt{con30j}=0) & \texttt{ehcvm\_individu} \\[3pt]
+      & Nutrition      & Maladie recente (proxy malnutrition) & \texttt{mal30j} \\[3pt]
+      & Eau            & Source non amelioree (saisonniere) & \texttt{eauboi\_ss/sp} \\[3pt]
+      & Assainissement & Toilettes non saines ou evacuation inadequate & \texttt{toilet}, \texttt{eva\_toi} \\[3pt]
       & Logement       & Materiau precaire (mur, toit ou sol) & \texttt{mur}, \texttt{toi}, \texttt{sol} \\
     \midrule
-    \multirow{5}{1.8cm}{\textbf{5-14 ans}}
+    \multirow{5}{1.7cm}{\textbf{5-14 ans}}
       & Education      & Non-scolarise (\texttt{scol}=0, 6--14 ans) & \texttt{ehcvm\_individu} \\[3pt]
       & Sante          & Maladie sans consultation & \texttt{mal30j}, \texttt{con30j} \\[3pt]
-      & Eau            & Source d'eau non amelioree & \texttt{eauboi\_ss}, \texttt{eauboi\_sp} \\[3pt]
-      & Assainissement & Toilettes inadequates & \texttt{toilet}, \texttt{eva\_toi} \\[3pt]
+      & Eau            & Source non amelioree & \texttt{eauboi\_ss/sp} \\[3pt]
+      & Assainissement & Toilettes non saines & \texttt{toilet}, \texttt{eva\_toi} \\[3pt]
       & Logement       & Materiau precaire & \texttt{mur}, \texttt{toi}, \texttt{sol} \\
     \midrule
-    \multirow{5}{1.8cm}{\textbf{15-17 ans}}
+    \multirow{5}{1.7cm}{\textbf{15-17 ans}}
       & Education      & Non-scolarise & \texttt{scol} \\[3pt]
       & Travail        & Actif economique (\texttt{activ7j} $\in \{1,2\}$) & \texttt{ehcvm\_individu} \\[3pt]
-      & Eau            & Source d'eau non amelioree & \texttt{eauboi\_ss}, \texttt{eauboi\_sp} \\[3pt]
-      & Assainissement & Toilettes inadequates & \texttt{toilet}, \texttt{eva\_toi} \\[3pt]
+      & Eau            & Source non amelioree & \texttt{eauboi\_ss/sp} \\[3pt]
+      & Assainissement & Toilettes non saines & \texttt{toilet}, \texttt{eva\_toi} \\[3pt]
       & Logement       & Materiau precaire & \texttt{mur}, \texttt{toi}, \texttt{sol} \\
     \bottomrule
   \end{tabular}
@@ -434,8 +434,11 @@ les effets fixes inobservables stables dans le temps :
   \label{eq:dd}
 \end{equation}
 sous l'hypothese de \textit{tendances paralleles} :
-$\E[Y_i(0)_{t=2} - Y_i(0)_{t=1} \mid D_i = 1] = \E[Y_i(0)_{t=2} -
-Y_i(0)_{t=1} \mid D_i = 0]$.
+\begin{equation}
+  \E\!\left[Y_i(0)_{t=2} - Y_i(0)_{t=1} \mid D_i = 1\right]
+  = \E\!\left[Y_i(0)_{t=2} - Y_i(0)_{t=1} \mid D_i = 0\right].
+  \label{eq:parallel}
+\end{equation}
 
 \subsubsection{L'estimateur PSM-DD}
 
