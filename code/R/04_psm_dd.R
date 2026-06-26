@@ -1,6 +1,6 @@
 # ============================================================
 #  04_psm_dd.R — Estimation PSM-DD (Heckman et al. 1997/1998)
-#  ATT sur pauvre_AF et pauvre_MODA
+#  ATT sur pauvre_MODA (UNICEF-MODA, k >= 2)
 # ============================================================
 
 source("code/R/config.R")
@@ -35,10 +35,8 @@ pseudo_panel |>
   dplyr::group_by(annee, D) |>
   dplyr::summarise(
     n          = dplyr::n(),
-    pct_AF     = round(taux(pauvre_AF) * 100, 1),
     pct_MODA   = round(taux(pauvre_MODA) * 100, 1),
-    score_moy  = round(taux(score_dep), 3),
-    dep_moda   = round(taux(nb_dep), 2),
+    dep_moy    = round(taux(nb_dep), 2),
     pcexp_moy  = round(taux(pcexp), 0),
     .groups    = "drop"
   ) |>
@@ -136,7 +134,7 @@ cat("Panel apparie :", nrow(panel_apparie), "obs\n")
 # delta = ATT_DD
 
 cat("\n=== Double Difference (sans appariement) ===\n")
-for (outcome in c("pauvre_AF", "pauvre_MODA")) {
+for (outcome in c("pauvre_MODA")) {
   formule_dd <- as.formula(paste(outcome, "~ factor(t) + D + factor(t):D"))
   mod_dd <- lm(formule_dd, data = pseudo_panel)
   mod_dd_rob <- lmtest::coeftest(
@@ -151,7 +149,7 @@ for (outcome in c("pauvre_AF", "pauvre_MODA")) {
 # ATT_PSM-DD = (1/nT) * sum_{i in T} [DeltaY_i - sum_j w_ij DeltaY_j]
 
 cat("\n=== PSM-DD (Heckman 1997/1998) ===\n")
-for (outcome in c("pauvre_AF", "pauvre_MODA")) {
+for (outcome in c("pauvre_MODA")) {
   formule_dd <- as.formula(paste(outcome, "~ factor(t) + D + factor(t):D"))
   mod_psm_dd <- lm(formule_dd, data = panel_apparie,
                    weights = panel_apparie$weights)
@@ -169,7 +167,7 @@ cat("\n=== Heterogeneite par milieu ===\n")
 for (mil in c(1, 2)) {
   panel_mil <- panel_apparie |> dplyr::filter(f_milieu == mil)
   label_mil <- if (mil == 1) "Urbain" else "Rural"
-  for (outcome in c("pauvre_AF", "pauvre_MODA")) {
+  for (outcome in c("pauvre_MODA")) {
     formule_dd <- as.formula(paste(outcome, "~ factor(t) + D + factor(t):D"))
     if (nrow(panel_mil) > 30) {
       mod <- lm(formule_dd, data = panel_mil)
@@ -210,7 +208,7 @@ psm_dd_boot <- function(data, outcome, B = N_BOOT) {
 }
 
 cat("\n=== Bootstrap PSM-DD (", N_BOOT, "replications) ===\n")
-for (outcome in c("pauvre_AF", "pauvre_MODA")) {
+for (outcome in c("pauvre_MODA")) {
   res <- psm_dd_boot(panel_apparie, outcome)
   cat(sprintf("  %s : ATT=%.4f  SE=%.4f  IC95=[%.4f, %.4f]\n",
               outcome, res$mean, res$se, res$ci95[1], res$ci95[2]))
