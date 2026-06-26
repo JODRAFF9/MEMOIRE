@@ -63,14 +63,16 @@ construire_traitement <- function(s13a1, s13a2, col_lieu) {
 #   dep_log_ordure  : débarras ordures non sain       → ordure = 0  (ehcvm_menage)
 #   dep_log_surp    : surpeuplement (> 3 pers/pièce)  → hhsize / s11q02 > 3 (s11_me)
 
-prep_deprivation_menage <- function(men, s11, welfare) {
+prep_deprivation_menage <- function(men, s11, welfare,
+                                     var_part_toi  = "s11q56",
+                                     var_temps_eau = "s11q29a") {
   men   <- ajouter_hhid(men)
   s11   <- ajouter_hhid(s11) |>
     dplyr::mutate(dplyr::across(where(haven::is.labelled), haven::zap_labels)) |>
     dplyr::select(hhid,
-                  nb_pieces   = dplyr::any_of("s11q02"),
-                  part_toi    = dplyr::any_of("s11q56"),
-                  temps_eau   = dplyr::any_of("s11q29a"))
+                  nb_pieces = dplyr::any_of("s11q02"),
+                  part_toi  = dplyr::any_of(var_part_toi),
+                  temps_eau = dplyr::any_of(var_temps_eau))
   welfare <- ajouter_hhid(welfare) |>
     dplyr::select(hhid, hhsize)
 
@@ -148,11 +150,13 @@ prep_deprivation_individu <- function(ind, s01) {
 
 # ── Fonction : fusion base ménage ─────────────────────────────
 
-fusionner_menage <- function(men, s11, wel, traitement, annee) {
+fusionner_menage <- function(men, s11, wel, traitement, annee,
+                             var_part_toi  = "s11q56",
+                             var_temps_eau = "s11q29a") {
   VARS_WEL <- c("pcexp", "hhsize", "region", "milieu",
                 "hgender", "hage", "heduc", "hmstat")
 
-  dep_men <- prep_deprivation_menage(men, s11, wel)
+  dep_men <- prep_deprivation_menage(men, s11, wel, var_part_toi, var_temps_eau)
 
   wel <- ajouter_hhid(wel)
   vars_dispo <- intersect(c("hhid", VARS_WEL), names(wel))
@@ -204,7 +208,8 @@ s13a1_2018 <- lire_stata(BASE_2018, "s13a_1_me_sen2018.dta")
 s13a2_2018 <- lire_stata(BASE_2018, "s13a_2_me_sen2018.dta")
 
 traitement_2018 <- construire_traitement(s13a1_2018, s13a2_2018, col_lieu = "s13aq14")
-base_men_2018   <- fusionner_menage(men_2018, s11_2018, wel_2018, traitement_2018, 2018)
+base_men_2018   <- fusionner_menage(men_2018, s11_2018, wel_2018, traitement_2018, 2018,
+                                    var_part_toi = "s11q56", var_temps_eau = "s11q29a")
 base_ind_2018   <- fusionner_individu(ind_2018, s01_2018, base_men_2018, 2018)
 
 cat(sprintf("  Ménages 2018 : %d  |  Individus : %d  |  Traités : %d (%.1f%%)\n",
@@ -230,7 +235,8 @@ s13a1_2021 <- lire_stata(BASE_2021, "s13_1_me_sen2021.dta")
 s13a2_2021 <- lire_stata(BASE_2021, "s13_2_me_sen2021.dta")
 
 traitement_2021 <- construire_traitement(s13a1_2021, s13a2_2021, col_lieu = "s13q19")
-base_men_2021   <- fusionner_menage(men_2021, s11_2021, wel_2021, traitement_2021, 2021)
+base_men_2021   <- fusionner_menage(men_2021, s11_2021, wel_2021, traitement_2021, 2021,
+                                    var_part_toi = "s11q55", var_temps_eau = "s11q28a")
 base_ind_2021   <- fusionner_individu(ind_2021, s01_2021, base_men_2021, 2021)
 
 cat(sprintf("  Ménages 2021 : %d  |  Individus : %d  |  Traités : %d (%.1f%%)\n",
