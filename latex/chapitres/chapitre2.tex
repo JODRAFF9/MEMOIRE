@@ -1,16 +1,14 @@
 \section{Données et méthodologie}
 \label{sec:methodo}
 
-Cette section presente l'architecture methodologique de la recherche. La mesure
-de la pauvrete multidimensionnelle des enfants mobilise deux approches
-complementaires : l'approche Alkire-Foster, qui fournit un indice synthetique
-agregeable et decomposable (IPM-Enfant), et l'approche MODA (Multiple
-Overlapping Deprivation Analysis) de l'UNICEF, qui analyse les privations
-superposees en distinguant les groupes d'age. Ces deux mesures constituent
-les variables de resultat de la strategie d'identification causale fondee sur
-la combinaison du score de propension (PSM) et de la double difference (DD),
-mise en oeuvre sur les deux vagues de l'Enquete Harmonisee sur les Conditions
-de Vie des Menages (EHCVM I et II).
+Cette section présente l'architecture méthodologique de la recherche. La mesure
+de la pauvreté multidimensionnelle des enfants repose sur l'approche MODA
+(Multiple Overlapping Deprivation Analysis) de l'UNICEF, qui analyse les
+privations superposées en distinguant les groupes d'âge. Cette mesure constitue
+la variable de résultat de la stratégie d'identification causale fondée sur
+la combinaison du score de propension (PSM) et de la double différence (DD),
+mise en œuvre sur les deux vagues de l'Enquête Harmonisée sur les Conditions
+de Vie des Ménages (EHCVM I et II).
 
 % ─────────────────────────────────────────────────────────────────────────────
 \subsection{Données : les enquêtes EHCVM I et II}
@@ -18,100 +16,107 @@ de Vie des Menages (EHCVM I et II).
 
 \subsubsection{Présentation des enquêtes}
 
-Les Enquetes Harmonisees sur les Conditions de Vie des Menages (EHCVM) sont
-realisees dans le cadre du programme statistique de l'UEMOA. L'\textbf{EHCVM
-I (2018-2019)} est la premiere vague nationale au Senegal \parencite{ansd2019},
-reposant sur un plan de sondage stratifie a deux degres (regions x milieux
-comme strates, zones de denombrements comme unites primaires). L'\textbf{EHCVM
-II (2021-2022)} reproduit le meme protocole \parencite{ansd2022}, permettant
-la constitution d'un pseudo-panel au niveau des zones de residence. La fenetre
-temporelle 2018-2022 couvre une periode de transformations importantes des
-flux migratoires senegalais et de leurs effets sur les menages.
+Les Enquêtes Harmonisées sur les Conditions de Vie des Ménages (EHCVM) sont
+réalisées dans le cadre du programme statistique de l'UEMOA. L'EHCVM
+I (2018-2019) est la première vague nationale au Sénégal \parencite{ansd2019},
+reposant sur un plan de sondage stratifié à deux degrés (régions x milieux
+comme strates, zones de dénombrements comme unités primaires). L'EHCVM
+II (2021-2022) reproduit le même protocole \parencite{ansd2022}, permettant
+la constitution d'un pseudo-panel au niveau des zones de résidence. La fenêtre
+temporelle 2018-2022 couvre une période de transformations importantes des
+flux migratoires sénégalais et de leurs effets sur les ménages.
 
 \subsubsection{Construction de l'échantillon}
 
-Notre population cible est l'ensemble des enfants ages de 0 a 17 ans residant
-dans les menages enquetes dans les deux vagues. L'EHCVM I couvre 7\,120 menages
-(vagues 1 et 2 reunies), et l'EHCVM II 7\,120 menages selon le meme plan de
-sondage, avec un sous-echantillon panel identifie par la variable \texttt{PanelHH}
+Notre population cible est l'ensemble des enfants âgés de 0 à 17 ans résidant
+dans les ménages enquêtés dans les deux vagues. L'EHCVM I couvre 7\,120 ménages
+(vagues 1 et 2 réunies), et l'EHCVM II 7\,120 ménages selon le même plan de
+sondage, avec un sous-échantillon panel identifié par la variable \texttt{PanelHH}
 \parencite{ansd2019, ansd2022}.
 
-Deux types de pseudo-panel sont utilises selon la strategie d'identification :
+Deux types de pseudo-panel sont utilisés selon la stratégie d'identification :
 \begin{enumerate}
-  \item \textbf{Pseudo-panel au niveau des zones de residence} : les menages des
-  deux vagues sont agreg\'es par grappe de sondage (unites primaires), conformement
-  a la methodologie de \textcite{deaton1997}. Ceci est l'approche par defaut
-  pour la double difference, dans laquelle les grappes jouent le role d'unites
-  observees dans le temps.
-  \item \textbf{Panel strictement cylindre} (sous-echantillon) : les menages
-  identifies comme panel dans les deux vagues via \texttt{PanelHH} constituent
-  un echantillon de suivi plus rigoureux, qui est utilise dans les tests de
+  \item Pseudo-panel au niveau des zones de résidence : les ménages des
+  deux vagues sont agreg\'es par grappe de sondage (unités primaires), conformément
+  à la méthodologie de \textcite{deaton1997}. Ceci est l'approche par défaut
+  pour la double différence, dans laquelle les grappes jouent le rôle d'unités
+  observées dans le temps.
+  \item Panel strictement cylindré (sous-échantillon) : les ménages
+  identifiés comme panel dans les deux vagues via \texttt{PanelHH} constituent
+  un échantillon de suivi plus rigoureux, qui est utilisé dans les tests de
   robustesse.
 \end{enumerate}
 
-Apres nettoyage (exclusion des observations avec plus de deux indicateurs de
-privation manquants, et des menages sans information sur les transferts),
-l'echantillon final retient les enfants pour lesquels l'integralite des
-indicateurs des deux approches (AF et MODA) ainsi que la variable de traitement
-sont disponibles dans les deux vagues. La limite principale de cette construction
+Après nettoyage (exclusion des observations avec plus de deux indicateurs de
+privation manquants, et des ménages sans information sur les transferts),
+l'échantillon final retient les enfants pour lesquels l'intégralité des
+indicateurs MODA ainsi que la variable de traitement sont disponibles dans
+les deux vagues. La limite principale de cette construction
 est l'attrition potentielle entre les deux vagues, qui peut introduire un biais
-si les menages perdus sont systematiquement differents des menages retenus
--- cette limite est discutee dans la conclusion.
+si les ménages perdus sont systématiquement différents des ménages retenus
+-- cette limite est discutée dans la conclusion.
 
 \subsubsection{Variable de traitement}
 
-La variable de traitement $D_i \in \{0, 1\}$ indique si le menage de l'enfant
-$i$ a recu des transferts d'un membre emigre a l'etranger au cours des 12 mois
-precedant l'enquete, conformement aux conventions de la litterature empirique
+La variable de traitement $D_i \in \{0, 1\}$ indique si le ménage de l'enfant
+$i$ a reçu des transferts d'un membre émigré à l'étranger au cours des 12 mois
+précédant l'enquête, conformément aux conventions de la littérature empirique
 sur les remittances en Afrique \parencite{azam2016, combes2019}.
 
 La construction de cette variable repose sur les modules de transferts des
-deux vagues EHCVM. Dans chaque vague, deux fichiers sont mobilises :
-\texttt{s13a\_1} (identification des menages ayant recu au moins un transfert)
-et \texttt{s13a\_2} (caracteristiques de chaque transfert et de son expediteur).
-Un menage est classe comme beneficiaire ($D=1$) si au moins un transfert recoit
-a un expediteur dont le lieu de residence est code $\geq 4$ dans la nomenclature
+deux vagues EHCVM. Dans chaque vague, deux fichiers sont mobilisés :
+\texttt{s13a\_1} (identification des ménages ayant reçu au moins un transfert)
+et \texttt{s13a\_2} (caractéristiques de chaque transfert et de son expéditeur).
+Un ménage est classé comme bénéficiaire ($D=1$) si au moins un transfert reçoit
+à un expéditeur dont le lieu de résidence est codé $\geq 4$ dans la nomenclature
 EHCVM (variable \texttt{s13aq14} en 2018, \texttt{s13q19} en 2021), les codes
-1 a 3 correspondant a des destinations interieures au Senegal (meme ville, meme
-region, ailleurs dans le pays). Cette definition exclut les transferts internes
-(interregionaux) qui relevent d'une logique de redistribution domestique distincte
+1 à 3 correspondant à des destinations intérieures au Sénégal (même ville, même
+région, ailleurs dans le pays). Cette définition exclut les transferts internes
+(interrégionaux) qui relèvent d'une logique de redistribution domestique distincte
 des envois de la diaspora internationale \parencite{ndiaye2013}.
 
 \subsubsection{Correspondance entre indicateurs et modules EHCVM}
 
 \begin{table}[H]
   \centering
-  \caption{Correspondance entre indicateurs (AF et MODA) et variables EHCVM}
+  \caption{Correspondance entre indicateurs MODA et variables EHCVM}
   \label{tab:correspondance}
   \small
-  \begin{tabular}{p{2.2cm}p{1.5cm}p{2.5cm}p{2.8cm}p{2.5cm}}
+  \begin{tabular}{p{2.2cm}p{2.5cm}p{3.5cm}p{3cm}}
     \toprule
-    Indicateur & Approche & Fichier & Variable & Seuil de privation \\
+    Dimension & Indicateur & Variable EHCVM & Seuil de privation \\
     \midrule
-    Scolarisation   & AF + MODA & \texttt{ehcvm\_individu} & \texttt{scol}       & $= 0$ (non-scolarise) \\
-    Suivi sante     & AF + MODA & \texttt{ehcvm\_individu} & \texttt{mal30j}, \texttt{con30j} & Malade et non-consulte \\
-    Nutrition/proxy & AF + MODA & \texttt{ehcvm\_individu} & \texttt{mal30j}     & $= 1$ pour 0--4 ans \\
-    Eau potable     & AF + MODA & \texttt{ehcvm\_menage}   & \texttt{eauboi\_ss}, \texttt{eauboi\_sp} & $= 0$ \\
-    Assainissement  & AF + MODA & \texttt{ehcvm\_menage}   & \texttt{toilet}, \texttt{eva\_toi} & $= 0$ \\
-    Habitat         & AF + MODA & \texttt{ehcvm\_menage}   & \texttt{mur}, \texttt{toi}, \texttt{sol} & $= 0$ \\
-    Travail enfant  & MODA      & \texttt{ehcvm\_individu} & \texttt{activ7j}    & Actif (15--17 ans) \\
+    Assainissement & Type de sanitaire      & \texttt{toilet}                     & $= 0$ (non sain) \\
+                   & Partage des toilettes  & \texttt{s05q10}                     & $= 1$ (partage) \\
+    Eau            & Source d'eau           & \texttt{eauboi\_ss}, \texttt{eauboi\_sp} & $= 0$ (non améliorée) \\
+                   & Temps d'accès          & \texttt{s05q14}                     & $> 30$ minutes \\
+    Logement       & Évacuation des ordures & \texttt{ordure}                     & $= 0$ (non sain) \\
+                   & Surpeuplement          & \texttt{hhsize} / \texttt{s05q02}   & $> 3$ pers./pièce \\
+    Nutrition      & Diversité alimentaire  & \texttt{pcexp} (proxy)              & $< P_{25}$ \\
+                   & Sécurité alimentaire   & \texttt{pcexp} (proxy)              & Dép. ali. $< 50\%$ médiane \\
+    Santé          & Accès aux soins        & \texttt{mal30j}, \texttt{con30j}    & Malade non-consulté \\
+    Protection     & Acte de naissance      & \texttt{s01q19}                     & $\neq 1$ (absent) \\
+                   & Travail des enfants    & \texttt{activ7j}                    & Actif (5--14 ans) \\
+                   & Vie avec les parents   & \texttt{lien}                       & Lien $\notin \{1\ldots5\}$ \\
+    Éducation      & Fréquentation scolaire & \texttt{scol}                       & $= 0$ (5--14 ans) \\
+                   & Alphabétisation        & \texttt{alfab}                      & $= 0$ (15--17 ans) \\
     \bottomrule
   \end{tabular}
   \begin{minipage}{\linewidth}
     \small\vspace{2pt}
-    \textit{Note :} \texttt{eauboi\_ss}/\texttt{eauboi\_sp} : acces a l'eau potable
-    en saison seche/pluie (1 = ameliore). \texttt{toilet}/\texttt{eva\_toi} : toilettes
-    et evacuation des excreta sains (1 = conformes JMP). \texttt{mur}/\texttt{toi}/\texttt{sol} :
-    materiaux definitifs pour murs, toit, sol (1 = definitifs).
+    \textit{Note :} \texttt{eauboi\_ss}/\texttt{eauboi\_sp} : accès à l'eau potable
+    en saison sèche/pluie (1 = amélioré). \texttt{toilet} : type de latrines saines
+    (1 = conformes JMP). \texttt{s05q02} : nombre de pièces ; \texttt{s05q10} : partage
+    des toilettes ; \texttt{s05q14} : temps d'accès à l'eau (minutes).
   \end{minipage}
 \end{table}
 
 \subsubsection{Covariables du modèle de propension}
 
-Le modele probit estime la probabilite qu'un menage recoive des transferts
-en fonction de ses caracteristiques pre-transfert observees. Les covariables
-sont choisies pour satisfaire l'hypothese d'independance conditionnelle (CIA)
-tout en evitant d'inclure des variables potentiellement affectees par le traitement.
+Le modèle probit estime la probabilité qu'un ménage reçoive des transferts
+en fonction de ses caractéristiques pré-transfert observées. Les covariables
+sont choisies pour satisfaire l'hypothèse d'indépendance conditionnelle (CIA)
+tout en évitant d'inclure des variables potentiellement affectées par le traitement.
 
 \begin{table}[H]
   \centering
@@ -122,27 +127,27 @@ tout en evitant d'inclure des variables potentiellement affectees par le traitem
     \toprule
     Groupe & Variable & Fichier EHCVM & Variable EHCVM \\
     \midrule
-    \multirow{4}{2.2cm}{Chef de menage}
-      & Age du CM            & \texttt{ehcvm\_welfare} & \texttt{hage} \\
-      & Sexe (feminin = 1)   & \texttt{ehcvm\_welfare} & \texttt{hgender} \\
-      & Niveau d'education   & \texttt{ehcvm\_welfare} & \texttt{heduc} \\
+    \multirow{4}{2.2cm}{Chef de ménage}
+      & Âge du CM            & \texttt{ehcvm\_welfare} & \texttt{hage} \\
+      & Sexe (féminin = 1)   & \texttt{ehcvm\_welfare} & \texttt{hgender} \\
+      & Niveau d'éducation   & \texttt{ehcvm\_welfare} & \texttt{heduc} \\
       & Statut matrimonial   & \texttt{ehcvm\_welfare} & \texttt{hmstat} \\
     \midrule
     \multirow{2}{2.2cm}{Composition}
-      & Taille du menage     & \texttt{ehcvm\_welfare} & \texttt{hhsize} \\
-      & Bien-etre initial    & \texttt{ehcvm\_welfare} & \texttt{pcexp} \\
+      & Taille du ménage     & \texttt{ehcvm\_welfare} & \texttt{hhsize} \\
+      & Bien-être initial    & \texttt{ehcvm\_welfare} & \texttt{pcexp} \\
     \midrule
     \multirow{2}{2.2cm}{Localisation}
       & Milieu (urbain = 1)  & \texttt{ehcvm\_welfare} & \texttt{milieu} \\
-      & Region (14 regions)  & \texttt{ehcvm\_welfare} & \texttt{region} \\
+      & Région (14 régions)  & \texttt{ehcvm\_welfare} & \texttt{region} \\
     \bottomrule
   \end{tabular}
   \begin{minipage}{\linewidth}
     \small\vspace{2pt}
-    \textit{Note :} CM = chef de menage. \texttt{pcexp} est transformee en
-    logarithme (\texttt{log\_pcexp}) pour reduire l'asymetrie de la distribution.
-    \texttt{region} est traitee comme un facteur a 14 modalites.
-    La specification finale est : $D \sim \texttt{hhsize} + \log(\texttt{pcexp})
+    \textit{Note :} CM = chef de ménage. \texttt{pcexp} est transformée en
+    logarithme (\texttt{log\_pcexp}) pour réduire l'asymétrie de la distribution.
+    \texttt{region} est traitée comme un facteur à 14 modalités.
+    La spécification finale est : $D \sim \texttt{hhsize} + \log(\texttt{pcexp})
     + \texttt{milieu} + \texttt{region} + \texttt{hgender} + \texttt{hage}
     + \texttt{heduc} + \texttt{hmstat}$.
   \end{minipage}
@@ -154,127 +159,54 @@ tout en evitant d'inclure des variables potentiellement affectees par le traitem
 
 \subsubsection{Fondements conceptuels}
 
-Les mesures monetaires de la pauvrete ne rendent pas compte des conditions
+Les mesures monétaires de la pauvreté ne rendent pas compte des conditions
 de vie des enfants pour deux raisons fondamentales. D'une part, elles supposent
-une distribution intrafamiliale equitable des ressources, ce que les donnees
-infirment generalement \parencite{deaton1997}. D'autre part, elles ignorent
-des dimensions non monetaires -- education, sante, eau, assainissement,
-information -- irreductibles au revenu du menage et determinantes pour le
-developpement de l'enfant \parencite{gordon2003, sen1999}. L'approche par
-les capabilites de \textcite{sen1985} fournit le socle conceptuel : ce qui
-importe n'est pas seulement les ressources mais la capacite effective de
-l'enfant a fonctionner dans chaque dimension fondamentale de son
-developpement.
+une distribution intrafamiliale équitable des ressources, ce que les données
+infirment généralement \parencite{deaton1997}. D'autre part, elles ignorent
+des dimensions non monétaires -- éducation, santé, eau, assainissement,
+information -- irréductibles au revenu du ménage et déterminantes pour le
+développement de l'enfant \parencite{gordon2003, sen1999}. L'approche par
+les capabilités de \textcite{sen1985} fournit le socle conceptuel : ce qui
+importe n'est pas seulement les ressources mais la capacité effective de
+l'enfant à fonctionner dans chaque dimension fondamentale de son
+développement.
 
-Dans ce cadre, deux methodes de mesure de la pauvrete multidimensionnelle
-des enfants sont adoptees, chacune apportant une information complementaire
-sur les privations subies.
-
-\subsubsection{Première approche : l'indice Alkire-Foster (IPM-Enfant)}
-
-\paragraph{Principe et construction.}
-
-La methode d'Alkire-Foster \parencite{alkire2007, alkire2011} construit un
-indice synthetique de pauvrete multidimensionnelle en deux etapes. Soit $n$
-enfants, $d = 6$ indicateurs repartis en trois dimensions (education, sante,
-niveau de vie) et $y_{ij}$ la valeur de l'indicateur $j$ pour l'enfant $i$.
-La variable de privation elementaire est :
-\begin{equation}
-  g_{ij} = \mathbf{1}\left[y_{ij} < z_j\right]
-  \label{eq:privation_af}
-\end{equation}
-ou $z_j$ est le seuil de privation de la dimension $j$.
-
-Le score de privation pondere de l'enfant $i$ est :
-\begin{equation}
-  c_i = \sum_{j=1}^{d} w_j \, g_{ij}
-  \label{eq:score_af}
-\end{equation}
-avec des poids egaux $w_j = 1/6$. Un enfant est identifie comme
-multidimensionnellement pauvre si $c_i \geq k$, avec $k = 1/3$ (au moins
-deux indicateurs sur six).
-
-L'IPM-Enfant est ensuite calcule comme le produit de l'incidence $H$ et de
-l'intensite moyenne $A$ :
-\begin{equation}
-  M_0 = H \times A
-  \label{eq:ipm}
-\end{equation}
-ou $H = q/n$ est la proportion d'enfants pauvres et $A = \frac{1}{q}
-\sum_{i:\,c_i \geq k} c_i$ l'intensite moyenne des privations parmi les
-pauvres. La mesure $M_0$ est decomposable par groupe de population et par
-dimension, ce qui permet d'analyser la contribution de chaque region, milieu
-et dimension a la pauvrete globale.
-
-\paragraph{Dimensions et indicateurs retenus.}
-
-\begin{table}[H]
-  \centering
-  \caption{Dimensions, indicateurs et seuils de privation -- approche
-  Alkire-Foster}
-  \label{tab:af_indicateurs}
-  \begin{threeparttable}
-  \begin{tabular}{p{2.5cm}p{3.5cm}p{5.5cm}c}
-    \toprule
-    Dimension & Indicateur & Seuil de privation & Poids \\
-    \midrule
-    \multirow{2}{2.5cm}{Education}
-      & Frequentation scolaire & Enfant de 6 a 17 ans non scolarise  & 1/6 \\[4pt]
-      & Retard scolaire        & Retard superieur ou egal a 2 ans    & 1/6 \\
-    \midrule
-    \multirow{2}{2.5cm}{Sante}
-      & Suivi nutritionnel & Aucune consultation dans les 12 mois    & 1/6 \\[4pt]
-      & Vaccination        & Vaccination incomplete (0-5 ans)        & 1/6 \\
-    \midrule
-    \multirow{2}{2.5cm}{Niveau de vie}
-      & Acces a l'eau     & Source d'eau non amelioree (normes JMP)  & 1/6 \\[4pt]
-      & Assainissement    & Toilettes non ameliorees (normes JMP)    & 1/6 \\
-    \bottomrule
-  \end{tabular}
-  \begin{tablenotes}
-    \small
-    \item \textit{Note :} Normes JMP : Joint Monitoring Programme OMS/UNICEF.
-    Seuil inter-dimensionnel $k = 1/3$. Poids egaux $w_j = 1/6$.
-  \end{tablenotes}
-  \end{threeparttable}
-\end{table}
-
-\subsubsection{Deuxième approche : MODA (Multiple Overlapping Deprivation Analysis)}
+\subsubsection{MODA (Multiple Overlapping Deprivation Analysis)}
 
 \paragraph{Spécificités de l'approche MODA.}
 
-L'approche MODA, developpee par \textcite{deneubourg2012} au sein du bureau
-de recherche de l'UNICEF et appliquee en Afrique subsaharienne par
+L'approche MODA, développée par \textcite{deneubourg2012} au sein du bureau
+de recherche de l'UNICEF et appliquée en Afrique subsaharienne par
 \textcite{demilliano2014}, part du constat que l'approche Alkire-Foster
-presente deux limites lorsqu'elle est appliquee aux enfants. D'abord, elle
-utilise les memes indicateurs et seuils quel que soit l'age, alors que les
-besoins fondamentaux varient considerablement entre un nourrisson et un
-adolescent. Ensuite, les poids et le seuil inter-dimensionnel sont fixes de
-maniere normative plutot que derives des configurations de privations
+présente deux limites lorsqu'elle est appliquée aux enfants. D'abord, elle
+utilise les mêmes indicateurs et seuils quel que soit l'âge, alors que les
+besoins fondamentaux varient considérablement entre un nourrisson et un
+adolescent. Ensuite, les poids et le seuil inter-dimensionnel sont fixés de
+manière normative plutôt que dérivés des configurations de privations
 effectives.
 
-MODA repond a ces limites selon trois principes. Premierement, l'enfant
-individuel -- et non le menage -- est l'unite d'analyse. Deuxiemement, les
-indicateurs sont disaggreges par groupe d'age pour refleter les droits
-specifiques a chaque stade de developpement. Troisiemement, l'analyse
-porte sur les \textit{privations superposees} (overlapping deprivations) :
-quelles privations se combinent chez les enfants les plus vulnerables, et
-avec quelle intensite.
+MODA répond à ces limites selon trois principes. Premièrement, l'enfant
+individuel -- et non le ménage -- est l'unité d'analyse. Deuxièmement, les
+indicateurs sont désagrégés par groupe d'âge pour refléter les droits
+spécifiques à chaque stade de développement. Troisièmement, l'analyse
+porte sur les \textit{privations superposées} (overlapping deprivations) :
+quelles privations se combinent chez les enfants les plus vulnérables, et
+avec quelle intensité.
 
-MODA est ainsi complementaire a Alkire-Foster : la ou AF fournit un indice
-synthetique agregeable, MODA fournit une analyse fine de la structure des
-privations par age et de leurs combinaisons. Dans notre etude, les deux
-mesures constituent des variables de resultat alternatives pour l'estimation
-PSM-DD, permettant de verifier la robustesse des conclusions.
+MODA s'inscrit dans la structure à double seuil d'Alkire-Foster -- seuil
+individuel par indicateur, puis seuil inter-dimensionnel $k$ -- dont elle
+généralise la logique d'identification en l'adaptant aux droits spécifiques
+de chaque groupe d'âge. Elle constitue la variable de résultat principale
+de l'estimation PSM-DD présentée dans la section suivante.
 
 \paragraph{Groupes d'âge et dimensions retenus.}
 
-Suivant \textcite{deneubourg2012} et l'adaptation nationale N-MODA developpee
-pour le Senegal lors d'un atelier participatif rassemblant l'ANSD et les
-ministeres sectoriels \parencite{ansd2024}, nous distinguons trois groupes
-d'age avec des indicateurs adaptes aux droits specifiques de chaque phase de
-l'enfance. Le tableau~\ref{tab:moda_indicateurs} presente les dimensions et
-indicateurs retenus, en coherence avec l'EHCVM et la methodologie N-MODA.
+Suivant \textcite{deneubourg2012} et l'adaptation nationale N-MODA développée
+pour le Sénégal lors d'un atelier participatif rassemblant l'ANSD et les
+ministères sectoriels \parencite{ansd2024}, nous distinguons trois groupes
+d'âge avec des indicateurs adaptés aux droits spécifiques de chaque phase de
+l'enfance. Le tableau~\ref{tab:moda_indicateurs} présente les dimensions et
+indicateurs retenus, en cohérence avec l'EHCVM et la méthodologie N-MODA.
 
 \begin{table}[H]
   \centering
@@ -282,38 +214,38 @@ indicateurs retenus, en coherence avec l'EHCVM et la methodologie N-MODA.
   \label{tab:moda_indicateurs}
   \begin{threeparttable}
   \small
-  \begin{tabular}{p{1.7cm}p{2.3cm}p{5.2cm}p{2.8cm}}
+  \begin{tabular}{p{1.4cm}p{2.0cm}p{4.8cm}p{1.2cm}p{1.2cm}p{1.2cm}}
     \toprule
-    Groupe & Dimension & Indicateur de privation & Variables EHCVM \\
+    Dimension & Indicateur & Seuil de privation & 0-4 & 5-14 & 15-17 \\
     \midrule
-    \multirow{5}{1.7cm}{\textbf{0-4 ans}}
-      & Sante          & Maladie sans consultation (\texttt{mal30j}=1, \texttt{con30j}=0) & \texttt{ehcvm\_individu} \\[3pt]
-      & Nutrition      & Maladie recente (proxy malnutrition) & \texttt{mal30j} \\[3pt]
-      & Eau            & Source non amelioree (saisonniere) & \texttt{eauboi\_ss/sp} \\[3pt]
-      & Assainissement & Toilettes non saines ou evacuation inadequate & \texttt{toilet}, \texttt{eva\_toi} \\[3pt]
-      & Logement       & Materiau precaire (mur, toit ou sol) & \texttt{mur}, \texttt{toi}, \texttt{sol} \\
+    Assainiss. & Type sanitaire   & \texttt{toilet}=0 (non sain)                        & \checkmark & \checkmark & \checkmark \\
+               & Partage toilette & \texttt{s05q10}=1 (partage)                         & \checkmark & \checkmark & \checkmark \\
     \midrule
-    \multirow{5}{1.7cm}{\textbf{5-14 ans}}
-      & Education      & Non-scolarise (\texttt{scol}=0, 6--14 ans) & \texttt{ehcvm\_individu} \\[3pt]
-      & Sante          & Maladie sans consultation & \texttt{mal30j}, \texttt{con30j} \\[3pt]
-      & Eau            & Source non amelioree & \texttt{eauboi\_ss/sp} \\[3pt]
-      & Assainissement & Toilettes non saines & \texttt{toilet}, \texttt{eva\_toi} \\[3pt]
-      & Logement       & Materiau precaire & \texttt{mur}, \texttt{toi}, \texttt{sol} \\
+    Eau        & Source           & \texttt{eauboi\_ss}/\texttt{sp}=0 (non améliorée)   & \checkmark & \checkmark & \checkmark \\
+               & Temps accès      & \texttt{s05q14}$>30$ min                            & \checkmark & \checkmark & \checkmark \\
     \midrule
-    \multirow{5}{1.7cm}{\textbf{15-17 ans}}
-      & Education      & Non-scolarise & \texttt{scol} \\[3pt]
-      & Travail        & Actif economique (\texttt{activ7j} $\in \{1,2\}$) & \texttt{ehcvm\_individu} \\[3pt]
-      & Eau            & Source non amelioree & \texttt{eauboi\_ss/sp} \\[3pt]
-      & Assainissement & Toilettes non saines & \texttt{toilet}, \texttt{eva\_toi} \\[3pt]
-      & Logement       & Materiau precaire & \texttt{mur}, \texttt{toi}, \texttt{sol} \\
+    Logement   & Ordures          & \texttt{ordure}=0 (non sain)                        & \checkmark & \checkmark & \checkmark \\
+               & Surpeuplement    & \texttt{hhsize}/\texttt{s05q02}$>3$ pers/pièce      & \checkmark & \checkmark & \checkmark \\
+    \midrule
+    Nutrition  & Sécurité alim.   & Dép. alimentaires $<50\%$ médiane (\texttt{pcexp})  & \checkmark & \checkmark & \checkmark \\
+               & Diversité alim.  & \texttt{pcexp}$<P_{25}$ (proxy)                    &            & \checkmark & \checkmark \\
+    \midrule
+    Santé      & Accès soins      & Malade non consulté (\texttt{mal30j=1, con30j=0})   & \checkmark & \checkmark & \checkmark \\
+    \midrule
+    Protection & Acte naissance   & \texttt{s01q19}$\neq 1$ (absent)                   & \checkmark & \checkmark &            \\
+               & Travail enfant   & \texttt{activ7j}$\in\{1,2,3,4\}$ (actif)           &            & \checkmark &            \\
+               & Vie parents      & \texttt{lien}$\notin\{1\ldots5\}$                  & \checkmark & \checkmark & \checkmark \\
+    \midrule
+    Éducation  & Scolarisation    & \texttt{scol}=0 (non scolarisé)                     &            & \checkmark &            \\
+               & Alphabétisation  & \texttt{alfab}=0 (non alphabétisé)                  &            &            & \checkmark \\
+    \midrule
+    \multicolumn{3}{l}{\textit{Nombre d'indicateurs par groupe}} & 10 & 13 & 11 \\
     \bottomrule
   \end{tabular}
   \begin{tablenotes}
     \small
-    \item \textit{Note :} Le rapport N-MODA Senegal \parencite{ansd2024} retient 7 dimensions avec un seuil $k=4$.
-    Nos donnees EHCVM permettent de couvrir 5 dimensions operationnelles par groupe ; nous retenons
-    $k = 2$ privations simultanees comme seuil de pauvrete multidimensionnelle, conforme a la
-    convention MODA de base \parencite{deneubourg2012} et coherent avec le nombre de dimensions disponibles.
+    \item \checkmark = indicateur actif pour ce groupe d'âge. Seuil de pauvreté MODA : $k \geq 2$ privations
+    simultanées, conforme à la convention de base \parencite{deneubourg2012}.
   \end{tablenotes}
   \end{threeparttable}
 \end{table}
@@ -321,27 +253,27 @@ indicateurs retenus, en coherence avec l'EHCVM et la methodologie N-MODA.
 \paragraph{Mesures MODA.}
 
 Pour chaque enfant $i$ du groupe $g$ et chaque dimension $j \in \mathcal{D}_g$,
-la variable de privation elementaire est $d_{ij}^g = \mathbf{1}[y_{ij} <
+la variable de privation élémentaire est $d_{ij}^g = \mathbf{1}[y_{ij} <
 z_j^g]$ et le score de privation totale est $s_i^g = \sum_{j \in \mathcal{D}_g}
-d_{ij}^g$. Trois mesures synthetiques sont derivees.
+d_{ij}^g$. Trois mesures synthétiques sont dérivées.
 
-Le \textbf{taux de privation par dimension} mesure la prevalence de chaque
+Le taux de privation par dimension mesure la prévalence de chaque
 privation :
 \begin{equation}
   H_j^g = \frac{1}{n_g} \sum_{i=1}^{n_g} d_{ij}^g.
   \label{eq:hj}
 \end{equation}
 
-Le \textbf{taux de privation multiple} pour un seuil $k$ mesure la proportion
-d'enfants souffrant d'au moins $k$ privations simultanees :
+Le taux de privation multiple pour un seuil $k$ mesure la proportion
+d'enfants souffrant d'au moins $k$ privations simultanées :
 \begin{equation}
   P_k^g = \frac{1}{n_g} \sum_{i=1}^{n_g} \mathbf{1}\left[s_i^g \geq k\right].
   \label{eq:pk}
 \end{equation}
-Nous retenons $k = 2$ comme seuil principal de pauvrete multidimensionnelle
-MODA, en accord avec la convention de base de la methode \parencite{deneubourg2012}.
+Nous retenons $k = 2$ comme seuil principal de pauvreté multidimensionnelle
+MODA, en accord avec la convention de base de la méthode \parencite{deneubourg2012}.
 
-L'\textbf{intensite moyenne} des privations parmi les enfants prives est :
+L'intensité moyenne des privations parmi les enfants privés est :
 \begin{equation}
   \bar{s}^g = \frac{\sum_{i:\,s_i^g \geq 1} s_i^g}{\sum_i \mathbf{1}[s_i^g \geq 1]}.
   \label{eq:intensite_moda}
@@ -349,12 +281,12 @@ L'\textbf{intensite moyenne} des privations parmi les enfants prives est :
 
 \subsubsection{Variables de résultat dans l'estimation PSM-DD}
 
-Les deux approches fournissent des variables de resultat complementaires qui
-sont estimees dans le cadre PSM-DD. L'approche Alkire-Foster fournit l'IPM-
-Enfant $M_0$ (et ses composantes $H$ et $A$) comme mesure synthetique unique.
-L'approche MODA fournit le taux de privation multiple $P_2^g$ (au moins deux
-privations simultanees) par groupe d'age comme mesure principale, et $H_j^g$
-par dimension comme mesures secondaires.
+L'approche MODA fournit deux variables de résultat pour le cadre PSM-DD.
+La mesure principale est le taux de privation multiple $P_2^g$ (proportion
+d'enfants présentant au moins deux privations simultanées) estimé par groupe
+d'âge $g$. Les mesures secondaires sont les taux dimensionnels $H_j^g$, qui
+permettent d'identifier quelles dimensions contribuent le plus aux effets
+estimés.
 
 % ─────────────────────────────────────────────────────────────────────────────
 \subsection{Stratégie d'identification causale : PSM-Double différence}
@@ -362,48 +294,48 @@ par dimension comme mesures secondaires.
 
 \subsubsection{Le cadre des résultats potentiels}
 
-Pour chaque enfant $i$, on definit deux resultats potentiels : $Y_i(1)$ la
-mesure de pauvrete (AF ou MODA) si le menage recoit des transferts, et
-$Y_i(0)$ si le menage n'en recoit pas. On observe seulement $Y_i = D_i \cdot
-Y_i(1) + (1 - D_i) \cdot Y_i(0)$. Le parametre d'interet est l'effet moyen
-du traitement sur les traites (ATT) :
+Pour chaque enfant $i$, on définit deux résultats potentiels : $Y_i(1)$ la
+mesure de pauvreté MODA si le ménage reçoit des transferts, et
+$Y_i(0)$ si le ménage n'en reçoit pas. On observe seulement $Y_i = D_i \cdot
+Y_i(1) + (1 - D_i) \cdot Y_i(0)$. Le paramètre d'intérêt est l'effet moyen
+du traitement sur les traités (ATT) :
 \begin{equation}
   \tau_{ATT} = \E\left[Y_i(1) - Y_i(0) \mid D_i = 1\right].
   \label{eq:att}
 \end{equation}
-L'estimateur naif est biaise car les menages beneficiaires et non-beneficiaires
-different systematiquement sur des caracteristiques observables et inobservables
-(biais de selection).
+L'estimateur naïf est biaisé car les ménages bénéficiaires et non-bénéficiaires
+diffèrent systématiquement sur des caractéristiques observables et inobservables
+(biais de sélection).
 
 \subsubsection{L'appariement par score de propension (PSM)}
 
-Le PSM repose sur deux hypotheses. La premiere est l'\textbf{independance
-conditionnelle} (CIA) : conditionnellement aux covariables observees $X_i$,
-les resultats potentiels sont independants du traitement,
+Le PSM repose sur deux hypothèses. La première est l'indépendance
+conditionnelle (CIA) : conditionnellement aux covariables observées $X_i$,
+les résultats potentiels sont indépendants du traitement,
 \begin{equation}
   \left(Y_i(0),\, Y_i(1)\right) \perp D_i \mid X_i.
   \label{eq:cia}
 \end{equation}
-La seconde est le \textbf{support commun} : $0 < P(D_i = 1 \mid X_i) < 1$,
-garantissant que l'appariement est realisable pour chaque traite.
-\textcite{rosenbaum1983} ont montre que si la CIA est satisfaite pour $X_i$,
+La seconde est le support commun : $0 < P(D_i = 1 \mid X_i) < 1$,
+garantissant que l'appariement est réalisable pour chaque traité.
+\textcite{rosenbaum1983} ont montré que si la CIA est satisfaite pour $X_i$,
 elle l'est aussi pour le score de propension $p(X_i) = P(D_i = 1 \mid X_i)$,
-estime par un modele probit :
+estimé par un modèle probit :
 \begin{equation}
   p(X_i) = \Phi\left(X_i'\hat{\beta}\right).
   \label{eq:probit}
 \end{equation}
 
-Trois algorithmes d'appariement sont mis en oeuvre et compares. L'appariement
-aux $k$ plus proches voisins ($k = 4$, avec remplacement) associe a chaque
-traite les 4 temoins les plus proches en termes de score :
+Trois algorithmes d'appariement sont mis en œuvre et comparés. L'appariement
+aux $k$ plus proches voisins ($k = 4$, avec remplacement) associe à chaque
+traité les 4 témoins les plus proches en termes de score :
 \begin{equation}
   \hat{\tau}_{k\text{-NN}} = \frac{1}{n_T} \sum_{i \in \mathcal{T}}
   \left[Y_i - \frac{1}{k}\sum_{j \in \mathcal{N}(i)} Y_j\right].
   \label{eq:knn}
 \end{equation}
-L'appariement par noyau gaussien utilise une moyenne ponderee de l'ensemble
-des temoins, les poids decroissant avec la distance en score :
+L'appariement par noyau gaussien utilise une moyenne pondérée de l'ensemble
+des témoins, les poids décroissant avec la distance en score :
 \begin{equation}
   \hat{\tau}_{\text{kernel}} = \frac{1}{n_T} \sum_{i \in \mathcal{T}}
   \left[Y_i - \frac{\sum_{j \in \mathcal{C}} K\!\left(\frac{p_i-p_j}{h}
@@ -411,29 +343,29 @@ des temoins, les poids decroissant avec la distance en score :
   \right],
   \label{eq:kernel}
 \end{equation}
-ou $h$ est la largeur de bande optimisee par validation croisee. L'appariement
-par rayon ($\epsilon = 0{,}05$) exclut les appariements de faible qualite.
+où $h$ est la largeur de bande optimisée par validation croisée. L'appariement
+par rayon ($\epsilon = 0{,}05$) exclut les appariements de faible qualité.
 
-La qualite de l'appariement est evaluee par le biais standardise
+La qualité de l'appariement est évaluée par le biais standardisé
 \parencite{rosenbaum1983},
 \begin{equation}
   SB_j = 100 \cdot \frac{\bar{X}_{1j} - \bar{X}_{0j}}
   {\sqrt{0{,}5\left(V_{1j} + V_{0j}\right)}},
   \label{eq:sb}
 \end{equation}
-un $|SB| < 10$ indiquant un equilibre satisfaisant \parencite{caliendo2008},
-ainsi que par le test $t$ d'egalite des moyennes et la statistique pseudo-$R^2$.
+un $|SB| < 10$ indiquant un équilibre satisfaisant \parencite{caliendo2008},
+ainsi que par le test $t$ d'égalité des moyennes et la statistique pseudo-$R^2$.
 
 \subsubsection{La double différence (DD)}
 
-La DD exploite la dimension temporelle des deux vagues EHCVM pour controler
+La DD exploite la dimension temporelle des deux vagues EHCVM pour contrôler
 les effets fixes inobservables stables dans le temps :
 \begin{equation}
   \hat{\tau}_{DD} = \left(\bar{Y}^1_{t=2} - \bar{Y}^1_{t=1}\right)
   - \left(\bar{Y}^0_{t=2} - \bar{Y}^0_{t=1}\right),
   \label{eq:dd}
 \end{equation}
-sous l'hypothese de \textit{tendances paralleles} :
+sous l'hypothèse de \textit{tendances parallèles} :
 \begin{equation}
   \E\!\left[Y_i(0)_{t=2} - Y_i(0)_{t=1} \mid D_i = 1\right]
   = \E\!\left[Y_i(0)_{t=2} - Y_i(0)_{t=1} \mid D_i = 0\right].
@@ -442,9 +374,9 @@ sous l'hypothese de \textit{tendances paralleles} :
 
 \subsubsection{L'estimateur PSM-DD}
 
-La combinaison PSM-DD proposee par \textcite{heckman1997} et
-\textcite{heckman1998} neutralise simultanement le biais lie aux differences
-observables (PSM) et celui lie aux effets fixes inobservables constants dans
+La combinaison PSM-DD proposée par \textcite{heckman1997} et
+\textcite{heckman1998} neutralise simultanément le biais lié aux différences
+observables (PSM) et celui lié aux effets fixes inobservables constants dans
 le temps (DD) :
 \begin{equation}
   \hat{\tau}_{PSM\text{-}DD} = \frac{1}{n_T} \sum_{i \in \mathcal{T}}
@@ -452,15 +384,15 @@ le temps (DD) :
   \right],
   \label{eq:psm-dd}
 \end{equation}
-ou $\Delta Y_i = Y_{i,t=2} - Y_{i,t=1}$ est la variation intra-individuelle
-de la variable de resultat (AF ou MODA). Les ecarts-types sont calcules par
-bootstrap (1\,000 replications) \parencite{caliendo2008}.
+où $\Delta Y_i = Y_{i,t=2} - Y_{i,t=1}$ est la variation intra-individuelle
+de la variable de résultat MODA. Les écarts-types sont calculés par
+bootstrap (1\,000 réplications) \parencite{caliendo2008}.
 
 \subsubsection{Analyses d'hétérogénéité et de robustesse}
 
-Les analyses d'heterogeneite estiment l'effet PSM-DD separement selon le
-milieu de residence (urbain et rural), le groupe d'age (pour les mesures MODA),
-le genre et chaque dimension de privation. La robustesse est verifiee par la
+Les analyses d'hétérogénéité estiment l'effet PSM-DD séparément selon le
+milieu de résidence (urbain et rural), le groupe d'âge (pour les mesures MODA),
+le genre et chaque dimension de privation. La robustesse est vérifiée par la
 comparaison entre les trois algorithmes d'appariement, le test des bornes de
 Rosenbaum \parencite{rosenbaum2002} et un test placebo sur des dimensions
 non affectables par les transferts.
