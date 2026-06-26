@@ -8,14 +8,16 @@ global OUTPUT    "code/stata/output"
 global TEMP      "code/stata/temp"
 global LOGS      "code/stata/logs"
 
-global SEED          123
-global K_SEUIL       0.3333
-global N_BOOT        1000
-/* s13aq14 / s13q19 : 1=Meme ville  2=Meme region  3=Ailleurs au pays  >=4=Etranger */
+global SEED              123
+global K_SEUIL           0.3333   /* seuil Alkire-Foster */
+global K_MODA            4        /* seuil N-MODA : >= 4 dimensions sur 7 */
+global N_BOOT            1000
+/* s13aq14 / s13q19 : >= 4 = etranger */
 global CODE_ETRANGER_MIN 4
 
 set seed $SEED
 set more off
+set varabbrev off
 
 foreach d in "$OUTPUT" "$TEMP" "$LOGS" {
     capture mkdir "`d'"
