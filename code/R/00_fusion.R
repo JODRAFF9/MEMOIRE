@@ -54,29 +54,29 @@ construire_traitement <- function(s13a1, s13a2, col_lieu) {
 # Indicateurs binaires privation (1 = privé)
 #
 # Assainissement
-#   dep_assai_type  : type de sanitaire non sain     → toilet = 0
-#   dep_assai_part  : partage des toilettes           → s05q10 = 1
+#   dep_assai_type  : type de sanitaire non sain     → toilet = 0  (ehcvm_menage)
+#   dep_assai_part  : partage des toilettes           → s11q56 = 1  (s11_me)
 # Eau
-#   dep_eau_source  : source non améliorée            → eauboi_ss=0 OU eauboi_sp=0
-#   dep_eau_temps   : temps aller chercher eau > 30mn → s05q14 > 30
+#   dep_eau_source  : source non améliorée            → eauboi_ss=0 OU eauboi_sp=0 (ehcvm_menage)
+#   dep_eau_temps   : temps aller chercher eau > 30mn → s11q29a > 30 (s11_me)
 # Logement
-#   dep_log_ordure  : débarras ordures non sain       → ordure = 0
-#   dep_log_surp    : surpeuplement (> 3 pers/pièce)  → hhsize / s05q02 > 3
+#   dep_log_ordure  : débarras ordures non sain       → ordure = 0  (ehcvm_menage)
+#   dep_log_surp    : surpeuplement (> 3 pers/pièce)  → hhsize / s11q02 > 3 (s11_me)
 
-prep_deprivation_menage <- function(men, s05, welfare) {
+prep_deprivation_menage <- function(men, s11, welfare) {
   men   <- ajouter_hhid(men)
-  s05   <- ajouter_hhid(s05) |>
+  s11   <- ajouter_hhid(s11) |>
     dplyr::mutate(dplyr::across(where(haven::is.labelled), haven::zap_labels)) |>
     dplyr::select(hhid,
-                  nb_pieces   = dplyr::any_of("s05q02"),
-                  part_toi    = dplyr::any_of("s05q10"),
-                  temps_eau   = dplyr::any_of("s05q14"))
+                  nb_pieces   = dplyr::any_of("s11q02"),
+                  part_toi    = dplyr::any_of("s11q56"),
+                  temps_eau   = dplyr::any_of("s11q29a"))
   welfare <- ajouter_hhid(welfare) |>
     dplyr::select(hhid, hhsize)
 
   men |>
     dplyr::mutate(dplyr::across(where(haven::is.labelled), haven::zap_labels)) |>
-    dplyr::left_join(s05,    by = "hhid") |>
+    dplyr::left_join(s11,    by = "hhid") |>
     dplyr::left_join(welfare |> dplyr::select(hhid, hhsize), by = "hhid") |>
     dplyr::mutate(
       dep_assai_type = dplyr::if_else(
@@ -102,7 +102,7 @@ prep_deprivation_menage <- function(men, s05, welfare) {
 
 # ── Fonction : indicateurs individu (MODA) ────────────────────
 # dep_sante     : malade non-consulté (con30j=0 quand mal30j=1)
-# dep_naissance : pas d'acte de naissance (s01q19 ≠ 1)
+# dep_naissance : pas d'acte de naissance (s01q05 ≠ 1, où 1=Oui 2=Non)
 # dep_parents   : enfant ne vivant pas avec ses parents (lien ∉ {3,4,5})
 # dep_travail   : enfant au travail éco. ou dom. (activ7j ∈ {1,2,3,4}, âge 5-14)
 # dep_alfab     : non alphabétisé (alfab=0, 15-17 ans)
@@ -120,7 +120,7 @@ prep_deprivation_individu <- function(ind, s01) {
 
   s01_acte <- s01 |>
     dplyr::select(hhid, numind,
-                  acte_naissance = dplyr::any_of("s01q19"))
+                  acte_naissance = dplyr::any_of("s01q05"))
 
   ind <- ajouter_hhid(ind) |>
     dplyr::mutate(dplyr::across(where(haven::is.labelled), haven::zap_labels))
@@ -148,11 +148,11 @@ prep_deprivation_individu <- function(ind, s01) {
 
 # ── Fonction : fusion base ménage ─────────────────────────────
 
-fusionner_menage <- function(men, s05, wel, traitement, annee) {
+fusionner_menage <- function(men, s11, wel, traitement, annee) {
   VARS_WEL <- c("pcexp", "hhsize", "region", "milieu",
                 "hgender", "hage", "heduc", "hmstat")
 
-  dep_men <- prep_deprivation_menage(men, s05, wel)
+  dep_men <- prep_deprivation_menage(men, s11, wel)
 
   wel <- ajouter_hhid(wel)
   vars_dispo <- intersect(c("hhid", VARS_WEL), names(wel))
@@ -198,13 +198,13 @@ cat("\n>>> Chargement EHCVM 2018-2019 ...\n")
 ind_2018   <- lire_stata(BASE_2018, "ehcvm_individu_sen2018.dta")
 men_2018   <- lire_stata(BASE_2018, "ehcvm_menage_sen2018.dta")
 wel_2018   <- lire_stata(BASE_2018, "ehcvm_welfare_sen2018.dta")
-s05_2018   <- lire_stata(BASE_2018, "s05_me_sen2018.dta")
+s11_2018   <- lire_stata(BASE_2018, "s11_me_sen2018.dta")
 s01_2018   <- lire_stata(BASE_2018, "s01_me_sen2018.dta")
 s13a1_2018 <- lire_stata(BASE_2018, "s13a_1_me_sen2018.dta")
 s13a2_2018 <- lire_stata(BASE_2018, "s13a_2_me_sen2018.dta")
 
 traitement_2018 <- construire_traitement(s13a1_2018, s13a2_2018, col_lieu = "s13aq14")
-base_men_2018   <- fusionner_menage(men_2018, s05_2018, wel_2018, traitement_2018, 2018)
+base_men_2018   <- fusionner_menage(men_2018, s11_2018, wel_2018, traitement_2018, 2018)
 base_ind_2018   <- fusionner_individu(ind_2018, s01_2018, base_men_2018, 2018)
 
 cat(sprintf("  Ménages 2018 : %d  |  Individus : %d  |  Traités : %d (%.1f%%)\n",
@@ -224,13 +224,13 @@ cat("\n>>> Chargement EHCVM 2021-2022 ...\n")
 ind_2021   <- lire_stata(BASE_2021, "ehcvm_individu_sen2021.dta")
 men_2021   <- lire_stata(BASE_2021, "ehcvm_menage_sen2021.dta")
 wel_2021   <- lire_stata(BASE_2021, "ehcvm_welfare_sen2021.dta")
-s05_2021   <- lire_stata(BASE_2021, "s05_me_sen2021.dta")
+s11_2021   <- lire_stata(BASE_2021, "s11_me_sen2021.dta")
 s01_2021   <- lire_stata(BASE_2021, "s01_me_sen2021.dta")
 s13a1_2021 <- lire_stata(BASE_2021, "s13_1_me_sen2021.dta")
 s13a2_2021 <- lire_stata(BASE_2021, "s13_2_me_sen2021.dta")
 
 traitement_2021 <- construire_traitement(s13a1_2021, s13a2_2021, col_lieu = "s13q19")
-base_men_2021   <- fusionner_menage(men_2021, s05_2021, wel_2021, traitement_2021, 2021)
+base_men_2021   <- fusionner_menage(men_2021, s11_2021, wel_2021, traitement_2021, 2021)
 base_ind_2021   <- fusionner_individu(ind_2021, s01_2021, base_men_2021, 2021)
 
 cat(sprintf("  Ménages 2021 : %d  |  Individus : %d  |  Traités : %d (%.1f%%)\n",
