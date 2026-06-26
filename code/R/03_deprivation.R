@@ -12,22 +12,20 @@
 source("code/R/config.R")
 source("code/R/utils.R")
 
-ind_2018 <- lire_stata(BASE_2018, "ehcvm_individu_sen2018.dta")
-ind_2021 <- lire_stata(BASE_2021, "ehcvm_individu_sen2021.dta")
-men_2018 <- lire_stata(BASE_2018, "ehcvm_menage_sen2018.dta")
-men_2021 <- lire_stata(BASE_2021, "ehcvm_menage_sen2021.dta")
+# Lecture des bases fusionnées produites par 00_fusion.R
+base_ind_2018 <- readRDS(file.path(OUTPUT_DIR, "base_individu_2018.rds"))
+base_ind_2021 <- readRDS(file.path(OUTPUT_DIR, "base_individu_2021.rds"))
 
 ID     <- c("grappe", "menage")
 ID_IND <- c("grappe", "menage", "numind")
 
 # ── Enfants 0-17 ans ─────────────────────────────────────────
 
-extraire_enfants <- function(ind, annee, col_age = "age") {
-  ind |>
-    dplyr::filter(.data[[col_age]] >= 0, .data[[col_age]] <= 17) |>
+extraire_enfants <- function(base_ind, annee) {
+  base_ind |>
+    dplyr::filter(age >= 0, age <= 17) |>
     dplyr::mutate(
       annee = annee,
-      age   = as.integer(.data[[col_age]]),
       groupe_moda = dplyr::case_when(
         age <= 4              ~ "0-4 ans",
         age >= 5 & age <= 14  ~ "5-14 ans",
@@ -36,50 +34,12 @@ extraire_enfants <- function(ind, annee, col_age = "age") {
     )
 }
 
-enfants_2018 <- extraire_enfants(ind_2018, 2018)
-enfants_2021 <- extraire_enfants(ind_2021, 2021)
+enfants_2018 <- extraire_enfants(base_ind_2018, 2018)
+enfants_2021 <- extraire_enfants(base_ind_2021, 2021)
 
 cat("Enfants 2018 :", nrow(enfants_2018), "| 2021 :", nrow(enfants_2021), "\n")
 
-# ── Indicateurs menage (eau, assainissement, habitat) ─────────
-# Variables binaires : 1 = satisfaisant, 0 = deficient
-# On inverse pour obtenir des indicateurs de privation (1 = prive)
-
-prep_menage <- function(men) {
-  men |>
-    dplyr::mutate(
-      # Eau potable : 1 si au moins une des saisons est non amelioree
-      dep_eau   = dplyr::if_else(
-        dplyr::coalesce(as.integer(haven::zap_labels(eauboi_ss)), 0L) == 0L |
-        dplyr::coalesce(as.integer(haven::zap_labels(eauboi_sp)), 0L) == 0L,
-        1L, 0L
-      ),
-      # Assainissement : toilettes non saines OU evacuation non saine
-      dep_assai = dplyr::if_else(
-        dplyr::coalesce(as.integer(haven::zap_labels(toilet)),  1L) == 0L |
-        dplyr::coalesce(as.integer(haven::zap_labels(eva_toi)), 1L) == 0L,
-        1L, 0L
-      ),
-      # Habitat : au moins un materiau precaire (mur, toit ou sol)
-      dep_habit = dplyr::if_else(
-        dplyr::coalesce(as.integer(haven::zap_labels(mur)), 1L) == 0L |
-        dplyr::coalesce(as.integer(haven::zap_labels(toi)), 1L) == 0L |
-        dplyr::coalesce(as.integer(haven::zap_labels(sol)), 1L) == 0L,
-        1L, 0L
-      )
-    ) |>
-    dplyr::select(dplyr::all_of(ID), dep_eau, dep_assai, dep_habit)
-}
-
-dep_men_2018 <- prep_menage(men_2018)
-dep_men_2021 <- prep_menage(men_2021)
-
-# ── Fusion enfants + menage ───────────────────────────────────
-
-enfants_2018 <- enfants_2018 |>
-  dplyr::left_join(dep_men_2018, by = ID)
-enfants_2021 <- enfants_2021 |>
-  dplyr::left_join(dep_men_2021, by = ID)
+# dep_eau, dep_assai, dep_habit sont déjà dans base_ind (jointes depuis base_menage)
 
 # ── Alkire-Foster ─────────────────────────────────────────────
 # 6 indicateurs, poids egaux (1/6)

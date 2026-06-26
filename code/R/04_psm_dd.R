@@ -6,59 +6,20 @@
 source("code/R/config.R")
 source("code/R/utils.R")
 
+# Lecture des bases enrichies produites par 03_deprivation.R
 enfants_2018 <- readRDS(file.path(OUTPUT_DIR, "enfants_dep_2018.rds"))
 enfants_2021 <- readRDS(file.path(OUTPUT_DIR, "enfants_dep_2021.rds"))
-traitement_2018 <- readRDS(file.path(OUTPUT_DIR, "traitement_2018.rds"))
-traitement_2021 <- readRDS(file.path(OUTPUT_DIR, "traitement_2021.rds"))
 
-# Welfare : pcexp, hhsize, region, milieu + caracteristiques du CM
-wel_2018 <- lire_stata(BASE_2018, "ehcvm_welfare_sen2018.dta")
-wel_2021 <- lire_stata(BASE_2021, "ehcvm_welfare_sen2021.dta")
+# toutes les covariables (D, welfare, privations) sont déjà dans ces bases
+# via la fusion réalisée dans 00_fusion.R
 
 ID <- c("grappe", "menage")
 
-# ── Variables welfare selectionnees ──────────────────────────
-# hgender (sexe CM), hage (age CM), heduc (education CM), hmstat (situation famille CM)
-# region, milieu, hhsize, pcexp
+base_2018 <- enfants_2018 |>
+  dplyr::mutate(t = 0L, annee = 2018)
 
-VARS_WEL <- c(ID, "pcexp", "hhsize", "region", "milieu",
-              "hgender", "hage", "heduc", "hmstat")
-
-sel_wel <- function(wel) {
-  vars_dispo <- intersect(VARS_WEL, names(wel))
-  wel |>
-    dplyr::select(dplyr::all_of(vars_dispo)) |>
-    dplyr::mutate(dplyr::across(where(haven::is.labelled), haven::zap_labels))
-}
-
-# ── Fusion base analytique ────────────────────────────────────
-
-construire_base <- function(enfants, traitement, welfare, annee, t_val) {
-  enfants |>
-    dplyr::mutate(dplyr::across(where(haven::is.labelled), haven::zap_labels)) |>
-    dplyr::left_join(traitement |>
-                       dplyr::mutate(dplyr::across(where(haven::is.labelled),
-                                                   haven::zap_labels)) |>
-                       dplyr::select(dplyr::all_of(c(ID, "D"))),
-                     by = ID) |>
-    dplyr::left_join(sel_wel(welfare), by = ID) |>
-    dplyr::mutate(
-      annee     = annee,
-      t         = t_val,
-      log_pcexp = log(pcexp + 1),
-      # Facteurs pour le probit
-      f_milieu  = as.factor(dplyr::coalesce(milieu, 1L)),
-      f_region  = as.factor(dplyr::coalesce(region, 1L)),
-      f_heduc   = as.factor(dplyr::coalesce(heduc,  0L)),
-      f_hmstat  = as.factor(dplyr::coalesce(hmstat, 1L)),
-      hgender_n = dplyr::coalesce(as.integer(hgender), 1L),
-      hage_n    = dplyr::coalesce(as.numeric(hage), median(as.numeric(hage), na.rm=TRUE)),
-      hhsize_n  = dplyr::coalesce(as.numeric(hhsize), median(as.numeric(hhsize), na.rm=TRUE))
-    )
-}
-
-base_2018 <- construire_base(enfants_2018, traitement_2018, wel_2018, 2018, 0)
-base_2021 <- construire_base(enfants_2021, traitement_2021, wel_2021, 2021, 1)
+base_2021 <- enfants_2021 |>
+  dplyr::mutate(t = 1L, annee = 2021)
 
 pseudo_panel <- dplyr::bind_rows(
   dplyr::mutate(base_2018, dplyr::across(where(haven::is.labelled), haven::zap_labels)),
