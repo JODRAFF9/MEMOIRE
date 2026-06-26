@@ -86,6 +86,9 @@
 % ── Annexes ─────────────────────────────────────────────────
 \usepackage{appendix}
 
+% ── Sommaire court (coexiste avec \tableofcontents via fichier .stoc séparé)
+\usepackage{shorttoc}
+
 % ── Théorèmes (numérotés par section dans article) ───────────
 \theoremstyle{plain}
 \newtheorem{theoreme}{Théorème}[section]
@@ -130,13 +133,8 @@
 \input{chapitres/resume}
 \input{chapitres/abstract}
 
-% ── Sommaire (sections uniquement) ──────────────────────────
-{
-  \renewcommand{\contentsname}{Sommaire}
-  \setcounter{tocdepth}{1}
-  \tableofcontents
-  \setcounter{tocdepth}{3}
-}
+% ── Sommaire (sections uniquement, via shorttoc) ─────────────
+\shorttoc{Sommaire}{1}
 
 \listoffigures
 \listoftables
@@ -179,12 +177,8 @@
 
 % ── Table des matières complète ──────────────────────────────
 \clearpage
-{
-  \renewcommand{\contentsname}{Table des matières}
-  \setcounter{tocdepth}{3}
-  \phantomsection
-  \addcontentsline{toc}{section}{Table des matières}
-  \tableofcontents
-}
+\phantomsection
+\addcontentsline{toc}{section}{Table des matières}
+\tableofcontents
 
 \end{document}
