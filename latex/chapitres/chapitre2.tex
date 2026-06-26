@@ -17,11 +17,11 @@ de Vie des Menages (EHCVM I et II).
 \subsubsection{Présentation des enquêtes}
 
 Les Enquetes Harmonisees sur les Conditions de Vie des Menages (EHCVM) sont
-realisees dans le cadre du programme statistique de l'UEMOA. L'\textbf{EHCVM
-I (2018-2019)} est la premiere vague nationale au Senegal \parencite{ansd2019},
+realisees dans le cadre du programme statistique de l'UEMOA. L'EHCVM
+I (2018-2019) est la premiere vague nationale au Senegal \parencite{ansd2019},
 reposant sur un plan de sondage stratifie a deux degres (regions x milieux
-comme strates, zones de denombrements comme unites primaires). L'\textbf{EHCVM
-II (2021-2022)} reproduit le meme protocole \parencite{ansd2022}, permettant
+comme strates, zones de denombrements comme unites primaires). L'EHCVM
+II (2021-2022) reproduit le meme protocole \parencite{ansd2022}, permettant
 la constitution d'un pseudo-panel au niveau des zones de residence. La fenetre
 temporelle 2018-2022 couvre une periode de transformations importantes des
 flux migratoires senegalais et de leurs effets sur les menages.
@@ -36,12 +36,12 @@ sondage, avec un sous-echantillon panel identifie par la variable \texttt{PanelH
 
 Deux types de pseudo-panel sont utilises selon la strategie d'identification :
 \begin{enumerate}
-  \item \textbf{Pseudo-panel au niveau des zones de residence} : les menages des
+  \item Pseudo-panel au niveau des zones de residence : les menages des
   deux vagues sont agreg\'es par grappe de sondage (unites primaires), conformement
   a la methodologie de \textcite{deaton1997}. Ceci est l'approche par defaut
   pour la double difference, dans laquelle les grappes jouent le role d'unites
   observees dans le temps.
-  \item \textbf{Panel strictement cylindre} (sous-echantillon) : les menages
+  \item Panel strictement cylindre (sous-echantillon) : les menages
   identifies comme panel dans les deux vagues via \texttt{PanelHH} constituent
   un echantillon de suivi plus rigoureux, qui est utilise dans les tests de
   robustesse.
@@ -216,7 +216,7 @@ indicateurs retenus, en coherence avec l'EHCVM et la methodologie N-MODA.
   \small
   \begin{tabular}{p{1.4cm}p{2.0cm}p{4.8cm}p{1.2cm}p{1.2cm}p{1.2cm}}
     \toprule
-    Dimension & Indicateur & Seuil de privation & \textbf{0-4} & \textbf{5-14} & \textbf{15-17} \\
+    Dimension & Indicateur & Seuil de privation & 0-4 & 5-14 & 15-17 \\
     \midrule
     Assainiss. & Type sanitaire   & \texttt{toilet}=0 (non sain)                        & \checkmark & \checkmark & \checkmark \\
                & Partage toilette & \texttt{s05q10}=1 (partage)                         & \checkmark & \checkmark & \checkmark \\
@@ -257,14 +257,14 @@ la variable de privation elementaire est $d_{ij}^g = \mathbf{1}[y_{ij} <
 z_j^g]$ et le score de privation totale est $s_i^g = \sum_{j \in \mathcal{D}_g}
 d_{ij}^g$. Trois mesures synthetiques sont derivees.
 
-Le \textbf{taux de privation par dimension} mesure la prevalence de chaque
+Le taux de privation par dimension mesure la prevalence de chaque
 privation :
 \begin{equation}
   H_j^g = \frac{1}{n_g} \sum_{i=1}^{n_g} d_{ij}^g.
   \label{eq:hj}
 \end{equation}
 
-Le \textbf{taux de privation multiple} pour un seuil $k$ mesure la proportion
+Le taux de privation multiple pour un seuil $k$ mesure la proportion
 d'enfants souffrant d'au moins $k$ privations simultanees :
 \begin{equation}
   P_k^g = \frac{1}{n_g} \sum_{i=1}^{n_g} \mathbf{1}\left[s_i^g \geq k\right].
@@ -273,7 +273,7 @@ d'enfants souffrant d'au moins $k$ privations simultanees :
 Nous retenons $k = 2$ comme seuil principal de pauvrete multidimensionnelle
 MODA, en accord avec la convention de base de la methode \parencite{deneubourg2012}.
 
-L'\textbf{intensite moyenne} des privations parmi les enfants prives est :
+L'intensite moyenne des privations parmi les enfants prives est :
 \begin{equation}
   \bar{s}^g = \frac{\sum_{i:\,s_i^g \geq 1} s_i^g}{\sum_i \mathbf{1}[s_i^g \geq 1]}.
   \label{eq:intensite_moda}
@@ -309,14 +309,14 @@ different systematiquement sur des caracteristiques observables et inobservables
 
 \subsubsection{L'appariement par score de propension (PSM)}
 
-Le PSM repose sur deux hypotheses. La premiere est l'\textbf{independance
-conditionnelle} (CIA) : conditionnellement aux covariables observees $X_i$,
+Le PSM repose sur deux hypotheses. La premiere est l'independance
+conditionnelle (CIA) : conditionnellement aux covariables observees $X_i$,
 les resultats potentiels sont independants du traitement,
 \begin{equation}
   \left(Y_i(0),\, Y_i(1)\right) \perp D_i \mid X_i.
   \label{eq:cia}
 \end{equation}
-La seconde est le \textbf{support commun} : $0 < P(D_i = 1 \mid X_i) < 1$,
+La seconde est le support commun : $0 < P(D_i = 1 \mid X_i) < 1$,
 garantissant que l'appariement est realisable pour chaque traite.
 \textcite{rosenbaum1983} ont montre que si la CIA est satisfaite pour $X_i$,
 elle l'est aussi pour le score de propension $p(X_i) = P(D_i = 1 \mid X_i)$,
