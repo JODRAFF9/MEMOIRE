@@ -97,6 +97,26 @@
 \theoremstyle{remark}
 \newtheorem{remarque}{Remarque}[section]
 
+% ── Émulation de \chapter pour la classe article ─────────────
+% Les pages liminaires (dédicace, remerciements, etc.) utilisent \chapter*
+% qui n'existe pas dans la classe article. On le redéfinit ici.
+\makeatletter
+\newcommand{\chapter}{\@ifstar{\@chapterstar}{\@chapternostar}}
+\newcommand{\@chapterstar}[1]{%
+  \cleardoublepage
+  \phantomsection
+  \section*{#1}%
+  \markboth{#1}{#1}%
+}
+\newcommand{\@chapternostar}[1]{%
+  \cleardoublepage
+  \phantomsection
+  \section{#1}%
+}
+% \addcontentsline{toc}{chapter}{...} requiert \l@chapter — on le mappe sur \l@section
+\providecommand\l@chapter[2]{\l@section{#1}{#2}}
+\makeatother
+
 % ── Commandes personnalisées ─────────────────────────────────
 \newcommand{\E}{\mathbb{E}}
 \newcommand{\Var}{\mathrm{Var}}

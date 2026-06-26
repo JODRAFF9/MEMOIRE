@@ -84,17 +84,17 @@ des envois de la diaspora internationale \parencite{ndiaye2013}.
   \caption{Correspondance entre indicateurs (AF et MODA) et variables EHCVM}
   \label{tab:correspondance}
   \small
-  \begin{tabular}{p{2.2cm}p{1.5cm}p{2.5cm}p{2.8cm}p{2.5cm}}
+  \begin{tabular}{p{2.0cm}p{1.6cm}p{2.4cm}p{3.2cm}p{2.3cm}}
     \toprule
-    Indicateur & Approche & Fichier & Variable & Seuil de privation \\
+    Indicateur & Approche & Fichier & Variable(s) & Seuil \\
     \midrule
-    Scolarisation   & AF + MODA & \texttt{ehcvm\_individu} & \texttt{scol}       & $= 0$ (non-scolarise) \\
-    Suivi sante     & AF + MODA & \texttt{ehcvm\_individu} & \texttt{mal30j}, \texttt{con30j} & Malade et non-consulte \\
-    Nutrition/proxy & AF + MODA & \texttt{ehcvm\_individu} & \texttt{mal30j}     & $= 1$ pour 0--4 ans \\
+    Scolarisation   & AF + MODA & \texttt{ehcvm\_individu} & \texttt{scol}                            & $= 0$ (non-scolarise) \\
+    Suivi sante     & AF + MODA & \texttt{ehcvm\_individu} & \texttt{mal30j}, \texttt{con30j}         & Malade non-consulte \\
+    Nutrition/proxy & AF + MODA & \texttt{ehcvm\_individu} & \texttt{mal30j}                          & $= 1$, 0--4 ans \\
     Eau potable     & AF + MODA & \texttt{ehcvm\_menage}   & \texttt{eauboi\_ss}, \texttt{eauboi\_sp} & $= 0$ \\
-    Assainissement  & AF + MODA & \texttt{ehcvm\_menage}   & \texttt{toilet}, \texttt{eva\_toi} & $= 0$ \\
+    Assainissement  & AF + MODA & \texttt{ehcvm\_menage}   & \texttt{toilet}, \texttt{eva\_toi}       & $= 0$ \\
     Habitat         & AF + MODA & \texttt{ehcvm\_menage}   & \texttt{mur}, \texttt{toi}, \texttt{sol} & $= 0$ \\
-    Travail enfant  & MODA      & \texttt{ehcvm\_individu} & \texttt{activ7j}    & Actif (15--17 ans) \\
+    Travail enfant  & MODA      & \texttt{ehcvm\_individu} & \texttt{activ7j}                         & $\in\{1,2\}$, 15--17 ans \\
     \bottomrule
   \end{tabular}
   \begin{minipage}{\linewidth}
