@@ -83,10 +83,6 @@ di _newline "Menages vraiment suivis (presences dans les 2 vagues) : " r(N)
 /* Construire le panel vrai en deux periodes */
 use "$TEMP/vague_2018.dta", clear
 merge m:1 grappe menage using `ids_panel', keep(match) nogenerate
-append using "$TEMP/vague_2021.dta", keep(match) // NB: Stata ne supporte pas keep() sur append
-/* Alternative propre : */
-use "$TEMP/vague_2018.dta", clear
-merge m:1 grappe menage using `ids_panel', keep(match) nogenerate
 tempfile panel_t0
 save `panel_t0'
 
