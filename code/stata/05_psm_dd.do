@@ -14,6 +14,13 @@
 do "code/stata/config.do"
 do "code/stata/utils.do"
 
+/* Verifier/installer psmatch2 si absent */
+capture which psmatch2
+if _rc {
+    di "Installation de psmatch2 depuis SSC..."
+    ssc install psmatch2, replace
+}
+
 /* ============================================================
    1. Score de propension (probit sur t=0, panel vrai)
    ============================================================ */

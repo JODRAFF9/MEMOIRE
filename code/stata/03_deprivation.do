@@ -40,9 +40,12 @@ program define indic_menage
     local comb_vars "`v_comb'__1 `v_comb'__2 `v_comb'__3 `v_comb'__7"
 
     /* Binaires harmonises depuis ehcvm_menage
-       NB : ehcvm_menage n'a pas grappe/menage, seulement hhid = grappe*1000+menage */
+       NB : ehcvm_menage n'a pas grappe/menage, seulement hhid
+            2018 : hhid = grappe * 1000 + menage  (range 1001-598012)
+            2021 : hhid = grappe * 100  + menage  (range 201-59812)  */
     capture drop hhid
-    gen long hhid = grappe * 1000 + menage
+    if `annee' == 2018 gen long hhid = grappe * 1000 + menage
+    else               gen long hhid = grappe * 100  + menage
     merge m:1 hhid using ///
         "`base'/ehcvm_menage_sen`annee'.dta", ///
         keepusing(toilet eauboi_ss eauboi_sp ordure) ///
