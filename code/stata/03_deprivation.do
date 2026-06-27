@@ -15,6 +15,7 @@ do "code/stata/utils.do"
    Entree : base individus deja chargee (merge m:1 sur grappe menage)
    ============================================================ */
 
+capture program drop indic_menage
 program define indic_menage
     /*
        Fusionne ehcvm_menage et s11_me pour construire :
@@ -25,11 +26,13 @@ program define indic_menage
     args annee
 
     if `annee' == 2018 {
+        local base "$BASE_2018"
         local v_partag "s11q56"
         local v_tps_ss "s11q29a"
         local v_comb   "s11q53"
     }
     else {
+        local base "$BASE_2021"
         local v_partag "s11q55"
         local v_tps_ss "s11q28a"
         local v_comb   "s11q52"
@@ -38,7 +41,7 @@ program define indic_menage
 
     /* Binaires harmonises depuis ehcvm_menage */
     merge m:1 grappe menage using ///
-        "$BASE_`annee'/ehcvm_menage_sen`annee'.dta", ///
+        "`base'/ehcvm_menage_sen`annee'.dta", ///
         keepusing(toilet eauboi_ss eauboi_sp ordure) ///
         nogenerate keep(master match)
 
@@ -49,7 +52,7 @@ program define indic_menage
 
     /* Variables brutes depuis s11_me */
     preserve
-        use "$BASE_`annee'/s11_me_sen`annee'.dta", clear
+        use "`base'/s11_me_sen`annee'.dta", clear
         keep grappe menage s11q02 `v_partag' `v_tps_ss' `comb_vars'
         tempfile s11_temp
         save `s11_temp'
@@ -78,11 +81,15 @@ end
    Sous-programme : acte de naissance (s01_me)
    ============================================================ */
 
+capture program drop indic_acte_nais
 program define indic_acte_nais
     args annee
 
+    if `annee' == 2018 local base "$BASE_2018"
+    else               local base "$BASE_2021"
+
     preserve
-        use "$BASE_`annee'/s01_me_sen`annee'.dta", clear
+        use "`base'/s01_me_sen`annee'.dta", clear
         if `annee' == 2018 rename s01q00a numind
         else               rename membres__id numind
         keep grappe menage numind s01q05
@@ -100,6 +107,7 @@ end
    Sous-programme : agregation N-MODA et Alkire-Foster
    ============================================================ */
 
+capture program drop agreger_ipm
 program define agreger_ipm
     args annee
 
