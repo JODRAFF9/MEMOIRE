@@ -39,8 +39,11 @@ program define indic_menage
     }
     local comb_vars "`v_comb'__1 `v_comb'__2 `v_comb'__3 `v_comb'__7"
 
-    /* Binaires harmonises depuis ehcvm_menage */
-    merge m:1 grappe menage using ///
+    /* Binaires harmonises depuis ehcvm_menage
+       NB : ehcvm_menage n'a pas grappe/menage, seulement hhid = grappe*1000+menage */
+    capture drop hhid
+    gen long hhid = grappe * 1000 + menage
+    merge m:1 hhid using ///
         "`base'/ehcvm_menage_sen`annee'.dta", ///
         keepusing(toilet eauboi_ss eauboi_sp ordure) ///
         nogenerate keep(master match)
