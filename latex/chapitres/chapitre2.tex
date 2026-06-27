@@ -41,11 +41,47 @@ sondage, avec un sous-echantillon panel identifie par la variable \texttt{PanelH
 L'echantillon analytique repose sur le \textbf{panel vrai} constitue des
 6\,127 menages identifies par \texttt{PanelHH} = 1, c'est-a-dire les
 menages enquetes lors des deux vagues et retrouves dans leur logement d'origine
-(variable \texttt{s00q07e} : 5\,982 menages dans le meme logement ; 145 menages
+(variable \texttt{s00q07e} : 5\,643 menages dans le meme logement ; 290 menages
 retrouves dans un nouveau logement). Chaque menage est ainsi observe en $t = 0$
 (2018-2019) et $t = 1$ (2021-2022), ce qui autorise une estimation DD en
 differences intra-menage sans recourir a des hypotheses d'agregation au niveau
 des grappes \parencite{deaton1997}.
+
+Le tableau~\ref{tab:panelhh} presente la repartition des menages enquetes
+en 2021-2022 selon leur statut de suivi et le milieu de residence.
+
+\begin{table}[H]
+  \centering
+  \caption{Repartition des ménages EHCVM II selon le statut de suivi (\texttt{PanelHH})}
+  \label{tab:panelhh}
+  \small
+  \begin{tabular}{lrrrrr}
+    \toprule
+    & \multicolumn{2}{c}{Nouveau ménage} & \multicolumn{2}{c}{Ménage panel} & Total \\
+    \cmidrule(lr){2-3}\cmidrule(lr){4-5}
+    & $n$ & \% & $n$ & \% & $n$ \\
+    \midrule
+    Urbain & 740 & 18,9 & 3\,182 & 81,1 & 3\,922 \\
+    Rural  & 253 &  7,9 & 2\,945 & 92,1 & 3\,198 \\
+    \midrule
+    \textbf{Total} & \textbf{993} & \textbf{13,9} & \textbf{6\,127} & \textbf{86,1} & \textbf{7\,120} \\
+    \midrule
+    \multicolumn{6}{l}{\textit{Dont ménages panel selon condition de logement}} \\
+    \quad Même logement qu'en 2018 & & & 5\,643 & 92,1 & \\
+    \quad Logement différent       & & &   290 &  4,7 & \\
+    \quad Non renseigné            & & &   194 &  3,2 & \\
+    \bottomrule
+  \end{tabular}
+  \begin{tablenotes}
+    \small
+    \item \textit{Source :} EHCVM II (2021-2022), module \texttt{s00\_me\_sen2021},
+    variable \texttt{PanelHH} (\textit{Type de ménage}) et \texttt{s00q07e}
+    (\textit{Le ménage occupait-il le même logement lors de l'enquête de 2018/19 ?}).
+    \textit{Note :} Le milieu urbain presente un taux d'attrition plus eleve
+    (18,9\,\%) que le milieu rural (7,9\,\%), refletant une plus grande mobilite
+    residentielle en zone urbaine.
+  \end{tablenotes}
+\end{table}
 
 Apres nettoyage (exclusion des observations avec plus de deux indicateurs de
 privation manquants et des menages sans information sur les transferts),
