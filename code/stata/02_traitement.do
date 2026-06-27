@@ -13,6 +13,7 @@ do "code/stata/utils.do"
 
 /* ── Sous-programme : construire D pour une annee ─────────── */
 
+capture program drop construire_traitement
 program define construire_traitement
     /*
        args : annee  var_lieu  fichier_detail  fichier_liste
