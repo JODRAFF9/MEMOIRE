@@ -79,10 +79,12 @@ cat("Enfants 2018 :", nrow(enfants_2018), "| 2021 :", nrow(enfants_2021), "\n")
 # ── Taille ménage depuis welfare ──────────────────────────────
 
 wel_hhsize_2018 <- wel_2018 |>
-  dplyr::select(dplyr::all_of(c(ID, "hhsize"))) |>
+  ajouter_hhid() |>
+  dplyr::select(dplyr::all_of(c("hhid", ID, "hhsize"))) |>
   dplyr::mutate(hhsize = as.integer(haven::zap_labels(hhsize)))
 wel_hhsize_2021 <- wel_2021 |>
-  dplyr::select(dplyr::all_of(c(ID, "hhsize"))) |>
+  ajouter_hhid() |>
+  dplyr::select(dplyr::all_of(c("hhid", ID, "hhsize"))) |>
   dplyr::mutate(hhsize = as.integer(haven::zap_labels(hhsize)))
 
 # ── Indicateurs menage — 7 dimensions N-MODA ─────────────────
@@ -174,7 +176,7 @@ acte_2021 <- prep_acte_nais(s01_2021, 2021)
 prep_menage_nmoda <- function(men, wel_hhsize, s11_dep) {
   men |>
     dplyr::mutate(dplyr::across(where(haven::is.labelled), haven::zap_labels)) |>
-    dplyr::left_join(wel_hhsize, by = ID) |>
+    dplyr::left_join(wel_hhsize, by = "hhid") |>
     dplyr::left_join(s11_dep, by = ID) |>
     dplyr::mutate(
       # ── Dimension 1 : Assainissement ────────────────────────
