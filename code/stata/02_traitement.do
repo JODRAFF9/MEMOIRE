@@ -13,6 +13,7 @@ do "code/stata/utils.do"
 
 /* ── Sous-programme : construire D pour une annee ─────────── */
 
+capture program drop construire_traitement
 program define construire_traitement
     /*
        args : annee  var_lieu  fichier_detail  fichier_liste
@@ -23,8 +24,12 @@ program define construire_traitement
     */
     args annee var_lieu fich_det fich_list
 
+    /* Resoudre le chemin de base selon l'annee (evite l'ambiguite $BASE_`annee') */
+    if `annee' == 2018 local base "$BASE_2018"
+    else               local base "$BASE_2021"
+
     /* Identifier les menages avec au moins un transfert etranger */
-    use "$BASE_`annee'/`fich_det'_me_sen`annee'.dta", clear
+    use "`base'/`fich_det'_me_sen`annee'.dta", clear
     keep if `var_lieu' >= $CODE_ETRANGER_MIN & !missing(`var_lieu')
     bysort grappe menage: keep if _n == 1
     gen transfert_migrant = 1
@@ -33,7 +38,7 @@ program define construire_traitement
     save `etrangers'
 
     /* Fusionner sur la liste exhaustive des menages */
-    use "$BASE_`annee'/`fich_list'_me_sen`annee'.dta", clear
+    use "`base'/`fich_list'_me_sen`annee'.dta", clear
     merge m:1 grappe menage using `etrangers', ///
         keepusing(transfert_migrant) nogenerate
     replace transfert_migrant = 0 if missing(transfert_migrant)
