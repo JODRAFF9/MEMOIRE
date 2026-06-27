@@ -12,6 +12,8 @@ SEED          <- 123
 K_SEUIL       <- 1/3    # seuil Alkire-Foster
 K_MODA        <- 4L     # seuil N-MODA : prive si >= 4 dimensions sur 7 (ANSD/UNICEF 2024)
 N_BOOT        <- 1000   # replications bootstrap
+CALIPER      <- 0.05
+K_VOISINS    <- 4L
 # s13aq14 / s13q19 : lieu de residence de l'expediteur
 # 1 = Meme ville/village  |  2 = Meme region  |  3 = Ailleurs au pays
 # >= 4 = pays etranger (Benin, Burkina, France, Espagne, Italie, etc.)
