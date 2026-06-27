@@ -42,9 +42,8 @@ program define att_psmdd
     args outcome poids nboot
 
     bootstrap att = _b[1.t#1.D], ///
-        reps(`nboot') seed($SEED) nodots: ///
-        reg `outcome' i.t##i.D [pw = `poids'], ///
-        vce(cluster grappe)
+        reps(`nboot') seed($SEED) nodots cluster(grappe): ///
+        reg `outcome' i.t##i.D [aw = `poids']
 
     estat bootstrap, percentile all
 end
