@@ -214,13 +214,16 @@ s13a2_2018 <- lire_stata(BASE_2018, "s13a_2_me_sen2018.dta")
 
 traitement_2018 <- construire_traitement(s13a1_2018, s13a2_2018, col_lieu = "s13aq14")
 base_men_2018   <- fusionner_menage(men_2018, s11_2018, wel_2018, traitement_2018, 2018,
-                                    var_part_toi = "s11q56", var_temps_eau = "s11q29a")
+                                    var_part_toi = "s11q56", var_temps_eau = "s11q29a") |>
+  dplyr::mutate(PanelHH = 1L)  # tous les ménages 2018 font partie de la vague de base
+
 base_ind_2018   <- fusionner_individu(ind_2018, s01_2018, base_men_2018, 2018)
 
-cat(sprintf("  Ménages 2018 : %d  |  Individus : %d  |  Traités : %d (%.1f%%)\n",
+cat(sprintf("  Ménages 2018 : %d  |  Individus : %d  |  Traités : %d (%.1f%%)  |  PanelHH=1 : %d\n",
     nrow(base_men_2018), nrow(base_ind_2018),
     sum(base_men_2018$D == 1, na.rm = TRUE),
-    100 * mean(base_men_2018$D == 1, na.rm = TRUE)))
+    100 * mean(base_men_2018$D == 1, na.rm = TRUE),
+    sum(base_men_2018$PanelHH == 1L, na.rm = TRUE)))
 
 saveRDS(base_men_2018, file.path(OUTPUT_DIR, "base_menage_2018.rds"))
 saveRDS(base_ind_2018, file.path(OUTPUT_DIR, "base_individu_2018.rds"))
@@ -242,12 +245,27 @@ s13a2_2021 <- lire_stata(BASE_2021, "s13_2_me_sen2021.dta")
 traitement_2021 <- construire_traitement(s13a1_2021, s13a2_2021, col_lieu = "s13q19")
 base_men_2021   <- fusionner_menage(men_2021, s11_2021, wel_2021, traitement_2021, 2021,
                                     var_part_toi = "s11q55", var_temps_eau = "s11q28a")
+
+# Joindre la variable PanelHH depuis s00_me_sen2021.dta
+s00_2021 <- lire_stata(BASE_2021, "s00_me_sen2021.dta") |>
+  ajouter_hhid() |>
+  dplyr::select(hhid, PanelHH)
+
+base_men_2021 <- base_men_2021 |>
+  dplyr::left_join(s00_2021, by = "hhid") |>
+  dplyr::mutate(PanelHH = dplyr::coalesce(as.integer(PanelHH), 0L))
+
 base_ind_2021   <- fusionner_individu(ind_2021, s01_2021, base_men_2021, 2021)
 
-cat(sprintf("  Ménages 2021 : %d  |  Individus : %d  |  Traités : %d (%.1f%%)\n",
+base_ind_2021 <- base_ind_2021 |>
+  dplyr::left_join(s00_2021, by = "hhid") |>
+  dplyr::mutate(PanelHH = dplyr::coalesce(as.integer(PanelHH), 0L))
+
+cat(sprintf("  Ménages 2021 : %d  |  Individus : %d  |  Traités : %d (%.1f%%)  |  PanelHH=1 : %d\n",
     nrow(base_men_2021), nrow(base_ind_2021),
     sum(base_men_2021$D == 1, na.rm = TRUE),
-    100 * mean(base_men_2021$D == 1, na.rm = TRUE)))
+    100 * mean(base_men_2021$D == 1, na.rm = TRUE),
+    sum(base_men_2021$PanelHH == 1L, na.rm = TRUE)))
 
 saveRDS(base_men_2021, file.path(OUTPUT_DIR, "base_menage_2021.rds"))
 saveRDS(base_ind_2021, file.path(OUTPUT_DIR, "base_individu_2021.rds"))

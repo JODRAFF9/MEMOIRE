@@ -1,6 +1,6 @@
 # ============================================================
 #  04_psm_dd.R — Estimation PSM-DD (Heckman et al. 1997/1998)
-#  ATT sur pauvre_AF et pauvre_MODA
+#  ATT sur pauvre_AF et pauvre_MODA — panel vrai (PanelHH=1)
 # ============================================================
 
 source("code/R/config.R")
@@ -14,6 +14,17 @@ traitement_2021 <- readRDS(file.path(OUTPUT_DIR, "traitement_2021.rds"))
 # Welfare : pcexp, hhsize, region, milieu + caracteristiques du CM
 wel_2018 <- lire_stata(BASE_2018, "ehcvm_welfare_sen2018.dta")
 wel_2021 <- lire_stata(BASE_2021, "ehcvm_welfare_sen2021.dta")
+
+# PanelHH depuis s00_me_sen2021.dta
+ajouter_hhid <- function(df) {
+  if (!"hhid" %in% names(df) && all(c("grappe", "menage") %in% names(df)))
+    df <- dplyr::mutate(df, hhid = as.integer(grappe) * 1000L + as.integer(menage))
+  df
+}
+
+s00_2021 <- lire_stata(BASE_2021, "s00_me_sen2021.dta") |>
+  ajouter_hhid() |>
+  dplyr::select(hhid, PanelHH)
 
 ID <- c("grappe", "menage")
 
@@ -57,20 +68,39 @@ construire_base <- function(enfants, traitement, welfare, annee, t_val) {
     )
 }
 
-base_2018 <- construire_base(enfants_2018, traitement_2018, wel_2018, 2018, 0)
-base_2021 <- construire_base(enfants_2021, traitement_2021, wel_2021, 2021, 1)
+base_2018 <- construire_base(enfants_2018, traitement_2018, wel_2018, 2018, 0) |>
+  dplyr::mutate(PanelHH = 1L)  # tous les menages 2018 font partie de la vague de base
 
-pseudo_panel <- dplyr::bind_rows(
+base_2021 <- construire_base(enfants_2021, traitement_2021, wel_2021, 2021, 1) |>
+  dplyr::left_join(s00_2021, by = "hhid") |>
+  dplyr::mutate(PanelHH = dplyr::coalesce(as.integer(PanelHH), 0L))
+
+# ── Construction du panel vrai (PanelHH=1) ────────────────────
+
+ids_panel <- base_2021 |>
+  dplyr::filter(!is.na(PanelHH) & PanelHH == 1L) |>
+  dplyr::select(dplyr::all_of(ID)) |>
+  dplyr::distinct()
+
+panel_vrai <- dplyr::bind_rows(
+  base_2018 |> dplyr::semi_join(ids_panel, by = ID),
+  base_2021 |> dplyr::semi_join(ids_panel, by = ID)
+)
+
+# Panel complet pour robustesse
+panel_complet <- dplyr::bind_rows(
   dplyr::mutate(base_2018, dplyr::across(where(haven::is.labelled), haven::zap_labels)),
   dplyr::mutate(base_2021, dplyr::across(where(haven::is.labelled), haven::zap_labels))
 )
 
-cat("Base analytique :", nrow(pseudo_panel),
-    "obs | traites :", sum(pseudo_panel$D == 1, na.rm = TRUE), "\n")
+cat("Panel vrai :", nrow(panel_vrai),
+    "obs | menages suivis :", nrow(ids_panel),
+    "| traites :", sum(panel_vrai$D == 1, na.rm = TRUE), "\n")
+cat("Panel complet :", nrow(panel_complet), "obs\n")
 
 # ── Statistiques descriptives par statut traitement ───────────
 
-pseudo_panel |>
+panel_vrai |>
   dplyr::group_by(annee, D) |>
   dplyr::summarise(
     n          = dplyr::n(),
@@ -90,11 +120,12 @@ formule_probit <- D ~ hhsize_n + log_pcexp + f_milieu + f_region +
                       hgender_n + hage_n + f_heduc + f_hmstat
 
 base_t0 <- base_2018 |>
+  dplyr::semi_join(ids_panel, by = ID) |>
   dplyr::filter(!is.na(D), !is.na(log_pcexp), !is.na(hhsize_n))
 
 probit_mod <- glm(formule_probit, data = base_t0,
                   family = binomial(link = "probit"))
-cat("\n=== Modele probit (score de propension) ===\n")
+cat("\n=== Modele probit sur panel vrai (score de propension) ===\n")
 print(summary(probit_mod))
 
 # Pseudo-R2 de McFadden
@@ -110,48 +141,48 @@ p_overlap <- ggplot2::ggplot(base_t0, ggplot2::aes(x = pscore, fill = factor(D))
   ggplot2::geom_density(alpha = 0.5) +
   ggplot2::scale_fill_manual(values = c("steelblue", "tomato"),
                               labels = c("Non-traites", "Traites")) +
-  ggplot2::labs(title = "Distribution du score de propension — support commun",
+  ggplot2::labs(title = "Distribution du score de propension — panel vrai",
                 x = "Score de propension", y = "Densite", fill = "") +
   ggplot2::theme_minimal(base_size = 12)
-ggplot2::ggsave(file.path(OUTPUT_DIR, "overlap.pdf"), p_overlap, width = 8, height = 5)
+ggplot2::ggsave(file.path(OUTPUT_DIR, "overlap_panel.pdf"), p_overlap, width = 8, height = 5)
 
-# ── Appariement 1 : k-NN (k=4, sans remplacement) ────────────
+# ── Appariement 1 : k-NN (k=K_VOISINS, caliper=CALIPER) ─────
 
 match_knn <- MatchIt::matchit(formule_probit, data = base_t0,
-                               method = "nearest",
-                               distance = "glm", link = "probit",
-                               ratio = 4, replace = FALSE)
-cat("\n=== Bilan appariement k-NN ===\n")
+                               method    = "nearest",
+                               distance  = "glm", link = "probit",
+                               ratio     = K_VOISINS,
+                               caliper   = CALIPER, std.caliper = FALSE,
+                               replace   = FALSE)
+cat("\n=== Bilan appariement k-NN (panel vrai) ===\n")
 print(summary(match_knn, un = FALSE))
 
 # Balance plot
 cobalt::love.plot(match_knn,
                   threshold   = 0.1,
-                  title       = "Balance avant/apres appariement (k-NN)",
+                  title       = "Balance avant/apres appariement — panel vrai",
                   var.order   = "unadjusted",
                   colors      = c("steelblue", "tomato"))
 
-# ── Appariement 2 : Kernel (Epanechnikov) ────────────────────
+# ── Appariement 2 : Kernel (appariement complet) ──────────────
 
 match_kernel <- MatchIt::matchit(formule_probit, data = base_t0,
-                                  method  = "full",
+                                  method   = "full",
                                   distance = "glm", link = "probit",
                                   estimand = "ATT")
 
-# ── Appariement 3 : Caliper (epsilon = 0.05) ─────────────────
+# ── Appariement 3 : Caliper seul (epsilon = CALIPER) ─────────
 
 match_cal <- MatchIt::matchit(formule_probit, data = base_t0,
-                               method   = "nearest",
-                               distance = "glm", link = "probit",
-                               caliper  = 0.05, std.caliper = FALSE,
-                               ratio = 1)
+                               method      = "nearest",
+                               distance    = "glm", link = "probit",
+                               caliper     = CALIPER, std.caliper = FALSE,
+                               ratio       = 1)
 
 # ── Base appariee pour la DD ──────────────────────────────────
 
 matched_data_knn <- MatchIt::match.data(match_knn)
 
-# Reconstituer le pseudo-panel sur la base appariee
-# (traites kNN + temoins correspondants pour t=0 et t=1)
 id_traites <- matched_data_knn |>
   dplyr::filter(D == 1) |>
   dplyr::select(dplyr::all_of(ID)) |>
@@ -162,7 +193,7 @@ id_temoins <- matched_data_knn |>
   dplyr::select(dplyr::all_of(ID)) |>
   dplyr::distinct()
 
-panel_apparie <- pseudo_panel |>
+panel_apparie <- panel_vrai |>
   dplyr::semi_join(
     dplyr::bind_rows(id_traites, id_temoins),
     by = ID
@@ -170,26 +201,26 @@ panel_apparie <- pseudo_panel |>
 
 cat("Panel apparie :", nrow(panel_apparie), "obs\n")
 
-# ── Double Difference (DD simple, sans appariement) ──────────
+# ── Double Difference brute (sans appariement, panel vrai) ────
 # Y_it = alpha + beta*t + gamma*D + delta*(t x D) + eps
 # delta = ATT_DD
 
-cat("\n=== Double Difference (sans appariement) ===\n")
+cat("\n=== Double Difference brute — panel vrai (sans appariement) ===\n")
 for (outcome in c("pauvre_AF", "pauvre_MODA")) {
   formule_dd <- as.formula(paste(outcome, "~ factor(t) + D + factor(t):D"))
-  mod_dd <- lm(formule_dd, data = pseudo_panel)
+  mod_dd <- lm(formule_dd, data = panel_vrai)
   mod_dd_rob <- lmtest::coeftest(
     mod_dd,
     vcov = sandwich::vcovCL(mod_dd, cluster = ~grappe)
   )
-  cat(sprintf("\n--- DD %s ---\n", outcome))
+  cat(sprintf("\n--- DD %s (panel vrai) ---\n", outcome))
   print(mod_dd_rob)
 }
 
 # ── PSM-DD (Heckman et al. 1997/1998) ────────────────────────
 # ATT_PSM-DD = (1/nT) * sum_{i in T} [DeltaY_i - sum_j w_ij DeltaY_j]
 
-cat("\n=== PSM-DD (Heckman 1997/1998) ===\n")
+cat("\n=== PSM-DD (Heckman 1997/1998) — panel vrai ===\n")
 for (outcome in c("pauvre_AF", "pauvre_MODA")) {
   formule_dd <- as.formula(paste(outcome, "~ factor(t) + D + factor(t):D"))
   mod_psm_dd <- lm(formule_dd, data = panel_apparie,
@@ -202,9 +233,23 @@ for (outcome in c("pauvre_AF", "pauvre_MODA")) {
   print(mod_psm_dd_rob)
 }
 
-# ── Heterogeneite ─────────────────────────────────────────────
+# ── Heterogeneite par milieu ───────────────────────────────────
+# Test d'egalite : milieu urbain vs rural (interaction avec milieu)
 
-cat("\n=== Heterogeneite par milieu ===\n")
+cat("\n=== Heterogeneite par milieu (urbain vs rural) ===\n")
+for (outcome in c("pauvre_AF", "pauvre_MODA")) {
+  # Modele avec interaction milieu
+  formule_int <- as.formula(paste(outcome, "~ factor(t) * D * f_milieu"))
+  mod_int <- lm(formule_int, data = panel_apparie)
+  mod_int_rob <- lmtest::coeftest(
+    mod_int,
+    vcov = sandwich::vcovCL(mod_int, cluster = ~grappe)
+  )
+  cat(sprintf("\n--- Interaction milieu — %s ---\n", outcome))
+  print(mod_int_rob)
+}
+
+# Sous-groupes milieu
 for (mil in c(1, 2)) {
   panel_mil <- panel_apparie |> dplyr::filter(f_milieu == mil)
   label_mil <- if (mil == 1) "Urbain" else "Rural"
@@ -220,14 +265,30 @@ for (mil in c(1, 2)) {
   }
 }
 
-# ── Test tendances paralleles (pre-trend placebo) ─────────────
-# Verifier que les tendances etaient similaires avant 2018 (si donnees disponibles)
-# ou tester sur une sous-periode interne
-cat("\n[Note] Test de tendances paralleles : necessite donnees pre-2018 ou",
-    "regression pre-trend sur covariables.\n")
-cat("Effectuer test de Rosenbaum pour sensibilite au biais cache (annexe A).\n")
+# ── Robustesse : panel_vrai vs panel_complet ──────────────────
 
-# ── Robustesse : bootstrap (N_BOOT replications) ─────────────
+cat("\n=== Robustesse : panel vrai vs panel complet ===\n")
+for (outcome in c("pauvre_AF", "pauvre_MODA")) {
+  formule_dd <- as.formula(paste(outcome, "~ factor(t) + D + factor(t):D"))
+
+  mod_v <- lm(formule_dd, data = panel_vrai)
+  rob_v <- lmtest::coeftest(mod_v,
+    vcov = sandwich::vcovCL(mod_v, cluster = ~grappe))
+
+  mod_c <- lm(formule_dd, data = panel_complet)
+  rob_c <- lmtest::coeftest(mod_c,
+    vcov = sandwich::vcovCL(mod_c, cluster = ~grappe))
+
+  coef_name <- grep("factor\\(t\\)1:D", rownames(rob_v), value = TRUE)
+  att_v <- if (length(coef_name)) rob_v[coef_name, "Estimate"] else NA_real_
+  coef_name_c <- grep("factor\\(t\\)1:D", rownames(rob_c), value = TRUE)
+  att_c <- if (length(coef_name_c)) rob_c[coef_name_c, "Estimate"] else NA_real_
+
+  cat(sprintf("  %s : panel_vrai=%.4f  panel_complet=%.4f\n",
+              outcome, att_v, att_c))
+}
+
+# ── Bootstrap PSM-DD (N_BOOT replications) ───────────────────
 
 set.seed(SEED)
 psm_dd_boot <- function(data, outcome, B = N_BOOT) {
@@ -248,7 +309,7 @@ psm_dd_boot <- function(data, outcome, B = N_BOOT) {
        ci95 = quantile(att_boot, c(0.025, 0.975)))
 }
 
-cat("\n=== Bootstrap PSM-DD (", N_BOOT, "replications) ===\n")
+cat("\n=== Bootstrap PSM-DD (", N_BOOT, "replications) — panel vrai ===\n")
 for (outcome in c("pauvre_AF", "pauvre_MODA")) {
   res <- psm_dd_boot(panel_apparie, outcome)
   cat(sprintf("  %s : ATT=%.4f  SE=%.4f  IC95=[%.4f, %.4f]\n",

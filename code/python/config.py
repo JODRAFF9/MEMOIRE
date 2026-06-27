@@ -12,7 +12,10 @@ OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
 SEED          = 123
 K_SEUIL       = 1/3    # seuil Alkire-Foster
+K_MODA        = 4        # seuil N-MODA : prive si >= 4 dimensions sur 7
 N_BOOT        = 1000   # replications bootstrap
+CALIPER       = 0.05
+K_VOISINS     = 4
 # s13aq14 / s13q19 : 1=Meme ville  2=Meme region  3=Ailleurs au pays  >=4=Etranger
 CODE_ETRANGER_MIN = 4  # transferts de migrants = code >= 4
 

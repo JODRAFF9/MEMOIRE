@@ -29,6 +29,21 @@ def taux(serie):
     return serie.mean(skipna=True)
 
 
+def construire_panel_vrai(base_2018, base_2021, cle=None):
+    """Retourne (panel_vrai, panel_complet) filtrés sur PanelHH=1."""
+    from config import ID
+    if cle is None:
+        cle = ID
+    ids_panel = (base_2021[base_2021["PanelHH"] == 1][cle]
+                 .drop_duplicates())
+    panel_vrai = pd.concat([
+        base_2018.merge(ids_panel, on=cle),
+        base_2021.merge(ids_panel, on=cle),
+    ], ignore_index=True)
+    panel_complet = pd.concat([base_2018, base_2021], ignore_index=True)
+    return panel_vrai, panel_complet
+
+
 def indices_af(score, k=K_SEUIL):
     pauvre = (score >= k).astype(int)
     H  = taux(pauvre)
