@@ -258,7 +258,6 @@ base_men_2021 <- base_men_2021 |>
 base_ind_2021   <- fusionner_individu(ind_2021, s01_2021, base_men_2021, 2021)
 
 base_ind_2021 <- base_ind_2021 |>
-  dplyr::left_join(s00_2021, by = "hhid") |>
   dplyr::mutate(PanelHH = dplyr::coalesce(as.integer(PanelHH), 0L))
 
 cat(sprintf("  Ménages 2021 : %d  |  Individus : %d  |  Traités : %d (%.1f%%)  |  PanelHH=1 : %d\n",
