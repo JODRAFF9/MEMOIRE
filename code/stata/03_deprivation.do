@@ -197,7 +197,7 @@ foreach annee in 2018 2021 {
     /* 2. Welfare (hhsize, pcexp, covariables PSM) */
     merge m:1 grappe menage using ///
         "`base'/ehcvm_welfare_sen`annee'.dta", ///
-        keepusing(hhsize pcexp region milieu hgender hage heduc hmstat) ///
+        keepusing(hhsize pcexp region milieu hgender hage heduc hmstat hhweight) ///
         nogenerate keep(master match)
 
     /* 3. Indicateurs menage */

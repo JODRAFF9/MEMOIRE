@@ -152,6 +152,8 @@ save `matched_ids'
 use "$TEMP/pseudo_panel.dta", clear
 merge m:1 grappe menage using `matched_ids', ///
     keepusing(weight_knn) nogenerate
+gen double weight_final = hhweight * weight_knn
+label var weight_final "Poids combine sondage x PSM"
 keep if !missing(weight_knn)
 
 di _newline "Panel apparie : " _N " obs"
@@ -159,7 +161,7 @@ di _newline "Panel apparie : " _N " obs"
 di _newline "=== PSM-DD (Heckman 1997/1998) ==="
 foreach outcome in pauvre_AF pauvre_MODA {
     di _newline "--- PSM-DD `outcome' ---"
-    reg `outcome' i.t##i.D [pw = weight_knn], vce(cluster grappe)
+    reg `outcome' i.t##i.D [pw = weight_final], vce(cluster grappe)
     lincom 1.t#1.D
     di "  ATT_PSM-DD = " %8.4f r(estimate) "  SE = " %8.4f r(se) ///
        "  p = " %6.4f r(p)
@@ -178,7 +180,7 @@ foreach mil in 1 2 {
         qui count if milieu == `mil' & !missing(weight_knn)
         if r(N) > 30 {
             di _newline "--- `lab_mil' — `outcome' ---"
-            reg `outcome' i.t##i.D [pw = weight_knn] ///
+            reg `outcome' i.t##i.D [pw = weight_final] ///
                 if milieu == `mil', vce(cluster grappe)
             lincom 1.t#1.D
         }
@@ -194,7 +196,7 @@ foreach outcome in pauvre_AF pauvre_MODA {
     di _newline "--- Bootstrap `outcome' ---"
     bootstrap att = _b[1.t#1.D], ///
         reps($N_BOOT) seed($SEED) nodots: ///
-        reg `outcome' i.t##i.D [pw = weight_knn], ///
+        reg `outcome' i.t##i.D [pw = weight_final], ///
         vce(cluster grappe)
     estat bootstrap, percentile all
 }

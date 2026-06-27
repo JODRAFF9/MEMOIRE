@@ -125,13 +125,17 @@ use "$TEMP/panel_vrai.dta", clear
 merge m:1 grappe menage using `poids_knn', keepusing(weight_knn) nogenerate
 keep if !missing(weight_knn)
 
+/* Poids final = poids sondage * poids PSM */
+gen double weight_final = hhweight * weight_knn
+label var weight_final "Poids combine sondage x PSM"
+
 di _newline "Panel apparie (k-NN) : " _N " obs"
 tabstat D, by(t) stat(mean sum n) format(%6.3f)
 
 di _newline "=== PSM-DD — ATT principal (Heckman 1997/1998) ==="
 foreach outcome in pauvre_AF pauvre_MODA {
     di _newline "--- PSM-DD `outcome' ---"
-    reg `outcome' i.t##i.D [pw = weight_knn], vce(cluster grappe)
+    reg `outcome' i.t##i.D [pw = weight_final], vce(cluster grappe)
     lincom 1.t#1.D
     di "  ATT_PSM-DD = " %8.4f r(estimate) ///
        "  SE = " %8.4f r(se) "  p = " %6.4f r(p)
@@ -153,7 +157,7 @@ foreach mil in 1 2 {
         quietly count if milieu == `mil' & !missing(weight_knn)
         if r(N) > 30 {
             di _newline "--- `lab_mil' — `outcome' ---"
-            reg `outcome' i.t##i.D [pw = weight_knn] ///
+            reg `outcome' i.t##i.D [pw = weight_final] ///
                 if milieu == `mil', vce(cluster grappe)
             lincom 1.t#1.D
             di "  ATT = " %8.4f r(estimate) "  p = " %6.4f r(p)
@@ -165,7 +169,7 @@ foreach mil in 1 2 {
 di _newline "Test d'egalite Chow (urbain vs rural) :"
 gen byte urban = (milieu == 1)
 foreach outcome in pauvre_AF pauvre_MODA {
-    reg `outcome' i.t##i.D##i.urban [pw = weight_knn], vce(cluster grappe)
+    reg `outcome' i.t##i.D##i.urban [pw = weight_final], vce(cluster grappe)
     lincom 1.t#1.D#1.urban - 1.t#1.D#0.urban
     di "  Diff ATT (urbain - rural) : " %8.4f r(estimate) "  p = " %6.4f r(p)
 }
@@ -183,7 +187,7 @@ if _rc == 0 {
             quietly count if sexe == `s' & !missing(weight_knn)
             if r(N) > 30 {
                 di "--- `lab_s' — `outcome' ---"
-                reg `outcome' i.t##i.D [pw = weight_knn] ///
+                reg `outcome' i.t##i.D [pw = weight_final] ///
                     if sexe == `s', vce(cluster grappe)
                 lincom 1.t#1.D
                 di "  ATT = " %8.4f r(estimate) "  p = " %6.4f r(p)
@@ -202,7 +206,7 @@ foreach g in 1 2 3 {
         quietly count if groupe_moda == `g' & !missing(weight_knn)
         if r(N) > 30 {
             di "--- Groupe `g' — `outcome' ---"
-            reg `outcome' i.t##i.D [pw = weight_knn] ///
+            reg `outcome' i.t##i.D [pw = weight_final] ///
                 if groupe_moda == `g', vce(cluster grappe)
             lincom 1.t#1.D
             di "  ATT = " %8.4f r(estimate) "  p = " %6.4f r(p)
@@ -218,14 +222,14 @@ foreach g in 1 2 3 {
 di _newline "=== Bootstrap PSM-DD ($N_BOOT replications) ==="
 foreach outcome in pauvre_AF pauvre_MODA {
     di _newline "--- Bootstrap `outcome' ---"
-    att_psmdd `outcome' weight_knn $N_BOOT
+    att_psmdd `outcome' weight_final $N_BOOT
 }
 
 /* -- 7b. Sensibilite au seuil k (Alkire-Foster) ------------- */
 di _newline "=== Sensibilite au seuil k (Alkire-Foster) ==="
 foreach k_test in 0.1667 0.3333 0.5 {
     gen byte pauvre_ktest = (score_dep >= `k_test') if !missing(score_dep)
-    reg pauvre_ktest i.t##i.D [pw = weight_knn], vce(cluster grappe)
+    reg pauvre_ktest i.t##i.D [pw = weight_final], vce(cluster grappe)
     lincom 1.t#1.D
     di "  k=" %5.4f `k_test' " : ATT=" %8.4f r(estimate) "  p=" %6.4f r(p)
     drop pauvre_ktest
