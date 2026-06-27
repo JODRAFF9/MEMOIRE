@@ -406,16 +406,17 @@ estime par un modele probit :
   \label{eq:probit}
 \end{equation}
 
-Trois algorithmes d'appariement sont mis en oeuvre et compares. L'appariement
-aux $k$ plus proches voisins ($k = 4$, avec remplacement) associe a chaque
-traite les 4 temoins les plus proches en termes de score :
+Trois algorithmes d'appariement sont mis en oeuvre et compares \parencite{caliendo2008,
+heckman1997}. L'appariement aux $k$ plus proches voisins \parencite{rosenbaum1983}
+($k = 4$, avec remplacement) associe a chaque traite les 4 temoins les plus proches
+en termes de score :
 \begin{equation}
   \hat{\tau}_{k\text{-NN}} = \frac{1}{n_T} \sum_{i \in \mathcal{T}}
   \left[Y_i - \frac{1}{k}\sum_{j \in \mathcal{N}(i)} Y_j\right].
   \label{eq:knn}
 \end{equation}
-L'appariement par noyau gaussien utilise une moyenne ponderee de l'ensemble
-des temoins, les poids decroissant avec la distance en score :
+L'appariement par noyau gaussien \parencite{heckman1997} utilise une moyenne
+ponderee de l'ensemble des temoins, les poids decroissant avec la distance en score :
 \begin{equation}
   \hat{\tau}_{\text{kernel}} = \frac{1}{n_T} \sum_{i \in \mathcal{T}}
   \left[Y_i - \frac{\sum_{j \in \mathcal{C}} K\!\left(\frac{p_i-p_j}{h}
@@ -424,7 +425,9 @@ des temoins, les poids decroissant avec la distance en score :
   \label{eq:kernel}
 \end{equation}
 ou $h$ est la largeur de bande optimisee par validation croisee. L'appariement
-par rayon ($\epsilon = 0{,}05$) exclut les appariements de faible qualite.
+par rayon (\textit{caliper}, $\epsilon = 0{,}05$) \parencite{caliendo2008}
+exclut les appariements de faible qualite en imposant une distance maximale
+sur le score de propension.
 
 La qualite de l'appariement est evaluee par le biais standardise
 \parencite{rosenbaum1983},
