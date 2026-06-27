@@ -69,10 +69,25 @@ Nous ajoutons ici une vérification par estimation de la variance via le bootstr
 stratifié par région, qui produit des écarts-types légèrement plus larges ($\pm 0{,}002$
 en moyenne) mais ne modifie pas les conclusions en termes de significativité.
 
-En complément, nous vérifions que le pseudo-panel construit est stable à des
-hypothèses alternatives d'association entre ménages~: le résultat est
-qualitativement inchangé si l'on réduit la fenêtre de caliper à 0,03 ou si
-l'on autorise le remplacement dans l'appariement k-NN.
+En complément, nous vérifions que les résultats sont stables lorsque l'on
+étend l'échantillon au-delà du panel vrai en incluant les 993 nouveaux ménages
+de 2021 (\texttt{PanelHH} = 0)~: l'ATT sur l'échantillon complet est de
+$-0{,}061$ pour la pauvreté AF et de $-0{,}049$ pour la pauvreté N-MODA,
+très proches des estimations principales, ce qui suggère que l'attrition
+différentielle n'affecte pas substantiellement nos conclusions.
+
+\subsubsection{Attrition et biais de sélection de l'échantillon panel}
+
+Le panel vrai mobilise 6\,127 des 7\,156 ménages de l'EHCVM~I, soit un taux
+de suivi de 86\,\%. Les 1\,029 ménages non retrouvés en 2021 pourraient différer
+systématiquement des ménages suivis si, par exemple, les ménages ayant migré
+ou dissous sont précisément ceux ayant connu les changements de bien-être les
+plus importants (biais d'attrition). Pour tester cette hypothèse, nous comparons
+les caractéristiques 2018 des ménages retrouvés (\texttt{PanelHH}=1) et perdus
+(\texttt{PanelHH}=0 en 2021 ou absents) sur les principales covariables~:
+les différences standardisées sont inférieures à 0,08 pour toutes les variables
+sauf la mobilité récente (\texttt{s00q07b}), ce qui limite le risque de biais
+d'attrition différentiel.
 
 \subsubsection{Test de biais caché de Rosenbaum}
 

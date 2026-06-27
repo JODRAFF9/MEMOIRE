@@ -23,10 +23,12 @@ realisees dans le cadre du programme statistique de l'UEMOA. EHCVM
 I (2018-2019) est la premiere vague nationale au Senegal \parencite{ansd2019},
 reposant sur un plan de sondage stratifie a deux degres (regions x milieux
 comme strates, zones de denombrements comme unites primaires). EHCVM
-II (2021-2022) reproduit le meme protocole \parencite{ansd2022}, permettant
-la constitution d'un pseudo-panel au niveau des zones de residence. La fenetre
-temporelle 2018-2022 couvre une periode de transformations importantes des
-flux migratoires senegalais et de leurs effets sur les menages.
+II (2021-2022) reproduit le meme protocole en suivant effectivement une
+large partie des menages enquetes en 2018-2019 \parencite{ansd2022} : la
+variable \texttt{PanelHH} identifie 6\,127 menages retrouves dans les deux
+vagues, soit 86\,\% de l'echantillon de 2021. La fenetre temporelle
+2018-2022 couvre une periode de transformations importantes des flux
+migratoires senegalais et de leurs effets sur les menages.
 
 \subsubsection{Construction de l'échantillon}
 
@@ -36,27 +38,25 @@ dans les menages enquetes dans les deux vagues. L'EHCVM I couvre 7\,120 menages
 sondage, avec un sous-echantillon panel identifie par la variable \texttt{PanelHH}
 \parencite{ansd2019, ansd2022}.
 
-Deux types de pseudo-panel sont utilises selon la strategie d'identification :
-\begin{enumerate}
-  \item \textbf{Pseudo-panel au niveau des zones de residence} : les menages des
-  deux vagues sont agreg\'es par grappe de sondage (unites primaires), conformement
-  a la methodologie de \cite{deaton1997}. Ceci est l'approche par defaut
-  pour la double difference, dans laquelle les grappes jouent le role d'unites
-  observees dans le temps.
-  \item \textbf{Panel strictement cylindre} (sous-echantillon) : les menages
-  identifies comme panel dans les deux vagues via \texttt{PanelHH} constituent
-  un echantillon de suivi plus rigoureux, qui est utilise dans les tests de
-  robustesse.
-\end{enumerate}
+L'echantillon analytique repose sur le \textbf{panel vrai} constitue des
+6\,127 menages identifies par \texttt{PanelHH} = 1, c'est-a-dire les
+menages enquetes lors des deux vagues et retrouves dans leur logement d'origine
+(variable \texttt{s00q07e} : 5\,982 menages dans le meme logement ; 145 menages
+retrouves dans un nouveau logement). Chaque menage est ainsi observe en $t = 0$
+(2018-2019) et $t = 1$ (2021-2022), ce qui autorise une estimation DD en
+differences intra-menage sans recourir a des hypotheses d'agregation au niveau
+des grappes \parencite{deaton1997}.
 
 Apres nettoyage (exclusion des observations avec plus de deux indicateurs de
-privation manquants, et des menages sans information sur les transferts),
-l'echantillon final retient les enfants pour lesquels l'integralite des
-indicateurs des deux approches (AF et MODA) ainsi que la variable de traitement
-sont disponibles dans les deux vagues. La limite principale de cette construction
-est l'attrition potentielle entre les deux vagues, qui peut introduire un biais
-si les menages perdus sont systematiquement differents des menages retenus
--- cette limite est discutee dans la conclusion.
+privation manquants et des menages sans information sur les transferts),
+l'echantillon retenu comprend les enfants ages de 0 a 17 ans pour lesquels
+l'integralite des indicateurs AF et MODA ainsi que la variable de traitement
+sont disponibles dans les deux vagues. L'echantillon complet incluant les
+993 nouveaux menages de 2021 (\texttt{PanelHH} = 0) est utilise dans
+les analyses de robustesse. La limite principale de cette construction est
+l'attrition differentielle : si les menages perdus entre les deux vagues
+different systematiquement des menages retenus, les estimations PSM-DD
+peuvent etre biaisees -- ce point est discute dans la section~\ref{sec:discussion}.
 
 \subsubsection{Variable de traitement}
 
@@ -467,9 +467,12 @@ le temps (DD) :
   \right],
   \label{eq:psm-dd}
 \end{equation}
-ou $\Delta Y_i = Y_{i,t=2} - Y_{i,t=1}$ est la variation intra-individuelle
-de la variable de resultat (AF ou MODA). Les ecarts-types sont calcules par
-bootstrap (1\,000 replications) \parencite{caliendo2008}.
+ou $\Delta Y_i = Y_{i,t=2} - Y_{i,t=1}$ est la variation intra-menage
+de la variable de resultat (AF ou MODA), calculee directement sur les
+menages suivis entre les deux vagues. Le panel vrai dont nous disposons
+rend cette difference directement observable sans agregation par cellule,
+renforçant la validite de l'hypothese de tendances paralleles. Les
+ecarts-types sont calcules par bootstrap (1\,000 replications) \parencite{caliendo2008}.
 
 \subsubsection{Analyses d'hétérogénéité et de robustesse}
 
