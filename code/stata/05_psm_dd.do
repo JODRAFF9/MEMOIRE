@@ -66,7 +66,7 @@ save "$TEMP/pscore_t0.dta", replace
 
 /* -- 2a. k-NN ------------------------------------------------ */
 di _newline "=== Appariement k-NN (k=$K_VOISINS, sans remplacement) ==="
-psmatch2 D, pscore(pscore) neighbor($K_VOISINS) noreplacement common
+psmatch2 D, pscore(pscore) neighbor($K_VOISINS) common
 
 di _newline "Balance avant/apres (SMD) :"
 pstest hhsize log_pcexp i.milieu i.region hgender hage i.heduc i.hmstat, both
