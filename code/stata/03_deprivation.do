@@ -234,10 +234,10 @@ foreach annee in 2018 2021 {
         if !_rc replace m_alfab = 1 if age >= 15 & alfa == 0 & !missing(alfa)
     }
 
-    /* NEET (15-17 ans) */
+    /* NEET (15-17 ans) : ni scolarise ni employe (activ7j != 1 : inactifs + chomeurs) */
     gen byte m_neet = 0
     replace  m_neet = 1 if age >= 15 & ///
-        (scol == 0 | missing(scol)) & (activ7j == 0 | missing(activ7j))
+        (scol == 0 | missing(scol)) & (activ7j != 1 | missing(activ7j))
 
     /* Acte de naissance non pertinent > 14 ans */
     replace m_acte_nais = 0 if age > 14

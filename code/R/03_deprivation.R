@@ -291,11 +291,11 @@ construire_ind_nmoda <- function(df, acte_nais_df) {
       } else {
         0L
       },
-      # NEET (15-17 ans) : ni scolarise ni occupe
+      # NEET (15-17 ans) : ni scolarise ni employe (activ7j != 1 : inactifs + chomeurs)
       m_neet = dplyr::if_else(
         age >= 15 &
         dplyr::coalesce(as.integer(haven::zap_labels(scol)), 0L) == 0L &
-        dplyr::coalesce(as.integer(haven::zap_labels(activ7j)), 0L) == 0L,
+        dplyr::coalesce(as.integer(haven::zap_labels(activ7j)), 0L) != 1L,
         1L, 0L
       )
     ) |>
