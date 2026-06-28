@@ -19,23 +19,43 @@ de Vie des Ménages (EHCVM I et II).
 \subsubsection{Présentation des enquêtes}
 
 Les Enquêtes Harmonisées sur les Conditions de Vie des Ménages (EHCVM) sont
-réalisées dans le cadre du programme statistique de l'UEMOA. EHCVM
-I (2018-2019) est la première vague nationale au Sénégal \parencite{ansd2019},
-reposant sur un plan de sondage stratifié à deux degrés (régions $\times$ milieux
-comme strates, zones de dénombrements comme unités primaires). EHCVM
-II (2021-2022) reproduit le même protocole en suivant effectivement une
-large partie des ménages enquêtés en 2018-2019 \parencite{ansd2022} : la
-variable \texttt{PanelHH} identifie 6\,127 ménages retrouvés dans les deux
-vagues, soit 86\,\% de l'échantillon de 2021. La fenêtre temporelle
-2018-2022 couvre une période de transformations importantes des flux
-migratoires sénégalais et de leurs effets sur les ménages.
+réalisées dans le cadre du programme statistique de l'UEMOA
+\parencite{ansd2019, ansd2022}. Les deux vagues mobilisées dans ce travail
+reposent sur un \textbf{plan de sondage aléatoire stratifié à deux degrés} :
+
+\begin{itemize}
+  \item \textbf{Strates :} les 14 régions administrative du Sénégal sont chacune
+  subdivisées en deux domaines (urbain/rural), formant \textbf{28 strates}.
+  Le tirage est indépendant dans chaque strate, ce qui garantit la
+  représentativité au niveau région $\times$ milieu.
+  \item \textbf{Unités primaires (1\textsuperscript{er} degré) :} des Districts
+  de Recensement (DR) issus du RGPHAE 2013 constituent les grappes.
+  \textbf{598 DR} ont été sélectionnés (330 urbains, 268 ruraux).
+  \item \textbf{Unités secondaires (2\textsuperscript{e} degré) :} \textbf{12 ménages}
+  sont enquêtés dans chaque DR, pour un total théorique de 7\,176 ménages.
+\end{itemize}
+
+Les poids de sondage (\texttt{hhweight}) reflètent la probabilité de sélection
+inverse et intègrent un redressement pour la non-réponse. Toutes les estimations
+de ce mémoire tiennent compte du plan de sondage via la déclaration
+\texttt{svyset grappe [pw=hhweight], strata(strate)}, où
+\texttt{strate = région $\times$ milieu} (28 niveaux), conformément aux
+recommandations de \cite{deaton1997} pour les enquêtes complexes.
+
+EHCVM II (2021-2022) reproduit le même protocole en suivant effectivement une
+large partie des ménages enquêtés en 2018-2019 : la variable \texttt{PanelHH}
+identifie 6\,127 ménages retrouvés dans les deux vagues, soit 85,6\,\% de
+l'échantillon de 2021. La fenêtre temporelle 2018-2022 couvre une période
+de transformations importantes des flux migratoires sénégalais et de leurs
+effets sur les ménages.
 
 \subsubsection{Construction de l'échantillon}
 
 Notre population cible est l'ensemble des enfants âgés de 0 à 17 ans résidant
-dans les ménages enquêtés dans les deux vagues. L'EHCVM I couvre 7\,120 ménages
-(vagues 1 et 2 réunies), et l'EHCVM II 7\,120 ménages selon le même plan de
-sondage, avec un sous-échantillon panel identifié par la variable \texttt{PanelHH}
+dans les ménages enquêtés dans les deux vagues. L'EHCVM I couvre 7\,156 ménages
+(vagues 1 et 2 réunies après appariement), et l'EHCVM II 7\,176 ménages
+théoriques selon le même plan de sondage (598 DR $\times$ 12 ménages), avec un
+sous-échantillon panel identifié par la variable \texttt{PanelHH}
 \parencite{ansd2019, ansd2022}.
 
 L'échantillon analytique repose sur le \textbf{panel vrai} constitué des
