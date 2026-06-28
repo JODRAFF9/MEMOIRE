@@ -113,34 +113,311 @@ data.frame(
 
 # Indicateurs de déprivation
 
-## Alkire-Foster (M0 = H × A)
+Les statistiques de déprivation ci-dessous sont calculées sur **l'ensemble de la base EHCVM**
+(2018/19 et 2021/22), sans restriction au sous-échantillon du panel. Cela correspond à la
+méthodologie de l'ANSD/UNICEF 2024 et permet de comparer nos résultats aux valeurs de référence
+nationales. La restriction *never-treated* (panel + non-bénéficiaires stables) n'est appliquée
+qu'à l'étape d'estimation de l'ATT par PSM-DiD.
 
-```{r af}
+```{r load-dep}
 enfants_2018 <- readRDS(file.path(OUTPUT_DIR, "enfants_dep_2018.rds"))
 enfants_2021 <- readRDS(file.path(OUTPUT_DIR, "enfants_dep_2021.rds"))
 
-for (annee in c(2018, 2021)) {
-  df  <- if (annee == 2018) enfants_2018 else enfants_2021
-  idx <- indices_af(df$score_dep)
-  cat(sprintf("AF %d : H=%.3f  A=%.3f  M0=%.3f\n", annee, idx$H, idx$A, idx$M0))
+# Joindre milieu et région depuis welfare
+wel_2018 <- lire_stata(BASE_2018, "ehcvm_welfare_sen2018.dta")
+wel_2021 <- lire_stata(BASE_2021, "ehcvm_welfare_sen2021.dta")
+
+ajouter_welfare <- function(df, wel) {
+  wel_slim <- wel |>
+    dplyr::mutate(dplyr::across(where(haven::is.labelled), haven::zap_labels)) |>
+    dplyr::select(grappe, menage, milieu, region) |>
+    dplyr::distinct(grappe, menage, .keep_all = TRUE)
+  df |> dplyr::left_join(wel_slim, by = c("grappe", "menage"))
 }
+
+enfants_2018 <- ajouter_welfare(enfants_2018, wel_2018)
+enfants_2021 <- ajouter_welfare(enfants_2021, wel_2021)
+
+DIMS  <- c("dim_assai","dim_eau","dim_logem","dim_nutri",
+           "dim_sante","dim_protect","dim_educ")
+NOMS  <- c("Assainissement","Eau","Logement","Nutrition",
+           "Santé","Protection de l'enfant","Éducation")
+
+# Valeurs de référence ANSD/UNICEF 2024 (EHCVM 2018/19)
+ref_ansd <- list(H = 0.507, A = 0.722, M0 = 0.366)
 ```
 
-## MODA UNICEF
+## N-MODA — Indices globaux (H, A, M₀)
 
-```{r moda}
-for (annee in c(2018, 2021)) {
-  df <- if (annee == 2018) enfants_2018 else enfants_2021
-  cat(sprintf("\nMODA %d :\n", annee))
-  df |>
-    dplyr::group_by(groupe_moda) |>
-    dplyr::summarise(n = dplyr::n(),
-                     `Pauvres (%)` = round(taux(pauvre_MODA)*100, 1),
-                     .groups = "drop") |>
-    kableExtra::kbl() |>
-    kableExtra::kable_styling() |>
-    print()
+```{r moda-global}
+# Référence ANSD/UNICEF 2024
+ref_tbl <- data.frame(
+  Indice   = c("Incidence H (%)", "Intensité A (%)",
+               "Intensité A (nb moyen privations)", "M₀ (H × A)"),
+  `ANSD/UNICEF 2024 (ref)` = c("50,7", "72,2", "4,9", "0,366"),
+  check.names = FALSE
+)
+
+# Calcul depuis nos données 2018
+calc_indices_moda <- function(df) {
+  pauvres <- df[df$pauvre_MODA == 1, ]
+  H  <- mean(df$pauvre_MODA, na.rm = TRUE)
+  A  <- mean(pauvres$nb_dep / 7, na.rm = TRUE)
+  M0 <- H * A
+  A_abs <- mean(pauvres$nb_dep, na.rm = TRUE)
+  data.frame(H = round(H*100,1), A = round(A*100,1),
+             A_abs = round(A_abs,2), M0 = round(M0,3))
 }
+
+idx18 <- calc_indices_moda(enfants_2018)
+idx21 <- calc_indices_moda(enfants_2021)
+
+data.frame(
+  Indice  = c("Incidence H (%)", "Intensité A (%)",
+              "Intensité A (nb moyen)", "M₀"),
+  `2018/19 (nos calculs)` = c(idx18$H, idx18$A, idx18$A_abs, idx18$M0),
+  `2021/22 (nos calculs)` = c(idx21$H, idx21$A, idx21$A_abs, idx21$M0),
+  `Réf. ANSD/UNICEF 2024` = c("50,7", "72,2", "4,9", "0,366"),
+  check.names = FALSE
+) |>
+  kableExtra::kbl(caption = "Indices N-MODA (k=4, 7 dimensions) — enfants 0–17 ans") |>
+  kableExtra::kable_styling(bootstrap_options = c("striped","hover","condensed"))
+```
+
+## N-MODA — Taux de privation par dimension
+
+```{r moda-dim}
+taux_dim <- function(df, annee) {
+  sapply(DIMS, function(d) round(mean(df[[d]], na.rm = TRUE)*100, 1)) |>
+    as.data.frame() |>
+    setNames(paste0("annee_", annee)) |>
+    tibble::rownames_to_column("dim_var") |>
+    dplyr::mutate(Dimension = NOMS)
+}
+
+td18 <- taux_dim(enfants_2018, 2018)
+td21 <- taux_dim(enfants_2021, 2021)
+
+# Référence ANSD 2024 (0-4 ans, national — seules valeurs disponibles)
+ref_dim <- c(52.2, 23.8, 65.0, NA, 79.8, 56.9, NA)
+
+dplyr::left_join(td18, td21, by = c("dim_var","Dimension")) |>
+  dplyr::mutate(`Réf. ANSD 2024 (0-4 ans)` = ref_dim) |>
+  dplyr::select(Dimension, `2018/19` = annee_2018, `2021/22` = annee_2021,
+                `Réf. ANSD 2024 (0-4 ans)`) |>
+  kableExtra::kbl(
+    caption = "Taux de privation (%) par dimension N-MODA — enfants 0–17 ans",
+    na = "—"
+  ) |>
+  kableExtra::kable_styling(bootstrap_options = c("striped","hover","condensed"))
+```
+
+## N-MODA — Désagrégation par milieu de résidence
+
+```{r moda-milieu}
+moda_milieu <- function(df, annee) {
+  df |>
+    dplyr::filter(!is.na(milieu)) |>
+    dplyr::mutate(Milieu = dplyr::if_else(milieu == 1, "Urbain", "Rural")) |>
+    dplyr::group_by(Milieu) |>
+    dplyr::summarise(
+      n        = dplyr::n(),
+      H        = round(mean(pauvre_MODA, na.rm = TRUE)*100, 1),
+      A        = round(mean(nb_dep[pauvre_MODA==1]/7, na.rm = TRUE)*100, 1),
+      M0       = round(mean(pauvre_MODA, na.rm=TRUE) *
+                       mean(nb_dep[pauvre_MODA==1]/7, na.rm=TRUE), 3),
+      .groups  = "drop"
+    ) |>
+    dplyr::mutate(Annee = annee)
+}
+
+dplyr::bind_rows(
+  moda_milieu(enfants_2018, "2018/19"),
+  moda_milieu(enfants_2021, "2021/22")
+) |>
+  dplyr::select(Annee, Milieu, n, `H (%)` = H, `A (%)` = A, M0) |>
+  kableExtra::kbl(
+    caption = "Indices N-MODA par milieu de résidence — enfants 0–17 ans"
+  ) |>
+  kableExtra::kable_styling(bootstrap_options = c("striped","hover","condensed")) |>
+  kableExtra::pack_rows("2018/19", 1, 2) |>
+  kableExtra::pack_rows("2021/22", 3, 4)
+```
+
+## N-MODA — Désagrégation par région
+
+```{r moda-region}
+labels_region <- c(
+  "1"="Dakar","2"="Ziguinchor","3"="Diourbel","4"="Saint-Louis",
+  "5"="Tambacounda","6"="Kaolack","7"="Thiès","8"="Louga",
+  "9"="Fatick","10"="Kolda","11"="Matam","12"="Kaffrine",
+  "13"="Kédougou","14"="Sédhiou"
+)
+
+moda_region <- function(df, annee) {
+  df |>
+    dplyr::filter(!is.na(region)) |>
+    dplyr::mutate(Region = dplyr::recode(as.character(region),
+                                          !!!labels_region)) |>
+    dplyr::group_by(Region) |>
+    dplyr::summarise(
+      n       = dplyr::n(),
+      `H (%)` = round(mean(pauvre_MODA, na.rm = TRUE)*100, 1),
+      .groups = "drop"
+    ) |>
+    dplyr::arrange(desc(`H (%)`)) |>
+    dplyr::mutate(Annee = annee)
+}
+
+tbl_reg <- dplyr::bind_rows(
+  moda_region(enfants_2018, "2018/19"),
+  moda_region(enfants_2021, "2021/22")
+)
+
+# Afficher côte à côte
+dplyr::left_join(
+  tbl_reg |> dplyr::filter(Annee == "2018/19") |> dplyr::select(Region, `H 2018` = `H (%)`),
+  tbl_reg |> dplyr::filter(Annee == "2021/22") |> dplyr::select(Region, `H 2021` = `H (%)`),
+  by = "Region"
+) |>
+  dplyr::mutate(
+    `Réf. ANSD 2024` = dplyr::recode(Region,
+      "Kédougou"="82,1","Kolda"="79,4","Sédhiou"="78,0",
+      "Thiès"="38,0","Dakar"="18,0", .default="—")
+  ) |>
+  dplyr::arrange(desc(`H 2018`)) |>
+  kableExtra::kbl(
+    caption = "Incidence N-MODA (H, %) par région — enfants 0–17 ans"
+  ) |>
+  kableExtra::kable_styling(bootstrap_options = c("striped","hover","condensed"))
+```
+
+## N-MODA — Désagrégation par groupe d'âge
+
+```{r moda-age}
+moda_age <- function(df, annee) {
+  df |>
+    dplyr::filter(!is.na(groupe_moda)) |>
+    dplyr::group_by(`Groupe d'âge` = groupe_moda) |>
+    dplyr::summarise(
+      n        = dplyr::n(),
+      `H (%)`  = round(mean(pauvre_MODA, na.rm = TRUE)*100, 1),
+      `A (%)`  = round(mean(nb_dep[pauvre_MODA==1]/7, na.rm = TRUE)*100, 1),
+      M0       = round(mean(pauvre_MODA, na.rm=TRUE) *
+                       mean(nb_dep[pauvre_MODA==1]/7, na.rm=TRUE), 3),
+      .groups  = "drop"
+    ) |>
+    dplyr::mutate(Annee = annee)
+}
+
+dplyr::bind_rows(
+  moda_age(enfants_2018, "2018/19"),
+  moda_age(enfants_2021, "2021/22")
+) |>
+  dplyr::select(Annee, `Groupe d'âge`, n, `H (%)`, `A (%)`, M0) |>
+  kableExtra::kbl(
+    caption = "Indices N-MODA par groupe d'âge — enfants 0–17 ans"
+  ) |>
+  kableExtra::kable_styling(bootstrap_options = c("striped","hover","condensed")) |>
+  kableExtra::pack_rows("2018/19", 1, 3) |>
+  kableExtra::pack_rows("2021/22", 4, 6)
+```
+
+## N-MODA — Privation par dimension et milieu (0–4 ans)
+
+```{r moda-dim-milieu-04}
+# Reproduire le Tableau 10 du rapport ANSD/UNICEF
+enfants_04_2018 <- enfants_2018 |> dplyr::filter(groupe_moda == "0-4 ans")
+
+taux_dim_milieu <- function(df) {
+  df |>
+    dplyr::filter(!is.na(milieu)) |>
+    dplyr::mutate(Milieu = dplyr::if_else(milieu == 1, "Urbain", "Rural")) |>
+    dplyr::group_by(Milieu) |>
+    dplyr::summarise(
+      dplyr::across(dplyr::all_of(DIMS),
+                    ~ round(mean(.x, na.rm = TRUE)*100, 1)),
+      .groups = "drop"
+    ) |>
+    dplyr::bind_rows(
+      df |>
+        dplyr::summarise(
+          dplyr::across(dplyr::all_of(DIMS),
+                        ~ round(mean(.x, na.rm = TRUE)*100, 1))
+        ) |>
+        dplyr::mutate(Milieu = "National")
+    )
+}
+
+taux_dim_milieu(enfants_04_2018) |>
+  dplyr::select(Milieu, dplyr::all_of(DIMS)) |>
+  setNames(c("Milieu", NOMS)) |>
+  kableExtra::kbl(
+    caption = "Taux de privation (%) par dimension et milieu — enfants 0–4 ans (2018/19)"
+  ) |>
+  kableExtra::kable_styling(bootstrap_options = c("striped","hover","condensed"))
+```
+
+## Alkire-Foster — Indices H, A, M₀
+
+```{r af}
+data.frame(
+  Annee = c("2018/19","2021/22"),
+  dplyr::bind_rows(
+    indices_af(enfants_2018$score_dep),
+    indices_af(enfants_2021$score_dep)
+  ) |> dplyr::mutate(dplyr::across(dplyr::everything(), ~ round(.x, 3)))
+) |>
+  kableExtra::kbl(
+    caption = "Indices Alkire-Foster (k=1/3, 6 indicateurs) — enfants 0–17 ans"
+  ) |>
+  kableExtra::kable_styling(bootstrap_options = c("striped","hover","condensed"))
+```
+
+```{r af-dim}
+af_dims <- c("d1_educ","d2_sante","d3_nutri","d4_eau","d5_assai","d6_habit")
+af_noms <- c("Éducation","Santé","Nutrition","Eau","Assainissement","Logement")
+
+dplyr::bind_rows(
+  enfants_2018 |>
+    dplyr::summarise(dplyr::across(dplyr::any_of(af_dims),
+                                   ~ round(mean(.x, na.rm=TRUE)*100,1))) |>
+    dplyr::mutate(Annee = "2018/19"),
+  enfants_2021 |>
+    dplyr::summarise(dplyr::across(dplyr::any_of(af_dims),
+                                   ~ round(mean(.x, na.rm=TRUE)*100,1))) |>
+    dplyr::mutate(Annee = "2021/22")
+) |>
+  dplyr::select(Annee, dplyr::any_of(af_dims)) |>
+  setNames(c("Annee", af_noms[seq_along(intersect(af_dims, names(enfants_2018)))])) |>
+  kableExtra::kbl(
+    caption = "Taux de privation AF (%) par indicateur — enfants 0–17 ans"
+  ) |>
+  kableExtra::kable_styling(bootstrap_options = c("striped","hover","condensed"))
+```
+
+## Distribution du nombre de privations simultanées
+
+```{r dist-privations}
+dist_priv <- function(df, annee) {
+  df |>
+    dplyr::count(nb_dep) |>
+    dplyr::mutate(pct = round(n / sum(n) * 100, 1),
+                  Annee = annee)
+}
+
+dplyr::bind_rows(
+  dist_priv(enfants_2018, "2018/19"),
+  dist_priv(enfants_2021, "2021/22")
+) |>
+  dplyr::select(Annee, `Nb dimensions` = nb_dep,
+                Effectif = n, `Part (%)` = pct) |>
+  kableExtra::kbl(
+    caption = "Distribution du nombre de privations simultanées (N-MODA) — enfants 0–17 ans"
+  ) |>
+  kableExtra::kable_styling(bootstrap_options = c("striped","hover","condensed")) |>
+  kableExtra::pack_rows("2018/19", 1, 8) |>
+  kableExtra::pack_rows("2021/22", 9, 16)
 ```
 
 # Estimation PSM-DD
