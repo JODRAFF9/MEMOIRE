@@ -32,17 +32,16 @@ program define prev_D
     tabstat `outcome', by(D) stat(mean n) format(%6.3f)
 end
 
-/* ── ATT PSM-DD avec IC bootstrap ──────────────────────────── */
+/* ── ATT PSM-DD avec SE cluster-robustes ────────────────────── */
 /*
-   Syntaxe : att_psmdd outcome poids nboot
-   Affiche ATT, SE bootstrap, IC 95%, p-valeur
+   Syntaxe : att_psmdd outcome poids nboot  (nboot ignoré)
+   SE cluster-robustes (grappe) : plus fiables que bootstrap avec pw
 */
 capture program drop att_psmdd
 program define att_psmdd
     args outcome poids nboot
 
-    reg `outcome' i.t##i.D [pw = `poids'], ///
-        vce(bootstrap, reps(`nboot') seed($SEED) nodots)
+    reg `outcome' i.t##i.D [pw = `poids'], vce(cluster grappe)
 
     lincom 1.t#1.D
     di "  ATT=" %8.4f r(estimate) "  SE=" %8.4f r(se) "  p=" %6.4f r(p)
