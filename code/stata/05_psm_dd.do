@@ -37,6 +37,10 @@ svyset_ehcvm hhweight
 svy: probit D c.hhsize c.log_pcexp i.milieu i.region ///
          c.hgender c.hage i.heduc i.hmstat, nolog
 
+/* Pseudo-R2 McFadden : svy: probit ne stocke pas e(ll)/e(ll_0)
+   On réestimé sans svy pour calculer le pseudo-R2 uniquement */
+quietly probit D c.hhsize c.log_pcexp i.milieu i.region ///
+         c.hgender c.hage i.heduc i.hmstat [pw = hhweight], robust nolog
 di "Pseudo-R2 McFadden : " %6.3f 1 - e(ll)/e(ll_0)
 
 predict pscore, pr
