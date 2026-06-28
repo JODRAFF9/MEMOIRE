@@ -181,8 +181,13 @@ acte_2018 <- prep_acte_nais(s01_2018, 2018)
 acte_2021 <- prep_acte_nais(s01_2021, 2021)
 
 # ── Sécurité alimentaire (FIES — s08a) ───────────────────────
+# Definition N-MODA : menage n'avait plus de nourriture OU membre ayant :
+#   s08aq04 : saute un repas par manque de ressources
+#   s08aq05 : mange moins que necessaire
+#   s08aq06 : n'avait plus de nourriture
+#   s08aq07 : faim mais pas mange
+#   s08aq08 : passe une journee entiere sans manger
 # 1=Oui, 2=Non, 98/99=NSP/Refus (→ traites comme Non)
-# Prive si au moins un des 3 indicateurs graves = Oui
 
 prep_securite <- function(s08a) {
   s08a |>
@@ -190,6 +195,8 @@ prep_securite <- function(s08a) {
     dplyr::mutate(
       m_securite = dplyr::if_else(
         dplyr::coalesce(as.integer(s08aq04), 2L) == 1L |
+        dplyr::coalesce(as.integer(s08aq05), 2L) == 1L |
+        dplyr::coalesce(as.integer(s08aq06), 2L) == 1L |
         dplyr::coalesce(as.integer(s08aq07), 2L) == 1L |
         dplyr::coalesce(as.integer(s08aq08), 2L) == 1L,
         1L, 0L
@@ -198,22 +205,33 @@ prep_securite <- function(s08a) {
     dplyr::select(dplyr::all_of(c(ID, "m_securite")))
 }
 
-# ── Diversité alimentaire (HDDS — s08b1, 2018 seulement) ─────
-# s08b02a-j : nb jours (0-7) consommation de chaque groupe alimentaire
-# HDDS = nombre de groupes consommes >= 1 jour sur 7
-# Prive si HDDS < 4 groupes alimentaires (seuil N-MODA, 5-17 ans)
+# ── Diversité alimentaire (s08b1, 2018 seulement) ────────────
+# Definition N-MODA : menage n'ayant pas consomme d'aliments des 4 groupes
+# (carbohydrates, proteines, fruits/legumes, graisses) une fois par jour
+# sur la derniere semaine (seuil = 7 jours sur 7 par groupe macro)
+#
+# Mapping s08b02a-j → 4 macro-groupes :
+#   Carbohydrates : max(s08b02a cereales, s08b02b tubercules)
+#   Proteines     : max(s08b02c legumineuses, s08b02e poisson/viande, s08b02g lait/oeufs)
+#   Fruits/legumes: max(s08b02d legumes, s08b02f fruits)
+#   Graisses      : s08b02h huile/graisse
+#
+# Prive si au moins un groupe < 7 jours (pas consomme chaque jour)
 
 prep_diversite <- function(s08b1) {
-  food_cols <- intersect(paste0("s08b02", letters[seq_len(10)]), names(s08b1))
   s08b1 |>
     dplyr::mutate(dplyr::across(where(haven::is.labelled), haven::zap_labels)) |>
     dplyr::mutate(
-      hdds = rowSums(
-        dplyr::across(dplyr::all_of(food_cols),
-                      ~ dplyr::coalesce(as.numeric(.), 0) > 0),
-        na.rm = TRUE
-      ),
-      m_diversite = dplyr::if_else(hdds < 4L, 1L, 0L)
+      dplyr::across(dplyr::starts_with("s08b02"),
+                    ~ dplyr::coalesce(as.numeric(.), 0)),
+      g_carb  = pmax(s08b02a, s08b02b),
+      g_prot  = pmax(s08b02c, s08b02e, s08b02g),
+      g_fv    = pmax(s08b02d, s08b02f),
+      g_gras  = s08b02h,
+      m_diversite = dplyr::if_else(
+        g_carb < 7 | g_prot < 7 | g_fv < 7 | g_gras < 7,
+        1L, 0L
+      )
     ) |>
     dplyr::select(dplyr::all_of(c(ID, "m_diversite")))
 }

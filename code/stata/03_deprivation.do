@@ -87,10 +87,16 @@ program define indic_menage
     /* Securite alimentaire FIES (s08a — 2018 et 2021)
        s08aq04 : sauter un repas | s08aq07 : faim | s08aq08 : journee sans manger
        1=Oui 2=Non 98/99=NSP/Refus (traites comme Non)  */
+    /* Securite alimentaire FIES (s08a — 2018 et 2021)
+       Definition N-MODA : menage sans nourriture OU membre ayant saute un repas,
+       mange moins que necessaire, eu faim ou passe une journee sans manger
+       s08aq04 : saute repas | s08aq05 : mange moins | s08aq06 : plus de nourriture
+       s08aq07 : faim        | s08aq08 : journee sans manger
+       1=Oui 2=Non 98/99=NSP/Refus (traites comme Non)  */
     preserve
         use "`base'/s08a_me_sen`annee'.dta", clear
         gen byte m_securite = 0
-        foreach v in s08aq04 s08aq07 s08aq08 {
+        foreach v in s08aq04 s08aq05 s08aq06 s08aq07 s08aq08 {
             replace m_securite = 1 if `v' == 1 & !missing(`v')
         }
         keep grappe menage m_securite
@@ -101,19 +107,28 @@ program define indic_menage
         keepusing(m_securite) nogenerate keep(master match)
     replace m_securite = 0 if missing(m_securite)
 
-    /* Diversite alimentaire HDDS (s08b1 — 2018 seulement)
-       s08b02a-j : nb jours (0-7) par groupe alimentaire
-       Prive si nb groupes consommes (> 0 jours) < 4 (seuil N-MODA, 5-17 ans)  */
+    /* Diversite alimentaire (s08b1 — 2018 seulement)
+       Definition N-MODA : 4 macro-groupes (carbohydrates, proteines,
+       fruits/legumes, graisses) consommes chaque jour sur la semaine (7/7)
+       Mapping s08b02a-j :
+         Carbohydrates : max(a cereales, b tubercules)
+         Proteines     : max(c legumineuses, e poisson/viande, g lait/oeufs)
+         Fruits/legumes: max(d legumes, f fruits)
+         Graisses      : h huile/graisse
+       Prive si au moins un groupe < 7 jours (5-17 ans)  */
     gen byte m_diversite = 0
     if `annee' == 2018 {
         preserve
             use "`base'/s08b1_me_sen2018.dta", clear
-            gen byte hdds = 0
-            foreach g in a b c d e f g h i j {
-                replace hdds = hdds + (s08b02`g' > 0 & !missing(s08b02`g'))
+            foreach v of varlist s08b02a-s08b02j {
+                replace `v' = 0 if missing(`v')
             }
-            gen byte m_diversite = (hdds < 4) if !missing(hdds)
-            replace m_diversite = 0 if missing(m_diversite)
+            gen g_carb  = max(s08b02a, s08b02b)
+            gen g_prot  = max(s08b02c, s08b02e, s08b02g)
+            gen g_fv    = max(s08b02d, s08b02f)
+            gen g_gras  = s08b02h
+            gen byte m_diversite = ///
+                (g_carb < 7 | g_prot < 7 | g_fv < 7 | g_gras < 7)
             keep grappe menage m_diversite
             tempfile s08b_temp
             save `s08b_temp'
