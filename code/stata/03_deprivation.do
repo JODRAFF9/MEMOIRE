@@ -81,6 +81,47 @@ program define indic_menage
     foreach v of varlist `comb_vars' {
         replace m_combust = 1 if `v' >= 1 & !missing(`v')
     }
+
+    /* ── Dimension 4 : Nutrition (s08) ── */
+
+    /* Securite alimentaire FIES (s08a — 2018 et 2021)
+       s08aq04 : sauter un repas | s08aq07 : faim | s08aq08 : journee sans manger
+       1=Oui 2=Non 98/99=NSP/Refus (traites comme Non)  */
+    preserve
+        use "`base'/s08a_me_sen`annee'.dta", clear
+        gen byte m_securite = 0
+        foreach v in s08aq04 s08aq07 s08aq08 {
+            replace m_securite = 1 if `v' == 1 & !missing(`v')
+        }
+        keep grappe menage m_securite
+        tempfile s08a_temp
+        save `s08a_temp'
+    restore
+    merge m:1 grappe menage using `s08a_temp', ///
+        keepusing(m_securite) nogenerate keep(master match)
+    replace m_securite = 0 if missing(m_securite)
+
+    /* Diversite alimentaire HDDS (s08b1 — 2018 seulement)
+       s08b02a-j : nb jours (0-7) par groupe alimentaire
+       Prive si nb groupes consommes (> 0 jours) < 4 (seuil N-MODA, 5-17 ans)  */
+    gen byte m_diversite = 0
+    if `annee' == 2018 {
+        preserve
+            use "`base'/s08b1_me_sen2018.dta", clear
+            gen byte hdds = 0
+            foreach g in a b c d e f g h i j {
+                replace hdds = hdds + (s08b02`g' > 0 & !missing(s08b02`g'))
+            }
+            gen byte m_diversite = (hdds < 4) if !missing(hdds)
+            replace m_diversite = 0 if missing(m_diversite)
+            keep grappe menage m_diversite
+            tempfile s08b_temp
+            save `s08b_temp'
+        restore
+        merge m:1 grappe menage using `s08b_temp', ///
+            keepusing(m_diversite) nogenerate keep(master match)
+        replace m_diversite = 0 if missing(m_diversite)
+    }
 end
 
 /* ============================================================
@@ -130,7 +171,10 @@ program define agreger_ipm
     gen byte dim_assai  = (m_toilet == 1 | m_partag_toi == 1)
     gen byte dim_eau    = (m_eau_source == 1 | m_eau_temps == 1)
     gen byte dim_logem  = (m_ordures == 1 | m_surpeup == 1)
-    gen byte dim_nutri  = 0   /* s14/s20 non harmonises — placeholder */
+    /* Nutrition : securite alim (0-17 ans) + diversite (5-17 ans) */
+    gen byte dim_nutri = 0
+    replace  dim_nutri = 1 if m_securite == 1
+    replace  dim_nutri = 1 if m_diversite == 1 & age >= 5
     gen byte dim_sante  = (m_combust == 1)
     gen byte dim_educ   = 0
     replace  dim_educ   = m_scol  if groupe_moda == 2
