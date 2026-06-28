@@ -45,10 +45,8 @@ région de résidence.
     \midrule
     Constante                                  & $2{,}148^{***}$ & $(0{,}438)$ \\
     \midrule
-    Log-vraisemblance                          & \multicolumn{2}{c}{$-3\,812{,}4$} \\
-    Pseudo-$R^2$ de McFadden                   & \multicolumn{2}{c}{$0{,}124$} \\
-    Test de Hosmer-Lemeshow ($p$-val.)         & \multicolumn{2}{c}{$0{,}312$} \\
-    Observations                               & \multicolumn{2}{c}{$8\,462$} \\
+    Pseudo-$R^2$ de McFadden                   & \multicolumn{2}{c}{$0{,}139$} \\
+    Observations (enfants, panel vrai $t=0$)  & \multicolumn{2}{c}{$31\,376$} \\
     \bottomrule
   \end{tabular}
   \begin{tablenotes}
@@ -59,7 +57,7 @@ région de résidence.
   \end{tablenotes}
 \end{table}
 
-Le modèle présente un pseudo-$R^2$ de McFadden de 12,4\,\%, cohérent avec
+Le modèle présente un pseudo-$R^2$ de McFadden de 13,9\,\%, cohérent avec
 les valeurs habituellement observées pour ce type de régression dans les enquêtes
 ménages africaines \parencite{caliendo2008}. La log-dépense par tête et le milieu
 urbain sont les principaux déterminants positifs et négatifs de la probabilité de
@@ -78,11 +76,8 @@ et sont retenus pour l'estimation PSM-DD.
 
 \begin{figure}[H]
   \centering
-  \fbox{\parbox{0.8\linewidth}{\centering\vspace{2cm}
-    [Figure : Distribution du score de propension avant et après appariement]\\
-    \textit{(générer via \texttt{output/overlap.pdf} --- script \texttt{04\_psm\_dd.do})}
-  \vspace{2cm}}}
-  \caption{Distribution du score de propension avant et après appariement (EHCVM I)}
+  \includegraphics[width=0.85\linewidth]{figures/overlap_panel.pdf}
+  \caption{Distribution du score de propension --- ménages traités et non traités (EHCVM I, panel vrai)}
   \label{fig:support}
 \end{figure}
 
@@ -127,27 +122,33 @@ conventionnel de 0,10 \parencite{austin2009}.
 \subsubsection{Double différence sans appariement}
 
 À titre de référence, nous estimons d'abord un estimateur de double différence
-non pondéré (tableau~\ref{tab:dd_brut}). L'effet estimé est négatif et
-significatif pour les deux indicateurs de pauvreté, mais sa magnitude doit
-être interprétée avec précaution car il ne contrôle pas le biais de sélection.
+pondéré (tableau~\ref{tab:dd_brut}). L'effet estimé est positif et
+significatif~: les ménages bénéficiaires voient leur pauvreté augmenter
+davantage que les non-bénéficiaires entre 2018 et 2021. Ce résultat paradoxal
+s'explique par le biais de sélection positif mis en évidence dans la section
+précédente~: les ménages bénéficiaires, initialement plus riches, partent d'un
+niveau de privation plus bas et rattrapent partiellement les non-bénéficiaires
+dont le niveau de pauvreté s'améliore davantage grâce à d'autres facteurs.
+C'est précisément pourquoi l'appariement PSM est indispensable.
 
 \begin{table}[H]
   \centering
-  \caption{Estimations par double différence (DD brute, sans appariement)}
+  \caption{Estimations par double différence pondérée (DD brute, sans appariement)}
   \label{tab:dd_brut}
   \begin{tabular}{lccc}
     \toprule
     Variable de résultat & ATT$_{\text{DD}}$ & Éc.-t. (cluster) & $p$-valeur \\
     \midrule
-    Pauvreté AF ($\hat{H}_{\text{AF}}$)      & $-0{,}071^{***}$ & $(0{,}022)$ & 0,001 \\
-    Pauvreté N-MODA ($\hat{H}_{\text{MODA}}$) & $-0{,}059^{**}$  & $(0{,}024)$ & 0,014 \\
+    Pauvreté AF ($\hat{H}_{\text{AF}}$)       & $+0{,}086^{***}$ & $(0{,}027)$ & 0,001 \\
+    Pauvreté N-MODA ($\hat{H}_{\text{MODA}}$) & $+0{,}092^{***}$ & $(0{,}025)$ & $<$0,001 \\
     \bottomrule
   \end{tabular}
   \begin{tablenotes}
     \small
-    \item $^{**}p<0{,}05$, $^{***}p<0{,}01$. Erreurs-types clusterisées au niveau
-    de la grappe. Spécification~: $Y_{it} = \alpha + \beta t + \gamma D + \delta(t \times D) + \varepsilon_{it}$.
-    $\delta$ est l'ATT rapporté. Pseudo-panel 2018-2021.
+    \item $^{***}p<0{,}01$. Erreurs-types clusterisées au niveau de la grappe.
+    Estimation pondérée \texttt{[pw=hhweight]}. Spécification~:
+    $Y_{it} = \alpha + \beta t + \gamma D + \delta(t \times D) + \varepsilon_{it}$.
+    $\delta$ est l'ATT rapporté. Panel vrai 2018-2021.
   \end{tablenotes}
 \end{table}
 
@@ -163,34 +164,33 @@ sélection sur observables et les effets fixes inobservables constants dans le t
   \centering
   \caption{Impact des transferts sur la pauvreté multidimensionnelle --- estimateur PSM-DD (ATT)}
   \label{tab:psmdd_att}
-  \begin{tabular}{lcccc}
+  \begin{tabular}{lccc}
     \toprule
-    Variable de résultat & ATT & Éc.-t. (bootstrap) & IC 95\,\% & $p$-valeur \\
+    Variable de résultat & ATT & Éc.-t. (cluster) & $p$-valeur \\
     \midrule
-    \multicolumn{5}{l}{\textit{Approche Alkire-Foster (6 indicateurs, $k=1/3$)}} \\
-    \quad Incidence $\hat{H}_{\text{AF}}$          & $-0{,}063^{***}$ & $(0{,}018)$ & $[-0{,}098\,;\,-0{,}028]$ & $<$0,001 \\
-    \quad Score de privation $\hat{A}_{\text{AF}}$ & $-0{,}042^{**}$  & $(0{,}017)$ & $[-0{,}075\,;\,-0{,}009]$ & 0,013 \\
+    \multicolumn{4}{l}{\textit{Approche Alkire-Foster (6 indicateurs, $k=1/3$)}} \\
+    \quad Incidence $\hat{H}_{\text{AF}}$           & $+0{,}023$ & $(0{,}043)$ & 0,597 \\
     \midrule
-    \multicolumn{5}{l}{\textit{Approche N-MODA (7 dimensions, $k=4$)}} \\
-    \quad Incidence $\hat{H}_{\text{MODA}}$        & $-0{,}051^{**}$  & $(0{,}021)$ & $[-0{,}092\,;\,-0{,}010]$ & 0,015 \\
-    \quad Nombre de privations moyen               & $-0{,}148^{**}$  & $(0{,}063)$ & $[-0{,}271\,;\,-0{,}025]$ & 0,019 \\
+    \multicolumn{4}{l}{\textit{Approche N-MODA (7 dimensions, $k=4$)}} \\
+    \quad Incidence $\hat{H}_{\text{MODA}}$         & $+0{,}027$ & $(0{,}041)$ & 0,511 \\
     \bottomrule
   \end{tabular}
   \begin{tablenotes}
     \small
-    \item $^{**}p<0{,}05$, $^{***}p<0{,}01$.
-    Écarts-types bootstrap (1\,000 réplications, graine 123).
-    Appariement k-NN ($k=4$, sans remplacement, caliper $\varepsilon = 0{,}05$)
-    sur le support commun ($n_1 = 2\,861$ traités, $n_0 = 8\,423$ contrôles apparié).
-    Erreurs-types de la régression pondérée clusterisées au niveau de la grappe.
+    \item Aucun coefficient significatif au seuil de 10\,\%.
+    Poids combinés sondage $\times$ PSM~: $w_{final} = w_{hhweight} \times w_{kNN}$.
+    Appariement k-NN ($k=4$, sans remplacement). Erreurs-types clusterisées au
+    niveau de la grappe (panel vrai, $n = 25\,636$ obs., 2 périodes).
   \end{tablenotes}
 \end{table}
 
-L'estimateur PSM-DD indique un ATT de $-0{,}063$ (IC 95\,\%~: $[-0{,}098\,;\,-0{,}028]$)
-sur la pauvreté Alkire-Foster et de $-0{,}051$ ($[-0{,}092\,;\,-0{,}010]$) sur la
-pauvreté N-MODA, soit des réductions respectives de \textbf{6,3} et \textbf{5,1 points
-de pourcentage}, statistiquement significatifs au seuil de 1\,\% et 5\,\%. Ces
-résultats sont interprétés et mis en perspective dans la section~\ref{sec:discussion}.
+L'estimateur PSM-DD donne un ATT de $+0{,}023$ ($p = 0{,}597$) sur la pauvreté
+Alkire-Foster et de $+0{,}027$ ($p = 0{,}511$) sur la pauvreté N-MODA. Ces
+coefficients sont proches de zéro et statistiquement non significatifs~: après
+correction du biais de sélection par l'appariement, les transferts de migrants
+n'ont pas d'effet mesurable et significatif sur l'incidence de la pauvreté
+multidimensionnelle des enfants au Sénégal. Ces résultats sont interprétés et
+mis en perspective dans la section~\ref{sec:discussion}.
 
 \subsubsection{Robustesse au choix de la méthode d'appariement}
 
@@ -209,15 +209,16 @@ des conclusions.
     \cmidrule(lr){2-3}\cmidrule(lr){4-5}
                           & ATT & Éc.-t. & ATT & Éc.-t. \\
     \midrule
-    k-NN ($k=4$, sans remplacement)       & $-0{,}063^{***}$ & $(0{,}018)$ & $-0{,}051^{**}$ & $(0{,}021)$ \\
-    Noyau Epanechnikov ($h=0{,}06$)       & $-0{,}058^{***}$ & $(0{,}017)$ & $-0{,}047^{**}$ & $(0{,}020)$ \\
-    Caliper ($\varepsilon = 0{,}05$)      & $-0{,}066^{***}$ & $(0{,}019)$ & $-0{,}054^{**}$ & $(0{,}022)$ \\
-    DD brute (sans appariement)           & $-0{,}071^{***}$ & $(0{,}022)$ & $-0{,}059^{**}$ & $(0{,}024)$ \\
+    k-NN ($k=4$, sans remplacement)       & $+0{,}023$ & $(0{,}043)$ & $+0{,}027$ & $(0{,}041)$ \\
+    Noyau Epanechnikov ($h=0{,}06$)       & $-0{,}050$ & $(0{,}038)$ & $-0{,}019$ & $(0{,}041)$ \\
+    Caliper ($\varepsilon = 0{,}05$)      & $+0{,}040$ & $(0{,}035)$ & $+0{,}049$ & $(0{,}036)$ \\
+    DD brute (pondérée, sans appariement) & $+0{,}086^{***}$ & $(0{,}027)$ & $+0{,}092^{***}$ & $(0{,}025)$ \\
     \bottomrule
   \end{tabular}
   \begin{tablenotes}
     \small
-    \item $^{**}p<0{,}05$, $^{***}p<0{,}01$. Écarts-types bootstrap (1\,000 réplications).
+    \item $^{***}p<0{,}01$. Aucun autre coefficient n'est significatif au seuil de 10\,\%.
+    Erreurs-types clusterisées au niveau de la grappe (poids combinés sondage $\times$ PSM).
   \end{tablenotes}
 \end{table}
 
