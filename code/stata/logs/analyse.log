@@ -2,7 +2,7 @@
       name:  <unnamed>
        log:  C:\Users\Bmd\Documents\ISE\Cours\ISE3\Memoire\code/stata/logs/analyse.log
   log type:  text
- opened on:  28 Jun 2026, 22:05:44
+ opened on:  28 Jun 2026, 22:32:40
 
 . 
 . do "code/stata/01_visitation.do"
@@ -5140,5 +5140,5 @@ end of do-file
       name:  <unnamed>
        log:  C:\Users\Bmd\Documents\ISE\Cours\ISE3\Memoire\code/stata/logs/analyse.log
   log type:  text
- closed on:  28 Jun 2026, 22:07:29
+ closed on:  28 Jun 2026, 22:34:41
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
