@@ -37,9 +37,6 @@ probit D c.hhsize c.log_pcexp i.milieu i.region ///
 
 di "Pseudo-R2 McFadden : " %6.3f 1 - e(ll)/e(ll_0)
 
-/* Test ajustement Hosmer-Lemeshow */
-estat gof, group(10)
-
 predict pscore, pr
 label var pscore "Score de propension"
 
