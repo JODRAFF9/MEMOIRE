@@ -59,34 +59,22 @@ forvalues i = 1/`n_dims' {
     replace ub  = UB[`i',1]*100  in `i'
 }
 
-/* Trier par ATT croissant */
+/* Trier par ATT croissant et réaffecter le rang */
 sort att
+replace ordre = _n
+
+/* Construire les labels ylabel à partir des valeurs de dim triées */
+local ylab_str ""
+forvalues i = 1/`n_dims' {
+    local lbl = dim[`i']
+    local ylab_str `"`ylab_str' `i' "`lbl'""'
+}
 
 /* Graphique à barres horizontales avec IC 95 % */
-gen couleur = (att < 0)
-
 twoway ///
     (bar att ordre, horizontal barwidth(0.6) color(navy%70)) ///
     (rcap lb ub ordre, horizontal lcolor(maroon) lwidth(medthick) msize(medium)), ///
-    ylab(1(1)`n_dims', valuelabel angle(0) noticks) ///
-    yscale(range(0.5 7.5)) ///
-    ytitle("") xtitle("ATT (points de pourcentage)") ///
-    xline(0, lcolor(black) lpattern(dash)) ///
-    legend(off) ///
-    title("Impact des transferts par dimension N-MODA") ///
-    subtitle("Estimateur PSM-DD — IC 95 %") ///
-    note("Erreurs-types clusterisées au niveau de la grappe. Appariement k-NN (k=4)." ///
-         "Aucun effet n'est significatif au seuil de 10 %.", size(vsmall)) ///
-    graphregion(color(white)) plotregion(color(white))
-
-/* Associer les labels de dimension aux rangs triés */
-labmask ordre, values(dim)
-
-/* Re-générer avec labels corrects */
-twoway ///
-    (bar att ordre, horizontal barwidth(0.6) color(navy%70)) ///
-    (rcap lb ub ordre, horizontal lcolor(maroon) lwidth(medthick) msize(medium)), ///
-    ylab(1(1)`n_dims', valuelabel angle(0) noticks) ///
+    ylab(`ylab_str', angle(0) noticks) ///
     yscale(range(0.5 7.5)) ///
     ytitle("") xtitle("ATT (points de pourcentage)") ///
     xline(0, lcolor(black) lpattern(dash)) ///
