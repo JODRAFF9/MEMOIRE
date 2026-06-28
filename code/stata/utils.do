@@ -41,11 +41,11 @@ capture program drop att_psmdd
 program define att_psmdd
     args outcome poids nboot
 
-    bootstrap att = _b[1.t#1.D], ///
-        reps(`nboot') seed($SEED) nodots: ///
-        reg `outcome' i.t##i.D [pw = `poids']
+    reg `outcome' i.t##i.D [pw = `poids'], ///
+        vce(bootstrap, reps(`nboot') seed($SEED) nodots)
 
-    estat bootstrap, percentile all
+    lincom 1.t#1.D
+    di "  ATT=" %8.4f r(estimate) "  SE=" %8.4f r(se) "  p=" %6.4f r(p)
 end
 
 /* ── Verification equilibre SMD ────────────────────────────── */
