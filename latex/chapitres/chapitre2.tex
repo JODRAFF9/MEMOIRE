@@ -122,35 +122,6 @@ double difference \parencite{callaway2021}. Les transferts internes
 relevent d'une logique de redistribution domestique distincte des envois
 de la diaspora internationale \parencite{ndiaye2013}.
 
-\subsubsection{Correspondance entre indicateurs et modules EHCVM}
-
-\begin{table}[H]
-  \centering
-  \caption{Correspondance entre indicateurs (AF et MODA) et variables EHCVM}
-  \label{tab:correspondance}
-  \small
-  \begin{tabular}{p{2.2cm}p{1.5cm}p{2.5cm}p{2.8cm}p{2.5cm}}
-    \toprule
-    Indicateur & Approche & Fichier & Variable & Seuil de privation \\
-    \midrule
-    Scolarisation   & AF + MODA & \texttt{ehcvm\_individu} & \texttt{scol}       & $= 0$ (non-scolarise) \\
-    Suivi sante     & AF + MODA & \texttt{ehcvm\_individu} & \texttt{mal30j}, \texttt{con30j} & Malade et non-consulte \\
-    Nutrition/proxy & AF + MODA & \texttt{ehcvm\_individu} & \texttt{mal30j}     & $= 1$ pour 0--4 ans \\
-    Eau potable     & AF + MODA & \texttt{ehcvm\_menage}   & \texttt{eauboi\_ss}, \texttt{eauboi\_sp} & $= 0$ \\
-    Assainissement  & AF + MODA & \texttt{ehcvm\_menage}   & \texttt{toilet}, \texttt{eva\_toi} & $= 0$ \\
-    Habitat         & AF + MODA & \texttt{ehcvm\_menage}   & \texttt{mur}, \texttt{toi}, \texttt{sol} & $= 0$ \\
-    Travail enfant  & MODA      & \texttt{ehcvm\_individu} & \texttt{activ7j}    & Actif (15--17 ans) \\
-    \bottomrule
-  \end{tabular}
-  \begin{minipage}{\linewidth}
-    \small\vspace{2pt}
-    \textit{Note :} \texttt{eauboi\_ss}/\texttt{eauboi\_sp} : acces a l'eau potable
-    en saison seche/pluie (1 = ameliore). \texttt{toilet}/\texttt{eva\_toi} : toilettes
-    et evacuation des excreta sains (1 = conformes JMP). \texttt{mur}/\texttt{toi}/\texttt{sol} :
-    materiaux definitifs pour murs, toit, sol (1 = definitifs).
-  \end{minipage}
-\end{table}
-
 \subsubsection{Covariables du modèle de propension}
 
 Le modele probit estime la probabilite qu'un menage recoive des transferts
