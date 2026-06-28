@@ -109,13 +109,12 @@ foreach v in chef_f urbain {
     tabstat `v' [aw = hhweight], by(D) stat(mean n) format(%6.3f)
 }
 
-/* Tests pondérés : régression OLS avec poids et SE robustes
-   équivalent d'un t-test pondéré (H0 : coef(D) = 0) */
-svyset [pweight=hhweight]
+/* Tests pondérés : reg OLS [pw] + SE robustes = t-test pondéré */
 foreach v in hhsize hage pcexp chef_f urbain {
-    quietly svy: mean `v', over(D)
-    di "  Test pondéré `v' (D=1 vs D=0) :"
-    lincom [D]1 - [D]0
+    quietly reg `v' D [pw=hhweight], robust
+    di "  Test pondéré `v' : diff=" %8.3f _b[D] ///
+       "  SE=" %8.3f _se[D] ///
+       "  p=" %6.4f (2*ttail(e(df_r), abs(_b[D]/_se[D])))
 }
 
 /* Export balance : moyennes pondérées + n non pondéré */
