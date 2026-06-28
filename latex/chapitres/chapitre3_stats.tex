@@ -99,23 +99,29 @@ conventionnel de 0,10 (voir tableau~\ref{tab:balance}, section~\ref{sec:resultat
 \subsubsection{Résultats EHCVM I (2018--2019)}
 
 En 2018-2019, selon l'indicateur N-MODA (seuil $k=4$, 7 dimensions, estimations pondérées),
-l'incidence de la pauvreté multidimensionnelle des enfants atteint \textbf{58,9\,\%}.
+l'incidence de la pauvreté multidimensionnelle des enfants atteint \textbf{58,9\,\%},
+avec une intensité moyenne $A = 61{,}2\,\%$ et un indice ajusté $M_0 = H \times A = 0{,}361$.
+L'intensité élevée signifie que les enfants multidimensionnellement pauvres souffrent en
+moyenne de plus de 4 privations sur 7 simultanément, soit bien au-delà du seuil $k=4$.
 Ce résultat est supérieur à celui rapporté par \cite{ansdunicef2024} ($H = 50{,}7\,\%$)
 pour la même période, la différence s'expliquant principalement par l'intégration dans
 notre mesure de la dimension nutrition (45,8\,\% de privation), absente de certaines
 estimations antérieures faute de données harmonisées.
 
-Selon l'approche Alkire-Foster complémentaire (seuil $k = 1/3$, 6 indicateurs, poids
-égaux), l'incidence s'élève à \textbf{62,0\,\%} et l'intensité à \textbf{44,3\,\%},
-soit $M_0 = 0{,}275$. Les deux mesures convergent pour identifier une pauvreté
-infantile structurelle et multidimensionnelle affectant plus de la moitié des enfants.
+L'approche Alkire-Foster complémentaire (seuil $k = 1/3$, 6 indicateurs, poids
+égaux) donne une incidence de \textbf{62,0\,\%}, une intensité de \textbf{44,3\,\%}
+et un indice ajusté $M_0 = 0{,}275$. Les deux mesures convergent pour identifier une
+pauvreté infantile structurelle affectant plus de la moitié des enfants.
 
 \subsubsection{Résultats EHCVM II (2021--2022)}
 
-En 2021-2022, l'incidence N-MODA recule à \textbf{51,6\,\%}. La baisse est de
-$\Delta H = -7{,}3$ pp et confirme une amélioration réelle des conditions de vie
-des enfants entre les deux vagues. Sur l'indicateur Alkire-Foster, l'incidence
-passe à \textbf{56,3\,\%} ($A = 43{,}3\,\%$, $M_0 = 0{,}244$).
+En 2021-2022, l'incidence N-MODA recule à \textbf{51,6\,\%} ($A = 59{,}8\,\%$,
+$M_0 = 0{,}309$). La baisse de l'indice ajusté $\Delta M_0 = -0{,}052$ traduit
+une amélioration à la fois de l'incidence ($-7{,}3$ pp) et de l'intensité ($-1{,}4$ pp),
+confirmant que les enfants pauvres souffrent non seulement d'une probabilité plus faible
+d'être multidimensionnellement pauvres, mais aussi de moins de privations simultanées.
+Sur l'indicateur Alkire-Foster, l'incidence passe à \textbf{56,3\,\%} ($A = 43{,}3\,\%$,
+$M_0 = 0{,}244$).
 
 La décroissance est légèrement plus marquée en milieu rural ($-7{,}6$ pp :
 76,1\,\% $\to$ 68,5\,\%) qu'en milieu urbain ($-6{,}2$ pp : 34,4\,\% $\to$ 28,2\,\%),
@@ -165,11 +171,16 @@ pour cette vague.}.
     Protection de l'enfant                              & 62,6 & 59,7 & $-2{,}9$ \\
     Éducation (non-scolarisation, illettrisme, NEET)    & 31,0 & 32,6 & $+1{,}6$ \\
     \midrule
-    N-MODA : $H$ (\%)                                  & 58,9 & 51,6 & $-7{,}3$ \\
     \midrule
-    Alkire-Foster : $H$ (\%)                           & 62,0 & 56,3 & $-5{,}7$ \\
-    Alkire-Foster : $A$ (\%)                           & 44,3 & 43,3 & $-1{,}0$ \\
-    Alkire-Foster : $M_0$                              & 0,275 & 0,244 & $-0{,}031$ \\
+    \multicolumn{4}{l}{\textit{Indice N-MODA (approche principale)}} \\
+    \quad Incidence $H$ (\%)                           & 58,9 & 51,6 & $-7{,}3$ \\
+    \quad Intensité $A$ (\%)                           & 61,2 & 59,8 & $-1{,}4$ \\
+    \quad Indice ajusté $M_0 = H \times A$             & 0,361 & 0,309 & $-0{,}052$ \\
+    \midrule
+    \multicolumn{4}{l}{\textit{Indice Alkire-Foster (robustesse)}} \\
+    \quad Incidence $H$ (\%)                           & 62,0 & 56,3 & $-5{,}7$ \\
+    \quad Intensité $A$ (\%)                           & 44,3 & 43,3 & $-1{,}0$ \\
+    \quad Indice ajusté $M_0 = H \times A$             & 0,275 & 0,244 & $-0{,}031$ \\
     \bottomrule
   \end{tabularx}
   \begin{tablenotes}
@@ -239,3 +250,26 @@ concentrent les privations liées à l'alphabétisation et à la situation NEET
 La figure~\ref{fig:pauvrete_milieu_age} confirme la forte disparité urbain/rural :
 en 2018, l'incidence N-MODA atteint 76,1\,\% en milieu rural contre 34,4\,\% en
 milieu urbain, un écart de 41,7 points de pourcentage qui persiste dans les deux vagues.
+
+\subsection{Disparités régionales de la pauvreté multidimensionnelle}
+
+La figure~\ref{fig:carte_nmoda} décompose l'incidence N-MODA par région de résidence
+en 2018-2019. Les disparités sont considérables~: les régions du sud et de l'est
+(Kédougou, Kolda, Sédhiou, Tambacounda) affichent les incidences les plus élevées,
+dépassant 70 à 80\,\%, tandis que Dakar présente l'incidence la plus faible (autour
+de 20\,\%). Cette hétérogénéité régionale souligne que la pauvreté multidimensionnelle
+des enfants est avant tout un phénomène géographiquement concentré, lié à la fois
+aux inégalités d'accès aux infrastructures et aux spécificités des économies locales.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.90\linewidth]{figures/fig_carte_nmoda.pdf}
+  \caption{Incidence N-MODA par région --- Sénégal, EHCVM I (2018-2019)}
+  \label{fig:carte_nmoda}
+\end{figure}
+
+Ces disparités justifient que les politiques de réduction de la pauvreté
+multidimensionnelle des enfants soient différenciées géographiquement. Les régions
+du Bassin arachidier (Kaolack, Kaffrine, Fatick) et du sud du pays concentrent
+les niveaux de privation les plus élevés et devraient bénéficier d'investissements
+prioritaires dans l'eau, l'assainissement et l'éducation.
