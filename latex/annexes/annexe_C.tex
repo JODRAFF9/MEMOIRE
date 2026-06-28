@@ -1,0 +1,192 @@
+\section{Méthodologie N-MODA Sénégal --- Matrice des indicateurs}
+\label{ann:C}
+
+Cette annexe présente la matrice complète des indicateurs de la méthodologie
+N-MODA (National Multiple Overlapping Deprivation Analysis) telle qu'appliquée
+au Sénégal par l'ANSD et l'UNICEF \parencite{ansd2024}. La mise en œuvre
+empirique dans ce mémoire suit cette méthodologie officielle.
+
+% ─────────────────────────────────────────────────────────────────────────────
+\subsection{Principes généraux}
+% ─────────────────────────────────────────────────────────────────────────────
+
+L'approche N-MODA repose sur quatre principes fondamentaux :
+
+\begin{enumerate}
+  \item \textbf{L'enfant comme unité d'analyse} : les privations sont mesurées
+    au niveau individuel de l'enfant, et non au niveau du ménage.
+  \item \textbf{Désagrégation par groupe d'âge} : les indicateurs sont adaptés
+    aux droits et besoins spécifiques de chaque stade de l'enfance
+    (0--4 ans, 5--14 ans, 15--17 ans).
+  \item \textbf{Approche union intra-dimension} : un enfant est privé dans une
+    dimension s'il l'est dans \textit{au moins un} de ses indicateurs.
+  \item \textbf{Seuil inter-dimensionnel $k = 4$} : un enfant est considéré
+    multidimensionnellement pauvre s'il est privé dans au moins 4 des
+    7 dimensions simultanément.
+\end{enumerate}
+
+% ─────────────────────────────────────────────────────────────────────────────
+\subsection{Matrice des indicateurs par groupe d'âge}
+% ─────────────────────────────────────────────────────────────────────────────
+
+\begin{table}[H]
+  \centering
+  \caption{Matrice N-MODA : indicateurs par dimension et groupe d'âge}
+  \label{tab:matrice_nmoda}
+  \begin{threeparttable}
+  \small
+  \begin{tabular}{p{2.2cm}p{3.6cm}p{2.2cm}p{2.4cm}p{2.2cm}}
+    \toprule
+    Dimension & Indicateur & 0--4 ans & 5--14 ans & 15--17 ans \\
+    \midrule
+    \multirow{2}{2.2cm}{\textbf{Assainis-sement}}
+      & Toilettes non améliorées   & \checkmark & \checkmark & \checkmark \\[2pt]
+      & Partage des toilettes      & \checkmark & \checkmark & \checkmark \\
+    \midrule
+    \multirow{2}{2.2cm}{\textbf{Eau}}
+      & Source non améliorée       & \checkmark & \checkmark & \checkmark \\[2pt]
+      & Temps d'accès $> 30$ min  & \checkmark & \checkmark & \checkmark \\
+    \midrule
+    \multirow{2}{2.2cm}{\textbf{Logement}}
+      & Ordures non saines         & \checkmark & \checkmark & \checkmark \\[2pt]
+      & Surpeuplement ($>3$ p./p.) & \checkmark & \checkmark & \checkmark \\
+    \midrule
+    \multirow{2}{2.2cm}{\textbf{Nutrition}}
+      & Diversité alimentaire      & \checkmark & \checkmark & --- \\[2pt]
+      & Insécurité alimentaire     & \checkmark & \checkmark & --- \\
+    \midrule
+    \multirow{2}{2.2cm}{\textbf{Santé}}
+      & Combustible solide         & \checkmark & \checkmark & \checkmark \\[2pt]
+      & Accès aux soins            & \checkmark & \checkmark & \checkmark \\
+    \midrule
+    \multirow{3}{2.2cm}{\textbf{Protection}}
+      & Absence acte de naissance  & \checkmark & \checkmark & --- \\[2pt]
+      & Travail des enfants        & ---        & \checkmark & --- \\[2pt]
+      & Séparation parentale       & \checkmark & \checkmark & \checkmark \\
+    \midrule
+    \multirow{3}{2.2cm}{\textbf{Éducation}}
+      & Non-scolarisation          & ---        & \checkmark & --- \\[2pt]
+      & Illettrisme                & ---        & ---        & \checkmark \\[2pt]
+      & NEET                       & ---        & ---        & \checkmark \\
+    \bottomrule
+  \end{tabular}
+  \begin{tablenotes}
+    \small
+    \item \checkmark~= indicateur applicable au groupe d'âge. --- = non applicable.
+    \item \textit{Source :} ANSD/UNICEF \parencite{ansd2024}.
+    Seuil inter-dimensionnel : $k = 4$ (enfant pauvre si privé dans $\geq 4$ dimensions sur 7).
+  \end{tablenotes}
+  \end{threeparttable}
+\end{table}
+
+% ─────────────────────────────────────────────────────────────────────────────
+\subsection{Correspondance indicateurs -- variables EHCVM}
+% ─────────────────────────────────────────────────────────────────────────────
+
+\begin{table}[H]
+  \centering
+  \caption{Opérationnalisation des indicateurs N-MODA avec les variables EHCVM}
+  \label{tab:operationnalisation}
+  \begin{threeparttable}
+  \small
+  \begin{tabular}{p{2.0cm}p{3.2cm}p{3.5cm}p{3.0cm}}
+    \toprule
+    Dimension & Indicateur & Variable EHCVM & Seuil de privation \\
+    \midrule
+    Assainissement
+      & Toilettes non améliorées
+        & \texttt{toilet} (\texttt{ehcvm\_menage})
+        & $= 0$ (non conforme JMP) \\[3pt]
+      & Partage des toilettes
+        & \texttt{s11q56} (2018) / \texttt{s11q55} (2021) (\texttt{s11\_me})
+        & $= 1$ (partage entre ménages) \\
+    \midrule
+    Eau
+      & Source non améliorée
+        & \texttt{eauboi\_ss}, \texttt{eauboi\_sp} (\texttt{ehcvm\_menage})
+        & $= 0$ pour au moins une saison \\[3pt]
+      & Temps d'accès $> 30$ min
+        & \texttt{s11q29a} (2018) / \texttt{s11q28a} (2021) (\texttt{s11\_me})
+        & $> 30$ minutes \\
+    \midrule
+    Logement
+      & Gestion des ordures
+        & \texttt{ordure} (\texttt{ehcvm\_menage})
+        & $= 0$ (méthode non saine) \\[3pt]
+      & Surpeuplement
+        & \texttt{s11q02} (\texttt{s11\_me}), \texttt{hhsize} (\texttt{welfare})
+        & $> 3$ personnes/pièce \\
+    \midrule
+    Nutrition
+      & Diversité alimentaire
+        & \texttt{s14q*} (\texttt{s14\_me})
+        & $< 4$ groupes alimentaires \\[3pt]
+      & Insécurité alimentaire
+        & \texttt{s14q*} (\texttt{s14\_me})
+        & Saut de repas ou faim \\
+    \midrule
+    Santé
+      & Combustible solide
+        & \texttt{s11q53\_\_*} (2018) / \texttt{s11q52\_\_*} (2021)
+        & Bois, charbon ou déchets \\[3pt]
+      & Accès aux soins
+        & Module communautaire
+        & Non disponible --- proxy $= 0$ \\
+    \midrule
+    Protection
+      & Acte de naissance
+        & \texttt{s01q05} (\texttt{s01\_me})
+        & $= 2$ (pas d'acte) \\[3pt]
+      & Travail des enfants
+        & \texttt{activ7j} (\texttt{ehcvm\_individu})
+        & $\in \{1, 2\}$ (5--14 ans) \\[3pt]
+      & Séparation parentale
+        & \texttt{lien} (\texttt{ehcvm\_individu})
+        & $> 3$ (hors liens parentaux) \\
+    \midrule
+    Éducation
+      & Non-scolarisation
+        & \texttt{scol} (\texttt{ehcvm\_individu})
+        & $= 0$ (5--14 ans) \\[3pt]
+      & Illettrisme
+        & \texttt{alfab} (2018) / \texttt{alfa} (2021)
+        & $= 0$ (15--17 ans) \\[3pt]
+      & NEET
+        & \texttt{scol}, \texttt{activ7j}
+        & Ni scolarisé ni actif (15--17 ans) \\
+    \bottomrule
+  \end{tabular}
+  \begin{tablenotes}
+    \small
+    \item \textit{Note :} Les variables de nutrition (\texttt{s14\_me}) et d'accès aux soins
+    (module communautaire) ne sont pas harmonisées entre les deux vagues EHCVM. Elles sont
+    codées à 0 par défaut, ce qui sous-estime la dimension Nutrition et la composante accès
+    aux soins de la dimension Santé. Cette limite est discutée dans la section~\ref{sec:discussion}.
+    \item \textit{Source :} Adaptation de \cite{ansd2024} aux fichiers EHCVM I (2018-2019)
+    et EHCVM II (2021-2022).
+  \end{tablenotes}
+  \end{threeparttable}
+\end{table}
+
+% ─────────────────────────────────────────────────────────────────────────────
+\subsection{Limites de l'opérationnalisation}
+% ─────────────────────────────────────────────────────────────────────────────
+
+Deux dimensions de la méthodologie N-MODA officielle ne peuvent être
+pleinement opérationnalisées avec les données EHCVM disponibles :
+
+\begin{enumerate}
+  \item \textbf{Nutrition} : les modules \texttt{s14\_me} (diversité alimentaire)
+    et \texttt{s20\_me} (sécurité alimentaire) existent dans les deux vagues
+    mais ne sont pas harmonisés en variables binaires comparables entre 2018 et 2021.
+    La dimension est codée à 0 (absence de privation) pour tous les enfants,
+    ce qui sous-estime l'incidence globale de la pauvreté N-MODA.
+
+  \item \textbf{Accès aux soins} (dimension Santé) : cet indicateur est collecté
+    dans le module communautaire de l'EHCVM, non disponible au niveau individuel.
+    Il est également codé à 0 par défaut.
+\end{enumerate}
+
+Ces limites sont inhérentes aux données disponibles et non à la méthodologie.
+Les résultats doivent être interprétés comme des \textit{bornes inférieures}
+de la pauvreté multidimensionnelle des enfants au Sénégal.
