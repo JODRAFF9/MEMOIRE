@@ -43,7 +43,7 @@ program define att_psmdd
 
     bootstrap att = _b[1.t#1.D], ///
         reps(`nboot') seed($SEED) nodots: ///
-        reg `outcome' i.t##i.D [aw = `poids']
+        reg `outcome' i.t##i.D [pw = `poids']
 
     estat bootstrap, percentile all
 end
