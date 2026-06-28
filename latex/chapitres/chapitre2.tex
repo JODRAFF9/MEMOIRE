@@ -311,12 +311,12 @@ indicateurs retenus, en cohérence avec l'EHCVM et la méthodologie N-MODA.
       & Surpeuplement $> 3$ pers./pièce & Rapport personnes/pièces & \texttt{nbpiec} \\
     \midrule
     \textbf{Nutrition}
-      & Diversité alimentaire insuffisante & Moins de 4 groupes alimentaires & \texttt{s14q*} \\[2pt]
-      & Insécurité alimentaire & Saut de repas ou faim dans le ménage & \texttt{s14q*} \\
+      & Diversité des repas (\textit{5--17 ans}) & $\geq 1$ macro-groupe non consommé quotidiennement (7j/7) & \texttt{s08b02a-j}$^{\dagger}$ \\[2pt]
+      & Sécurité alimentaire (\textit{0--17 ans}) & Saut repas, mangé moins, faim ou journée sans manger & \texttt{s08aq04--08} \\
     \midrule
     \textbf{Santé}
       & Combustible solide & Bois, charbon ou déchets pour cuisiner & \texttt{combust} \\[2pt]
-      & Accès aux soins & Pas d'accès à pied à une structure & \texttt{acces\_sante} \\
+      & Accès aux soins & Pas d'accès à pied à une structure & \textit{n.d.}$^{\dagger}$ \\
     \midrule
     \multirow{3}{2.0cm}{\textbf{Protection de l'enfant}}
       & Absence d'acte de naissance & \textit{0--14 ans} : \texttt{acte\_nais} = 0 & \texttt{acte\_nais} \\[2pt]
@@ -336,6 +336,10 @@ indicateurs retenus, en cohérence avec l'EHCVM et la méthodologie N-MODA.
     s'il l'est dans \textit{au moins un} de ses indicateurs. \textit{Seuil inter-dimensionnel :} $k = 4$
     (enfant multidimensionnellement pauvre si privé dans au moins 4 dimensions sur 7 simultanément).
     H = 50{,}7\,\%, A = 72{,}2\,\%, $M_0 = 0{,}366$ en 2018-2019 selon \cite{ansd2024}.
+    \item[$\dagger$] Module \texttt{s08b1\_me} (HDDS) disponible uniquement en 2018.
+    Pour 2021, \texttt{m\_diversite} est codé à 0 (borne inférieure). La sécurité
+    alimentaire (\texttt{s08a\_me}) est disponible dans les deux vagues.
+    L'accès aux soins (module communautaire) est codé à 0 dans les deux vagues.
   \end{tablenotes}
   \end{threeparttable}
 \end{table}

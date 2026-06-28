@@ -52,8 +52,8 @@ L'approche N-MODA repose sur quatre principes fondamentaux :
       & Surpeuplement ($>3$ p./p.) & \checkmark & \checkmark & \checkmark \\
     \midrule
     \multirow{2}{2.2cm}{\textbf{Nutrition}}
-      & Diversité alimentaire      & \checkmark & \checkmark & --- \\[2pt]
-      & Insécurité alimentaire     & \checkmark & \checkmark & --- \\
+      & Diversité des repas        & ---        & \checkmark & \checkmark \\[2pt]
+      & Sécurité alimentaire       & \checkmark & \checkmark & \checkmark \\
     \midrule
     \multirow{2}{2.2cm}{\textbf{Santé}}
       & Combustible solide         & \checkmark & \checkmark & \checkmark \\[2pt]
@@ -118,12 +118,12 @@ L'approche N-MODA repose sur quatre principes fondamentaux :
         & $> 3$ personnes/pièce \\
     \midrule
     Nutrition
-      & Diversité alimentaire
-        & \texttt{s14q*} (\texttt{s14\_me})
-        & $< 4$ groupes alimentaires \\[3pt]
-      & Insécurité alimentaire
-        & \texttt{s14q*} (\texttt{s14\_me})
-        & Saut de repas ou faim \\
+      & Diversité des repas (\textit{5--17 ans})
+        & \texttt{s08b02a-j} (\texttt{s08b1\_me}, 2018)$^{\dagger}$
+        & $\geq 1$ macro-groupe (carb., prot., fruits/lég., graisses) non consommé quotidiennement sur 7 jours \\[3pt]
+      & Sécurité alimentaire (\textit{0--17 ans})
+        & \texttt{s08aq04--08} (\texttt{s08a\_me}, 2018+2021)
+        & Saut repas, mangé moins que nécessaire, plus de nourriture, faim, ou journée sans manger \\
     \midrule
     Santé
       & Combustible solide
@@ -158,12 +158,12 @@ L'approche N-MODA repose sur quatre principes fondamentaux :
   \end{tabular}
   \begin{tablenotes}
     \small
-    \item \textit{Note :} Les variables de nutrition (\texttt{s14\_me}) et d'accès aux soins
-    (module communautaire) ne sont pas harmonisées entre les deux vagues EHCVM. Elles sont
-    codées à 0 par défaut, ce qui sous-estime la dimension Nutrition et la composante accès
-    aux soins de la dimension Santé. Cette limite est discutée dans la section~\ref{sec:discussion}.
+    \item[$\dagger$] Le module \texttt{s08b1\_me} (diversité alimentaire HDDS) n'est
+    disponible que pour 2018. Pour 2021, \texttt{m\_diversite} est codé à 0 ;
+    seule la sécurité alimentaire (\texttt{s08a\_me}) est disponible dans les deux vagues.
+    L'accès aux soins (module communautaire) n'est pas disponible au niveau individuel.
     \item \textit{Source :} Adaptation de \cite{ansd2024} aux fichiers EHCVM I (2018-2019)
-    et EHCVM II (2021-2022).
+    et EHCVM II (2021-2022). Sections 8A et 8B du questionnaire ménage.
   \end{tablenotes}
   \end{threeparttable}
 \end{table}
@@ -172,19 +172,19 @@ L'approche N-MODA repose sur quatre principes fondamentaux :
 \subsection{Limites de l'opérationnalisation}
 % ─────────────────────────────────────────────────────────────────────────────
 
-Deux dimensions de la méthodologie N-MODA officielle ne peuvent être
-pleinement opérationnalisées avec les données EHCVM disponibles :
+Une dimension de la méthodologie N-MODA officielle ne peut être pleinement
+opérationnalisée, et une limite partielle affecte la comparabilité inter-temporelle :
 
 \begin{enumerate}
-  \item \textbf{Nutrition} : les modules \texttt{s14\_me} (diversité alimentaire)
-    et \texttt{s20\_me} (sécurité alimentaire) existent dans les deux vagues
-    mais ne sont pas harmonisés en variables binaires comparables entre 2018 et 2021.
-    La dimension est codée à 0 (absence de privation) pour tous les enfants,
-    ce qui sous-estime l'incidence globale de la pauvreté N-MODA.
+  \item \textbf{Diversité des repas (Nutrition)} : le module \texttt{s08b1\_me}
+    (score HDDS) est disponible uniquement dans l'EHCVM I (2018-2019). Pour l'EHCVM II
+    (2021-2022), seule la sécurité alimentaire (\texttt{s08a\_me}) est disponible.
+    L'indicateur \texttt{m\_diversite} est donc codé à 0 pour tous les enfants en 2021,
+    ce qui sous-estime légèrement la dimension Nutrition en 2021 par rapport à 2018.
 
   \item \textbf{Accès aux soins} (dimension Santé) : cet indicateur est collecté
     dans le module communautaire de l'EHCVM, non disponible au niveau individuel.
-    Il est également codé à 0 par défaut.
+    Il est codé à 0 par défaut dans les deux vagues.
 \end{enumerate}
 
 Ces limites sont inhérentes aux données disponibles et non à la méthodologie.

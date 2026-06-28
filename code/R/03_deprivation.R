@@ -20,9 +20,11 @@
 #  s01_me         : s01q05 (acte naissance : 1=Oui, 2=Non)
 #  ehcvm_welfare  : pcexp, hhsize, region, milieu
 #
-#  NON DISPONIBLES en variable harmonisee :
-#   - div_alim (diversite alimentaire) — calculable depuis s14_me
-#   - insec_alim (insecurite alimentaire) — calculable depuis s20_me
+#  s08a_me    : s08aq04 (sauter repas), s08aq07 (faim), s08aq08 (journee sans manger)
+#               → securite alimentaire FIES (2018 et 2021)
+#  s08b1_me   : s08b02a-j (nb jrs conso par groupe alimentaire, 0-7)
+#               → diversite alimentaire HDDS (2018 seulement)
+#  NON DISPONIBLE :
 #   - acces_sante — module communaute uniquement
 # ============================================================
 
@@ -43,6 +45,13 @@ s11_2021 <- lire_stata(BASE_2021, "s11_me_sen2021.dta")
 # Fichiers bruts section 1 (roster individuel — acte de naissance)
 s01_2018 <- lire_stata(BASE_2018, "s01_me_sen2018.dta")
 s01_2021 <- lire_stata(BASE_2021, "s01_me_sen2021.dta")
+
+# Fichiers bruts section 8 (nutrition)
+# s08a : securite alimentaire FIES (2018 et 2021)
+# s08b1 : diversite alimentaire HDDS (2018 seulement — absent de 2021)
+s08a_2018  <- lire_stata(BASE_2018, "s08a_me_sen2018.dta")
+s08a_2021  <- lire_stata(BASE_2021, "s08a_me_sen2021.dta")
+s08b1_2018 <- lire_stata(BASE_2018, "s08b1_me_sen2018.dta")
 
 ID     <- c("grappe", "menage")
 ID_IND <- c("grappe", "menage", "numind")
@@ -171,13 +180,76 @@ prep_acte_nais <- function(s01, annee) {
 acte_2018 <- prep_acte_nais(s01_2018, 2018)
 acte_2021 <- prep_acte_nais(s01_2021, 2021)
 
+# ── Sécurité alimentaire (FIES — s08a) ───────────────────────
+# Definition N-MODA : menage n'avait plus de nourriture OU membre ayant :
+#   s08aq04 : saute un repas par manque de ressources
+#   s08aq05 : mange moins que necessaire
+#   s08aq06 : n'avait plus de nourriture
+#   s08aq07 : faim mais pas mange
+#   s08aq08 : passe une journee entiere sans manger
+# 1=Oui, 2=Non, 98/99=NSP/Refus (→ traites comme Non)
+
+prep_securite <- function(s08a) {
+  s08a |>
+    dplyr::mutate(dplyr::across(where(haven::is.labelled), haven::zap_labels)) |>
+    dplyr::mutate(
+      m_securite = dplyr::if_else(
+        dplyr::coalesce(as.integer(s08aq04), 2L) == 1L |
+        dplyr::coalesce(as.integer(s08aq05), 2L) == 1L |
+        dplyr::coalesce(as.integer(s08aq06), 2L) == 1L |
+        dplyr::coalesce(as.integer(s08aq07), 2L) == 1L |
+        dplyr::coalesce(as.integer(s08aq08), 2L) == 1L,
+        1L, 0L
+      )
+    ) |>
+    dplyr::select(dplyr::all_of(c(ID, "m_securite")))
+}
+
+# ── Diversité alimentaire (s08b1, 2018 seulement) ────────────
+# Definition N-MODA : menage n'ayant pas consomme d'aliments des 4 groupes
+# (carbohydrates, proteines, fruits/legumes, graisses) une fois par jour
+# sur la derniere semaine (seuil = 7 jours sur 7 par groupe macro)
+#
+# Mapping s08b02a-j → 4 macro-groupes :
+#   Carbohydrates : max(s08b02a cereales, s08b02b tubercules)
+#   Proteines     : max(s08b02c legumineuses, s08b02e poisson/viande, s08b02g lait/oeufs)
+#   Fruits/legumes: max(s08b02d legumes, s08b02f fruits)
+#   Graisses      : s08b02h huile/graisse
+#
+# Prive si au moins un groupe < 7 jours (pas consomme chaque jour)
+
+prep_diversite <- function(s08b1) {
+  s08b1 |>
+    dplyr::mutate(dplyr::across(where(haven::is.labelled), haven::zap_labels)) |>
+    dplyr::mutate(
+      dplyr::across(dplyr::starts_with("s08b02"),
+                    ~ dplyr::coalesce(as.numeric(.), 0)),
+      g_carb  = pmax(s08b02a, s08b02b),
+      g_prot  = pmax(s08b02c, s08b02e, s08b02g),
+      g_fv    = pmax(s08b02d, s08b02f),
+      g_gras  = s08b02h,
+      m_diversite = dplyr::if_else(
+        g_carb < 7 | g_prot < 7 | g_fv < 7 | g_gras < 7,
+        1L, 0L
+      )
+    ) |>
+    dplyr::select(dplyr::all_of(c(ID, "m_diversite")))
+}
+
+sec_2018 <- prep_securite(s08a_2018)
+sec_2021 <- prep_securite(s08a_2021)
+div_2018 <- prep_diversite(s08b1_2018)
+
 # ── Construction indicateurs niveau menage ────────────────────
 
-prep_menage_nmoda <- function(men, wel_hhsize, s11_dep) {
+prep_menage_nmoda <- function(men, wel_hhsize, s11_dep, sec_alim, div_alim = NULL) {
   men |>
     dplyr::mutate(dplyr::across(where(haven::is.labelled), haven::zap_labels)) |>
     dplyr::left_join(wel_hhsize, by = "hhid") |>
     dplyr::left_join(s11_dep, by = ID) |>
+    dplyr::left_join(sec_alim, by = ID) |>
+    { if (!is.null(div_alim)) dplyr::left_join(., div_alim, by = ID)
+      else dplyr::mutate(., m_diversite = 0L) }() |>
     dplyr::mutate(
       # ── Dimension 1 : Assainissement ────────────────────────
       # toilet : binaire harmonise 0=non sain 1=sain
@@ -207,11 +279,12 @@ prep_menage_nmoda <- function(men, wel_hhsize, s11_dep) {
         1L, 0L
       ),
 
-      # ── Dimension 4 : Nutrition (non dispo en variable harmonisee) ──
-      # div_alim et insec_alim requierent le calcul depuis s14_me / s20_me
-      # Code a 0 par defaut (sous-estimation de cette dimension)
-      m_diversite = 0L,
-      m_securite  = 0L,
+      # ── Dimension 4 : Nutrition (s08a/s08b) ─────────────────────
+      # m_securite  : FIES (s08aq04/07/08 == 1), disponible 2018 + 2021
+      # m_diversite : HDDS < 4 (s08b02a-j), disponible 2018 seulement
+      # coalesce : 0 si menage absent de s08 (rare)
+      m_securite  = dplyr::coalesce(m_securite, 0L),
+      m_diversite = dplyr::coalesce(m_diversite, 0L),
 
       # ── Dimension 5 : Sante ─────────────────────────────────
       # m_combust vient de s11_dep (combustible solide — deja calcule)
@@ -220,21 +293,21 @@ prep_menage_nmoda <- function(men, wel_hhsize, s11_dep) {
     ) |>
     dplyr::mutate(
       # Union intra-dimension : prive si au moins 1 indicateur
+      # dim_nutri calculee au niveau individuel (age-aware) dans construire_ind_nmoda
       dim_assai = dplyr::if_else(m_toilet == 1L | m_partag_toi == 1L, 1L, 0L),
       dim_eau   = dplyr::if_else(m_eau_source == 1L | m_eau_temps == 1L, 1L, 0L),
       dim_logem = dplyr::if_else(m_ordures == 1L | m_surpeup == 1L, 1L, 0L),
-      dim_nutri = dplyr::if_else(m_diversite == 1L | m_securite == 1L, 1L, 0L),
       dim_sante = dplyr::if_else(m_combust == 1L | m_acces_sante == 1L, 1L, 0L)
     ) |>
     dplyr::select(dplyr::all_of(ID),
                   m_toilet, m_partag_toi, m_eau_source, m_eau_temps,
                   m_ordures, m_surpeup, m_diversite, m_securite,
                   m_combust, m_acces_sante,
-                  dim_assai, dim_eau, dim_logem, dim_nutri, dim_sante)
+                  dim_assai, dim_eau, dim_logem, dim_sante)
 }
 
-dep_men_2018 <- prep_menage_nmoda(men_2018, wel_hhsize_2018, s11_dep_2018)
-dep_men_2021 <- prep_menage_nmoda(men_2021, wel_hhsize_2021, s11_dep_2021)
+dep_men_2018 <- prep_menage_nmoda(men_2018, wel_hhsize_2018, s11_dep_2018, sec_2018, div_2018)
+dep_men_2021 <- prep_menage_nmoda(men_2021, wel_hhsize_2021, s11_dep_2021, sec_2021)
 
 # ── Fusion enfants + menage ───────────────────────────────────
 
@@ -291,15 +364,26 @@ construire_ind_nmoda <- function(df, acte_nais_df) {
       } else {
         0L
       },
-      # NEET (15-17 ans) : ni scolarise ni occupe
+      # NEET (15-17 ans) : ni scolarise ni employe (activ7j != 1 : inactifs + chomeurs)
       m_neet = dplyr::if_else(
         age >= 15 &
         dplyr::coalesce(as.integer(haven::zap_labels(scol)), 0L) == 0L &
-        dplyr::coalesce(as.integer(haven::zap_labels(activ7j)), 0L) == 0L,
+        dplyr::coalesce(as.integer(haven::zap_labels(activ7j)), 0L) != 1L,
         1L, 0L
       )
     ) |>
     dplyr::mutate(
+      # Nutrition : restriction par groupe d'age (union intra-dimension)
+      # Diversite des repas : 5-17 ans seulement
+      # Securite alimentaire : 0-17 ans
+      dim_nutri = dplyr::case_when(
+        age <= 4  ~ dplyr::coalesce(m_securite, 0L),
+        age <= 17 ~ dplyr::if_else(
+          dplyr::coalesce(m_diversite, 0L) == 1L | dplyr::coalesce(m_securite, 0L) == 1L,
+          1L, 0L
+        ),
+        TRUE      ~ 0L
+      ),
       dim_protect = dplyr::case_when(
         age <= 4  ~ dplyr::if_else(m_acte_nais == 1L | m_parents == 1L, 1L, 0L),
         age <= 14 ~ dplyr::if_else(m_acte_nais == 1L | m_trav_enf == 1L | m_parents == 1L, 1L, 0L),
@@ -318,7 +402,7 @@ enfants_2021 <- construire_ind_nmoda(enfants_2021, acte_2021)
 
 # ── N-MODA : compte des privations par dimension (k = 4) ─────
 # 7 dimensions : assai, eau, logem, nutri, sante, protect, educ
-# Note : dim_nutri = 0 partout (donnees manquantes s14_me/s20_me)
+# dim_nutri : securite (s08a, 2018+2021) + diversite (s08b, 2018 seul)
 
 construire_moda <- function(df) {
   df |>
@@ -369,7 +453,7 @@ enfants_2021 <- construire_af(enfants_2021)
 # ── Indices N-MODA (H, A, M0) ────────────────────────────────
 
 cat("\n=== N-MODA (k=4, 7 dimensions) ===\n")
-cat("[Note] dim_nutri codee 0 (variables s14_me/s20_me non harmonisees)\n\n")
+cat("[Note] dim_nutri : securite alim (s08a, 2018+2021) + diversite (s08b, 2018 seul)\n\n")
 for (annee in c(2018, 2021)) {
   df  <- if (annee == 2018) enfants_2018 else enfants_2021
   idx <- indices_af(df$nb_dep / 7)
@@ -419,4 +503,5 @@ cat("  Nb pieces : s11q02 (2018 et 2021)\n")
 cat("  Combustible solide : s11q53__1/2/3/7 (2018) / s11q52__1/2/3/7 (2021)\n")
 cat("  Acte de naissance : s01q05 dans s01_me (1=Oui 2=Non)\n")
 cat("  Alphabetisation : alfab (2018) / alfa (2021) dans ehcvm_individu\n")
-cat("  dim_nutri = 0 : a calculer depuis s14_me (div) et s20_me (securite)\n")
+cat("  Securite alim : s08aq04/07/08 (s08a_me) - 1=Oui 2=Non 98/99=NSP\n")
+cat("  Diversite alim : s08b02a-j (s08b1_me, 2018 seul) - nb jours conso (0-7)\n")

@@ -81,6 +81,62 @@ program define indic_menage
     foreach v of varlist `comb_vars' {
         replace m_combust = 1 if `v' >= 1 & !missing(`v')
     }
+
+    /* ── Dimension 4 : Nutrition (s08) ── */
+
+    /* Securite alimentaire FIES (s08a — 2018 et 2021)
+       s08aq04 : sauter un repas | s08aq07 : faim | s08aq08 : journee sans manger
+       1=Oui 2=Non 98/99=NSP/Refus (traites comme Non)  */
+    /* Securite alimentaire FIES (s08a — 2018 et 2021)
+       Definition N-MODA : menage sans nourriture OU membre ayant saute un repas,
+       mange moins que necessaire, eu faim ou passe une journee sans manger
+       s08aq04 : saute repas | s08aq05 : mange moins | s08aq06 : plus de nourriture
+       s08aq07 : faim        | s08aq08 : journee sans manger
+       1=Oui 2=Non 98/99=NSP/Refus (traites comme Non)  */
+    preserve
+        use "`base'/s08a_me_sen`annee'.dta", clear
+        gen byte m_securite = 0
+        foreach v in s08aq04 s08aq05 s08aq06 s08aq07 s08aq08 {
+            replace m_securite = 1 if `v' == 1 & !missing(`v')
+        }
+        keep grappe menage m_securite
+        tempfile s08a_temp
+        save `s08a_temp'
+    restore
+    merge m:1 grappe menage using `s08a_temp', ///
+        keepusing(m_securite) nogenerate keep(master match)
+    replace m_securite = 0 if missing(m_securite)
+
+    /* Diversite alimentaire (s08b1 — 2018 seulement)
+       Definition N-MODA : 4 macro-groupes (carbohydrates, proteines,
+       fruits/legumes, graisses) consommes chaque jour sur la semaine (7/7)
+       Mapping s08b02a-j :
+         Carbohydrates : max(a cereales, b tubercules)
+         Proteines     : max(c legumineuses, e poisson/viande, g lait/oeufs)
+         Fruits/legumes: max(d legumes, f fruits)
+         Graisses      : h huile/graisse
+       Prive si au moins un groupe < 7 jours (5-17 ans)  */
+    gen byte m_diversite = 0
+    if `annee' == 2018 {
+        preserve
+            use "`base'/s08b1_me_sen2018.dta", clear
+            foreach v of varlist s08b02a-s08b02j {
+                replace `v' = 0 if missing(`v')
+            }
+            gen g_carb  = max(s08b02a, s08b02b)
+            gen g_prot  = max(s08b02c, s08b02e, s08b02g)
+            gen g_fv    = max(s08b02d, s08b02f)
+            gen g_gras  = s08b02h
+            gen byte m_diversite = ///
+                (g_carb < 7 | g_prot < 7 | g_fv < 7 | g_gras < 7)
+            keep grappe menage m_diversite
+            tempfile s08b_temp
+            save `s08b_temp'
+        restore
+        merge m:1 grappe menage using `s08b_temp', ///
+            keepusing(m_diversite) nogenerate keep(master match)
+        replace m_diversite = 0 if missing(m_diversite)
+    }
 end
 
 /* ============================================================
@@ -130,7 +186,10 @@ program define agreger_ipm
     gen byte dim_assai  = (m_toilet == 1 | m_partag_toi == 1)
     gen byte dim_eau    = (m_eau_source == 1 | m_eau_temps == 1)
     gen byte dim_logem  = (m_ordures == 1 | m_surpeup == 1)
-    gen byte dim_nutri  = 0   /* s14/s20 non harmonises — placeholder */
+    /* Nutrition : securite alim (0-17 ans) + diversite (5-17 ans) */
+    gen byte dim_nutri = 0
+    replace  dim_nutri = 1 if m_securite == 1
+    replace  dim_nutri = 1 if m_diversite == 1 & age >= 5
     gen byte dim_sante  = (m_combust == 1)
     gen byte dim_educ   = 0
     replace  dim_educ   = m_scol  if groupe_moda == 2
@@ -234,10 +293,10 @@ foreach annee in 2018 2021 {
         if !_rc replace m_alfab = 1 if age >= 15 & alfa == 0 & !missing(alfa)
     }
 
-    /* NEET (15-17 ans) */
+    /* NEET (15-17 ans) : ni scolarise ni employe (activ7j != 1 : inactifs + chomeurs) */
     gen byte m_neet = 0
     replace  m_neet = 1 if age >= 15 & ///
-        (scol == 0 | missing(scol)) & (activ7j == 0 | missing(activ7j))
+        (scol == 0 | missing(scol)) & (activ7j != 1 | missing(activ7j))
 
     /* Acte de naissance non pertinent > 14 ans */
     replace m_acte_nais = 0 if age > 14
