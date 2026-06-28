@@ -2,7 +2,7 @@
       name:  <unnamed>
        log:  C:\Users\Bmd\Documents\ISE\Cours\ISE3\Memoire\code/stata/logs/analyse.log
   log type:  text
- opened on:  28 Jun 2026, 22:32:40
+ opened on:  28 Jun 2026, 22:43:34
 
 . 
 . do "code/stata/01_visitation.do"
@@ -5135,10 +5135,325 @@ Linear regression                               Number of obs     =     23,668
 . 
 end of do-file
 
+. do "code/stata/07_effets_dim.do"
+
+. /* ============================================================
+>    07_effets_dim.do — ATT PSM-DD par dimension N-MODA
+>    Génère output/figures/fig_effets_dim.pdf
+>    ============================================================ */
+. 
+. do "code/stata/config.do"
+
+. /* ============================================================
+>    config.do — Chemins, constantes et options globales
+>    ============================================================ */
+. 
+. global BASE_2018 "Base/2018-2019/SEN_2018_EHCVM_v02_M_Stata"
+
+. global BASE_2021 "Base/2021-2022/SEN_2021_EHCVM-2_v01_M_STATA14"
+
+. global OUTPUT    "code/stata/output"
+
+. global TEMP      "code/stata/temp"
+
+. global LOGS      "code/stata/logs"
+
+. 
+. /* Parametres methodologiques */
+. global SEED              123
+
+. global K_SEUIL           0.3333   /* seuil Alkire-Foster (2 indicateurs sur 6) */
+
+. global K_MODA            4        /* seuil N-MODA : >= 4 dimensions sur 7      */
+
+. global N_BOOT            1000
+
+. global CODE_ETRANGER_MIN 4        /* s13aq14 / s13q19 >= 4 = expediteur etranger */
+
+. global CALIPER           0.05
+
+. global K_VOISINS         4
+
+. 
+. set seed   $SEED
+
+. set more   off
+
+. set varabbrev off
+
+. 
+. foreach d in "$OUTPUT" "$TEMP" "$LOGS" {
+  2.     capture mkdir "`d'"
+  3. }
+
+. 
+end of do-file
+
+. do "code/stata/utils.do"
+
+. /* ============================================================
+>    utils.do — Programmes utilitaires reutilisables
+> 
+>    Chaque programme est precede de "capture program drop" pour
+>    eviter l'erreur r(110) "already defined" quand utils.do est
+>    appele plusieurs fois dans la meme session Stata.
+>    ============================================================ */
+. 
+. /* ── Exploration rapide d'un fichier ───────────────────────── */
+. capture program drop visiter
+
+. program define visiter
+  1.     args fichier nom
+  2.     use "`fichier'", clear
+  3.     di _newline "===== `nom' ====="
+  4.     di "Observations : " _N
+  5.     describe
+  6.     codebook, compact
+  7. end
+
+. 
+. /* ── Taux de privation (%) ──────────────────────────────────── */
+. capture program drop taux_dep
+
+. program define taux_dep
+  1.     args var nom
+  2.     quietly summarize `var'
+  3.     di "  `nom' : " %5.1f r(mean)*100 "%"
+  4. end
+
+. 
+. /* ── Prevalence par statut de traitement ────────────────────── */
+. capture program drop prev_D
+
+. program define prev_D
+  1.     args outcome
+  2.     tabstat `outcome', by(D) stat(mean n) format(%6.3f)
+  3. end
+
+. 
+. /* ── ATT PSM-DD avec SE cluster-robustes ────────────────────── */
+. /*
+>    Syntaxe : att_psmdd outcome poids nboot  (nboot ignoré)
+>    SE cluster-robustes (grappe) : plus fiables que bootstrap avec pw
+> */
+. capture program drop att_psmdd
+
+. program define att_psmdd
+  1.     args outcome poids nboot
+  2. 
+.     reg `outcome' i.t##i.D [pw = `poids'], vce(cluster grappe)
+  3. 
+.     lincom 1.t#1.D
+  4.     di "  ATT=" %8.4f r(estimate) "  SE=" %8.4f r(se) "  p=" %6.4f r(p)
+  5. end
+
+. 
+. /* ── Verification equilibre SMD ────────────────────────────── */
+. /*
+>    Affiche les SMD avant/apres appariement pour une liste de vars
+> */
+. capture program drop check_balance
+
+. program define check_balance
+  1.     args varlist_str
+  2.     di _newline "=== Balance des covariables (SMD) ==="
+  3.     pstest `varlist_str', both
+  4. end
+
+. 
+end of do-file
+
+. 
+. /* Joindre poids k-NN au panel vrai */
+. use "$TEMP/pscore_knn.dta", clear
+
+. keep grappe menage weight_knn
+
+. drop if missing(weight_knn)
+(20,571 observations deleted)
+
+. duplicates drop grappe menage, force
+
+Duplicates in terms of grappe menage
+
+(8,421 observations deleted)
+
+. tempfile poids_knn
+
+. save `poids_knn'
+file C:\Users\Bmd\AppData\Local\Temp\ST_15ac_000001.tmp saved as .dta format
+
+. 
+. use "$TEMP/panel_vrai.dta", clear
+
+. merge m:1 grappe menage using `poids_knn', keepusing(weight_knn) nogenerate
+
+    Result                      Number of obs
+    -----------------------------------------
+    Not matched                        34,087
+        from master                    34,087  
+        from using                          0  
+
+    Matched                            25,636  
+    -----------------------------------------
+
+. keep if !missing(weight_knn)
+(34,087 observations deleted)
+
+. gen double weight_final = hhweight * weight_knn
+
+. 
+. /* ATT PSM-DD pour chaque dimension */
+. local dims    assai eau logem nutri sante protect educ
+
+. local n_dims  7
+
+. 
+. matrix ATT  = J(`n_dims', 1, .)
+
+. matrix LB   = J(`n_dims', 1, .)
+
+. matrix UB   = J(`n_dims', 1, .)
+
+. 
+. local i = 0
+
+. foreach dim of local dims {
+  2.     local ++i
+  3.     quietly reg dim_`dim' i.t##i.D [pw = weight_final], vce(cluster grappe)
+  4.     quietly lincom 1.t#1.D
+  5.     matrix ATT[`i',1] = r(estimate)
+  6.     matrix LB[`i',1]  = r(estimate) - 1.96*r(se)
+  7.     matrix UB[`i',1]  = r(estimate) + 1.96*r(se)
+  8.     di "  dim_`dim' : ATT=" %8.4f r(estimate) "  SE=" %7.4f r(se) "  p=" %6.4f r(p)
+  9. }
+  dim_assai : ATT=  0.0805  SE= 0.0608  p=0.1864
+  dim_eau : ATT=  0.0010  SE= 0.0356  p=0.9765
+  dim_logem : ATT= -0.0525  SE= 0.0588  p=0.3726
+  dim_nutri : ATT=  0.0547  SE= 0.0454  p=0.2286
+  dim_sante : ATT=  0.0201  SE= 0.0293  p=0.4940
+  dim_protect : ATT=  0.0364  SE= 0.0266  p=0.1716
+  dim_educ : ATT= -0.0426  SE= 0.0208  p=0.0410
+
+. 
+. /* Construire dataset pour le graphique */
+. clear
+
+. set obs `n_dims'
+Number of observations (_N) was 0, now 7.
+
+. gen ordre = _n
+
+. gen str12 dim = ""
+(7 missing values generated)
+
+. replace dim = "Assainissement" in 1
+variable dim was str12 now str14
+(1 real change made)
+
+. replace dim = "Eau"            in 2
+(1 real change made)
+
+. replace dim = "Logement"       in 3
+(1 real change made)
+
+. replace dim = "Nutrition"      in 4
+(1 real change made)
+
+. replace dim = "Santé"          in 5
+(1 real change made)
+
+. replace dim = "Protection"     in 6
+(1 real change made)
+
+. replace dim = "Éducation"      in 7
+(1 real change made)
+
+. gen att = .
+(7 missing values generated)
+
+. gen lb  = .
+(7 missing values generated)
+
+. gen ub  = .
+(7 missing values generated)
+
+. forvalues i = 1/`n_dims' {
+  2.     replace att = ATT[`i',1]*100 in `i'
+  3.     replace lb  = LB[`i',1]*100  in `i'
+  4.     replace ub  = UB[`i',1]*100  in `i'
+  5. }
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+
+. 
+. /* Trier par ATT croissant et réaffecter le rang */
+. sort att
+
+. replace ordre = _n
+(7 real changes made)
+
+. 
+. /* Construire les labels ylabel à partir des valeurs de dim triées */
+. local ylab_str ""
+
+. forvalues i = 1/`n_dims' {
+  2.     local lbl = dim[`i']
+  3.     local ylab_str `"`ylab_str' `i' "`lbl'""'
+  4. }
+
+. 
+. /* Graphique à barres horizontales avec IC 95 % */
+. twoway ///
+>     (bar att ordre, horizontal barwidth(0.6) color(navy%70)) ///
+>     (rcap lb ub ordre, horizontal lcolor(maroon) lwidth(medthick) msize(medium)), ///
+>     ylab(`ylab_str', angle(0) noticks) ///
+>     yscale(range(0.5 7.5)) ///
+>     ytitle("") xtitle("ATT (points de pourcentage)") ///
+>     xline(0, lcolor(black) lpattern(dash)) ///
+>     legend(off) ///
+>     title("Impact des transferts par dimension N-MODA") ///
+>     subtitle("Estimateur PSM-DD — IC 95 %") ///
+>     note("Erreurs-types clusterisées au niveau de la grappe. Appariement k-NN (k=4)." ///
+>          "Aucun effet n'est significatif au seuil de 10 %.", size(vsmall)) ///
+>     graphregion(color(white)) plotregion(color(white))
+
+. 
+. graph export "$OUTPUT/figures/fig_effets_dim.pdf", replace
+file code/stata/output/figures/fig_effets_dim.pdf saved as PDF format
+
+. di ">>> fig_effets_dim.pdf sauvegardé dans $OUTPUT/figures/"
+>>> fig_effets_dim.pdf sauvegardé dans code/stata/output/figures/
+
+. di ">>> 07_effets_dim.do terminé."
+>>> 07_effets_dim.do terminé.
+
+. 
+end of do-file
+
 . 
 . log close
       name:  <unnamed>
        log:  C:\Users\Bmd\Documents\ISE\Cours\ISE3\Memoire\code/stata/logs/analyse.log
   log type:  text
- closed on:  28 Jun 2026, 22:34:41
+ closed on:  28 Jun 2026, 22:45:30
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
