@@ -119,10 +119,10 @@ L'approche N-MODA repose sur quatre principes fondamentaux :
     \midrule
     Nutrition
       & Diversité des repas (\textit{5--17 ans})
-        & \texttt{s14q*} (\texttt{s14\_me})
+        & Non disponible dans l'EHCVM
         & $< 4$ groupes alimentaires \\[3pt]
       & Sécurité alimentaire (\textit{0--17 ans})
-        & \texttt{s20q*} (\texttt{s20\_me})
+        & Non disponible dans l'EHCVM
         & Saut de repas ou faim \\
     \midrule
     Santé
@@ -158,10 +158,10 @@ L'approche N-MODA repose sur quatre principes fondamentaux :
   \end{tabular}
   \begin{tablenotes}
     \small
-    \item \textit{Note :} Les modules de nutrition (\texttt{s14\_me} et \texttt{s20\_me}) et
-    d'accès aux soins (module communautaire) ne sont pas harmonisés entre les deux vagues EHCVM.
-    La dimension Nutrition est codée à 0 par défaut, ce qui sous-estime la pauvreté N-MODA.
-    Cette limite est discutée dans la section~\ref{sec:discussion}.
+    \item \textit{Note :} L'EHCVM ne contient pas de module HDDS (diversité alimentaire)
+    ni HFIAS/FIES (sécurité alimentaire). La dimension Nutrition est codée à 0 par défaut.
+    L'accès aux soins (module communautaire) n'est pas non plus disponible au niveau individuel.
+    Ces limites sont discutées dans la section~\ref{sec:discussion}.
     \item \textit{Source :} Adaptation de \cite{ansd2024} aux fichiers EHCVM I (2018-2019)
     et EHCVM II (2021-2022).
   \end{tablenotes}
@@ -176,11 +176,13 @@ Deux dimensions de la méthodologie N-MODA officielle ne peuvent être
 pleinement opérationnalisées avec les données EHCVM disponibles :
 
 \begin{enumerate}
-  \item \textbf{Nutrition} : le module \texttt{s14\_me} (diversité des repas, 5--17 ans)
-    et le module \texttt{s20\_me} (sécurité alimentaire, 0--17 ans) existent dans les deux vagues
-    mais ne sont pas harmonisés en variables binaires comparables entre 2018 et 2021.
-    La dimension est codée à 0 (absence de privation) pour tous les enfants,
-    ce qui sous-estime l'incidence globale de la pauvreté N-MODA.
+  \item \textbf{Nutrition} : l'EHCVM ne collecte pas de module de diversité alimentaire
+    (score HDDS) ni de module de sécurité alimentaire (échelle HFIAS/FIES) au niveau
+    individuel. Les modules \texttt{s14\_me} (chocs économiques subis par le ménage),
+    \texttt{s15\_me} (programmes de protection sociale) et \texttt{s20\_me} (perceptions
+    subjectives du bien-être) ne permettent pas de construire les indicateurs N-MODA.
+    La dimension Nutrition est donc codée à 0 (absence de privation) pour tous les enfants,
+    ce qui sous-estime l'incidence globale de la pauvreté multidimensionnelle.
 
   \item \textbf{Accès aux soins} (dimension Santé) : cet indicateur est collecté
     dans le module communautaire de l'EHCVM, non disponible au niveau individuel.
