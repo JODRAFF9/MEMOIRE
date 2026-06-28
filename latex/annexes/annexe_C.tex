@@ -52,8 +52,8 @@ L'approche N-MODA repose sur quatre principes fondamentaux :
       & Surpeuplement ($>3$ p./p.) & \checkmark & \checkmark & \checkmark \\
     \midrule
     \multirow{2}{2.2cm}{\textbf{Nutrition}}
-      & Diversité alimentaire      & \checkmark & \checkmark & --- \\[2pt]
-      & Insécurité alimentaire     & \checkmark & \checkmark & --- \\
+      & Diversité des repas        & ---        & \checkmark & \checkmark \\[2pt]
+      & Sécurité alimentaire       & \checkmark & \checkmark & \checkmark \\
     \midrule
     \multirow{2}{2.2cm}{\textbf{Santé}}
       & Combustible solide         & \checkmark & \checkmark & \checkmark \\[2pt]
@@ -118,11 +118,11 @@ L'approche N-MODA repose sur quatre principes fondamentaux :
         & $> 3$ personnes/pièce \\
     \midrule
     Nutrition
-      & Diversité alimentaire
+      & Diversité des repas (\textit{5--17 ans})
         & \texttt{s14q*} (\texttt{s14\_me})
         & $< 4$ groupes alimentaires \\[3pt]
-      & Insécurité alimentaire
-        & \texttt{s14q*} (\texttt{s14\_me})
+      & Sécurité alimentaire (\textit{0--17 ans})
+        & \texttt{s20q*} (\texttt{s20\_me})
         & Saut de repas ou faim \\
     \midrule
     Santé
@@ -158,10 +158,10 @@ L'approche N-MODA repose sur quatre principes fondamentaux :
   \end{tabular}
   \begin{tablenotes}
     \small
-    \item \textit{Note :} Les variables de nutrition (\texttt{s14\_me}) et d'accès aux soins
-    (module communautaire) ne sont pas harmonisées entre les deux vagues EHCVM. Elles sont
-    codées à 0 par défaut, ce qui sous-estime la dimension Nutrition et la composante accès
-    aux soins de la dimension Santé. Cette limite est discutée dans la section~\ref{sec:discussion}.
+    \item \textit{Note :} Les modules de nutrition (\texttt{s14\_me} et \texttt{s20\_me}) et
+    d'accès aux soins (module communautaire) ne sont pas harmonisés entre les deux vagues EHCVM.
+    La dimension Nutrition est codée à 0 par défaut, ce qui sous-estime la pauvreté N-MODA.
+    Cette limite est discutée dans la section~\ref{sec:discussion}.
     \item \textit{Source :} Adaptation de \cite{ansd2024} aux fichiers EHCVM I (2018-2019)
     et EHCVM II (2021-2022).
   \end{tablenotes}
@@ -176,8 +176,8 @@ Deux dimensions de la méthodologie N-MODA officielle ne peuvent être
 pleinement opérationnalisées avec les données EHCVM disponibles :
 
 \begin{enumerate}
-  \item \textbf{Nutrition} : les modules \texttt{s14\_me} (diversité alimentaire)
-    et \texttt{s20\_me} (sécurité alimentaire) existent dans les deux vagues
+  \item \textbf{Nutrition} : le module \texttt{s14\_me} (diversité des repas, 5--17 ans)
+    et le module \texttt{s20\_me} (sécurité alimentaire, 0--17 ans) existent dans les deux vagues
     mais ne sont pas harmonisés en variables binaires comparables entre 2018 et 2021.
     La dimension est codée à 0 (absence de privation) pour tous les enfants,
     ce qui sous-estime l'incidence globale de la pauvreté N-MODA.
