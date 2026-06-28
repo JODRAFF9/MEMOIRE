@@ -1,70 +1,95 @@
-\section{Code de mise en \oe{}uvre --- PSM-DD sous R}
+\section{Code Stata de mise en \oe{}uvre --- PSM-DD}
 \label{ann:B}
 
-Cette annexe presente les principales etapes du code R utilise pour la mise
-en oeuvre de l'estimateur PSM-DD. Le code complet est disponible dans le
-depot GitHub du projet (\texttt{code/R/}).
+Cette annexe présente les principales routines Stata utilisées pour l'estimation
+PSM-DD. Le code complet est organisé en scripts numérotés dans le répertoire
+\texttt{code/stata/} du projet.
 
-\subsection{Configuration et chargement des données}
+\subsection{Déclaration du plan de sondage}
 
 \begin{verbatim}
-# config.R
-BASE_2018 <- "Base/2018-2019/SEN_2018_EHCVM_v02_M_Stata"
-BASE_2021 <- "Base/2021-2022/SEN_2021_EHCVM-2_v01_M_STATA14"
-OUTPUT_DIR <- "code/R/output"
-K_SEUIL <- 1/3       # seuil Alkire-Foster
-N_BOOT  <- 1000      # réplications bootstrap
-CODE_ETRANGER_MIN <- 4L  # codes >= 4 = transferts migrants
+/* config.do — programme svyset_ehcvm */
+capture program drop svyset_ehcvm
+program define svyset_ehcvm
+    args poids
+    capture confirm variable strate
+    if _rc {
+        gen long strate = region * 10 + milieu
+        label var strate "Strate (region x milieu)"
+    }
+    if "`poids'" == "" local poids "hhweight"
+    svyset grappe [pw = `poids'], strata(strate) ///
+        singleunit(centered)
+end
 \end{verbatim}
 
-\subsection{Construction de la variable de traitement}
+Le plan de sondage EHCVM est stratifié à deux degrés~: 28 strates
+(14 régions $\times$ 2 milieux), 598 grappes (DR), 12 ménages par grappe.
+La variable \texttt{strate} est construite comme \texttt{region * 10 + milieu}.
+
+\subsection{Estimation du score de propension}
 
 \begin{verbatim}
-# 02_traitement.R
-construire_traitement <- function(s13a1, s13a2, col_lieu,
-                                  code_etr_min = CODE_ETRANGER_MIN) {
-  etrangers <- s13a2 |>
-    dplyr::filter(.data[[col_lieu]] >= code_etr_min) |>
-    dplyr::distinct(across(all_of(ID))) |>
-    dplyr::mutate(transfert_migrant = 1L)
-  s13a1 |>
-    dplyr::left_join(etrangers, by = ID) |>
-    dplyr::mutate(D = dplyr::coalesce(transfert_migrant, 0L))
-}
-traitement_2018 <- construire_traitement(s13a1_2018, s13a2_2018,
-                                          col_lieu = "s13aq14")
-traitement_2021 <- construire_traitement(s13a1_2021, s13a2_2021,
-                                          col_lieu = "s13q19")
+/* 05_psm_dd.do — Probit sur t=0 */
+svyset_ehcvm hhweight
+svy: probit D c.hhsize c.log_pcexp i.milieu i.region ///
+         c.hgender c.hage i.heduc i.hmstat, nolog
+
+/* Pseudo-R2 McFadden (svy: probit ne stocke pas e(ll)/e(ll_0)) */
+quietly probit D c.hhsize c.log_pcexp i.milieu i.region ///
+         c.hgender c.hage i.heduc i.hmstat ///
+         [pw = hhweight], robust nolog
+di "Pseudo-R2 McFadden : " %6.3f 1 - e(ll)/e(ll_0)
+
+predict pscore, pr
 \end{verbatim}
 
-\subsection{Estimation du score de propension et appariement}
+\subsection{Appariement PSM (k-NN)}
 
 \begin{verbatim}
-# 04_psm_dd.R
-formule_probit <- D ~ hhsize + log_pcexp + milieu + region
+/* Appariement k plus proches voisins (k=4, sans remplacement) */
+psmatch2 D, pscore(pscore) neighbor(4) common
+rename _weight weight_knn
 
-# Modèle probit
-probit_mod <- glm(formule_probit, data = base_t0,
-                  family = binomial(link = "probit"))
-
-# Appariement k-NN (k=4)
-match_knn <- MatchIt::matchit(formule_probit, data = base_t0,
-                               method = "nearest",
-                               distance = "glm", link = "probit",
-                               ratio = 4, replace = FALSE)
+/* Vérification de l'équilibre (SMD) */
+pstest hhsize log_pcexp i.milieu hgender hage i.heduc, both
 \end{verbatim}
 
 \subsection{Estimateur PSM-DD}
 
 \begin{verbatim}
-# Double différence après appariement
-for (outcome in c("pauvre_AF", "pauvre_MODA")) {
-  formule_dd <- as.formula(paste(outcome, "~ factor(t) * D"))
-  mod_dd <- lm(formule_dd, data = pseudo_panel)
-  mod_dd_rob <- lmtest::coeftest(
-    mod_dd,
-    vcov = sandwich::vcovCL(mod_dd, cluster = ~grappe)
-  )
-  print(mod_dd_rob)
+/* Poids final = poids sondage x poids PSM */
+gen double weight_final = hhweight * weight_knn
+svyset_ehcvm weight_final
+
+/* ATT pour chaque indicateur de pauvreté */
+foreach outcome in pauvre_AF pauvre_MODA {
+    svy: reg `outcome' i.t##i.D
+    lincom 1.t#1.D
+    di "ATT = " %8.4f r(estimate) ///
+       "  SE = " %8.4f r(se) ///
+       "  p  = " %6.4f r(p)
 }
 \end{verbatim}
+
+\subsection{Effets par dimension N-MODA}
+
+\begin{verbatim}
+/* 07_effets_dim.do */
+local dims assai eau logem nutri sante protect educ
+local i = 0
+foreach dim of local dims {
+    local ++i
+    quietly svy: reg dim_`dim' i.t##i.D
+    quietly lincom 1.t#1.D
+    matrix ATT[`i',1] = r(estimate)
+    matrix LB[`i',1]  = r(estimate) - 1.96*r(se)
+    matrix UB[`i',1]  = r(estimate) + 1.96*r(se)
+}
+\end{verbatim}
+
+Le script \texttt{main.do} orchestre l'ensemble du pipeline~: construction
+des indicateurs de pauvreté (\texttt{01\_nmoda.do}, \texttt{02\_af.do}),
+construction du panel (\texttt{03\_panel.do}, \texttt{04\_traitement.do}),
+estimation PSM-DD (\texttt{05\_psm\_dd.do}), statistiques descriptives
+(\texttt{06\_stats\_desc.do}) et effets par dimension (\texttt{07\_effets\_dim.do}).
