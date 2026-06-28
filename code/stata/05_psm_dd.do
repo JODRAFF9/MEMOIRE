@@ -32,8 +32,8 @@ di _newline "=== Probit — score de propension (EHCVM I, panel vrai) ==="
 di "Observations : " _N
 
 probit D c.hhsize c.log_pcexp i.milieu i.region ///
-         c.hgender c.hage i.heduc i.hmstat, ///
-         robust nolog
+         c.hgender c.hage i.heduc i.hmstat ///
+         [pw = hhweight], robust nolog
 
 di "Pseudo-R2 McFadden : " %6.3f 1 - e(ll)/e(ll_0)
 
@@ -98,8 +98,8 @@ save "$TEMP/poids_caliper.dta", replace
 
 use "$TEMP/panel_vrai.dta", clear
 di _newline "=== Stats descriptives (panel vrai) ==="
-tabstat pauvre_AF pauvre_MODA nb_dep score_dep pcexp, ///
-    by(D) stat(mean n) format(%6.3f)
+tabstat pauvre_AF pauvre_MODA nb_dep score_dep pcexp ///
+    [aw=hhweight], by(D) stat(mean n) format(%6.3f)
 
 /* ============================================================
    4. Double Difference brute (sans appariement, reference)
@@ -108,7 +108,7 @@ tabstat pauvre_AF pauvre_MODA nb_dep score_dep pcexp, ///
 di _newline "=== Double Difference brute (sans appariement) ==="
 foreach outcome in pauvre_AF pauvre_MODA {
     di _newline "--- DD `outcome' ---"
-    reg `outcome' i.t##i.D, vce(cluster grappe)
+    reg `outcome' i.t##i.D [pw=hhweight], vce(cluster grappe)
     lincom 1.t#1.D
     di "  ATT_DD  = " %8.4f r(estimate) ///
        "  SE = " %8.4f r(se) "  p = " %6.4f r(p)
@@ -249,16 +249,25 @@ foreach poids_var in weight_knn weight_kernel weight_caliper {
     if "`poids_var'" == "weight_kernel" {
         merge m:1 grappe menage using "$TEMP/poids_kernel.dta", ///
             keepusing(weight_kernel) nogenerate
+        capture drop wf_kernel
+        gen double wf_kernel = hhweight * weight_kernel
     }
     if "`poids_var'" == "weight_caliper" {
         merge m:1 grappe menage using "$TEMP/poids_caliper.dta", ///
             keepusing(weight_caliper) nogenerate
+        capture drop wf_caliper
+        gen double wf_caliper = hhweight * weight_caliper
     }
+
+    /* Poids combine sondage x PSM */
+    local wf = cond("`poids_var'" == "weight_knn",    "weight_final", ///
+                cond("`poids_var'" == "weight_kernel", "wf_kernel",   ///
+                                                       "wf_caliper"))
 
     foreach outcome in pauvre_AF pauvre_MODA {
         quietly count if !missing(`poids_var')
         if r(N) > 0 {
-            reg `outcome' i.t##i.D [pw = `poids_var'], vce(cluster grappe)
+            reg `outcome' i.t##i.D [pw = `wf'], vce(cluster grappe)
             lincom 1.t#1.D
             di "  `poids_var' — `outcome' : ATT=" %8.4f r(estimate) ///
                "  p=" %6.4f r(p)
