@@ -36,24 +36,21 @@ foreach annee in 2018 2021 {
 
     /* Taille ménage, âge CM, milieu, transferts */
     quietly {
-        summarize hhsize    [aw = hhweight]
-        scalar m_hhsize_`annee'  = r(mean)
-        summarize hage      [aw = hhweight]
-        scalar m_hage_`annee'    = r(mean)
-        summarize pcexp     [aw = hhweight]
-        scalar m_pcexp_`annee'   = r(mean)
-        /* Chef féminin (hgender==2) */
+        svyset_ehcvm hhweight
         gen byte chef_f = (hgender == 2)
-        summarize chef_f   [aw = hhweight]
-        scalar p_chef_f_`annee'  = r(mean)*100
-        /* Milieu urbain (milieu==1) */
         gen byte urbain = (milieu == 1)
-        summarize urbain   [aw = hhweight]
-        scalar p_urbain_`annee'  = r(mean)*100
-        /* Bénéficiaires transferts */
-        summarize D        [aw = hhweight]
-        scalar p_D_`annee'       = r(mean)*100
-        scalar n_men_`annee'     = r(N)
+        foreach v in hhsize hage pcexp chef_f urbain D {
+            svy: mean `v'
+            matrix m = e(b)
+            if "`v'" == "hhsize" scalar m_hhsize_`annee' = m[1,1]
+            if "`v'" == "hage"   scalar m_hage_`annee'   = m[1,1]
+            if "`v'" == "pcexp"  scalar m_pcexp_`annee'  = m[1,1]
+            if "`v'" == "chef_f" scalar p_chef_f_`annee' = m[1,1]*100
+            if "`v'" == "urbain" scalar p_urbain_`annee' = m[1,1]*100
+            if "`v'" == "D"      scalar p_D_`annee'      = m[1,1]*100
+        }
+        count
+        scalar n_men_`annee' = r(N)
     }
     di "`annee' : " n_men_`annee' " ménages"
     di "  Taille moy : " %5.2f m_hhsize_`annee'
@@ -109,10 +106,11 @@ foreach v in chef_f urbain {
     tabstat `v' [aw = hhweight], by(D) stat(mean n) format(%6.3f)
 }
 
-/* Tests pondérés : reg OLS [pw] + SE robustes = t-test pondéré */
+/* Tests tenant compte du plan de sondage */
+svyset_ehcvm hhweight
 foreach v in hhsize hage pcexp chef_f urbain {
-    quietly reg `v' D [pw=hhweight], robust
-    di "  Test pondéré `v' : diff=" %8.3f _b[D] ///
+    quietly svy: reg `v' D
+    di "  Test svy `v' : diff=" %8.3f _b[D] ///
        "  SE=" %8.3f _se[D] ///
        "  p=" %6.4f (2*ttail(e(df_r), abs(_b[D]/_se[D])))
 }

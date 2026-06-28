@@ -31,9 +31,11 @@ keep if t == 0 & !missing(D) & !missing(log_pcexp) & !missing(hhsize)
 di _newline "=== Probit — score de propension (EHCVM I, panel vrai) ==="
 di "Observations : " _N
 
-probit D c.hhsize c.log_pcexp i.milieu i.region ///
-         c.hgender c.hage i.heduc i.hmstat ///
-         [pw = hhweight], robust nolog
+/* Déclaration du plan de sondage (strates = région x milieu) */
+svyset_ehcvm hhweight
+
+svy: probit D c.hhsize c.log_pcexp i.milieu i.region ///
+         c.hgender c.hage i.heduc i.hmstat, nolog
 
 di "Pseudo-R2 McFadden : " %6.3f 1 - e(ll)/e(ll_0)
 
@@ -103,9 +105,10 @@ tabstat pauvre_AF pauvre_MODA nb_dep score_dep pcexp ///
    ============================================================ */
 
 di _newline "=== Double Difference brute (sans appariement) ==="
+svyset_ehcvm hhweight
 foreach outcome in pauvre_AF pauvre_MODA {
     di _newline "--- DD `outcome' ---"
-    reg `outcome' i.t##i.D [pw=hhweight], vce(cluster grappe)
+    svy: reg `outcome' i.t##i.D
     lincom 1.t#1.D
     di "  ATT_DD  = " %8.4f r(estimate) ///
        "  SE = " %8.4f r(se) "  p = " %6.4f r(p)
@@ -137,9 +140,11 @@ di _newline "Panel apparie (k-NN) : " _N " obs"
 tabstat D, by(t) stat(mean sum n) format(%6.3f)
 
 di _newline "=== PSM-DD — ATT principal (Heckman 1997/1998) ==="
+/* Poids combiné sondage x PSM : déclaré dans svyset */
+svyset_ehcvm weight_final
 foreach outcome in pauvre_AF pauvre_MODA {
     di _newline "--- PSM-DD `outcome' ---"
-    reg `outcome' i.t##i.D [pw = weight_final], vce(cluster grappe)
+    svy: reg `outcome' i.t##i.D
     lincom 1.t#1.D
     di "  ATT_PSM-DD = " %8.4f r(estimate) ///
        "  SE = " %8.4f r(se) "  p = " %6.4f r(p)
@@ -161,8 +166,8 @@ foreach mil in 1 2 {
         quietly count if milieu == `mil' & !missing(weight_knn)
         if r(N) > 30 {
             di _newline "--- `lab_mil' — `outcome' ---"
-            reg `outcome' i.t##i.D [pw = weight_final] ///
-                if milieu == `mil', vce(cluster grappe)
+            svyset_ehcvm weight_final
+            svy, subpop(if milieu == `mil'): reg `outcome' i.t##i.D
             lincom 1.t#1.D
             di "  ATT = " %8.4f r(estimate) "  p = " %6.4f r(p)
         }
@@ -172,8 +177,9 @@ foreach mil in 1 2 {
 /* Test d'egalite milieu urbain vs rural */
 di _newline "Test d'egalite Chow (urbain vs rural) :"
 gen byte urban = (milieu == 1)
+svyset_ehcvm weight_final
 foreach outcome in pauvre_AF pauvre_MODA {
-    reg `outcome' i.t##i.D##i.urban [pw = weight_final], vce(cluster grappe)
+    svy: reg `outcome' i.t##i.D##i.urban
     lincom 1.t#1.D#1.urban - 1.t#1.D#0.urban
     di "  Diff ATT (urbain - rural) : " %8.4f r(estimate) "  p = " %6.4f r(p)
 }
@@ -181,9 +187,9 @@ drop urban
 
 /* -- 6b. Par sexe de l'enfant ------------------------------- */
 di _newline "=== Heterogeneite par sexe ==="
-/* Hypothese : variable "sexe" ou "female" dans ehcvm_individu */
 capture confirm variable sexe
 if _rc == 0 {
+    svyset_ehcvm weight_final
     foreach outcome in pauvre_AF pauvre_MODA {
         foreach s in 1 2 {
             if `s' == 1 local lab_s "Garcons"
@@ -191,8 +197,7 @@ if _rc == 0 {
             quietly count if sexe == `s' & !missing(weight_knn)
             if r(N) > 30 {
                 di "--- `lab_s' — `outcome' ---"
-                reg `outcome' i.t##i.D [pw = weight_final] ///
-                    if sexe == `s', vce(cluster grappe)
+                svy, subpop(if sexe == `s'): reg `outcome' i.t##i.D
                 lincom 1.t#1.D
                 di "  ATT = " %8.4f r(estimate) "  p = " %6.4f r(p)
             }
@@ -205,13 +210,13 @@ else {
 
 /* -- 6c. Par groupe d'age ----------------------------------- */
 di _newline "=== Heterogeneite par groupe d'age ==="
+svyset_ehcvm weight_final
 foreach g in 1 2 3 {
     foreach outcome in pauvre_AF pauvre_MODA {
         quietly count if groupe_moda == `g' & !missing(weight_knn)
         if r(N) > 30 {
             di "--- Groupe `g' — `outcome' ---"
-            reg `outcome' i.t##i.D [pw = weight_final] ///
-                if groupe_moda == `g', vce(cluster grappe)
+            svy, subpop(if groupe_moda == `g'): reg `outcome' i.t##i.D
             lincom 1.t#1.D
             di "  ATT = " %8.4f r(estimate) "  p = " %6.4f r(p)
         }
@@ -231,9 +236,10 @@ foreach outcome in pauvre_AF pauvre_MODA {
 
 /* -- 7b. Sensibilite au seuil k (Alkire-Foster) ------------- */
 di _newline "=== Sensibilite au seuil k (Alkire-Foster) ==="
+svyset_ehcvm weight_final
 foreach k_test in 0.1667 0.3333 0.5 {
     gen byte pauvre_ktest = (score_dep >= `k_test') if !missing(score_dep)
-    reg pauvre_ktest i.t##i.D [pw = weight_final], vce(cluster grappe)
+    svy: reg pauvre_ktest i.t##i.D
     lincom 1.t#1.D
     di "  k=" %5.4f `k_test' " : ATT=" %8.4f r(estimate) "  p=" %6.4f r(p)
     drop pauvre_ktest
@@ -264,7 +270,8 @@ foreach poids_var in weight_knn weight_kernel weight_caliper {
     foreach outcome in pauvre_AF pauvre_MODA {
         quietly count if !missing(`poids_var')
         if r(N) > 0 {
-            reg `outcome' i.t##i.D [pw = `wf'], vce(cluster grappe)
+            svyset_ehcvm `wf'
+            svy: reg `outcome' i.t##i.D
             lincom 1.t#1.D
             di "  `poids_var' — `outcome' : ATT=" %8.4f r(estimate) ///
                "  p=" %6.4f r(p)
