@@ -60,6 +60,17 @@ print(table(s13a2_2021$s13aq14, useNA = "ifany"))
 
 # Variable de traitement
 
+La variable de traitement $D_i$ est un indicateur **statique**, figé sur 2018 :
+
+- **Groupe traité** ($D_i = 1$) : ménage ayant reçu des transferts internationaux
+  en 2018 **et n'en ayant pas reçu en 2021**.
+- **Groupe témoin** ($D_i = 0$) : ménage n'ayant reçu aucun transfert international
+  ni en 2018, ni en 2021 (*never treated*).
+
+Les ménages dont le statut change entre les deux vagues (entrants tardifs : $D=0$
+en 2018, $D=1$ en 2021) sont exclus afin d'éviter la contamination du groupe
+témoin dans l'estimateur DiD.
+
 ```{r traitement, child="02_traitement.R", eval=FALSE}
 ```
 
@@ -67,6 +78,7 @@ print(table(s13a2_2021$s13aq14, useNA = "ifany"))
 traitement_2018 <- readRDS(file.path(OUTPUT_DIR, "traitement_2018.rds"))
 traitement_2021 <- readRDS(file.path(OUTPUT_DIR, "traitement_2021.rds"))
 
+# Prévalence brute par vague (avant restriction never-treated)
 data.frame(
   Vague            = c("2018-2019", "2021-2022"),
   Traites          = c(sum(traitement_2018$D), sum(traitement_2021$D)),
@@ -74,7 +86,28 @@ data.frame(
   `Prevalence (%)` = c(round(taux(traitement_2018$D)*100,1),
                         round(taux(traitement_2021$D)*100,1))
 ) |>
-  kableExtra::kbl(caption = "Prévalence des transferts de migrants") |>
+  kableExtra::kbl(caption = "Prévalence brute des transferts de migrants (avant restriction never-treated)") |>
+  kableExtra::kable_styling(bootstrap_options = c("striped","hover"))
+```
+
+```{r never-treated}
+# Effectifs après restriction never-treated
+d_wide <- traitement_2018 |>
+  dplyr::rename(D_2018 = D) |>
+  dplyr::left_join(traitement_2021 |> dplyr::rename(D_2021 = D),
+                   by = c("grappe", "menage"))
+
+n_traite    <- sum(d_wide$D_2018 == 1 & d_wide$D_2021 == 0, na.rm = TRUE)
+n_temoin    <- sum(d_wide$D_2018 == 0 & d_wide$D_2021 == 0, na.rm = TRUE)
+n_exclus    <- sum(d_wide$D_2018 == 0 & d_wide$D_2021 == 1, na.rm = TRUE)
+
+data.frame(
+  Groupe   = c("Traités (D=1 en 2018, D=0 en 2021)",
+               "Témoins never-treated (D=0 en 2018 et 2021)",
+               "Exclus — entrants tardifs (D=0→1)"),
+  Effectif = c(n_traite, n_temoin, n_exclus)
+) |>
+  kableExtra::kbl(caption = "Constitution des groupes après restriction never-treated") |>
   kableExtra::kable_styling(bootstrap_options = c("striped","hover"))
 ```
 

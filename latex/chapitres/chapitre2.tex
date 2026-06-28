@@ -96,51 +96,31 @@ peuvent etre biaisees -- ce point est discute dans la section~\ref{sec:discussio
 
 \subsubsection{Variable de traitement}
 
-La variable de traitement $D_i \in \{0, 1\}$ indique si le menage de l'enfant
-$i$ a recu des transferts d'un membre emigre a l'etranger au cours des 12 mois
-precedant l'enquete, conformement aux conventions de la litterature empirique
-sur les remittances en Afrique \parencite{azam2016, combes2019}.
+La variable de traitement $D_i \in \{0, 1\}$ est un indicateur statique,
+fige sur la periode de base (2018), qui indique si le menage de l'enfant $i$
+a recu des transferts d'un membre emigre a l'etranger au cours des 12 mois
+precedant l'enquete de 2018 et n'en a pas recu en 2021. Cette definition en
+deux temps garantit la stabilite du statut de traitement entre les deux vagues
+et est conforme aux conventions de la litterature empirique sur les remittances
+en Afrique \parencite{azam2016, combes2019}.
 
 La construction de cette variable repose sur les modules de transferts des
 deux vagues EHCVM. Dans chaque vague, deux fichiers sont mobilises :
 \texttt{s13a\_1} (identification des menages ayant recu au moins un transfert)
 et \texttt{s13a\_2} (caracteristiques de chaque transfert et de son expediteur).
-Un menage est classe comme beneficiaire ($D=1$) si au moins un transfert recoit
-a un expediteur dont le lieu de residence est code $\geq 4$ dans la nomenclature
-EHCVM (variable \texttt{s13aq14} en 2018, \texttt{s13q19} en 2021), les codes
-1 a 3 correspondant a des destinations interieures au Senegal (meme ville, meme
-region, ailleurs dans le pays). Cette definition exclut les transferts internes
-(interregionaux) qui relevent d'une logique de redistribution domestique distincte
-des envois de la diaspora internationale \parencite{ndiaye2013}.
-
-\subsubsection{Correspondance entre indicateurs et modules EHCVM}
-
-\begin{table}[H]
-  \centering
-  \caption{Correspondance entre indicateurs (AF et MODA) et variables EHCVM}
-  \label{tab:correspondance}
-  \small
-  \begin{tabular}{p{2.2cm}p{1.5cm}p{2.5cm}p{2.8cm}p{2.5cm}}
-    \toprule
-    Indicateur & Approche & Fichier & Variable & Seuil de privation \\
-    \midrule
-    Scolarisation   & AF + MODA & \texttt{ehcvm\_individu} & \texttt{scol}       & $= 0$ (non-scolarise) \\
-    Suivi sante     & AF + MODA & \texttt{ehcvm\_individu} & \texttt{mal30j}, \texttt{con30j} & Malade et non-consulte \\
-    Nutrition/proxy & AF + MODA & \texttt{ehcvm\_individu} & \texttt{mal30j}     & $= 1$ pour 0--4 ans \\
-    Eau potable     & AF + MODA & \texttt{ehcvm\_menage}   & \texttt{eauboi\_ss}, \texttt{eauboi\_sp} & $= 0$ \\
-    Assainissement  & AF + MODA & \texttt{ehcvm\_menage}   & \texttt{toilet}, \texttt{eva\_toi} & $= 0$ \\
-    Habitat         & AF + MODA & \texttt{ehcvm\_menage}   & \texttt{mur}, \texttt{toi}, \texttt{sol} & $= 0$ \\
-    Travail enfant  & MODA      & \texttt{ehcvm\_individu} & \texttt{activ7j}    & Actif (15--17 ans) \\
-    \bottomrule
-  \end{tabular}
-  \begin{minipage}{\linewidth}
-    \small\vspace{2pt}
-    \textit{Note :} \texttt{eauboi\_ss}/\texttt{eauboi\_sp} : acces a l'eau potable
-    en saison seche/pluie (1 = ameliore). \texttt{toilet}/\texttt{eva\_toi} : toilettes
-    et evacuation des excreta sains (1 = conformes JMP). \texttt{mur}/\texttt{toi}/\texttt{sol} :
-    materiaux definitifs pour murs, toit, sol (1 = definitifs).
-  \end{minipage}
-\end{table}
+Un menage est classe comme beneficiaire ($D_i=1$) s'il satisfait les deux
+conditions suivantes : (i) il a recu en 2018 au moins un transfert dont
+l'expediteur est localise hors du Senegal (code $\geq 4$ pour la variable
+\texttt{s13aq14} en 2018 ; codes 1 a 3 correspondant a des destinations
+interieures) ; (ii) il n'a pas recu de tel transfert en 2021.
+Le groupe temoin ($D_i = 0$) est compose de menages n'ayant recu aucun
+transfert international ni en 2018 ni en 2021 (\textit{never treated}).
+Cette restriction elimine les menages dont le statut change entre les deux
+vagues (entrants tardifs), dont l'inclusion biaiserait l'estimateur de la
+double difference \parencite{callaway2021}. Les transferts internes
+(interregionaux, codes 1 a 3) sont exclus dans les deux vagues car ils
+relevent d'une logique de redistribution domestique distincte des envois
+de la diaspora internationale \parencite{ndiaye2013}.
 
 \subsubsection{Covariables du modèle de propension}
 
@@ -484,12 +464,19 @@ les effets fixes inobservables stables dans le temps :
   - \left(\bar{Y}^0_{t=2} - \bar{Y}^0_{t=1}\right),
   \label{eq:dd}
 \end{equation}
-sous l'hypothese de \textit{tendances paralleles} :
+ou les exposants 1 et 0 designent respectivement le groupe traite ($D_i=1$)
+et le groupe temoin ($D_i=0$), sous l'hypothese de \textit{tendances paralleles} :
 \begin{equation}
   \E\!\left[Y_i(0)_{t=2} - Y_i(0)_{t=1} \mid D_i = 1\right]
   = \E\!\left[Y_i(0)_{t=2} - Y_i(0)_{t=1} \mid D_i = 0\right].
   \label{eq:parallel}
 \end{equation}
+Parce que $D_i$ est fige sur la valeur de 2018, les menages dont le statut
+de reception change entre les deux vagues sont exclus de l'echantillon
+d'estimation (restriction \textit{never-treated} pour le groupe temoin).
+Cette exclusion garantit que le terme $\bar{Y}^0_{t=2} - \bar{Y}^0_{t=1}$
+decrit bien la tendance contrefactuelle des non-beneficiaires, non contaminee
+par une reception tardive de transferts \parencite{callaway2021}.
 
 \subsubsection{L'estimateur PSM-DD}
 
