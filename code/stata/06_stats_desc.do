@@ -284,7 +284,8 @@ replace D = 0 if missing(D)
 label define dl 0 "Non-bénéficiaires" 1 "Bénéficiaires", replace
 label values D dl
 
-histogram nb_dep [aw=hhweight], by(D, cols(1) note("") ///
+gen long fw = round(hhweight)
+histogram nb_dep [fw=fw], by(D, cols(1) note("") ///
     title("Distribution du nombre de privations (2018-19)")) ///
     fraction width(1) gap(10) ///
     color(navy%60) lcolor(white) ///
