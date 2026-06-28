@@ -24,5 +24,6 @@ do "code/stata/03_deprivation.do"
 do "code/stata/04_panel.do"
 do "code/stata/06_stats_desc.do"
 do "code/stata/05_psm_dd.do"
+do "code/stata/07_effets_dim.do"
 
 log close
