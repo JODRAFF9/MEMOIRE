@@ -41,7 +41,8 @@ capture program drop att_psmdd
 program define att_psmdd
     args outcome poids nboot
 
-    reg `outcome' i.t##i.D [pw = `poids'], vce(cluster grappe)
+    svyset_ehcvm `poids'
+    svy: reg `outcome' i.t##i.D
 
     lincom 1.t#1.D
     di "  ATT=" %8.4f r(estimate) "  SE=" %8.4f r(se) "  p=" %6.4f r(p)

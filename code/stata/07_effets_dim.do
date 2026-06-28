@@ -27,10 +27,11 @@ matrix ATT  = J(`n_dims', 1, .)
 matrix LB   = J(`n_dims', 1, .)
 matrix UB   = J(`n_dims', 1, .)
 
+svyset_ehcvm weight_final
 local i = 0
 foreach dim of local dims {
     local ++i
-    quietly reg dim_`dim' i.t##i.D [pw = weight_final], vce(cluster grappe)
+    quietly svy: reg dim_`dim' i.t##i.D
     quietly lincom 1.t#1.D
     matrix ATT[`i',1] = r(estimate)
     matrix LB[`i',1]  = r(estimate) - 1.96*r(se)
