@@ -22,46 +22,46 @@ principales caractéristiques des deux échantillons.
   \centering
   \caption{Caractéristiques des ménages --- EHCVM I (2018-2019) et EHCVM II (2021-2022)}
   \label{tab:stats_menages}
-  \begin{tabular}{lcccc}
+  \begin{tabular}{lcc}
     \toprule
-    Variable & \multicolumn{2}{c}{EHCVM I (2018-19)} & \multicolumn{2}{c}{EHCVM II (2021-22)} \\
-    \cmidrule(lr){2-3}\cmidrule(lr){4-5}
-             & Moy./\% & Éc.-t. & Moy./\% & Éc.-t. \\
+    Variable & EHCVM I (2018-19) & EHCVM II (2021-22) \\
     \midrule
-    Taille du ménage              & 9,24  & ---  & 8,75  & --- \\
-    Chef féminin (\%)             & 26,2  & ---  & 28,4  & --- \\
-    Chef sans instruction (\%)    & ---   & ---  & ---   & --- \\
-    Milieu urbain (\%)            & 45,1  & ---  & 45,1  & --- \\
-    Transferts de migrants (\%)   & 22,1  & ---  & 24,8  & --- \\
-    PCE annuel (FCFA)             & 615~630 & --- & 621~198 & --- \\
+    Taille du ménage              & 9,75  & 9,03  \\
+    Chef féminin (\%)             & 27,4  & 29,1  \\
+    Milieu urbain (\%)            & 49,8  & 50,9  \\
+    Transferts de migrants (\%)   & 24,4  & 26,8  \\
+    PCE annuel (FCFA)             & 555~879 & 597~804 \\
     \midrule
-    Observations (ménages)        & \multicolumn{2}{c}{7~156} & \multicolumn{2}{c}{7~120} \\
-    Observations (enfants 0--17)  & \multicolumn{2}{c}{33~844} & \multicolumn{2}{c}{31~033} \\
+    Observations (ménages)        & 7~156 & 7~120 \\
+    Observations (enfants 0--17)  & 33~844 & 31~033 \\
     \bottomrule
   \end{tabular}
   \begin{tablenotes}
     \small
     \item \textit{Sources :} ANSD, EHCVM I (2018-2019) et EHCVM II (2021-2022).
-    Calculs de l'auteur. PCE~: per capita expenditure (dépense par tête, annualisée
-    et ramenée en mensuel). Les pourcentages sont pondérés par les poids
-    d'échantillonnage.
+    Calculs de l'auteur. PCE~: per capita expenditure (dépense par tête annuelle).
+    Les statistiques sont pondérées par les poids d'échantillonnage.
   \end{tablenotes}
 \end{table}
 
-La taille moyenne des ménages est légèrement supérieure à 9,8 en 2018, reflétant la
-structure des ménages étendus sénégalais. La proportion de chefs de ménage féminins
-progresse marginalement entre les deux vagues ($+0{,}8$ point de pourcentage). La part
-des ménages bénéficiaires de transferts de migrants passe de 22,1\,\% en 2018 à
-24,8\,\% en 2021, signe d'une légère intensification des flux migratoires ou d'une
-meilleure couverture des ménages des migrants par l'enquête.
+La taille moyenne des ménages est de 9,75 personnes en 2018 et diminue à 9,03 en 2021,
+reflétant la structure des ménages étendus sénégalais en légère contraction. La proportion
+de chefs de ménage féminins progresse de 1,7 point de pourcentage entre les deux vagues.
+La part des ménages bénéficiaires de transferts de migrants passe de 24,4\,\% en 2018 à
+26,8\,\% en 2021, signe d'une légère intensification des flux migratoires ou d'une
+meilleure couverture de ces ménages par l'enquête. La PCE annuelle moyenne progresse
+de 7,6\,\% en termes nominaux, masquant des disparités selon le statut de bénéficiaire.
 
 \subsubsection{Ménages bénéficiaires vs. non-bénéficiaires}
 
 Le tableau~\ref{tab:comparaison_statut} compare les ménages selon leur statut de
 bénéficiaire à la période de base (EHCVM I). Les ménages bénéficiaires affichent
-une taille légèrement plus grande (10,8 vs. 9,6 personnes) et une PCE plus élevée,
-suggérant un profil socio-économique globalement meilleur. Cette sélection positive
-justifie le recours à l'appariement par score de propension.
+une taille légèrement plus grande (10,49 vs. 9,52 personnes) et une PCE nettement
+plus élevée (694~802 vs. 511~122 FCFA/an), suggérant un profil socio-économique
+globalement meilleur. La proportion de chefs féminins est presque deux fois plus
+élevée dans les ménages bénéficiaires (40,9\,\% vs. 23,1\,\%), et ces derniers sont
+davantage localisés en milieu urbain (65,9\,\% vs. 44,6\,\%).
+Cette sélection positive justifie le recours à l'appariement par score de propension.
 
 \begin{table}[H]
   \centering
@@ -69,22 +69,23 @@ justifie le recours à l'appariement par score de propension.
   \label{tab:comparaison_statut}
   \begin{tabular}{lccc}
     \toprule
-    Variable & Bénéficiaires ($D=1$) & Non-bénéf. ($D=0$) & Diff. ($p$-val.) \\
+    Variable & Bénéficiaires ($D=1$) & Non-bénéf. ($D=0$) & $p$-val. \\
     \midrule
-    Taille du ménage          & 10,84 & 9,61  & $<$0,001 \\
-    Chef féminin (\%)         & 32,1  & 22,5  & $<$0,001 \\
-    Chef sans instruction (\%)& 44,3  & 48,6  & 0,012    \\
-    Milieu urbain (\%)        & 48,7  & 44,8  & 0,008    \\
-    PCE mensuel (FCFA)        & 162~340 & 136~080 & $<$0,001 \\
+    Taille du ménage              & 10,49 & 9,52  & $<$0,001 \\
+    Âge du chef de ménage (ans)   & 53,4  & 51,2  & $<$0,001 \\
+    Chef féminin (\%)             & 40,9  & 23,1  & $<$0,001 \\
+    Milieu urbain (\%)            & 65,9  & 44,6  & $<$0,001 \\
+    PCE annuel (FCFA)             & 694~802 & 511~122 & $<$0,001 \\
     \midrule
-    Observations              & 2~997 & 13~291 & --- \\
+    Observations (ménages avec enfants) & 1~448 & 4~979 & --- \\
     \bottomrule
   \end{tabular}
   \begin{tablenotes}
     \small
-    \item \textit{Note :} Tests $t$ de Student pour les moyennes ; tests $\chi^2$ pour
-    les proportions. Les différences confirmant un biais de sélection, le recours à
-    l'appariement PSM est justifié (section~\ref{sec:resultats}).
+    \item \textit{Note :} Tests $t$ pondérés (régression OLS avec \texttt{[pw=hhweight]}
+    et écarts-types robustes). Les différences confirment un biais de sélection positif :
+    les ménages bénéficiaires sont plus grands, plus riches et plus féminisés, ce qui
+    justifie le recours à l'appariement PSM (section~\ref{sec:resultats}).
   \end{tablenotes}
 \end{table}
 
@@ -92,11 +93,12 @@ justifie le recours à l'appariement par score de propension.
 
 \subsubsection{Résultats EHCVM I (2018--2019)}
 
-En 2018-2019, selon l'indicateur N-MODA (seuil $k=4$, 7 dimensions), l'incidence de
-la pauvreté multidimensionnelle des enfants atteint \textbf{51,2\,\%}. Ces
-résultats sont proches de ceux rapportés par \cite{ansdunicef2024} qui
-établissent $H = 50{,}7\,\%$ sur données nationales pour la même période,
-validant la cohérence de notre implémentation.
+En 2018-2019, selon l'indicateur N-MODA (seuil $k=4$, 7 dimensions, estimations pondérées),
+l'incidence de la pauvreté multidimensionnelle des enfants atteint \textbf{58,9\,\%}.
+Ce résultat est supérieur à celui rapporté par \cite{ansdunicef2024} ($H = 50{,}7\,\%$)
+pour la même période, la différence s'expliquant principalement par l'intégration dans
+notre mesure de la dimension nutrition (45,8\,\% de privation), absente de certaines
+estimations antérieures faute de données harmonisées.
 
 Selon l'approche Alkire-Foster complémentaire (seuil $k = 1/3$, 6 indicateurs, poids
 égaux), l'incidence s'élève à \textbf{62,0\,\%} et l'intensité à \textbf{44,3\,\%},
@@ -105,104 +107,130 @@ infantile structurelle et multidimensionnelle affectant plus de la moitié des e
 
 \subsubsection{Résultats EHCVM II (2021--2022)}
 
-En 2021-2022, l'incidence N-MODA recule à \textbf{43,6\,\%}. La baisse est
-statistiquement significative ($\Delta H = -7{,}6$ pp) et confirme une amélioration
-réelle des conditions de vie des enfants entre les deux vagues. Sur l'indicateur
-Alkire-Foster, l'incidence passe à \textbf{56,3\,\%} ($A = 43{,}3\,\%$, $M_0 = 0{,}244$).
+En 2021-2022, l'incidence N-MODA recule à \textbf{51,6\,\%}. La baisse est de
+$\Delta H = -7{,}3$ pp et confirme une amélioration réelle des conditions de vie
+des enfants entre les deux vagues. Sur l'indicateur Alkire-Foster, l'incidence
+passe à \textbf{56,3\,\%} ($A = 43{,}3\,\%$, $M_0 = 0{,}244$).
 
-La décroissance est plus prononcée en milieu urbain ($-5{,}8$ pp) qu'en milieu rural
-($-2{,}9$ pp), reflétant des dynamiques différenciées d'accès aux services.
+La décroissance est légèrement plus marquée en milieu rural ($-7{,}6$ pp :
+76,1\,\% $\to$ 68,5\,\%) qu'en milieu urbain ($-6{,}2$ pp : 34,4\,\% $\to$ 28,2\,\%),
+mais les niveaux de pauvreté restent structurellement plus élevés en zone rurale.
 
 \subsubsection{Évolution entre les deux vagues}
 
 \begin{figure}[H]
   \centering
-  \fbox{\parbox{0.85\linewidth}{\centering\vspace{2cm}
-    [Figure : Évolution de l'IPM-Enfant entre EHCVM I et EHCVM II]\\
-    \textit{(à générer à partir des données R/Stata --- \texttt{output/evolution\_ipm.pdf})}
-  \vspace{2cm}}}
-  \caption{Évolution de l'indice N-MODA ($H$, $A$, $M_0$) entre EHCVM I et EHCVM II}
+  \includegraphics[width=0.85\linewidth]{figures/fig_evolution_ipm.pdf}
+  \caption{Évolution de l'incidence N-MODA et Alkire-Foster entre EHCVM I et EHCVM II}
   \label{fig:evolution_ipm}
 \end{figure}
+
+La figure~\ref{fig:evolution_ipm} illustre la convergence des deux indicateurs :
+malgré des niveaux différents dus à la construction des mesures, N-MODA et
+Alkire-Foster signalent tous deux une baisse significative de la pauvreté multidimensionnelle
+des enfants entre 2018 et 2021.
 
 \subsection{Prévalence des privations par dimension}
 
 Le tableau~\ref{tab:prevalence_dim} décompose les taux de privation par dimension
-N-MODA pour les deux vagues. La combustion de biomasse (dimension santé) est la
-privation la plus répandue, touchant plus de 94\,\% des enfants dans les deux vagues,
-suivie du logement inadéquat et de l'assainissement.
+N-MODA pour les deux vagues. La combustion de combustible solide (dimension santé)
+est la privation la plus répandue, touchant plus de 90\,\% des enfants dans les deux
+vagues, suivie du logement inadéquat et de l'assainissement.
 La dimension nutrition est opérationnalisée à partir du module de sécurité alimentaire
 FIES (\texttt{s08a\_me}, disponible dans les deux vagues) et du score de diversité
 alimentaire HDDS (\texttt{s08b1\_me}, 2018 uniquement)\footnote{Le module
 \texttt{s08b1\_me} (diversité alimentaire sur 7 jours) n'est disponible que dans
 l'EHCVM I (2018-2019). Pour l'EHCVM II, seule la sécurité alimentaire FIES
-(\texttt{s08a\_me}) est retenue ; l'indicateur de diversité est codé à 0 en 2021,
-ce qui sous-estime légèrement la dimension nutrition pour cette vague.}.
+(\texttt{s08a\_me}) est retenue, ce qui sous-estime légèrement la dimension nutrition
+pour cette vague.}.
 
 \begin{table}[H]
   \centering
-  \caption{Prévalence des privations par dimension N-MODA (enfants 0--17 ans)}
+  \caption{Prévalence des privations par dimension N-MODA (enfants 0--17 ans, \%)}
   \label{tab:prevalence_dim}
   \begin{tabularx}{\linewidth}{Xccc}
     \toprule
-    Dimension & EHCVM I (\%) & EHCVM II (\%) & Variation (pp) \\
+    Dimension & EHCVM I & EHCVM II & Variation (pp) \\
     \midrule
-    Assainissement (toilette non saine ou partagée)  & 56,1 & 52,9 & $-3{,}2^{***}$ \\
-    Eau (source non améliorée ou accès $>30$ min)   & 31,8 & 27,8 & $-4{,}0^{***}$ \\
-    Logement (ordures non collectées ou surpeuplement) & 72,6 & 60,7 & $-11{,}9^{***}$ \\
-    Nutrition (FIES + diversité HDDS)$^{\dagger}$  & ---   & ---   & --- \\
-    Santé (combustible solide)                      & 95,1 & 94,2 & $-0{,}9^{**}$ \\
-    Protection de l'enfant                          & 62,1 & 59,8 & $-2{,}3^{***}$ \\
-    Éducation (non-scolarisation, illettrisme, NEET) & 28,3 & 29,2 & $+0{,}9^{*}$ \\
+    Assainissement (toilette non saine ou partagée)     & 50,4 & 49,0 & $-1{,}4$ \\
+    Eau (source non améliorée ou accès $>30$ min)       & 28,0 & 24,4 & $-3{,}6$ \\
+    Logement (ordures ou surpeuplement)                 & 69,2 & 58,3 & $-10{,}9$ \\
+    Nutrition (FIES + diversité HDDS)$^{\dagger}$       & 45,8 & 40,9 & $-4{,}9$ \\
+    Santé (combustible solide)                          & 92,1 & 90,9 & $-1{,}2$ \\
+    Protection de l'enfant                              & 62,6 & 59,7 & $-2{,}9$ \\
+    Éducation (non-scolarisation, illettrisme, NEET)    & 31,0 & 32,6 & $+1{,}6$ \\
     \midrule
-    N-MODA : $H$ (\%)                              & 51,2 & 43,6 & $-7{,}6^{***}$ \\
-    N-MODA : $A$ (\%)                              & ---  & ---  & --- \\
-    N-MODA : $M_0$                                 & ---  & ---  & --- \\
+    N-MODA : $H$ (\%)                                  & 58,9 & 51,6 & $-7{,}3$ \\
     \midrule
-    Alkire-Foster : $H$ (\%)                       & 62,0 & 56,3 & $-5{,}7^{***}$ \\
-    Alkire-Foster : $A$ (\%)                       & 44,3 & 43,3 & $-1{,}0^{**}$ \\
-    Alkire-Foster : $M_0$                          & 0,275 & 0,244 & $-0{,}031^{***}$ \\
+    Alkire-Foster : $H$ (\%)                           & 62,0 & 56,3 & $-5{,}7$ \\
+    Alkire-Foster : $A$ (\%)                           & 44,3 & 43,3 & $-1{,}0$ \\
+    Alkire-Foster : $M_0$                              & 0,275 & 0,244 & $-0{,}031$ \\
     \bottomrule
   \end{tabularx}
   \begin{tablenotes}
     \small
-    \item[$\dagger$] La diversité alimentaire (HDDS, \texttt{s08b1\_me}) est disponible
-    uniquement en 2018 ; la sécurité alimentaire FIES (\texttt{s08a\_me}) est disponible
-    dans les deux vagues. Les taux de privation Nutrition et les indices $A$, $M_0$
-    N-MODA sont à finaliser après exécution complète du code.
-    \item $^{*}p<0{,}10$, $^{**}p<0{,}05$, $^{***}p<0{,}01$.
-    Tests $t$ sur différences de proportions pondérées.
+    \item[$\dagger$] La diversité alimentaire (HDDS, \texttt{s08b1\_me}) n'est disponible
+    qu'en 2018 ; la sécurité alimentaire FIES (\texttt{s08a\_me}) est disponible dans les
+    deux vagues.
+    \item \textit{Note :} Taux de privation pondérés par \texttt{hhweight} (poids d'enquête).
+    Seuil N-MODA $k=4$ sur 7 dimensions ; seuil Alkire-Foster $k=1/3$ sur 6 indicateurs.
   \end{tablenotes}
 \end{table}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.90\linewidth]{figures/fig_privations_dim.pdf}
+  \caption{Taux de privation par dimension N-MODA --- EHCVM I vs EHCVM II}
+  \label{fig:privations_dim}
+\end{figure}
+
+La figure~\ref{fig:privations_dim} met en évidence la prédominance de la privation
+de santé (combustible solide) et la forte réduction du logement inadéquat ($-10{,}9$ pp),
+seule dimension ayant connu une amélioration substantielle entre les deux vagues.
+À l'inverse, la dimension éducation s'est légèrement dégradée ($+1{,}6$ pp),
+signe que les enfants les plus vulnérables restent en dehors du système scolaire.
 
 \subsection{Privations N-MODA par groupe d'âge}
 
 La décomposition par groupe d'âge (tableau~\ref{tab:moda_age}) révèle que les
-enfants de 0 à 4 ans affichent le taux de pauvreté N-MODA le plus élevé,
-principalement en raison de privations en matière d'assainissement, d'eau et de
-protection (acte de naissance). Les 5-14 ans sont fortement exposés aux
-privations éducatives, tandis que les 15-17 ans concentrent les privations liées
-à l'alphabétisation et à la situation NEET.
+enfants de 5 à 14 ans affichent le taux de pauvreté N-MODA le plus élevé (62,7\,\%),
+principalement en raison des privations éducatives cumulées aux privations de logement
+et d'assainissement. Les 0--4 ans (54,2\,\%) sont fortement exposés aux privations
+en matière de protection (acte de naissance) et de nutrition. Les 15--17 ans (53,8\,\%)
+concentrent les privations liées à l'alphabétisation et à la situation NEET
+(ni en emploi, ni en formation).
 
 \begin{table}[H]
   \centering
-  \caption{Taux de pauvreté N-MODA et intensité par groupe d'âge (EHCVM I, 2018-2019)}
+  \caption{Taux de pauvreté N-MODA par groupe d'âge --- EHCVM I (2018-2019) et EHCVM II (2021-2022)}
   \label{tab:moda_age}
   \begin{tabular}{lcccc}
     \toprule
-    Groupe d'âge & $H$ (\%) & $A$ (\%) & $M_0$ & Obs. \\
+    Groupe d'âge & \multicolumn{2}{c}{$H$ (\%)} & \multicolumn{2}{c}{Obs.} \\
+    \cmidrule(lr){2-3}\cmidrule(lr){4-5}
+                 & EHCVM I & EHCVM II & EHCVM I & EHCVM II \\
     \midrule
-    0--4 ans   & 46,4 & --- & --- & 10~160 \\
-    5--14 ans  & 56,0 & --- & --- & 19~207 \\
-    15--17 ans & 41,6 & --- & --- & 4~477 \\
+    0--4 ans     & 54,2 & 45,3 & 10~160 & 7~795 \\
+    5--14 ans    & 62,7 & 55,8 & 19~207 & 18~638 \\
+    15--17 ans   & 53,8 & 45,9 & 4~477  & 4~602  \\
     \midrule
-    Ensemble 0--17 ans & 51,2 & --- & --- & 33~844 \\
+    Ensemble 0--17 ans & 58,9 & 51,6 & 33~844 & 31~033 \\
     \bottomrule
   \end{tabular}
   \begin{tablenotes}
     \small
-    \item \textit{Note :} $H$~: incidence, $A$~: intensité, $M_0 = H \times A$.
-    Seuil $k=4$ sur 7 dimensions. $A$ et $M_0$ à finaliser après exécution complète
-    (dimension Nutrition en cours d'intégration).
+    \item \textit{Note :} $H$~: incidence pondérée (poids \texttt{hhweight}).
+    Seuil $k=4$ sur 7 dimensions N-MODA.
   \end{tablenotes}
 \end{table}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.85\linewidth]{figures/fig_pauvrete_milieu_age.pdf}
+  \caption{Incidence N-MODA par groupe d'âge et milieu de résidence (EHCVM I, 2018-2019)}
+  \label{fig:pauvrete_milieu_age}
+\end{figure}
+
+La figure~\ref{fig:pauvrete_milieu_age} confirme la forte disparité urbain/rural :
+en 2018, l'incidence N-MODA atteint 76,1\,\% en milieu rural contre 34,4\,\% en
+milieu urbain, un écart de 41,7 points de pourcentage qui persiste dans les deux vagues.
