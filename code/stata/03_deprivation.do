@@ -85,11 +85,8 @@ program define indic_menage
     /* ── Dimension 4 : Nutrition (s08) ── */
 
     /* Securite alimentaire FIES (s08a — 2018 et 2021)
-       s08aq04 : sauter un repas | s08aq07 : faim | s08aq08 : journee sans manger
-       1=Oui 2=Non 98/99=NSP/Refus (traites comme Non)  */
-    /* Securite alimentaire FIES (s08a — 2018 et 2021)
-       Definition N-MODA : menage sans nourriture OU membre ayant saute un repas,
-       mange moins que necessaire, eu faim ou passe une journee sans manger
+       Definition N-MODA : membre ayant saute un repas, mange moins que necessaire,
+       manque de nourriture, eu faim ou passe une journee sans manger
        s08aq04 : saute repas | s08aq05 : mange moins | s08aq06 : plus de nourriture
        s08aq07 : faim        | s08aq08 : journee sans manger
        1=Oui 2=Non 98/99=NSP/Refus (traites comme Non)  */
