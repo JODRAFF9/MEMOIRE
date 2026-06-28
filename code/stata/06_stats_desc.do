@@ -109,15 +109,20 @@ foreach v in chef_f urbain {
     tabstat `v' [aw = hhweight], by(D) stat(mean n) format(%6.3f)
 }
 
-/* ttest pour p-valeurs */
+/* Tests pondérés : régression OLS avec poids et SE robustes
+   équivalent d'un t-test pondéré (H0 : coef(D) = 0) */
+svyset [pweight=hhweight]
 foreach v in hhsize hage pcexp chef_f urbain {
-    ttest `v', by(D)
+    quietly svy: mean `v', over(D)
+    di "  Test pondéré `v' (D=1 vs D=0) :"
+    lincom [D]1 - [D]0
 }
 
-/* Export */
+/* Export balance : moyennes pondérées + n non pondéré */
 preserve
+    gen n_obs = 1
     collapse (mean) hhsize hage pcexp chef_f urbain ///
-             (count) n=hhsize [aw=hhweight], by(D)
+             (sum)  n_obs [aw=hhweight], by(D)
     export delimited using "$OUTPUT/tables/tab_balance.csv", replace
     di ">>> tab_balance.csv sauvegardé"
 restore
