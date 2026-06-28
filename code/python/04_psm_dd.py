@@ -56,6 +56,36 @@ panel_complet = pd.concat([
 ], ignore_index=True)
 panel_complet["log_pcexp"] = np.log(panel_complet["pcexp"].clip(lower=1))
 
+# ── Filtre never-treated ──────────────────────────────────────
+# Groupe témoin = D=0 en 2018 ET en 2021 (jamais traité)
+# Groupe traité = D=1 en 2018 (statut stable à la période de base)
+def filtrer_never_treated(df):
+    d_pivot = df.pivot_table(index="hhid", columns="annee", values="D", aggfunc="max")
+    if 2018 in d_pivot.columns and 2021 in d_pivot.columns:
+        # Traités : D=1 en 2018 ET D=0 en 2021
+        traites     = d_pivot[(d_pivot[2018] == 1) & (d_pivot[2021] == 0)].index
+        # Témoins : D=0 en 2018 ET D=0 en 2021
+        never       = d_pivot[(d_pivot[2018] == 0) & (d_pivot[2021] == 0)].index
+        ids_valides = traites.union(never)
+    else:
+        ids_valides = d_pivot.index
+    return df[df["hhid"].isin(ids_valides)].copy()
+
+panel          = filtrer_never_treated(panel)
+panel_complet  = filtrer_never_treated(panel_complet)
+
+# D doit être statique (valeur 2018) pour que l'interaction t×D soit valide
+def fixer_d_base(df):
+    d_base = (df[df["annee"] == 2018][["hhid", "D"]]
+              .drop_duplicates("hhid")
+              .rename(columns={"D": "D_base"}))
+    df = df.drop(columns=["D"]).merge(d_base, on="hhid", how="left")
+    df = df.rename(columns={"D_base": "D"})
+    return df
+
+panel         = fixer_d_base(panel)
+panel_complet = fixer_d_base(panel_complet)
+
 print(f"Panel vrai : {len(panel):,} obs | traites : {panel['D'].sum():,}")
 
 # ── 2. Statistiques descriptives ──────────────────────────────

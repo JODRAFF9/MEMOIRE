@@ -93,6 +93,53 @@ panel_complet <- dplyr::bind_rows(
   dplyr::mutate(base_2021, dplyr::across(where(haven::is.labelled), haven::zap_labels))
 )
 
+# ── Filtre never-treated ──────────────────────────────────────
+# Groupe témoin = D=0 en 2018 ET en 2021 ; traité = D=1 en 2018
+d_statut <- panel_vrai |>
+  dplyr::distinct(grappe, menage, annee, D) |>
+  tidyr::pivot_wider(names_from = annee, values_from = D,
+                     names_prefix = "D_", values_fn = max)
+
+ids_valides <- d_statut |>
+  dplyr::filter((D_2018 == 1 & D_2021 == 0) |   # traités : reçu en 2018, pas en 2021
+                (D_2018 == 0 & D_2021 == 0)) |   # témoins : jamais reçu
+  dplyr::select(grappe, menage)
+
+panel_vrai <- panel_vrai |> dplyr::semi_join(ids_valides, by = ID)
+
+# D doit être statique (valeur 2018) pour que l'interaction t×D soit valide
+d_base_vrai <- panel_vrai |>
+  dplyr::filter(annee == 2018) |>
+  dplyr::distinct(grappe, menage, D) |>
+  dplyr::rename(D_base = D)
+
+panel_vrai <- panel_vrai |>
+  dplyr::select(-D) |>
+  dplyr::left_join(d_base_vrai, by = ID) |>
+  dplyr::rename(D = D_base)
+
+d_statut_c <- panel_complet |>
+  dplyr::distinct(grappe, menage, annee, D) |>
+  tidyr::pivot_wider(names_from = annee, values_from = D,
+                     names_prefix = "D_", values_fn = max)
+
+ids_valides_c <- d_statut_c |>
+  dplyr::filter((D_2018 == 1 & (is.na(D_2021) | D_2021 == 0)) |
+                (D_2018 == 0 & (is.na(D_2021) | D_2021 == 0))) |>
+  dplyr::select(grappe, menage)
+
+panel_complet <- panel_complet |> dplyr::semi_join(ids_valides_c, by = ID)
+
+d_base_complet <- panel_complet |>
+  dplyr::filter(annee == 2018) |>
+  dplyr::distinct(grappe, menage, D) |>
+  dplyr::rename(D_base = D)
+
+panel_complet <- panel_complet |>
+  dplyr::select(-D) |>
+  dplyr::left_join(d_base_complet, by = ID) |>
+  dplyr::rename(D = D_base)
+
 cat("Panel vrai :", nrow(panel_vrai),
     "obs | menages suivis :", nrow(ids_panel),
     "| traites :", sum(panel_vrai$D == 1, na.rm = TRUE), "\n")

@@ -46,6 +46,34 @@ use "$TEMP/base_2018.dta", clear
 append using "$TEMP/base_2021.dta"
 save "$TEMP/pseudo_panel.dta", replace
 
+/* ── Filtre never-treated ────────────────────────────────────
+   Groupe traité  = D=1 en 2018 ET D=0 en 2021
+   Groupe témoin  = D=0 en 2018 ET D=0 en 2021               */
+preserve
+keep grappe menage t D
+reshape wide D, i(grappe menage) j(t)
+keep if (D0 == 1 & D1 == 0) | (D0 == 0 & D1 == 0)
+keep grappe menage
+tempfile ids_valides
+save `ids_valides'
+restore
+
+merge m:1 grappe menage using `ids_valides', keep(match) nogenerate
+
+/* D doit être statique (valeur 2018) pour que l'interaction t×D soit valide */
+preserve
+keep if t == 0
+keep grappe menage D
+rename D D_base
+tempfile d_base
+save `d_base'
+restore
+drop D
+merge m:1 grappe menage using `d_base', keepusing(D_base) nogenerate
+rename D_base D
+
+save "$TEMP/pseudo_panel.dta", replace
+
 di _newline "Base analytique : " _N " obs"
 di "  Traites (D=1) : " _N - r(N) " (verif ci-dessous)"
 tabstat D, by(t) stat(sum mean n) format(%6.3f)
