@@ -1,0 +1,95 @@
+\section{Pauvreté monétaire et pauvreté multidimensionnelle --- analyse croisée}
+\label{ann:D}
+
+\subsection{Cadre conceptuel : complémentarité des deux mesures}
+
+La pauvreté monétaire et la pauvreté multidimensionnelle mesurent des réalités
+distinctes et partiellement non superposables. Un enfant peut être membre d'un
+ménage monétairement pauvre mais ne pas être multidimensionnellement pauvre
+(ménage à faible dépense mais accès à l'eau, à l'école et aux soins). À l'inverse,
+un enfant peut être dans un ménage au-dessus du seuil monétaire mais privé dans
+plusieurs dimensions (accès à l'eau, assainissement, protection). Cette
+complémentarité justifie l'utilisation simultanée des deux approches.
+
+La pauvreté monétaire est définie ici par le seuil national de pauvreté de
+l'ANSD~: un ménage est monétairement pauvre si sa dépense par tête annuelle
+(\texttt{pcexp}) est inférieure au seuil officiel de \textbf{757\,FCFA/jour}
+(276\,305\,FCFA/an, EHCVM 2018-2019) \parencite{ansd2022}.
+
+\subsection{Tableau croisé pauvreté monétaire / N-MODA (EHCVM I, 2018-2019)}
+
+\begin{table}[H]
+  \centering
+  \caption{Croisement pauvreté monétaire et pauvreté multidimensionnelle N-MODA
+           (enfants 0--17 ans, EHCVM I, 2018-2019)}
+  \label{tab:croisement_pauvrete}
+  \begin{tabular}{lccc}
+    \toprule
+    & \multicolumn{2}{c}{Pauvreté N-MODA} & \\
+    \cmidrule(lr){2-3}
+    Pauvreté monétaire & Non pauvre ($H=0$) & Pauvre ($H=1$) & Total \\
+    \midrule
+    Non pauvre ($Y=0$)
+      & \textbf{29,4\,\%} & 11,7\,\% & 41,1\,\% \\
+    Pauvre ($Y=1$)
+      & 11,7\,\% & \textbf{47,2\,\%} & 58,9\,\% \\
+    \midrule
+    Total & 41,1\,\% & 58,9\,\% & 100\,\% \\
+    \bottomrule
+  \end{tabular}
+  \begin{tablenotes}
+    \small
+    \item \textit{Note :} Proportions pondérées (\texttt{hhweight}). Seuil monétaire~:
+    757\,FCFA/personne/jour (ANSD 2022). Seuil N-MODA~: $k=4$ sur 7 dimensions.
+    Les cases en gras correspondent aux enfants non couverts par l'autre mesure.
+    \item \textit{Lecture :} 47,2\,\% des enfants sont simultanément pauvres selon
+    les deux approches (« doublement pauvres »). 11,7\,\% sont monétairement non pauvres
+    mais multidimensionnellement pauvres (pauvres « invisibles » à la mesure monétaire).
+    11,7\,\% sont monétairement pauvres mais non multidimensionnellement pauvres.
+  \end{tablenotes}
+\end{table}
+
+\subsection{Interprétation}
+
+Le tableau~\ref{tab:croisement_pauvrete} met en évidence quatre profils d'enfants~:
+
+\begin{enumerate}
+  \item \textbf{Non pauvres selon les deux approches} (29,4\,\%) : enfants dans
+    des ménages au-dessus du seuil monétaire et présentant moins de 4 privations
+    N-MODA. Ce groupe constitue la population de référence.
+
+  \item \textbf{Doublement pauvres} (47,2\,\%) : enfants à la fois en dessous du
+    seuil monétaire et souffrant d'au moins 4 privations N-MODA simultanément.
+    Ce groupe concentre les vulnérabilités les plus sévères et devrait être la
+    cible prioritaire des politiques publiques.
+
+  \item \textbf{Pauvres monétaires non multidimensionnels} (11,7\,\%) : enfants
+    dans des ménages à faible dépense mais dont les privations restent inférieures
+    au seuil $k=4$. Ces ménages peuvent avoir accès à des biens et services
+    essentiels hors marché (eau du puits, agriculture de subsistance) ou bénéficier
+    de transferts sociaux ou familiaux compensant la faiblesse des revenus.
+
+  \item \textbf{Pauvres multidimensionnels non monétaires} (11,7\,\%) : enfants
+    dans des ménages au-dessus du seuil monétaire mais subissant 4 privations
+    ou plus. Ce profil correspond souvent aux ménages urbains relativement aisés
+    mais vivant dans des zones sans accès à l'assainissement ou aux soins.
+    Ces enfants sont \textit{invisibles} à la mesure monétaire seule.
+\end{enumerate}
+
+\subsection{Implications méthodologiques}
+
+La proportion de 11,7\,\% d'enfants « invisibles » à la mesure monétaire
+(profil 4) justifie empiriquement le recours à une mesure multidimensionnelle
+complémentaire. En ciblant uniquement la pauvreté monétaire, les politiques
+publiques manqueraient plus d'un enfant sur dix qui souffre de privations
+structurelles cumulées. Cet argument plaide pour l'intégration systématique
+des indicateurs N-MODA dans les outils de ciblage des programmes sociaux
+sénégalais, à l'instar des registres sociaux utilisés dans les transferts
+monétaires conditionnels (Programme National de Bourses de Sécurité Familiale).
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.75\linewidth]{figures/fig_croisement_pauvrete.pdf}
+  \caption{Diagramme de Venn --- pauvreté monétaire et N-MODA (EHCVM I, 2018-2019)}
+  \label{fig:venn_pauvrete}
+\end{figure}
