@@ -54,20 +54,24 @@
 
 % ── Titres de section — bandeau ENSAE ────────────────────────
 \usepackage{titlesec}
-\setlength{\fboxsep}{6pt}
 \titlespacing*{\section}{0pt}{12pt}{8pt}
 \titlespacing*{\subsection}{0pt}{8pt}{4pt}
 \titlespacing*{\subsubsection}{0pt}{6pt}{3pt}
 
+% Bandeau pleine largeur : parbox[c] + 12pt = 2x6pt padding colorbox
+\newcommand{\ensaebandeau}[1]{%
+  \noindent\colorbox{ensaeblue}{%
+    \parbox[c]{\dimexpr\textwidth-12pt\relax}{%
+      \vspace{4pt}\centering\color{white}\large\bfseries #1\vspace{4pt}%
+    }%
+  }%
+}
+
 \titleformat{\section}[block]{\normalfont}{}
-  {0pt}
-  {\colorbox{ensaeblue}{\makebox[\dimexpr\linewidth-2\fboxsep\relax][c]%
-    {\color{white}\large\bfseries\thesection\quad #1}}}
+  {0pt}{\ensaebandeau{\thesection\quad #1}}
 
 \titleformat{name=\section,numberless}[block]{\normalfont}{}
-  {0pt}
-  {\colorbox{ensaeblue}{\makebox[\dimexpr\linewidth-2\fboxsep\relax][c]%
-    {\color{white}\large\bfseries #1}}}
+  {0pt}{\ensaebandeau{#1}}
 
 \titleformat{\subsection}
   {\normalfont\normalsize\bfseries\color{ensaeblue}}
