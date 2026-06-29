@@ -21,17 +21,17 @@ de Vie des Ménages (EHCVM I et II).
 Les Enquêtes Harmonisées sur les Conditions de Vie des Ménages (EHCVM) sont
 réalisées dans le cadre du programme statistique de l'UEMOA
 \parencite{ansd2019, ansd2022}. Les deux vagues mobilisées dans ce travail
-reposent sur un \textbf{plan de sondage aléatoire stratifié à deux degrés} :
+reposent sur un plan de sondage aléatoire stratifié à deux degrés :
 
 \begin{itemize}
-  \item \textbf{Strates :} les 14 régions administrative du Sénégal sont chacune
-  subdivisées en deux domaines (urbain/rural), formant \textbf{28 strates}.
+  \item Strates : les 14 régions administrative du Sénégal sont chacune
+  subdivisées en deux domaines (urbain/rural), formant 28 strates.
   Le tirage est indépendant dans chaque strate, ce qui garantit la
   représentativité au niveau région $\times$ milieu.
-  \item \textbf{Unités primaires (1\textsuperscript{er} degré) :} des Districts
+  \item Unités primaires (1\textsuperscript{er} degré) : des Districts
   de Recensement (DR) issus du RGPHAE 2013 constituent les grappes.
-  \textbf{598 DR} ont été sélectionnés (330 urbains, 268 ruraux).
-  \item \textbf{Unités secondaires (2\textsuperscript{e} degré) :} \textbf{12 ménages}
+  598 DR ont été sélectionnés (330 urbains, 268 ruraux).
+  \item Unités secondaires (2\textsuperscript{e} degré) : 12 ménages
   sont enquêtés dans chaque DR, pour un total théorique de 7\,176 ménages.
 \end{itemize}
 
@@ -58,7 +58,7 @@ théoriques selon le même plan de sondage (598 DR $\times$ 12 ménages), avec u
 sous-échantillon panel identifié par la variable \texttt{PanelHH}
 \parencite{ansd2019, ansd2022}.
 
-L'échantillon analytique repose sur le \textbf{panel vrai} constitué des
+L'échantillon analytique repose sur le panel vrai constitué des
 6\,127 ménages identifiés par \texttt{PanelHH} = 1, c'est-à-dire les
 ménages enquêtés lors des deux vagues et retrouvés dans leur logement d'origine
 (variable \texttt{s00q07e} : 5\,643 ménages dans le même logement ; 290 ménages
@@ -84,7 +84,7 @@ en 2021-2022 selon leur statut de suivi et le milieu de résidence.
     Urbain & 740 & 18,9 & 3\,182 & 81,1 & 3\,922 \\
     Rural  & 253 &  7,9 & 2\,945 & 92,1 & 3\,198 \\
     \midrule
-    \textbf{Total} & \textbf{993} & \textbf{13,9} & \textbf{6\,127} & \textbf{86,1} & \textbf{7\,120} \\
+    Total & 993 & 13,9 & 6\,127 & 86,1 & 7\,120 \\
     \midrule
     \multicolumn{6}{l}{\textit{Dont ménages panel selon condition de logement}} \\
     \quad Même logement qu'en 2018 & & & 5\,643 & 92,1 & \\
@@ -318,32 +318,32 @@ indicateurs retenus, en cohérence avec l'EHCVM et la méthodologie N-MODA.
     \toprule
     Dimension & Indicateurs de privation & Seuil / Définition & Variables EHCVM \\
     \midrule
-    \textbf{Assainissement}
+    Assainissement
       & Toilettes non améliorées & Sanitaires non conformes normes JMP & \texttt{toilet} \\[2pt]
       & Partage des toilettes & Installation partagée entre ménages & \texttt{partag\_toi} \\
     \midrule
-    \textbf{Eau}
+    Eau
       & Source non améliorée & Codes non-JMP (sèche ou pluies) & \texttt{eauboi\_ss/sp} \\[2pt]
       & Temps d'accès $> 30$ min & Saison sèche ou pluies & \texttt{tps\_eau\_ss/sp} \\
     \midrule
-    \textbf{Logement}
+    Logement
       & Gestion des ordures inadéquate & Brûlée, dépôt sauvage ou autre & \texttt{ordure} \\[2pt]
       & Surpeuplement $> 3$ pers./pièce & Rapport personnes/pièces & \texttt{nbpiec} \\
     \midrule
-    \textbf{Nutrition}
+    Nutrition
       & Diversité des repas (\textit{5--17 ans}) & $\geq 1$ macro-groupe non consommé quotidiennement (7j/7) & \texttt{s08b02a-j}$^{\dagger}$ \\[2pt]
       & Sécurité alimentaire (\textit{0--17 ans}) & Saut repas, mangé moins, faim ou journée sans manger & \texttt{s08aq04--08} \\
     \midrule
-    \textbf{Santé}
+    Santé
       & Combustible solide & Bois, charbon ou déchets pour cuisiner & \texttt{combust} \\[2pt]
       & Accès aux soins & Pas d'accès à pied à une structure & \textit{n.d.}$^{\dagger}$ \\
     \midrule
-    \multirow{3}{2.0cm}{\textbf{Protection de l'enfant}}
+    \multirow{3}{2.0cm}{Protection de l'enfant}
       & Absence d'acte de naissance & \textit{0--14 ans} : \texttt{acte\_nais} = 0 & \texttt{acte\_nais} \\[2pt]
       & Travail des enfants & \textit{5--14 ans} : \texttt{activ7j} $\in \{1,2\}$ & \texttt{activ7j} \\[2pt]
       & Séparation parentale & Ne vit pas avec 2 parents biologiques & \texttt{lien} \\
     \midrule
-    \multirow{3}{2.0cm}{\textbf{Éducation}}
+    \multirow{3}{2.0cm}{Éducation}
       & Non-scolarisation & \textit{5--14 ans} : \texttt{scol} = 0 & \texttt{scol} \\[2pt]
       & Illettrisme & \textit{15--17 ans} : pas de lecture/écriture & \texttt{alfab} \\[2pt]
       & NEET & \textit{15--17 ans} : ni étude, ni emploi & \texttt{scol}, \texttt{activ7j} \\
@@ -374,14 +374,14 @@ privation} de l'enfant $i$ est le nombre de dimensions dans lesquelles il est pr
   \label{eq:score_moda}
 \end{equation}
 
-Le \textbf{taux de privation par dimension} mesure la prévalence de chaque
+Le taux de privation par dimension mesure la prévalence de chaque
 privation :
 \begin{equation}
   H_j = \frac{1}{n} \sum_{i=1}^{n} d_{ij}.
   \label{eq:hj}
 \end{equation}
 
-Le \textbf{taux de pauvreté multidimensionnelle} $H$ (incidence) est la part
+Le taux de pauvreté multidimensionnelle $H$ (incidence) est la part
 d'enfants privés dans au moins $k$ dimensions simultanément :
 \begin{equation}
   H = \frac{1}{n} \sum_{i=1}^{n} \mathbf{1}\left[s_i \geq k\right].
@@ -391,7 +391,7 @@ Conformément à la méthodologie N-MODA Sénégal \parencite{ansd2024}, nous
 retenons $k = 4$ : un enfant est considéré multidimensionnellement pauvre s'il
 est privé dans au moins 4 des 7 dimensions simultanément.
 
-L'\textbf{intensité moyenne} des privations parmi les enfants pauvres est :
+L'intensité moyenne des privations parmi les enfants pauvres est :
 \begin{equation}
   A = \frac{1}{q} \sum_{i:\,s_i \geq k} \frac{s_i}{7},
   \label{eq:intensite_moda}
@@ -429,14 +429,14 @@ diffèrent systématiquement sur des caractéristiques observables et inobservab
 
 \subsubsection{L'appariement par score de propension (PSM)}
 
-Le PSM repose sur deux hypothèses. La première est l'\textbf{indépendance
-conditionnelle} (CIA) : conditionnellement aux covariables observées $X_i$,
+Le PSM repose sur deux hypothèses. La première est l'indépendance
+conditionnelle (CIA) : conditionnellement aux covariables observées $X_i$,
 les résultats potentiels sont indépendants du traitement,
 \begin{equation}
   \left(Y_i(0),\, Y_i(1)\right) \perp D_i \mid X_i.
   \label{eq:cia}
 \end{equation}
-La seconde est le \textbf{support commun} : $0 < P(D_i = 1 \mid X_i) < 1$,
+La seconde est le support commun : $0 < P(D_i = 1 \mid X_i) < 1$,
 garantissant que l'appariement est réalisable pour chaque traité.
 \cite{rosenbaum1983} ont montré que si la CIA est satisfaite pour $X_i$,
 elle l'est aussi pour le score de propension $p(X_i) = P(D_i = 1 \mid X_i)$,
