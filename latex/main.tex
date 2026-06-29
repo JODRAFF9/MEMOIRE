@@ -268,7 +268,7 @@
 \begin{appendices}
   % Bandeau : affiche "Annexe A Titre" sans modifier \thesection
   \renewcommand{\ensaebandeaunum}[1]{\ensaebandeau{Annexe~\thesection\quad #1}}
-  \input{annexes/annexe_A}
+  {\let\clearpage\relax \input{annexes/annexe_A}}
   \input{annexes/annexe_C}
   \input{annexes/annexe_D}
 \end{appendices}
