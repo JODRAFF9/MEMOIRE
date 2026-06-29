@@ -8,7 +8,7 @@ PSM-DD. Le code complet est organisé en scripts numérotés dans le répertoire
 \subsection{Déclaration du plan de sondage}
 
 \begin{verbatim}
-/* config.do — programme svyset_ehcvm */
+/* config.do - programme svyset_ehcvm */
 capture program drop svyset_ehcvm
 program define svyset_ehcvm
     args poids
@@ -30,7 +30,7 @@ La variable \texttt{strate} est construite comme \texttt{region * 10 + milieu}.
 \subsection{Estimation du score de propension}
 
 \begin{verbatim}
-/* 05_psm_dd.do — Probit sur t=0 */
+/* 05_psm_dd.do - Probit sur t=0 */
 svyset_ehcvm hhweight
 svy: probit D c.hhsize c.log_pcexp i.milieu i.region ///
          c.hgender c.hage i.heduc i.hmstat, nolog
