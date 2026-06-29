@@ -158,7 +158,8 @@
 \pretocmd{\section}{\clearpage}{}{}
 
 % ── Annexes ─────────────────────────────────────────────────
-\usepackage{appendix}
+\usepackage[titletoc]{appendix}
+\renewcommand{\appendixname}{Annexe}
 
 % ── Sommaire court (coexiste avec \tableofcontents via fichier .stoc séparé)
 \usepackage{shorttoc}
@@ -265,7 +266,8 @@
 \addcontentsline{toc}{section}{Annexes}
 \section*{Annexes}
 \begin{appendices}
-  \renewcommand{\thesection}{Annexe~\Alph{section}}
+  % Bandeau : affiche "Annexe A Titre" sans modifier \thesection
+  \renewcommand{\ensaebandeaunum}[1]{\ensaebandeau{Annexe~\thesection\quad ##1}}
   \input{annexes/annexe_A}
   \input{annexes/annexe_C}
   \input{annexes/annexe_D}
