@@ -401,6 +401,54 @@
 \subsection{État de la pauvreté multidimensionnelle}
 
 \begin{frame}{Pauvreté multidimensionnelle des enfants : état des lieux}
+  \begin{columns}
+    \begin{column}{0.48\textwidth}
+      \begin{block}{Résultats N-MODA ($k=4$)}
+        \centering\smallskip
+        \begin{tabular}{lcc}
+          \toprule
+          Vague & $H$ & $M_0$ \\
+          \midrule
+          2018--2019 & 58,9\,\% & 35,5\,\% \\
+          2021--2022 & 51,6\,\% & 30,9\,\% \\
+          \midrule
+          $\Delta$ & $-7{,}3$ pp & $-4{,}6$ pp \\
+          \bottomrule
+        \end{tabular}
+      \end{block}
+      \begin{block}{Alkire-Foster ($k=1/3$)}
+        \centering\smallskip
+        \begin{tabular}{lc}
+          \toprule
+          Vague & $H$ \\
+          \midrule
+          2018--2019 & 62,0\,\% \\
+          2021--2022 & 56,3\,\% \\
+          \bottomrule
+        \end{tabular}
+      \end{block}
+    \end{column}
+    \begin{column}{0.50\textwidth}
+      \centering
+      \includegraphics[width=\linewidth]{figures/fig_evolution_ipm.pdf}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Privations par dimension (N-MODA)}
+  \begin{columns}
+    \begin{column}{0.50\textwidth}
+      \centering
+      \includegraphics[width=\linewidth]{figures/fig_privations_dim.pdf}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \centering
+      \includegraphics[width=\linewidth]{figures/fig_pauvrete_milieu_age.pdf}
+    \end{column}
+  \end{columns}
+  \begin{alertblock}{Amélioration entre 2018 et 2022}
+    Baisse de 7,3 pp de l'incidence N-MODA ;
+    plus d'un enfant sur deux reste privé dans au moins 4 dimensions.
   \begin{block}{Résultats N-MODA (7 dimensions, $k=4$)}
     \centering\smallskip
     \begin{tabular}{lccc}
@@ -446,6 +494,21 @@
 \subsection{Qualité de l'appariement}
 
 \begin{frame}{Qualité de l'appariement PSM}
+  \begin{columns}
+    \begin{column}{0.52\textwidth}
+      \centering
+      \includegraphics[width=\linewidth]{figures/overlap.pdf}
+    \end{column}
+    \begin{column}{0.46\textwidth}
+      \begin{block}{Équilibre après appariement}
+        \begin{itemize}
+          \item Différences standardisées $< 5\,\%$ pour toutes les covariables.
+          \item Ratio de variance proches de 1.
+          \item Hypothèse d'ignorabilité conditionnelle satisfaite.
+        \end{itemize}
+      \end{block}
+    \end{column}
+  \end{columns}
   \begin{block}{Vérification du support commun}
     Distribution du score de propension avant et après appariement :
     chevauchement satisfaisant entre ménages traités et témoins.
@@ -488,6 +551,22 @@
 \end{frame}
 
 \begin{frame}{Effets par dimension de la pauvreté}
+  \begin{columns}
+    \begin{column}{0.55\textwidth}
+      \centering
+      \includegraphics[width=\linewidth]{figures/fig_effets_dim.pdf}
+    \end{column}
+    \begin{column}{0.43\textwidth}
+      \begin{block}{Hétérogénéité}
+        \begin{itemize}
+          \item Éducation : dimension la plus sensible aux transferts.
+          \item Assainissement et eau : peu de variation liée aux transferts.
+          \item Effets plus prononcés en milieu urbain.
+          \item En milieu rural, l'accès aux services reste limité indépendamment des transferts.
+        \end{itemize}
+      \end{block}
+    \end{column}
+  \end{columns}
   \begin{block}{Décomposition des effets}
     \begin{itemize}
       \item La dimension éducation présente les effets les plus marqués.
