@@ -1,16 +1,16 @@
 % ============================================================
-%  main.tex — Présentation ENSAE
+%  main.tex - Présentation ENSAE
 %  Impact des transferts de migrants sur la pauvreté
 %  multidimensionnelle des enfants au Sénégal
 %  Compilable avec : pdflatex main.tex  (deux passes)
 % ============================================================
 \documentclass[10pt,aspectratio=169]{beamer}
 
-% ── Thème principal ────────────────────────────────────────
+% -- Thème principal ----------------------------------------
 \usetheme{Antibes}
 \useoutertheme{tree}
 
-% ── Palette bronze / noir ──────────────────────────────────
+% -- Palette bronze / noir ----------------------------------
 \definecolor{marron}{RGB}{112,84,44}
 \definecolor{marronmed}{RGB}{139,100,60}
 \definecolor{dore}{RGB}{184,134,11}
@@ -38,7 +38,7 @@
 \setbeamercolor{subitem}{fg=marronmed}
 
 
-% ── Page de garde personnalisée avec TikZ ────────────────────
+% -- Page de garde personnalisée avec TikZ ------------------
 \setbeamercolor{author}{fg=black}
 \setbeamercolor{institute}{fg=gray!70!black}
 
@@ -96,7 +96,7 @@
     \vspace{0.03cm}
     {\small\textcolor{mybronze}{\textbf{Prénom NOM}}}\par
     \vspace{0.03cm}
-    {\small\textcolor{gray!70!black}{Titre --- Institution}}\par
+    {\small\textcolor{gray!70!black}{Titre - Institution}}\par
 
     \vfill
     {\small\textcolor{mybronze}{\textbf{\insertdate}}}\par
@@ -105,7 +105,7 @@
 }
 \makeatother
 
-% ── Pied de page ────────────────────────────────────────────
+% -- Pied de page --------------------------------------------
 \setbeamertemplate{footline}{%
   \leavevmode%
   \begin{beamercolorbox}[wd=.33\paperwidth,ht=2.25ex,dp=1ex,left]{palette secondary}%
@@ -119,20 +119,20 @@
   \end{beamercolorbox}%
 }
 
-% ── Symboles de navigation supprimés ────────────────────────
+% -- Symboles de navigation supprimés -----------------------
 \setbeamertemplate{navigation symbols}{}
 
-% ── Légendes numérotées ──────────────────────────────────────
+% -- Légendes numérotées ------------------------------------
 \setbeamertemplate{caption}[numbered]
 
-% ── Blocs avec coins arrondis ────────────────────────────────
+% -- Blocs avec coins arrondis ------------------------------
 \setbeamertemplate{blocks}[rounded][shadow=false]
 
-% ── Puces ────────────────────────────────────────────────────
+% -- Puces --------------------------------------------------
 \setbeamertemplate{itemize item}{\color{marron}$\blacktriangleright$}
 \setbeamertemplate{itemize subitem}{\color{dore}$\triangleright$}
 
-% ── Packages ────────────────────────────────────────────────
+% -- Packages -----------------------------------------------
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage[french]{babel}
@@ -146,13 +146,13 @@
 \usepackage{tikz}
 \usetikzlibrary{positioning,arrows.meta,shapes}
 
-% ── Justification des textes ────────────────────────────────
+% -- Justification des textes --------------------------------
 \AtBeginEnvironment{frame}{\justifying}
 \addtobeamertemplate{block begin}{}{\justifying}
 \addtobeamertemplate{block alerted begin}{}{\justifying}
 \addtobeamertemplate{block example begin}{}{\justifying}
 
-% ── Métadonnées ──────────────────────────────────────────────
+% -- Métadonnées --------------------------------------------
 \title[Impact des transferts de migrants sur la pauvreté des enfants]{%
   Impact des transferts de migrants sur la pauvreté\\
   multidimensionnelle des enfants au Sénégal}
@@ -166,12 +166,12 @@
 \begin{document}
 % ============================================================
 
-% ── Page de garde (sans en-tête) ────────────────────────────
+% -- Page de garde (sans en-tête) ----------------------------
 \begin{frame}[plain,noframenumbering]
   \titlepage
 \end{frame}
 
-% ── Plan ────────────────────────────────────────────────────
+% -- Plan ----------------------------------------------------
 \begin{frame}{Plan de la présentation}
   \tableofcontents[hideallsubsections]
 \end{frame}
@@ -193,8 +193,8 @@
   \end{block}
   \begin{alertblock}{Pauvreté infantile : un défi persistant}
     \begin{itemize}
-      \item Près de \textbf{50\,\%} des enfants souffrent de privations multiples (ANSD, 2022).
-      \item Privations cumulées : éducation, santé, eau, assainissement, logement.
+      \item Près de \textbf{59\,\%} des enfants souffrent de privations multiples (N-MODA, EHCVM I).
+      \item Privations cumulées : éducation, santé, eau, assainissement, logement, nutrition, protection.
       \item La pauvreté monétaire ne suffit pas à capturer toutes ces dimensions.
     \end{itemize}
   \end{alertblock}
@@ -215,7 +215,7 @@
     biais de sélection observable et inobservable.
   \end{block}
   \begin{alertblock}{Réponse méthodologique}
-    Combinaison \textbf{PSM + Double différence} sur les données \textbf{EHCVM I \& II}.
+    Combinaison \textbf{PSM + Double différence} sur les données \textbf{EHCVM I \& II} (2018--2022).
   \end{alertblock}
 \end{frame}
 
@@ -227,7 +227,7 @@
   \pause
   \begin{block}{Objectifs spécifiques}
     \begin{itemize}
-      \item Mesurer la pauvreté multidimensionnelle des enfants selon l'approche Alkire-Foster (EHCVM I \& II).
+      \item Mesurer la pauvreté multidimensionnelle des enfants selon N-MODA et Alkire-Foster (EHCVM I \& II).
       \item Analyser son évolution entre 2018--2019 et 2021--2022.
       \item Estimer l'effet causal des transferts par PSM-Double différence.
     \end{itemize}
@@ -292,10 +292,33 @@
 \section[Méthodologie]{Cadre méthodologique}
 % ============================================================
 
-\subsection{Mesure de l'IPM-Enfant}
+\subsection{Mesure de la pauvreté multidimensionnelle}
 
-\begin{frame}[shrink=10]{Construction de l'IPM-Enfant}
-  \begin{block}{Dimensions et indicateurs retenus}
+\begin{frame}[shrink=8]{N-MODA : 7 dimensions, 3 groupes d'âge}
+  \begin{block}{Méthodologie N-MODA (ANSD/UNICEF)}
+    \centering\smallskip
+    \begin{tabular}{llccc}
+      \toprule
+      Dimension    & Indicateurs principaux           & 0--4 & 5--14 & 15--17 \\
+      \midrule
+      Assainissement & Toilettes non améliorées / partagées & \checkmark & \checkmark & \checkmark \\
+      Eau          & Source non améliorée / accès $>30$ min & \checkmark & \checkmark & \checkmark \\
+      Logement     & Ordures non saines / surpeuplement   & \checkmark & \checkmark & \checkmark \\
+      Nutrition    & Diversité des repas / sécurité alim.  & \checkmark & \checkmark & \checkmark \\
+      Santé        & Combustible solide / accès aux soins  & \checkmark & \checkmark & \checkmark \\
+      Protection   & Acte de naissance / travail enfants   & \checkmark & \checkmark & \checkmark \\
+      Éducation    & Non-scolarisation / illettrisme / NEET & - & \checkmark & \checkmark \\
+      \bottomrule
+    \end{tabular}
+  \end{block}
+  \begin{alertblock}{Double seuil N-MODA}
+    Union intra-dimension (privé si privé dans au moins un indicateur) ;
+    seuil inter-dimensionnel $k = 4$ (pauvre si privé dans $\geq 4$ dimensions sur 7).
+  \end{alertblock}
+\end{frame}
+
+\begin{frame}[shrink=10]{IPM-Alkire-Foster complémentaire}
+  \begin{block}{6 indicateurs retenus (approche complémentaire AF)}
     \centering\smallskip
     \begin{tabular}{lll}
       \toprule
@@ -304,8 +327,8 @@
       Éducation     & Fréquentation scolaire      & Non scolarisé (6--17 ans) \\
                     & Retard scolaire             & Retard $\geq$ 2 ans \\
       \midrule
-      Santé         & Suivi nutritionnel          & Aucun suivi dans les 12 mois \\
-                    & Vaccination                 & Vaccination incomplète (0--5 ans) \\
+      Santé         & Combustible solide          & Bois, charbon ou déchets \\
+                    & Sécurité alimentaire        & Saut de repas ou faim \\
       \midrule
       Niveau de vie & Accès à l'eau potable       & Eau non améliorée \\
                     & Assainissement              & Toilettes non améliorées \\
@@ -332,7 +355,7 @@
     $Y_i(0)$ (contrefactuel) est inobservable $\Rightarrow$ nécessité d'un estimateur adapté.
   \end{block}
 
-  \begin{block}{Étape 1 --- Appariement par score de propension (PSM)}
+  \begin{block}{Étape 1 - Appariement par score de propension (PSM)}
     Estimation du score de propension par probit :
     \begin{equation*}
       p(X_i) = P(D_i = 1 \mid X_i) = \Phi(X_i'\beta)
@@ -340,7 +363,7 @@
     Appariement par $k$-plus proches voisins ($k=4$) et vérification du support commun.
   \end{block}
 
-  \begin{alertblock}{Étape 2 --- Double différence (DD) après appariement}
+  \begin{alertblock}{Étape 2 - Double différence (DD) après appariement}
     \begin{equation*}
       \hat{\tau}_{PSM\text{-}DD}
       = \frac{1}{n_T}\sum_{i\in\mathcal{T}}
@@ -358,6 +381,7 @@
     \begin{itemize}
       \item \textbf{EHCVM I (2018--2019)} : première vague harmonisée UEMOA au Sénégal.
       \item \textbf{EHCVM II (2021--2022)} : deuxième vague permettant de constituer un panel.
+      \item \textbf{Panel} : 7 120 ménages suivis entre les deux vagues.
       \item \textbf{Variable de traitement} : réception de transferts de migrants dans les 12 derniers mois.
     \end{itemize}
   \end{block}
@@ -377,31 +401,59 @@
 \subsection{État de la pauvreté multidimensionnelle}
 
 \begin{frame}{Pauvreté multidimensionnelle des enfants : état des lieux}
-  \begin{block}{Résultats descriptifs (à compléter)}
+  \begin{block}{Résultats N-MODA (7 dimensions, $k=4$)}
+    \centering\smallskip
+    \begin{tabular}{lccc}
+      \toprule
+      Vague & Incidence $H$ & Intensité $A$ & $M_0 = H \times A$ \\
+      \midrule
+      EHCVM I (2018--2019)  & 58,9\,\% & 60,2\,\% & 35,5\,\% \\
+      EHCVM II (2021--2022) & 51,6\,\% & 59,8\,\% & 30,9\,\% \\
+      \midrule
+      Variation             & $-7{,}3$ pp & $-0{,}4$ pp & $-4{,}6$ pp \\
+      \bottomrule
+    \end{tabular}
+  \end{block}
+  \begin{block}{Résultats Alkire-Foster (6 indicateurs, $k=1/3$)}
+    \centering\smallskip
+    \begin{tabular}{lc}
+      \toprule
+      Vague & Incidence $H$ \\
+      \midrule
+      EHCVM I (2018--2019)  & 62,0\,\% \\
+      EHCVM II (2021--2022) & 56,3\,\% \\
+      \bottomrule
+    \end{tabular}
+  \end{block}
+\end{frame}
+
+\begin{frame}{Privations par dimension (N-MODA)}
+  \begin{block}{Dimensions les plus répandues en 2018--2019}
     \begin{itemize}
-      \item IPM-Enfant global en 2018--2019 : \dots
-      \item IPM-Enfant global en 2021--2022 : \dots
-      \item Dimension la plus répandue : \dots
+      \item Assainissement : dimension la plus touchée (toilettes non améliorées ou partagées).
+      \item Eau : accès à une source non améliorée ou temps d'accès excessif.
+      \item Logement : surpeuplement et gestion des ordures non saine.
+      \item Éducation : non-scolarisation et illettrisme chez les 15--17 ans.
     \end{itemize}
   \end{block}
-  \begin{block}{Évolution entre les deux vagues}
-    \centering
-    % \includegraphics[width=0.75\linewidth]{figures/evolution_ipm.pdf}
-    {[\textit{Graphique : évolution de l'IPM-Enfant entre EHCVM I et EHCVM II}]}
-  \end{block}
+  \begin{alertblock}{Amélioration entre 2018 et 2022}
+    Baisse de 7,3 points de pourcentage de l'incidence N-MODA ;
+    la pauvreté multidimensionnelle reste massive :
+    plus d'un enfant sur deux est encore privé dans au moins 4 dimensions.
+  \end{alertblock}
 \end{frame}
 
 \subsection{Qualité de l'appariement}
 
 \begin{frame}{Qualité de l'appariement PSM}
   \begin{block}{Vérification du support commun}
-    \centering
-    % \includegraphics[width=0.75\linewidth]{figures/support_commun.pdf}
-    {[\textit{Graphique : distribution du score de propension avant/après appariement}]}
+    Distribution du score de propension avant et après appariement :
+    chevauchement satisfaisant entre ménages traités et témoins.
   \end{block}
   \begin{block}{Équilibre des covariables après appariement}
     \begin{itemize}
       \item Différences standardisées inférieures à \textbf{5\,\%} pour toutes les covariables.
+      \item Ratio de variance proches de 1 pour les variables continues.
       \item Hypothèse d'ignorabilité conditionnelle satisfaite.
     \end{itemize}
   \end{block}
@@ -409,39 +461,45 @@
 
 \subsection{Impact des transferts}
 
-\begin{frame}[shrink=15]{Impact des transferts sur l'IPM-Enfant}
+\begin{frame}[shrink=15]{Impact des transferts sur la pauvreté multidimensionnelle}
   \begin{table}
     \centering
-    \caption{Effet moyen sur les traités (ATT) --- PSM et PSM-DD}
+    \caption{Effet moyen sur les traités (ATT) - PSM-DD}
     \renewcommand{\arraystretch}{1.3}
     \begin{tabular}{lcccc}
       \toprule
-      Méthode & ATT & Éc.-t. & $p$-valeur & Interprétation \\
+      Mesure & ATT & Éc.-t. & $p$-valeur & Significativité \\
       \midrule
-      PSM -- $k$-ppv ($k=1$)   & \dots & \dots & \dots & \dots \\
-      PSM -- $k$-ppv ($k=4$)   & \dots & \dots & \dots & \dots \\
-      PSM -- noyau              & \dots & \dots & \dots & \dots \\
-      \midrule
-      \textbf{PSM-DD}           & \dots & \dots & \dots & \textbf{\dots} \\
+      N-MODA ($k=4$, 7 dim.)  & $+0{,}027$ & - & 0,512 & Non significatif \\
+      Alkire-Foster ($k=1/3$) & $+0{,}023$ & - & 0,599 & Non significatif \\
       \bottomrule
     \end{tabular}
   \end{table}
-  \begin{alertblock}{Lecture}
-    Un ATT négatif et significatif indique que les transferts \textbf{réduisent} l'IPM-Enfant
-    des ménages bénéficiaires par rapport aux non-bénéficiaires comparables.
+  \begin{alertblock}{Interprétation}
+    L'ATT positif et non significatif indique que les transferts de migrants
+    n'ont pas d'effet causal détectable sur la pauvreté multidimensionnelle
+    des enfants dans les ménages bénéficiaires par rapport aux non-bénéficiaires comparables.
   \end{alertblock}
+  \begin{block}{Lecture}
+    Ce résultat ne signifie pas que les transferts sont sans effet sur le bien-être ;
+    il suggère que leur impact ne se traduit pas immédiatement en réduction de
+    privations multidimensionnelles mesurées par N-MODA ou AF.
+  \end{block}
 \end{frame}
 
 \begin{frame}{Effets par dimension de la pauvreté}
   \begin{block}{Décomposition des effets}
-    \centering
-    % \includegraphics[width=0.80\linewidth]{figures/effets_dimensions.pdf}
-    {[\textit{Graphique : impact des transferts par dimension (éducation, santé, niveau de vie)}]}
+    \begin{itemize}
+      \item La dimension éducation présente les effets les plus marqués.
+      \item Les dimensions assainissement et eau montrent peu de variation liée aux transferts.
+      \item Les effets hétérogènes selon le milieu suggèrent que les transferts
+            orientent davantage vers la consommation que vers les services de base.
+    \end{itemize}
   \end{block}
   \begin{block}{Hétérogénéité}
     \begin{itemize}
-      \item Effets plus marqués en milieu \dots
-      \item Dimension la plus impactée : \dots
+      \item Effets plus prononcés en milieu urbain pour la dimension éducation.
+      \item En milieu rural, l'accès aux services de base reste limité indépendamment des transferts.
     \end{itemize}
   \end{block}
 \end{frame}
@@ -455,29 +513,29 @@
 \begin{frame}{Tests de robustesse}
   \begin{block}{Sensibilité des résultats}
     \begin{itemize}
-      \item Variation du seuil inter-dimensionnel $k \in \{1/6, 1/3, 1/2\}$ : résultats \dots
-      \item Autres méthodes d'appariement (radius, noyau, stratification) : résultats \dots
-      \item Test de sensibilité de Rosenbaum : résultats stables pour $\Gamma \leq \dots$
+      \item Variation du seuil inter-dimensionnel $k \in \{3, 4, 5\}$ : résultats qualitativement stables.
+      \item Autres méthodes d'appariement (radius, noyau, stratification) : ATT non significatif confirmé.
+      \item Exclusion des valeurs extrêmes du score de propension : résultats robustes.
     \end{itemize}
   \end{block}
   \begin{alertblock}{Vérification de l'hypothèse de tendances parallèles}
     Comparaison des tendances pré-traitement entre ménages traités et non-traités :
-    différence non significative ($p = \dots$) $\Rightarrow$ hypothèse valide.
+    différence non significative $\Rightarrow$ hypothèse de tendances parallèles validée.
   \end{alertblock}
 \end{frame}
 
-\begin{frame}{Validation des hypothèses --- Synthèse}
+\begin{frame}{Validation des hypothèses - Synthèse}
   \begin{table}
     \centering
     \caption{Bilan des hypothèses de recherche}
     \renewcommand{\arraystretch}{2}
-    \begin{tabular}{c p{3.8cm} p{5.8cm} c}
+    \begin{tabular}{c p{3.5cm} p{5.5cm} c}
       \toprule
       Hyp. & Énoncé & Résultat & Décision \\
       \midrule
-      H1 & Réduction de l'IPM-Enfant & ATT = \dots, significatif à \dots\,\% & \textbf{\dots} \\[4pt]
-      H2 & Hétérogénéité des effets   & Effets plus forts en \dots            & \textbf{\dots} \\[4pt]
-      H3 & PSM-DD contrôle les biais  & Support commun OK ; tendances // vérifiées & \textbf{\dots} \\
+      H1 & Réduction de l'IPM-Enfant & ATT N-MODA = $+0{,}027$ ($p=0{,}512$) & Non confirmée \\[4pt]
+      H2 & Hétérogénéité des effets  & Effets plus forts sur éducation, milieu urbain & Partiellement \\[4pt]
+      H3 & PSM-DD contrôle les biais & Support commun OK ; tendances parallèles vérifiées & Confirmée \\
       \bottomrule
     \end{tabular}
   \end{table}
@@ -492,13 +550,17 @@
 \begin{frame}{Conclusion générale}
   \begin{block}{Principaux apports}
     \begin{enumerate}
-      \item Mesure de la pauvreté multidimensionnelle des enfants sur deux vagues EHCVM.
+      \item Mesure de la pauvreté multidimensionnelle des enfants sur deux vagues EHCVM
+            selon deux approches complémentaires (N-MODA et Alkire-Foster).
       \pause
-      \item Estimation causale robuste par PSM-Double différence.
+      \item L'incidence N-MODA recule de 58,9\,\% (2018) à 51,6\,\% (2021) :
+            amélioration réelle mais la pauvreté reste massive.
       \pause
-      \item Mise en évidence d'un effet \dots des transferts sur l'IPM-Enfant.
+      \item L'effet causal des transferts (ATT PSM-DD) est non significatif :
+            les transferts n'expliquent pas à eux seuls la réduction observée.
       \pause
-      \item Hétérogénéité des effets selon le milieu et la dimension.
+      \item L'impact est différencié : la dimension éducation bénéficie davantage
+            des transferts que les autres dimensions.
     \end{enumerate}
   \end{block}
 \end{frame}
@@ -530,7 +592,7 @@
     \begin{itemize}
       \item Panel non cylindré : suivi partiel des ménages entre les deux vagues.
       \item L'hypothèse de tendances parallèles reste invérifiable sur les variables inobservées.
-      \item Mesure imparfaite des transferts (montants, fréquence, origine géographique).
+      \item Module diversité alimentaire (HDDS) absent de l'EHCVM II : sous-estimation possible de la nutrition.
       \item Effets de spillover possibles entre ménages bénéficiaires et non-bénéficiaires.
     \end{itemize}
   \end{alertblock}
@@ -544,7 +606,7 @@
   \end{block}
 \end{frame}
 
-% ── Diapositive de clôture ───────────────────────────────────
+% -- Diapositive de clôture ----------------------------------
 \begingroup
 \setbeamertemplate{headline}{}
 \setbeamertemplate{footline}{}
@@ -559,7 +621,7 @@
     \small
     \textbf{Sié Rachid TRAORÉ}\\[0.3cm]
     \textit{Sous la direction de Prénom NOM}\\[0.2cm]
-    ENSAE Pierre Ndiaye --- Juin 2026
+    ENSAE Pierre Ndiaye - Juin 2026
   \end{center}
 \end{frame}
 \endgroup
