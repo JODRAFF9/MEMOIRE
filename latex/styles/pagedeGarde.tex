@@ -1,65 +1,70 @@
 % ============================================================
-%  Page de garde officielle - ENSAE Dakar
+%  Page de garde — style ENSAE Dakar
 % ============================================================
 \begin{titlepage}
 \centering
+\thispagestyle{empty}
 
-% Logos (décommenter et ajuster le chemin si disponible)
-% \includegraphics[width=3cm]{figures/logo_ensae.png}\hfill
-% \includegraphics[width=3cm]{figures/logo_ansd.png}\\[0.5cm]
+% ── En-tête institutionnel ───────────────────────────────────
+\textbf{\normalsize RÉPUBLIQUE DU SÉNÉGAL}\\[0.15cm]
+{\small Un Peuple --- Un But --- Une Foi}\\[0.15cm]
+{\small * * * * * * * * * * * *}\\[0.2cm]
+{\small Ministère de l'Économie, du Plan et de la Coopération}\\[0.3cm]
 
-\textbf{\large RÉPUBLIQUE DU SÉNÉGAL}\\[0.1cm]
-{\small Un Peuple - Un But - Une Foi}\\[0.3cm]
-\rule{\linewidth}{0.8pt}\\[0.3cm]
-\textbf{\large ÉCOLE NATIONALE DE LA STATISTIQUE ET DE L'ANALYSE ÉCONOMIQUE}\\
-{\small (ENSAE Pierre Ndiaye)}\\[0.1cm]
-\rule{\linewidth}{0.4pt}
+{\color{ensaecyan}\rule{\linewidth}{1.5pt}}\\[0.25cm]
 
-\vspace{1.5cm}
+% ── Institutions ─────────────────────────────────────────────
+{\small Agence Nationale de la Statistique et de la Démographie (ANSD)}\\[0.2cm]
 
-{\Large \textbf{MÉMOIRE DE FIN D'ÉTUDES}}\\[0.3cm]
-{\normalsize Pour l'obtention du diplôme d'Ingénieur Statisticien Économiste (ISE)}
+% ── Logo ENSAE ───────────────────────────────────────────────
+\includegraphics[width=3.5cm]{figures/logo_ensae.png}\\[0.2cm]
+{\small\itshape École Nationale de la Statistique et de l'Analyse Économique}\\
+{\small\itshape Pierre Ndiaye (ENSAE)}\\[0.3cm]
 
-\vspace{1.5cm}
+{\color{ensaecyan}\rule{\linewidth}{1pt}}\\[0.4cm]
 
-\begin{center}
-  \fbox{%
-    \parbox{0.85\linewidth}{%
-      \centering\vspace{0.5cm}
-      {\LARGE \textbf{Impact des transferts de migrants sur la}}\\[0.4cm]
-      {\LARGE \textbf{pauvreté multidimensionnelle des enfants}}\\[0.4cm]
-      {\LARGE \textbf{au Sénégal}}\\[0.5cm]
-    }%
-  }
-\end{center}
+% ── Badge "Mémoire de fin de formation" ──────────────────────
+\colorbox{ensaeblue}{\parbox{0.55\linewidth}{\centering
+  \color{white}\normalsize\bfseries Mémoire de fin de formation
+}}\\[0.35cm]
 
-\vspace{1.5cm}
+% ── Encadré titre ────────────────────────────────────────────
+\setlength{\fboxrule}{1.5pt}
+\setlength{\fboxsep}{12pt}
+\fcolorbox{ensaeblue}{white}{%
+  \parbox{0.88\linewidth}{\centering
+    {\Large\bfseries Impact des transferts de migrants sur la}\\[0.4cm]
+    {\Large\bfseries pauvreté multidimensionnelle des enfants}\\[0.4cm]
+    {\Large\bfseries au Sénégal}
+  }%
+}\\[0.7cm]
 
-\begin{minipage}[t]{0.45\textwidth}
+% ── Auteur / Directeur ───────────────────────────────────────
+\setlength{\fboxsep}{6pt}
+\begin{minipage}[t]{0.48\linewidth}
   \raggedright
-  \textbf{Présenté par :}\\[0.2cm]
-  Sié Rachid \textsc{Traoré}\\
-  Élève Ingénieur Statisticien Économiste
+  \underline{\textbf{Rédigé par :}}\\[0.3cm]
+  {\bfseries Sié Rachid TRAORÉ}\\[0.1cm]
+  {\small\itshape Élève Ingénieur Statisticien Économiste}
 \end{minipage}
 \hfill
-\begin{minipage}[t]{0.45\textwidth}
+\begin{minipage}[t]{0.48\linewidth}
   \raggedleft
-  \textbf{Sous la direction de :}\\[0.2cm]
-  Prénom \textsc{NOM}\\
-  {\small Titre, Institution}\\[0.4cm]
-  \textbf{Supervisé par :}\\[0.2cm]
-  Prénom \textsc{NOM}\\
-  {\small Titre, Institution}
+  \underline{\textbf{Sous la supervision de :}}\\[0.3cm]
+  {\bfseries Prénom \textsc{Nom}}\\[0.1cm]
+  {\small\itshape Ingénieur Statisticien Économiste}\\
+  {\small\itshape Institution}
 \end{minipage}
 
 \vfill
 
-\vfill
-
-\rule{\linewidth}{0.4pt}\\[0.2cm]
-{\large Année académique 2025-2026}
+% ── Date ─────────────────────────────────────────────────────
+{\color{ensaecyan}\rule{\linewidth}{1pt}}\\[0.3cm]
+\colorbox{ensaecyan!20}{\parbox{0.3\linewidth}{\centering
+  \color{ensaeblue}\bfseries\normalsize Juin 2026
+}}
 
 \end{titlepage}
 
 \thispagestyle{empty}
-\newpage\mbox{}
+\newpage\mbox{}\thispagestyle{empty}\newpage
