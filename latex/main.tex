@@ -58,7 +58,7 @@
 \titlespacing*{\subsection}{0pt}{8pt}{4pt}
 \titlespacing*{\subsubsection}{0pt}{6pt}{3pt}
 
-% Bandeau pleine largeur — sans [block] pour éviter la séparation numéro/titre
+% Bandeau pleine largeur ENSAE
 \setlength{\fboxsep}{6pt}
 \newcommand{\ensaebandeau}[1]{%
   \noindent\colorbox{ensaeblue}{%
@@ -67,12 +67,12 @@
     }%
   }%
 }
+% Wrappers : évite #1 direct dans \titleformat (incompatible avec certaines versions titlesec)
+\newcommand{\ensaebandeaunum}[1]{\ensaebandeau{\thesection\quad #1}}
+\newcommand{\ensaebandeaunn}[1]{\ensaebandeau{#1}}
 
-\titleformat{\section}{\normalfont}{}{0pt}%
-  {\ensaebandeau{\thesection\quad #1}}
-
-\titleformat{name=\section,numberless}{\normalfont}{}{0pt}%
-  {\ensaebandeau{#1}}
+\titleformat{\section}[block]{\normalfont}{}{0pt}{\ensaebandeaunum}
+\titleformat{name=\section,numberless}[block]{\normalfont}{}{0pt}{\ensaebandeaunn}
 
 \titleformat{\subsection}
   {\normalfont\normalsize\bfseries\color{ensaeblue}}
