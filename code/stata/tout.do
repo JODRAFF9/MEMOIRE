@@ -19,6 +19,7 @@
      09_tab_poids   — tableaux avec et sans ponderation
    ============================================================ */
 
+cd "C:\Users\Bmd\Documents\ISE\Cours\ISE3\Memoire"
 capture log close
 log using "code/stata/logs/tout.log", replace text
 
