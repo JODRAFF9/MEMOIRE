@@ -73,8 +73,8 @@ forvalues i = 1/`n_dims' {
 
 /* Graphique à barres horizontales avec IC 95 % */
 twoway ///
-    (bar att ordre, horizontal barwidth(0.6) color("31 78 121")) ///
-    (rcap lb ub ordre, horizontal lcolor("230 126 34") lwidth(medthick) msize(medium)), ///
+    (bar att ordre, horizontal barwidth(0.6) color(navy)) ///
+    (rcap lb ub ordre, horizontal lcolor(orange) lwidth(medthick) msize(medium)), ///
     ylab(`ylab_str', angle(0) noticks) ///
     yscale(range(0.5 7.5)) ///
     ytitle("") xtitle("ATT (points de pourcentage)") ///
