@@ -48,8 +48,8 @@ label var pscore "Score de propension"
 
 /* Graphique de densite (support commun) */
 twoway ///
-    (kdensity pscore if D == 0, lcolor("#a8c7e8") lwidth(medthick)) ///
-    (kdensity pscore if D == 1, lcolor("#1f4e79") lwidth(medthick)), ///
+    (kdensity pscore if D == 0, lcolor("168 199 232") lwidth(medthick)) ///
+    (kdensity pscore if D == 1, lcolor("31 78 121") lwidth(medthick)), ///
     legend(order(1 "Non-traites" 2 "Traites")) ///
     xtitle("Score de propension") ytitle("Densité") ///
     title("Support commun — panel vrai") ///
