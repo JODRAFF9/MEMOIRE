@@ -186,7 +186,7 @@ base_t0 <- base_t0 |>
 # Graphique overlap (support commun)
 p_overlap <- ggplot2::ggplot(base_t0, ggplot2::aes(x = pscore, fill = factor(D))) +
   ggplot2::geom_density(alpha = 0.5) +
-  ggplot2::scale_fill_manual(values = c("steelblue", "tomato"),
+  ggplot2::scale_fill_manual(values = c("#a8c7e8", "#1f4e79"),
                               labels = c("Non-traites", "Traites")) +
   ggplot2::labs(title = "Distribution du score de propension — panel vrai",
                 x = "Score de propension", y = "Densite", fill = "") +
@@ -209,7 +209,7 @@ cobalt::love.plot(match_knn,
                   threshold   = 0.1,
                   title       = "Balance avant/apres appariement — panel vrai",
                   var.order   = "unadjusted",
-                  colors      = c("steelblue", "tomato"))
+                  colors      = c("#a8c7e8", "#1f4e79"))
 
 # ── Appariement 2 : Kernel (appariement complet) ──────────────
 
