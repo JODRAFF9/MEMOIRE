@@ -124,11 +124,8 @@ di _newline "Pauvreté monétaire : " %5.1f p_mon "%"
 di "Pauvreté N-MODA    : " %5.1f p_moda "%"
 
 /* ── Fig Venn simplifié : diagramme à barres empilées ── */
-preserve
-    collapse (mean) pauvre_mon pauvre_MODA [aw=hhweight], by(cat4)
-    /* Statistiques par catégorie */
-    svyset_ehcvm hhweight
-    restore
+/* Proportions par catégorie calculées sans collapse pour éviter
+   la perte des variables de stratification */
 preserve
     gen long fw = round(hhweight)
     /* 4 catégories pour graphique */
