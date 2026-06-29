@@ -220,8 +220,8 @@ replace H_MODA = H_moda_2021 in 2
 gen H_AF   = H_af_2018 in 1
 replace H_AF   = H_af_2021 in 2
 
-twoway (connected H_MODA annee, lcolor(navy)   mcolor(navy)   msymbol(circle)  lwidth(medthick)) ///
-       (connected H_AF   annee, lcolor(maroon) mcolor(maroon) msymbol(diamond) lwidth(medthick)), ///
+twoway (connected H_MODA annee, lcolor("#1f4e79") mcolor("#1f4e79") msymbol(circle)  lwidth(medthick)) ///
+       (connected H_AF   annee, lcolor("#e67e22") mcolor("#e67e22") msymbol(diamond) lwidth(medthick)), ///
     xlabel(2018 2021) xtitle("Vague EHCVM") ytitle("Incidence H (%)") ///
     ylabel(30(10)80, grid) ///
     legend(order(1 "N-MODA (k=4, 7 dim.)" 2 "Alkire-Foster (k=1/3, 6 ind.)") pos(6) rows(1)) ///
@@ -259,7 +259,7 @@ forvalues i = 1/7 {
     replace v2021 = d_`d'_2021 in `i'
 }
 graph bar v2018 v2021, over(dim, sort(ordre) label(angle(30))) ///
-    bar(1, color(navy%80))   bar(2, color(maroon%80)) ///
+    bar(1, color("#1f4e79")) bar(2, color("#e67e22")) ///
     legend(order(1 "EHCVM I (2018-19)" 2 "EHCVM II (2021-22)") pos(6) rows(1)) ///
     ytitle("Taux de privation (%)") ylabel(0(20)100, grid) ///
     title("Prévalence des privations par dimension N-MODA") ///
@@ -270,7 +270,7 @@ di ">>> fig_privations_dim.pdf sauvegardé"
 /* ── Fig 3 : Pauvreté par milieu et groupe d'âge (EHCVM I) ── */
 use "$TEMP/vague_2018.dta", clear
 graph bar pauvre_MODA [aw=hhweight], over(groupe_moda) over(milieu) ///
-    bar(1, color(navy%80)) ///
+    bar(1, color("#1f4e79")) ///
     ytitle("Incidence N-MODA (H, %)") ylabel(0(0.1)0.8, format(%3.1f) grid) ///
     title("Pauvreté N-MODA par groupe d'âge et milieu (2018-19)") ///
     legend(off) ///
@@ -290,7 +290,7 @@ gen long fw = round(hhweight)
 histogram nb_dep [fw=fw], by(D, cols(1) note("") ///
     title("Distribution du nombre de privations (2018-19)")) ///
     fraction width(1) gap(10) ///
-    color(navy%60) lcolor(white) ///
+    color("#a8c7e8") lcolor(white) ///
     xtitle("Nombre de dimensions en privation (sur 7)") ///
     ytitle("Fraction") ylabel(, format(%4.2f) grid) ///
     graphregion(color(white)) plotregion(color(white))

@@ -120,7 +120,7 @@ base_t0["pscore"] = probit.predict()
 
 # Graphique support commun
 fig, ax = plt.subplots(figsize=(8, 5))
-for d, label, color in [(0, "Non-traites", "steelblue"), (1, "Traites", "tomato")]:
+for d, label, color in [(0, "Non-traites", "#a8c7e8"), (1, "Traites", "#1f4e79")]:
     base_t0[base_t0["D"] == d]["pscore"].plot.kde(
         ax=ax, label=label, color=color, linewidth=2)
 ax.set(title="Distribution du score de propension — panel vrai",

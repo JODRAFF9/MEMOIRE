@@ -64,12 +64,12 @@ preserve
     }
 
     twoway (bar H_nmoda ordre, horizontal barwidth(0.6) ///
-            color(navy%80) lcolor(white)), ///
+            color("#1f4e79") lcolor(white)), ///
         ylab(`ylab_str', angle(0) noticks labsize(small)) ///
         yscale(range(0.5 14.5)) ///
         xtitle("Incidence N-MODA H (%)") ytitle("") ///
         xlabel(0(10)100, grid) ///
-        xline(58.9, lcolor(maroon) lpattern(dash) lwidth(medthick)) ///
+        xline(58.9, lcolor("#e67e22") lpattern(dash) lwidth(medthick)) ///
         note("Ligne pointillée : moyenne nationale (58,9 %). EHCVM I (2018-2019)." ///
              "Estimations pondérées (plan de sondage stratifié).", size(vsmall)) ///
         title("Incidence N-MODA par région --- Sénégal, 2018-2019") ///
@@ -162,7 +162,7 @@ preserve
     }
 
     twoway (bar pct ordre, horizontal barwidth(0.65) ///
-            color(navy%70 maroon%70 orange%70 red%80)), ///
+            color("#a8c7e8" "#2980b9" "#e67e22" "#1f4e79")), ///
         ylab(`ylab_str', angle(0) noticks labsize(small)) ///
         yscale(range(0.5 4.5)) ///
         xtitle("Part des enfants 0--17 ans (%)") ytitle("") ///
