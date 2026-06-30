@@ -3,11 +3,12 @@
 
 Avant de procéder à l'estimation de l'effet causal des transferts, cette section
 dresse un portrait statistique de l'échantillon et de la pauvreté multidimensionnelle
-des enfants. Elle est organisée en quatre parties : le profil général des ménages
-enquêtés, la comparaison entre ménages bénéficiaires et non-bénéficiaires de
-transferts, les niveaux de pauvreté multidimensionnelle des enfants dans les deux
-vagues de l'EHCVM, et enfin la décomposition des privations par dimension et
-par groupe d'âge.
+des enfants. Elle est organisée en trois parties : le profil général des ménages
+enquêtés, les niveaux de pauvreté multidimensionnelle des enfants dans les deux
+vagues de l'EHCVM, et la décomposition des privations par dimension et par groupe
+d'âge. Toutes les statistiques sont pondérées par le poids ménage
+\texttt{hhweight}, appliqué au niveau du ménage conformément au plan
+de sondage stratifié de l'EHCVM.
 
 \subsection{Profil des ménages enquêtés}
 
@@ -32,15 +33,17 @@ principales caractéristiques des deux échantillons.
     Transferts de migrants (\%)   & 24,4  & 26,8  \\
     PCE annuel (FCFA)             & 555~879 & 597~804 \\
     \midrule
-    Observations (ménages)        & 7~156 & 7~120 \\
-    Observations (enfants 0--17)  & 33~844 & 31~033 \\
+    Taille d'échantillon ($n$ ménages) & 7~156 & 7~120 \\
+    dont enfants 0--17 ans ($n$)       & 33~844 & 31~033 \\
     \bottomrule
   \end{tabular}
   \begin{tablenotes}
     \small
     \item \textit{Sources :} ANSD, EHCVM I (2018-2019) et EHCVM II (2021-2022).
     Calculs de l'auteur. PCE~: per capita expenditure (dépense par tête annuelle).
-    Les statistiques sont pondérées par les poids d'échantillonnage.
+    Statistiques pondérées par \texttt{hhweight} (poids ménage EHCVM).
+    Les effectifs $n$ sont des tailles d'échantillon brutes (non pondérées) ;
+    ils ne représentent pas des populations extrapolées.
   \end{tablenotes}
 \end{table}
 
@@ -82,7 +85,7 @@ conventionnel de 0,10 (voir tableau~\ref{tab:balance}, section~\ref{sec:resultat
     Milieu urbain (\%)            & 65,9  & 44,6  & $<$0,001 \\
     PCE annuel (FCFA)             & 694~802 & 511~122 & $<$0,001 \\
     \midrule
-    Observations (ménages avec enfants) & 1~448 & 4~979 & - \\
+    Taille d'échantillon ($n$ ménages, non pondéré) & 1~448 & 4~979 & - \\
     \bottomrule
   \end{tabular}
   \begin{tablenotes}
@@ -91,73 +94,6 @@ conventionnel de 0,10 (voir tableau~\ref{tab:balance}, section~\ref{sec:resultat
     et écarts-types robustes). Les différences confirment un biais de sélection positif :
     les ménages bénéficiaires sont plus grands, plus riches et plus féminisés, ce qui
     justifie le recours à l'appariement PSM (section~\ref{sec:resultats}).
-  \end{tablenotes}
-\end{table}
-
-\subsection{Représentativité de l'échantillon : statistiques pondérées et non pondérées}
-
-Avant l'analyse substantielle, il convient de vérifier que les pondérations de l'enquête
-n'introduisent pas de distorsions importantes par rapport aux effectifs bruts.
-Le tableau~\ref{tab:menages_poids} compare les principales caractéristiques des ménages
-avant et après application des poids d'échantillonnage.
-
-\begin{table}[H]
-  \centering
-  \caption{Caractéristiques des ménages avec et sans pondération}
-  \label{tab:menages_poids}
-  \begin{tabular}{lcccc}
-    \toprule
-    & \multicolumn{2}{c}{EHCVM I (2018-2019)} & \multicolumn{2}{c}{EHCVM II (2021-2022)} \\
-    \cmidrule(lr){2-3}\cmidrule(lr){4-5}
-    Variable & Non pond. & Pondéré & Non pond. & Pondéré \\
-    \midrule
-    Taille du ménage           & 9,75  & 9,75  & 9,03  & 9,03  \\
-    Chef féminin (\%)          & 27,0  & 27,4  & 28,8  & 29,1  \\
-    Milieu urbain (\%)         & 49,5  & 49,8  & 50,6  & 50,9  \\
-    Bénéficiaires transferts (\%) & 24,0 & 24,4 & 26,5 & 26,8 \\
-    PCE annuel (FCFA)          & 550~000 & 555~879 & 592~000 & 597~804 \\
-    \midrule
-    Observations (ménages) & 7~156 & 7~156 & 7~120 & 7~120 \\
-    \bottomrule
-  \end{tabular}
-  \begin{tablenotes}
-    \small
-    \item \textit{Note :} Les écarts entre statistiques pondérées et non pondérées
-    sont faibles (inférieurs à 0,5 point de pourcentage pour les proportions),
-    confirmant une bonne représentativité de l'échantillon brut.
-    \item \textit{Source :} ANSD, EHCVM I et II. Calculs de l'auteur.
-  \end{tablenotes}
-\end{table}
-
-Le tableau~\ref{tab:incidence_poids} compare les incidences de pauvreté multidimensionnelle
-calculées avec et sans pondération. Les différences sont inférieures à 2 points de
-pourcentage, confirmant la robustesse des estimations pondérées.
-
-\begin{table}[H]
-  \centering
-  \caption{Incidence de la pauvreté multidimensionnelle avec et sans pondération}
-  \label{tab:incidence_poids}
-  \begin{tabular}{lcccc}
-    \toprule
-    & \multicolumn{2}{c}{EHCVM I (2018-2019)} & \multicolumn{2}{c}{EHCVM II (2021-2022)} \\
-    \cmidrule(lr){2-3}\cmidrule(lr){4-5}
-    Indicateur & Non pond. & Pondéré & Non pond. & Pondéré \\
-    \midrule
-    \textit{N-MODA ($k=4$, 7 dim.)} & & & & \\
-    \quad Incidence $H$ (\%)     & 58,2 & 58,9 & 50,9 & 51,6 \\
-    \quad Intensité $A$ (\%)     & 60,8 & 61,2 & 59,4 & 59,8 \\
-    \quad Indice ajusté $M_0$    & 0,354 & 0,361 & 0,302 & 0,309 \\
-    \midrule
-    \textit{Alkire-Foster ($k=1/3$)} & & & & \\
-    \quad Incidence $H$ (\%)     & 61,3 & 62,0 & 55,7 & 56,3 \\
-    \bottomrule
-  \end{tabular}
-  \begin{tablenotes}
-    \small
-    \item \textit{Note :} Les écarts entre estimations pondérées et non pondérées sont
-    inférieurs à 1 point de pourcentage, validant la robustesse des résultats
-    indépendamment du schéma de pondération.
-    \item \textit{Source :} ANSD, EHCVM I et II. Calculs de l'auteur via \texttt{09\_tab\_poids.do}.
   \end{tablenotes}
 \end{table}
 
@@ -255,7 +191,7 @@ pour cette vague.}.
     \item[$\dagger$] La diversité alimentaire (HDDS, \texttt{s08b1\_me}) n'est disponible
     qu'en 2018 ; la sécurité alimentaire FIES (\texttt{s08a\_me}) est disponible dans les
     deux vagues.
-    \item \textit{Note :} Taux de privation pondérés par \texttt{hhweight} (poids d'enquête).
+    \item \textit{Note :} Taux de privation pondérés par \texttt{hhweight} (poids ménage EHCVM).
     Seuil N-MODA $k=4$ sur 7 dimensions ; seuil Alkire-Foster $k=1/3$ sur 6 indicateurs.
   \end{tablenotes}
 \end{table}
