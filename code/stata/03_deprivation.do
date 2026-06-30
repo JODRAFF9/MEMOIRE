@@ -10,6 +10,121 @@
 do "code/stata/config.do"
 do "code/stata/utils.do"
 
+/*Annexe I : Sélection des paramètres pour l'analyse de
+la pauvreté multidimensionnelle de l'enfant en
+utilisant l'EHCVM 2018/19
+
+Tableau 1. Liste des paramètres (dimensions, indicateurs et groupe d'âge)
+de l'analyse de la pauvreté multidimensionnelle de l'enfant
+Groupe d'âge
+0-4
+5-14
+15-17
+Dimensions Indicateurs Définition
+
+1/Assainissement :
+	Type de sanitaire (2018: s11q55;)
+		Enfant vivant dans un ménage utilisant des toilettes
+		non améliorées :
+		7. Latrines SANPLAT;
+		8. Latrines dallées simples;
+		9. Fosse rudimentaire;
+		10. Toilettes publiques;
+		11. Aucune toilette;
+		12. Autre
+
+	Partage des toilettes (2018: s11q56;)
+		Enfant vivant dans un ménage partageant les toilettes
+		avec d'autres ménages
+
+2/Eau :
+	Source d'eau pour boire (2018: s11q27a et s11q27b; )
+		Enfant vivant dans un ménage utilisant une source
+		d'eau non adéquate en saison des pluies et ne la
+		traitant pas de manière adéquate:
+		- 5 Puits ouvert dans la cour/Concession;
+		- 6 Puits ouvert ailleurs;
+		- 12 Source non aménagée;
+		- 13 Fleuve/Rivière/Lac/Barrage;
+		- 16 Vendeur am-bulant;
+		- 17 Autre (à préciser)
+		OU en saison sèche:
+		- 5 Puits ouvert dans la cour/Concession;
+		- 6 Puits ouvert ailleurs;
+		- 12 Source non aménagée;
+		- 13 Fleuve/Rivière/Lac/Barrage;
+		- 16 Vendeur ambulant;
+		- 17 Autre (à préciser)
+		Traitement non adéquat de l'eau:filtrer à travers linge;
+		laisser reposer ;
+		autre
+
+	Temps pour aller chercher l'eau (2018: s11q31a ou s11q29a supérieur à 30; ):
+		Enfant vivant dans un ménage ou le temps pour aller
+		chercher l'eau excède 30mins en saison des pluies OU
+		en saison sèche
+
+
+3/Logement:
+	Débarras des ordures ménagères (2018:s11q54; )
+		Enfant vivant dans un ménage utilisant un mode inadéquat de débarras des ordures menagères:
+			3 brulées ;
+			5 dépotoir sauvage;
+			6 autre
+
+	Surpeuplement (hhsize/s11q02 supérieur à 3)
+		Enfant vivant dans un ménage ou dorment plus de 3
+		personnes par pièces
+
+4/Nutrition :
+	Diversité des repas
+		Enfant vivant dans un ménage n'ayant pas consommé
+		d'aliments des 4 groupes alimentaires (carbohydrates,
+		protéines, fruits/légumes, graisses) une fois par jour
+		sur la dernière semaine
+
+	Sécurité alimentaire/ Non-accès à la nourri-ture pour se nourrir à sa faim
+		Enfant vivant dans un ménage qui n'avait plus de nourriture, OU
+		- avec un des membres ayant
+		- dû sauter un repas,
+		- mangé moins que ce qu'il pensait nécessaire,
+		- eu faim mais sans avoir mangé
+		- passé toute une journée sans manger
+		- au moins une fois du-rant les 12 derniers mois par manque d'ar-gent ou d'autres ressources
+
+5/Santé:
+	Type de combustibles utilisés pour cuisiner
+		Enfant vivant dans un ménage ou utilisant du combus-
+		tible solide pour cuisiner : bois ramassé, bois acheté,
+		charbon de bois, déchets animaux, autres
+
+	Accès à une structure de santé: l'hôpital ou autre centre de santé
+		Enfant vivant dans une localité d'où il/elle ne peut ac-
+		céder à pied à une structure de santé
+
+6/Protection de l'enfant:
+	Disponibilité de l'acte de naissance
+		Enfant n'ayant pas d'acte de naissance
+
+	Travail des enfants (économique et domestique)
+		Enfant effectuant travail économique ou do-mestique
+		pendant au moins 1h
+
+	Enfant vivant avec ses deux parents
+		Enfant ne vivant pas avec ses deux parents biologique
+
+7/Éducation:
+	Capacité de lecture et d'écriture
+		Enfant en capacité de lire et d'écrire
+
+	Fréquentation scolaire
+		Enfant n'étant pas à l'école
+
+	Jeunes sans emploi ne poursuivant pas d'études et ne suivant pas de formation (NEET)
+		Enfant sans emploi ne poursuivant pas d'études et ne
+		suivant pas de formation (NEET)
+*/
+
 /* ============================================================
    Sous-programme : indicateurs menage (niveau logement)
    Entree : base individus deja chargee (merge m:1 sur grappe menage)
@@ -29,12 +144,14 @@ program define indic_menage
         local base "$BASE_2018"
         local v_partag "s11q56"
         local v_tps_ss "s11q29a"
+        local v_tps_sp "s11q31a"
         local v_comb   "s11q53"
     }
     else {
         local base "$BASE_2021"
         local v_partag "s11q55"
         local v_tps_ss "s11q28a"
+        local v_tps_sp "s11q30a"
         local v_comb   "s11q52"
     }
     local comb_vars "`v_comb'__1 `v_comb'__2 `v_comb'__3 `v_comb'__7"
@@ -59,7 +176,7 @@ program define indic_menage
     /* Variables brutes depuis s11_me */
     preserve
         use "`base'/s11_me_sen`annee'.dta", clear
-        keep grappe menage s11q02 `v_partag' `v_tps_ss' `comb_vars'
+        keep grappe menage s11q02 `v_partag' `v_tps_ss' `v_tps_sp' `comb_vars'
         tempfile s11_temp
         save `s11_temp'
     restore
@@ -67,8 +184,12 @@ program define indic_menage
 
     gen byte m_partag_toi = (`v_partag' == 1)       if !missing(`v_partag')
     replace  m_partag_toi = 0                        if missing(m_partag_toi)
-    gen byte m_eau_temps  = (`v_tps_ss' > 30 & !missing(`v_tps_ss'))
-    replace  m_eau_temps  = 0                        if missing(`v_tps_ss')
+
+    /* Temps d'acces a l'eau : saison seche OU saison des pluies > 30 min
+       (Annexe I : s11q29a/s11q31a en 2018, s11q28a/s11q30a en 2021) */
+    gen byte m_eau_temps  = (`v_tps_ss' > 30 & !missing(`v_tps_ss')) | ///
+                             (`v_tps_sp' > 30 & !missing(`v_tps_sp'))
+    replace  m_eau_temps  = 0 if missing(`v_tps_ss') & missing(`v_tps_sp')
     rename s11q02 nb_pieces
 
     /* Surpeuplement : calcule apres merge welfare (hhsize deja present) */
@@ -81,6 +202,35 @@ program define indic_menage
     foreach v of varlist `comb_vars' {
         replace m_combust = 1 if `v' >= 1 & !missing(`v')
     }
+
+    /* ── Acces a une structure de sante (module communautaire s02_co) ──
+       Enfant prive si, dans sa localite (grappe), aucun des 3 services
+       de sante (Hopital public/prive=5, Autre centre de sante public=6,
+       Cabinet medical/Clinique privee=7) n'est accessible a pied
+       (s02q02 == 1 "Pieds" comme principal moyen de locomotion).
+       2018 : long format avec identifiant de service s02q00.
+       2021 : long format sans identifiant explicite, mais 26 lignes/grappe
+              dans le meme ordre que la liste de services 2018 ;
+              service_id = rang (_n) au sein de la grappe. */
+    preserve
+        use "`base'/s02_co_sen`annee'.dta", clear
+        if `annee' == 2018 {
+            keep if inlist(s02q00, 5, 6, 7)
+        }
+        else {
+            bysort grappe: gen byte service_id = _n
+            keep if inlist(service_id, 5, 6, 7)
+        }
+        gen byte acces_pied = (s02q02 == 1) if !missing(s02q02)
+        replace  acces_pied = 0 if missing(acces_pied)
+        collapse (max) acces_pied, by(grappe)
+        tempfile s02_temp
+        save `s02_temp'
+    restore
+    merge m:1 grappe using `s02_temp', nogenerate keep(master match)
+    gen byte m_acces_sante = (acces_pied == 0) if !missing(acces_pied)
+    replace  m_acces_sante = 0 if missing(m_acces_sante)
+    capture drop acces_pied
 
     /* ── Dimension 4 : Nutrition (s08) ── */
 
@@ -187,7 +337,7 @@ program define agreger_ipm
     gen byte dim_nutri = 0
     replace  dim_nutri = 1 if m_securite == 1
     replace  dim_nutri = 1 if m_diversite == 1 & age >= 5
-    gen byte dim_sante  = (m_combust == 1)
+    gen byte dim_sante  = (m_combust == 1 | m_acces_sante == 1)
     gen byte dim_educ   = 0
     replace  dim_educ   = m_scol  if groupe_moda == 2
     replace  dim_educ   = (m_alfab == 1 | m_neet == 1) if groupe_moda == 3
@@ -271,7 +421,11 @@ foreach annee in 2018 2021 {
     gen byte m_scol = 0
     replace  m_scol = 1 if age >= 5 & age <= 14 & (scol == 0 | missing(scol))
 
-    /* Travail des enfants (5-14 ans) */
+    /* Travail des enfants (5-14 ans), composante economique uniquement
+       (activ7j : Occupe=1, Chomeur=2). L'EHCVM ne comporte pas de module
+       time-use permettant de mesurer le travail domestique (corvees) ;
+       cette composante de l'Annexe I n'est donc pas operationnalisable
+       avec les donnees disponibles. */
     gen byte m_trav_enf = 0
     replace  m_trav_enf = 1 if age >= 5 & age <= 14 & ///
         (activ7j == 1 | activ7j == 2) & !missing(activ7j)
