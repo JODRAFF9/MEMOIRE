@@ -2,6 +2,9 @@
    06_stats_desc.do — Statistiques descriptives
    Chapitre 3 : profil ménages, pauvreté, privations, comparaison D=0/1
 
+   Aucune ponderation par poids d'enquete (hhweight) : toutes les
+   statistiques sont calculees sur effectifs bruts.
+
    Sorties :
      output/tab_menages.csv          — caractéristiques ménages (tab 5)
      output/tab_balance.csv          — balance traités/non-traités (tab 6)
@@ -36,18 +39,16 @@ foreach annee in 2018 2021 {
 
     /* Taille ménage, âge CM, milieu, transferts */
     quietly {
-        svyset_ehcvm hhweight
         gen byte chef_f = (hgender == 2)
         gen byte urbain = (milieu == 1)
         foreach v in hhsize hage pcexp chef_f urbain D {
-            svy: mean `v'
-            matrix m = e(b)
-            if "`v'" == "hhsize" scalar m_hhsize_`annee' = m[1,1]
-            if "`v'" == "hage"   scalar m_hage_`annee'   = m[1,1]
-            if "`v'" == "pcexp"  scalar m_pcexp_`annee'  = m[1,1]
-            if "`v'" == "chef_f" scalar p_chef_f_`annee' = m[1,1]*100
-            if "`v'" == "urbain" scalar p_urbain_`annee' = m[1,1]*100
-            if "`v'" == "D"      scalar p_D_`annee'      = m[1,1]*100
+            summarize `v'
+            if "`v'" == "hhsize" scalar m_hhsize_`annee' = r(mean)
+            if "`v'" == "hage"   scalar m_hage_`annee'   = r(mean)
+            if "`v'" == "pcexp"  scalar m_pcexp_`annee'  = r(mean)
+            if "`v'" == "chef_f" scalar p_chef_f_`annee' = r(mean)*100
+            if "`v'" == "urbain" scalar p_urbain_`annee' = r(mean)*100
+            if "`v'" == "D"      scalar p_D_`annee'      = r(mean)*100
         }
         count
         scalar n_men_`annee' = r(N)
@@ -97,29 +98,28 @@ replace D = 0 if missing(D)
 
 foreach v in hhsize hage pcexp {
     di "  `v' par D :"
-    tabstat `v' [aw = hhweight], by(D) stat(mean sd) format(%9.2f)
+    tabstat `v', by(D) stat(mean sd) format(%9.2f)
 }
 gen byte chef_f = (hgender == 2)
 gen byte urbain = (milieu  == 1)
 foreach v in chef_f urbain {
     di "  `v' par D (%) :"
-    tabstat `v' [aw = hhweight], by(D) stat(mean n) format(%6.3f)
+    tabstat `v', by(D) stat(mean n) format(%6.3f)
 }
 
-/* Tests tenant compte du plan de sondage */
-svyset_ehcvm hhweight
+/* Tests avec erreurs-types clusterisees au niveau de la grappe */
 foreach v in hhsize hage pcexp chef_f urbain {
-    quietly svy: reg `v' D
-    di "  Test svy `v' : diff=" %8.3f _b[D] ///
+    quietly regress `v' D, vce(cluster grappe)
+    di "  Test `v' : diff=" %8.3f _b[D] ///
        "  SE=" %8.3f _se[D] ///
        "  p=" %6.4f (2*ttail(e(df_r), abs(_b[D]/_se[D])))
 }
 
-/* Export balance : moyennes pondérées + n non pondéré */
+/* Export balance : moyennes brutes + n */
 preserve
     gen n_obs = 1
     collapse (mean) hhsize hage pcexp chef_f urbain ///
-             (sum)  n_obs [aw=hhweight], by(D)
+             (sum)  n_obs, by(D)
     export delimited using "$OUTPUT/tables/tab_balance.csv", replace
     di ">>> tab_balance.csv sauvegardé"
 restore
@@ -134,13 +134,13 @@ foreach annee in 2018 2021 {
     use "$TEMP/vague_`annee'.dta", clear
 
     di _newline "-- N-MODA `annee' --"
-    tabstat pauvre_MODA nb_dep [aw=hhweight], ///
+    tabstat pauvre_MODA nb_dep, ///
         by(milieu) stat(mean n) format(%6.3f)
-    tabstat pauvre_MODA nb_dep [aw=hhweight], ///
+    tabstat pauvre_MODA nb_dep, ///
         by(groupe_moda) stat(mean n) format(%6.3f)
 
     di "-- Alkire-Foster `annee' --"
-    tabstat pauvre_AF score_dep [aw=hhweight], ///
+    tabstat pauvre_AF score_dep, ///
         by(milieu) stat(mean n) format(%6.3f)
 }
 
@@ -157,7 +157,7 @@ foreach annee in 2018 2021 {
     use "$TEMP/vague_`annee'.dta", clear
     foreach g in 1 2 3 {
         local ++r
-        quietly summarize pauvre_MODA [aw=hhweight] if groupe_moda == `g'
+        quietly summarize pauvre_MODA if groupe_moda == `g'
         local hmoda = r(mean)*100
         local nobs  = r(N)
         local lbl   = cond(`g'==1,"0-4 ans",cond(`g'==2,"5-14 ans","15-17 ans"))
@@ -175,7 +175,7 @@ foreach annee in 2018 2021 {
     use "$TEMP/vague_`annee'.dta", clear
     di _newline "-- Dimensions `annee' --"
     foreach dim in assai eau logem nutri sante protect educ {
-        quietly summarize dim_`dim' [aw=hhweight]
+        quietly summarize dim_`dim'
         di "  `dim' : " %5.1f r(mean)*100 "%"
     }
 }
@@ -184,7 +184,7 @@ foreach annee in 2018 2021 {
 foreach annee in 2018 2021 {
     use "$TEMP/vague_`annee'.dta", clear
     collapse (mean) dim_assai dim_eau dim_logem dim_nutri ///
-                    dim_sante dim_protect dim_educ [aw=hhweight]
+                    dim_sante dim_protect dim_educ
     gen annee = `annee'
     if `annee' == 2018 {
         tempfile dim_2018
@@ -206,9 +206,9 @@ di _newline "=== 5. Graphiques ==="
 /* ── Fig 1 : Évolution H N-MODA et AF par vague ── */
 foreach annee in 2018 2021 {
     use "$TEMP/vague_`annee'.dta", clear
-    quietly summarize pauvre_MODA [aw=hhweight]
+    quietly summarize pauvre_MODA
     scalar H_moda_`annee' = r(mean)*100
-    quietly summarize pauvre_AF   [aw=hhweight]
+    quietly summarize pauvre_AF
     scalar H_af_`annee'   = r(mean)*100
 }
 clear
@@ -235,7 +235,7 @@ di ">>> fig_evolution_ipm.pdf sauvegardé"
 foreach annee in 2018 2021 {
     use "$TEMP/vague_`annee'.dta", clear
     foreach dim in assai eau logem nutri sante protect educ {
-        quietly summarize dim_`dim' [aw=hhweight]
+        quietly summarize dim_`dim'
         scalar d_`dim'_`annee' = r(mean)*100
     }
 }
@@ -269,7 +269,7 @@ di ">>> fig_privations_dim.pdf sauvegardé"
 
 /* ── Fig 3 : Pauvreté par milieu et groupe d'âge (EHCVM I) ── */
 use "$TEMP/vague_2018.dta", clear
-graph bar pauvre_MODA [aw=hhweight], over(groupe_moda) over(milieu) ///
+graph bar pauvre_MODA, over(groupe_moda) over(milieu) ///
     bar(1, color(navy)) ///
     ytitle("Incidence N-MODA (H, %)") ylabel(0(0.1)0.8, format(%3.1f) grid) ///
     title("Pauvreté N-MODA par groupe d'âge et milieu (2018-19)") ///
@@ -286,8 +286,7 @@ replace D = 0 if missing(D)
 label define dl 0 "Non-bénéficiaires" 1 "Bénéficiaires", replace
 label values D dl
 
-gen long fw = round(hhweight)
-histogram nb_dep [fw=fw], by(D, cols(1) note("") ///
+histogram nb_dep, by(D, cols(1) note("") ///
     title("Distribution du nombre de privations (2018-19)")) ///
     fraction width(1) gap(10) ///
     color(ltblue) lcolor(white) ///

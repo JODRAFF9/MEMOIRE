@@ -16,19 +16,18 @@ do "code/stata/utils.do"
 
 use "$TEMP/vague_2018.dta", clear
 
-/* Moyenne pondérée par région */
-svyset_ehcvm hhweight
+/* Moyenne brute par région (pas de ponderation par poids d'enquete) */
 matrix H_reg = J(14, 2, .)
 
 levelsof region, local(regs)
 local i = 0
 foreach r of local regs {
     local ++i
-    quietly svy, subpop(if region == `r'): mean pauvre_MODA
+    quietly summarize pauvre_MODA if region == `r'
     matrix H_reg[`i', 1] = `r'
-    matrix H_reg[`i', 2] = e(b)[1,1]*100
+    matrix H_reg[`i', 2] = r(mean)*100
     local lbl : label (region) `r'
-    di "Région `r' (`lbl') : H=" %5.1f e(b)[1,1]*100 "%"
+    di "Région `r' (`lbl') : H=" %5.1f r(mean)*100 "%"
 }
 
 /* ── Fig carte : barres horizontales par région (substitut à la carte) ── */
@@ -71,7 +70,7 @@ preserve
         xlabel(0(10)100, grid) ///
         xline(58.9, lcolor(orange) lpattern(dash) lwidth(medthick)) ///
         note("Ligne pointillée : moyenne nationale (58,9 %). EHCVM I (2018-2019)." ///
-             "Estimations pondérées (plan de sondage stratifié).", size(vsmall)) ///
+             "Estimations sur effectifs bruts (sans ponderation).", size(vsmall)) ///
         title("Incidence N-MODA par région --- Sénégal, 2018-2019") ///
         graphregion(color(white)) plotregion(color(white))
     graph export "$OUTPUT/figures/fig_carte_nmoda.pdf", replace
@@ -88,22 +87,19 @@ use "$TEMP/vague_2018.dta", clear
 gen byte pauvre_mon = (pcexp < 276305) if !missing(pcexp)
 label var pauvre_mon "Pauvre monétaire (seuil ANSD 2018)"
 
-/* Tableau croisé pondéré */
+/* Tableau croisé brut (sans ponderation) */
 di _newline "=== Croisement pauvreté monétaire / N-MODA ==="
-tab pauvre_mon pauvre_MODA [aw=hhweight], row col nofreq
+tab pauvre_mon pauvre_MODA, row col nofreq
 
 /* Calcul des quatre cellules */
-svyset_ehcvm hhweight
 foreach pm in 0 1 {
     foreach md in 0 1 {
-        quietly svy: mean pauvre_mon if pauvre_MODA == `md'
-        /* prop conjointe */
         quietly count if pauvre_mon == `pm' & pauvre_MODA == `md'
         local n`pm'`md' = r(N)
     }
 }
 
-/* Proportions pondérées */
+/* Proportions brutes */
 gen byte cat4 = .
 replace cat4 = 1 if pauvre_mon == 0 & pauvre_MODA == 0  /* non pauvres */
 replace cat4 = 2 if pauvre_mon == 1 & pauvre_MODA == 0  /* pauvres monet. seuls */
@@ -113,11 +109,11 @@ label define cat4l 1 "Non pauvres" 2 "Pauvres monet. seuls" ///
                    3 "Pauvres MODA seuls" 4 "Doublement pauvres"
 label values cat4 cat4l
 
-tabstat cat4 [aw=hhweight], by(cat4) stat(count) format(%9.0f)
+tabstat cat4, by(cat4) stat(count) format(%9.0f)
 
-quietly summarize pauvre_mon [aw=hhweight]
+quietly summarize pauvre_mon
 scalar p_mon = r(mean)*100
-quietly summarize pauvre_MODA [aw=hhweight]
+quietly summarize pauvre_MODA
 scalar p_moda = r(mean)*100
 
 di _newline "Pauvreté monétaire : " %5.1f p_mon "%"
@@ -127,7 +123,6 @@ di "Pauvreté N-MODA    : " %5.1f p_moda "%"
 /* Proportions par catégorie calculées sans collapse pour éviter
    la perte des variables de stratification */
 preserve
-    gen long fw = round(hhweight)
     /* 4 catégories pour graphique */
     gen byte nn  = (pauvre_mon == 0 & pauvre_MODA == 0)  /* 1 */
     gen byte pm_only = (pauvre_mon == 1 & pauvre_MODA == 0)  /* 2 */
@@ -135,7 +130,7 @@ preserve
     gen byte both    = (pauvre_mon == 1 & pauvre_MODA == 1)  /* 4 */
 
     foreach v in nn pm_only md_only both {
-        quietly summarize `v' [aw=hhweight]
+        quietly summarize `v'
         scalar p_`v' = r(mean)*100
         di "`v' : " %5.1f r(mean)*100 "%"
     }
@@ -169,7 +164,7 @@ preserve
         xlabel(0(10)60, grid) ///
         title("Croisement pauvreté monétaire et N-MODA") ///
         subtitle("Sénégal, EHCVM I (2018-2019) — enfants 0--17 ans") ///
-        note("Estimations pondérées (plan de sondage stratifié).", size(vsmall)) ///
+        note("Estimations sur effectifs bruts (sans ponderation).", size(vsmall)) ///
         legend(off) ///
         graphregion(color(white)) plotregion(color(white))
     graph export "$OUTPUT/figures/fig_croisement_pauvrete.pdf", replace
