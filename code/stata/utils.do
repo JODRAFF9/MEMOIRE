@@ -35,14 +35,15 @@ end
 /* ── ATT PSM-DD avec SE cluster-robustes ────────────────────── */
 /*
    Syntaxe : att_psmdd outcome poids nboot  (nboot ignoré)
-   SE cluster-robustes (grappe) : plus fiables que bootstrap avec pw
+   poids : poids d'appariement PSM (weight_knn/kernel/caliper), PAS un
+   poids d'enquete. Aucune ponderation par hhweight dans ce projet ;
+   les erreurs-types sont clusterisees au niveau de la grappe.
 */
 capture program drop att_psmdd
 program define att_psmdd
     args outcome poids nboot
 
-    svyset_ehcvm `poids'
-    svy: reg `outcome' i.t##i.D
+    regress `outcome' i.t##i.D [aw=`poids'], vce(cluster grappe)
 
     lincom 1.t#1.D
     di "  ATT=" %8.4f r(estimate) "  SE=" %8.4f r(se) "  p=" %6.4f r(p)

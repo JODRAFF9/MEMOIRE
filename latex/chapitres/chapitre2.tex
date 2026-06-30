@@ -36,11 +36,15 @@ reposent sur un plan de sondage aléatoire stratifié à deux degrés :
 \end{itemize}
 
 Les poids de sondage (\texttt{hhweight}) reflètent la probabilité de sélection
-inverse et intègrent un redressement pour la non-réponse. Toutes les estimations
-de ce mémoire tiennent compte du plan de sondage via la déclaration
-\texttt{svyset grappe [pw=hhweight], strata(strate)}, où
-\texttt{strate = région $\times$ milieu} (28 niveaux), conformément aux
-recommandations de \cite{deaton1997} pour les enquêtes complexes.
+inverse et intègrent un redressement pour la non-réponse. Ce mémoire fait
+toutefois le choix de ne pas pondérer les statistiques et estimations par
+\texttt{hhweight} : toutes les analyses sont calculées sur effectifs bruts,
+avec des erreurs-types clusterisées au niveau de la grappe
+(\texttt{vce(cluster grappe)}) afin de tenir compte de la structure en
+grappes du plan de sondage sans recourir aux poids d'extrapolation, dans la
+lignée des recommandations de \cite{deaton1997} pour les enquêtes complexes
+lorsque l'objectif est l'inférence sur les paramètres d'un modèle plutôt que
+l'estimation de totaux ou moyennes de population.
 
 EHCVM II (2021-2022) reproduit le même protocole en suivant effectivement une
 large partie des ménages enquêtés en 2018-2019 : la variable \texttt{PanelHH}
@@ -113,87 +117,6 @@ les analyses de robustesse. La limite principale de cette construction est
 l'attrition différentielle : si les ménages perdus entre les deux vagues
 diffèrent systématiquement des ménages retenus, les estimations PSM-DD
 peuvent être biaisées -- ce point est discuté dans la section~\ref{sec:discussion}.
-
-\subsubsection{Représentativité de l'échantillon}
-
-Les tableaux suivants présentent les caractéristiques brutes (non pondérées) de
-l'échantillon, permettant d'apprécier la structure des données avant toute
-correction par les poids d'enquête.
-
-\begin{table}[H]
-  \centering
-  \caption{Caractéristiques des ménages (statistiques brutes, non pondérées)}
-  \label{tab:menages_poids}
-  \begin{tabular}{lcc}
-    \toprule
-    Variable & EHCVM I (2018-2019) & EHCVM II (2021-2022) \\
-    \midrule
-    Taille du ménage              & 9,75    & 9,03    \\
-    Chef féminin (\%)             & 27,0    & 28,8    \\
-    Milieu urbain (\%)            & 49,5    & 50,6    \\
-    Bénéficiaires transferts (\%) & 24,0    & 26,5    \\
-    PCE annuel (FCFA)             & 550~000 & 592~000 \\
-    \midrule
-    Observations (ménages)        & 7~156   & 7~120   \\
-    \bottomrule
-  \end{tabular}
-  \begin{tablenotes}
-    \small
-    \item \textit{Note :} Statistiques non pondérées (effectifs bruts).
-    Les écarts avec les estimations pondérées sont inférieurs à 0,5 point de
-    pourcentage, confirmant la bonne représentativité de l'échantillon.
-    \item \textit{Source :} ANSD, EHCVM I et II. Calculs de l'auteur (\texttt{09\_tab\_poids.do}).
-  \end{tablenotes}
-\end{table}
-
-\begin{table}[H]
-  \centering
-  \caption{Incidence de la pauvreté multidimensionnelle (statistiques brutes, non pondérées)}
-  \label{tab:incidence_poids}
-  \begin{tabular}{lcc}
-    \toprule
-    Indicateur & EHCVM I (2018-2019) & EHCVM II (2021-2022) \\
-    \midrule
-    \textit{N-MODA ($k=4$, 7 dim.)} & & \\
-    \quad Incidence $H$ (\%)     & 58,2  & 50,9  \\
-    \quad Intensité $A$ (\%)     & 60,8  & 59,4  \\
-    \quad Indice ajusté $M_0$    & 0,354 & 0,302 \\
-    \midrule
-    \textit{Alkire-Foster ($k=1/3$)} & & \\
-    \quad Incidence $H$ (\%)     & 61,3  & 55,7  \\
-    \bottomrule
-  \end{tabular}
-  \begin{tablenotes}
-    \small
-    \item \textit{Note :} Statistiques non pondérées. Les estimations pondérées
-    (chapitre~\ref{chap:resultats}) diffèrent de moins de 1 point de pourcentage.
-    \item \textit{Source :} ANSD, EHCVM I et II. Calculs de l'auteur (\texttt{09\_tab\_poids.do}).
-  \end{tablenotes}
-\end{table}
-
-\begin{table}[H]
-  \centering
-  \caption{Taux de privation par dimension N-MODA (statistiques brutes, non pondérées, EHCVM I)}
-  \label{tab:privations_poids}
-  \begin{tabular}{lc}
-    \toprule
-    Dimension & Taux non pondéré (\%) \\
-    \midrule
-    Assainissement & 49,8 \\
-    Eau            & 27,5 \\
-    Logement       & 68,7 \\
-    Nutrition      & 45,2 \\
-    Santé          & 91,8 \\
-    Protection     & 62,1 \\
-    Éducation      & 30,6 \\
-    \bottomrule
-  \end{tabular}
-  \begin{tablenotes}
-    \small
-    \item \textit{Note :} Statistiques non pondérées (EHCVM I, 2018-2019).
-    \item \textit{Source :} ANSD. Calculs de l'auteur.
-  \end{tablenotes}
-\end{table}
 
 \subsubsection{Variable de traitement}
 

@@ -21,24 +21,11 @@ set seed   $SEED
 set more   off
 set varabbrev off
 
-/* Plan de sondage EHCVM : stratifié à 2 degrés
-   - Strates : région (14) × milieu (2) = 28 strates
-   - UPE : zones de dénombrement (grappe)
-   - Poids : hhweight
-   Usage : après avoir généré strate, appeler svyset_ehcvm
-*/
-capture program drop svyset_ehcvm
-program define svyset_ehcvm
-    args poids
-    /* Construire la strate si absente */
-    capture confirm variable strate
-    if _rc {
-        gen long strate = region * 10 + milieu
-        label var strate "Strate (region x milieu)"
-    }
-    if "`poids'" == "" local poids "hhweight"
-    svyset grappe [pw = `poids'], strata(strate) singleunit(centered)
-end
+/* Pas de ponderation par poids d'enquete (hhweight) dans ce projet :
+   toutes les statistiques et estimations sont calculees sur effectifs
+   bruts. Les erreurs-types sont clusterisees au niveau de la grappe
+   (vce(cluster grappe)) pour tenir compte du plan de sondage en grappes,
+   sans recourir aux poids de sondage. */
 
 foreach d in "$OUTPUT" "$TEMP" "$LOGS" {
     capture mkdir "`d'"

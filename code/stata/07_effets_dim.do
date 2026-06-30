@@ -17,9 +17,9 @@ save `poids_knn'
 use "$TEMP/panel_vrai.dta", clear
 merge m:1 grappe menage using `poids_knn', keepusing(weight_knn) nogenerate
 keep if !missing(weight_knn)
-gen double weight_final = hhweight * weight_knn
 
-/* ATT PSM-DD pour chaque dimension */
+/* ATT PSM-DD pour chaque dimension (poids d'appariement PSM uniquement,
+   pas de poids d'enquete ; erreurs-types clusterisees au niveau grappe) */
 local dims    assai eau logem nutri sante protect educ
 local n_dims  7
 
@@ -27,11 +27,10 @@ matrix ATT  = J(`n_dims', 1, .)
 matrix LB   = J(`n_dims', 1, .)
 matrix UB   = J(`n_dims', 1, .)
 
-svyset_ehcvm weight_final
 local i = 0
 foreach dim of local dims {
     local ++i
-    quietly svy: reg dim_`dim' i.t##i.D
+    quietly regress dim_`dim' i.t##i.D [aw=weight_knn], vce(cluster grappe)
     quietly lincom 1.t#1.D
     matrix ATT[`i',1] = r(estimate)
     matrix LB[`i',1]  = r(estimate) - 1.96*r(se)
