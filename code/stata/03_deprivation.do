@@ -393,6 +393,10 @@ program define agreger_ipm
                          dim_sante + dim_protect + dim_educ
     gen byte pauvre_MODA = (nb_dep >= $K_MODA) if !missing(nb_dep)
 
+    /* Intensite moyenne N-MODA (Annexe II : A = part des 7 dimensions
+       en privation, calculee sur les enfants pauvres pauvre_MODA==1) */
+    gen float intensite_moda = nb_dep / 7
+
     /* ── Indicateurs Alkire-Foster ── */
 
     gen byte d1_educ  = 0
