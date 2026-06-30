@@ -294,12 +294,138 @@ save "$TEMP/traitement_2021.dta", replace
    Produit : $TEMP/enfants_dep_ANNEE.dta pour annee in {2018, 2021}
    ============================================================ */
 
+/*Annexe I : Sélection des paramètres pour l'analyse de
+la pauvreté multidimensionnelle de l'enfant en
+utilisant l'EHCVM 2018/19
+
+Tableau 1. Liste des paramètres (dimensions, indicateurs et groupe d'âge)
+de l'analyse de la pauvreté multidimensionnelle de l'enfant
+Groupe d'âge
+0-4
+5-14
+15-17
+Dimensions Indicateurs Définition
+
+1/Assainissement :
+	Type de sanitaire (2018: s11q55;)  
+		Enfant vivant dans un ménage utilisant des toilettes
+		non améliorées : 
+		7. Latrines SANPLAT;
+		8. Latrines dallées simples;
+		9. Fosse rudimentaire;
+		10. Toilettes publiques; 
+		11. Aucune toilette;
+		12. Autre
+
+	Partage des toilettes (2018: s11q56;)
+		Enfant vivant dans un ménage partageant les toilettes
+		avec d'autres ménages
+
+2/Eau :
+	Source d'eau pour boire (2018: s11q27a et s11q27b; )
+		Enfant vivant dans un ménage utilisant une source
+		d'eau non adéquate en saison des pluies et ne la
+		traitant pas de manière adéquate:
+		- 5 Puits ouvert dans la cour/Concession;
+		- 6 Puits ouvert ailleurs;
+		- 12 Source non aménagée;
+		- 13 Fleuve/Rivière/Lac/Barrage;
+		- 16 Vendeur am-bulant;
+		- 17 Autre (à préciser)
+		OU en saison sèche:
+		- 5 Puits ouvert dans la cour/Concession;
+		- 6 Puits ouvert ailleurs;
+		- 12 Source non aménagée;
+		- 13 Fleuve/Rivière/Lac/Barrage;
+		- 16 Vendeur ambulant;
+		- 17 Autre (à préciser)
+		Traitement non adéquat de l'eau:filtrer à travers linge;
+		laisser reposer ;
+		autre
+
+	Temps pour aller chercher l'eau (2018: s11q31a ou s11q29a supérieur à 30; ):
+		Enfant vivant dans un ménage ou le temps pour aller
+		chercher l'eau excède 30mins en saison des pluies OU
+		en saison sèche
+
+		
+3/Logement: 
+	Débarras des ordures ménagères (2018:s11q54; )
+		Enfant vivant dans un ménage utilisant un mode inadéquat de débarras des ordures menagères: 
+			3 brulées ; 
+			5 dépotoir sauvage;
+			6 autre
+
+	Surpeuplement (hhsize/s11q02 supérieur à 3)
+		Enfant vivant dans un ménage ou dorment plus de 3
+		personnes par pièces
+
+4/Nutrition :
+	Diversité des repas 
+		Enfant vivant dans un ménage n'ayant pas consommé
+		d'aliments des 4 groupes alimentaires (carbohydrates,
+		protéines, fruits/légumes, graisses) une fois par jour
+		sur la dernière semaine
+
+	Sécurité alimentaire/ Non-accès à la nourri-ture pour se nourrir à sa faim
+		Enfant vivant dans un ménage qui n'avait plus de nourriture, OU
+		- avec un des membres ayant
+		- dû sauter un repas,
+		- mangé moins que ce qu'il pensait nécessaire,
+		- eu faim mais sans avoir mangé
+		- passé toute une journée sans manger
+		- au moins une fois du-rant les 12 derniers mois par manque d'ar-gent ou d'autres ressources
+
+5/Santé:
+	Type de combustibles utilisés pour cuisiner
+		Enfant vivant dans un ménage ou utilisant du combus-
+		tible solide pour cuisiner : bois ramassé, bois acheté,
+		charbon de bois, déchets animaux, autres
+
+	Accès à une structure de santé: l'hôpital ou autre centre de santé
+		Enfant vivant dans une localité d'où il/elle ne peut ac-
+		céder à pied à une structure de santé
+
+6/Protection de l'enfant:
+	Disponibilité de l'acte de naissance
+		Enfant n'ayant pas d'acte de naissance 
+	
+	Travail des enfants (économique et domestique)
+		Enfant effectuant travail économique ou do-mestique
+		pendant au moins 1h
+
+	Enfant vivant avec ses deux parents
+		Enfant ne vivant pas avec ses deux parents biologique
+
+7/Éducation:
+	Capacité de lecture et d'écriture
+		Enfant en capacité de lire et d'écrire
+
+	Fréquentation scolaire
+		Enfant n'étant pas à l'école 
+		
+	Jeunes sans emploi ne poursuivant pas d'études et ne suivant pas de formation (NEET)
+		Enfant sans emploi ne poursuivant pas d'études et ne
+		suivant pas de formation (NEET)
+*/
 
 /* ============================================================
    Sous-programme : indicateurs menage (niveau logement)
    Entree : base individus deja chargee (merge m:1 sur grappe menage)
    ============================================================ */
+/*
+ 3/Logement: section 11 de EHCVM 2018
+	Débarras des ordures ménagères
+		Enfant vivant dans un ménage utilisant un mode inadéquat de 
+		débarras des ordures menagères: 
+			3 brulées ; 
+			5 dépotoir sauvage;
+			6 autre
 
+	Surpeuplement
+		Enfant vivant dans un ménage où dorment plus de 3
+		personnes par pièces
+*/
 capture program drop indic_menage
 program define indic_menage
     /*
