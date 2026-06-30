@@ -439,7 +439,10 @@ program define indic_menage
         local v_tps_sp "s11q30a"
         local v_comb   "s11q52"
     }
-    local comb_vars "`v_comb'__1 `v_comb'__2 `v_comb'__3 `v_comb'__7"
+    /* Annexe I : combustible solide = bois ramasse(1), bois achete(2),
+       charbon de bois(3), dechets animaux(7), autres(8). Exclut gaz(4),
+       electricite(5), petrole/huile(6) consideres comme non solides. */
+    local comb_vars "`v_comb'__1 `v_comb'__2 `v_comb'__3 `v_comb'__7 `v_comb'__8"
 
     /* Binaires harmonises depuis ehcvm_menage
        NB : ehcvm_menage n'a pas grappe/menage, seulement hhid
@@ -496,7 +499,7 @@ program define indic_menage
 
     /* [Dim 5/7 : Sante] Indicateur 1 — Combustible solide pour cuisiner
        (2018: s11q53 ; 2021: s11q52, modalites bois ramasse/achete/
-       charbon/dechets animaux) */
+       charbon/dechets animaux/autres — cf. comb_vars) */
     gen byte m_combust = 0
     foreach v of varlist `comb_vars' {
         replace m_combust = 1 if `v' >= 1 & !missing(`v')
