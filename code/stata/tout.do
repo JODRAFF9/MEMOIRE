@@ -5,12 +5,8 @@
    d'execution logique. Il peut etre lance depuis la racine :
      do "code/stata/tout.do"
 
-   Aucune ponderation par poids d'enquete (hhweight) : toutes les
-   statistiques et estimations sont calculees sur effectifs bruts,
-   avec erreurs-types clusterisees au niveau de la grappe.
-
    Pipeline :
-     config       — chemins, constantes
+     config       — chemins, constantes, plan de sondage
      utils        — programmes utilitaires
      01_visitation  — exploration des bases brutes
      02_traitement  — variable D + identification panel
@@ -20,8 +16,10 @@
      06_stats_desc  — statistiques descriptives
      07_effets_dim  — effets par dimension
      08_carte_region— carte regionale
+     09_tab_poids   — tableaux avec et sans ponderation
    ============================================================ */
 
+cd "C:\Users\Bmd\Documents\ISE\Cours\ISE3\Memoire"
 capture log close
 log using "code/stata/logs/tout.log", replace text
 
@@ -54,11 +52,24 @@ set seed   $SEED
 set more   off
 set varabbrev off
 
-/* Pas de ponderation par poids d'enquete (hhweight) dans ce projet :
-   toutes les statistiques et estimations sont calculees sur effectifs
-   bruts. Les erreurs-types sont clusterisees au niveau de la grappe
-   (vce(cluster grappe)) pour tenir compte du plan de sondage en grappes,
-   sans recourir aux poids de sondage. */
+/* Plan de sondage EHCVM : stratifié à 2 degrés
+   - Strates : région (14) × milieu (2) = 28 strates
+   - UPE : zones de dénombrement (grappe)
+   - Poids : hhweight
+   Usage : après avoir généré strate, appeler svyset_ehcvm
+*/
+capture program drop svyset_ehcvm
+program define svyset_ehcvm
+    args poids
+    /* Construire la strate si absente */
+    capture confirm variable strate
+    if _rc {
+        gen long strate = region * 10 + milieu
+        label var strate "Strate (region x milieu)"
+    }
+    if "`poids'" == "" local poids "hhweight"
+    svyset grappe [pw = `poids'], strata(strate) singleunit(centered)
+end
 
 foreach d in "$OUTPUT" "$TEMP" "$LOGS" {
     capture mkdir "`d'"
@@ -104,15 +115,14 @@ end
 /* ── ATT PSM-DD avec SE cluster-robustes ────────────────────── */
 /*
    Syntaxe : att_psmdd outcome poids nboot  (nboot ignoré)
-   poids : poids d'appariement PSM (weight_knn/kernel/caliper), PAS un
-   poids d'enquete. Aucune ponderation par hhweight dans ce projet ;
-   les erreurs-types sont clusterisees au niveau de la grappe.
+   SE cluster-robustes (grappe) : plus fiables que bootstrap avec pw
 */
 capture program drop att_psmdd
 program define att_psmdd
     args outcome poids nboot
 
-    regress `outcome' i.t##i.D [aw=`poids'], vce(cluster grappe)
+    svyset_ehcvm `poids'
+    svy: reg `outcome' i.t##i.D
 
     lincom 1.t#1.D
     di "  ATT=" %8.4f r(estimate) "  SE=" %8.4f r(se) "  p=" %6.4f r(p)
@@ -928,13 +938,6 @@ save "$TEMP/panel_complet.dta", replace
      5. PSM-DD sur panel vrai (Heckman et al. 1997/1998)
      6. Heterogeneite (milieu, sexe, age, montant)
      7. Robustesse bootstrap + bornes de Rosenbaum
-
-   Aucune ponderation par poids d'enquete (hhweight) : toutes les
-   estimations sont calculees sur effectifs bruts, avec erreurs-types
-   clusterisees au niveau de la grappe (vce(cluster grappe)). Le seul
-   poids utilise est le poids d'appariement PSM (weight_knn/kernel/
-   caliper), qui est une ponderation methodologique de l'estimateur
-   et non un poids de sondage.
    ============================================================ */
 
 
@@ -955,9 +958,16 @@ keep if t == 0 & !missing(D) & !missing(log_pcexp) & !missing(hhsize)
 di _newline "=== Probit — score de propension (EHCVM I, panel vrai) ==="
 di "Observations : " _N
 
-probit D c.hhsize c.log_pcexp i.milieu i.region ///
-         c.hgender c.hage i.heduc i.hmstat, vce(cluster grappe) nolog
+/* Déclaration du plan de sondage (strates = région x milieu) */
+svyset_ehcvm hhweight
 
+svy: probit D c.hhsize c.log_pcexp i.milieu i.region ///
+         c.hgender c.hage i.heduc i.hmstat, nolog
+
+/* Pseudo-R2 McFadden : svy: probit ne stocke pas e(ll)/e(ll_0)
+   On réestimé sans svy pour calculer le pseudo-R2 uniquement */
+quietly probit D c.hhsize c.log_pcexp i.milieu i.region ///
+         c.hgender c.hage i.heduc i.hmstat [pw = hhweight], robust nolog
 di "Pseudo-R2 McFadden : " %6.3f 1 - e(ll)/e(ll_0)
 
 predict pscore, pr
@@ -1018,17 +1028,18 @@ save "$TEMP/poids_caliper.dta", replace
 
 use "$TEMP/panel_vrai.dta", clear
 di _newline "=== Stats descriptives (panel vrai) ==="
-tabstat pauvre_AF pauvre_MODA nb_dep score_dep pcexp, ///
-    by(D) stat(mean n) format(%6.3f)
+tabstat pauvre_AF pauvre_MODA nb_dep score_dep pcexp ///
+    [aw=hhweight], by(D) stat(mean n) format(%6.3f)
 
 /* ============================================================
    4. Double Difference brute (sans appariement, reference)
    ============================================================ */
 
 di _newline "=== Double Difference brute (sans appariement) ==="
+svyset_ehcvm hhweight
 foreach outcome in pauvre_AF pauvre_MODA {
     di _newline "--- DD `outcome' ---"
-    regress `outcome' i.t##i.D, vce(cluster grappe)
+    svy: reg `outcome' i.t##i.D
     lincom 1.t#1.D
     di "  ATT_DD  = " %8.4f r(estimate) ///
        "  SE = " %8.4f r(se) "  p = " %6.4f r(p)
@@ -1052,13 +1063,19 @@ use "$TEMP/panel_vrai.dta", clear
 merge m:1 grappe menage using `poids_knn', keepusing(weight_knn) nogenerate
 keep if !missing(weight_knn)
 
+/* Poids final = poids sondage * poids PSM */
+gen double weight_final = hhweight * weight_knn
+label var weight_final "Poids combine sondage x PSM"
+
 di _newline "Panel apparie (k-NN) : " _N " obs"
 tabstat D, by(t) stat(mean sum n) format(%6.3f)
 
 di _newline "=== PSM-DD — ATT principal (Heckman 1997/1998) ==="
+/* Poids combiné sondage x PSM : déclaré dans svyset */
+svyset_ehcvm weight_final
 foreach outcome in pauvre_AF pauvre_MODA {
     di _newline "--- PSM-DD `outcome' ---"
-    regress `outcome' i.t##i.D [aw=weight_knn], vce(cluster grappe)
+    svy: reg `outcome' i.t##i.D
     lincom 1.t#1.D
     di "  ATT_PSM-DD = " %8.4f r(estimate) ///
        "  SE = " %8.4f r(se) "  p = " %6.4f r(p)
@@ -1080,8 +1097,8 @@ foreach mil in 1 2 {
         quietly count if milieu == `mil' & !missing(weight_knn)
         if r(N) > 30 {
             di _newline "--- `lab_mil' — `outcome' ---"
-            regress `outcome' i.t##i.D [aw=weight_knn] if milieu == `mil', ///
-                vce(cluster grappe)
+            svyset_ehcvm weight_final
+            svy, subpop(if milieu == `mil'): reg `outcome' i.t##i.D
             lincom 1.t#1.D
             di "  ATT = " %8.4f r(estimate) "  p = " %6.4f r(p)
         }
@@ -1091,8 +1108,9 @@ foreach mil in 1 2 {
 /* Test d'egalite milieu urbain vs rural */
 di _newline "Test d'egalite Chow (urbain vs rural) :"
 gen byte urban = (milieu == 1)
+svyset_ehcvm weight_final
 foreach outcome in pauvre_AF pauvre_MODA {
-    regress `outcome' i.t##i.D##i.urban [aw=weight_knn], vce(cluster grappe)
+    svy: reg `outcome' i.t##i.D##i.urban
     lincom 1.t#1.D#1.urban - 1.t#1.D#0.urban
     di "  Diff ATT (urbain - rural) : " %8.4f r(estimate) "  p = " %6.4f r(p)
 }
@@ -1102,6 +1120,7 @@ drop urban
 di _newline "=== Heterogeneite par sexe ==="
 capture confirm variable sexe
 if _rc == 0 {
+    svyset_ehcvm weight_final
     foreach outcome in pauvre_AF pauvre_MODA {
         foreach s in 1 2 {
             if `s' == 1 local lab_s "Garcons"
@@ -1109,8 +1128,7 @@ if _rc == 0 {
             quietly count if sexe == `s' & !missing(weight_knn)
             if r(N) > 30 {
                 di "--- `lab_s' — `outcome' ---"
-                regress `outcome' i.t##i.D [aw=weight_knn] if sexe == `s', ///
-                    vce(cluster grappe)
+                svy, subpop(if sexe == `s'): reg `outcome' i.t##i.D
                 lincom 1.t#1.D
                 di "  ATT = " %8.4f r(estimate) "  p = " %6.4f r(p)
             }
@@ -1123,13 +1141,13 @@ else {
 
 /* -- 6c. Par groupe d'age ----------------------------------- */
 di _newline "=== Heterogeneite par groupe d'age ==="
+svyset_ehcvm weight_final
 foreach g in 1 2 3 {
     foreach outcome in pauvre_AF pauvre_MODA {
         quietly count if groupe_moda == `g' & !missing(weight_knn)
         if r(N) > 30 {
             di "--- Groupe `g' — `outcome' ---"
-            regress `outcome' i.t##i.D [aw=weight_knn] if groupe_moda == `g', ///
-                vce(cluster grappe)
+            svy, subpop(if groupe_moda == `g'): reg `outcome' i.t##i.D
             lincom 1.t#1.D
             di "  ATT = " %8.4f r(estimate) "  p = " %6.4f r(p)
         }
@@ -1144,14 +1162,15 @@ foreach g in 1 2 3 {
 di _newline "=== Bootstrap PSM-DD ($N_BOOT replications) ==="
 foreach outcome in pauvre_AF pauvre_MODA {
     di _newline "--- Bootstrap `outcome' ---"
-    att_psmdd `outcome' weight_knn $N_BOOT
+    att_psmdd `outcome' weight_final $N_BOOT
 }
 
 /* -- 7b. Sensibilite au seuil k (Alkire-Foster) ------------- */
 di _newline "=== Sensibilite au seuil k (Alkire-Foster) ==="
+svyset_ehcvm weight_final
 foreach k_test in 0.1667 0.3333 0.5 {
     gen byte pauvre_ktest = (score_dep >= `k_test') if !missing(score_dep)
-    regress pauvre_ktest i.t##i.D [aw=weight_knn], vce(cluster grappe)
+    svy: reg pauvre_ktest i.t##i.D
     lincom 1.t#1.D
     di "  k=" %5.4f `k_test' " : ATT=" %8.4f r(estimate) "  p=" %6.4f r(p)
     drop pauvre_ktest
@@ -1164,16 +1183,26 @@ foreach poids_var in weight_knn weight_kernel weight_caliper {
     if "`poids_var'" == "weight_kernel" {
         merge m:1 grappe menage using "$TEMP/poids_kernel.dta", ///
             keepusing(weight_kernel) nogenerate
+        capture drop wf_kernel
+        gen double wf_kernel = hhweight * weight_kernel
     }
     if "`poids_var'" == "weight_caliper" {
         merge m:1 grappe menage using "$TEMP/poids_caliper.dta", ///
             keepusing(weight_caliper) nogenerate
+        capture drop wf_caliper
+        gen double wf_caliper = hhweight * weight_caliper
     }
+
+    /* Poids combine sondage x PSM */
+    local wf = cond("`poids_var'" == "weight_knn",    "weight_final", ///
+                cond("`poids_var'" == "weight_kernel", "wf_kernel",   ///
+                                                       "wf_caliper"))
 
     foreach outcome in pauvre_AF pauvre_MODA {
         quietly count if !missing(`poids_var')
         if r(N) > 0 {
-            regress `outcome' i.t##i.D [aw=`poids_var'], vce(cluster grappe)
+            svyset_ehcvm `wf'
+            svy: reg `outcome' i.t##i.D
             lincom 1.t#1.D
             di "  `poids_var' — `outcome' : ATT=" %8.4f r(estimate) ///
                "  p=" %6.4f r(p)
@@ -1198,9 +1227,6 @@ di _newline ">>> 05_psm_dd.do termine."
 /* ============================================================
    06_stats_desc.do — Statistiques descriptives
    Chapitre 3 : profil ménages, pauvreté, privations, comparaison D=0/1
-
-   Aucune ponderation par poids d'enquete (hhweight) : toutes les
-   statistiques sont calculees sur effectifs bruts.
 
    Sorties :
      output/tab_menages.csv          — caractéristiques ménages (tab 5)
@@ -1234,16 +1260,18 @@ foreach annee in 2018 2021 {
 
     /* Taille ménage, âge CM, milieu, transferts */
     quietly {
+        svyset_ehcvm hhweight
         gen byte chef_f = (hgender == 2)
         gen byte urbain = (milieu == 1)
         foreach v in hhsize hage pcexp chef_f urbain D {
-            summarize `v'
-            if "`v'" == "hhsize" scalar m_hhsize_`annee' = r(mean)
-            if "`v'" == "hage"   scalar m_hage_`annee'   = r(mean)
-            if "`v'" == "pcexp"  scalar m_pcexp_`annee'  = r(mean)
-            if "`v'" == "chef_f" scalar p_chef_f_`annee' = r(mean)*100
-            if "`v'" == "urbain" scalar p_urbain_`annee' = r(mean)*100
-            if "`v'" == "D"      scalar p_D_`annee'      = r(mean)*100
+            svy: mean `v'
+            matrix m = e(b)
+            if "`v'" == "hhsize" scalar m_hhsize_`annee' = m[1,1]
+            if "`v'" == "hage"   scalar m_hage_`annee'   = m[1,1]
+            if "`v'" == "pcexp"  scalar m_pcexp_`annee'  = m[1,1]
+            if "`v'" == "chef_f" scalar p_chef_f_`annee' = m[1,1]*100
+            if "`v'" == "urbain" scalar p_urbain_`annee' = m[1,1]*100
+            if "`v'" == "D"      scalar p_D_`annee'      = m[1,1]*100
         }
         count
         scalar n_men_`annee' = r(N)
@@ -1293,28 +1321,29 @@ replace D = 0 if missing(D)
 
 foreach v in hhsize hage pcexp {
     di "  `v' par D :"
-    tabstat `v', by(D) stat(mean sd) format(%9.2f)
+    tabstat `v' [aw = hhweight], by(D) stat(mean sd) format(%9.2f)
 }
 gen byte chef_f = (hgender == 2)
 gen byte urbain = (milieu  == 1)
 foreach v in chef_f urbain {
     di "  `v' par D (%) :"
-    tabstat `v', by(D) stat(mean n) format(%6.3f)
+    tabstat `v' [aw = hhweight], by(D) stat(mean n) format(%6.3f)
 }
 
-/* Tests avec erreurs-types clusterisees au niveau de la grappe */
+/* Tests tenant compte du plan de sondage */
+svyset_ehcvm hhweight
 foreach v in hhsize hage pcexp chef_f urbain {
-    quietly regress `v' D, vce(cluster grappe)
-    di "  Test `v' : diff=" %8.3f _b[D] ///
+    quietly svy: reg `v' D
+    di "  Test svy `v' : diff=" %8.3f _b[D] ///
        "  SE=" %8.3f _se[D] ///
        "  p=" %6.4f (2*ttail(e(df_r), abs(_b[D]/_se[D])))
 }
 
-/* Export balance : moyennes brutes + n */
+/* Export balance : moyennes pondérées + n non pondéré */
 preserve
     gen n_obs = 1
     collapse (mean) hhsize hage pcexp chef_f urbain ///
-             (sum)  n_obs, by(D)
+             (sum)  n_obs [aw=hhweight], by(D)
     export delimited using "$OUTPUT/tables/tab_balance.csv", replace
     di ">>> tab_balance.csv sauvegardé"
 restore
@@ -1329,13 +1358,13 @@ foreach annee in 2018 2021 {
     use "$TEMP/vague_`annee'.dta", clear
 
     di _newline "-- N-MODA `annee' --"
-    tabstat pauvre_MODA nb_dep, ///
+    tabstat pauvre_MODA nb_dep [aw=hhweight], ///
         by(milieu) stat(mean n) format(%6.3f)
-    tabstat pauvre_MODA nb_dep, ///
+    tabstat pauvre_MODA nb_dep [aw=hhweight], ///
         by(groupe_moda) stat(mean n) format(%6.3f)
 
     di "-- Alkire-Foster `annee' --"
-    tabstat pauvre_AF score_dep, ///
+    tabstat pauvre_AF score_dep [aw=hhweight], ///
         by(milieu) stat(mean n) format(%6.3f)
 }
 
@@ -1352,7 +1381,7 @@ foreach annee in 2018 2021 {
     use "$TEMP/vague_`annee'.dta", clear
     foreach g in 1 2 3 {
         local ++r
-        quietly summarize pauvre_MODA if groupe_moda == `g'
+        quietly summarize pauvre_MODA [aw=hhweight] if groupe_moda == `g'
         local hmoda = r(mean)*100
         local nobs  = r(N)
         local lbl   = cond(`g'==1,"0-4 ans",cond(`g'==2,"5-14 ans","15-17 ans"))
@@ -1370,7 +1399,7 @@ foreach annee in 2018 2021 {
     use "$TEMP/vague_`annee'.dta", clear
     di _newline "-- Dimensions `annee' --"
     foreach dim in assai eau logem nutri sante protect educ {
-        quietly summarize dim_`dim'
+        quietly summarize dim_`dim' [aw=hhweight]
         di "  `dim' : " %5.1f r(mean)*100 "%"
     }
 }
@@ -1379,7 +1408,7 @@ foreach annee in 2018 2021 {
 foreach annee in 2018 2021 {
     use "$TEMP/vague_`annee'.dta", clear
     collapse (mean) dim_assai dim_eau dim_logem dim_nutri ///
-                    dim_sante dim_protect dim_educ
+                    dim_sante dim_protect dim_educ [aw=hhweight]
     gen annee = `annee'
     if `annee' == 2018 {
         tempfile dim_2018
@@ -1401,9 +1430,9 @@ di _newline "=== 5. Graphiques ==="
 /* ── Fig 1 : Évolution H N-MODA et AF par vague ── */
 foreach annee in 2018 2021 {
     use "$TEMP/vague_`annee'.dta", clear
-    quietly summarize pauvre_MODA
+    quietly summarize pauvre_MODA [aw=hhweight]
     scalar H_moda_`annee' = r(mean)*100
-    quietly summarize pauvre_AF
+    quietly summarize pauvre_AF   [aw=hhweight]
     scalar H_af_`annee'   = r(mean)*100
 }
 clear
@@ -1430,7 +1459,7 @@ di ">>> fig_evolution_ipm.pdf sauvegardé"
 foreach annee in 2018 2021 {
     use "$TEMP/vague_`annee'.dta", clear
     foreach dim in assai eau logem nutri sante protect educ {
-        quietly summarize dim_`dim'
+        quietly summarize dim_`dim' [aw=hhweight]
         scalar d_`dim'_`annee' = r(mean)*100
     }
 }
@@ -1464,7 +1493,7 @@ di ">>> fig_privations_dim.pdf sauvegardé"
 
 /* ── Fig 3 : Pauvreté par milieu et groupe d'âge (EHCVM I) ── */
 use "$TEMP/vague_2018.dta", clear
-graph bar pauvre_MODA, over(groupe_moda) over(milieu) ///
+graph bar pauvre_MODA [aw=hhweight], over(groupe_moda) over(milieu) ///
     bar(1, color(navy)) ///
     ytitle("Incidence N-MODA (H, %)") ylabel(0(0.1)0.8, format(%3.1f) grid) ///
     title("Pauvreté N-MODA par groupe d'âge et milieu (2018-19)") ///
@@ -1481,7 +1510,8 @@ replace D = 0 if missing(D)
 label define dl 0 "Non-bénéficiaires" 1 "Bénéficiaires", replace
 label values D dl
 
-histogram nb_dep, by(D, cols(1) note("") ///
+gen long fw = round(hhweight)
+histogram nb_dep [fw=fw], by(D, cols(1) note("") ///
     title("Distribution du nombre de privations (2018-19)")) ///
     fraction width(1) gap(10) ///
     color(ltblue) lcolor(white) ///
@@ -1514,9 +1544,9 @@ save `poids_knn'
 use "$TEMP/panel_vrai.dta", clear
 merge m:1 grappe menage using `poids_knn', keepusing(weight_knn) nogenerate
 keep if !missing(weight_knn)
+gen double weight_final = hhweight * weight_knn
 
-/* ATT PSM-DD pour chaque dimension (poids d'appariement PSM uniquement,
-   pas de poids d'enquete ; erreurs-types clusterisees au niveau grappe) */
+/* ATT PSM-DD pour chaque dimension */
 local dims    assai eau logem nutri sante protect educ
 local n_dims  7
 
@@ -1524,10 +1554,11 @@ matrix ATT  = J(`n_dims', 1, .)
 matrix LB   = J(`n_dims', 1, .)
 matrix UB   = J(`n_dims', 1, .)
 
+svyset_ehcvm weight_final
 local i = 0
 foreach dim of local dims {
     local ++i
-    quietly regress dim_`dim' i.t##i.D [aw=weight_knn], vce(cluster grappe)
+    quietly svy: reg dim_`dim' i.t##i.D
     quietly lincom 1.t#1.D
     matrix ATT[`i',1] = r(estimate)
     matrix LB[`i',1]  = r(estimate) - 1.96*r(se)
@@ -1605,18 +1636,19 @@ di ">>> 07_effets_dim.do terminé."
 
 use "$TEMP/vague_2018.dta", clear
 
-/* Moyenne brute par région (pas de ponderation par poids d'enquete) */
+/* Moyenne pondérée par région */
+svyset_ehcvm hhweight
 matrix H_reg = J(14, 2, .)
 
 levelsof region, local(regs)
 local i = 0
 foreach r of local regs {
     local ++i
-    quietly summarize pauvre_MODA if region == `r'
+    quietly svy, subpop(if region == `r'): mean pauvre_MODA
     matrix H_reg[`i', 1] = `r'
-    matrix H_reg[`i', 2] = r(mean)*100
+    matrix H_reg[`i', 2] = e(b)[1,1]*100
     local lbl : label (region) `r'
-    di "Région `r' (`lbl') : H=" %5.1f r(mean)*100 "%"
+    di "Région `r' (`lbl') : H=" %5.1f e(b)[1,1]*100 "%"
 }
 
 /* ── Fig carte : barres horizontales par région (substitut à la carte) ── */
@@ -1659,7 +1691,7 @@ preserve
         xlabel(0(10)100, grid) ///
         xline(58.9, lcolor(orange) lpattern(dash) lwidth(medthick)) ///
         note("Ligne pointillée : moyenne nationale (58,9 %). EHCVM I (2018-2019)." ///
-             "Estimations sur effectifs bruts (sans ponderation).", size(vsmall)) ///
+             "Estimations pondérées (plan de sondage stratifié).", size(vsmall)) ///
         title("Incidence N-MODA par région --- Sénégal, 2018-2019") ///
         graphregion(color(white)) plotregion(color(white))
     graph export "$OUTPUT/figures/fig_carte_nmoda.pdf", replace
@@ -1676,19 +1708,22 @@ use "$TEMP/vague_2018.dta", clear
 gen byte pauvre_mon = (pcexp < 276305) if !missing(pcexp)
 label var pauvre_mon "Pauvre monétaire (seuil ANSD 2018)"
 
-/* Tableau croisé brut (sans ponderation) */
+/* Tableau croisé pondéré */
 di _newline "=== Croisement pauvreté monétaire / N-MODA ==="
-tab pauvre_mon pauvre_MODA, row col nofreq
+tab pauvre_mon pauvre_MODA [aw=hhweight], row col nofreq
 
 /* Calcul des quatre cellules */
+svyset_ehcvm hhweight
 foreach pm in 0 1 {
     foreach md in 0 1 {
+        quietly svy: mean pauvre_mon if pauvre_MODA == `md'
+        /* prop conjointe */
         quietly count if pauvre_mon == `pm' & pauvre_MODA == `md'
         local n`pm'`md' = r(N)
     }
 }
 
-/* Proportions brutes */
+/* Proportions pondérées */
 gen byte cat4 = .
 replace cat4 = 1 if pauvre_mon == 0 & pauvre_MODA == 0  /* non pauvres */
 replace cat4 = 2 if pauvre_mon == 1 & pauvre_MODA == 0  /* pauvres monet. seuls */
@@ -1698,11 +1733,11 @@ label define cat4l 1 "Non pauvres" 2 "Pauvres monet. seuls" ///
                    3 "Pauvres MODA seuls" 4 "Doublement pauvres"
 label values cat4 cat4l
 
-tabstat cat4, by(cat4) stat(count) format(%9.0f)
+tabstat cat4 [aw=hhweight], by(cat4) stat(count) format(%9.0f)
 
-quietly summarize pauvre_mon
+quietly summarize pauvre_mon [aw=hhweight]
 scalar p_mon = r(mean)*100
-quietly summarize pauvre_MODA
+quietly summarize pauvre_MODA [aw=hhweight]
 scalar p_moda = r(mean)*100
 
 di _newline "Pauvreté monétaire : " %5.1f p_mon "%"
@@ -1712,6 +1747,7 @@ di "Pauvreté N-MODA    : " %5.1f p_moda "%"
 /* Proportions par catégorie calculées sans collapse pour éviter
    la perte des variables de stratification */
 preserve
+    gen long fw = round(hhweight)
     /* 4 catégories pour graphique */
     gen byte nn  = (pauvre_mon == 0 & pauvre_MODA == 0)  /* 1 */
     gen byte pm_only = (pauvre_mon == 1 & pauvre_MODA == 0)  /* 2 */
@@ -1719,7 +1755,7 @@ preserve
     gen byte both    = (pauvre_mon == 1 & pauvre_MODA == 1)  /* 4 */
 
     foreach v in nn pm_only md_only both {
-        quietly summarize `v'
+        quietly summarize `v' [aw=hhweight]
         scalar p_`v' = r(mean)*100
         di "`v' : " %5.1f r(mean)*100 "%"
     }
@@ -1753,7 +1789,7 @@ preserve
         xlabel(0(10)60, grid) ///
         title("Croisement pauvreté monétaire et N-MODA") ///
         subtitle("Sénégal, EHCVM I (2018-2019) — enfants 0--17 ans") ///
-        note("Estimations sur effectifs bruts (sans ponderation).", size(vsmall)) ///
+        note("Estimations pondérées (plan de sondage stratifié).", size(vsmall)) ///
         legend(off) ///
         graphregion(color(white)) plotregion(color(white))
     graph export "$OUTPUT/figures/fig_croisement_pauvrete.pdf", replace
@@ -1761,6 +1797,216 @@ preserve
 restore
 
 di _newline ">>> 08_carte_region.do terminé."
+
+/* ============================================================
+   SECTION : 09_TAB_POIDS — 
+   ============================================================ */
+/* ============================================================
+   09_tab_poids.do - Tableaux avec et sans ponderation
+   Comparaison des statistiques descriptives brutes (non ponderees)
+   et ponderees par hhweight pour evaluer la representativite.
+
+   Sorties :
+     output/tables/tab_incidence_poids.csv   -- H N-MODA et AF avec/sans poids
+     output/tables/tab_privations_poids.csv  -- privations par dimension avec/sans poids
+     output/tables/tab_menages_poids.csv     -- caract. menages avec/sans poids
+   ============================================================ */
+
+
+capture mkdir "$OUTPUT/tables"
+
+/* ============================================================
+   1. Incidence pauvrete multidimensionnelle avec / sans poids
+   ============================================================ */
+
+di _newline "=== 1. Incidence N-MODA et AF avec/sans ponderation ==="
+
+clear
+set obs 4
+gen str6  annee    = ""
+gen str4  poids    = ""
+gen float H_MODA   = .
+gen float A_MODA   = .
+gen float M0_MODA  = .
+gen float H_AF     = .
+gen long  n_obs    = .
+
+local r = 0
+foreach annee in 2018 2021 {
+    use "$TEMP/vague_`annee'.dta", clear
+
+    /* Sans ponderation */
+    local ++r
+    quietly {
+        summarize pauvre_MODA
+        local H_moda_np  = r(mean)*100
+        local n_np       = r(N)
+        summarize intensite_moda if pauvre_MODA == 1
+        local A_moda_np  = r(mean)*100
+        local M0_moda_np = `H_moda_np' * `A_moda_np' / 100
+        summarize pauvre_AF
+        local H_af_np    = r(mean)*100
+    }
+    di "`annee' NON PONDERE : H_MODA=" %5.1f `H_moda_np' "% A=" %5.1f `A_moda_np' "% H_AF=" %5.1f `H_af_np' "% n=" `n_np'
+
+    /* Avec ponderation */
+    local ++r
+    quietly {
+        summarize pauvre_MODA [aw=hhweight]
+        local H_moda_p   = r(mean)*100
+        local n_p        = r(N)
+        summarize intensite_moda [aw=hhweight] if pauvre_MODA == 1
+        local A_moda_p   = r(mean)*100
+        local M0_moda_p  = `H_moda_p' * `A_moda_p' / 100
+        summarize pauvre_AF [aw=hhweight]
+        local H_af_p     = r(mean)*100
+    }
+    di "`annee' PONDERE    : H_MODA=" %5.1f `H_moda_p' "% A=" %5.1f `A_moda_p' "% H_AF=" %5.1f `H_af_p' "% n=" `n_p'
+
+    /* Stocker dans dataset */
+    local r2 = `r' - 1
+    foreach ri in `r2' `r' {
+        local p = cond(`ri' == `r2', "non", "oui")
+        local a = "`annee'"
+        local H_m  = cond(`ri' == `r2', `H_moda_np',  `H_moda_p')
+        local A_m  = cond(`ri' == `r2', `A_moda_np',  `A_moda_p')
+        local M0_m = cond(`ri' == `r2', `M0_moda_np', `M0_moda_p')
+        local H_a  = cond(`ri' == `r2', `H_af_np',    `H_af_p')
+        local n    = cond(`ri' == `r2', `n_np',        `n_p')
+        quietly {
+            replace annee   = "`a'"  in `ri'
+            replace poids   = "`p'"  in `ri'
+            replace H_MODA  = `H_m'  in `ri'
+            replace A_MODA  = `A_m'  in `ri'
+            replace M0_MODA = `M0_m' in `ri'
+            replace H_AF    = `H_a'  in `ri'
+            replace n_obs   = `n'    in `ri'
+        }
+    }
+}
+
+export delimited using "$OUTPUT/tables/tab_incidence_poids.csv", replace
+di ">>> tab_incidence_poids.csv sauvegarde"
+
+/* ============================================================
+   2. Privations par dimension avec / sans poids
+   ============================================================ */
+
+di _newline "=== 2. Privations par dimension avec/sans ponderation ==="
+
+clear
+set obs 28
+gen str6  annee  = ""
+gen str12 dim    = ""
+gen str4  poids  = ""
+gen float taux   = .
+gen long  n_obs  = .
+
+local r = 0
+foreach annee in 2018 2021 {
+    use "$TEMP/vague_`annee'.dta", clear
+    foreach dim in assai eau logem nutri sante protect educ {
+        /* Sans ponderation */
+        local ++r
+        quietly summarize dim_`dim'
+        replace annee  = "`annee'" in `r'
+        replace dim    = "`dim'"   in `r'
+        replace poids  = "non"     in `r'
+        replace taux   = r(mean)*100 in `r'
+        replace n_obs  = r(N)      in `r'
+        di "`annee' `dim' NON PONDERE : " %5.1f r(mean)*100 "%"
+
+        /* Avec ponderation */
+        local ++r
+        quietly summarize dim_`dim' [aw=hhweight]
+        replace annee  = "`annee'" in `r'
+        replace dim    = "`dim'"   in `r'
+        replace poids  = "oui"     in `r'
+        replace taux   = r(mean)*100 in `r'
+        replace n_obs  = r(N)      in `r'
+        di "`annee' `dim' PONDERE    : " %5.1f r(mean)*100 "%"
+    }
+}
+
+export delimited using "$OUTPUT/tables/tab_privations_poids.csv", replace
+di ">>> tab_privations_poids.csv sauvegarde"
+
+/* ============================================================
+   3. Caracteristiques menages avec / sans poids
+   ============================================================ */
+
+di _newline "=== 3. Caracteristiques menages avec/sans ponderation ==="
+
+clear
+set obs 4
+gen str6  annee     = ""
+gen str4  poids     = ""
+gen float hhsize    = .
+gen float p_chef_f  = .
+gen float p_urbain  = .
+gen float p_transf  = .
+gen float pcexp     = .
+gen long  n_obs     = .
+
+local r = 0
+foreach annee in 2018 2021 {
+    use "$TEMP/vague_`annee'.dta", clear
+    bysort grappe menage: keep if _n == 1
+    merge m:1 grappe menage using "$TEMP/traitement_`annee'.dta", ///
+        keepusing(D) nogenerate keep(master match)
+    replace D = 0 if missing(D)
+    gen byte chef_f = (hgender == 2)
+    gen byte urbain = (milieu == 1)
+
+    foreach w in "non" "oui" {
+        local ++r
+        if "`w'" == "non" {
+            quietly {
+                summarize hhsize
+                local s_size  = r(mean)
+                local n       = r(N)
+                summarize chef_f
+                local s_chef  = r(mean)*100
+                summarize urbain
+                local s_urb   = r(mean)*100
+                summarize D
+                local s_D     = r(mean)*100
+                summarize pcexp
+                local s_pce   = r(mean)
+            }
+        }
+        else {
+            quietly {
+                summarize hhsize [aw=hhweight]
+                local s_size  = r(mean)
+                local n       = r(N)
+                summarize chef_f [aw=hhweight]
+                local s_chef  = r(mean)*100
+                summarize urbain [aw=hhweight]
+                local s_urb   = r(mean)*100
+                summarize D [aw=hhweight]
+                local s_D     = r(mean)*100
+                summarize pcexp [aw=hhweight]
+                local s_pce   = r(mean)
+            }
+        }
+        di "`annee' poids=`w' : hhsize=" %5.2f `s_size' " chef_f=" %5.1f `s_chef' "% urbain=" %5.1f `s_urb' "% D=" %5.1f `s_D' "% PCE=" %12.0f `s_pce'
+        replace annee    = "`annee'" in `r'
+        replace poids    = "`w'"     in `r'
+        replace hhsize   = `s_size'  in `r'
+        replace p_chef_f = `s_chef'  in `r'
+        replace p_urbain = `s_urb'   in `r'
+        replace p_transf = `s_D'     in `r'
+        replace pcexp    = `s_pce'   in `r'
+        replace n_obs    = `n'       in `r'
+    }
+}
+
+export delimited using "$OUTPUT/tables/tab_menages_poids.csv", replace
+di ">>> tab_menages_poids.csv sauvegarde"
+
+di _newline ">>> 09_tab_poids.do termine."
+di ">>> Sorties dans : $OUTPUT/tables/"
 
 /* ============================================================
    FIN DU PIPELINE
