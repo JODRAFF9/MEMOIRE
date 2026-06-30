@@ -453,9 +453,17 @@ program define indic_menage
         keepusing(toilet eauboi_ss eauboi_sp ordure) ///
         nogenerate keep(master match)
 
+    /* [Dim 1/7 : Assainissement] Indicateur 1 — Type de sanitaire
+       (toilet, harmonise depuis s11q55 en 2018 / s11q54 en 2021) */
     gen byte m_toilet    = (toilet == 0)          if !missing(toilet)
+
+    /* [Dim 2/7 : Eau] Indicateur 1 — Source d'eau de boisson
+       (eauboi_ss/eauboi_sp, harmonise depuis s11q27a et s11q27b) */
     gen byte m_eau_source = (eauboi_ss == 0 | eauboi_sp == 0) ///
         if !missing(eauboi_ss) | !missing(eauboi_sp)
+
+    /* [Dim 3/7 : Logement] Indicateur 1 — Debarras des ordures menageres
+       (ordure, harmonise depuis s11q54) */
     gen byte m_ordures   = (ordure == 0)           if !missing(ordure)
 
     /* Variables brutes depuis s11_me */
@@ -467,32 +475,39 @@ program define indic_menage
     restore
     merge m:1 grappe menage using `s11_temp', nogenerate keep(master match)
 
+    /* [Dim 1/7 : Assainissement] Indicateur 2 — Partage des toilettes
+       (2018: s11q56 ; 2021: s11q55) */
     gen byte m_partag_toi = (`v_partag' == 1)       if !missing(`v_partag')
     replace  m_partag_toi = 0                        if missing(m_partag_toi)
 
-    /* Temps d'acces a l'eau : saison seche OU saison des pluies > 30 min
-       (Annexe I : s11q29a/s11q31a en 2018, s11q28a/s11q30a en 2021) */
+    /* [Dim 2/7 : Eau] Indicateur 2 — Temps d'acces a l'eau
+       Prive si > 30 min en saison seche OU en saison des pluies
+       (2018: s11q29a / s11q31a ; 2021: s11q28a / s11q30a) */
     gen byte m_eau_temps  = (`v_tps_ss' > 30 & !missing(`v_tps_ss')) | ///
                              (`v_tps_sp' > 30 & !missing(`v_tps_sp'))
     replace  m_eau_temps  = 0 if missing(`v_tps_ss') & missing(`v_tps_sp')
     rename s11q02 nb_pieces
 
-    /* Surpeuplement : calcule apres merge welfare (hhsize deja present) */
+    /* [Dim 3/7 : Logement] Indicateur 2 — Surpeuplement
+       Prive si hhsize/nb_pieces (s11q02) > 3 (calcule apres merge welfare) */
     gen byte m_surpeup = (hhsize / nb_pieces > 3) ///
         if !missing(nb_pieces) & nb_pieces > 0 & !missing(hhsize)
     replace  m_surpeup = 0 if missing(m_surpeup)
 
-    /* Combustible solide */
+    /* [Dim 5/7 : Sante] Indicateur 1 — Combustible solide pour cuisiner
+       (2018: s11q53 ; 2021: s11q52, modalites bois ramasse/achete/
+       charbon/dechets animaux) */
     gen byte m_combust = 0
     foreach v of varlist `comb_vars' {
         replace m_combust = 1 if `v' >= 1 & !missing(`v')
     }
 
-    /* ── Acces a une structure de sante (module communautaire s02_co) ──
-       Enfant prive si, dans sa localite (grappe), aucun des 3 services
-       de sante (Hopital public/prive=5, Autre centre de sante public=6,
-       Cabinet medical/Clinique privee=7) n'est accessible a pied
-       (s02q02 == 1 "Pieds" comme principal moyen de locomotion).
+    /* [Dim 5/7 : Sante] Indicateur 2 — Acces a une structure de sante
+       (module communautaire s02_co). Enfant prive si, dans sa localite
+       (grappe), aucun des 3 services de sante (Hopital public/prive=5,
+       Autre centre de sante public=6, Cabinet medical/Clinique privee=7)
+       n'est accessible a pied (s02q02 == 1 "Pieds" comme principal moyen
+       de locomotion).
        2018 : long format avec identifiant de service s02q00.
        2021 : long format sans identifiant explicite, mais 26 lignes/grappe
               dans le meme ordre que la liste de services 2018 ;
@@ -517,9 +532,8 @@ program define indic_menage
     replace  m_acces_sante = 0 if missing(m_acces_sante)
     capture drop acces_pied
 
-    /* ── Dimension 4 : Nutrition (s08) ── */
-
-    /* Securite alimentaire FIES (s08a — 2018 et 2021)
+    /* [Dim 4/7 : Nutrition] Indicateur 1 — Securite alimentaire (FIES)
+       (s08a — 2018 et 2021)
        Definition N-MODA : membre ayant saute un repas, mange moins que necessaire,
        manque de nourriture, eu faim ou passe une journee sans manger
        s08aq04 : saute repas | s08aq05 : mange moins | s08aq06 : plus de nourriture
@@ -539,7 +553,8 @@ program define indic_menage
         keepusing(m_securite) nogenerate keep(master match)
     replace m_securite = 0 if missing(m_securite)
 
-    /* Diversite alimentaire (s08b1 — 2018 seulement)
+    /* [Dim 4/7 : Nutrition] Indicateur 2 — Diversite alimentaire
+       (s08b1 — 2018 seulement)
        Definition N-MODA : 4 macro-groupes (carbohydrates, proteines,
        fruits/legumes, graisses) consommes chaque jour sur la semaine (7/7)
        Mapping s08b02a-j :
@@ -573,6 +588,9 @@ end
 
 /* ============================================================
    Sous-programme : acte de naissance (s01_me)
+
+   [Dim 6/7 : Protection de l'enfant] Indicateur 1 — Disponibilite
+   de l'acte de naissance (s01q05, identique 2018/2021)
    ============================================================ */
 
 capture program drop indic_acte_nais
@@ -613,19 +631,39 @@ program define agreger_ipm
     label define grp 1 "0-4 ans" 2 "5-14 ans" 3 "15-17 ans", replace
     label values groupe_moda grp
 
-    /* ── Dimensions N-MODA (union intra-dimension) ── */
+    /* ── Dimensions N-MODA (union intra-dimension des indicateurs) ──
+       Chaque dim_* combine les indicateurs construits ci-dessus, avec
+       application des groupes d'age propres a l'Annexe I. */
 
+    /* [Dim 1/7 : Assainissement] = indic.1 (type sanitaire) OU indic.2 (partage) */
     gen byte dim_assai  = (m_toilet == 1 | m_partag_toi == 1)
+
+    /* [Dim 2/7 : Eau] = indic.1 (source) OU indic.2 (temps d'acces) */
     gen byte dim_eau    = (m_eau_source == 1 | m_eau_temps == 1)
+
+    /* [Dim 3/7 : Logement] = indic.1 (ordures) OU indic.2 (surpeuplement) */
     gen byte dim_logem  = (m_ordures == 1 | m_surpeup == 1)
-    /* Nutrition : securite alim (0-17 ans) + diversite (5-17 ans) */
+
+    /* [Dim 4/7 : Nutrition] = indic.1 securite alim (0-17 ans)
+       OU indic.2 diversite alimentaire (5-17 ans seulement) */
     gen byte dim_nutri = 0
     replace  dim_nutri = 1 if m_securite == 1
     replace  dim_nutri = 1 if m_diversite == 1 & age >= 5
+
+    /* [Dim 5/7 : Sante] = indic.1 (combustible) OU indic.2 (acces structure) */
     gen byte dim_sante  = (m_combust == 1 | m_acces_sante == 1)
+
+    /* [Dim 7/7 : Education] selon groupe d'age :
+       5-14 ans  -> indic.2 (scolarisation)
+       15-17 ans -> indic.1 (lecture-ecriture) OU indic.3 (NEET) */
     gen byte dim_educ   = 0
     replace  dim_educ   = m_scol  if groupe_moda == 2
     replace  dim_educ   = (m_alfab == 1 | m_neet == 1) if groupe_moda == 3
+
+    /* [Dim 6/7 : Protection de l'enfant] selon groupe d'age :
+       0-4 ans   -> indic.1 (acte naissance) OU indic.3 (separation parentale)
+       5-14 ans  -> indic.1 OU indic.2 (travail enfants) OU indic.3
+       15-17 ans -> indic.3 seulement (acte naissance non pertinent > 14 ans) */
     gen byte dim_protect = 0
     replace  dim_protect = (m_acte_nais == 1 | m_parents == 1) ///
         if groupe_moda == 1
@@ -700,13 +738,16 @@ foreach annee in 2018 2021 {
     /* 4. Acte de naissance */
     indic_acte_nais `annee'
 
-    /* 5. Indicateurs individuels */
+    /* 5. Indicateurs individuels (ehcvm_individu : scol, activ7j, lien,
+          alfab/alfa) — un bloc par dimension de l'Annexe I */
 
-    /* Non-scolarise (5-14 ans) */
+    /* [Dim 7/7 : Education] Indicateur 2 — Frequentation scolaire
+       Non-scolarise, groupe d'age 5-14 ans (variable scol) */
     gen byte m_scol = 0
     replace  m_scol = 1 if age >= 5 & age <= 14 & (scol == 0 | missing(scol))
 
-    /* Travail des enfants (5-14 ans), composante economique uniquement
+    /* [Dim 6/7 : Protection de l'enfant] Indicateur 2 — Travail des enfants
+       Groupe d'age 5-14 ans, composante economique uniquement
        (activ7j : Occupe=1, Chomeur=2). L'EHCVM ne comporte pas de module
        time-use permettant de mesurer le travail domestique (corvees) ;
        cette composante de l'Annexe I n'est donc pas operationnalisable
@@ -715,11 +756,14 @@ foreach annee in 2018 2021 {
     replace  m_trav_enf = 1 if age >= 5 & age <= 14 & ///
         (activ7j == 1 | activ7j == 2) & !missing(activ7j)
 
-    /* Separation parentale */
+    /* [Dim 6/7 : Protection de l'enfant] Indicateur 3 — Separation parentale
+       Prive si l'enfant ne vit pas avec ses deux parents biologiques
+       (lien > 3, tous groupes d'age) */
     gen byte m_parents = (lien > 3) if !missing(lien)
     replace  m_parents = 0 if missing(m_parents)
 
-    /* Illettrisme (15-17 ans) */
+    /* [Dim 7/7 : Education] Indicateur 1 — Capacite de lecture et d'ecriture
+       Groupe d'age 15-17 ans (2018: alfab ; 2021: alfa) */
     gen byte m_alfab = 0
     if `annee' == 2018 {
         replace m_alfab = 1 if age >= 15 & alfab == 0 & !missing(alfab)
@@ -729,7 +773,9 @@ foreach annee in 2018 2021 {
         if !_rc replace m_alfab = 1 if age >= 15 & alfa == 0 & !missing(alfa)
     }
 
-    /* NEET (15-17 ans) : ni scolarise ni employe (activ7j != 1 : inactifs + chomeurs) */
+    /* [Dim 7/7 : Education] Indicateur 3 — NEET
+       Groupe d'age 15-17 ans : ni scolarise ni employe
+       (activ7j != 1 : inactifs + chomeurs) */
     gen byte m_neet = 0
     replace  m_neet = 1 if age >= 15 & ///
         (scol == 0 | missing(scol)) & (activ7j != 1 | missing(activ7j))
