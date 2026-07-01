@@ -1,0 +1,1638 @@
+<rdf:RDF
+ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+ xmlns:z="http://www.zotero.org/namespaces/export#"
+ xmlns:dc="http://purl.org/dc/elements/1.1/"
+ xmlns:dcterms="http://purl.org/dc/terms/"
+ xmlns:link="http://purl.org/rss/1.0/modules/link/"
+ xmlns:bib="http://purl.org/net/biblio#"
+ xmlns:foaf="http://xmlns.com/foaf/0.1/"
+ xmlns:prism="http://prismstandard.org/namespaces/1.2/basic/"
+ xmlns:vcard="http://nwalsh.com/rdf/vCard#">
+    <z:Attachment rdf:about="#item_214">
+        <z:itemType>attachment</z:itemType>
+        <z:path rdf:resource="files/214/Piracha et Saraogi - 2011 - Motivations for Remittances Evidence from Moldova.pdf"/>
+        <dc:relation rdf:resource="https://www.jstor.org/stable/1833062"/>
+        <dc:relation rdf:resource="#item_217"/>
+        <dc:relation rdf:resource="https://www.ssrn.com/abstract=1756005"/>
+        <dc:relation rdf:resource="https://www.researchgate.net/publication/254407424_Motives_to_Remit_Some_Microeconomic_Evidence_from_Pakistan"/>
+        <dc:relation rdf:resource="urn:isbn:978-1-58906-701-1"/>
+        <dc:relation rdf:resource="https://www.tandfonline.com/doi/full/10.1080/21582041.2012.709637"/>
+        <dc:title>PDF</dc:title>
+        <dc:identifier>
+            <dcterms:URI>
+               <rdf:value>https://repec.iza.org/dp5467.pdf</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2026-07-01 11:21:21</dcterms:dateSubmitted>
+        <z:linkMode>1</z:linkMode>
+        <link:type>application/pdf</link:type>
+        <rdf:type rdf:resource="http://www.zotero.org/namespaces/export#Attachment"/>
+        <z:itemType>attachment</z:itemType>
+        <z:path rdf:resource="files/214/Piracha et Saraogi - 2011 - Motivations for Remittances Evidence from Moldova.pdf"/>
+        <dc:relation rdf:resource="https://www.jstor.org/stable/1833062"/>
+        <dc:relation rdf:resource="#item_217"/>
+        <dc:relation rdf:resource="https://www.ssrn.com/abstract=1756005"/>
+        <dc:relation rdf:resource="https://www.researchgate.net/publication/254407424_Motives_to_Remit_Some_Microeconomic_Evidence_from_Pakistan"/>
+        <dc:relation rdf:resource="urn:isbn:978-1-58906-701-1"/>
+        <dc:relation rdf:resource="https://www.tandfonline.com/doi/full/10.1080/21582041.2012.709637"/>
+        <dc:title>PDF</dc:title>
+        <dc:identifier>
+            <dcterms:URI>
+               <rdf:value>https://repec.iza.org/dp5467.pdf</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2026-07-01 11:21:21</dcterms:dateSubmitted>
+        <z:linkMode>1</z:linkMode>
+        <link:type>application/pdf</link:type>
+    </z:Attachment>
+    <bib:Article rdf:about="https://www.ssrn.com/abstract=1756005">
+        <z:itemType>journalArticle</z:itemType>
+        <dcterms:isPartOf rdf:resource="urn:issn:1556-5068"/>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Piracha</foaf:surname>
+                        <foaf:givenName>Matloob</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Saraogi</foaf:surname>
+                        <foaf:givenName>Amrita</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <link:link rdf:resource="#item_214"/>
+        <dc:relation rdf:resource="https://www.jstor.org/stable/1833062"/>
+        <dc:relation rdf:resource="#item_214"/>
+        <dc:relation rdf:resource="#item_217"/>
+        <dc:relation rdf:resource="https://www.researchgate.net/publication/254407424_Motives_to_Remit_Some_Microeconomic_Evidence_from_Pakistan"/>
+        <dc:relation rdf:resource="urn:isbn:978-1-58906-701-1"/>
+        <dc:relation rdf:resource="https://www.tandfonline.com/doi/full/10.1080/21582041.2012.709637"/>
+        <dc:title>Motivations for Remittances: Evidence from Moldova</dc:title>
+        <dcterms:abstract>Motivations for Remittances: Evidence from Moldova* This paper explores the factors that account for the receipt of remittances across households in Moldova who have migrants abroad. Unlike most of the existing literature, we approach our research question from the perspective of the recipient household and use it to interpret the determinants/motivations of remittances. Our results show that a combination of household and migrant characteristics and some community level variables are the key elements in explaining the remittance behaviour in Moldova. Drawing from these estimates, we conclude that altruism and investment (proxied by the level of economic development at the regional level) are the two main motives behind remittance flows to Moldova.</dcterms:abstract>
+        <dc:date>2011</dc:date>
+        <dc:identifier>
+            <dcterms:URI>
+               <rdf:value>https://www.ssrn.com/abstract=1756005</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2026-07-01 11:21:23</dcterms:dateSubmitted>
+        <z:shortTitle>Motivations for Remittances</z:shortTitle>
+        <z:language>en</z:language>
+        <z:libraryCatalog>DOI.org (Crossref)</z:libraryCatalog>
+    </bib:Article>
+    <bib:Journal rdf:about="urn:issn:1556-5068">
+        <dc:identifier>DOI 10.2139/ssrn.1756005</dc:identifier>
+        <dc:title>SSRN Electronic Journal</dc:title>
+        <dc:identifier>ISSN 1556-5068</dc:identifier>
+        <dcterms:alternative>SSRN Journal</dcterms:alternative>
+    </bib:Journal>
+    <bib:Article rdf:about="https://www.jstor.org/stable/1833062">
+        <z:itemType>journalArticle</z:itemType>
+        <dcterms:isPartOf rdf:resource="urn:issn:0022-3808"/>
+        <dc:publisher>
+            <foaf:Organization>
+               <foaf:name>University of Chicago Press</foaf:name>
+            </foaf:Organization>
+        </dc:publisher>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Lucas</foaf:surname>
+                        <foaf:givenName>Robert E. B.</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Stark</foaf:surname>
+                        <foaf:givenName>Oded</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <dc:relation rdf:resource="#item_214"/>
+        <dc:relation rdf:resource="#item_217"/>
+        <dc:relation rdf:resource="https://www.ssrn.com/abstract=1756005"/>
+        <dc:relation rdf:resource="https://www.researchgate.net/publication/254407424_Motives_to_Remit_Some_Microeconomic_Evidence_from_Pakistan"/>
+        <dc:relation rdf:resource="urn:isbn:978-1-58906-701-1"/>
+        <dc:relation rdf:resource="https://www.tandfonline.com/doi/full/10.1080/21582041.2012.709637"/>
+        <dc:title>Motivations to Remit: Evidence from Botswana</dc:title>
+        <dc:date>1985</dc:date>
+        <dc:identifier>
+            <dcterms:URI>
+               <rdf:value>https://www.jstor.org/stable/1833062</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2026-07-01 11:21:59</dcterms:dateSubmitted>
+        <z:shortTitle>Motivations to Remit</z:shortTitle>
+        <z:libraryCatalog>JSTOR</z:libraryCatalog>
+        <bib:pages>901-918</bib:pages>
+    </bib:Article>
+    <bib:Journal rdf:about="urn:issn:0022-3808">
+        <prism:volume>93</prism:volume>
+        <dc:title>Journal of Political Economy</dc:title>
+        <dc:identifier>ISSN 0022-3808</dc:identifier>
+        <prism:number>5</prism:number>
+    </bib:Journal>
+    <z:Attachment rdf:about="#item_217">
+        <z:itemType>attachment</z:itemType>
+        <z:path rdf:resource="files/217/DRD2820Box37730idence0from0Botswana.pdf"/>
+        <dc:relation rdf:resource="https://www.jstor.org/stable/1833062"/>
+        <dc:relation rdf:resource="#item_214"/>
+        <dc:relation rdf:resource="https://www.ssrn.com/abstract=1756005"/>
+        <dc:relation rdf:resource="https://www.researchgate.net/publication/254407424_Motives_to_Remit_Some_Microeconomic_Evidence_from_Pakistan"/>
+        <dc:relation rdf:resource="urn:isbn:978-1-58906-701-1"/>
+        <dc:relation rdf:resource="https://www.tandfonline.com/doi/full/10.1080/21582041.2012.709637"/>
+        <dc:title>DRD2820Box37730idence0from0Botswana.pdf</dc:title>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>https://documents1.worldbank.org/curated/en/671501468230645646/pdf/DRD2820Box37730idence0from0Botswana.pdf</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2026-07-01 11:22:10</dcterms:dateSubmitted>
+        <z:linkMode>1</z:linkMode>
+        <link:type>application/pdf</link:type>
+    </z:Attachment>
+    <bib:BookSection rdf:about="urn:isbn:978-1-58906-701-1">
+        <z:itemType>bookSection</z:itemType>
+        <dcterms:isPartOf>
+            <bib:Book>
+                <dc:identifier>ISBN 978-1-58906-701-1</dc:identifier>
+                <dc:title>Macroeconomic Consequences of Remittances</dc:title>
+            </bib:Book>
+        </dcterms:isPartOf>
+        <dc:publisher>
+            <foaf:Organization>
+               <foaf:name>International Monetary Fund</foaf:name>
+            </foaf:Organization>
+        </dc:publisher>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Fullenkamp</foaf:surname>
+                        <foaf:givenName>Connel</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Cosimano</foaf:surname>
+                        <foaf:givenName>Thomas F.</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Gapen</foaf:surname>
+                        <foaf:givenName>Michael T.</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Chami</foaf:surname>
+                        <foaf:givenName>Ralph</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Montiel</foaf:surname>
+                        <foaf:givenName>Peter J.</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Barajas</foaf:surname>
+                        <foaf:givenName>Adolfo</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <link:link rdf:resource="#item_219"/>
+        <dc:relation rdf:resource="https://www.jstor.org/stable/1833062"/>
+        <dc:relation rdf:resource="#item_214"/>
+        <dc:relation rdf:resource="#item_217"/>
+        <dc:relation rdf:resource="https://www.ssrn.com/abstract=1756005"/>
+        <dc:relation rdf:resource="https://www.researchgate.net/publication/254407424_Motives_to_Remit_Some_Microeconomic_Evidence_from_Pakistan"/>
+        <dc:relation rdf:resource="https://www.tandfonline.com/doi/full/10.1080/21582041.2012.709637"/>
+        <dc:title>IV What Drives Remittance Flows?</dc:title>
+        <dcterms:abstract>Abstract Understanding the motivations for remitting is necessary for analyzing the wider economic consequences of remittances, for at least two reasons. First, the amount that a migrant transfers to family members remaining at home at any given time depends, among other things, on the migrant’s underlying motivations to go abroad and to remit funds in the first place. The size and timing of remittance flows in turn determine their effects on economic activity in the receiving country. Second, the intended purpose of remittances affects the end uses of these funds, and the uses to which recipients put them is also an important determinant of their economic impact on the recipient economy.</dcterms:abstract>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>https://www.elibrary.imf.org/display/book/9781589067011/ch04.xml</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2026-07-01 11:22:26</dcterms:dateSubmitted>
+        <z:language>en</z:language>
+        <z:libraryCatalog>www.elibrary.imf.org</z:libraryCatalog>
+        <dc:description>Section: Macroeconomic Consequences of Remittances</dc:description>
+    </bib:BookSection>
+    <z:Attachment rdf:about="#item_219">
+        <z:itemType>attachment</z:itemType>
+        <z:path rdf:resource="files/219/Fullenkamp et al. - IV What Drives Remittance Flows.pdf"/>
+        <dc:title>Full Text PDF</dc:title>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>https://www.elibrary.imf.org/downloadpdf/display/book/9781589067011/ch04.pdf</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2026-07-01 11:22:27</dcterms:dateSubmitted>
+        <z:linkMode>1</z:linkMode>
+        <link:type>application/pdf</link:type>
+    </z:Attachment>
+    <bib:Document rdf:about="https://www.tandfonline.com/doi/full/10.1080/21582041.2012.709637">
+        <z:itemType>webpage</z:itemType>
+        <dcterms:isPartOf>
+           <z:Website></z:Website>
+        </dcterms:isPartOf>
+        <dc:relation rdf:resource="https://www.jstor.org/stable/1833062"/>
+        <dc:relation rdf:resource="#item_214"/>
+        <dc:relation rdf:resource="#item_217"/>
+        <dc:relation rdf:resource="https://www.ssrn.com/abstract=1756005"/>
+        <dc:relation rdf:resource="https://www.researchgate.net/publication/254407424_Motives_to_Remit_Some_Microeconomic_Evidence_from_Pakistan"/>
+        <dc:relation rdf:resource="urn:isbn:978-1-58906-701-1"/>
+        <dc:title>Motivations to remit: evidence from Chitwan, Nepal: Contemporary Social Science: Vol 9 , No 3 - Get Access</dc:title>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>https://www.tandfonline.com/doi/full/10.1080/21582041.2012.709637</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2026-07-01 11:23:07</dcterms:dateSubmitted>
+    </bib:Document>
+    <bib:Article rdf:about="https://www.researchgate.net/publication/254407424_Motives_to_Remit_Some_Microeconomic_Evidence_from_Pakistan">
+        <z:itemType>journalArticle</z:itemType>
+        <dcterms:isPartOf>
+           <bib:Journal><dc:title>ResearchGate</dc:title></bib:Journal>
+        </dcterms:isPartOf>
+        <dc:relation rdf:resource="https://www.jstor.org/stable/1833062"/>
+        <dc:relation rdf:resource="#item_214"/>
+        <dc:relation rdf:resource="#item_217"/>
+        <dc:relation rdf:resource="https://www.ssrn.com/abstract=1756005"/>
+        <dc:relation rdf:resource="urn:isbn:978-1-58906-701-1"/>
+        <dc:relation rdf:resource="https://www.tandfonline.com/doi/full/10.1080/21582041.2012.709637"/>
+        <dc:title>(PDF) Motives to Remit: Some Microeconomic Evidence from Pakistan</dc:title>
+        <dcterms:abstract>PDF | Using household economic survey data for the years 2005-06 and 2007-08, we examine the economic, demographic and geographical characteristics of... | Find, read and cite all the research you need on ResearchGate</dcterms:abstract>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>https://www.researchgate.net/publication/254407424_Motives_to_Remit_Some_Microeconomic_Evidence_from_Pakistan</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2026-07-01 11:23:38</dcterms:dateSubmitted>
+        <z:shortTitle>(PDF) Motives to Remit</z:shortTitle>
+        <z:language>en</z:language>
+        <z:libraryCatalog>www.researchgate.net</z:libraryCatalog>
+    </bib:Article>
+    <bib:Article rdf:about="https://ideas.repec.org//a/eee/wdevel/v50y2013icp13-23.html">
+        <z:itemType>journalArticle</z:itemType>
+        <dcterms:isPartOf>
+            <bib:Journal>
+                <prism:volume>50</prism:volume>
+                <dc:title>World Development</dc:title>
+                <prism:number>C</prism:number>
+            </bib:Journal>
+        </dcterms:isPartOf>
+        <dc:publisher>
+           <foaf:Organization><foaf:name>Elsevier</foaf:name></foaf:Organization>
+        </dc:publisher>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>de Brauw</foaf:surname>
+                        <foaf:givenName>Alan</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Mueller</foaf:surname>
+                        <foaf:givenName>Valerie</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Woldehanna</foaf:surname>
+                        <foaf:givenName>Tassew</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <link:link rdf:resource="#item_223"/>
+        <dc:subject>
+           <z:AutomaticTag><rdf:value>Ethiopia</rdf:value></z:AutomaticTag>
+        </dc:subject>
+        <dc:subject>
+           <z:AutomaticTag><rdf:value>insurance</rdf:value></z:AutomaticTag>
+        </dc:subject>
+        <dc:subject>
+            <z:AutomaticTag>
+               <rdf:value>liquidity constraints</rdf:value>
+            </z:AutomaticTag>
+        </dc:subject>
+        <dc:subject>
+           <z:AutomaticTag><rdf:value>migration</rdf:value></z:AutomaticTag>
+        </dc:subject>
+        <dc:subject>
+           <z:AutomaticTag><rdf:value>remittances</rdf:value></z:AutomaticTag>
+        </dc:subject>
+        <dc:title>Motives to Remit: Evidence from Tracked Internal Migrants in Ethiopia</dc:title>
+        <dcterms:abstract>Remittances are used by households for insurance, investment, and income. Flows from internal migrants are relatively understudied in Africa, where migrants are less likely to remit to their origin households. We use a unique matched migrant sample to study what drives the low remittance rates in Ethiopia. Descriptive statistics suggest remitters are positively selected in terms of wealth characteristics compared with the average tracked migrant. Limited skill transferability and liquidity largely explain low remittance rates in Ethiopia. Migrants are additionally motivated to remit as a form of self-insurance against own shocks to income and to protect their family’s productive assets.</dcterms:abstract>
+        <dc:date>2013</dc:date>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>https://ideas.repec.org//a/eee/wdevel/v50y2013icp13-23.html</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2026-07-01 11:27:53</dcterms:dateSubmitted>
+        <z:shortTitle>Motives to Remit</z:shortTitle>
+        <z:language>en</z:language>
+        <z:libraryCatalog>ideas.repec.org</z:libraryCatalog>
+        <bib:pages>13-23</bib:pages>
+    </bib:Article>
+    <z:Attachment rdf:about="#item_223">
+        <z:itemType>attachment</z:itemType>
+        <z:path rdf:resource="files/223/v50y2013icp13-23.html"/>
+        <dc:title>Snapshot</dc:title>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>https://ideas.repec.org//a/eee/wdevel/v50y2013icp13-23.html</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2026-07-01 11:28:01</dcterms:dateSubmitted>
+        <z:linkMode>1</z:linkMode>
+        <link:type>text/html</link:type>
+    </z:Attachment>
+    <z:Attachment rdf:about="#item_224">
+        <z:itemType>attachment</z:itemType>
+        <z:path rdf:resource="files/224/Schiopu et Siegfried - 2006 - Determinants of Workers' Remittances Evidence from the European Neighbouring Region.pdf"/>
+        <dc:title>PDF</dc:title>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>https://www.ecb.europa.eu/pub/pdf/scpwps/ecbwp688.pdf</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2026-07-01 11:30:26</dcterms:dateSubmitted>
+        <z:linkMode>1</z:linkMode>
+        <link:type>application/pdf</link:type>
+        <rdf:type rdf:resource="http://www.zotero.org/namespaces/export#Attachment"/>
+        <z:itemType>attachment</z:itemType>
+        <z:path rdf:resource="files/224/Schiopu et Siegfried - 2006 - Determinants of Workers' Remittances Evidence from the European Neighbouring Region.pdf"/>
+        <dc:title>PDF</dc:title>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>https://www.ecb.europa.eu/pub/pdf/scpwps/ecbwp688.pdf</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2026-07-01 11:30:26</dcterms:dateSubmitted>
+        <z:linkMode>1</z:linkMode>
+        <link:type>application/pdf</link:type>
+    </z:Attachment>
+    <bib:Article rdf:about="https://www.ssrn.com/abstract=936947">
+        <z:itemType>journalArticle</z:itemType>
+        <dcterms:isPartOf>
+            <bib:Journal>
+                <dc:identifier>DOI 10.2139/ssrn.936947</dc:identifier>
+                <dc:title>SSRN Electronic Journal</dc:title>
+                <dc:identifier>ISSN 1556-5068</dc:identifier>
+                <dcterms:alternative>SSRN Journal</dcterms:alternative>
+            </bib:Journal>
+        </dcterms:isPartOf>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Schiopu</foaf:surname>
+                        <foaf:givenName>Ioana C.</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Siegfried</foaf:surname>
+                        <foaf:givenName>Nikolaus</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <link:link rdf:resource="#item_224"/>
+        <dc:title>Determinants of Workers' Remittances: Evidence from the European Neighbouring Region</dc:title>
+        <dc:date>2006</dc:date>
+        <dc:identifier>
+            <dcterms:URI>
+               <rdf:value>https://www.ssrn.com/abstract=936947</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2026-07-01 11:30:29</dcterms:dateSubmitted>
+        <z:shortTitle>Determinants of Workers' Remittances</z:shortTitle>
+        <z:language>en</z:language>
+        <z:libraryCatalog>DOI.org (Crossref)</z:libraryCatalog>
+    </bib:Article>
+    <z:Attachment rdf:about="#item_226">
+        <z:itemType>attachment</z:itemType>
+        <z:path rdf:resource="files/226/Rapoport et Docquier - 2005 - The Economics of Migrants' Remittances.pdf"/>
+        <dc:title>PDF</dc:title>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>https://www.econstor.eu/bitstream/10419/21307/1/dp1531.pdf</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2026-07-01 11:30:59</dcterms:dateSubmitted>
+        <z:linkMode>1</z:linkMode>
+        <link:type>application/pdf</link:type>
+        <rdf:type rdf:resource="http://www.zotero.org/namespaces/export#Attachment"/>
+        <z:itemType>attachment</z:itemType>
+        <z:path rdf:resource="files/226/Rapoport et Docquier - 2005 - The Economics of Migrants' Remittances.pdf"/>
+        <dc:title>PDF</dc:title>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>https://www.econstor.eu/bitstream/10419/21307/1/dp1531.pdf</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2026-07-01 11:30:59</dcterms:dateSubmitted>
+        <z:linkMode>1</z:linkMode>
+        <link:type>application/pdf</link:type>
+    </z:Attachment>
+    <bib:Article rdf:about="https://www.ssrn.com/abstract=690144">
+        <z:itemType>journalArticle</z:itemType>
+        <dcterms:isPartOf>
+            <bib:Journal>
+                <dc:identifier>DOI 10.2139/ssrn.690144</dc:identifier>
+                <dc:title>SSRN Electronic Journal</dc:title>
+                <dc:identifier>ISSN 1556-5068</dc:identifier>
+                <dcterms:alternative>SSRN Journal</dcterms:alternative>
+            </bib:Journal>
+        </dcterms:isPartOf>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Rapoport</foaf:surname>
+                        <foaf:givenName>Hillel</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Docquier</foaf:surname>
+                        <foaf:givenName>Frédéric</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <link:link rdf:resource="#item_226"/>
+        <dc:title>The Economics of Migrants' Remittances</dc:title>
+        <dcterms:abstract>The Economics of Migrants’ Remittances∗ This chapter reviews the recent theoretical and empirical economic literature on migrants' remittances. It is divided between a microeconomic section on the determinants of remittances and a macroeconomic section on their growth effects. At the micro level we first present in a fully harmonized framework the various motivations to remit described so far in the literature. We show that models based on different motives share many common predictions, making it difficult to implement truly discriminative tests in the absence of sufficiently detailed data on migrants and receiving households' characteristics and on the timing of remittances. The results from selected empirical studies show that a mixture of individualistic and familial motives explains the likelihood and size of remittances. At the macro level we first briefly review the standard (Keynesian) and the trade-theoretic literature on the short-run impact of remittances. We then use an endogenous growth framework to describe the growth potential of remittances and present the evidence for different growth channels. We then explore the relationship between remittances and inequality. This relationship appears to be non-monotonic. This is consistent with different theoretical arguments regarding the role of migration networks and/or the dynamics of wealth transmission between successive generations.</dcterms:abstract>
+        <dc:date>2005</dc:date>
+        <dc:identifier>
+            <dcterms:URI>
+               <rdf:value>https://www.ssrn.com/abstract=690144</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2026-07-01 11:31:01</dcterms:dateSubmitted>
+        <z:language>en</z:language>
+        <z:libraryCatalog>DOI.org (Crossref)</z:libraryCatalog>
+    </bib:Article>
+    <z:Attachment rdf:about="#item_228">
+        <z:itemType>attachment</z:itemType>
+        <z:path rdf:resource="files/228/content.pdf"/>
+        <dc:title>content.pdf</dc:title>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>https://cgspace.cgiar.org/server/api/core/bitstreams/8ed72194-d0b0-40fe-aff3-f2446febb53c/content</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2026-07-01 11:31:56</dcterms:dateSubmitted>
+        <z:linkMode>1</z:linkMode>
+        <link:type>application/pdf</link:type>
+    </z:Attachment>
+    <z:Attachment rdf:about="#item_229">
+        <z:itemType>attachment</z:itemType>
+        <z:path rdf:resource="files/229/Rapoport et Docquier - 2005 - The Economics of Migrants' Remittances.pdf"/>
+        <dc:title>PDF</dc:title>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>https://kingcenter.stanford.edu/sites/g/files/sbiybj16611/files/media/file/236wp_0.pdf</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2026-07-01 11:35:55</dcterms:dateSubmitted>
+        <z:linkMode>1</z:linkMode>
+        <link:type>application/pdf</link:type>
+        <rdf:type rdf:resource="http://www.zotero.org/namespaces/export#Attachment"/>
+        <z:itemType>attachment</z:itemType>
+        <z:path rdf:resource="files/229/Rapoport et Docquier - 2005 - The Economics of Migrants' Remittances.pdf"/>
+        <dc:title>PDF</dc:title>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>https://kingcenter.stanford.edu/sites/g/files/sbiybj16611/files/media/file/236wp_0.pdf</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2026-07-01 11:35:55</dcterms:dateSubmitted>
+        <z:linkMode>1</z:linkMode>
+        <link:type>application/pdf</link:type>
+    </z:Attachment>
+    <bib:Article rdf:about="#item_230">
+        <z:itemType>journalArticle</z:itemType>
+        <dcterms:isPartOf>
+            <bib:Journal>
+                <dc:identifier>DOI 10.2139/ssrn.690144</dc:identifier>
+                <dc:title>SSRN Electronic Journal</dc:title>
+                <dc:identifier>ISSN 1556-5068</dc:identifier>
+                <dcterms:alternative>SSRN Journal</dcterms:alternative>
+            </bib:Journal>
+        </dcterms:isPartOf>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Rapoport</foaf:surname>
+                        <foaf:givenName>Hillel</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Docquier</foaf:surname>
+                        <foaf:givenName>Frédéric</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <link:link rdf:resource="#item_229"/>
+        <dc:title>The Economics of Migrants' Remittances</dc:title>
+        <dcterms:abstract>This chapter reviews the recent theoretical and empirical economic literature on migrants' remittances. It is divided between a microeconomic section on the determinants of remittances and a macroeconomic section on their growth effects.</dcterms:abstract>
+        <dc:date>2005</dc:date>
+        <dc:identifier>
+            <dcterms:URI>
+               <rdf:value>https://www.ssrn.com/abstract=690144</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2026-07-01 11:35:59</dcterms:dateSubmitted>
+        <z:language>en</z:language>
+        <z:libraryCatalog>DOI.org (Crossref)</z:libraryCatalog>
+    </bib:Article>
+    <z:Attachment rdf:about="#item_231">
+        <z:itemType>attachment</z:itemType>
+        <z:path rdf:resource="files/231/Holst et al. - Bringing Home the Money Xenophobia and Remittances.pdf"/>
+        <dc:title>PDF</dc:title>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>https://www.diw.de/documents/publikationen/73/81502/dp774.pdf</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2026-07-01 11:37:23</dcterms:dateSubmitted>
+        <z:linkMode>1</z:linkMode>
+        <link:type>application/pdf</link:type>
+        <rdf:type rdf:resource="http://www.zotero.org/namespaces/export#Attachment"/>
+        <z:itemType>attachment</z:itemType>
+        <z:path rdf:resource="files/231/Holst et al. - Bringing Home the Money Xenophobia and Remittances.pdf"/>
+        <dc:title>PDF</dc:title>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>https://www.diw.de/documents/publikationen/73/81502/dp774.pdf</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2026-07-01 11:37:23</dcterms:dateSubmitted>
+        <z:linkMode>1</z:linkMode>
+        <link:type>application/pdf</link:type>
+    </z:Attachment>
+    <bib:Article rdf:about="#item_232">
+        <z:itemType>journalArticle</z:itemType>
+        <dcterms:isPartOf>
+           <bib:Journal></bib:Journal>
+        </dcterms:isPartOf>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Holst</foaf:surname>
+                        <foaf:givenName>Elke</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Schäfer</foaf:surname>
+                        <foaf:givenName>Andrea</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Schrooten</foaf:surname>
+                        <foaf:givenName>Mechthild</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <link:link rdf:resource="#item_231"/>
+        <dc:title>Bringing Home the Money: Xenophobia and Remittances</dc:title>
+        <dcterms:abstract>The determinants of migrants’ remittances are the subject of this study based on German SOEP data (2001-2006). In contrast to previous studies we analyze the motives for remittances not only for foreigners but also for the broader group of individuals with a personal migration background. Major findings are: First, concerns about xenophobia lead to higher remittances. Second, income and gender has no impact on the probability to remit. Third, the acquisition of German citizenship is positively related to the amount remitted. All in all, remittances seem to be part of a personal financial allocation scheme for risk reduction.</dcterms:abstract>
+        <z:language>en</z:language>
+        <z:libraryCatalog>Zotero</z:libraryCatalog>
+    </bib:Article>
+    <bib:Article rdf:about="https://www.jstor.org/stable/27866471">
+        <z:itemType>journalArticle</z:itemType>
+        <dcterms:isPartOf rdf:resource="urn:issn:0037-7651"/>
+        <dc:publisher>
+            <foaf:Organization>
+               <foaf:name>University of the West Indies</foaf:name>
+            </foaf:Organization>
+        </dc:publisher>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Alleyne</foaf:surname>
+                        <foaf:givenName>Dillon</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <dc:title>Motivations to Remit in Caricom: A Gmm Approach</dc:title>
+        <dcterms:abstract>The purpose of this paper is to determine what set of factors explain the flow of remittances to a number of Caribbean countries that are members of the Caribbean Economic Community and Common Market (CARICOM). These are mostly small developing countries that must generate foreign exchange to reduce their current account deficit on the Balance of Payments. Thus remittance flows are an important means of reducing this constraint for these countries. The methodology employed is a dynamic unbalanced panel of nine countries utilising Generalised Methods of Moments (GMM) estimation in order to account for a lagged dependent variable. A major finding is that remittance flows are driven by strong investment motives in financial instruments and there is some scope for public policy to encourage greater inflows over time. This is the first study to employ a dynamic panel data approach to explaining remittance flows to CARICOM countries. El propósito de este documento, es determinar que grupo de factores explican el flujo de remesas hacia un número de países caribeños que son miembros de la Comunidad Económica y Mercado Común del Caribe (CARICOM). Estos son principalmente, pequeños países en desarrollo, que deben generar divisas con el fin de reducir el déficit en sus cuentas actuales sobre el Balance de Pagos. De tal manera, las remesas son una forma importante de reducir la carga de estos países. La metodología empleada, es un panel desequilibrado de nueve países, que utilizan la estimación de Métodos Generalizados del Momentos (GMM), con el objetivo dar cuenta de una retrasada variable dependiente. Un hallazgo importante, es que los flujos de remesas son determinados por motivos de fuerte inversión en instrumentos financieros, y que hay un cierto enfoque para la política estatal, en lo que se refiere a promover mayores afluencias en el futuro. Este es el primer estudio que emplea datos de un un enfoque de panel dinámico, para explicar los flujos de remesas hacia los países de la CARICOM. Le present article a pour objectif de determiner les facteurs qui expliquent l'argent envoyé à un certain nombre de pays de la Caraïbe qui sont membres de la Communauté économique et marché commun de la Caraïbe (CARICOM). Il s'agit en grande partie de pays en développement qui doivent générer des devises afin de réduire leur déficit de compte courant sur leur Balance de Paiements. Ces envois représentent un moyen important de réduire cette contrainte pour lesdits pays. La méthodologie appliquée est d'un groupe non équilibré de neuf pays, à l'aide d'une estimation de Méthodes généralisées de moments (GMM) pour expliquer le variable dépendant rétardé. Un résultat principal est que les envois sont expliqués par l'allure d'investissements en instruments financiers et qu'il y a une possibilité, avec le temps, que la politique gouvernementale encouragera une augmentation de ces envois. Cette étude est la première à employer une approche dynamique de donné de groupe pour expliquer le flux des envois aux pays du CARICOM.</dcterms:abstract>
+        <dc:date>2006</dc:date>
+        <dc:identifier>
+            <dcterms:URI>
+               <rdf:value>https://www.jstor.org/stable/27866471</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2026-07-01 11:37:42</dcterms:dateSubmitted>
+        <z:shortTitle>Motivations to Remit in Caricom</z:shortTitle>
+        <z:libraryCatalog>JSTOR</z:libraryCatalog>
+        <bib:pages>69-87</bib:pages>
+    </bib:Article>
+    <bib:Journal rdf:about="urn:issn:0037-7651">
+        <prism:volume>55</prism:volume>
+        <dc:title>Social and Economic Studies</dc:title>
+        <dc:identifier>ISSN 0037-7651</dc:identifier>
+        <prism:number>3</prism:number>
+    </bib:Journal>
+    <bib:Article rdf:about="#item_234">
+        <z:itemType>journalArticle</z:itemType>
+        <dcterms:isPartOf>
+            <bib:Journal>
+                <prism:volume>55</prism:volume>
+                <dc:title>Social and Economic Studies</dc:title>
+                <dc:identifier>ISSN 0037-7651</dc:identifier>
+                <prism:number>3</prism:number>
+            </bib:Journal>
+        </dcterms:isPartOf>
+        <dc:publisher>
+            <foaf:Organization>
+               <foaf:name>University of the West Indies</foaf:name>
+            </foaf:Organization>
+        </dc:publisher>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Alleyne</foaf:surname>
+                        <foaf:givenName>Dillon</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <dc:title>Motivations to Remit in Caricom: A Gmm Approach</dc:title>
+        <dcterms:abstract>The purpose of this paper is to determine what set of factors explain the flow of remittances to a number of Caribbean countries that are members of the Caribbean Economic Community and Common Market (CARICOM). These are mostly small developing countries that must generate foreign exchange to reduce their current account deficit on the Balance of Payments. Thus remittance flows are an important means of reducing this constraint for these countries. The methodology employed is a dynamic unbalanced panel of nine countries utilising Generalised Methods of Moments (GMM) estimation in order to account for a lagged dependent variable. A major finding is that remittance flows are driven by strong investment motives in financial instruments and there is some scope for public policy to encourage greater inflows over time. This is the first study to employ a dynamic panel data approach to explaining remittance flows to CARICOM countries. El propósito de este documento, es determinar que grupo de factores explican el flujo de remesas hacia un número de países caribeños que son miembros de la Comunidad Económica y Mercado Común del Caribe (CARICOM). Estos son principalmente, pequeños países en desarrollo, que deben generar divisas con el fin de reducir el déficit en sus cuentas actuales sobre el Balance de Pagos. De tal manera, las remesas son una forma importante de reducir la carga de estos países. La metodología empleada, es un panel desequilibrado de nueve países, que utilizan la estimación de Métodos Generalizados del Momentos (GMM), con el objetivo dar cuenta de una retrasada variable dependiente. Un hallazgo importante, es que los flujos de remesas son determinados por motivos de fuerte inversión en instrumentos financieros, y que hay un cierto enfoque para la política estatal, en lo que se refiere a promover mayores afluencias en el futuro. Este es el primer estudio que emplea datos de un un enfoque de panel dinámico, para explicar los flujos de remesas hacia los países de la CARICOM. Le present article a pour objectif de determiner les facteurs qui expliquent l'argent envoyé à un certain nombre de pays de la Caraïbe qui sont membres de la Communauté économique et marché commun de la Caraïbe (CARICOM). Il s'agit en grande partie de pays en développement qui doivent générer des devises afin de réduire leur déficit de compte courant sur leur Balance de Paiements. Ces envois représentent un moyen important de réduire cette contrainte pour lesdits pays. La méthodologie appliquée est d'un groupe non équilibré de neuf pays, à l'aide d'une estimation de Méthodes généralisées de moments (GMM) pour expliquer le variable dépendant rétardé. Un résultat principal est que les envois sont expliqués par l'allure d'investissements en instruments financiers et qu'il y a une possibilité, avec le temps, que la politique gouvernementale encouragera une augmentation de ces envois. Cette étude est la première à employer une approche dynamique de donné de groupe pour expliquer le flux des envois aux pays du CARICOM.</dcterms:abstract>
+        <dc:date>2006</dc:date>
+        <dc:identifier>
+            <dcterms:URI>
+               <rdf:value>https://www.jstor.org/stable/27866471</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2026-07-01 11:38:17</dcterms:dateSubmitted>
+        <z:shortTitle>Motivations to Remit in Caricom</z:shortTitle>
+        <z:libraryCatalog>JSTOR</z:libraryCatalog>
+        <bib:pages>69-87</bib:pages>
+    </bib:Article>
+    <z:Attachment rdf:about="#item_235">
+        <z:itemType>attachment</z:itemType>
+        <z:path rdf:resource="files/235/Henry et al. - Motives for sending Remittances to Jamaica An application of the BPM61 definition of Remittances.pdf"/>
+        <dc:title>PDF</dc:title>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>https://boj.org.jm/uploads/pdf/papers_pamphlets/papers_pamphlets_Motives_for_sending_Remittances_to_Jamaica_An_application_of_the_BPM61_definition_of_Remittances.pdf</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2026-07-01 11:39:32</dcterms:dateSubmitted>
+        <z:linkMode>1</z:linkMode>
+        <link:type>application/pdf</link:type>
+        <rdf:type rdf:resource="http://www.zotero.org/namespaces/export#Attachment"/>
+        <z:itemType>attachment</z:itemType>
+        <z:path rdf:resource="files/235/Henry et al. - Motives for sending Remittances to Jamaica An application of the BPM61 definition of Remittances.pdf"/>
+        <dc:title>PDF</dc:title>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>https://boj.org.jm/uploads/pdf/papers_pamphlets/papers_pamphlets_Motives_for_sending_Remittances_to_Jamaica_An_application_of_the_BPM61_definition_of_Remittances.pdf</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2026-07-01 11:39:32</dcterms:dateSubmitted>
+        <z:linkMode>1</z:linkMode>
+        <link:type>application/pdf</link:type>
+    </z:Attachment>
+    <bib:Article rdf:about="#item_236">
+        <z:itemType>journalArticle</z:itemType>
+        <dcterms:isPartOf>
+           <bib:Journal></bib:Journal>
+        </dcterms:isPartOf>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Henry</foaf:surname>
+                        <foaf:givenName>Chandar</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Moulton</foaf:surname>
+                        <foaf:givenName>Jermaine</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Ricketts</foaf:surname>
+                        <foaf:givenName>Jermaine</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <link:link rdf:resource="#item_235"/>
+        <dc:title>Motives for sending Remittances to Jamaica: An application of the BPM61 definition of Remittances</dc:title>
+        <dcterms:abstract>This paper seeks to explore the motives of migrants in sending remittances to Jamaica. Remittances were estimated by using the definition proposed in the sixth edition of the Balance of Payments manual and were utilized throughout the paper. The literature reveals three motives for sending remittances: altruism, self-interest/investment and tempered altruism or enlightened selfinterest. A VAR model was used to examine the possible motives migrants might have when remitting to Jamaica. The results indicate a combination of altruistic and self-interest/investment motive for sending remittances.</dcterms:abstract>
+        <z:language>en</z:language>
+        <z:libraryCatalog>Zotero</z:libraryCatalog>
+    </bib:Article>
+    <z:Attachment rdf:about="#item_237">
+        <z:itemType>attachment</z:itemType>
+        <z:path rdf:resource="files/237/Antoniades et al. - On Altruism and Remittances.pdf"/>
+        <dc:title>PDF</dc:title>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>https://faculty.georgetown.edu/aa658/research_files/Antoniades%20On%20Altruism%20and%20Remittances.pdf</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2026-07-01 11:41:50</dcterms:dateSubmitted>
+        <z:linkMode>1</z:linkMode>
+        <link:type>application/pdf</link:type>
+        <rdf:type rdf:resource="http://www.zotero.org/namespaces/export#Attachment"/>
+        <z:itemType>attachment</z:itemType>
+        <z:path rdf:resource="files/237/Antoniades et al. - On Altruism and Remittances.pdf"/>
+        <dc:title>PDF</dc:title>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>https://faculty.georgetown.edu/aa658/research_files/Antoniades%20On%20Altruism%20and%20Remittances.pdf</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2026-07-01 11:41:50</dcterms:dateSubmitted>
+        <z:linkMode>1</z:linkMode>
+        <link:type>application/pdf</link:type>
+    </z:Attachment>
+    <bib:Article rdf:about="#item_238">
+        <z:itemType>journalArticle</z:itemType>
+        <dcterms:isPartOf>
+           <bib:Journal></bib:Journal>
+        </dcterms:isPartOf>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Antoniades</foaf:surname>
+                        <foaf:givenName>Alexis</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Seshan</foaf:surname>
+                        <foaf:givenName>Ganesh</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Weber</foaf:surname>
+                        <foaf:givenName>Roberto</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Zubrickas</foaf:surname>
+                        <foaf:givenName>Robertas</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <link:link rdf:resource="#item_237"/>
+        <dc:title>On Altruism and Remittances</dc:title>
+        <dcterms:abstract>We provide a direct test of the impact of altruism on remittances. From a sample of 105 male migrant workers from Kerala, India working in Qatar, we elicit the propensity to share with others from their responses in a dictator game, and use it as a proxy for altruism. When the entire sample is considered, we ﬁnd that only migrants’ income robustly explains remittances. Altruism does not seem to matter. However, we document a strong positive relationship between altruism and remittances for those migrants that report a loan obligation back home, which is nearly half the sample. We explain the role of loan obligations with a standard remittance model, extended with reference-dependent preferences.</dcterms:abstract>
+        <z:language>en</z:language>
+        <z:libraryCatalog>Zotero</z:libraryCatalog>
+    </bib:Article>
+    <z:Attachment rdf:about="#item_239">
+        <z:itemType>attachment</z:itemType>
+        <z:path rdf:resource="files/239/Carrasco et Obućina - 2023 - The dynamics of remittance behaviour among Senegalese men and women in Spain.pdf"/>
+        <dc:title>PDF</dc:title>
+        <dc:identifier>
+            <dcterms:URI>
+               <rdf:value>https://hal.science/hal-03608487v1/document</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2026-07-01 11:43:02</dcterms:dateSubmitted>
+        <z:linkMode>1</z:linkMode>
+        <link:type>application/pdf</link:type>
+        <rdf:type rdf:resource="http://www.zotero.org/namespaces/export#Attachment"/>
+        <z:itemType>attachment</z:itemType>
+        <z:path rdf:resource="files/239/Carrasco et Obućina - 2023 - The dynamics of remittance behaviour among Senegalese men and women in Spain.pdf"/>
+        <dc:title>PDF</dc:title>
+        <dc:identifier>
+            <dcterms:URI>
+               <rdf:value>https://hal.science/hal-03608487v1/document</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2026-07-01 11:43:02</dcterms:dateSubmitted>
+        <z:linkMode>1</z:linkMode>
+        <link:type>application/pdf</link:type>
+    </z:Attachment>
+    <bib:Article rdf:about="https://onlinelibrary.wiley.com/doi/10.1111/imig.12997">
+        <z:itemType>journalArticle</z:itemType>
+        <dcterms:isPartOf rdf:resource="urn:issn:0020-7985,%201468-2435"/>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Carrasco</foaf:surname>
+                        <foaf:givenName>José Ignacio</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Obućina</foaf:surname>
+                        <foaf:givenName>Ognjen</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <link:link rdf:resource="#item_239"/>
+        <dc:title>The dynamics of remittance behaviour among Senegalese men and women in Spain</dc:title>
+        <dcterms:abstract>This article explores the conditions under which Senegalese immigrants in Spain send remittances home, beginning with the premise that remittances are intertwined with migration histories and migrants’ incorporation into host societies. Given the strong gender norms in Senegal, we perform separate analyses for men and women. We use a longitudinal approach to analyse how remittance behaviour is affected by immigrants’ characteristics, their economic integration, and their ties to origin and destination. Our data come from the MAFE and MESE surveys, which were implemented in 2008 and 2011, respectively. The results indicate that remitters constitute a clear majority among Senegalese immigrants in Spain. The Kaplan–Meier analysis shows that they rarely stop remitting once they start doing so, and the multivariate analysis reveals a strong positive association between employment and remittance sending. Although most coefficients in the full model are similar for men and women, some important differences emerge as well.</dcterms:abstract>
+        <dc:date>02/2023</dc:date>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>https://onlinelibrary.wiley.com/doi/10.1111/imig.12997</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2026-07-01 11:43:04</dcterms:dateSubmitted>
+        <z:language>en</z:language>
+        <z:libraryCatalog>DOI.org (Crossref)</z:libraryCatalog>
+        <bib:pages>239-255</bib:pages>
+    </bib:Article>
+    <bib:Journal rdf:about="urn:issn:0020-7985,%201468-2435">
+        <dc:identifier>DOI 10.1111/imig.12997</dc:identifier>
+        <prism:volume>61</prism:volume>
+        <dc:title>International Migration</dc:title>
+        <dc:identifier>ISSN 0020-7985, 1468-2435</dc:identifier>
+        <prism:number>1</prism:number>
+        <dcterms:alternative>International Migration</dcterms:alternative>
+    </bib:Journal>
+    <bib:Book rdf:about="urn:isbn:978-9966-61-110-9">
+        <z:itemType>book</z:itemType>
+        <dcterms:isPartOf>
+            <bib:Series>
+                <dc:title>Research paper / African Economic Research Consortium</dc:title>
+                <dc:identifier>415</dc:identifier>
+            </bib:Series>
+        </dcterms:isPartOf>
+        <dc:publisher>
+            <foaf:Organization>
+                <foaf:name>African Economic Research Consortium</foaf:name>
+                <vcard:adr>
+                    <vcard:Address>
+                       <vcard:locality>Nairobi, Kenya</vcard:locality>
+                    </vcard:Address>
+                </vcard:adr>
+            </foaf:Organization>
+        </dc:publisher>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Adenutsi</foaf:surname>
+                        <foaf:givenName>Deodat E.</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Ahortor</foaf:surname>
+                        <foaf:givenName>Christian R. K.</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <link:link rdf:resource="#item_241"/>
+        <dc:title>Macroeconomic determinants of remittance flows to Sub-Saharan Africa</dc:title>
+        <dc:date>2021</dc:date>
+        <z:language>en</z:language>
+        <z:libraryCatalog>K10plus ISBN</z:libraryCatalog>
+        <dc:identifier>ISBN 978-9966-61-110-9</dc:identifier>
+        <z:numPages>1</z:numPages>
+    </bib:Book>
+    <z:Attachment rdf:about="#item_241">
+        <z:itemType>attachment</z:itemType>
+        <z:path rdf:resource="files/241/Adenutsi et Ahortor - 2021 - Macroeconomic determinants of remittance flows to Sub-Saharan Africa.pdf"/>
+        <dc:title>Research-Paper-415.pdf</dc:title>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>https://aercafrica.org/old-website/wp-content/uploads/2021/01/Research-Paper-415.pdf</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2026-07-01 11:43:35</dcterms:dateSubmitted>
+        <z:linkMode>1</z:linkMode>
+        <link:type>application/pdf</link:type>
+    </z:Attachment>
+    <z:Attachment rdf:about="#item_243">
+        <z:itemType>attachment</z:itemType>
+        <z:path rdf:resource="files/243/Senegal-Country-Assessment-English-1.pdf"/>
+        <dc:title>Senegal-Country-Assessment-English-1.pdf</dc:title>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>https://migrantmoney.uncdf.org/wp-content/uploads/2023/02/Senegal-Country-Assessment-English-1.pdf</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2026-07-01 11:45:03</dcterms:dateSubmitted>
+        <z:linkMode>1</z:linkMode>
+        <link:type>application/pdf</link:type>
+    </z:Attachment>
+    <bib:Article rdf:about="https://dx.doi.org/10.5325/jafrideve.25.1.0095">
+        <z:itemType>journalArticle</z:itemType>
+        <dcterms:isPartOf rdf:resource="urn:issn:2689-4092"/>
+        <dc:publisher>
+            <foaf:Organization>
+               <foaf:name>Duke University Press</foaf:name>
+            </foaf:Organization>
+        </dc:publisher>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Ndiaye</foaf:surname>
+                        <foaf:givenName>Ameth Saloum</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Araar</foaf:surname>
+                        <foaf:givenName>Abdelkrim</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <dc:title>Migration and Remittances in Senegal: Effect on Households Members Left Behind</dc:title>
+        <dcterms:abstract>ABSTRACT. This article investigates how migration and remittances affect labor market, and how remittances influence human capital in Senegal. Using parametric and nonparametric estimation procedures for the correction of selection bias, the results reveal that migration and remittances reduce labor market participation of household members left behind, and that remittances increase human capital development of the left-behind. The study suggests that both the migration status and the level of remittances are relevant in understanding labor market participation and human capital formation.</dcterms:abstract>
+        <dc:date>2024/07/29</dc:date>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>https://dx.doi.org/10.5325/jafrideve.25.1.0095</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2026-07-01 11:45:36</dcterms:dateSubmitted>
+        <z:shortTitle>Migration and Remittances in Senegal</z:shortTitle>
+        <z:language>en</z:language>
+        <z:libraryCatalog>scholarlypublishingcollective.org</z:libraryCatalog>
+        <bib:pages>95-129</bib:pages>
+    </bib:Article>
+    <bib:Journal rdf:about="urn:issn:2689-4092">
+        <dc:identifier>DOI 10.5325/jafrideve.25.1.0095</dc:identifier>
+        <prism:volume>25</prism:volume>
+        <dc:title>Journal of African Development</dc:title>
+        <dc:identifier>ISSN 2689-4092</dc:identifier>
+        <prism:number>1</prism:number>
+    </bib:Journal>
+    <bib:Article rdf:about="#item_245">
+        <z:itemType>journalArticle</z:itemType>
+        <dcterms:isPartOf>
+            <bib:Journal>
+                <dc:identifier>DOI 10.5325/jafrideve.25.1.0095</dc:identifier>
+                <prism:volume>25</prism:volume>
+                <dc:title>Journal of African Development</dc:title>
+                <dc:identifier>ISSN 2689-4092</dc:identifier>
+                <prism:number>1</prism:number>
+            </bib:Journal>
+        </dcterms:isPartOf>
+        <dc:publisher>
+            <foaf:Organization>
+               <foaf:name>Duke University Press</foaf:name>
+            </foaf:Organization>
+        </dc:publisher>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Ndiaye</foaf:surname>
+                        <foaf:givenName>Ameth Saloum</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Araar</foaf:surname>
+                        <foaf:givenName>Abdelkrim</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <dc:title>Migration and Remittances in Senegal: Effect on Households Members Left Behind</dc:title>
+        <dcterms:abstract>ABSTRACT. This article investigates how migration and remittances affect labor market, and how remittances influence human capital in Senegal. Using parametric and nonparametric estimation procedures for the correction of selection bias, the results reveal that migration and remittances reduce labor market participation of household members left behind, and that remittances increase human capital development of the left-behind. The study suggests that both the migration status and the level of remittances are relevant in understanding labor market participation and human capital formation.</dcterms:abstract>
+        <dc:date>2024/07/29</dc:date>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>https://dx.doi.org/10.5325/jafrideve.25.1.0095</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2026-07-01 11:46:53</dcterms:dateSubmitted>
+        <z:shortTitle>Migration and Remittances in Senegal</z:shortTitle>
+        <z:language>en</z:language>
+        <z:libraryCatalog>scholarlypublishingcollective.org</z:libraryCatalog>
+        <bib:pages>95-129</bib:pages>
+    </bib:Article>
+    <bib:Document rdf:about="https://www.unicef.org/innocenti/remittances-children">
+        <z:itemType>webpage</z:itemType>
+        <dcterms:isPartOf>
+           <z:Website></z:Website>
+        </dcterms:isPartOf>
+        <link:link rdf:resource="#item_247"/>
+        <dc:title>Remittances and children | Office of Strategy and Evidence Innocenti</dc:title>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>https://www.unicef.org/innocenti/remittances-children</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2026-07-01 11:54:23</dcterms:dateSubmitted>
+    </bib:Document>
+    <z:Attachment rdf:about="#item_247">
+        <z:itemType>attachment</z:itemType>
+        <z:path rdf:resource="files/247/remittances-children.html"/>
+        <dc:title>Remittances and children | Office of Strategy and Evidence Innocenti</dc:title>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>https://www.unicef.org/innocenti/remittances-children</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2026-07-01 11:54:32</dcterms:dateSubmitted>
+        <z:linkMode>1</z:linkMode>
+        <link:type>text/html</link:type>
+    </z:Attachment>
+    <z:Attachment rdf:about="#item_248">
+        <z:itemType>attachment</z:itemType>
+        <z:path rdf:resource="files/248/Ratha - EDITED BY SAMUEL MUNZELE MAIMBO.pdf"/>
+        <dc:title>PDF</dc:title>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>https://documents1.worldbank.org/curated/en/435901468139206629/pdf/32598a.pdf</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2026-07-01 11:54:54</dcterms:dateSubmitted>
+        <z:linkMode>1</z:linkMode>
+        <link:type>application/pdf</link:type>
+        <rdf:type rdf:resource="http://www.zotero.org/namespaces/export#Attachment"/>
+        <z:itemType>attachment</z:itemType>
+        <z:path rdf:resource="files/248/Ratha - EDITED BY SAMUEL MUNZELE MAIMBO.pdf"/>
+        <dc:title>PDF</dc:title>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>https://documents1.worldbank.org/curated/en/435901468139206629/pdf/32598a.pdf</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2026-07-01 11:54:54</dcterms:dateSubmitted>
+        <z:linkMode>1</z:linkMode>
+        <link:type>application/pdf</link:type>
+    </z:Attachment>
+    <bib:Article rdf:about="#item_249">
+        <z:itemType>journalArticle</z:itemType>
+        <dcterms:isPartOf>
+           <bib:Journal></bib:Journal>
+        </dcterms:isPartOf>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Ratha</foaf:surname>
+                        <foaf:givenName>Dilip</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <link:link rdf:resource="#item_248"/>
+        <dc:title>EDITED BY SAMUEL MUNZELE MAIMBO</dc:title>
+        <z:language>en</z:language>
+        <z:libraryCatalog>Zotero</z:libraryCatalog>
+    </bib:Article>
+    <z:Attachment rdf:about="#item_250">
+        <z:itemType>attachment</z:itemType>
+        <z:path rdf:resource="files/250/Ratha - For many countries, money transfers from citizens working abroad are a lifeline for development.pdf"/>
+        <dc:title>PDF</dc:title>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>https://www.imf.org/external/pubs/ft/fandd/basics/pdf/ratha-remittances.pdf</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2026-07-01 11:59:48</dcterms:dateSubmitted>
+        <z:linkMode>1</z:linkMode>
+        <link:type>application/pdf</link:type>
+        <rdf:type rdf:resource="http://www.zotero.org/namespaces/export#Attachment"/>
+        <z:itemType>attachment</z:itemType>
+        <z:path rdf:resource="files/250/Ratha - For many countries, money transfers from citizens working abroad are a lifeline for development.pdf"/>
+        <dc:title>PDF</dc:title>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>https://www.imf.org/external/pubs/ft/fandd/basics/pdf/ratha-remittances.pdf</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2026-07-01 11:59:48</dcterms:dateSubmitted>
+        <z:linkMode>1</z:linkMode>
+        <link:type>application/pdf</link:type>
+    </z:Attachment>
+    <bib:Article rdf:about="#item_251">
+        <z:itemType>journalArticle</z:itemType>
+        <dcterms:isPartOf>
+           <bib:Journal></bib:Journal>
+        </dcterms:isPartOf>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Ratha</foaf:surname>
+                        <foaf:givenName>Dilip</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <link:link rdf:resource="#item_250"/>
+        <dc:title>For many countries, money transfers from citizens working abroad are a lifeline for development</dc:title>
+        <z:language>en</z:language>
+        <z:libraryCatalog>Zotero</z:libraryCatalog>
+    </bib:Article>
+    <z:Attachment rdf:about="#item_252">
+        <z:itemType>attachment</z:itemType>
+        <z:path rdf:resource="files/252/2023-in-Remittances-The-Year-in-Review.pdf"/>
+        <dc:title>2023-in-Remittances-The-Year-in-Review.pdf</dc:title>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>https://www.thedialogue.org/wp-content/uploads/2023/12/2023-in-Remittances-The-Year-in-Review.pdf</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2026-07-01 12:00:16</dcterms:dateSubmitted>
+        <z:linkMode>1</z:linkMode>
+        <link:type>application/pdf</link:type>
+    </z:Attachment>
+    <bib:Document rdf:about="https://www.un.org/en/observances/remittances-day/SDGs">
+        <z:itemType>webpage</z:itemType>
+        <dcterms:isPartOf>
+           <z:Website><dc:title>United Nations</dc:title></z:Website>
+        </dcterms:isPartOf>
+        <dc:publisher>
+            <foaf:Organization>
+               <foaf:name>United Nations</foaf:name>
+            </foaf:Organization>
+        </dc:publisher>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Nations</foaf:surname>
+                        <foaf:givenName>United</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <link:link rdf:resource="#item_254"/>
+        <dc:title>International Day of Family Remittances - SDGs</dc:title>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>https://www.un.org/en/observances/remittances-day/SDGs</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2026-07-01 12:02:33</dcterms:dateSubmitted>
+        <z:language>en</z:language>
+    </bib:Document>
+    <z:Attachment rdf:about="#item_254">
+        <z:itemType>attachment</z:itemType>
+        <z:path rdf:resource="files/254/SDGs.html"/>
+        <dc:title>Snapshot</dc:title>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>https://www.un.org/en/observances/remittances-day/SDGs</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2026-07-01 12:02:42</dcterms:dateSubmitted>
+        <z:linkMode>1</z:linkMode>
+        <link:type>text/html</link:type>
+    </z:Attachment>
+    <bib:Article rdf:about="https://univ-pau.hal.science/hal-01879677">
+        <z:itemType>journalArticle</z:itemType>
+        <dcterms:isPartOf>
+            <bib:Journal>
+                <dc:identifier>DOI 10.1002/jid.3147</dc:identifier>
+                <prism:volume>28</prism:volume>
+                <dc:title>Journal of International Development</dc:title>
+                <prism:number>2</prism:number>
+            </bib:Journal>
+        </dcterms:isPartOf>
+        <dc:publisher>
+            <foaf:Organization>
+               <foaf:name>Wiley-Blackwell</foaf:name>
+            </foaf:Organization>
+        </dc:publisher>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Bouoiyour</foaf:surname>
+                        <foaf:givenName>Jamal</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Miftah</foaf:surname>
+                        <foaf:givenName>Amal</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <link:link rdf:resource="#item_256"/>
+        <dc:subject>
+           <z:AutomaticTag><rdf:value>Child education</rdf:value></z:AutomaticTag>
+        </dc:subject>
+        <dc:subject>
+           <z:AutomaticTag><rdf:value>Child labor</rdf:value></z:AutomaticTag>
+        </dc:subject>
+        <dc:subject>
+            <z:AutomaticTag>
+               <rdf:value>Gender inequality</rdf:value>
+            </z:AutomaticTag>
+        </dc:subject>
+        <dc:subject>
+           <z:AutomaticTag><rdf:value>Morocco</rdf:value></z:AutomaticTag>
+        </dc:subject>
+        <dc:subject>
+           <z:AutomaticTag><rdf:value>Remittances</rdf:value></z:AutomaticTag>
+        </dc:subject>
+        <dc:title>The impact of remittances on children's human capital accumulation: Evidence from Morocco</dc:title>
+        <dcterms:abstract>Using a nationally representative household data set from Morocco, the present study seeks to estimate the effects of migrants' remittances on household investments in children's human capital. Three findings emerge. First, children in remittance‐receiving households are more likely to attend school and less likely to drop out compared with those in non‐remittance‐receiving households. Second, children's participation in labour market decreases in the presence of international remittances. Third, remittances are associated with significantly lower level of no schooling for girls. These findings support the growing view that remittances can help increase the educational opportunities, especially for female children.</dcterms:abstract>
+        <dc:date>2016-03</dc:date>
+        <dc:identifier>
+            <dcterms:URI>
+               <rdf:value>https://univ-pau.hal.science/hal-01879677</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2026-07-01 12:03:13</dcterms:dateSubmitted>
+        <z:shortTitle>The impact of remittances on children's human capital accumulation</z:shortTitle>
+        <z:libraryCatalog>HAL</z:libraryCatalog>
+        <bib:pages>266-280</bib:pages>
+    </bib:Article>
+    <z:Attachment rdf:about="#item_256">
+        <z:itemType>attachment</z:itemType>
+        <z:path rdf:resource="files/256/hal-01879677.html"/>
+        <dc:title>HAL Snapshot</dc:title>
+        <dc:identifier>
+            <dcterms:URI>
+               <rdf:value>https://univ-pau.hal.science/hal-01879677</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2026-07-01 12:03:20</dcterms:dateSubmitted>
+        <z:linkMode>1</z:linkMode>
+        <link:type>text/html</link:type>
+    </z:Attachment>
+    <z:Attachment rdf:about="#item_257">
+        <z:itemType>attachment</z:itemType>
+        <z:path rdf:resource="files/257/gfmd_brussels07_contribution_unicef_remittance_children_en.pdf"/>
+        <dc:title>gfmd_brussels07_contribution_unicef_remittance_children_en.pdf</dc:title>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>https://www.gfmd.org/sites/g/files/tmzbdl1801/files/documents/gfmd_brussels07_contribution_unicef_remittance_children_en.pdf</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2026-07-01 12:03:40</dcterms:dateSubmitted>
+        <z:linkMode>1</z:linkMode>
+        <link:type>application/pdf</link:type>
+    </z:Attachment>
+    <bib:Article rdf:about="https://www.ssrc.org/publications/topic-17-remittances-health-and-education/">
+        <z:itemType>journalArticle</z:itemType>
+        <dcterms:isPartOf>
+           <bib:Journal></bib:Journal>
+        </dcterms:isPartOf>
+        <dc:publisher>
+            <foaf:Organization>
+               <foaf:name>Social Science Research Council</foaf:name>
+            </foaf:Organization>
+        </dc:publisher>
+        <dc:title>Topic 17 – Remittances, Health and Education</dc:title>
+        <dcterms:abstract>The SSRC makes available interdisciplinary research to inform policy, academic discourse, and the public. These publications are freely accessible and include policy working papers to essays for the general public.</dcterms:abstract>
+        <dc:date>March 2009</dc:date>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>https://www.ssrc.org/publications/topic-17-remittances-health-and-education/</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2026-07-01 12:05:26</dcterms:dateSubmitted>
+        <z:language>en-US</z:language>
+        <z:libraryCatalog>www.ssrc.org</z:libraryCatalog>
+    </bib:Article>
+    <bib:Article rdf:about="https://pmc.ncbi.nlm.nih.gov/articles/PMC4803329/">
+        <z:itemType>journalArticle</z:itemType>
+        <dcterms:isPartOf rdf:resource="urn:issn:1932-6203"/>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Davis</foaf:surname>
+                        <foaf:givenName>Jason</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Brazil</foaf:surname>
+                        <foaf:givenName>Noli</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <link:link rdf:resource="#item_260"/>
+        <link:link rdf:resource="#item_261"/>
+        <dc:title>Migration, Remittances and Nutrition Outcomes of Left-Behind Children: A National-Level Quantitative Assessment of Guatemala</dc:title>
+        <dcterms:abstract>Historically, Guatemalans have suffered high rates of poverty and malnutrition while nearly ten percent of their population resides abroad. Many Guatemalan parents use economic migration, mainly international migration to the United States, as a means to improve the human capital prospects of their children. However, as this investigation shows, the timing of migration events in relation to left-behind children’s ages has important, often negative and likely permanent, repercussions on the physical development of their children. To illustrate these dynamics, this investigation uses an instrumental variables framework to disentangle the countervailing effects of Guatemalan fathers’ absences due to migration from concomitant remittances on left-behind children’s growth outcomes. Based on national-level data collected in 2000, the investigation reveals that the international migration of a father in the previous year is correlated with a 22.1% lower length/height-for-age z-score for the average left-behind child aged ≤ 3. In contrast, the receipt of remittance income has no influence on the physical stature of a child, which may indicate that migrant fathers with young children are not able to achieve economic success soon enough during their ventures abroad to fully ameliorate the harmful effects caused by their absences.</dcterms:abstract>
+        <dc:date>2016-3-22</dc:date>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>https://pmc.ncbi.nlm.nih.gov/articles/PMC4803329/</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2026-07-01 12:05:50</dcterms:dateSubmitted>
+        <z:shortTitle>Migration, Remittances and Nutrition Outcomes of Left-Behind Children</z:shortTitle>
+        <z:libraryCatalog>PubMed Central</z:libraryCatalog>
+        <bib:pages>e0152089</bib:pages>
+        <z:PMID>27002528</z:PMID>
+        <z:PMCID>PMC4803329</z:PMCID>
+    </bib:Article>
+    <bib:Journal rdf:about="urn:issn:1932-6203">
+        <dc:identifier>DOI 10.1371/journal.pone.0152089</dc:identifier>
+        <prism:volume>11</prism:volume>
+        <dc:title>PLoS ONE</dc:title>
+        <dc:identifier>ISSN 1932-6203</dc:identifier>
+        <prism:number>3</prism:number>
+        <dcterms:alternative>PLoS One</dcterms:alternative>
+    </bib:Journal>
+    <z:Attachment rdf:about="#item_260">
+        <z:itemType>attachment</z:itemType>
+        <dc:title>Catalog Page</dc:title>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>https://pmc.ncbi.nlm.nih.gov/articles/PMC4803329/</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2026-07-01 12:05:50</dcterms:dateSubmitted>
+        <z:linkMode>3</z:linkMode>
+        <link:type>text/html</link:type>
+    </z:Attachment>
+    <z:Attachment rdf:about="#item_261">
+        <z:itemType>attachment</z:itemType>
+        <z:path rdf:resource="files/261/Davis et Brazil - 2016 - Migration, Remittances and Nutrition Outcomes of Left-Behind Children A National-Level Quantitative.pdf"/>
+        <dc:title>Texte intégral</dc:title>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>https://journals.plos.org/plosone/article/file?id=10.1371/journal.pone.0152089&amp;type=printable</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2026-07-01 12:06:00</dcterms:dateSubmitted>
+        <z:linkMode>1</z:linkMode>
+        <link:type>application/pdf</link:type>
+    </z:Attachment>
+    <bib:Document rdf:about="https://isr.umich.edu/research/projects/migration-family-context-and-child-health/">
+        <z:itemType>blogPost</z:itemType>
+        <dcterms:isPartOf>
+           <z:Blog></z:Blog>
+        </dcterms:isPartOf>
+        <dc:title>Migration, family context, and child health</dc:title>
+        <dcterms:abstract>As international labor migration becomes a more common livelihood strategy globally, this widespread population and social change has profound demographic and health consequences, including for young children left behind by migrating parents or family members. Many children left behind receive remittance income from migrant parents or family members. However, identifying the effects of this additional […]</dcterms:abstract>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>https://isr.umich.edu/research/projects/migration-family-context-and-child-health/</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2026-07-01 12:06:53</dcterms:dateSubmitted>
+        <z:language>en</z:language>
+    </bib:Document>
+    <z:Attachment rdf:about="#item_263">
+        <z:itemType>attachment</z:itemType>
+        <z:path rdf:resource="files/263/Millogo et al. - 2024 - Impact of migrant remittances on child health in Burkina Faso.pdf"/>
+        <dc:title>PDF</dc:title>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>https://assets-eu.researchsquare.com/files/rs-4254117/v1/a909673a-7bbc-48cd-a50a-df5649af91b2.pdf?c=1715722720</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2026-07-01 12:07:16</dcterms:dateSubmitted>
+        <z:linkMode>1</z:linkMode>
+        <link:type>application/pdf</link:type>
+        <rdf:type rdf:resource="http://www.zotero.org/namespaces/export#Attachment"/>
+        <z:itemType>attachment</z:itemType>
+        <z:path rdf:resource="files/263/Millogo et al. - 2024 - Impact of migrant remittances on child health in Burkina Faso.pdf"/>
+        <dc:title>PDF</dc:title>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>https://assets-eu.researchsquare.com/files/rs-4254117/v1/a909673a-7bbc-48cd-a50a-df5649af91b2.pdf?c=1715722720</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2026-07-01 12:07:16</dcterms:dateSubmitted>
+        <z:linkMode>1</z:linkMode>
+        <link:type>application/pdf</link:type>
+    </z:Attachment>
+    <rdf:Description rdf:about="https://www.researchsquare.com/article/rs-4254117/v1">
+        <z:itemType>preprint</z:itemType>
+        <dc:publisher>
+           <foaf:Organization><foaf:name>In Review</foaf:name></foaf:Organization>
+        </dc:publisher>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Millogo</foaf:surname>
+                        <foaf:givenName>Kalé Julienne</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>N'Guessan</foaf:surname>
+                        <foaf:givenName>Coffie Francis José</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Zahonogo</foaf:surname>
+                        <foaf:givenName>Pam</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <link:link rdf:resource="#item_263"/>
+        <dc:title>Impact of migrant remittances on child health in Burkina Faso</dc:title>
+        <dcterms:abstract>The increase in migrant remittances in recent years in Burkina Faso may contribute to alleviating household liquidity constraints while improving hygiene and health conditions. Therefore, this article aims to analyze the impact of migrant remittances on child health in Burkina Faso. Data from the 2021 EHCVM-2 were used using the linear regression model with an endogenous treatment effect. The results show that migrant remittances lead to a reduction of 2.598 percentage points in the proportion of children aged 0–5 hospitalized for diarrhea, typhoid, stomach problems and malaria, and a reduction of 2.831 percentage points for children aged 6–18. However, the effect appears to be more pronounced among children aged 6 to 18. It is therefore essential that health reforms take into account the magnitude of remittances, while emphasizing improvements in household living and hygiene conditions. In addition, speci c health policies for children aged 6 to 18 would be relevant.</dcterms:abstract>
+        <dc:date>2024-05-02</dc:date>
+        <dc:identifier>DOI 10.21203/rs.3.rs-4254117/v1</dc:identifier>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>https://www.researchsquare.com/article/rs-4254117/v1</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2026-07-01 12:07:20</dcterms:dateSubmitted>
+        <z:language>en</z:language>
+        <z:libraryCatalog>DOI.org (Crossref)</z:libraryCatalog>
+        <dc:rights>https://creativecommons.org/licenses/by/4.0/</dc:rights>
+    </rdf:Description>
+    <bib:Article rdf:about="https://journals.tplondon.com/md/article/view/2895">
+        <z:itemType>journalArticle</z:itemType>
+        <dcterms:isPartOf rdf:resource="urn:issn:2753-6912"/>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Fontenla</foaf:surname>
+                        <foaf:givenName>Matías</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Suárez</foaf:surname>
+                        <foaf:givenName>Guido Duque</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <link:link rdf:resource="#item_266"/>
+        <dc:subject>
+           <z:AutomaticTag><rdf:value>Ecuador</rdf:value></z:AutomaticTag>
+        </dc:subject>
+        <dc:title>The Effect of Remittances on Children’s Health Expenditures in Ecuador</dc:title>
+        <dcterms:abstract>We evaluate the impact of remittances on family expenditures and anthropometric health indicators for Ecuadorean children 0-5 years old, using data for the 2005-2006 and 2013-2014 periods. We employ an instrumental variable approach and split the data across wealth, gender, and rural vs urban dimensions. We find positive and significant effects of remittances on overall expenditures, food consumption, and expenditures in health. We also find positive results for children in the top half of the wealth distribution and no effects on the poorer half. Across gender, males seem to benefit more than females, while children in rural areas see larger effects relative to those in urban areas.</dcterms:abstract>
+        <dc:date>2022-11-19</dc:date>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>https://journals.tplondon.com/md/article/view/2895</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2026-07-01 12:13:12</dcterms:dateSubmitted>
+        <z:language>en</z:language>
+        <z:libraryCatalog>journals.tplondon.com</z:libraryCatalog>
+        <dc:rights>Copyright (c) 2022 Author</dc:rights>
+        <bib:pages>85-99</bib:pages>
+    </bib:Article>
+    <bib:Journal rdf:about="urn:issn:2753-6912">
+        <dc:identifier>DOI 10.33182/md.v1i1.2895</dc:identifier>
+        <prism:volume>1</prism:volume>
+        <dc:title>Migration and Diversity</dc:title>
+        <dc:identifier>ISSN 2753-6912</dc:identifier>
+        <prism:number>1</prism:number>
+    </bib:Journal>
+    <z:Attachment rdf:about="#item_266">
+        <z:itemType>attachment</z:itemType>
+        <z:path rdf:resource="files/266/Fontenla et Suárez - 2022 - The Effect of Remittances on Children’s Health Expenditures in Ecuador.pdf"/>
+        <dc:title>Full Text PDF</dc:title>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>https://journals.tplondon.com/md/article/download/2895/2544</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2026-07-01 12:13:13</dcterms:dateSubmitted>
+        <z:linkMode>1</z:linkMode>
+        <link:type>application/pdf</link:type>
+    </z:Attachment>
+    <bib:Article rdf:about="https://digitalrepository.unm.edu/econ_etds/30">
+        <z:itemType>journalArticle</z:itemType>
+        <dcterms:isPartOf>
+           <bib:Journal><dc:title>Economics ETDs</dc:title></bib:Journal>
+        </dcterms:isPartOf>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Bucheli</foaf:surname>
+                        <foaf:givenName>Jos&amp;eacute;</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <dc:title>The Effects of International Remittances on Child Schooling in Ecuador</dc:title>
+        <dc:date>2012-07-02</dc:date>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>https://digitalrepository.unm.edu/econ_etds/30</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <z:libraryCatalog>COinS</z:libraryCatalog>
+    </bib:Article>
+    <z:Attachment rdf:about="#item_268">
+        <z:itemType>attachment</z:itemType>
+        <z:path rdf:resource="files/268/Bucheli et al. - 2018 - Mixed effects of remittances on child education.pdf"/>
+        <dc:title>PDF</dc:title>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>https://www.econstor.eu/bitstream/10419/197469/1/1030384398.pdf</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2026-07-01 12:14:50</dcterms:dateSubmitted>
+        <z:linkMode>1</z:linkMode>
+        <link:type>application/pdf</link:type>
+        <rdf:type rdf:resource="http://www.zotero.org/namespaces/export#Attachment"/>
+        <z:itemType>attachment</z:itemType>
+        <z:path rdf:resource="files/268/Bucheli et al. - 2018 - Mixed effects of remittances on child education.pdf"/>
+        <dc:title>PDF</dc:title>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>https://www.econstor.eu/bitstream/10419/197469/1/1030384398.pdf</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2026-07-01 12:14:50</dcterms:dateSubmitted>
+        <z:linkMode>1</z:linkMode>
+        <link:type>application/pdf</link:type>
+    </z:Attachment>
+    <bib:Article rdf:about="https://link.springer.com/10.1186/s40176-017-0118-y">
+        <z:itemType>journalArticle</z:itemType>
+        <dcterms:isPartOf rdf:resource="urn:issn:2520-1786"/>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Bucheli</foaf:surname>
+                        <foaf:givenName>José R.</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Bohara</foaf:surname>
+                        <foaf:givenName>Alok K.</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Fontenla</foaf:surname>
+                        <foaf:givenName>Matías</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <link:link rdf:resource="#item_268"/>
+        <dc:title>Mixed effects of remittances on child education</dc:title>
+        <dcterms:abstract>We exploit the size of the 2010 Ecuadorian Census to estimate the effect of remittances on secondary school enrollment across four key dimensions: gender, household wealth, rural vs. urban, and family migration status. Using a bivariate probit model that accounts for both endogeneity and non-linearity issues, we find both positive and negative effects of remittances on the likelihood of schooling. The strongest positive effects are for poorer, urban males, while the negative effects are for rural females. For children in wealthier households, the effects of remittances are either negative or nonsignificant. This suggests that the positive income effects of remittances may be offset by the negative effects of a missing parent due to migration, more visible in wealthier families where financial constraints may not be as binding. We find further support for this by estimating the effects of remittances conditional on migration status. Our results show positive effects on schooling for non-migrant households that receive remittances and no effects for children living in households where at least one parent has migrated. The sharp contrasts within and across groups, while using the same data and econometric specifications, help explain the lack of consensus in the literature.</dcterms:abstract>
+        <dc:date>12/2018</dc:date>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>https://link.springer.com/10.1186/s40176-017-0118-y</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2026-07-01 12:14:53</dcterms:dateSubmitted>
+        <z:language>en</z:language>
+        <z:libraryCatalog>DOI.org (Crossref)</z:libraryCatalog>
+        <bib:pages>10</bib:pages>
+    </bib:Article>
+    <bib:Journal rdf:about="urn:issn:2520-1786">
+        <dc:identifier>DOI 10.1186/s40176-017-0118-y</dc:identifier>
+        <prism:volume>8</prism:volume>
+        <dc:title>IZA Journal of Development and Migration</dc:title>
+        <dc:identifier>ISSN 2520-1786</dc:identifier>
+        <prism:number>1</prism:number>
+        <dcterms:alternative>IZA J Develop Migration</dcterms:alternative>
+    </bib:Journal>
+</rdf:RDF>
