@@ -303,7 +303,23 @@ plus faible sur la pauvreté chronique. Au Sénégal, les rares études disponib
 \parencite{fall2010} suggèrent que les ménages bénéficiaires ont une consommation
 par tête supérieure de 15 à 25\% à celle des non-bénéficiaires, mais que cet
 écart est partiellement expliqué par des caractéristiques non observables des
-ménages migrants.
+ménages migrants. Plus récemment, \cite{ndiaye2024} mobilisent des méthodes
+d'estimation paramétriques et non paramétriques de correction du biais de
+sélection sur données sénégalaises et montrent que la migration et les
+transferts réduisent la participation au marché du travail des membres
+restés au pays, tout en favorisant leur accumulation de capital humain --
+un résultat qui souligne la nécessité, également retenue dans ce mémoire,
+de corriger le biais de sélection propre aux ménages migrants avant
+d'interpréter causalement l'effet des transferts. Du côté de l'offre, \cite{carrasco2023} mobilisent les enquêtes longitudinales
+MAFE et MESE (2008 et 2011) sur les migrants sénégalais en Espagne et estiment,
+séparément pour les hommes et les femmes, des modèles de survie (estimateur de
+Kaplan-Meier complété par une analyse multivariée) de la probabilité de
+transférer des fonds. Ils montrent que l'insertion sur le marché du travail
+du migrant est le déterminant le plus robuste de l'envoi de transferts, et
+qu'une fois initiés, les transferts sont rarement interrompus -- un résultat
+qui légitime, pour notre propre stratégie d'identification, l'hypothèse que le
+statut de bénéficiaire d'un ménage varie peu à court terme et peut être traité
+comme relativement stable entre deux vagues d'enquête rapprochées.
 
 
 La littérature empirique sur l'effet des transferts sur la scolarisation des enfants
@@ -330,7 +346,18 @@ accessibles et de qualité, ce qui n'est pas toujours garanti dans les zones rur
 éloignées. Dans le cas sénégalais, la coexistence de l'école publique et des
 \textit{daara} (écoles coraniques) complexifie l'interprétation des indicateurs
 de scolarisation : un enfant non-scolarisé au sens formel peut être effectivement
-instruit dans une structure informelle \parencite{unicef2016}.
+instruit dans une structure informelle \parencite{unicef2016}. Pour l'Équateur,
+\cite{bucheli2018} nuancent ce tableau globalement positif. En exploitant le
+recensement équatorien de 2010 à travers un modèle probit bivarié corrigeant
+l'endogénéité du statut de bénéficiaire, ils montrent que l'effet des
+transferts sur la scolarisation secondaire varie fortement selon le genre,
+le milieu de résidence et le niveau de richesse du ménage~: l'effet est
+positif pour les garçons pauvres en milieu urbain, mais négatif pour les
+filles en milieu rural, et devient non significatif dans les ménages les
+plus aisés. Ce résultat illustre l'importance de désagréger les effets selon
+les caractéristiques du ménage et de l'enfant plutôt que de n'estimer qu'un
+effet moyen, une logique que ce mémoire reprend dans l'analyse d'hétérogénéité
+par milieu, sexe et groupe d'âge.
 
 Les résultats sont moins univoques pour l'Afrique francophone. \cite{mansuri2006}
 trouve, pour le Pakistan, que la migration du père peut paradoxalement réduire la
@@ -359,6 +386,29 @@ augmentent les dépenses de santé, tout en réduisant la probabilité que les e
 souffrent de retard de croissance. Ces effets sont conditionnels à l'existence
 de services de santé accessibles, ce qui soulève la question de la complémentarité
 entre les transferts privés et les investissements publics en infrastructure.
+\cite{fontenla2022} confirment cet effet pour les jeunes enfants équatoriens
+(0-5 ans) à partir des enquêtes ménages 2005-2006 et 2013-2014, en instrumentant
+la réception de transferts pour corriger son endogénéité~: les ménages
+bénéficiaires consacrent une part significativement plus élevée de leur budget
+à l'alimentation et à la santé, mais l'effet est concentré sur la moitié la
+plus aisée de la distribution des richesses et sur les garçons, sans effet
+détectable pour les ménages les plus pauvres.
+
+En Afrique de l'Ouest, \cite{millogo2024} confirment, pour le Burkina Faso et en
+corrigeant l'endogénéité du statut migratoire par un modèle à traitement endogène
+(\textit{endogenous treatment effect}), un effet positif des transferts sur les
+indicateurs de santé infantile, renforçant la plausibilité d'un canal similaire
+au Sénégal. Sur la dimension nutritionnelle spécifiquement, \cite{davis2016}
+exploitent les enquêtes LSMS guatémaltèques et instrumentent la migration du
+chef de ménage par la prévalence migratoire historique issue du recensement
+de 2002~: l'effet des transferts sur les indicateurs anthropométriques des
+enfants restés au pays est positif lorsque le père migrant reste rattaché au
+ménage nucléaire, mais s'atténue voire s'inverse lorsque son absence
+s'accompagne d'une recomposition du ménage d'accueil. Ce résultat souligne
+la nécessité de distinguer, dans l'interprétation causale, l'effet du transfert
+monétaire proprement dit de l'effet de l'absence parentale qu'il accompagne --
+une distinction que la stratégie PSM-DD de ce mémoire ne permet pas de lever
+mais qui est discutée comme limite en section~\ref{sec:discussion}.
 
 
 Au-delà de l'éducation et de la santé, les transferts influencent les conditions
