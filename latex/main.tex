@@ -262,7 +262,11 @@
 \input{chapitres/conclusion}
 
 % ── Bibliographie ────────────────────────────────────────────
-\printbibliography[heading=bibintoc, title={Références bibliographiques}]
+\clearpage
+\phantomsection
+\addcontentsline{toc}{section}{Références bibliographiques}
+\section*{Références bibliographiques}
+\printbibliography[heading=none]
 
 % ── Annexes ──────────────────────────────────────────────────
 \clearpage
