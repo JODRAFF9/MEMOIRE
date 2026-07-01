@@ -14,50 +14,59 @@ les implications pour les politiques publiques.
 
 L'indicateur Alkire-Foster dépend du choix du seuil de pauvreté inter-dimensionnel
 $k$. Nous testons des valeurs $k \in \{1/6, 1/3, 1/2\}$ afin d'évaluer la
-robustesse de l'ATT estimé. Le tableau~\ref{tab:robust_seuil} confirme que
-l'absence d'effet significatif est stable quel que soit le seuil retenu : les
-ATT restent proches de zéro et non significatifs pour les trois valeurs de $k$,
-ce qui renforce la conclusion principale.
+robustesse de l'ATT estimé. Le tableau~\ref{tab:robust_seuil} montre que
+l'écart défavorable aux bénéficiaires n'est marginalement significatif qu'au
+seuil intermédiaire ($k=1/3$)~: il s'atténue pour le seuil le plus bas et
+s'inverse (sans significativité) pour le seuil le plus exigeant, ce qui
+suggère que l'effet se concentre sur la zone médiane de la distribution des
+privations plutôt que sur les situations extrêmes.
 
 \begin{table}[H]
   \centering
   \caption{Sensibilité de l'ATT PSM-DD au seuil inter-dimensionnel $k$ (indicateur AF)}
   \label{tab:robust_seuil}
-  \begin{tabular}{lcccc}
+  \begin{tabular}{lccc}
     \toprule
-    Seuil $k$ & Incidence ($H$, 2018) & ATT & Éc.-t. (cluster) & $p$-valeur \\
+    Seuil $k$ & ATT & Éc.-t. (cluster) & $p$-valeur \\
     \midrule
-    $k = 1/6$ (1 indicateur sur 6) & 62,0\,\% & $+0{,}023$ & $(0{,}043)$ & 0,597 \\
-    $k = 1/3$ (2 indicateurs sur 6) & 62,0\,\% & $+0{,}023$ & $(0{,}043)$ & 0,597 \\
-    $k = 1/2$ (3 indicateurs sur 6) & 62,0\,\% & $-0{,}030$ & $(0{,}034)$ & 0,385 \\
+    $k = 1/6$ (1 indicateur sur 6)  & $+0{,}037$ & $(0{,}025)$ & 0,131 \\
+    $k = 1/3$ (2 indicateurs sur 6) & $+0{,}051^{*}$ & $(0{,}030)$ & 0,097 \\
+    $k = 1/2$ (3 indicateurs sur 6) & $-0{,}010$ & $(0{,}023)$ & 0,675 \\
     \bottomrule
   \end{tabular}
   \begin{tablenotes}
     \small
-    \item Aucun coefficient n'est significatif au seuil de 10\,\%.
-    Erreurs-types clusterisées au niveau de la grappe.
-    Appariement k-NN ($k=4$, sans remplacement).
+    \item $^{*}p<0{,}10$. Erreurs-types clusterisées au niveau de la grappe.
+    Appariement k-NN au niveau ménage ($k=4$, avec remise).
   \end{tablenotes}
 \end{table}
 
 \subsubsection{Sensibilité au choix de la méthode d'appariement}
 
 Le tableau~\ref{tab:psm_methodes} (section~\ref{subsec:psmdd}) a documenté la
-stabilité de l'ATT selon trois méthodes d'appariement (k-NN, noyau Epanechnikov,
-caliper). Les trois spécifications produisent des ATT compris entre $-0{,}050$ et
-$+0{,}049$, tous non significatifs au seuil de 10\,\%, ce qui atteste de la
-robustesse du résultat nul au choix algorithmique.
+sensibilité de l'ATT aux trois méthodes d'appariement (k-NN, noyau Epanechnikov,
+caliper). Les trois spécifications produisent des ATT positifs, compris entre
+$+0{,}037$ et $+0{,}073$ pour le N-MODA, mais la significativité statistique
+n'est acquise qu'avec le k-NN ($p=0{,}038$) et, marginalement, le noyau
+($p=0{,}058$)~; elle disparaît avec le caliper ($p=0{,}265$). La direction de
+l'effet est donc robuste au choix algorithmique, mais son intensité et sa
+précision ne le sont pas, ce qui commande de l'interpréter comme un
+\emph{faisceau d'indices} plutôt que comme un effet définitivement établi.
 
 \subsubsection{Attrition et biais de sélection de l'échantillon panel}
 
 Le panel vrai mobilise 6\,127 des 7\,156 ménages de l'EHCVM~I, soit un taux
-de suivi de 85,6\,\%. Les 1\,029 ménages non retrouvés en 2021 pourraient différer
-systématiquement des ménages suivis si, par exemple, les ménages ayant migré
-ou dissous sont précisément ceux ayant connu les changements de bien-être les
-plus importants. Pour tester cette hypothèse, nous comparons les caractéristiques
-2018 des ménages retrouvés et des ménages perdus sur les principales covariables~:
-les différences standardisées sont inférieures à 0,08 pour toutes les variables
-clés, ce qui limite le risque de biais d'attrition différentiel.
+de suivi de 85,6\,\%. Parmi les ménages avec enfants, 736 ne sont pas retrouvés
+en 2021. L'attrition n'est pas aléatoire~: les ménages perdus sont
+significativement plus urbains (74,2\,\% contre 49,7\,\%), plus aisés
+(SMD $= 0{,}65$ sur la log-dépense) et de plus petite taille que les ménages
+suivis (tableau~\ref{tab:attrition}, annexe~\ref{ann:A}), profil classique de
+la mobilité résidentielle urbaine. Le point décisif pour la validité interne
+est toutefois que l'attrition n'est que faiblement liée au \emph{statut de
+traitement} (24,9\,\% de bénéficiaires 2018 parmi les perdus contre 22,2\,\%
+parmi les suivis, $p = 0{,}099$)~: le risque de biais d'attrition différentiel
+selon le traitement est donc limité, même si la généralisabilité des résultats
+aux ménages urbains les plus mobiles reste restreinte.
 
 \subsection{Analyse de l'hétérogénéité des effets}
 
@@ -68,7 +77,7 @@ Le tableau~\ref{tab:heterogeneite} rapporte les ATT PSM-DD pour chaque sous-grou
 
 \begin{table}[H]
   \centering
-  \caption{Hétérogénéité des effets par milieu de résidence et sexe (PSM-DD)}
+  \caption{Hétérogénéité des effets par milieu de résidence, sexe et âge (PSM-DD)}
   \label{tab:heterogeneite}
   \begin{tabular}{lcccc}
     \toprule
@@ -77,118 +86,151 @@ Le tableau~\ref{tab:heterogeneite} rapporte les ATT PSM-DD pour chaque sous-grou
                 & ATT & $p$-val. & ATT & $p$-val. \\
     \midrule
     \multicolumn{5}{l}{\textit{Par milieu de résidence}} \\
-    \quad Milieu urbain & $+0{,}096^{*}$ & 0,088 & $+0{,}073$ & 0,120 \\
-    \quad Milieu rural  & $-0{,}029$     & 0,571 & $-0{,}009$ & 0,880 \\
-    \quad Test d'égalité ($p$-val.) & \multicolumn{2}{c}{0,102} & \multicolumn{2}{c}{0,285} \\
+    \quad Milieu urbain & $+0{,}050$     & 0,217 & $+0{,}029$     & 0,459 \\
+    \quad Milieu rural  & $+0{,}114^{*}$ & 0,075 & $+0{,}087^{*}$ & 0,060 \\
+    \quad Test d'égalité ($p$-val.) & \multicolumn{2}{c}{0,395} & \multicolumn{2}{c}{0,340} \\
     \midrule
     \multicolumn{5}{l}{\textit{Par sexe de l'enfant}} \\
-    \quad Garçons & $+0{,}038$ & 0,377 & $+0{,}035$ & 0,445 \\
-    \quad Filles  & $+0{,}015$ & 0,741 & $+0{,}011$ & 0,813 \\
+    \quad Garçons & $+0{,}097^{**}$ & 0,013 & $+0{,}047$     & 0,163 \\
+    \quad Filles  & $+0{,}050$      & 0,174 & $+0{,}056^{*}$ & 0,087 \\
     \midrule
     \multicolumn{5}{l}{\textit{Par groupe d'âge}} \\
-    \quad 0--4 ans   & $+0{,}051$ & 0,384 & $+0{,}005$ & 0,928 \\
-    \quad 5--14 ans  & $+0{,}027$ & 0,480 & $+0{,}039$ & 0,432 \\
-    \quad 15--17 ans & $+0{,}009$ & 0,875 & $+0{,}001$ & 0,979 \\
+    \quad 0--4 ans   & $+0{,}111^{**}$ & 0,031 & $+0{,}076^{*}$ & 0,091 \\
+    \quad 5--14 ans  & $+0{,}061$      & 0,124 & $+0{,}039$     & 0,332 \\
+    \quad 15--17 ans & $+0{,}055$      & 0,254 & $+0{,}062$     & 0,192 \\
     \bottomrule
   \end{tabular}
   \begin{tablenotes}
     \small
-    \item $^{*}p<0{,}10$. Erreurs-types clusterisées au niveau de la grappe (poids combinés
-    sondage $\times$ PSM). Aucun autre coefficient n'est significatif au seuil de 10\,\%.
+    \item $^{*}p<0{,}10$, $^{**}p<0{,}05$. Erreurs-types clusterisées au niveau
+    de la grappe, poids d'appariement k-NN (niveau ménage), sans pondération
+    par poids d'enquête.
   \end{tablenotes}
 \end{table}
 
-L'analyse par milieu révèle une asymétrie intéressante : l'ATT en milieu urbain est
-positif ($+0{,}096$ pour le N-MODA, significatif à 10\,\%~; $+0{,}073$ pour l'AF) alors
-qu'il est négatif et non significatif en milieu rural. Ces résultats doivent être
-interprétés avec prudence, la différence entre les deux milieux n'étant pas significative
-($p = 0{,}102$ pour le N-MODA, $p = 0{,}285$ pour l'AF). Ils suggèrent néanmoins que
-les dynamiques d'utilisation des transferts pourraient différer selon le milieu, les
-ménages urbains étant peut-être moins contraints sur d'autres dimensions et orientant
-davantage les transferts vers des dépenses ne réduisant pas les privations mesurées.
+L'analyse par milieu montre que l'écart défavorable aux bénéficiaires provient
+principalement du milieu rural ($+0{,}114$, $p = 0{,}075$ pour le N-MODA~;
+$+0{,}087$, $p=0{,}060$ pour l'AF), l'effet urbain étant plus faible et non
+significatif~; la différence entre milieux n'est toutefois pas significative
+($p = 0{,}395$ et $0{,}340$). Cette configuration est cohérente avec
+l'interprétation d'une vulnérabilité accrue des ménages ruraux dépendants des
+transferts face au choc de la COVID-19~: en zone rurale, les transferts
+représentent une part plus critique des ressources, et leur contraction pendant
+la crise a pu freiner la sortie de pauvreté multidimensionnelle davantage
+qu'en ville.
 
 \subsubsection{Selon le sexe de l'enfant}
 
-Aucune différence significative de l'ATT n'est observée selon le sexe de l'enfant.
-Les effets sont proches de zéro dans les deux cas ($+0{,}038$ pour les garçons et
-$+0{,}015$ pour les filles sur le N-MODA~; $+0{,}035$ pour les garçons et $+0{,}011$
-pour les filles sur l'AF) et non distinguables de zéro, ce qui est cohérent avec
-l'absence d'effet global.
+L'écart défavorable est plus marqué et statistiquement significatif pour les
+garçons sur le N-MODA ($+0{,}097$, $p = 0{,}013$) que pour les filles
+($+0{,}050$, $p = 0{,}174$)~; sur l'indicateur AF, les deux sexes présentent
+des effets similaires. Cette asymétrie modérée peut refléter des arbitrages
+intra-ménage différenciés en période de contraction des ressources, mais la
+proximité des intervalles de confiance interdit d'y voir un écart robuste
+entre sexes.
 
 \subsubsection{Selon la tranche d'âge}
 
-L'absence d'effet est uniforme sur les trois groupes d'âge (0--4, 5--14, 15--17 ans).
-Aucun ATT n'est significatif au seuil de 10\,\%, que ce soit sur l'indicateur AF ou
-N-MODA, confirmant qu'il n'existe pas de population d'enfants pour laquelle les
-transferts auraient un impact mesurable sur la pauvreté multidimensionnelle dans
-notre cadre d'identification.
+L'écart défavorable se concentre sur les enfants d'âge préscolaire
+(0--4 ans~: $+0{,}111$, $p = 0{,}031$ sur le N-MODA), tranche d'âge la plus
+sensible aux variations de court terme des ressources du ménage (nutrition,
+accès aux soins, enregistrement des naissances)~; il est plus faible et non
+significatif pour les 5--14 ans et les 15--17 ans. Cette gradation par âge est
+cohérente avec la littérature qui identifie la petite enfance comme la période
+où les chocs de revenu se transmettent le plus directement au bien-être
+multidimensionnel \parencite{davis2016,fontenla2022}.
 
 \subsection{Interprétation des résultats}
 
-Nos résultats documentent une absence d'effet causal mesurable des transferts de
-migrants sur la pauvreté multidimensionnelle des enfants au Sénégal sur la période
-2018--2021. L'ATT PSM-DD est proche de zéro et statistiquement non significatif
-($+0{,}027$, $p = 0{,}512$ pour le N-MODA~; $+0{,}023$, $p = 0{,}599$ pour l'AF),
-et cette conclusion est robuste aux choix méthodologiques testés (méthode d'appariement,
-seuil inter-dimensionnel).
+Nos résultats documentent, sur la période 2018--2021, une trajectoire de
+pauvreté multidimensionnelle \emph{relativement moins favorable} pour les
+enfants des ménages bénéficiaires stables de transferts que pour ceux des
+ménages jamais bénéficiaires comparables. L'ATT PSM-DD est positif
+($+0{,}073$, $p = 0{,}038$ pour le N-MODA~; $+0{,}051$, $p = 0{,}097$ pour
+l'AF), mais sa significativité n'est pas robuste au choix de la méthode
+d'appariement ni au seuil inter-dimensionnel. Il faut d'abord écarter deux
+lectures erronées~: ce résultat ne signifie ni que les transferts
+appauvrissent les enfants en niveau (la pauvreté baisse dans les deux
+groupes), ni que l'hypothèse d'un effet réducteur est confirmée -- c'est au
+contraire son rejet qui est net. Plusieurs mécanismes, non mutuellement
+exclusifs, peuvent expliquer ce constat~:
 
-Plusieurs mécanismes peuvent expliquer ce résultat nul :
+\paragraph{Le choc COVID-19 sur les revenus des diasporas.}
+La période intervague englobe la crise de la COVID-19, qui a durement touché
+les revenus des migrants dans les principaux pays d'accueil de la diaspora
+sénégalaise (France, Italie, Espagne), fortement exposés aux secteurs
+suspendus par les confinements. Les envois de fonds vers l'Afrique
+subsaharienne ont reculé en 2020 avant de rebondir en 2021
+\parencite{worldbank2020}. Or notre groupe de traitement est précisément
+constitué de ménages dont le budget dépend structurellement de ces flux~:
+un choc négatif sur les \emph{montants} reçus (que l'EHCVM mesure mal) se
+traduit mécaniquement par une trajectoire relative défavorable, sans que le
+statut de bénéficiaire cesse d'être déclaré. Les ménages jamais bénéficiaires,
+dont les ressources proviennent de sources domestiques, ont été relativement
+épargnés par ce canal spécifique. L'ATT positif capte alors moins un
+\og effet des transferts \fg{} qu'un \emph{effet de la dépendance aux
+transferts en période de crise} -- une vulnérabilité spécifique que la
+littérature sur la résilience des remittances tend à sous-estimer.
 
-\paragraph{Insuffisance des montants transférés.}
-L'EHCVM ne renseigne pas les montants individuels des transferts avec précision,
-mais les statistiques disponibles suggèrent des montants médians modestes. Des
-transferts insuffisants pour dépasser les seuils critiques d'investissement
-(accès à une latrines améliorées, raccordement au réseau d'eau) peuvent ne pas
-se traduire par une réduction des privations mesurées par les indicateurs binaires
-N-MODA et Alkire-Foster.
+\paragraph{Le motif assurantiel et la sélection dynamique résiduelle.}
+La revue théorique (section~\ref{sec:revue}) a montré que les transferts
+répondent aux chocs subis par le ménage d'origine \parencite{gubert2002,
+debrauw2013}. Les ménages restés bénéficiaires continus jusqu'en 2021
+peuvent donc être précisément ceux dont les besoins ont persisté ou se sont
+aggravés -- ceux dont les enfants seraient restés pauvres même sans les
+transferts. L'appariement corrige la sélection sur les caractéristiques
+observables de 2018, mais pas cette sélection \emph{dynamique} sur les chocs
+postérieurs, qui biaise l'ATT vers le haut. Sous cette lecture, l'effet
+défavorable estimé est une borne supérieure, et l'effet causal réel des
+transferts est vraisemblablement proche de zéro, voire positif pour le
+bien-être des enfants.
 
-\paragraph{Délais de transmission vers les enfants.}
-Les effets des transferts sur le bien-être des enfants peuvent s'étaler sur
-plusieurs années, en particulier pour les dimensions nutrition et éducation.
-L'horizon temporel de trois ans séparant les deux vagues (2018--2021) peut
-être insuffisant pour détecter des effets sur un indicateur multidimensionnel
-structurellement ancré.
+\paragraph{Les coûts de l'absence parentale.}
+Les transferts internationaux sont indissociables de l'émigration d'un membre
+du ménage, souvent un parent. La décomposition par dimension est cohérente
+avec ce canal~: la dimension protection de l'enfant -- qui inclut le fait de
+ne pas vivre avec ses deux parents biologiques -- se dégrade relativement chez
+les bénéficiaires ($+3{,}4$ pp, $p = 0{,}051$), tandis que l'éducation, canal
+d'investissement classique des transferts, est la seule dimension au signe
+favorable ($-2{,}9$ pp, $p = 0{,}083$). Ce contraste rejoint exactement la
+mise en garde de la littérature qualitative \parencite{cortes2007} et les
+résultats de \cite{davis2016} au Guatemala~: l'effet monétaire positif du
+transfert coexiste avec les coûts psychosociaux et organisationnels de
+l'absence du parent migrant, et le solde net peut être défavorable sur un
+indicateur multidimensionnel qui agrège les deux canaux.
 
-\paragraph{Barrières structurelles.}
-Dans les zones à fort déficit d'infrastructures (eau, assainissement, santé),
-les transferts monétaires ne peuvent pas se substituer à des investissements
-publics collectifs. L'effet sur les dimensions eau et assainissement peut être
-limité par l'absence d'offre à laquelle les ménages pourraient accéder, même
-avec des ressources supplémentaires \parencite{mansuri2006}.
+\paragraph{Barrières structurelles d'offre.}
+Dans les zones à fort déficit d'infrastructures, les transferts monétaires ne
+peuvent pas se substituer aux investissements publics collectifs~: l'absence
+d'effet favorable sur les dimensions eau, assainissement ou santé peut refléter
+une contrainte d'offre que le pouvoir d'achat supplémentaire ne lève pas
+\parencite{mansuri2006}. La concentration de l'écart défavorable en milieu
+rural, où ces contraintes sont les plus fortes, est cohérente avec ce canal.
 
-\paragraph{Effet des chocs macroéconomiques de 2020--2021.}
-La période 2020--2021 a été marquée par la pandémie de COVID-19, qui a
-réduit les flux de transferts à court terme. Selon les données de la Banque
-mondiale, les envois de fonds vers l'Afrique subsaharienne ont reculé de
-12,5\,\% en 2020 avant de rebondir en 2021 \parencite{worldbank2023}.
-Au niveau de notre échantillon, la prévalence des ménages bénéficiaires
-augmente entre 2018 (24,4\,\%) et 2021 (26,8\,\%), ce qui masque
-vraisemblablement une baisse des \textit{montants} moyens transférés sur cette
-période. Ces chocs communs affectent simultanément ménages traités et non traités,
-mais l'effet net sur la double différence peut être négatif si la réduction des
-montants a davantage touché les ménages traités que leurs contrôles apparariés,
-atténuant un éventuel effet positif latent que nous ne pouvons pas isoler
-avec les données disponibles.
-
-\paragraph{Résultat positif du biais de sélection.}
-La comparaison DD brute sans appariement donne un effet positif et significatif
-($+0{,}086$ pour l'AF, $p < 0{,}001$), signe que les ménages bénéficiaires
-partent d'un niveau de privation plus faible. Une fois le biais de sélection
-corrigé par l'appariement PSM, l'effet devient non significatif. Ce résultat
-confirme la nécessité de la correction PSM et l'importance du biais de sélection
-dans ce contexte.
+\paragraph{Le rôle du biais de sélection.}
+La comparaison des estimateurs illustre l'importance de la correction~:
+la DD brute donne $+0{,}046$ ($p=0{,}063$) sur le N-MODA, l'appariement
+porte l'estimation à $+0{,}073$ ($p=0{,}038$). Le biais de sélection à
+l'\oe{}uvre est massif (SMD jusqu'à 0,66 avant appariement) et sa correction
+change substantiellement l'inférence, ce qui valide la stratégie PSM-DD par
+rapport aux approches naïves -- indépendamment du signe du résultat final.
 
 Ces résultats s'inscrivent dans un débat empirique contrasté : si certaines
-études trouvent des effets positifs des transferts sur les indicateurs monétaires
-de pauvreté \parencite{adams2005,gubert2002}, les effets sur des indicateurs
-multidimensionnels structurels sont moins systématiquement établis, en particulier
-à court terme \parencite{mansuri2006}.
+études trouvent des effets positifs des transferts sur les indicateurs
+monétaires de pauvreté \parencite{adams2005,gubert2002}, les effets sur des
+indicateurs multidimensionnels structurels sont moins systématiquement
+établis, en particulier à court terme et en période de choc agrégé
+\parencite{mansuri2006,cortes2007}. La singularité de notre période d'étude
+-- traversée par une pandémie mondiale -- invite à répliquer l'analyse sur
+la prochaine vague de l'EHCVM avant d'en tirer des conclusions structurelles.
 
 \subsection{Implications pour les politiques publiques}
 
-L'absence d'effet mesurable des transferts sur la pauvreté multidimensionnelle
-des enfants conduit à des recommandations différentes de celles qui découleraient
-d'un effet positif confirmé. Trois axes se dégagent :
+L'absence d'effet réducteur mesurable des transferts sur la pauvreté
+multidimensionnelle des enfants -- et l'indication d'une vulnérabilité
+spécifique des ménages qui en dépendent en période de crise -- conduisent à
+des recommandations différentes de celles qui découleraient d'un effet
+protecteur confirmé. Trois axes se dégagent :
 
 \paragraph{Ne pas surestimer la capacité des transferts à réduire la pauvreté
 multidimensionnelle à court terme.}
@@ -196,21 +238,28 @@ Les politiques de facilitation des transferts (réduction des coûts de transact
 formalisation des canaux) restent souhaitables pour des raisons de bien-être
 immédiat des ménages, mais ne sauraient se substituer à des politiques sectorielles
 ciblant les dimensions structurelles de la pauvreté infantile (accès à l'eau,
-assainissement, éducation).
+assainissement, éducation). Nos résultats montrent de surcroît que la dépendance
+aux transferts constitue un facteur de vulnérabilité en cas de choc affectant
+les diasporas~: des mécanismes d'amortissement (protection sociale contracyclique
+ciblant les ménages récipiendaires lors des crises dans les pays d'accueil)
+mériteraient d'être étudiés.
 
 \paragraph{Investissements publics complémentaires dans les dimensions structurelles.}
-Nos résultats par dimension (section~\ref{subsec:psmdd}) révèlent un effet
-significatif des transferts sur la dimension éducation ($-4{,}3$ pp, $p = 0{,}041$),
-suggérant que les ménages bénéficiaires allouent une partie des ressources reçues
+Nos résultats par dimension (section~\ref{subsec:psmdd}) suggèrent un effet
+favorable des transferts sur la seule dimension éducation ($-2{,}9$ pp,
+$p = 0{,}083$), cohérent avec l'allocation d'une partie des ressources reçues
 à la scolarisation des enfants. En revanche, les dimensions infrastructurelles
-(eau, assainissement, logement) ne présentent pas d'effet significatif, probablement
+(eau, assainissement, logement) ne présentent pas d'effet favorable, probablement
 en raison de contraintes d'offre qui rendent le seul apport monétaire insuffisant.
 Des investissements publics ciblant l'accès à l'eau potable et à l'assainissement
 constitueraient un complément indispensable aux flux de transferts privés.
 
 \paragraph{Renforcement de la protection sociale des enfants de ménages migrants.}
-L'absence d'effet global ne doit pas masquer la vulnérabilité spécifique des
-enfants dont un parent est absent pour cause de migration. Des programmes ciblés
-de protection sociale (transferts conditionnels, suivi nutritionnel et scolaire)
-pourraient compléter les mécanismes informels de transferts et améliorer les
-conditions de vie des enfants concernés.
+La dégradation relative de la dimension protection de l'enfant chez les
+bénéficiaires ($+3{,}4$ pp, $p = 0{,}051$) souligne la vulnérabilité spécifique
+des enfants dont un parent est absent pour cause de migration -- enregistrement
+des naissances, travail des enfants, séparation parentale. Des programmes ciblés
+de protection sociale (transferts conditionnels, suivi nutritionnel et scolaire,
+appui à l'état civil dans les zones de forte émigration) pourraient compléter
+les mécanismes informels de transferts et atténuer les coûts non monétaires
+de la migration pour les enfants concernés.

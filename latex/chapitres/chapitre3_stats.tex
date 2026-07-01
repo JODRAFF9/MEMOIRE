@@ -65,10 +65,12 @@ dans les ménages bénéficiaires (37,0\,\% vs. 22,9\,\%), et ces derniers sont
 davantage localisés en milieu urbain (66,6\,\% vs. 48,4\,\%).
 Cette sélection positive justifie le recours à l'appariement par score de propension~:
 une comparaison naïve des trajectoires de pauvreté entre les deux groupes confondrait
-l'effet causal des transferts avec ces différences initiales. Les différences
-standardisées moyennes (SMD) avant appariement atteignent 0,417 pour la log-dépense
-par tête et 0,319 pour la taille du ménage, bien au-delà du seuil
-conventionnel de 0,10 (voir tableau~\ref{tab:balance}, section~\ref{sec:resultats}).
+l'effet causal des transferts avec ces différences initiales. Sur l'échantillon
+d'analyse causale (bénéficiaires stables vs jamais bénéficiaires), les différences
+standardisées moyennes (SMD) avant appariement atteignent 0,66 pour la log-dépense
+par tête, 0,43 pour le milieu urbain et 0,42 pour la proportion de chefs féminins,
+très au-delà du seuil conventionnel de 0,10
+(voir tableau~\ref{tab:balance}, section~\ref{sec:resultats}).
 
 \begin{table}[H]
   \centering
@@ -102,15 +104,16 @@ conventionnel de 0,10 (voir tableau~\ref{tab:balance}, section~\ref{sec:resultat
 
 En 2018-2019, selon l'indicateur N-MODA (seuil $k=4$, 7 dimensions, effectifs bruts),
 l'incidence de la pauvreté multidimensionnelle des enfants atteint 63,8\,\%,
-avec un nombre moyen de privations (toutes dimensions confondues, $H$ et non-$H$)
-de 3,99 sur 7. L'intensité moyenne $A$ et l'indice ajusté $M_0$ restreints aux
-enfants pauvres sont en cours de recalcul suite à la mise à jour des indicateurs
-eau et santé et seront précisés dans la version finale.
-Ce résultat est supérieur à celui rapporté par \cite{ansd2024} ($H = 50{,}7\,\%$)
-pour la même période, la différence s'expliquant principalement par l'intégration dans
-notre mesure de la dimension nutrition (49,6\,\% de privation) et de l'indicateur
-d'accès à pied à une structure de santé, absents de certaines estimations antérieures
-faute de données harmonisées.
+avec une intensité moyenne $A = 70{,}2\,\%$ (part des 7 dimensions en privation
+parmi les enfants pauvres) et un indice ajusté $M_0 = H \times A = 0{,}448$.
+Cette intensité élevée signifie que les enfants multidimensionnellement pauvres
+cumulent en moyenne près de 5 privations sur 7 -- bien au-delà du seuil $k=4$.
+Ce résultat est supérieur à celui rapporté par \cite{ansd2024} ($H = 50{,}7\,\%$,
+$A = 72{,}2\,\%$), l'écart d'incidence s'expliquant principalement par l'absence
+de pondération d'enquête dans nos calculs (statistiques brutes), par l'intégration
+de la dimension nutrition (49,6\,\% de privation) et par l'indicateur
+d'accès à pied à une structure de santé~; l'intensité, elle, est très proche
+de la valeur officielle.
 
 L'approche Alkire-Foster complémentaire (seuil $k = 1/3$, 6 indicateurs, poids
 égaux) donne une incidence de 62,0\,\%, une intensité de 44,3\,\%
@@ -119,14 +122,23 @@ pauvreté infantile structurelle affectant plus de la moitié des enfants.
 
 \subsubsection{Résultats EHCVM II (2021--2022)}
 
-En 2021-2022, l'incidence N-MODA recule à 55,9\,\% (nombre moyen de privations
-$= 3{,}74$ sur 7), soit une baisse de 7,9 points de pourcentage par rapport à 2018-2019.
-Sur l'indicateur Alkire-Foster, l'incidence passe à 56,3\,\% ($A = 43{,}3\,\%$,
-$M_0 = 0{,}244$), quasiment inchangée par rapport à 2018-2019 ($H=62{,}0\,\%$,
-$A=44{,}3\,\%$, $M_0=0{,}275$) au vu de ces premières estimations sur effectifs bruts.
+En 2021-2022, l'incidence N-MODA recule à 55,9\,\% ($A = 68{,}5\,\%$,
+$M_0 = 0{,}383$), soit une baisse de 7,9 points de pourcentage de l'incidence
+et de 0,065 point de l'indice ajusté par rapport à 2018-2019~: les enfants
+sont moins nombreux à être multidimensionnellement pauvres, et ceux qui le
+restent cumulent légèrement moins de privations simultanées ($-1{,}7$ pp
+d'intensité). Sur l'indicateur Alkire-Foster, l'incidence passe de 62,0\,\%
+à 56,3\,\% ($-5{,}7$ pp~; $A$~: 44,3\,\% $\to$ 43,3\,\%~;
+$M_0$~: 0,275 $\to$ 0,244), une évolution parallèle qui conforte le
+diagnostic d'une baisse généralisée de la pauvreté multidimensionnelle
+des enfants entre les deux vagues.
 
+La décomposition par milieu montre que la baisse est plus marquée en milieu
+urbain ($-9{,}6$ pp~: 47,5\,\% $\to$ 37,9\,\%) qu'en milieu rural
+($-6{,}3$ pp~: 77,9\,\% $\to$ 71,6\,\%), de sorte que l'écart urbain-rural,
+déjà considérable en 2018 (30,4 pp), se creuse encore (33,7 pp en 2021).
 Par groupe d'âge, l'incidence N-MODA 2018 est la plus élevée chez les 5--14 ans
-(66,9\,\%), suivis des 15--17 ans (59,5\,\%) et des 0--4 ans (59,9\,\%). En 2021,
+(66,9\,\%), suivis des 0--4 ans (59,9\,\%) et des 15--17 ans (59,5\,\%). En 2021,
 le classement est inchangé (5--14 ans : 59,4\,\%~; 0--4 ans : 50,8\,\%~;
 15--17 ans : 50,0\,\%), avec un recul de l'incidence dans tous les groupes d'âge.
 
@@ -178,6 +190,8 @@ pour cette vague.}.
     \midrule
     \multicolumn{4}{l}{\textit{Indice N-MODA (approche principale)}} \\
     \quad Incidence $H$ (\%)                           & 63,8 & 55,9 & $-7{,}9$ \\
+    \quad Intensité $A$ (\%)                           & 70,2 & 68,5 & $-1{,}7$ \\
+    \quad Indice ajusté $M_0 = H \times A$             & 0,448 & 0,383 & $-0{,}065$ \\
     \midrule
     \multicolumn{4}{l}{\textit{Indice Alkire-Foster (robustesse)}} \\
     \quad Incidence $H$ (\%)                           & 62,0 & 56,3 & $-5{,}7$ \\
@@ -191,9 +205,8 @@ pour cette vague.}.
     qu'en 2018 ; la sécurité alimentaire FIES (\texttt{s08a\_me}) est disponible dans les
     deux vagues.
     \item \textit{Note :} Taux de privation calculés sur effectifs bruts. La dimension
-    santé inclut désormais l'indicateur d'accès à pied à une structure de santé en
-    plus du combustible de cuisine, ce qui explique sa quasi-saturation. L'intensité
-    $A$ et l'indice $M_0$ de l'approche N-MODA sont en cours de recalcul.
+    santé inclut l'indicateur d'accès à pied à une structure de santé en
+    plus du combustible de cuisine, ce qui explique sa quasi-saturation.
     Seuil N-MODA $k=4$ sur 7 dimensions ; seuil Alkire-Foster $k=1/3$ sur 6 indicateurs.
   \end{tablenotes}
 \end{table}

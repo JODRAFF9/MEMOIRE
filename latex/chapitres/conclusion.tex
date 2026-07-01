@@ -13,42 +13,54 @@ La stratégie d'identification combine l'appariement par score de propension
 afin de contrôler simultanément les biais de sélection sur observables et
 les effets fixes inobservables stables dans le temps.
 
-Le premier résultat principal est l'absence d'effet global statistiquement
-significatif. L'estimateur PSM-DD fournit un ATT de $+0{,}027$ ($p = 0{,}512$)
-sur l'incidence N-MODA et de $+0{,}023$ ($p = 0{,}599$) sur l'incidence
-Alkire-Foster. Ces coefficients, proches de zéro et non significatifs, indiquent qu'après
-correction du biais de sélection, les ménages bénéficiaires de transferts ne
-présentent pas de trajectoire de pauvreté multidimensionnelle significativement
-différente de celle des ménages non bénéficiaires aux caractéristiques comparables.
-Ce résultat est robuste au choix de la méthode d'appariement (k-NN, noyau
-Epanechnikov, caliper) et au seuil inter-dimensionnel $k$ retenu.
+Le premier résultat principal est le rejet net de l'hypothèse d'un effet
+réducteur des transferts. L'estimateur PSM-DD fournit un ATT de $+0{,}073$
+($p = 0{,}038$) sur l'incidence N-MODA et de $+0{,}051$ ($p = 0{,}097$) sur
+l'incidence Alkire-Foster~: sur la période 2018-2021, la pauvreté
+multidimensionnelle des enfants des ménages bénéficiaires stables a reculé
+\emph{moins vite} que celle des enfants de ménages jamais bénéficiaires aux
+caractéristiques initiales comparables. La direction de cet écart est robuste
+au choix de la méthode d'appariement (k-NN, noyau Epanechnikov, caliper), mais
+sa significativité statistique ne l'est pas -- elle disparaît notamment avec
+l'appariement par caliper et au seuil inter-dimensionnel $k=1/2$ --, ce qui
+interdit d'y voir un effet défavorable définitivement établi et commande de le
+lire comme un faisceau d'indices.
 
-Le second résultat, plus nuancé, concerne la décomposition par dimension
-N-MODA. Parmi les sept dimensions analysées, seule l'éducation présente
-un effet significatif~: les enfants des ménages bénéficiaires affichent une
-probabilité de privation éducative inférieure de $4{,}3$ points de pourcentage
-(ATT $= -0{,}043$, $p = 0{,}041$). Cet effet, significatif au seuil de 5\,\%,
-est cohérent avec l'hypothèse d'un investissement prioritaire des transferts
-dans la scolarisation des enfants \parencite{mansuri2006,adams2005}. Les effets
-sur les six autres dimensions (assainissement, eau, logement, nutrition, santé,
-protection) ne sont pas significatifs, les intervalles de confiance à 95\,\%
-couvrant zéro dans tous les cas.
+Le second résultat concerne la décomposition par dimension N-MODA, qui éclaire
+les mécanismes en jeu. L'éducation est la seule dimension au signe favorable
+aux enfants des ménages bénéficiaires (ATT $= -0{,}029$, $p = 0{,}083$),
+cohérente avec l'hypothèse d'un investissement prioritaire des transferts dans
+la scolarisation \parencite{cox2003,bucheli2018}. À l'inverse, la protection
+de l'enfant -- qui agrège l'absence d'acte de naissance, le travail des
+enfants et la séparation d'avec les parents biologiques -- se dégrade
+relativement chez les bénéficiaires (ATT $= +0{,}034$, $p = 0{,}051$),
+signature des coûts non monétaires de l'absence du parent migrant
+\parencite{cortes2007,davis2016}. L'écart défavorable global se concentre
+par ailleurs sur le milieu rural, les garçons et la petite enfance (0-4 ans).
 
-Plusieurs mécanismes permettent d'interpréter ce résultat nul global. D'abord,
-les montants transférés au Sénégal restent modestes en médiane (autour de
-150\,000 FCFA/an, soit environ 230 euros), insuffisants pour réduire de façon
-mesurable des privations structurelles multidimensionnelles dans un délai de
-trois ans. Ensuite, les transferts ciblent prioritairement les dépenses de
-consommation et les événements cérémoniels (mariages, baptêmes), ce qui dilue
-leur impact sur la pauvreté infantile \parencite{gubert2002}. Enfin, la période
-2018-2021 est marquée par la crise sanitaire de la COVID-19, qui a engendré une
-baisse des flux migratoires et des envois de fonds, atténuant les effets attendus.
+Trois mécanismes permettent d'interpréter ce constat. D'abord, la période
+intervague est traversée par la crise de la COVID-19, qui a durement affecté
+les revenus des diasporas~: les ménages structurellement dépendants des
+transferts -- dont les montants médians par envoi restent modestes
+(50\,000 FCFA selon l'EHCVM I, soit environ 76 euros) -- ont subi un choc
+spécifique que les ménages jamais bénéficiaires n'ont pas connu. Ensuite, le
+motif assurantiel des transferts \parencite{gubert2002} implique une sélection
+dynamique résiduelle~: les ménages restés bénéficiaires jusqu'en 2021 sont
+plausiblement ceux dont les besoins ont persisté, ce qui biaise l'ATT vers le
+haut et suggère que l'effet causal réel est plus proche de zéro. Enfin, les
+transferts s'accompagnent des coûts psychosociaux de l'absence parentale, que
+la dimension protection capte directement.
 
-Ces résultats remettent en perspective l'hypothèse H1 du mémoire~: les transferts
+Ces résultats conduisent à rejeter l'hypothèse H1 du mémoire~: les transferts
 de migrants ne réduisent pas significativement la pauvreté multidimensionnelle
-\textit{globale} des enfants au Sénégal sur l'horizon d'analyse retenu. L'hypothèse
-H2 est partiellement validée~: seule la dimension éducation présente un effet
-différencié, sans hétérogénéité significative selon le milieu de résidence.
+\textit{globale} des enfants au Sénégal sur l'horizon d'analyse retenu -- la
+trajectoire relative des bénéficiaires est au contraire défavorable, quoique
+non robuste. L'hypothèse H2 (hétérogénéité) est partiellement validée~: les
+effets diffèrent nettement selon la dimension (éducation favorable vs
+protection défavorable) et selon l'âge, sans différence significative entre
+milieux de résidence. L'hypothèse H3 est confirmée~: la correction du biais
+de sélection (SMD jusqu'à 0,66 avant appariement, $<0{,}05$ après) modifie
+substantiellement l'inférence par rapport aux comparaisons naïves.
 
 \subsection*{Recommandations de politique économique}
 
@@ -57,13 +69,22 @@ Sur la base des résultats obtenus, nous formulons les recommandations suivantes
 
 \begin{enumerate}
   \item Renforcer la complémentarité transferts-éducation.
-        L'effet significatif sur la dimension éducation suggère que les ménages
+        L'effet favorable sur la dimension éducation suggère que les ménages
         bénéficiaires investissent préférentiellement les transferts dans la
         scolarisation. Les pouvoirs publics devraient amplifier ce canal en
         réduisant les coûts directs et indirects de la scolarisation (frais de
         transport, fournitures, uniformes) dans les communes d'émigration, afin
         que les transferts se traduisent en inscriptions effectives et en
         assiduité scolaire.
+
+  \item Protéger les ménages dépendants des transferts contre les chocs
+        affectant les diasporas.
+        La trajectoire défavorable des bénéficiaires sur la période COVID
+        suggère que la dépendance aux transferts constitue un facteur de
+        vulnérabilité spécifique. Un mécanisme de protection sociale
+        contracyclique, activable lors des crises frappant les principaux pays
+        d'accueil de la diaspora, amortirait la transmission de ces chocs aux
+        enfants des ménages récipiendaires.
 
   \item Réduire les coûts de transaction des transferts formels.
         Les frais élevés des canaux formels (banques, services de transfert)
@@ -96,17 +117,22 @@ Sur la base des résultats obtenus, nous formulons les recommandations suivantes
 Notre travail comporte plusieurs limites qu'il convient de souligner. La
 première tient au panel non parfaitement cylindré~: si 85,6\,\% des
 ménages de l'EHCVM I ont été retrouvés en 2021-2022 (variable \texttt{PanelHH}),
-l'attrition différentielle entre ménages traités et non traités constitue une
-menace potentielle à la validité interne de l'estimateur PSM-DD. Les tests
-d'attrition montrent que l'attrition n'est pas significativement liée au statut
-de traitement, ce qui limite ce risque.
+l'attrition est sélective sur les covariables (ménages urbains, aisés et de
+petite taille surreprésentés parmi les perdus). Elle n'est toutefois que
+faiblement liée au statut de traitement ($p = 0{,}099$), ce qui limite le
+risque de biais d'attrition différentiel, au prix d'une généralisabilité
+restreinte pour les ménages urbains les plus mobiles.
 
-La deuxième limite concerne la mesure des transferts~: la variable de
-traitement (ménage bénéficiaire ou non) est déclarée et peut être sujette à des
-erreurs de classification, notamment une sous-déclaration des transferts informels.
-Un biais d'atténuation (\textit{attenuation bias}) conduirait à une
-sous-estimation de l'ATT en valeur absolue, rendant nos estimations conservatives
-et notre résultat nul encore plus difficile à rejeter.
+La deuxième limite concerne la définition du traitement~: le statut stable
+(bénéficiaire aux deux vagues vs jamais bénéficiaire) conditionne
+l'appartenance au groupe de traitement sur le comportement de transfert
+postérieur à la période de base. Combinée au motif assurantiel des transferts,
+cette définition expose l'estimateur à une sélection dynamique résiduelle --
+les ménages restés bénéficiaires étant plausiblement ceux dont les besoins
+ont persisté -- que l'appariement sur les caractéristiques de 2018 ne corrige
+pas. La variable de traitement est par ailleurs déclarée et peut être sujette
+à des erreurs de classification, notamment une sous-déclaration des
+transferts informels.
 
 La troisième limite est relative à la dimension nutrition~: faute de
 variables harmonisées sur la diversité alimentaire et la sécurité alimentaire

@@ -3,72 +3,66 @@
 
 Cette annexe présente les principales routines Stata utilisées pour l'estimation
 PSM-DD. Le code complet est organisé en scripts numérotés dans le répertoire
-\texttt{code/stata/} du projet.
+\texttt{code/stata/} du projet (un script unique \texttt{tout.do} regroupe
+l'ensemble du pipeline). Aucune pondération par poids d'enquête n'est utilisée~;
+les erreurs-types sont clusterisées au niveau de la grappe.
 
-\subsection{Déclaration du plan de sondage}
+\subsection{Statut de traitement stable}
 
 \begin{verbatim}
-/* config.do - programme svyset_ehcvm */
-capture program drop svyset_ehcvm
-program define svyset_ehcvm
-    args poids
-    capture confirm variable strate
-    if _rc {
-        gen long strate = region * 10 + milieu
-        label var strate "Strate (region x milieu)"
-    }
-    if "`poids'" == "" local poids "hhweight"
-    svyset grappe [pw = `poids'], strata(strate) ///
-        singleunit(centered)
-end
+/* 04_panel.do - traites stables vs jamais traites */
+use "$TEMP/traitement_2018.dta", clear
+rename D D_2018
+merge 1:1 grappe menage using "$TEMP/traitement_2021.dta", ///
+    keepusing(D) keep(match) nogenerate
+rename D D_2021
+gen byte D_stable = .
+replace D_stable = 1 if D_2018 == 1 & D_2021 == 1
+replace D_stable = 0 if D_2018 == 0 & D_2021 == 0
+/* switchers (D_stable == .) exclus du panel causal */
 \end{verbatim}
 
-Le plan de sondage EHCVM est stratifié à deux degrés~: 28 strates
-(14 régions $\times$ 2 milieux), 598 grappes (DR), 12 ménages par grappe.
-La variable \texttt{strate} est construite comme \texttt{region * 10 + milieu}.
-
-\subsection{Estimation du score de propension}
+\subsection{Estimation du score de propension (niveau ménage)}
 
 \begin{verbatim}
-/* 05_psm_dd.do - Probit sur t=0 */
-svyset_ehcvm hhweight
-svy: probit D c.hhsize c.log_pcexp i.milieu i.region ///
-         c.hgender c.hage i.heduc i.hmstat, nolog
+/* 05_psm_dd.do - Probit menage sur t=0 */
+use "$TEMP/panel_vrai.dta", clear
+keep if t == 0 & !missing(D) & !missing(log_pcexp)
+bysort grappe menage: keep if _n == 1   /* 1 menage = 1 obs */
 
-/* Pseudo-R2 McFadden (svy: probit ne stocke pas e(ll)/e(ll_0)) */
-quietly probit D c.hhsize c.log_pcexp i.milieu i.region ///
-         c.hgender c.hage i.heduc i.hmstat ///
-         [pw = hhweight], robust nolog
-di "Pseudo-R2 McFadden : " %6.3f 1 - e(ll)/e(ll_0)
-
+probit D c.hhsize c.log_pcexp i.milieu i.region ///
+         c.hgender c.hage i.heduc i.hmstat, ///
+         vce(cluster grappe) nolog
 predict pscore, pr
 \end{verbatim}
 
-\subsection{Appariement PSM (k-NN)}
+\subsection{Appariement PSM (k-NN) et équilibre}
 
 \begin{verbatim}
-/* Appariement k plus proches voisins (k=4, sans remplacement) */
+/* Appariement k plus proches voisins (k=4, avec remise) */
 psmatch2 D, pscore(pscore) neighbor(4) common
+pstest hhsize log_pcexp i.milieu i.region hgender hage ///
+       i.heduc i.hmstat, both
 rename _weight weight_knn
-
-/* Vérification de l'équilibre (SMD) */
-pstest hhsize log_pcexp i.milieu hgender hage i.heduc, both
+keep grappe menage D pscore weight_knn _support
+save "$TEMP/pscore_knn.dta", replace
 \end{verbatim}
 
 \subsection{Estimateur PSM-DD}
 
 \begin{verbatim}
-/* Poids final = poids sondage x poids PSM */
-gen double weight_final = hhweight * weight_knn
-svyset_ehcvm weight_final
+/* Poids d'appariement appliques aux enfants du menage */
+use "$TEMP/panel_vrai.dta", clear
+merge m:1 grappe menage using "$TEMP/pscore_knn.dta", ///
+    keepusing(weight_knn) keep(master match) nogenerate
+keep if !missing(weight_knn) & weight_knn > 0
 
-/* ATT pour chaque indicateur de pauvreté */
 foreach outcome in pauvre_AF pauvre_MODA {
-    svy: reg `outcome' i.t##i.D
+    regress `outcome' i.t##i.D [aw=weight_knn], ///
+        vce(cluster grappe)
     lincom 1.t#1.D
     di "ATT = " %8.4f r(estimate) ///
-       "  SE = " %8.4f r(se) ///
-       "  p  = " %6.4f r(p)
+       "  SE = " %8.4f r(se) "  p = " %6.4f r(p)
 }
 \end{verbatim}
 
@@ -77,19 +71,21 @@ foreach outcome in pauvre_AF pauvre_MODA {
 \begin{verbatim}
 /* 07_effets_dim.do */
 local dims assai eau logem nutri sante protect educ
-local i = 0
 foreach dim of local dims {
-    local ++i
-    quietly svy: reg dim_`dim' i.t##i.D
+    quietly regress dim_`dim' i.t##i.D [aw=weight_knn], ///
+        vce(cluster grappe)
     quietly lincom 1.t#1.D
-    matrix ATT[`i',1] = r(estimate)
-    matrix LB[`i',1]  = r(estimate) - 1.96*r(se)
-    matrix UB[`i',1]  = r(estimate) + 1.96*r(se)
+    di "dim_`dim' : ATT=" %8.4f r(estimate) ///
+       "  p=" %6.4f r(p)
 }
 \end{verbatim}
 
-Le script \texttt{main.do} orchestre l'ensemble du pipeline~: construction
-des indicateurs de pauvreté (\texttt{01\_nmoda.do}, \texttt{02\_af.do}),
-construction du panel (\texttt{03\_panel.do}, \texttt{04\_traitement.do}),
-estimation PSM-DD (\texttt{05\_psm\_dd.do}), statistiques descriptives
-(\texttt{06\_stats\_desc.do}) et effets par dimension (\texttt{07\_effets\_dim.do}).
+Le script \texttt{main.do} orchestre l'ensemble du pipeline~: exploration des
+bases (\texttt{01\_visitation.do}), variable de traitement
+(\texttt{02\_traitement.do}), indicateurs de pauvreté
+(\texttt{03\_deprivation.do}), panel et traitement stable
+(\texttt{04\_panel.do}), estimation PSM-DD (\texttt{05\_psm\_dd.do}),
+statistiques descriptives (\texttt{06\_stats\_desc.do}), effets par dimension
+(\texttt{07\_effets\_dim.do}), analyses régionales
+(\texttt{08\_carte\_region.do}) et tests de validité
+(\texttt{09\_placebo\_attrition.do}).
