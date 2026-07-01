@@ -120,28 +120,35 @@ peuvent être biaisées -- ce point est discuté dans la section~\ref{sec:discus
 
 \subsubsection{Variable de traitement}
 
-La variable de traitement $D_i \in \{0, 1\}$ est un indicateur statique,
-figé sur la période de base (2018), qui indique si le ménage de l'enfant $i$
-a reçu des transferts d'un membre émigré à l'étranger au cours des 12 mois
-précédant l'enquête de 2018 et n'en a pas reçu en 2021. Cette définition en
-deux temps garantit la stabilité du statut de traitement entre les deux vagues
-et est conforme aux conventions de la littérature empirique sur les remittances
-en Afrique \parencite{azam2016, combes2019}.
+La variable de traitement $D_i \in \{0, 1\}$ est un indicateur \emph{stable},
+fixe au niveau du ménage sur les deux périodes, qui vaut 1 si le ménage de
+l'enfant $i$ a reçu des transferts d'un membre émigré à l'étranger au cours
+des 12 mois précédant l'enquête \emph{dans chacune des deux vagues} (2018
+\emph{et} 2021). Cette définition garantit la stabilité du statut de
+traitement entre les deux vagues -- condition indispensable à l'estimateur de
+double différence, qui requiert un indicateur de groupe fixe dans le temps --
+et est conforme aux conventions de la littérature empirique sur les
+remittances en Afrique \parencite{azam2016, combes2019}.
 
 La construction de cette variable repose sur les modules de transferts des
 deux vagues EHCVM. Dans chaque vague, deux fichiers sont mobilisés :
 \texttt{s13a\_1} (identification des ménages ayant reçu au moins un transfert)
 et \texttt{s13a\_2} (caractéristiques de chaque transfert et de son expéditeur).
-Un ménage est classé comme bénéficiaire ($D_i=1$) s'il satisfait les deux
-conditions suivantes : (i) il a reçu en 2018 au moins un transfert dont
+Un ménage est classé comme bénéficiaire stable ($D_i=1$) s'il satisfait les
+deux conditions suivantes : (i) il a reçu en 2018 au moins un transfert dont
 l'expéditeur est localisé hors du Sénégal (code $\geq 4$ pour la variable
 \texttt{s13aq14} en 2018 ; codes 1 à 3 correspondant à des destinations
-intérieures) ; (ii) il n'a pas reçu de tel transfert en 2021.
+intérieures) ; (ii) il a également reçu un tel transfert en 2021
+(variable \texttt{s13q19}).
 Le groupe témoin ($D_i = 0$) est composé de ménages n'ayant reçu aucun
 transfert international ni en 2018 ni en 2021 (\textit{never treated}).
-Cette restriction élimine les ménages dont le statut change entre les deux
-vagues (entrants tardifs), dont l'inclusion biaiserait l'estimateur de la
-double différence \parencite{callaway2021}. Les transferts internes
+Les ménages dont le statut change entre les deux vagues -- entrants tardifs
+($D=0$ en 2018 puis $D=1$ en 2021) et sortants ($D=1$ puis $D=0$) -- sont
+exclus de l'analyse causale, leur inclusion biaisant l'estimateur de la
+double différence \parencite{callaway2021}. Sur les 6\,127 ménages du panel
+vrai, cette classification donne 681 ménages traités stables, 3\,981 ménages
+jamais traités et 1\,465 switchers exclus (816 entrants tardifs et
+649 sortants). Les transferts internes
 (interrégionaux, codes 1 à 3) sont exclus dans les deux vagues car ils
 relèvent d'une logique de redistribution domestique distincte des envois
 de la diaspora internationale \parencite{ndiaye2013}.
@@ -450,6 +457,15 @@ estimé par un modèle probit :
   \label{eq:probit}
 \end{equation}
 
+L'appariement est réalisé \emph{au niveau du ménage}~: toutes les covariables
+du score de propension étant des caractéristiques du ménage (taille, dépense
+par tête, sexe, âge, éducation et statut matrimonial du chef, milieu, région),
+tous les enfants d'un même ménage partagent le même score. Apparier au niveau
+de l'enfant induirait des ex-aequo massifs et une pondération arbitraire par
+le nombre d'enfants~; l'appariement au niveau ménage évite ces artefacts, les
+poids d'appariement étant ensuite appliqués à l'ensemble des enfants du ménage
+dans l'estimation.
+
 Trois algorithmes d'appariement sont mis en œuvre et comparés \parencite{caliendo2008,
 heckman1997}. L'appariement aux $k$ plus proches voisins \parencite{rosenbaum1983}
 ($k = 4$, avec remplacement) associe à chaque traité les 4 témoins les plus proches
@@ -459,7 +475,7 @@ en termes de score :
   \left[Y_i - \frac{1}{k}\sum_{j \in \mathcal{N}(i)} Y_j\right].
   \label{eq:knn}
 \end{equation}
-L'appariement par noyau gaussien \parencite{heckman1997} utilise une moyenne
+L'appariement par noyau d'Epanechnikov \parencite{heckman1997} utilise une moyenne
 pondérée de l'ensemble des témoins, les poids décroissant avec la distance en score :
 \begin{equation}
   \hat{\tau}_{\text{kernel}} = \frac{1}{n_T} \sum_{i \in \mathcal{T}}
@@ -468,8 +484,8 @@ pondérée de l'ensemble des témoins, les poids décroissant avec la distance e
   \right],
   \label{eq:kernel}
 \end{equation}
-où $h$ est la largeur de bande optimisée par validation croisée. L'appariement
-par rayon (\textit{caliper}, $\epsilon = 0{,}05$) \parencite{caliendo2008}
+où $h = 0{,}06$ est la largeur de bande. L'appariement
+par rayon (\textit{caliper}, $\epsilon = 0{,}05$, sans remise) \parencite{caliendo2008}
 exclut les appariements de faible qualité en imposant une distance maximale
 sur le score de propension.
 

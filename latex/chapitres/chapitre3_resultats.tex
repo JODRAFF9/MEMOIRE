@@ -8,21 +8,15 @@ estimateurs de double différence brute, et enfin les résultats de l'estimateur
 de l'effet moyen du traitement sur les traités (ATT), avec une analyse des effets
 par dimension de la pauvreté.
 
-\textit{Note méthodologique~:} les estimations présentées dans cette section
-intègrent la définition corrigée des indicateurs N-MODA (temps d'accès à l'eau
-en saison des pluies, accès à pied à une structure de santé). Une dernière
-exécution du pipeline avec la spécification totalement non pondérée
-(\texttt{vce(cluster grappe)} sans aucun poids d'enquête) reste à confirmer
-pour figer les valeurs définitives du tableau~\ref{tab:balance}.
-
 \subsection{Estimation du score de propension}
 
 \subsubsection{Résultats du modèle probit}
 
-Le score de propension est estimé par un probit sur les données de la période de
-base (EHCVM I, 2018-2019), en conservant uniquement les ménages pour lesquels
-toutes les covariables sont disponibles ($n = 8\,462$ ménages,
-correspondant à 38\,724 enfants). Le modèle inclut les variables retenues dans
+Le score de propension est estimé par un probit \emph{au niveau du ménage}
+sur les données de la période de base (EHCVM I, 2018-2019), en conservant
+uniquement les ménages du panel vrai au statut de traitement stable et pour
+lesquels toutes les covariables sont disponibles ($n = 4\,292$ ménages,
+dont 649 traités). Le modèle inclut les variables retenues dans
 la littérature sur les déterminants des transferts de migrants
 \parencite{adams2005,gubert2002}~: log de la dépense par tête, taille du ménage,
 sexe et âge du chef, niveau d'éducation du chef, état matrimonial, milieu et
@@ -34,52 +28,62 @@ région de résidence.
   \label{tab:probit}
   \begin{tabular}{lcc}
     \toprule
-    Variable & Coefficient & Éc.-t. robuste \\
+    Variable & Coefficient & Éc.-t. (cluster) \\
     \midrule
     \textit{Caractéristiques du chef de ménage} & & \\
-    \quad Âge du chef (années)                 & $-0{,}004$  & $(0{,}003)$ \\
-    \quad Chef féminin                         & $0{,}156^{**}$  & $(0{,}058)$ \\
-    \quad Éducation : primaire                 & $-0{,}089$  & $(0{,}071)$ \\
-    \quad Éducation : secondaire               & $0{,}142^{*}$   & $(0{,}082)$ \\
-    \quad Éducation : supérieur                & $0{,}318^{***}$ & $(0{,}097)$ \\
-    \quad Marié (monogame)                     & $-0{,}038$  & $(0{,}064)$ \\
-    \quad Marié (polygame)                     & $0{,}074$   & $(0{,}058)$ \\
+    \quad Âge du chef (années)                 & $+0{,}008^{***}$ & $(0{,}002)$ \\
+    \quad Chef féminin                         & $+0{,}640^{***}$ & $(0{,}075)$ \\
+    \quad Éducation : primaire                 & $-0{,}064$  & $(0{,}081)$ \\
+    \quad Éducation : secondaire gén.~1        & $+0{,}094$  & $(0{,}108)$ \\
+    \quad Éducation : supérieur                & $-0{,}130$  & $(0{,}155)$ \\
+    \quad Marié (monogame)                     & $-0{,}601^{***}$ & $(0{,}206)$ \\
+    \quad Marié (polygame)                     & $-0{,}523^{**}$  & $(0{,}211)$ \\
+    \quad Veuf(ve)                             & $-0{,}934^{***}$ & $(0{,}229)$ \\
     \textit{Caractéristiques du ménage} & & \\
-    \quad Taille du ménage                     & $0{,}031^{**}$  & $(0{,}012)$ \\
-    \quad Log dépense par tête                 & $-0{,}412^{***}$ & $(0{,}045)$ \\
-    \quad Milieu urbain                        & $0{,}284^{***}$ & $(0{,}063)$ \\
+    \quad Taille du ménage                     & $+0{,}065^{***}$ & $(0{,}005)$ \\
+    \quad Log dépense par tête                 & $+0{,}882^{***}$ & $(0{,}061)$ \\
+    \quad Milieu rural                         & $-0{,}241^{***}$ & $(0{,}059)$ \\
     \textit{Effets fixes région}               & \multicolumn{2}{c}{Oui} \\
     \midrule
-    Constante                                  & $2{,}148^{***}$ & $(0{,}438)$ \\
+    Constante                                  & $-13{,}58^{***}$ & $(0{,}864)$ \\
     \midrule
-    Pseudo-$R^2$ de McFadden                   & \multicolumn{2}{c}{$0{,}139$} \\
-    Observations (enfants, panel vrai $t=0$)  & \multicolumn{2}{c}{$31\,376$} \\
+    Pseudo-$R^2$ de McFadden                   & \multicolumn{2}{c}{$0{,}209$} \\
+    Observations (ménages, panel vrai $t=0$)   & \multicolumn{2}{c}{$4\,292$} \\
     \bottomrule
   \end{tabular}
   \begin{tablenotes}
     \small
-    \item $^{*}p<0{,}10$, $^{**}p<0{,}05$, $^{***}p<0{,}01$. Écarts-types robustes
-    entre parenthèses. La catégorie de référence pour l'éducation est \og sans
-    instruction \fg{}. Estimation sur la période de base ($t=0$, EHCVM I).
+    \item $^{*}p<0{,}10$, $^{**}p<0{,}05$, $^{***}p<0{,}01$. Écarts-types clusterisés
+    par grappe entre parenthèses. Catégories de référence~: \og sans
+    instruction \fg{} (éducation), \og célibataire \fg{} (statut matrimonial),
+    milieu urbain. Estimation sur la période de base ($t=0$, EHCVM I),
+    un ménage = une observation.
   \end{tablenotes}
 \end{table}
 
-Le modèle présente un pseudo-$R^2$ de McFadden de 13,9\,\%, cohérent avec
-les valeurs habituellement observées pour ce type de régression dans les enquêtes
-ménages africaines \parencite{caliendo2008}. La log-dépense par tête et le milieu
-urbain sont les principaux déterminants positifs et négatifs de la probabilité de
-recevoir des transferts, conformément à l'hypothèse que la migration est plus
-fréquente depuis les zones urbaines et les ménages relativement plus aisés.
+Le modèle présente un pseudo-$R^2$ de McFadden de 20,9\,\%, dans la fourchette
+haute des valeurs habituellement observées pour ce type de régression dans les
+enquêtes ménages africaines \parencite{caliendo2008}, signe d'une sélection
+marquée. Les déterminants sont cohérents avec le profil descriptif du
+tableau~\ref{tab:comparaison_statut}~: la probabilité de recevoir des transferts
+de façon stable croît fortement avec la dépense par tête ($+0{,}88$), la
+présence d'une femme à la tête du ménage ($+0{,}64$), la taille du ménage et
+l'âge du chef, et décroît en milieu rural. Le coefficient positif de la
+log-dépense confirme la sélection positive des ménages bénéficiaires~; celui
+du chef féminin reflète la configuration migratoire typique où l'époux émigré
+laisse la gestion du ménage à son épouse -- configuration au c\oe{}ur du canal
+\og absence parentale \fg{} discuté en section~\ref{sec:discussion}.
 
 \subsubsection{Vérification de la qualité de l'appariement}
 
 
 La figure~\ref{fig:support} représente les distributions du score de propension
-pour les ménages traités ($D=1$) et non traités ($D=0$) avant et après appariement.
-Le test de support commun montre que la grande majorité des ménages traités dispose
-d'un contrepartie dans le groupe de contrôle~: sur les 2\,997 ménages traités de
-la période de base, 2\,861 (95,5\,\%) se trouvent dans la zone de support commun
-et sont retenus pour l'estimation PSM-DD.
+pour les ménages traités ($D=1$) et jamais traités ($D=0$).
+Le test de support commun montre que la quasi-totalité des ménages traités
+dispose d'une contrepartie dans le groupe de contrôle~: sur les 649 ménages
+traités stables de la période de base, 646 (99,5\,\%) se trouvent dans la zone
+de support commun et sont retenus pour l'estimation PSM-DD, appariés à
+1\,246 ménages témoins distincts (appariement $k$-NN avec remise).
 
 \begin{figure}[H]
   \centering
@@ -90,37 +94,35 @@ et sont retenus pour l'estimation PSM-DD.
 
 
 Le tableau~\ref{tab:balance} rapporte les différences standardisées moyennes (SMD)
-avant et après appariement k-plus-proches-voisins ($k=4$, sans remplacement).
-L'appariement réduit fortement les déséquilibres~: la SMD maximale passe de
-0,312 (log PCE, avant appariement) à 0,047 (après), bien en deçà du seuil
-conventionnel de 0,10 \parencite{austin2009}.
+avant et après appariement k-plus-proches-voisins ($k=4$, avec remise, au
+niveau ménage). L'appariement élimine pratiquement les déséquilibres~: la SMD
+maximale passe de 0,66 (log PCE, avant appariement) à 0,04 en valeur absolue
+(après), très en deçà du seuil conventionnel de 0,10 \parencite{austin2009}.
 
 \begin{table}[H]
   \centering
-  \caption{Équilibre des covariables avant et après appariement PSM ($k=4$)}
+  \caption{Équilibre des covariables avant et après appariement PSM ($k=4$, niveau ménage)}
   \label{tab:balance}
-  \begin{tabular}{lcccc}
+  \begin{tabular}{lcc}
     \toprule
-    Variable & \multicolumn{2}{c}{Avant appariement} & \multicolumn{2}{c}{Après appariement} \\
-    \cmidrule(lr){2-3} \cmidrule(lr){4-5}
-             & SMD & $p$-valeur & SMD & $p$-valeur \\
+    Variable & SMD avant appariement & SMD après appariement \\
     \midrule
-    Log dépense par tête     & 0,312 & $<$0,001 & 0,047 & 0,418 \\
-    Taille du ménage         & 0,198 & $<$0,001 & 0,031 & 0,612 \\
-    Chef féminin             & 0,224 & $<$0,001 & 0,038 & 0,521 \\
-    Âge du chef              & 0,072 & 0,004    & 0,028 & 0,634 \\
-    Éducation (supérieur)    & 0,241 & $<$0,001 & 0,044 & 0,483 \\
-    Milieu urbain            & 0,087 & $<$0,001 & 0,019 & 0,741 \\
+    Log dépense par tête     & $+0{,}66$ & $-0{,}01$ \\
+    Milieu urbain            & $+0{,}43$ & $-0{,}03$ \\
+    Chef féminin             & $+0{,}42$ & $+0{,}01$ \\
+    Taille du ménage         & $+0{,}32$ & $+0{,}03$ \\
+    Âge du chef              & $+0{,}24$ & $-0{,}04$ \\
     \midrule
-    SMD max. avant/après     & 0,312 & & 0,047 & \\
-    SMD moy. avant/après     & 0,189 & & 0,035 & \\
+    SMD max. (val. absolue)  & 0,66 & 0,04 \\
     \bottomrule
   \end{tabular}
   \begin{tablenotes}
     \small
     \item \textit{Note :} SMD~: différence standardisée moyenne (\textit{standardized
-    mean difference}). Un SMD inférieur à 0,10 est conventionnellement jugé satisfaisant
-    \parencite{austin2009}. $p$-valeurs issues de tests $t$ de Student.
+    mean difference}), calculée au niveau ménage sur l'échantillon d'estimation
+    ($n = 4\,292$)~; SMD après appariement pondérée par les poids $k$-NN.
+    Un SMD inférieur à 0,10 en valeur absolue est conventionnellement jugé
+    satisfaisant \parencite{austin2009}.
   \end{tablenotes}
 \end{table}
 
@@ -129,14 +131,17 @@ conventionnel de 0,10 \parencite{austin2009}.
 \subsubsection{Double différence sans appariement}
 
 À titre de référence, nous estimons d'abord un estimateur de double différence
-sur effectifs bruts (tableau~\ref{tab:dd_brut}). L'effet estimé est positif et
-significatif~: les ménages bénéficiaires voient leur pauvreté augmenter
-davantage que les non-bénéficiaires entre 2018 et 2021. Ce résultat paradoxal
-s'explique par le biais de sélection positif mis en évidence dans la section
-précédente~: les ménages bénéficiaires, initialement plus riches, partent d'un
-niveau de privation plus bas et rattrapent partiellement les non-bénéficiaires
-dont le niveau de pauvreté s'améliore davantage grâce à d'autres facteurs.
-C'est précisément pourquoi l'appariement PSM est indispensable.
+sur effectifs bruts, sans appariement (tableau~\ref{tab:dd_brut}). L'effet
+estimé est positif -- marginalement significatif pour le N-MODA
+($+4{,}6$ pp, $p = 0{,}063$), non significatif pour l'AF ($+3{,}8$ pp,
+$p = 0{,}160$)~: la pauvreté multidimensionnelle des enfants des ménages
+bénéficiaires stables a reculé moins vite que celle des enfants des ménages
+jamais bénéficiaires. Cette comparaison naïve confond toutefois l'effet des
+transferts avec les différences initiales considérables entre les deux groupes
+(tableau~\ref{tab:balance})~: les ménages bénéficiaires, plus riches et plus
+urbains, partent de niveaux de privation nettement plus faibles, avec des marges
+de progression différentes. C'est précisément pourquoi l'appariement PSM est
+indispensable.
 
 \begin{table}[H]
   \centering
@@ -146,17 +151,18 @@ C'est précisément pourquoi l'appariement PSM est indispensable.
     \toprule
     Variable de résultat & ATT$_{\text{DD}}$ & Éc.-t. (cluster) & $p$-valeur \\
     \midrule
-    Pauvreté N-MODA ($\hat{H}_{\text{MODA}}$) & $+0{,}097^{***}$ & $(0{,}026)$ & $<$0,001 \\
-    Pauvreté AF ($\hat{H}_{\text{AF}}$)       & $+0{,}086^{***}$ & $(0{,}027)$ & 0,001 \\
+    Pauvreté N-MODA ($\hat{H}_{\text{MODA}}$) & $+0{,}046^{*}$ & $(0{,}025)$ & 0,063 \\
+    Pauvreté AF ($\hat{H}_{\text{AF}}$)       & $+0{,}038$     & $(0{,}027)$ & 0,160 \\
     \bottomrule
   \end{tabular}
   \begin{tablenotes}
     \small
-    \item $^{***}p<0{,}01$. Erreurs-types clusterisées au niveau de la grappe
+    \item $^{*}p<0{,}10$. Erreurs-types clusterisées au niveau de la grappe
     (\texttt{vce(cluster grappe)}), sans pondération par poids d'enquête.
     Spécification~:
     $Y_{it} = \alpha + \beta t + \gamma D + \delta(t \times D) + \varepsilon_{it}$.
-    $\delta$ est l'ATT rapporté. Panel vrai 2018-2021.
+    $\delta$ est l'ATT rapporté. Panel vrai 2018-2021, traitement stable,
+    switchers exclus.
   \end{tablenotes}
 \end{table}
 
@@ -177,36 +183,47 @@ sélection sur observables et les effets fixes inobservables constants dans le t
     Variable de résultat & ATT & Éc.-t. (cluster) & $p$-valeur \\
     \midrule
     \multicolumn{4}{l}{\textit{Approche N-MODA (7 dimensions, $k=4$) - approche principale}} \\
-    \quad Incidence $\hat{H}_{\text{MODA}}$         & $+0{,}033$ & $(0{,}040)$ & 0,413 \\
+    \quad Incidence $\hat{H}_{\text{MODA}}$         & $+0{,}073^{**}$ & $(0{,}035)$ & 0,038 \\
     \midrule
     \multicolumn{4}{l}{\textit{Approche Alkire-Foster (6 indicateurs, $k=1/3$) - robustesse}} \\
-    \quad Incidence $\hat{H}_{\text{AF}}$           & $+0{,}023$ & $(0{,}043)$ & 0,599 \\
+    \quad Incidence $\hat{H}_{\text{AF}}$           & $+0{,}051^{*}$ & $(0{,}030)$ & 0,097 \\
     \bottomrule
   \end{tabular}
   \begin{tablenotes}
     \small
-    \item Aucun coefficient significatif au seuil de 10\,\%.
-    Poids d'appariement PSM uniquement~: $w_{kNN}$ (pas de pondération par
-    poids d'enquête). Appariement k-NN ($k=4$, sans remplacement).
-    Erreurs-types clusterisées au niveau de la grappe (panel vrai,
-    $n = 25\,636$ obs., 2 périodes).
+    \item $^{*}p<0{,}10$, $^{**}p<0{,}05$. Poids d'appariement PSM uniquement
+    (pas de pondération par poids d'enquête). Appariement k-NN au niveau ménage
+    ($k=4$, avec remise, support commun). Erreurs-types clusterisées au niveau
+    de la grappe (panel vrai apparié, $n = 20\,869$ obs. enfants, 2 périodes).
   \end{tablenotes}
 \end{table}
 
-L'estimateur PSM-DD donne un ATT de $+0{,}033$ ($p = 0{,}413$) sur la pauvreté
-N-MODA et de $+0{,}023$ ($p = 0{,}599$) sur la pauvreté Alkire-Foster. Ces
-coefficients sont proches de zéro et statistiquement non significatifs~: après
-correction du biais de sélection par l'appariement, les transferts de migrants
-n'ont pas d'effet mesurable et significatif sur l'incidence de la pauvreté
-multidimensionnelle des enfants au Sénégal. Ces résultats sont interprétés et
-mis en perspective dans la section~\ref{sec:discussion}.
+L'estimateur PSM-DD donne un ATT de $+0{,}073$ ($p = 0{,}038$) sur la pauvreté
+N-MODA et de $+0{,}051$ ($p = 0{,}097$) sur la pauvreté Alkire-Foster. Après
+correction du biais de sélection par l'appariement, l'écart de trajectoire
+défavorable aux ménages bénéficiaires persiste~: la probabilité de pauvreté
+multidimensionnelle des enfants de ménages bénéficiaires stables a diminué de
+7,3 points de pourcentage de \emph{moins} que celle des enfants de ménages
+jamais bénéficiaires comparables (significatif au seuil de 5\,\% pour le
+N-MODA, à 10\,\% seulement pour l'AF). Il faut souligner d'emblée que ce
+résultat ne signifie pas que les transferts \emph{appauvrissent} les enfants
+en niveau -- la pauvreté recule dans les deux groupes -- mais que la baisse
+a été plus lente chez les bénéficiaires sur la période 2018-2021, marquée par
+la crise de la COVID-19 qui a durement affecté les revenus des diasporas.
+La robustesse et l'interprétation de ce résultat -- dont la significativité
+n'est pas stable selon la méthode d'appariement (section suivante) -- sont
+discutées en détail dans la section~\ref{sec:discussion}.
 
 \subsubsection{Robustesse au choix de la méthode d'appariement}
 
-Le tableau~\ref{tab:psm_methodes} vérifie que les résultats sont stables selon
+Le tableau~\ref{tab:psm_methodes} examine la stabilité des résultats selon
 la méthode d'appariement retenue. Les trois spécifications (k-NN, noyau
-Epanechnikov, caliper) produisent des ATT très proches, renforçant la validité
-des conclusions.
+Epanechnikov, caliper) produisent des ATT systématiquement positifs, mais
+d'ampleur et de significativité variables~: l'effet N-MODA est significatif
+à 5\,\% avec le k-NN, marginalement significatif avec le noyau ($p = 0{,}058$)
+et non significatif avec le caliper ($p = 0{,}265$). La direction de l'effet
+est donc robuste, mais pas sa significativité statistique -- un élément
+d'incertitude que la discussion prend explicitement en compte.
 
 \begin{table}[H]
   \centering
@@ -216,19 +233,19 @@ des conclusions.
     \toprule
     Méthode d'appariement & \multicolumn{2}{c}{Pauvreté N-MODA} & \multicolumn{2}{c}{Pauvreté AF} \\
     \cmidrule(lr){2-3}\cmidrule(lr){4-5}
-                          & ATT & Éc.-t. & ATT & Éc.-t. \\
+                          & ATT & $p$-val. & ATT & $p$-val. \\
     \midrule
-    k-NN ($k=4$, sans remplacement)       & $+0{,}033$ & $(0{,}040)$ & $+0{,}023$ & $(0{,}043)$ \\
-    Noyau Epanechnikov ($h=0{,}06$)       & $-0{,}019$ & $(0{,}040)$ & $-0{,}050$ & $(0{,}038)$ \\
-    Caliper ($\varepsilon = 0{,}05$)      & $+0{,}056$ & $(0{,}036)$ & $+0{,}040$ & $(0{,}036)$ \\
-    DD brute (effectifs bruts, sans appariement) & $+0{,}097^{***}$ & $(0{,}026)$ & $+0{,}086^{***}$ & $(0{,}027)$ \\
+    k-NN ($k=4$, avec remise)             & $+0{,}073^{**}$ & 0,038 & $+0{,}051^{*}$ & 0,097 \\
+    Noyau Epanechnikov ($h=0{,}06$)       & $+0{,}061^{*}$  & 0,058 & $+0{,}044$     & 0,118 \\
+    Caliper ($\varepsilon = 0{,}05$, sans remise) & $+0{,}037$ & 0,265 & $+0{,}044$  & 0,156 \\
+    DD brute (sans appariement)           & $+0{,}046^{*}$  & 0,063 & $+0{,}038$     & 0,160 \\
     \bottomrule
   \end{tabular}
   \begin{tablenotes}
     \small
-    \item $^{***}p<0{,}01$. Aucun autre coefficient n'est significatif au seuil de 10\,\%.
-    Erreurs-types clusterisées au niveau de la grappe, sans pondération par
-    poids d'enquête (seul le poids d'appariement PSM est utilisé).
+    \item $^{*}p<0{,}10$, $^{**}p<0{,}05$. Erreurs-types clusterisées au niveau
+    de la grappe, sans pondération par poids d'enquête (seul le poids
+    d'appariement PSM est utilisé). Appariement au niveau ménage.
   \end{tablenotes}
 \end{table}
 
@@ -242,15 +259,23 @@ des conclusions.
 \end{figure}
 
 L'analyse par dimension (figure~\ref{fig:effets_dim}) décompose l'ATT global sur
-les sept dimensions N-MODA. Six des sept dimensions présentent des effets
-statistiquement non significatifs au seuil de 5\,\%. La seule exception est la
-dimension éducation~: les ménages bénéficiaires de transferts affichent
-une probabilité de privation éducative inférieure de $4{,}3$ points de pourcentage
-par rapport aux ménages non bénéficiaires après appariement
-(ATT $= -0{,}043$, $p = 0{,}041$). Cet effet, significatif au seuil de 5\,\%, est
-cohérent avec l'hypothèse que les ménages bénéficiaires investissent prioritairement
-les transferts reçus dans la scolarisation des enfants
-\parencite{mansuri2006,adams2005}. Les effets sur les autres dimensions
-(logement~: $-5{,}3$ pp~; eau~: $+0{,}1$ pp~; assainissement~: $+8{,}1$ pp~;
-nutrition~: $+5{,}5$ pp~; santé~: $+2{,}0$ pp~; protection~: $+3{,}6$ pp) ne sont
-pas significatifs, les intervalles de confiance à 95\,\% couvrant zéro dans tous les cas.
+les sept dimensions N-MODA. Aucune dimension n'atteint la significativité au
+seuil de 5\,\%, mais trois s'en approchent et dessinent une structure cohérente.
+D'un côté, la dimension \emph{éducation} est la seule dont le signe est
+favorable aux enfants des ménages bénéficiaires (ATT $= -0{,}029$,
+$p = 0{,}083$)~: la probabilité de privation éducative y diminue de 2,9 points
+de pourcentage de plus que chez les témoins appariés, ce qui est cohérent avec
+l'hypothèse d'un investissement prioritaire des transferts dans la
+scolarisation \parencite{cox2003,bucheli2018}. De l'autre, les dimensions
+\emph{protection de l'enfant} (ATT $= +0{,}034$, $p = 0{,}051$) et
+\emph{assainissement} (ATT $= +0{,}076$, $p = 0{,}083$) se dégradent
+relativement chez les bénéficiaires. La détérioration relative de la dimension
+protection -- qui agrège l'absence d'acte de naissance, le travail des enfants
+et la séparation d'avec les parents biologiques -- est particulièrement
+parlante~: elle inclut mécaniquement le fait de ne pas vivre avec ses deux
+parents, consubstantiel à la migration d'un parent, et rejoint les coûts
+psychosociaux de l'absence parentale documentés par la littérature
+\parencite{cortes2007,davis2016}. Les effets sur les autres dimensions
+(logement~: $+6{,}6$ pp, $p=0{,}103$~; nutrition~: $+7{,}7$ pp, $p=0{,}100$~;
+eau~: $-3{,}2$ pp~; santé~: $+1{,}7$ pp) ne sont pas statistiquement
+significatifs au seuil de 10\,\%.

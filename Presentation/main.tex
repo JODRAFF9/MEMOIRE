@@ -409,10 +409,10 @@
           \toprule
           Vague & $H$ & $M_0$ \\
           \midrule
-          2018-2019 & 58,9\,\% & 35,5\,\% \\
-          2021-2022 & 51,6\,\% & 30,9\,\% \\
+          2018-2019 & 63,8\,\% & 44,8\,\% \\
+          2021-2022 & 55,9\,\% & 38,3\,\% \\
           \midrule
-          $\Delta$ & $-7{,}3$ pp & $-4{,}6$ pp \\
+          $\Delta$ & $-7{,}9$ pp & $-6{,}5$ pp \\
           \bottomrule
         \end{tabular}
       \end{block}
@@ -483,20 +483,21 @@
       \toprule
       Mesure & ATT & Éc.-t. & $p$-valeur & Significativité \\
       \midrule
-      N-MODA ($k=4$, 7 dim.)  & $+0{,}027$ & - & 0,512 & Non significatif \\
-      Alkire-Foster ($k=1/3$) & $+0{,}023$ & - & 0,599 & Non significatif \\
+      N-MODA ($k=4$, 7 dim.)  & $+0{,}073$ & (0,035) & 0,038 & Signif. à 5\,\% \\
+      Alkire-Foster ($k=1/3$) & $+0{,}051$ & (0,030) & 0,097 & Signif. à 10\,\% \\
       \bottomrule
     \end{tabular}
   \end{table}
   \begin{alertblock}{Interprétation}
-    L'ATT positif et non significatif indique que les transferts de migrants
-    n'ont pas d'effet causal détectable sur la pauvreté multidimensionnelle
-    des enfants dans les ménages bénéficiaires par rapport aux non-bénéficiaires comparables.
+    La pauvreté multidimensionnelle des enfants des ménages bénéficiaires
+    stables a reculé \emph{moins vite} que celle des témoins appariés sur
+    2018-2021 (période COVID). Significativité fragile selon la méthode
+    d'appariement : faisceau d'indices, pas d'effet réducteur.
   \end{alertblock}
   \begin{block}{Lecture}
-    Ce résultat ne signifie pas que les transferts sont sans effet sur le bien-être ;
-    il suggère que leur impact ne se traduit pas immédiatement en réduction de
-    privations multidimensionnelles mesurées par N-MODA ou AF.
+    Mécanismes plausibles : choc COVID sur les revenus des diasporas
+    (dépendance = vulnérabilité), motif assurantiel (sélection dynamique),
+    coûts de l'absence parentale (dimension protection dégradée).
   \end{block}
 \end{frame}
 
@@ -519,7 +520,7 @@
   \end{columns}
   \begin{block}{Décomposition des effets}
     \begin{itemize}
-      \item La dimension éducation présente les effets les plus marqués.
+      \item Éducation : seule dimension au signe favorable ($-2{,}9$ pp, $p=0{,}083$).
       \item Les dimensions assainissement et eau montrent peu de variation liée aux transferts.
       \item Les effets hétérogènes selon le milieu suggèrent que les transferts
             orientent davantage vers la consommation que vers les services de base.
@@ -527,7 +528,7 @@
   \end{block}
   \begin{block}{Hétérogénéité}
     \begin{itemize}
-      \item Effets plus prononcés en milieu urbain pour la dimension éducation.
+      \item Protection de l'enfant dégradée ($+3{,}4$ pp, $p=0{,}051$) : trace de l'absence parentale.
       \item En milieu rural, l'accès aux services de base reste limité indépendamment des transferts.
     \end{itemize}
   \end{block}
@@ -543,7 +544,7 @@
   \begin{block}{Sensibilité des résultats}
     \begin{itemize}
       \item Variation du seuil inter-dimensionnel $k \in \{3, 4, 5\}$ : résultats qualitativement stables.
-      \item Autres méthodes d'appariement (radius, noyau, stratification) : ATT non significatif confirmé.
+      \item Direction robuste selon la méthode (k-NN, noyau, caliper) ; significativité fragile.
       \item Exclusion des valeurs extrêmes du score de propension : résultats robustes.
     \end{itemize}
   \end{block}
@@ -562,8 +563,8 @@
       \toprule
       Hyp. & Énoncé & Résultat & Décision \\
       \midrule
-      H1 & Réduction de l'IPM-Enfant & ATT N-MODA = $+0{,}027$ ($p=0{,}512$) & Non confirmée \\[4pt]
-      H2 & Hétérogénéité des effets  & Effets plus forts sur éducation, milieu urbain & Partiellement \\[4pt]
+      H1 & Réduction de l'IPM-Enfant & ATT N-MODA = $+0{,}073$ ($p=0{,}038$) & Rejetée \\[4pt]
+      H2 & Hétérogénéité des effets  & Éducation favorable vs protection dégradée ; rural, 0-4 ans & Partiellement \\[4pt]
       H3 & PSM-DD contrôle les biais & Support commun OK ; tendances parallèles vérifiées & Confirmée \\
       \bottomrule
     \end{tabular}
@@ -582,13 +583,13 @@
       \item Mesure de la pauvreté multidimensionnelle des enfants sur deux vagues EHCVM
             selon deux approches complémentaires (N-MODA et Alkire-Foster).
       \pause
-      \item L'incidence N-MODA recule de 58,9\,\% (2018) à 51,6\,\% (2021) :
+      \item L'incidence N-MODA recule de 63,8\,\% (2018) à 55,9\,\% (2021) :
             amélioration réelle mais la pauvreté reste massive.
       \pause
-      \item L'effet causal des transferts (ATT PSM-DD) est non significatif :
+      \item Trajectoire relative défavorable aux bénéficiaires stables (ATT $+0{,}073$, $p=0{,}038$, non robuste) :
             les transferts n'expliquent pas à eux seuls la réduction observée.
       \pause
-      \item L'impact est différencié : la dimension éducation bénéficie davantage
+      \item L'impact est différencié : seule la dimension éducation bénéficie
             des transferts que les autres dimensions.
     \end{enumerate}
   \end{block}

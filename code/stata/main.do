@@ -8,6 +8,7 @@
      04_panel       — construction du panel vrai (PanelHH=1)
      06_stats_desc  — statistiques descriptives
      05_psm_dd      — estimation PSM-DD
+     09_placebo_attrition — tests placebo et attrition
 
    Executer depuis la racine du projet :
      do "code/stata/main.do"
@@ -26,5 +27,6 @@ do "code/stata/06_stats_desc.do"
 do "code/stata/05_psm_dd.do"
 do "code/stata/07_effets_dim.do"
 do "code/stata/08_carte_region.do"
+do "code/stata/09_placebo_attrition.do"
 
 log close
