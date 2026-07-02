@@ -220,7 +220,10 @@ foreach g in 1 2 3 {
 
 /* -- 7a. Sensibilite au seuil k (Alkire-Foster) ------------- */
 di _newline "=== Sensibilite au seuil k (Alkire-Foster) ==="
-foreach k_test in 0.1667 0.3333 0.5 {
+/* Seuils legerement arrondis vers le bas : score_dep est stocke en float
+   (1/6 = 0.1666667 < 0.1667), un seuil a 0.1667 raterait les enfants
+   prives sur exactement 1 indicateur. */
+foreach k_test in 0.16 0.33 0.5 {
     gen byte pauvre_ktest = (score_dep >= `k_test') if !missing(score_dep)
     regress pauvre_ktest i.t##i.D [aw=weight_knn], vce(cluster grappe)
     lincom 1.t#1.D
