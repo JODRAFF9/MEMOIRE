@@ -1,0 +1,94 @@
+\babel@toc {french}{}\relax 
+\contentsline {section}{Décharge}{i}{Doc-Start}%
+\contentsline {section}{Dedicace}{ii}{Doc-Start}%
+\contentsline {section}{Remerciements}{iii}{Doc-Start}%
+\contentsline {section}{Résumé}{iv}{Doc-Start}%
+\contentsline {section}{Abstract}{vi}{Doc-Start}%
+\contentsline {section}{Liste des abréviations}{xi}{Doc-Start}%
+\contentsline {section}{Introduction générale}{1}{Doc-Start}%
+\contentsline {section}{\numberline {1}Revue de la littérature}{4}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Revue théorique}{4}{subsection.1.1}%
+\contentsline {subsubsection}{\numberline {1.1.1}Les transferts de migrants : définitions, ampleur et théories}{4}{subsubsection.1.1.1}%
+\contentsline {subsubsection}{\numberline {1.1.2}Pauvreté multidimensionnelle : cadre conceptuel}{8}{subsubsection.1.1.2}%
+\contentsline {subsubsection}{\numberline {1.1.3}Canaux d'impact des transferts sur la pauvreté multidimensionnelle des enfants}{10}{subsubsection.1.1.3}%
+\contentsline {subsection}{\numberline {1.2}Revue empirique}{11}{subsection.1.2}%
+\contentsline {subsubsection}{\numberline {1.2.1}Impact des transferts sur le bien-être des ménages}{12}{subsubsection.1.2.1}%
+\contentsline {subsubsection}{\numberline {1.2.2}Effets ambigus et limites : la mise en garde de la littérature qualitative}{15}{subsubsection.1.2.2}%
+\contentsline {subsubsection}{\numberline {1.2.3}Synthèse de la revue empirique}{16}{subsubsection.1.2.3}%
+\contentsline {subsubsection}{\numberline {1.2.4}Transferts et pauvreté multidimensionnelle : bilan et lacunes}{19}{subsubsection.1.2.4}%
+\contentsline {section}{\numberline {2}Données et méthodologie}{21}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Données : les enquêtes EHCVM I et II}{21}{subsection.2.1}%
+\contentsline {subsubsection}{\numberline {2.1.1}Présentation des enquêtes}{21}{subsubsection.2.1.1}%
+\contentsline {subsubsection}{\numberline {2.1.2}Construction de l'échantillon}{22}{subsubsection.2.1.2}%
+\contentsline {subsubsection}{\numberline {2.1.3}Variable de traitement}{23}{subsubsection.2.1.3}%
+\contentsline {subsubsection}{\numberline {2.1.4}Covariables du modèle de propension}{23}{subsubsection.2.1.4}%
+\contentsline {subsection}{\numberline {2.2}Mesure de la pauvreté multidimensionnelle des enfants}{24}{subsection.2.2}%
+\contentsline {subsubsection}{\numberline {2.2.1}Fondements conceptuels}{24}{subsubsection.2.2.1}%
+\contentsline {subsubsection}{\numberline {2.2.2}Première approche : l'indice Alkire-Foster (IPM-Enfant)}{24}{subsubsection.2.2.2}%
+\contentsline {subsubsection}{\numberline {2.2.3}Deuxième approche : MODA (Multiple Overlapping Deprivation Analysis)}{25}{subsubsection.2.2.3}%
+\contentsline {subsubsection}{\numberline {2.2.4}Variables de résultat dans l'estimation PSM-DD}{28}{subsubsection.2.2.4}%
+\contentsline {subsection}{\numberline {2.3}Stratégie d'identification causale : PSM-Double différence}{28}{subsection.2.3}%
+\contentsline {subsubsection}{\numberline {2.3.1}Le cadre des résultats potentiels}{28}{subsubsection.2.3.1}%
+\contentsline {subsubsection}{\numberline {2.3.2}L'appariement par score de propension (PSM)}{28}{subsubsection.2.3.2}%
+\contentsline {subsubsection}{\numberline {2.3.3}La double différence (DD)}{29}{subsubsection.2.3.3}%
+\contentsline {subsubsection}{\numberline {2.3.4}L'estimateur PSM-DD}{30}{subsubsection.2.3.4}%
+\contentsline {subsubsection}{\numberline {2.3.5}Analyses d'hétérogénéité et de robustesse}{30}{subsubsection.2.3.5}%
+\contentsline {section}{\numberline {3}Statistiques descriptives}{31}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Profil des ménages enquêtés}{31}{subsection.3.1}%
+\contentsline {subsubsection}{\numberline {3.1.1}Caractéristiques générales}{31}{subsubsection.3.1.1}%
+\contentsline {subsubsection}{\numberline {3.1.2}Ménages bénéficiaires vs. non-bénéficiaires}{32}{subsubsection.3.1.2}%
+\contentsline {subsection}{\numberline {3.2}Pauvreté multidimensionnelle des enfants : état des lieux}{32}{subsection.3.2}%
+\contentsline {subsubsection}{\numberline {3.2.1}Résultats EHCVM I (2018--2019)}{32}{subsubsection.3.2.1}%
+\contentsline {subsubsection}{\numberline {3.2.2}Résultats EHCVM II (2021--2022)}{33}{subsubsection.3.2.2}%
+\contentsline {subsubsection}{\numberline {3.2.3}Évolution entre les deux vagues}{34}{subsubsection.3.2.3}%
+\contentsline {subsection}{\numberline {3.3}Prévalence des privations par dimension}{34}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.4}Privations N-MODA par groupe d'âge}{36}{subsection.3.4}%
+\contentsline {subsection}{\numberline {3.5}Disparités régionales de la pauvreté multidimensionnelle}{37}{subsection.3.5}%
+\contentsline {section}{\numberline {4}Résultats des estimations}{39}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Estimation du score de propension}{39}{subsection.4.1}%
+\contentsline {subsubsection}{\numberline {4.1.1}Résultats du modèle probit}{39}{subsubsection.4.1.1}%
+\contentsline {subsubsection}{\numberline {4.1.2}Vérification de la qualité de l'appariement}{40}{subsubsection.4.1.2}%
+\contentsline {subsection}{\numberline {4.2}Impact des transferts de migrants sur la pauvreté multidimensionnelle}{42}{subsection.4.2}%
+\contentsline {subsubsection}{\numberline {4.2.1}Double différence sans appariement}{42}{subsubsection.4.2.1}%
+\contentsline {subsubsection}{\numberline {4.2.2}Résultats PSM-DD (Heckman et al. 1997/1998)}{43}{subsubsection.4.2.2}%
+\contentsline {subsubsection}{\numberline {4.2.3}Robustesse au choix de la méthode d'appariement}{43}{subsubsection.4.2.3}%
+\contentsline {subsubsection}{\numberline {4.2.4}Effets par dimension}{44}{subsubsection.4.2.4}%
+\contentsline {section}{\numberline {5}Discussion}{46}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Tests de robustesse}{46}{subsection.5.1}%
+\contentsline {subsubsection}{\numberline {5.1.1}Sensibilité au choix du seuil inter-dimensionnel}{46}{subsubsection.5.1.1}%
+\contentsline {subsubsection}{\numberline {5.1.2}Sensibilité au choix de la méthode d'appariement}{46}{subsubsection.5.1.2}%
+\contentsline {subsubsection}{\numberline {5.1.3}Attrition et biais de sélection de l'échantillon panel}{46}{subsubsection.5.1.3}%
+\contentsline {subsection}{\numberline {5.2}Analyse de l'hétérogénéité des effets}{47}{subsection.5.2}%
+\contentsline {subsubsection}{\numberline {5.2.1}Selon le milieu de résidence}{47}{subsubsection.5.2.1}%
+\contentsline {subsubsection}{\numberline {5.2.2}Selon le sexe de l'enfant}{48}{subsubsection.5.2.2}%
+\contentsline {subsubsection}{\numberline {5.2.3}Selon la tranche d'âge}{48}{subsubsection.5.2.3}%
+\contentsline {subsection}{\numberline {5.3}Interprétation des résultats}{48}{subsection.5.3}%
+\contentsline {paragraph}{Le choc COVID-19 sur les revenus des diasporas.}{48}{paragraph*.25}%
+\contentsline {paragraph}{Le motif assurantiel et la sélection dynamique résiduelle.}{49}{paragraph*.26}%
+\contentsline {paragraph}{Les coûts de l'absence parentale.}{49}{paragraph*.27}%
+\contentsline {paragraph}{Barrières structurelles d'offre.}{49}{paragraph*.28}%
+\contentsline {paragraph}{Le rôle du biais de sélection.}{49}{paragraph*.29}%
+\contentsline {subsection}{\numberline {5.4}Implications pour les politiques publiques}{50}{subsection.5.4}%
+\contentsline {paragraph}{Ne pas surestimer la capacité des transferts à réduire la pauvreté multidimensionnelle à court terme.}{50}{paragraph*.30}%
+\contentsline {paragraph}{Investissements publics complémentaires dans les dimensions structurelles.}{50}{paragraph*.31}%
+\contentsline {paragraph}{Renforcement de la protection sociale des enfants de ménages migrants.}{50}{paragraph*.32}%
+\contentsline {section}{Conclusion et recommandations}{52}{paragraph*.32}%
+\contentsline {section}{Annexes}{56}{section*.33}%
+\contentsline {section}{Annexe \numberline {A}Validité de l'hypothèse de tendances parallèles et tests complémentaires}{56}{section.1.A}%
+\contentsline {subsection}{\numberline {A.1}Discussion de l'hypothèse de tendances parallèles}{56}{subsection.1.A.1}%
+\contentsline {subsubsection}{\numberline {A.1.1}Argument de l'appariement}{56}{subsubsection.1.A.1.1}%
+\contentsline {subsubsection}{\numberline {A.1.2}Test placebo sur les ménages jamais traités}{56}{subsubsection.1.A.1.2}%
+\contentsline {subsection}{\numberline {A.2}Résultats PSM avec différentes méthodes d'appariement}{57}{subsection.1.A.2}%
+\contentsline {subsection}{\numberline {A.3}Analyse de l'attrition différentielle}{57}{subsection.1.A.3}%
+\contentsline {section}{Annexe \numberline {B}Méthodologie N-MODA Sénégal - Matrice des indicateurs}{59}{section.1.B}%
+\contentsline {subsection}{\numberline {B.1}Principes généraux}{59}{subsection.1.B.1}%
+\contentsline {subsection}{\numberline {B.2}Matrice des indicateurs par groupe d'âge}{60}{subsection.1.B.2}%
+\contentsline {subsection}{\numberline {B.3}Correspondance indicateurs -- variables EHCVM}{61}{subsection.1.B.3}%
+\contentsline {subsection}{\numberline {B.4}Limites de l'opérationnalisation}{63}{subsection.1.B.4}%
+\contentsline {section}{Annexe \numberline {C}Pauvreté monétaire et pauvreté multidimensionnelle - analyse croisée}{64}{section.1.C}%
+\contentsline {subsection}{\numberline {C.1}Cadre conceptuel : complémentarité des deux mesures}{64}{subsection.1.C.1}%
+\contentsline {subsection}{\numberline {C.2}Tableau croisé pauvreté monétaire / N-MODA (EHCVM I, 2018-2019)}{64}{subsection.1.C.2}%
+\contentsline {subsection}{\numberline {C.3}Interprétation}{65}{subsection.1.C.3}%
+\contentsline {subsection}{\numberline {C.4}Implications méthodologiques}{65}{subsection.1.C.4}%
+\contentsline {section}{Références bibliographiques}{67}{section*.42}%
+\contentsline {section}{Table des matières}{68}{section*.43}%

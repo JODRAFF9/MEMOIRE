@@ -23,7 +23,7 @@
      08_carte_region— carte regionale
      09_placebo_attrition — tests placebo et attrition
    ============================================================ */
-
+cd "C:\Users\Bmd\Documents\ISE\Cours\ISE3\Memoire"
 capture log close
 log using "code/stata/logs/tout.log", replace text
 
