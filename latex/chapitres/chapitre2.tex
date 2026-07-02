@@ -201,21 +201,40 @@ tout en évitant d'inclure des variables potentiellement affectées par le trait
 
 \subsubsection{Fondements conceptuels}
 
-Les mesures monétaires de la pauvreté ne rendent pas compte des conditions
-de vie des enfants pour deux raisons fondamentales. D'une part, elles supposent
-une distribution intrafamiliale équitable des ressources, ce que les données
-infirment généralement \parencite{deaton1997}. D'autre part, elles ignorent
-des dimensions non monétaires -- éducation, santé, eau, assainissement,
-information -- irréductibles au revenu du ménage et déterminantes pour le
-développement de l'enfant \parencite{gordon2003, sen1999}. L'approche par
-les capabilités de \cite{sen1985} fournit le socle conceptuel : ce qui
-importe n'est pas seulement les ressources mais la capacité effective de
-l'enfant à fonctionner dans chaque dimension fondamentale de son
-développement.
+La conception dominante de la pauvreté, fondée sur le revenu ou la
+consommation par habitant, présente plusieurs limites importantes pour
+l'analyse du bien-être des enfants. Premièrement, le seuil monétaire ne
+capture pas l'accès aux services publics (éducation, santé, eau potable,
+assainissement) qui conditionnent fondamentalement le développement de
+l'enfant. Deuxièmement, la dimension intra-ménage de la répartition des
+ressources est ignorée~: les mesures monétaires supposent une distribution
+intrafamiliale équitable, ce que les données infirment généralement
+\parencite{deaton1997}, de sorte qu'un ménage non pauvre peut abriter des
+enfants privés de soins essentiels. Troisièmement, les besoins spécifiques
+des enfants -- nutrition, stimulation cognitive, protection -- ne sont pas
+reflétés par un indicateur monétaire agrégé \parencite{gordon2003}.
+
+Le socle conceptuel de l'approche multidimensionnelle est fourni par le cadre
+des \og capabilités \fg{} de \cite{sen1999}~: la pauvreté doit être comprise
+comme une privation de libertés et de capacités fondamentales, et non comme
+le seul manque de ressources monétaires -- ce qui importe n'est pas seulement
+les ressources du ménage mais la capacité effective de l'enfant à fonctionner
+dans chaque dimension de son développement \parencite{sen1985}. Cette
+perspective a été opérationnalisée par \cite{townsend1979}, qui introduit la
+notion de privation relative et absolue, puis par \cite{unicef2007} dans le
+cadre du programme mondial d'étude de la pauvreté infantile. La spécificité
+de la pauvreté des enfants y est centrale~: les enfants sont doublement
+vulnérables, d'une part parce qu'ils dépendent entièrement des adultes pour
+accéder aux ressources, d'autre part parce que les privations subies pendant
+l'enfance ont des effets durables sur le développement cognitif, la santé et
+les trajectoires éducatives et professionnelles futures
+\parencite{townsend1979, gordon2003}.
 
 Dans ce cadre, deux méthodes de mesure de la pauvreté multidimensionnelle
 des enfants sont adoptées, chacune apportant une information complémentaire
-sur les privations subies.
+sur les privations subies~: l'indice Alkire-Foster, référence méthodologique
+dominante pour la mesure agrégée, et la méthode N-MODA de l'UNICEF, adaptée
+aux spécificités de l'enfance et retenue comme approche principale.
 
 \subsubsection{Première approche : l'indice Alkire-Foster (IPM-Enfant)}
 
@@ -251,6 +270,23 @@ où $H = q/n$ est la proportion d'enfants pauvres et $A = \frac{1}{q}
 pauvres. La mesure $M_0$ est décomposable par groupe de population et par
 dimension, ce qui permet d'analyser la contribution de chaque région, milieu
 et dimension à la pauvreté globale.
+
+Cette famille de mesures constitue le fondement méthodologique de l'Indice
+de Pauvreté Multidimensionnelle utilisé par le Programme des Nations Unies
+pour le Développement depuis 2010 \parencite{pnud2010}. Elle doit sa
+diffusion à deux propriétés~: le double seuil d'identification (seuil de
+privation $z_j$ propre à chaque dimension, puis seuil inter-dimensionnel $k$),
+qui permet de distinguer les enfants cumulant les privations -- les plus
+vulnérables -- de ceux qui n'en subissent qu'une ou deux~; et la
+décomposabilité, qui en fait un outil directement utile au ciblage des
+politiques publiques. Elle a été appliquée à de nombreux contextes africains
+\parencite{battiston2013, ferreira2011} et au Sénégal en particulier
+\parencite{ba2017, ansd2022}~: les résultats sénégalais montrent une pauvreté
+multidimensionnelle significativement plus élevée que la pauvreté monétaire,
+en particulier dans les dimensions de l'assainissement, de l'accès à l'eau
+et de l'éducation en milieu rural -- un constat qui motive le choix, dans ce
+mémoire, d'indicateurs couvrant précisément ces dimensions
+(tableau~\ref{tab:af_indicateurs}).
 
 
 \begin{table}[H]
@@ -293,9 +329,11 @@ de recherche de l'UNICEF et appliquée en Afrique subsaharienne par
 présente deux limites lorsqu'elle est appliquée aux enfants. D'abord, elle
 utilise les mêmes indicateurs et seuils quel que soit l'âge, alors que les
 besoins fondamentaux varient considérablement entre un nourrisson et un
-adolescent. Ensuite, les poids et le seuil inter-dimensionnel sont fixés de
-manière normative plutôt que dérivés des configurations de privations
-effectives.
+adolescent. Ensuite, elle hérite de la tradition centrée sur le ménage et ne
+reflète pas directement les privations de l'enfant individuel
+\parencite{roelen2008}, les poids et le seuil inter-dimensionnel étant en
+outre fixés de manière normative plutôt que dérivés des configurations de
+privations effectives.
 
 MODA répond à ces limites selon trois principes. Premièrement, l'enfant
 individuel -- et non le ménage -- est l'unité d'analyse. Deuxièmement, les
@@ -307,9 +345,16 @@ avec quelle intensité.
 
 MODA est ainsi complémentaire à Alkire-Foster : là où AF fournit un indice
 synthétique agrégeable, MODA fournit une analyse fine de la structure des
-privations par âge et de leurs combinaisons. Dans notre étude, les deux
-mesures constituent des variables de résultat alternatives pour l'estimation
-PSM-DD, permettant de vérifier la robustesse des conclusions.
+privations par âge et de leurs combinaisons. Appliquant cette méthodologie à
+trente pays d'Afrique subsaharienne, \cite{demilliano2014} montrent que les
+configurations de privations varient considérablement selon le groupe d'âge
+et le pays, ce qui justifie empiriquement l'approche désagrégée~: en Afrique
+de l'Ouest, les privations les plus fréquentes chez les jeunes enfants
+(0-4 ans) concernent l'accès à l'eau potable et l'assainissement, tandis que
+pour les enfants d'âge scolaire (5-14 ans), la non-scolarisation et le retard
+scolaire occupent une place centrale. Dans notre étude, les deux mesures
+constituent des variables de résultat alternatives pour l'estimation PSM-DD,
+permettant de vérifier la robustesse des conclusions.
 
 
 Suivant \cite{deneubourg2012} et l'adaptation nationale N-MODA développée
@@ -409,6 +454,22 @@ L'intensité moyenne des privations parmi les enfants pauvres est :
 \end{equation}
 où $q$ est le nombre d'enfants pauvres. L'indice synthétique $M_0 = H \times A$
 mesure la pauvreté multidimensionnelle ajustée pour l'intensité.
+
+Les résultats officiels de cette méthodologie fournissent le point de
+référence national auquel nos propres estimations seront confrontées.
+Appliquée à l'EHCVM 2018/19 par \cite{ansd2024} -- après une première analyse
+nationale de grande envergure conduite sur l'ESPS-II de 2011 par
+\cite{ba2017} --, la méthode N-MODA établit qu'avec le seuil $k=4$, 50,7\,\%
+des enfants de 0 à 17 ans sont multidimensionnellement pauvres ($H$), avec
+une intensité moyenne de 72,2\,\% ($A$) et un indice ajusté $M_0 = 0{,}366$.
+La prévalence est nettement plus élevée en milieu rural (66,5\,\%) qu'urbain
+(28,1\,\%), et atteint 82,1\,\% dans la région de Kédougou, 79,4\,\% à Kolda
+et 78,0\,\% à Sédhiou. En parallèle, 43,3\,\% des enfants vivent dans des
+ménages monétairement pauvres (seuil national~: 333\,440 FCFA/personne/an) et
+97,9\,\% souffrent d'au moins une privation dans l'une des sept dimensions
+retenues -- deux chiffres qui illustrent le faible recouvrement entre
+pauvreté monétaire et pauvreté multidimensionnelle et justifient l'analyse
+de leur croisement conduite en annexe~\ref{ann:D}.
 
 \subsubsection{Variables de résultat dans l'estimation PSM-DD}
 
