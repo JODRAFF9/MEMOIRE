@@ -3203,41 +3203,6 @@
     <bcf:citekey order="122" intorder="1">heckman1998</bcf:citekey>
     <bcf:citekey order="123" intorder="1">caliendo2008</bcf:citekey>
     <bcf:citekey order="124" intorder="1">rosenbaum2002</bcf:citekey>
-    <bcf:citekey order="125" intorder="1">ansd2024</bcf:citekey>
-    <bcf:citekey order="126" intorder="1">adams2005</bcf:citekey>
-    <bcf:citekey order="126" intorder="2">gubert2002</bcf:citekey>
-    <bcf:citekey order="127" intorder="1">caliendo2008</bcf:citekey>
-    <bcf:citekey order="128" intorder="1">austin2009</bcf:citekey>
-    <bcf:citekey order="129" intorder="1">austin2009</bcf:citekey>
-    <bcf:citekey order="130" intorder="1">heckman1997</bcf:citekey>
-    <bcf:citekey order="130" intorder="2">heckman1998</bcf:citekey>
-    <bcf:citekey order="131" intorder="1">cox2003</bcf:citekey>
-    <bcf:citekey order="131" intorder="2">bucheli2018</bcf:citekey>
-    <bcf:citekey order="132" intorder="1">cortes2007</bcf:citekey>
-    <bcf:citekey order="132" intorder="2">davis2016</bcf:citekey>
-    <bcf:citekey order="133" intorder="1">davis2016</bcf:citekey>
-    <bcf:citekey order="133" intorder="2">fontenla2022</bcf:citekey>
-    <bcf:citekey order="134" intorder="1">worldbank2020</bcf:citekey>
-    <bcf:citekey order="135" intorder="1">gubert2002</bcf:citekey>
-    <bcf:citekey order="135" intorder="2">debrauw2013</bcf:citekey>
-    <bcf:citekey order="136" intorder="1">cortes2007</bcf:citekey>
-    <bcf:citekey order="137" intorder="1">davis2016</bcf:citekey>
-    <bcf:citekey order="138" intorder="1">mansuri2006</bcf:citekey>
-    <bcf:citekey order="139" intorder="1">adams2005</bcf:citekey>
-    <bcf:citekey order="139" intorder="2">gubert2002</bcf:citekey>
-    <bcf:citekey order="140" intorder="1">mansuri2006</bcf:citekey>
-    <bcf:citekey order="140" intorder="2">cortes2007</bcf:citekey>
-    <bcf:citekey order="141" intorder="1">heckman1997</bcf:citekey>
-    <bcf:citekey order="141" intorder="2">heckman1998</bcf:citekey>
-    <bcf:citekey order="142" intorder="1">cox2003</bcf:citekey>
-    <bcf:citekey order="142" intorder="2">bucheli2018</bcf:citekey>
-    <bcf:citekey order="143" intorder="1">cortes2007</bcf:citekey>
-    <bcf:citekey order="143" intorder="2">davis2016</bcf:citekey>
-    <bcf:citekey order="144" intorder="1">gubert2002</bcf:citekey>
-    <bcf:citekey order="145" intorder="1">ansd2024</bcf:citekey>
-    <bcf:citekey order="146" intorder="1">ansd2024</bcf:citekey>
-    <bcf:citekey order="147" intorder="1">ansd2024</bcf:citekey>
-    <bcf:citekey order="148" intorder="1">ansd2022</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="nyt">
