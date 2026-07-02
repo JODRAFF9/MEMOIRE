@@ -51,9 +51,9 @@ procédure (script \texttt{09\_placebo\_attrition.do}).
     \toprule
     Statistique & Pauvreté AF & Pauvreté N-MODA \\
     \midrule
-    ATT placebo moyen            & $-0{,}001$ & $-0{,}001$ \\
-    Écart-type                   & $0{,}023$  & $0{,}023$  \\
-    Fraction $|$ATT$|$ $>$ 0,05 & 1,5\,\%    & 4,0\,\%    \\
+    ATT placebo moyen            & $-0{,}001$ & $-0{,}003$ \\
+    Écart-type                   & $0{,}022$  & $0{,}025$  \\
+    Fraction $|$ATT$|$ $>$ 0,05 & 2,5\,\%    & 4,0\,\%    \\
     \midrule
     ATT réel (tableau~\ref{tab:psmdd_att}) & $+0{,}051$ & $+0{,}073$ \\
     Rang dans la distribution placebo      & 99\textsuperscript{e} centile & 100\textsuperscript{e} centile \\
@@ -69,7 +69,7 @@ procédure (script \texttt{09\_placebo\_attrition.do}).
 \end{table}
 
 La distribution des ATT placebo est centrée sur zéro dans les deux cas,
-avec un écart-type de 0,023~: parmi les ménages jamais traités, des groupes
+avec un écart-type de 0,022 à 0,025~: parmi les ménages jamais traités, des groupes
 constitués au hasard suivent bien des trajectoires parallèles. L'ATT réel
 ($+0{,}051$ et $+0{,}073$) se situe aux 99\textsuperscript{e} et
 100\textsuperscript{e} centiles de la distribution placebo~: l'écart de
@@ -84,19 +84,20 @@ section~\ref{sec:discussion}.
 Le tableau~\ref{tab:psm_methodes} (section~\ref{subsec:psmdd}) présente les
 ATT obtenus avec les trois méthodes d'appariement (k-NN, noyau Epanechnikov,
 caliper), toutes mises en œuvre au niveau ménage sur le même score de
-propension. Les trois méthodes produisent des ATT positifs~; la significativité
-statistique n'est acquise que pour le k-NN et, marginalement, le noyau.
-Le caliper sans remise, qui n'apparie que 583 paires et écarte les traités
-sans contrepartie proche, est le plus exigeant en support commun et le moins
-précis~; la stabilité du signe sur les trois méthodes reste l'enseignement
-principal.
+propension. Les trois méthodes produisent des ATT positifs~; pour le N-MODA,
+la significativité statistique n'est acquise que pour le k-NN
+($p = 0{,}038$) et, marginalement, le noyau ($p = 0{,}066$), tandis qu'elle
+disparaît avec le caliper ($p = 0{,}131$). Le caliper sans remise, qui
+n'apparie que 582 paires et écarte les traités sans contrepartie proche, est
+le plus exigeant en support commun~; la stabilité du signe sur les trois
+méthodes reste l'enseignement principal.
 
 \subsection{Analyse de l'attrition différentielle}
 
 Le panel vrai mobilise 6\,127 des 7\,156 ménages de l'EHCVM~I (taux de suivi
-de 85,6\,\%). Parmi les ménages comptant des enfants de 0 à 17 ans, 5\,691
-sont retrouvés dans le panel et 736 sont perdus. Le tableau~\ref{tab:attrition}
-compare leurs caractéristiques de base (script
+de 85,6\,\%, variable \texttt{PanelHH}). Parmi les 6\,427 ménages comptant des
+enfants de 0 à 17 ans, 5\,643 sont retrouvés dans le panel et 784 sont perdus.
+Le tableau~\ref{tab:attrition} compare leurs caractéristiques de base (script
 \texttt{09\_placebo\_attrition.do}).
 
 \begin{table}[H]
@@ -105,15 +106,15 @@ compare leurs caractéristiques de base (script
   \label{tab:attrition}
   \begin{tabular}{lcccc}
     \toprule
-    Variable & Suivis ($n=5\,691$) & Perdus ($n=736$) & SMD & $p$-val. \\
+    Variable & Suivis ($n=5\,643$) & Perdus ($n=784$) & SMD & $p$-val. \\
     \midrule
-    Log dépense par tête   & 12,92 & 13,31 & $-0{,}65$ & $<$0,001 \\
-    Taille du ménage       & 10,38 & 7,19  & $+0{,}61$ & $<$0,001 \\
-    Chef féminin (\%)      & 25,1  & 34,1  & $-0{,}20$ & $<$0,001 \\
-    Milieu urbain (\%)     & 49,7  & 74,2  & $-0{,}52$ & $<$0,001 \\
-    Âge du chef (années)   & 52,0  & 48,9  & $+0{,}22$ & $<$0,001 \\
+    Log dépense par tête   & 12,92 & 13,24 & $-0{,}52$ & $<$0,001 \\
+    Taille du ménage       & 10,27 & 8,15  & $+0{,}39$ & $<$0,001 \\
+    Chef féminin (\%)      & 24,2  & 39,9  & $-0{,}34$ & $<$0,001 \\
+    Milieu urbain (\%)     & 49,8  & 71,7  & $-0{,}46$ & $<$0,001 \\
+    Âge du chef (années)   & 51,9  & 49,6  & $+0{,}16$ & $<$0,001 \\
     \midrule
-    Bénéficiaires 2018 ($D$, \%) & 22,2 & 25,0 & $-0{,}07$ & 0,099 \\
+    Bénéficiaires 2018 ($D$, \%) & 21,9 & 26,9 & $-0{,}12$ & 0,004 \\
     \bottomrule
   \end{tabular}
   \begin{tablenotes}
@@ -127,9 +128,13 @@ L'attrition n'est pas aléatoire~: les ménages perdus sont nettement plus
 urbains, plus aisés, de plus petite taille et plus souvent dirigés par une
 femme -- le profil classique de la mobilité résidentielle urbaine, cohérent
 avec le taux d'attrition urbain plus élevé documenté au
-tableau~\ref{tab:panelhh}. Le point décisif pour la validité interne de
-l'estimateur PSM-DD est toutefois la dernière ligne~: la probabilité d'être
-perdu de vue n'est que faiblement liée au statut de bénéficiaire de 2018
-(25,0\,\% contre 22,2\,\%, SMD $=-0{,}07$, $p = 0{,}099$). Le risque de biais
-d'attrition \emph{différentiel selon le traitement} est donc limité, même si
-la portée externe des résultats est restreinte aux ménages sédentaires.
+tableau~\ref{tab:panelhh}. La dernière ligne montre en outre que la
+probabilité d'être perdu de vue est corrélée au statut de bénéficiaire de
+2018 (26,9\,\% contre 21,9\,\%, SMD $=-0{,}12$, $p = 0{,}004$)~: les ménages
+bénéficiaires sortent un peu plus souvent du panel, ce qui est cohérent avec
+une mobilité accrue des ménages liés à la migration. Si les bénéficiaires
+perdus de vue avaient connu des trajectoires plus favorables que ceux restés
+observables, l'ATT serait biaisé vers le haut~; l'ampleur modérée du
+différentiel (5 points de pourcentage) borne ce risque, mais il s'ajoute aux
+raisons de lire l'écart défavorable estimé comme une borne haute. La portée
+externe des résultats reste par ailleurs restreinte aux ménages sédentaires.

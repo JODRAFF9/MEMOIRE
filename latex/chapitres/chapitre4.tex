@@ -46,9 +46,9 @@ privations plutôt que sur les situations extrêmes.
 Le tableau~\ref{tab:psm_methodes} (section~\ref{subsec:psmdd}) a documenté la
 sensibilité de l'ATT aux trois méthodes d'appariement (k-NN, noyau Epanechnikov,
 caliper). Les trois spécifications produisent des ATT positifs, compris entre
-$+0{,}037$ et $+0{,}073$ pour le N-MODA, mais la significativité statistique
+$+0{,}050$ et $+0{,}073$ pour le N-MODA, mais la significativité statistique
 n'est acquise qu'avec le k-NN ($p=0{,}038$) et, marginalement, le noyau
-($p=0{,}058$)~; elle disparaît avec le caliper ($p=0{,}265$). La direction de
+($p=0{,}066$)~; elle disparaît avec le caliper ($p=0{,}131$). La direction de
 l'effet est donc robuste au choix algorithmique, mais son intensité et sa
 précision ne le sont pas, ce qui commande de l'interpréter comme un
 \emph{faisceau d'indices} plutôt que comme un effet définitivement établi.
@@ -56,17 +56,22 @@ précision ne le sont pas, ce qui commande de l'interpréter comme un
 \subsubsection{Attrition et biais de sélection de l'échantillon panel}
 
 Le panel vrai mobilise 6\,127 des 7\,156 ménages de l'EHCVM~I, soit un taux
-de suivi de 85,6\,\%. Parmi les ménages avec enfants, 736 ne sont pas retrouvés
-en 2021. L'attrition n'est pas aléatoire~: les ménages perdus sont
-significativement plus urbains (74,2\,\% contre 49,7\,\%), plus aisés
-(SMD $= 0{,}65$ sur la log-dépense) et de plus petite taille que les ménages
-suivis (tableau~\ref{tab:attrition}, annexe~\ref{ann:A}), profil classique de
-la mobilité résidentielle urbaine. Le point décisif pour la validité interne
-est toutefois que l'attrition n'est que faiblement liée au \emph{statut de
-traitement} (24,9\,\% de bénéficiaires 2018 parmi les perdus contre 22,2\,\%
-parmi les suivis, $p = 0{,}099$)~: le risque de biais d'attrition différentiel
-selon le traitement est donc limité, même si la généralisabilité des résultats
-aux ménages urbains les plus mobiles reste restreinte.
+de suivi de 85,6\,\%. Parmi les 6\,427 ménages avec enfants de l'EHCVM~I,
+784 ne sont pas retrouvés en 2021. L'attrition n'est pas aléatoire~: les
+ménages perdus sont significativement plus urbains (71,7\,\% contre 49,8\,\%),
+plus aisés (SMD $= -0{,}52$ sur la log-dépense) et de plus petite taille que
+les ménages suivis (tableau~\ref{tab:attrition}, annexe~\ref{ann:A}), profil
+classique de la mobilité résidentielle urbaine. L'attrition est également
+corrélée au \emph{statut de traitement}, quoique modestement~: 26,9\,\% de
+bénéficiaires 2018 parmi les perdus contre 21,9\,\% parmi les suivis
+(SMD $= -0{,}12$, $p = 0{,}004$). Si les ménages bénéficiaires perdus de vue
+avaient connu des trajectoires plus favorables que ceux restés dans le panel
+-- par exemple parce que la migration réussie du ménage entier fait sortir
+de l'échantillon les cas les plus positifs --, l'ATT estimé serait biaisé
+vers le haut, ce qui renforce la lecture prudente des résultats~; l'ampleur
+limitée du différentiel (5 points) borne toutefois ce risque, et la
+généralisabilité des résultats aux ménages urbains les plus mobiles reste
+en tout état de cause restreinte.
 
 \subsection{Analyse de l'hétérogénéité des effets}
 

@@ -97,14 +97,16 @@ gen byte urbain = (milieu == 1)
 tempfile men18
 save `men18'
 
-/* Menages retrouves dans le panel a t=1 */
-use "$TEMP/panel_vrai.dta", clear
-keep if t == 1
+/* Menages retrouves en 2021 : variable officielle PanelHH (et non la
+   presence dans panel_vrai.dta, qui exclut aussi les switchers et
+   confondrait attrition et exclusion de l'echantillon d'analyse) */
+use "$BASE_2021/s00_me_sen2021.dta", clear
+keep if PanelHH == 1
 bysort grappe menage: keep if _n == 1
 keep grappe menage
 gen byte suivi = 1
 merge 1:1 grappe menage using `men18', keepusing(hhsize hage chef_f ///
-    urbain log_pcexp D) nogenerate
+    urbain log_pcexp D) keep(match using) nogenerate
 replace suivi = 0 if missing(suivi)
 
 di _newline "Menages suivis vs perdus :"

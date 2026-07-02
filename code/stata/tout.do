@@ -961,6 +961,7 @@ save "$TEMP/panel_complet.dta", replace
 /* ============================================================
    SECTION : 05_PSM_DD — Estimation PSM-DD sur panel vrai
    ============================================================ */
+
 /* ============================================================
    05_psm_dd.do — Estimation PSM-DD sur panel vrai
 
@@ -1181,7 +1182,10 @@ foreach g in 1 2 3 {
 
 /* -- 7a. Sensibilite au seuil k (Alkire-Foster) ------------- */
 di _newline "=== Sensibilite au seuil k (Alkire-Foster) ==="
-foreach k_test in 0.1667 0.3333 0.5 {
+/* Seuils legerement arrondis vers le bas : score_dep est stocke en float
+   (1/6 = 0.1666667 < 0.1667), un seuil a 0.1667 raterait les enfants
+   prives sur exactement 1 indicateur. */
+foreach k_test in 0.16 0.33 0.5 {
     gen byte pauvre_ktest = (score_dep >= `k_test') if !missing(score_dep)
     regress pauvre_ktest i.t##i.D [aw=weight_knn], vce(cluster grappe)
     lincom 1.t#1.D
@@ -1783,6 +1787,7 @@ di _newline ">>> 08_carte_region.do terminé."
 /* ============================================================
    SECTION : 09_PLACEBO_ATTRITION — Tests de validite (annexe A)
    ============================================================ */
+
 /* ============================================================
    09_placebo_attrition.do — Tests de validite (annexe A)
 
@@ -1880,14 +1885,16 @@ gen byte urbain = (milieu == 1)
 tempfile men18
 save `men18'
 
-/* Menages retrouves dans le panel a t=1 */
-use "$TEMP/panel_vrai.dta", clear
-keep if t == 1
+/* Menages retrouves en 2021 : variable officielle PanelHH (et non la
+   presence dans panel_vrai.dta, qui exclut aussi les switchers et
+   confondrait attrition et exclusion de l'echantillon d'analyse) */
+use "$BASE_2021/s00_me_sen2021.dta", clear
+keep if PanelHH == 1
 bysort grappe menage: keep if _n == 1
 keep grappe menage
 gen byte suivi = 1
 merge 1:1 grappe menage using `men18', keepusing(hhsize hage chef_f ///
-    urbain log_pcexp D) nogenerate
+    urbain log_pcexp D) keep(match using) nogenerate
 replace suivi = 0 if missing(suivi)
 
 di _newline "Menages suivis vs perdus :"
@@ -1902,9 +1909,3 @@ foreach v in log_pcexp hhsize chef_f urbain hage D {
 
 di _newline ">>> 09_placebo_attrition.do termine."
 
-/* ============================================================
-   FIN DU PIPELINE
-   ============================================================ */
-
-di _newline(2) ">>> PIPELINE COMPLET TERMINE <<<"
-log close
