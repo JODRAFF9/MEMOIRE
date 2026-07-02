@@ -116,7 +116,7 @@ sont disponibles dans les deux vagues. L'échantillon complet incluant les
 les analyses de robustesse. La limite principale de cette construction est
 l'attrition différentielle : si les ménages perdus entre les deux vagues
 diffèrent systématiquement des ménages retenus, les estimations PSM-DD
-peuvent être biaisées -- ce point est discuté dans la section~\ref{sec:discussion}.
+peuvent être biaisées, ce point est discuté dans la section~\ref{sec:discussion}.
 
 \subsubsection{Variable de traitement}
 
@@ -125,9 +125,8 @@ fixe au niveau du ménage sur les deux périodes, qui vaut 1 si le ménage de
 l'enfant $i$ a reçu des transferts d'un membre émigré à l'étranger au cours
 des 12 mois précédant l'enquête \emph{dans chacune des deux vagues} (2018
 \emph{et} 2021). Cette définition garantit la stabilité du statut de
-traitement entre les deux vagues -- condition indispensable à l'estimateur de
-double différence, qui requiert un indicateur de groupe fixe dans le temps --
-et est conforme aux conventions de la littérature empirique sur les
+traitement entre les deux vagues, condition indispensable à l'estimateur de
+double différence, qui requiert un indicateur de groupe fixe dans le temps, et est conforme aux conventions de la littérature empirique sur les
 remittances en Afrique \parencite{azam2016, combes2019}.
 
 La construction de cette variable repose sur les modules de transferts des
@@ -142,8 +141,8 @@ intérieures) ; (ii) il a également reçu un tel transfert en 2021
 (variable \texttt{s13q19}).
 Le groupe témoin ($D_i = 0$) est composé de ménages n'ayant reçu aucun
 transfert international ni en 2018 ni en 2021 (\textit{never treated}).
-Les ménages dont le statut change entre les deux vagues -- entrants tardifs
-($D=0$ en 2018 puis $D=1$ en 2021) et sortants ($D=1$ puis $D=0$) -- sont
+Les ménages dont le statut change entre les deux vagues, entrants tardifs
+($D=0$ en 2018 puis $D=1$ en 2021) et sortants ($D=1$ puis $D=0$), sont
 exclus de l'analyse causale, leur inclusion biaisant l'estimateur de la
 double différence \parencite{callaway2021}. Sur les 6\,127 ménages du panel
 vrai, cette classification donne 681 ménages traités stables, 3\,981 ménages
@@ -211,13 +210,13 @@ ressources est ignorée~: les mesures monétaires supposent une distribution
 intrafamiliale équitable, ce que les données infirment généralement
 \parencite{deaton1997}, de sorte qu'un ménage non pauvre peut abriter des
 enfants privés de soins essentiels. Troisièmement, les besoins spécifiques
-des enfants -- nutrition, stimulation cognitive, protection -- ne sont pas
+des enfants, nutrition, stimulation cognitive, protection, ne sont pas
 reflétés par un indicateur monétaire agrégé \parencite{gordon2003}.
 
 Le socle conceptuel de l'approche multidimensionnelle est fourni par le cadre
 des \og capabilités \fg{} de \cite{sen1999}~: la pauvreté doit être comprise
 comme une privation de libertés et de capacités fondamentales, et non comme
-le seul manque de ressources monétaires -- ce qui importe n'est pas seulement
+le seul manque de ressources monétaires, ce qui importe n'est pas seulement
 les ressources du ménage mais la capacité effective de l'enfant à fonctionner
 dans chaque dimension de son développement \parencite{sen1985}. Cette
 perspective a été opérationnalisée par \cite{townsend1979}, qui introduit la
@@ -276,22 +275,22 @@ de Pauvreté Multidimensionnelle utilisé par le Programme des Nations Unies
 pour le Développement depuis 2010 \parencite{pnud2010}. Elle doit sa
 diffusion à deux propriétés~: le double seuil d'identification (seuil de
 privation $z_j$ propre à chaque dimension, puis seuil inter-dimensionnel $k$),
-qui permet de distinguer les enfants cumulant les privations -- les plus
-vulnérables -- de ceux qui n'en subissent qu'une ou deux~; et la
+qui permet de distinguer les enfants cumulant les privations, les plus
+vulnérables, de ceux qui n'en subissent qu'une ou deux~; et la
 décomposabilité, qui en fait un outil directement utile au ciblage des
 politiques publiques. Elle a été appliquée à de nombreux contextes africains
 \parencite{battiston2013, ferreira2011} et au Sénégal en particulier
 \parencite{ba2017, ansd2022}~: les résultats sénégalais montrent une pauvreté
 multidimensionnelle significativement plus élevée que la pauvreté monétaire,
 en particulier dans les dimensions de l'assainissement, de l'accès à l'eau
-et de l'éducation en milieu rural -- un constat qui motive le choix, dans ce
+et de l'éducation en milieu rural, un constat qui motive le choix, dans ce
 mémoire, d'indicateurs couvrant précisément ces dimensions
 (tableau~\ref{tab:af_indicateurs}).
 
 
 \begin{table}[H]
   \centering
-  \caption{Dimensions, indicateurs et seuils de privation -- approche
+  \caption{Dimensions, indicateurs et seuils de privation, approche
   Alkire-Foster}
   \label{tab:af_indicateurs}
   \begin{threeparttable}
@@ -336,7 +335,7 @@ outre fixés de manière normative plutôt que dérivés des configurations de
 privations effectives.
 
 MODA répond à ces limites selon trois principes. Premièrement, l'enfant
-individuel -- et non le ménage -- est l'unité d'analyse. Deuxièmement, les
+individuel, et non le ménage, est l'unité d'analyse. Deuxièmement, les
 indicateurs sont désagrégés par groupe d'âge pour refléter les droits
 spécifiques à chaque stade de développement. Troisièmement, l'analyse
 porte sur les \textit{privations superposées} (overlapping deprivations) :
@@ -366,7 +365,7 @@ indicateurs retenus, en cohérence avec l'EHCVM et la méthodologie N-MODA.
 
 \begin{table}[htbp]
   \centering
-  \caption{Dimensions, indicateurs et seuils de privation -- N-MODA Sénégal (ANSD/UNICEF 2024)}
+  \caption{Dimensions, indicateurs et seuils de privation, N-MODA Sénégal (ANSD/UNICEF 2024)}
   \label{tab:moda_indicateurs}
   \begin{threeparttable}
   \small
@@ -457,9 +456,9 @@ mesure la pauvreté multidimensionnelle ajustée pour l'intensité.
 
 Les résultats officiels de cette méthodologie fournissent le point de
 référence national auquel nos propres estimations seront confrontées.
-Appliquée à l'EHCVM 2018/19 par \cite{ansd2024} -- après une première analyse
+Appliquée à l'EHCVM 2018/19 par \cite{ansd2024}, après une première analyse
 nationale de grande envergure conduite sur l'ESPS-II de 2011 par
-\cite{ba2017} --, la méthode N-MODA établit qu'avec le seuil $k=4$, 50,7\,\%
+\cite{ba2017}, la méthode N-MODA établit qu'avec le seuil $k=4$, 50,7\,\%
 des enfants de 0 à 17 ans sont multidimensionnellement pauvres ($H$), avec
 une intensité moyenne de 72,2\,\% ($A$) et un indice ajusté $M_0 = 0{,}366$.
 La prévalence est nettement plus élevée en milieu rural (66,5\,\%) qu'urbain
@@ -467,7 +466,7 @@ La prévalence est nettement plus élevée en milieu rural (66,5\,\%) qu'urbain
 et 78,0\,\% à Sédhiou. En parallèle, 43,3\,\% des enfants vivent dans des
 ménages monétairement pauvres (seuil national~: 333\,440 FCFA/personne/an) et
 97,9\,\% souffrent d'au moins une privation dans l'une des sept dimensions
-retenues -- deux chiffres qui illustrent le faible recouvrement entre
+retenues, deux chiffres qui illustrent le faible recouvrement entre
 pauvreté monétaire et pauvreté multidimensionnelle et justifient l'analyse
 de leur croisement conduite en annexe~\ref{ann:D}.
 

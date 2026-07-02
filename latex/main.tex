@@ -153,6 +153,8 @@
 \renewcommand*{\mkbibnamesuffix}[1]{#1}
 
 % ── Listes & énumérations ───────────────────────────────────
+% Puces rondes au lieu du tiret long par défaut de babel-french
+\AtBeginDocument{\renewcommand{\labelitemi}{\textbullet}}
 \usepackage{enumitem}
 \setlist[itemize]{noitemsep, topsep=4pt}
 \setlist[enumerate]{noitemsep, topsep=4pt}
@@ -275,7 +277,7 @@
 \newcommand{\partieavenir}{%
   \begin{center}
     \vspace{0.8cm}
-    \itshape Partie en cours de finalisation -- non incluse dans
+    \itshape Partie en cours de finalisation, non incluse dans
     cette version intermédiaire du mémoire.
   \end{center}\medskip}
 
