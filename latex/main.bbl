@@ -443,39 +443,6 @@
       \field{title}{On Altruism and Remittances}
       \field{year}{2013}
     \endentry
-    \entry{austin2009}{article}{}
-      \name{author}{1}{}{%
-        {{un=0,uniquepart=base,hash=72bb99ace345dcf7ae8b3e877ab1dc2f}{%
-           family={Austin},
-           familyi={A\bibinitperiod},
-           given={Peter\bibnamedelima C.},
-           giveni={P\bibinitperiod\bibinitdelim C\bibinitperiod},
-           givenun=0}}%
-      }
-      \strng{namehash}{72bb99ace345dcf7ae8b3e877ab1dc2f}
-      \strng{fullhash}{72bb99ace345dcf7ae8b3e877ab1dc2f}
-      \strng{bibnamehash}{72bb99ace345dcf7ae8b3e877ab1dc2f}
-      \strng{authorbibnamehash}{72bb99ace345dcf7ae8b3e877ab1dc2f}
-      \strng{authornamehash}{72bb99ace345dcf7ae8b3e877ab1dc2f}
-      \strng{authorfullhash}{72bb99ace345dcf7ae8b3e877ab1dc2f}
-      \field{sortinit}{A}
-      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
-      \field{extradatescope}{labelyear}
-      \field{labeldatesource}{}
-      \true{uniqueprimaryauthor}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{journaltitle}{Statistics in Medicine}
-      \field{number}{25}
-      \field{title}{Balance Diagnostics for Comparing the Distribution of Baseline Covariates between Treatment Groups in Propensity-Score Matched Samples}
-      \field{volume}{28}
-      \field{year}{2009}
-      \field{pages}{3083\bibrangedash 3107}
-      \range{pages}{25}
-      \verb{doi}
-      \verb 10.1002/sim.3697
-      \endverb
-    \endentry
     \entry{azam2016}{article}{}
       \name{author}{2}{}{%
         {{un=0,uniquepart=base,hash=303a0c327430e04d9acf97a5af9a9ba0}{%
@@ -3012,39 +2979,6 @@
       \field{note}{Preprint}
       \field{title}{On Altruism and Remittances}
       \field{year}{2013}
-    \endentry
-    \entry{austin2009}{article}{}
-      \name{author}{1}{}{%
-        {{un=0,uniquepart=base,hash=72bb99ace345dcf7ae8b3e877ab1dc2f}{%
-           family={Austin},
-           familyi={A\bibinitperiod},
-           given={Peter\bibnamedelima C.},
-           giveni={P\bibinitperiod\bibinitdelim C\bibinitperiod},
-           givenun=0}}%
-      }
-      \strng{namehash}{72bb99ace345dcf7ae8b3e877ab1dc2f}
-      \strng{fullhash}{72bb99ace345dcf7ae8b3e877ab1dc2f}
-      \strng{bibnamehash}{72bb99ace345dcf7ae8b3e877ab1dc2f}
-      \strng{authorbibnamehash}{72bb99ace345dcf7ae8b3e877ab1dc2f}
-      \strng{authornamehash}{72bb99ace345dcf7ae8b3e877ab1dc2f}
-      \strng{authorfullhash}{72bb99ace345dcf7ae8b3e877ab1dc2f}
-      \field{sortinit}{A}
-      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
-      \field{extradatescope}{labelyear}
-      \field{labeldatesource}{}
-      \true{uniqueprimaryauthor}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{journaltitle}{Statistics in Medicine}
-      \field{number}{25}
-      \field{title}{Balance Diagnostics for Comparing the Distribution of Baseline Covariates between Treatment Groups in Propensity-Score Matched Samples}
-      \field{volume}{28}
-      \field{year}{2009}
-      \field{pages}{3083\bibrangedash 3107}
-      \range{pages}{25}
-      \verb{doi}
-      \verb 10.1002/sim.3697
-      \endverb
     \endentry
     \entry{azam2016}{article}{}
       \name{author}{2}{}{%
