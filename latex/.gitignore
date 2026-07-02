@@ -1,6 +1,5 @@
-# LaTeX build artifacts
+# Artefacts de compilation LaTeX (régénérés automatiquement)
 *.aux
-*.bbl
 *.blg
 *.lof
 *.log
@@ -13,3 +12,9 @@
 *.fdb_latexmk
 *.fls
 texput.log
+# Le .bbl et le .bcf de main sont VERSIONNÉS volontairement :
+# ils permettent d'afficher la bibliographie même si biber n'est pas lancé.
+*.bbl
+!main.bbl
+*.bcf
+!main.bcf
