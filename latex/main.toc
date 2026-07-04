@@ -7,33 +7,33 @@
 \contentsline {section}{\numberline {1}Revue de la littérature}{4}{section.1}%
 \contentsline {subsection}{\numberline {1.1}Revue théorique}{4}{subsection.1.1}%
 \contentsline {subsubsection}{\numberline {1.1.1}Les transferts de migrants : définitions, ampleur et théories}{4}{subsubsection.1.1.1}%
-\contentsline {subsubsection}{\numberline {1.1.2}Canaux d'impact des transferts sur la pauvreté multidimensionnelle des enfants}{9}{subsubsection.1.1.2}%
-\contentsline {subsection}{\numberline {1.2}Revue empirique}{10}{subsection.1.2}%
-\contentsline {subsubsection}{\numberline {1.2.1}Impact des transferts sur le bien-être des ménages}{10}{subsubsection.1.2.1}%
-\contentsline {subsubsection}{\numberline {1.2.2}Effets ambigus et limites : la mise en garde de la littérature qualitative}{14}{subsubsection.1.2.2}%
-\contentsline {subsubsection}{\numberline {1.2.3}Synthèse de la revue empirique}{15}{subsubsection.1.2.3}%
-\contentsline {subsubsection}{\numberline {1.2.4}Transferts et pauvreté multidimensionnelle : bilan et lacunes}{15}{subsubsection.1.2.4}%
-\contentsline {section}{\numberline {2}Données et méthodologie}{18}{section.2}%
-\contentsline {subsection}{\numberline {2.1}Données : les enquêtes EHCVM I et II}{18}{subsection.2.1}%
-\contentsline {subsubsection}{\numberline {2.1.1}Présentation des enquêtes}{18}{subsubsection.2.1.1}%
-\contentsline {subsubsection}{\numberline {2.1.2}Construction de l'échantillon}{19}{subsubsection.2.1.2}%
-\contentsline {subsubsection}{\numberline {2.1.3}Variable de traitement}{20}{subsubsection.2.1.3}%
-\contentsline {subsubsection}{\numberline {2.1.4}Covariables du modèle de propension}{20}{subsubsection.2.1.4}%
-\contentsline {subsection}{\numberline {2.2}Mesure de la pauvreté multidimensionnelle des enfants}{21}{subsection.2.2}%
-\contentsline {subsubsection}{\numberline {2.2.1}Fondements conceptuels}{21}{subsubsection.2.2.1}%
-\contentsline {subsubsection}{\numberline {2.2.2}Première approche : l'indice Alkire-Foster (IPM-Enfant)}{22}{subsubsection.2.2.2}%
-\contentsline {subsubsection}{\numberline {2.2.3}Deuxième approche : MODA (Multiple Overlapping Deprivation Analysis)}{23}{subsubsection.2.2.3}%
-\contentsline {subsubsection}{\numberline {2.2.4}Variables de résultat dans l'estimation PSM-DD}{26}{subsubsection.2.2.4}%
-\contentsline {subsection}{\numberline {2.3}Stratégie d'identification causale : PSM-Double différence}{26}{subsection.2.3}%
-\contentsline {subsubsection}{\numberline {2.3.1}Le cadre des résultats potentiels}{26}{subsubsection.2.3.1}%
-\contentsline {subsubsection}{\numberline {2.3.2}L'appariement par score de propension (PSM)}{27}{subsubsection.2.3.2}%
-\contentsline {subsubsection}{\numberline {2.3.3}La double différence (DD)}{28}{subsubsection.2.3.3}%
-\contentsline {subsubsection}{\numberline {2.3.4}L'estimateur PSM-DD}{28}{subsubsection.2.3.4}%
-\contentsline {subsubsection}{\numberline {2.3.5}Analyses d'hétérogénéité et de robustesse}{28}{subsubsection.2.3.5}%
-\contentsline {section}{\numberline {3}Statistiques descriptives}{30}{section.3}%
-\contentsline {section}{\numberline {4}Résultats des estimations}{31}{section.4}%
-\contentsline {section}{\numberline {5}Discussion}{32}{section.5}%
-\contentsline {section}{Conclusion et recommandations}{33}{section*.7}%
-\contentsline {section}{Annexes}{34}{section*.8}%
-\contentsline {section}{Références bibliographiques}{35}{section*.9}%
-\contentsline {section}{Table des matières}{40}{section*.10}%
+\contentsline {subsubsection}{\numberline {1.1.2}Canaux d'impact des transferts sur la pauvreté multidimensionnelle des enfants}{10}{subsubsection.1.1.2}%
+\contentsline {subsection}{\numberline {1.2}Revue empirique}{11}{subsection.1.2}%
+\contentsline {subsubsection}{\numberline {1.2.1}Impact des transferts sur le bien-être des ménages}{11}{subsubsection.1.2.1}%
+\contentsline {subsubsection}{\numberline {1.2.2}Effets ambigus et limites : la mise en garde de la littérature qualitative}{15}{subsubsection.1.2.2}%
+\contentsline {subsubsection}{\numberline {1.2.3}Synthèse de la revue empirique}{16}{subsubsection.1.2.3}%
+\contentsline {subsubsection}{\numberline {1.2.4}Transferts et pauvreté multidimensionnelle : bilan et lacunes}{16}{subsubsection.1.2.4}%
+\contentsline {section}{\numberline {2}Données et méthodologie}{19}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Données : les enquêtes EHCVM I et II}{19}{subsection.2.1}%
+\contentsline {subsubsection}{\numberline {2.1.1}Présentation des enquêtes}{19}{subsubsection.2.1.1}%
+\contentsline {subsubsection}{\numberline {2.1.2}Construction de l'échantillon}{20}{subsubsection.2.1.2}%
+\contentsline {subsubsection}{\numberline {2.1.3}Variable de traitement}{21}{subsubsection.2.1.3}%
+\contentsline {subsubsection}{\numberline {2.1.4}Covariables du modèle de propension}{21}{subsubsection.2.1.4}%
+\contentsline {subsection}{\numberline {2.2}Mesure de la pauvreté multidimensionnelle des enfants}{22}{subsection.2.2}%
+\contentsline {subsubsection}{\numberline {2.2.1}Fondements conceptuels}{22}{subsubsection.2.2.1}%
+\contentsline {subsubsection}{\numberline {2.2.2}Première approche : l'indice Alkire-Foster (IPM-Enfant)}{23}{subsubsection.2.2.2}%
+\contentsline {subsubsection}{\numberline {2.2.3}Deuxième approche : MODA (Multiple Overlapping Deprivation Analysis)}{24}{subsubsection.2.2.3}%
+\contentsline {subsubsection}{\numberline {2.2.4}Variables de résultat dans l'estimation PSM-DD}{27}{subsubsection.2.2.4}%
+\contentsline {subsection}{\numberline {2.3}Stratégie d'identification causale : PSM-Double différence}{27}{subsection.2.3}%
+\contentsline {subsubsection}{\numberline {2.3.1}Le cadre des résultats potentiels}{27}{subsubsection.2.3.1}%
+\contentsline {subsubsection}{\numberline {2.3.2}L'appariement par score de propension (PSM)}{28}{subsubsection.2.3.2}%
+\contentsline {subsubsection}{\numberline {2.3.3}La double différence (DD)}{29}{subsubsection.2.3.3}%
+\contentsline {subsubsection}{\numberline {2.3.4}L'estimateur PSM-DD}{29}{subsubsection.2.3.4}%
+\contentsline {subsubsection}{\numberline {2.3.5}Analyses d'hétérogénéité et de robustesse}{29}{subsubsection.2.3.5}%
+\contentsline {section}{\numberline {3}Statistiques descriptives}{31}{section.3}%
+\contentsline {section}{\numberline {4}Résultats des estimations}{32}{section.4}%
+\contentsline {section}{\numberline {5}Discussion}{33}{section.5}%
+\contentsline {section}{Conclusion et recommandations}{34}{section*.7}%
+\contentsline {section}{Annexes}{35}{section*.8}%
+\contentsline {section}{Références bibliographiques}{36}{section*.9}%
+\contentsline {section}{Table des matières}{42}{section*.10}%

@@ -668,6 +668,50 @@
       \field{pages}{266\bibrangedash 280}
       \range{pages}{15}
     \endentry
+    \entry{bourdieu1986}{inbook}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=66fa13ccac127aceaa40508629646509}{%
+           family={Bourdieu},
+           familyi={B\bibinitperiod},
+           given={Pierre},
+           giveni={P\bibinitperiod},
+           givenun=0}}%
+      }
+      \name{editor}{1}{}{%
+        {{hash=c987d29a66504bcb0899a303de4bddb8}{%
+           family={Richardson},
+           familyi={R\bibinitperiod},
+           given={John\bibnamedelima G.},
+           giveni={J\bibinitperiod\bibinitdelim G\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {New York}%
+      }
+      \list{publisher}{1}{%
+        {Greenwood Press}%
+      }
+      \strng{namehash}{66fa13ccac127aceaa40508629646509}
+      \strng{fullhash}{66fa13ccac127aceaa40508629646509}
+      \strng{bibnamehash}{66fa13ccac127aceaa40508629646509}
+      \strng{authorbibnamehash}{66fa13ccac127aceaa40508629646509}
+      \strng{authornamehash}{66fa13ccac127aceaa40508629646509}
+      \strng{authorfullhash}{66fa13ccac127aceaa40508629646509}
+      \strng{editorbibnamehash}{c987d29a66504bcb0899a303de4bddb8}
+      \strng{editornamehash}{c987d29a66504bcb0899a303de4bddb8}
+      \strng{editorfullhash}{c987d29a66504bcb0899a303de4bddb8}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Handbook of Theory and Research for the Sociology of Education}
+      \field{title}{The Forms of Capital}
+      \field{year}{1986}
+      \field{pages}{241\bibrangedash 258}
+      \range{pages}{18}
+    \endentry
     \entry{bucheli2018}{article}{}
       \name{author}{3}{}{%
         {{un=0,uniquepart=base,hash=64bf31b450f07f557c8ff88d6993a066}{%
@@ -1513,6 +1557,42 @@
       \field{pages}{173\bibrangedash 200}
       \range{pages}{28}
     \endentry
+    \entry{harris1970}{article}{}
+      \name{author}{2}{}{%
+        {{un=0,uniquepart=base,hash=2747d43a00cf446fc85694d7398d38ea}{%
+           family={Harris},
+           familyi={H\bibinitperiod},
+           given={John\bibnamedelima R.},
+           giveni={J\bibinitperiod\bibinitdelim R\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=d54524e11677b9dd4880b2beb5e96a9b}{%
+           family={Todaro},
+           familyi={T\bibinitperiod},
+           given={Michael\bibnamedelima P.},
+           giveni={M\bibinitperiod\bibinitdelim P\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{53c67a418977d2eb13f2b23d04ec1308}
+      \strng{fullhash}{53c67a418977d2eb13f2b23d04ec1308}
+      \strng{bibnamehash}{53c67a418977d2eb13f2b23d04ec1308}
+      \strng{authorbibnamehash}{53c67a418977d2eb13f2b23d04ec1308}
+      \strng{authornamehash}{53c67a418977d2eb13f2b23d04ec1308}
+      \strng{authorfullhash}{53c67a418977d2eb13f2b23d04ec1308}
+      \field{sortinit}{H}
+      \field{sortinithash}{23a3aa7c24e56cfa16945d55545109b5}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{American Economic Review}
+      \field{number}{1}
+      \field{title}{Migration, Unemployment and Development: A Two-Sector Analysis}
+      \field{volume}{60}
+      \field{year}{1970}
+      \field{pages}{126\bibrangedash 142}
+      \range{pages}{17}
+    \endentry
     \entry{heckman1997}{article}{}
       \name{author}{3}{}{%
         {{un=0,uniquepart=base,hash=b70b920520f54634a1f03f9312707db2}{%
@@ -1802,6 +1882,69 @@
       \field{number}{3945}
       \field{title}{Migration, School Attainment, and Child Labour: Evidence from Rural Pakistan}
       \field{year}{2006}
+    \endentry
+    \entry{massey1993}{article}{}
+      \name{author}{6}{}{%
+        {{un=0,uniquepart=base,hash=fe5595e6b704e1128167b3ff37d35106}{%
+           family={Massey},
+           familyi={M\bibinitperiod},
+           given={Douglas\bibnamedelima S.},
+           giveni={D\bibinitperiod\bibinitdelim S\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=23ab48cbf4c2594e8c8a439f8c26d59e}{%
+           family={Arango},
+           familyi={A\bibinitperiod},
+           given={Joaquin},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=b1e9a86f9755a8cb95bc37904b9f76b6}{%
+           family={Hugo},
+           familyi={H\bibinitperiod},
+           given={Graeme},
+           giveni={G\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=322f60be2a519a4a14ddea9b4b4739ae}{%
+           family={Kouaouci},
+           familyi={K\bibinitperiod},
+           given={Ali},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=6636e9a1bc2de77495e709d4ead809e5}{%
+           family={Pellegrino},
+           familyi={P\bibinitperiod},
+           given={Adela},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=b11c454be6664944b5a1f55b438f9302}{%
+           family={Taylor},
+           familyi={T\bibinitperiod},
+           given={J.\bibnamedelimi Edward},
+           giveni={J\bibinitperiod\bibinitdelim E\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{fe0a22a509c4891a89cf2481d0598f8c}
+      \strng{fullhash}{a778a7863446991d78a6c28686879805}
+      \strng{bibnamehash}{a778a7863446991d78a6c28686879805}
+      \strng{authorbibnamehash}{a778a7863446991d78a6c28686879805}
+      \strng{authornamehash}{fe0a22a509c4891a89cf2481d0598f8c}
+      \strng{authorfullhash}{a778a7863446991d78a6c28686879805}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Population and Development Review}
+      \field{number}{3}
+      \field{title}{Theories of International Migration: A Review and Appraisal}
+      \field{volume}{19}
+      \field{year}{1993}
+      \field{pages}{431\bibrangedash 466}
+      \range{pages}{36}
+      \verb{doi}
+      \verb 10.2307/2938462
+      \endverb
     \endentry
     \entry{mckenzie2012}{article}{}
       \name{author}{2}{}{%
@@ -2306,6 +2449,39 @@
       \field{labeltitlesource}{title}
       \field{title}{Development as Freedom}
       \field{year}{1999}
+    \endentry
+    \entry{sjaastad1962}{article}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=dfa6abffa8fcdf70021646e5f2430313}{%
+           family={Sjaastad},
+           familyi={S\bibinitperiod},
+           given={Larry\bibnamedelima A.},
+           giveni={L\bibinitperiod\bibinitdelim A\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{dfa6abffa8fcdf70021646e5f2430313}
+      \strng{fullhash}{dfa6abffa8fcdf70021646e5f2430313}
+      \strng{bibnamehash}{dfa6abffa8fcdf70021646e5f2430313}
+      \strng{authorbibnamehash}{dfa6abffa8fcdf70021646e5f2430313}
+      \strng{authornamehash}{dfa6abffa8fcdf70021646e5f2430313}
+      \strng{authorfullhash}{dfa6abffa8fcdf70021646e5f2430313}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal of Political Economy}
+      \field{number}{5}
+      \field{title}{The Costs and Returns of Human Migration}
+      \field{volume}{70}
+      \field{year}{1962}
+      \field{pages}{80\bibrangedash 93}
+      \range{pages}{14}
+      \verb{doi}
+      \verb 10.1086/258726
+      \endverb
     \endentry
     \entry{smith2005}{article}{}
       \name{author}{2}{}{%
@@ -3205,6 +3381,50 @@
       \field{pages}{266\bibrangedash 280}
       \range{pages}{15}
     \endentry
+    \entry{bourdieu1986}{inbook}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=66fa13ccac127aceaa40508629646509}{%
+           family={Bourdieu},
+           familyi={B\bibinitperiod},
+           given={Pierre},
+           giveni={P\bibinitperiod},
+           givenun=0}}%
+      }
+      \name{editor}{1}{}{%
+        {{hash=c987d29a66504bcb0899a303de4bddb8}{%
+           family={Richardson},
+           familyi={R\bibinitperiod},
+           given={John\bibnamedelima G.},
+           giveni={J\bibinitperiod\bibinitdelim G\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {New York}%
+      }
+      \list{publisher}{1}{%
+        {Greenwood Press}%
+      }
+      \strng{namehash}{66fa13ccac127aceaa40508629646509}
+      \strng{fullhash}{66fa13ccac127aceaa40508629646509}
+      \strng{bibnamehash}{66fa13ccac127aceaa40508629646509}
+      \strng{authorbibnamehash}{66fa13ccac127aceaa40508629646509}
+      \strng{authornamehash}{66fa13ccac127aceaa40508629646509}
+      \strng{authorfullhash}{66fa13ccac127aceaa40508629646509}
+      \strng{editorbibnamehash}{c987d29a66504bcb0899a303de4bddb8}
+      \strng{editornamehash}{c987d29a66504bcb0899a303de4bddb8}
+      \strng{editorfullhash}{c987d29a66504bcb0899a303de4bddb8}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Handbook of Theory and Research for the Sociology of Education}
+      \field{title}{The Forms of Capital}
+      \field{year}{1986}
+      \field{pages}{241\bibrangedash 258}
+      \range{pages}{18}
+    \endentry
     \entry{bucheli2018}{article}{}
       \name{author}{3}{}{%
         {{un=0,uniquepart=base,hash=64bf31b450f07f557c8ff88d6993a066}{%
@@ -4050,6 +4270,42 @@
       \field{pages}{173\bibrangedash 200}
       \range{pages}{28}
     \endentry
+    \entry{harris1970}{article}{}
+      \name{author}{2}{}{%
+        {{un=0,uniquepart=base,hash=2747d43a00cf446fc85694d7398d38ea}{%
+           family={Harris},
+           familyi={H\bibinitperiod},
+           given={John\bibnamedelima R.},
+           giveni={J\bibinitperiod\bibinitdelim R\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=d54524e11677b9dd4880b2beb5e96a9b}{%
+           family={Todaro},
+           familyi={T\bibinitperiod},
+           given={Michael\bibnamedelima P.},
+           giveni={M\bibinitperiod\bibinitdelim P\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{53c67a418977d2eb13f2b23d04ec1308}
+      \strng{fullhash}{53c67a418977d2eb13f2b23d04ec1308}
+      \strng{bibnamehash}{53c67a418977d2eb13f2b23d04ec1308}
+      \strng{authorbibnamehash}{53c67a418977d2eb13f2b23d04ec1308}
+      \strng{authornamehash}{53c67a418977d2eb13f2b23d04ec1308}
+      \strng{authorfullhash}{53c67a418977d2eb13f2b23d04ec1308}
+      \field{sortinit}{H}
+      \field{sortinithash}{23a3aa7c24e56cfa16945d55545109b5}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{American Economic Review}
+      \field{number}{1}
+      \field{title}{Migration, Unemployment and Development: A Two-Sector Analysis}
+      \field{volume}{60}
+      \field{year}{1970}
+      \field{pages}{126\bibrangedash 142}
+      \range{pages}{17}
+    \endentry
     \entry{heckman1998}{article}{}
       \name{author}{4}{}{%
         {{un=0,uniquepart=base,hash=b70b920520f54634a1f03f9312707db2}{%
@@ -4339,6 +4595,69 @@
       \field{number}{3945}
       \field{title}{Migration, School Attainment, and Child Labour: Evidence from Rural Pakistan}
       \field{year}{2006}
+    \endentry
+    \entry{massey1993}{article}{}
+      \name{author}{6}{}{%
+        {{un=0,uniquepart=base,hash=fe5595e6b704e1128167b3ff37d35106}{%
+           family={Massey},
+           familyi={M\bibinitperiod},
+           given={Douglas\bibnamedelima S.},
+           giveni={D\bibinitperiod\bibinitdelim S\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=23ab48cbf4c2594e8c8a439f8c26d59e}{%
+           family={Arango},
+           familyi={A\bibinitperiod},
+           given={Joaquin},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=b1e9a86f9755a8cb95bc37904b9f76b6}{%
+           family={Hugo},
+           familyi={H\bibinitperiod},
+           given={Graeme},
+           giveni={G\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=322f60be2a519a4a14ddea9b4b4739ae}{%
+           family={Kouaouci},
+           familyi={K\bibinitperiod},
+           given={Ali},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=6636e9a1bc2de77495e709d4ead809e5}{%
+           family={Pellegrino},
+           familyi={P\bibinitperiod},
+           given={Adela},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=b11c454be6664944b5a1f55b438f9302}{%
+           family={Taylor},
+           familyi={T\bibinitperiod},
+           given={J.\bibnamedelimi Edward},
+           giveni={J\bibinitperiod\bibinitdelim E\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{fe0a22a509c4891a89cf2481d0598f8c}
+      \strng{fullhash}{a778a7863446991d78a6c28686879805}
+      \strng{bibnamehash}{a778a7863446991d78a6c28686879805}
+      \strng{authorbibnamehash}{a778a7863446991d78a6c28686879805}
+      \strng{authornamehash}{fe0a22a509c4891a89cf2481d0598f8c}
+      \strng{authorfullhash}{a778a7863446991d78a6c28686879805}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Population and Development Review}
+      \field{number}{3}
+      \field{title}{Theories of International Migration: A Review and Appraisal}
+      \field{volume}{19}
+      \field{year}{1993}
+      \field{pages}{431\bibrangedash 466}
+      \range{pages}{36}
+      \verb{doi}
+      \verb 10.2307/2938462
+      \endverb
     \endentry
     \entry{mckenzie2012}{article}{}
       \name{author}{2}{}{%
@@ -4843,6 +5162,39 @@
       \field{labeltitlesource}{title}
       \field{title}{Development as Freedom}
       \field{year}{1999}
+    \endentry
+    \entry{sjaastad1962}{article}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=dfa6abffa8fcdf70021646e5f2430313}{%
+           family={Sjaastad},
+           familyi={S\bibinitperiod},
+           given={Larry\bibnamedelima A.},
+           giveni={L\bibinitperiod\bibinitdelim A\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{dfa6abffa8fcdf70021646e5f2430313}
+      \strng{fullhash}{dfa6abffa8fcdf70021646e5f2430313}
+      \strng{bibnamehash}{dfa6abffa8fcdf70021646e5f2430313}
+      \strng{authorbibnamehash}{dfa6abffa8fcdf70021646e5f2430313}
+      \strng{authornamehash}{dfa6abffa8fcdf70021646e5f2430313}
+      \strng{authorfullhash}{dfa6abffa8fcdf70021646e5f2430313}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal of Political Economy}
+      \field{number}{5}
+      \field{title}{The Costs and Returns of Human Migration}
+      \field{volume}{70}
+      \field{year}{1962}
+      \field{pages}{80\bibrangedash 93}
+      \range{pages}{14}
+      \verb{doi}
+      \verb 10.1086/258726
+      \endverb
     \endentry
     \entry{smith2005}{article}{}
       \name{author}{2}{}{%
