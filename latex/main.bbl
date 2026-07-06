@@ -399,50 +399,6 @@
       \field{pages}{293\bibrangedash 308}
       \range{pages}{16}
     \endentry
-    \entry{antoniades2013}{unpublished}{}
-      \name{author}{4}{}{%
-        {{un=0,uniquepart=base,hash=8fe9e4911be886597f6de3b0df140f3c}{%
-           family={Antoniades},
-           familyi={A\bibinitperiod},
-           given={Alexis},
-           giveni={A\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=63697388678416b00fe504f3a90773b0}{%
-           family={Seshan},
-           familyi={S\bibinitperiod},
-           given={Ganesh},
-           giveni={G\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=3525701abea244f050fd85d416c86364}{%
-           family={Weber},
-           familyi={W\bibinitperiod},
-           given={Roberto},
-           giveni={R\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=26766859a1721cee7c55c0b048dc7b86}{%
-           family={Zubrickas},
-           familyi={Z\bibinitperiod},
-           given={Robertas},
-           giveni={R\bibinitperiod},
-           givenun=0}}%
-      }
-      \strng{namehash}{9fd8d4665878660450e22865e9f3b143}
-      \strng{fullhash}{29f5ff351f9983004db1e3cf09a4fc6b}
-      \strng{bibnamehash}{29f5ff351f9983004db1e3cf09a4fc6b}
-      \strng{authorbibnamehash}{29f5ff351f9983004db1e3cf09a4fc6b}
-      \strng{authornamehash}{9fd8d4665878660450e22865e9f3b143}
-      \strng{authorfullhash}{29f5ff351f9983004db1e3cf09a4fc6b}
-      \field{sortinit}{A}
-      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
-      \field{extradatescope}{labelyear}
-      \field{labeldatesource}{}
-      \true{uniqueprimaryauthor}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{note}{Preprint}
-      \field{title}{On altruism and remittances}
-      \field{year}{2013}
-    \endentry
     \entry{austin2009}{article}{}
       \name{author}{1}{}{%
         {{un=0,uniquepart=base,hash=72bb99ace345dcf7ae8b3e877ab1dc2f}{%
@@ -1724,50 +1680,6 @@
       \verb 10.2307/2999630
       \endverb
     \endentry
-    \entry{henry2009}{report}{}
-      \name{author}{3}{}{%
-        {{un=0,uniquepart=base,hash=5809497dfa9e7f0c3158c0cfee45e988}{%
-           family={Henry},
-           familyi={H\bibinitperiod},
-           given={Chandar},
-           giveni={C\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=d45ab85f1f84e4428e7fd496799154b8}{%
-           family={Moulton},
-           familyi={M\bibinitperiod},
-           given={Jermaine},
-           giveni={J\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=c183ab7ed6670b643121dd4e0264ff8b}{%
-           family={Ricketts},
-           familyi={R\bibinitperiod},
-           given={Jermaine},
-           giveni={J\bibinitperiod},
-           givenun=0}}%
-      }
-      \list{institution}{1}{%
-        {Bank of Jamaica}%
-      }
-      \list{location}{1}{%
-        {Kingston}%
-      }
-      \strng{namehash}{80d705871926c8c4936ae6c232acf06f}
-      \strng{fullhash}{3bee77988c050ef20078e8e29c1bf748}
-      \strng{bibnamehash}{3bee77988c050ef20078e8e29c1bf748}
-      \strng{authorbibnamehash}{3bee77988c050ef20078e8e29c1bf748}
-      \strng{authornamehash}{80d705871926c8c4936ae6c232acf06f}
-      \strng{authorfullhash}{3bee77988c050ef20078e8e29c1bf748}
-      \field{sortinit}{H}
-      \field{sortinithash}{23a3aa7c24e56cfa16945d55545109b5}
-      \field{extradatescope}{labelyear}
-      \field{labeldatesource}{}
-      \true{uniqueprimaryauthor}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{title}{Motives for sending remittances to jamaica: An application of the BPM6 definition of remittances}
-      \field{type}{techreport}
-      \field{year}{2009}
-    \endentry
     \entry{hildebrandt2005}{article}{}
       \name{author}{2}{}{%
         {{un=0,uniquepart=base,hash=61ca8a0653baebe95363eaff4821ce4e}{%
@@ -2163,46 +2075,6 @@
       \verb 10.1787/9789264278615-fr
       \endverb
     \endentry
-    \entry{piracha2011}{report}{}
-      \name{author}{2}{}{%
-        {{un=0,uniquepart=base,hash=913b19bd16ad52b99bde4437b72a1d68}{%
-           family={Piracha},
-           familyi={P\bibinitperiod},
-           given={Matloob},
-           giveni={M\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=f45286a6bcaf83d86dfe9555dbcbbdee}{%
-           family={Saraogi},
-           familyi={S\bibinitperiod},
-           given={Amrita},
-           giveni={A\bibinitperiod},
-           givenun=0}}%
-      }
-      \list{institution}{1}{%
-        {IZA - Institute for the Study of Labor}%
-      }
-      \list{location}{1}{%
-        {Bonn}%
-      }
-      \strng{namehash}{78a536f74c32d5a2757430f6828c8f36}
-      \strng{fullhash}{78a536f74c32d5a2757430f6828c8f36}
-      \strng{bibnamehash}{78a536f74c32d5a2757430f6828c8f36}
-      \strng{authorbibnamehash}{78a536f74c32d5a2757430f6828c8f36}
-      \strng{authornamehash}{78a536f74c32d5a2757430f6828c8f36}
-      \strng{authorfullhash}{78a536f74c32d5a2757430f6828c8f36}
-      \field{sortinit}{P}
-      \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
-      \field{extradatescope}{labelyear}
-      \field{labeldatesource}{}
-      \true{uniqueprimaryauthor}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{note}{IZA Discussion Paper}
-      \field{number}{5467}
-      \field{title}{Motivations for remittances: Evidence from moldova}
-      \field{type}{techreport}
-      \field{year}{2011}
-    \endentry
     \entry{pnud2010}{report}{}
       \name{author}{1}{}{%
         {{un=0,uniquepart=base,hash=a9bd184f91d73c51b3b5710f8649c517}{%
@@ -2376,46 +2248,6 @@
       \verb{doi}
       \verb 10.1093/biomet/70.1.41
       \endverb
-    \endentry
-    \entry{schiopu2006}{report}{}
-      \name{author}{2}{}{%
-        {{un=0,uniquepart=base,hash=be6d4e84ead7426cce8127a5afd0e155}{%
-           family={Schiopu},
-           familyi={S\bibinitperiod},
-           given={Ioana},
-           giveni={I\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=13cc876341351633c2976acb8ed3779f}{%
-           family={Siegfried},
-           familyi={S\bibinitperiod},
-           given={Nikolaus},
-           giveni={N\bibinitperiod},
-           givenun=0}}%
-      }
-      \list{institution}{1}{%
-        {European Central Bank}%
-      }
-      \list{location}{1}{%
-        {Frankfurt am Main}%
-      }
-      \strng{namehash}{9f5dd712decaee98d623c98d06d1ab26}
-      \strng{fullhash}{9f5dd712decaee98d623c98d06d1ab26}
-      \strng{bibnamehash}{9f5dd712decaee98d623c98d06d1ab26}
-      \strng{authorbibnamehash}{9f5dd712decaee98d623c98d06d1ab26}
-      \strng{authornamehash}{9f5dd712decaee98d623c98d06d1ab26}
-      \strng{authorfullhash}{9f5dd712decaee98d623c98d06d1ab26}
-      \field{sortinit}{S}
-      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
-      \field{extradatescope}{labelyear}
-      \field{labeldatesource}{}
-      \true{uniqueprimaryauthor}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{note}{ECB Working Paper Series}
-      \field{number}{688}
-      \field{title}{Determinants of workers' remittances: Evidence from the european neighbouring region}
-      \field{type}{techreport}
-      \field{year}{2006}
     \endentry
     \entry{sen1985}{article}{}
       \name{author}{1}{}{%
@@ -3145,50 +2977,6 @@
       \field{pages}{293\bibrangedash 308}
       \range{pages}{16}
     \endentry
-    \entry{antoniades2013}{unpublished}{}
-      \name{author}{4}{}{%
-        {{un=0,uniquepart=base,hash=8fe9e4911be886597f6de3b0df140f3c}{%
-           family={Antoniades},
-           familyi={A\bibinitperiod},
-           given={Alexis},
-           giveni={A\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=63697388678416b00fe504f3a90773b0}{%
-           family={Seshan},
-           familyi={S\bibinitperiod},
-           given={Ganesh},
-           giveni={G\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=3525701abea244f050fd85d416c86364}{%
-           family={Weber},
-           familyi={W\bibinitperiod},
-           given={Roberto},
-           giveni={R\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=26766859a1721cee7c55c0b048dc7b86}{%
-           family={Zubrickas},
-           familyi={Z\bibinitperiod},
-           given={Robertas},
-           giveni={R\bibinitperiod},
-           givenun=0}}%
-      }
-      \strng{namehash}{9fd8d4665878660450e22865e9f3b143}
-      \strng{fullhash}{29f5ff351f9983004db1e3cf09a4fc6b}
-      \strng{bibnamehash}{29f5ff351f9983004db1e3cf09a4fc6b}
-      \strng{authorbibnamehash}{29f5ff351f9983004db1e3cf09a4fc6b}
-      \strng{authornamehash}{9fd8d4665878660450e22865e9f3b143}
-      \strng{authorfullhash}{29f5ff351f9983004db1e3cf09a4fc6b}
-      \field{sortinit}{A}
-      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
-      \field{extradatescope}{labelyear}
-      \field{labeldatesource}{}
-      \true{uniqueprimaryauthor}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{note}{Preprint}
-      \field{title}{On altruism and remittances}
-      \field{year}{2013}
-    \endentry
     \entry{austin2009}{article}{}
       \name{author}{1}{}{%
         {{un=0,uniquepart=base,hash=72bb99ace345dcf7ae8b3e877ab1dc2f}{%
@@ -4470,50 +4258,6 @@
       \verb 10.2307/2971733
       \endverb
     \endentry
-    \entry{henry2009}{report}{}
-      \name{author}{3}{}{%
-        {{un=0,uniquepart=base,hash=5809497dfa9e7f0c3158c0cfee45e988}{%
-           family={Henry},
-           familyi={H\bibinitperiod},
-           given={Chandar},
-           giveni={C\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=d45ab85f1f84e4428e7fd496799154b8}{%
-           family={Moulton},
-           familyi={M\bibinitperiod},
-           given={Jermaine},
-           giveni={J\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=c183ab7ed6670b643121dd4e0264ff8b}{%
-           family={Ricketts},
-           familyi={R\bibinitperiod},
-           given={Jermaine},
-           giveni={J\bibinitperiod},
-           givenun=0}}%
-      }
-      \list{institution}{1}{%
-        {Bank of Jamaica}%
-      }
-      \list{location}{1}{%
-        {Kingston}%
-      }
-      \strng{namehash}{80d705871926c8c4936ae6c232acf06f}
-      \strng{fullhash}{3bee77988c050ef20078e8e29c1bf748}
-      \strng{bibnamehash}{3bee77988c050ef20078e8e29c1bf748}
-      \strng{authorbibnamehash}{3bee77988c050ef20078e8e29c1bf748}
-      \strng{authornamehash}{80d705871926c8c4936ae6c232acf06f}
-      \strng{authorfullhash}{3bee77988c050ef20078e8e29c1bf748}
-      \field{sortinit}{H}
-      \field{sortinithash}{23a3aa7c24e56cfa16945d55545109b5}
-      \field{extradatescope}{labelyear}
-      \field{labeldatesource}{}
-      \true{uniqueprimaryauthor}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{title}{Motives for sending remittances to jamaica: An application of the BPM6 definition of remittances}
-      \field{type}{techreport}
-      \field{year}{2009}
-    \endentry
     \entry{hildebrandt2005}{article}{}
       \name{author}{2}{}{%
         {{un=0,uniquepart=base,hash=61ca8a0653baebe95363eaff4821ce4e}{%
@@ -4909,46 +4653,6 @@
       \verb 10.1787/9789264278615-fr
       \endverb
     \endentry
-    \entry{piracha2011}{report}{}
-      \name{author}{2}{}{%
-        {{un=0,uniquepart=base,hash=913b19bd16ad52b99bde4437b72a1d68}{%
-           family={Piracha},
-           familyi={P\bibinitperiod},
-           given={Matloob},
-           giveni={M\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=f45286a6bcaf83d86dfe9555dbcbbdee}{%
-           family={Saraogi},
-           familyi={S\bibinitperiod},
-           given={Amrita},
-           giveni={A\bibinitperiod},
-           givenun=0}}%
-      }
-      \list{institution}{1}{%
-        {IZA - Institute for the Study of Labor}%
-      }
-      \list{location}{1}{%
-        {Bonn}%
-      }
-      \strng{namehash}{78a536f74c32d5a2757430f6828c8f36}
-      \strng{fullhash}{78a536f74c32d5a2757430f6828c8f36}
-      \strng{bibnamehash}{78a536f74c32d5a2757430f6828c8f36}
-      \strng{authorbibnamehash}{78a536f74c32d5a2757430f6828c8f36}
-      \strng{authornamehash}{78a536f74c32d5a2757430f6828c8f36}
-      \strng{authorfullhash}{78a536f74c32d5a2757430f6828c8f36}
-      \field{sortinit}{P}
-      \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
-      \field{extradatescope}{labelyear}
-      \field{labeldatesource}{}
-      \true{uniqueprimaryauthor}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{note}{IZA Discussion Paper}
-      \field{number}{5467}
-      \field{title}{Motivations for remittances: Evidence from moldova}
-      \field{type}{techreport}
-      \field{year}{2011}
-    \endentry
     \entry{pnud2010}{report}{}
       \name{author}{1}{}{%
         {{un=0,uniquepart=base,hash=a9bd184f91d73c51b3b5710f8649c517}{%
@@ -5122,46 +4826,6 @@
       \verb{doi}
       \verb 10.1093/biomet/70.1.41
       \endverb
-    \endentry
-    \entry{schiopu2006}{report}{}
-      \name{author}{2}{}{%
-        {{un=0,uniquepart=base,hash=be6d4e84ead7426cce8127a5afd0e155}{%
-           family={Schiopu},
-           familyi={S\bibinitperiod},
-           given={Ioana},
-           giveni={I\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=13cc876341351633c2976acb8ed3779f}{%
-           family={Siegfried},
-           familyi={S\bibinitperiod},
-           given={Nikolaus},
-           giveni={N\bibinitperiod},
-           givenun=0}}%
-      }
-      \list{institution}{1}{%
-        {European Central Bank}%
-      }
-      \list{location}{1}{%
-        {Frankfurt am Main}%
-      }
-      \strng{namehash}{9f5dd712decaee98d623c98d06d1ab26}
-      \strng{fullhash}{9f5dd712decaee98d623c98d06d1ab26}
-      \strng{bibnamehash}{9f5dd712decaee98d623c98d06d1ab26}
-      \strng{authorbibnamehash}{9f5dd712decaee98d623c98d06d1ab26}
-      \strng{authornamehash}{9f5dd712decaee98d623c98d06d1ab26}
-      \strng{authorfullhash}{9f5dd712decaee98d623c98d06d1ab26}
-      \field{sortinit}{S}
-      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
-      \field{extradatescope}{labelyear}
-      \field{labeldatesource}{}
-      \true{uniqueprimaryauthor}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{note}{ECB Working Paper Series}
-      \field{number}{688}
-      \field{title}{Determinants of workers' remittances: Evidence from the european neighbouring region}
-      \field{type}{techreport}
-      \field{year}{2006}
     \endentry
     \entry{sen1985}{article}{}
       \name{author}{1}{}{%
