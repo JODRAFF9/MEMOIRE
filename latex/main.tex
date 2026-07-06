@@ -48,9 +48,18 @@
 }
 
 % ── Couleurs ENSAE ───────────────────────────────────────────
-\usepackage{xcolor}
+\usepackage[table]{xcolor}
 \definecolor{ensaeblue}{RGB}{31,78,121}      % bleu foncé (palette)
 \definecolor{ensaecyan}{RGB}{0,174,239}       % cyan ENSAE (bordure)
+\definecolor{ensaeorange}{RGB}{224,123,57}    % orange (en-tête de tableau)
+\definecolor{tableline}{RGB}{180,180,180}     % gris des filets de grille
+\definecolor{ensaerow}{RGB}{252,232,215}      % orange très clair (ligne paire)
+
+% ── Style « tableur » (grille + en-tête orange + zébrage) ────
+\arrayrulecolor{tableline}
+\newcommand{\entete}{\rowcolor{ensaeorange}}
+% \zebre s'utilise juste avant un tableau pour alterner les lignes
+\newcommand{\zebre}{\rowcolors{2}{white}{ensaerow}}
 
 % ── Titres de section - bandeau ENSAE ────────────────────────
 \usepackage{titlesec}

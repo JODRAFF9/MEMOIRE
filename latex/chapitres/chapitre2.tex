@@ -74,22 +74,23 @@ en 2021-2022 selon leur statut de suivi et le milieu de résidence.
   \caption{Répartition des ménages EHCVM II selon le statut de suivi (\texttt{PanelHH})}
   \label{tab:panelhh}
   \small
-  \begin{tabular}{lrrrrr}
-    \toprule
-    & \multicolumn{2}{c}{Nouveau ménage} & \multicolumn{2}{c}{Ménage panel} & Total \\
-    \cmidrule(lr){2-3}\cmidrule(lr){4-5}
+  \zebre
+  \begin{tabular}{|l|r|r|r|r|r|}
+    \hline
+\entete & \multicolumn{2}{|c|}{Nouveau ménage} & \multicolumn{2}{|c|}{Ménage panel} & Total \\ \hline
+    
     & $n$ & \% & $n$ & \% & $n$ \\
-    \midrule
-    Urbain & 740 & 18,9 & 3\,182 & 81,1 & 3\,922 \\
+    \hline
+    Urbain & 740 & 18,9 & 3\,182 & 81,1 & 3\,922 \\ \hline
     Rural  & 253 &  7,9 & 2\,945 & 92,1 & 3\,198 \\
-    \midrule
+    \hline
     Total & 993 & 13,9 & 6\,127 & 86,1 & 7\,120 \\
-    \midrule
-    \multicolumn{6}{l}{\textit{Dont ménages panel selon condition de logement}} \\
-    \quad Même logement qu'en 2018 & & & 5\,643 & 92,1 & \\
-    \quad Logement différent       & & &   290 &  4,7 & \\
+    \hline
+    \multicolumn{6}{|c|}{\textit{Dont ménages panel selon condition de logement}} \\ \hline
+    \quad Même logement qu'en 2018 & & & 5\,643 & 92,1 & \\ \hline
+    \quad Logement différent       & & &   290 &  4,7 & \\ \hline
     \quad Non renseigné            & & &   194 &  3,2 & \\
-    \bottomrule
+    \hline
   \end{tabular}
   \begin{tablenotes}
     \small
@@ -159,24 +160,25 @@ tout en évitant d'inclure des variables potentiellement affectées par le trait
   \caption{Covariables du modèle de propension et sources EHCVM}
   \label{tab:covariables}
   \small
-  \begin{tabular}{p{2.2cm}p{3.5cm}p{2.5cm}}
-    \toprule
-    Groupe & Variable & Variable EHCVM \\
-    \midrule
+  \zebre
+  \begin{tabular}{|p{2.2cm}|p{3.5cm}|p{2.5cm}|}
+    \hline
+\entete Groupe & Variable & Variable EHCVM \\
+    \hline
     \multirow{4}{2.2cm}{Chef de ménage}
-      & Âge du CM            & \texttt{hage} \\
-      & Sexe (féminin = 1)   & \texttt{hgender} \\
-      & Niveau d'éducation   & \texttt{heduc} \\
+      & Âge du CM            & \texttt{hage} \\ \hline
+      & Sexe (féminin = 1)   & \texttt{hgender} \\ \hline
+      & Niveau d'éducation   & \texttt{heduc} \\ \hline
       & Statut matrimonial   & \texttt{hmstat} \\
-    \midrule
+    \hline
     \multirow{2}{2.2cm}{Composition}
-      & Taille du ménage     & \texttt{hhsize} \\
+      & Taille du ménage     & \texttt{hhsize} \\ \hline
       & Bien-être initial    & \texttt{pcexp} \\
-    \midrule
+    \hline
     \multirow{2}{2.2cm}{Localisation}
-      & Milieu (urbain = 1)  & \texttt{milieu} \\
+      & Milieu (urbain = 1)  & \texttt{milieu} \\ \hline
       & Région (14 régions)  & \texttt{region} \\
-    \bottomrule
+    \hline
   \end{tabular}
   \begin{minipage}{\linewidth}
     \small\vspace{2pt}
@@ -287,40 +289,41 @@ indicateurs retenus, en cohérence avec l'EHCVM et la méthodologie N-MODA.
   \label{tab:moda_indicateurs}
   \begin{threeparttable}
   \small
-  \begin{tabular}{p{2.4cm}p{4.2cm}p{4.8cm}p{1.8cm}}
-    \toprule
-    Dimension & Indicateurs de privation & Seuil / Définition & Variables EHCVM \\
-    \midrule
+  \zebre
+  \begin{tabular}{|p{2.4cm}|p{4.2cm}|p{4.8cm}|p{1.8cm}|}
+    \hline
+\entete Dimension & Indicateurs de privation & Seuil / Définition & Variables EHCVM \\
+    \hline
     Assainissement
-      & Toilettes non améliorées & Sanitaires non conformes normes JMP & \texttt{toilet} \\[2pt]
+      & Toilettes non améliorées & Sanitaires non conformes normes JMP & \texttt{toilet} \\[2pt] \hline
       & Partage des toilettes & Installation partagée entre ménages & \texttt{partag\_toi} \\
-    \midrule
+    \hline
     Eau
-      & Source non améliorée & Codes non-JMP (sèche ou pluies) & \texttt{eauboi\_ss/sp} \\[2pt]
+      & Source non améliorée & Codes non-JMP (sèche ou pluies) & \texttt{eauboi\_ss/sp} \\[2pt] \hline
       & Temps d'accès $> 30$ min & Saison sèche ou pluies & \texttt{tps\_eau\_ss/sp} \\
-    \midrule
+    \hline
     Logement
-      & Gestion des ordures inadéquate & Brûlée, dépôt sauvage ou autre & \texttt{ordure} \\[2pt]
+      & Gestion des ordures inadéquate & Brûlée, dépôt sauvage ou autre & \texttt{ordure} \\[2pt] \hline
       & Surpeuplement $> 3$ pers./pièce & Rapport personnes/pièces & \texttt{nbpiec} \\
-    \midrule
+    \hline
     Nutrition
-      & Diversité des repas (\textit{5--17 ans}) & $\geq 1$ macro-groupe non consommé quotidiennement (7j/7) & \texttt{s08b02a-j}$^{\dagger}$ \\[2pt]
+      & Diversité des repas (\textit{5--17 ans}) & $\geq 1$ macro-groupe non consommé quotidiennement (7j/7) & \texttt{s08b02a-j}$^{\dagger}$ \\[2pt] \hline
       & Sécurité alimentaire (\textit{0--17 ans}) & Saut repas, mangé moins, faim ou journée sans manger & \texttt{s08aq04--08} \\
-    \midrule
+    \hline
     Santé
-      & Combustible solide & Bois, charbon ou déchets pour cuisiner & \texttt{combust} \\[2pt]
+      & Combustible solide & Bois, charbon ou déchets pour cuisiner & \texttt{combust} \\[2pt] \hline
       & Accès aux soins & Pas d'accès à pied à une structure & \textit{n.d.}$^{\dagger}$ \\
-    \midrule
+    \hline
     \multirow{3}{2.0cm}{Protection de l'enfant}
-      & Absence d'acte de naissance & \textit{0--14 ans} : \texttt{acte\_nais} = 0 & \texttt{acte\_nais} \\[2pt]
-      & Travail des enfants & \textit{5--14 ans} : \texttt{activ7j} $\in \{1,2\}$ & \texttt{activ7j} \\[2pt]
+      & Absence d'acte de naissance & \textit{0--14 ans} : \texttt{acte\_nais} = 0 & \texttt{acte\_nais} \\[2pt] \hline
+      & Travail des enfants & \textit{5--14 ans} : \texttt{activ7j} $\in \{1,2\}$ & \texttt{activ7j} \\[2pt] \hline
       & Séparation parentale & Ne vit pas avec 2 parents biologiques & \texttt{lien} \\
-    \midrule
+    \hline
     \multirow{3}{2.0cm}{Éducation}
-      & Non-scolarisation & \textit{5--14 ans} : \texttt{scol} = 0 & \texttt{scol} \\[2pt]
-      & Illettrisme & \textit{15--17 ans} : pas de lecture/écriture & \texttt{alfab} \\[2pt]
+      & Non-scolarisation & \textit{5--14 ans} : \texttt{scol} = 0 & \texttt{scol} \\[2pt] \hline
+      & Illettrisme & \textit{15--17 ans} : pas de lecture/écriture & \texttt{alfab} \\[2pt] \hline
       & NEET & \textit{15--17 ans} : ni étude, ni emploi & \texttt{scol}, \texttt{activ7j} \\
-    \bottomrule
+    \hline
   \end{tabular}
   \begin{tablenotes}
     \small

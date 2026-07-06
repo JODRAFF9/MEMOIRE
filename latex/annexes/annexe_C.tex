@@ -35,40 +35,41 @@ L'approche N-MODA repose sur quatre principes fondamentaux :
   \label{tab:matrice_nmoda}
   \begin{threeparttable}
   \small
-  \begin{tabular}{p{2.2cm}p{3.6cm}p{2.2cm}p{2.4cm}p{2.2cm}}
-    \toprule
-    Dimension & Indicateur & 0--4 ans & 5--14 ans & 15--17 ans \\
-    \midrule
+  \zebre
+  \begin{tabular}{|p{2.2cm}|p{3.6cm}|p{2.2cm}|p{2.4cm}|p{2.2cm}|}
+    \hline
+\entete Dimension & Indicateur & 0--4 ans & 5--14 ans & 15--17 ans \\
+    \hline
     \multirow{2}{2.2cm}{Assainis-sement}
-      & Toilettes non améliorées   & \checkmark & \checkmark & \checkmark \\[2pt]
+      & Toilettes non améliorées   & \checkmark & \checkmark & \checkmark \\[2pt] \hline
       & Partage des toilettes      & \checkmark & \checkmark & \checkmark \\
-    \midrule
+    \hline
     \multirow{2}{2.2cm}{Eau}
-      & Source non améliorée       & \checkmark & \checkmark & \checkmark \\[2pt]
+      & Source non améliorée       & \checkmark & \checkmark & \checkmark \\[2pt] \hline
       & Temps d'accès $> 30$ min  & \checkmark & \checkmark & \checkmark \\
-    \midrule
+    \hline
     \multirow{2}{2.2cm}{Logement}
-      & Ordures non saines         & \checkmark & \checkmark & \checkmark \\[2pt]
+      & Ordures non saines         & \checkmark & \checkmark & \checkmark \\[2pt] \hline
       & Surpeuplement ($>3$ p./p.) & \checkmark & \checkmark & \checkmark \\
-    \midrule
+    \hline
     \multirow{2}{2.2cm}{Nutrition}
-      & Diversité des repas        & -        & \checkmark & \checkmark \\[2pt]
+      & Diversité des repas        & -        & \checkmark & \checkmark \\[2pt] \hline
       & Sécurité alimentaire       & \checkmark & \checkmark & \checkmark \\
-    \midrule
+    \hline
     \multirow{2}{2.2cm}{Santé}
-      & Combustible solide         & \checkmark & \checkmark & \checkmark \\[2pt]
+      & Combustible solide         & \checkmark & \checkmark & \checkmark \\[2pt] \hline
       & Accès aux soins            & \checkmark & \checkmark & \checkmark \\
-    \midrule
+    \hline
     \multirow{3}{2.2cm}{Protection}
-      & Absence acte de naissance  & \checkmark & \checkmark & - \\[2pt]
-      & Travail des enfants        & -        & \checkmark & - \\[2pt]
+      & Absence acte de naissance  & \checkmark & \checkmark & - \\[2pt] \hline
+      & Travail des enfants        & -        & \checkmark & - \\[2pt] \hline
       & Séparation parentale       & \checkmark & \checkmark & \checkmark \\
-    \midrule
+    \hline
     \multirow{3}{2.2cm}{Éducation}
-      & Non-scolarisation          & -        & \checkmark & - \\[2pt]
-      & Illettrisme                & -        & -        & \checkmark \\[2pt]
+      & Non-scolarisation          & -        & \checkmark & - \\[2pt] \hline
+      & Illettrisme                & -        & -        & \checkmark \\[2pt] \hline
       & NEET                       & -        & -        & \checkmark \\
-    \bottomrule
+    \hline
   \end{tabular}
   \begin{tablenotes}
     \small
@@ -89,72 +90,73 @@ L'approche N-MODA repose sur quatre principes fondamentaux :
   \label{tab:operationnalisation}
   \begin{threeparttable}
   \small
-  \begin{tabular}{p{2.0cm}p{3.2cm}p{3.5cm}p{3.0cm}}
-    \toprule
-    Dimension & Indicateur & Variable EHCVM & Seuil de privation \\
-    \midrule
+  \zebre
+  \begin{tabular}{|p{2.0cm}|p{3.2cm}|p{3.5cm}|p{3.0cm}|}
+    \hline
+\entete Dimension & Indicateur & Variable EHCVM & Seuil de privation \\
+    \hline
     Assainissement
       & Toilettes non améliorées
         & \texttt{toilet} (\texttt{ehcvm\_menage})
-        & $= 0$ (non conforme JMP) \\[3pt]
+        & $= 0$ (non conforme JMP) \\[3pt] \hline
       & Partage des toilettes
         & \texttt{s11q56} (2018) / \texttt{s11q55} (2021) (\texttt{s11\_me})
         & $= 1$ (partage entre ménages) \\
-    \midrule
+    \hline
     Eau
       & Source non améliorée
         & \texttt{eauboi\_ss}, \texttt{eauboi\_sp} (\texttt{ehcvm\_menage})
-        & $= 0$ pour au moins une saison \\[3pt]
+        & $= 0$ pour au moins une saison \\[3pt] \hline
       & Temps d'accès $> 30$ min
         & \texttt{s11q29a} (2018) / \texttt{s11q28a} (2021) (\texttt{s11\_me})
         & $> 30$ minutes \\
-    \midrule
+    \hline
     Logement
       & Gestion des ordures
         & \texttt{ordure} (\texttt{ehcvm\_menage})
-        & $= 0$ (méthode non saine) \\[3pt]
+        & $= 0$ (méthode non saine) \\[3pt] \hline
       & Surpeuplement
         & \texttt{s11q02} (\texttt{s11\_me}), \texttt{hhsize} (\texttt{welfare})
         & $> 3$ personnes/pièce \\
-    \midrule
+    \hline
     Nutrition
       & Diversité des repas (\textit{5--17 ans})
         & \texttt{s08b02a-j} (\texttt{s08b1\_me}, 2018)$^{\dagger}$
-        & $\geq 1$ macro-groupe (carb., prot., fruits/lég., graisses) non consommé quotidiennement sur 7 jours \\[3pt]
+        & $\geq 1$ macro-groupe (carb., prot., fruits/lég., graisses) non consommé quotidiennement sur 7 jours \\[3pt] \hline
       & Sécurité alimentaire (\textit{0--17 ans})
         & \texttt{s08aq04--08} (\texttt{s08a\_me}, 2018+2021)
         & Saut repas, mangé moins que nécessaire, plus de nourriture, faim, ou journée sans manger \\
-    \midrule
+    \hline
     Santé
       & Combustible solide
         & \texttt{s11q53\_\_*} (2018) / \texttt{s11q52\_\_*} (2021)
-        & Bois, charbon ou déchets \\[3pt]
+        & Bois, charbon ou déchets \\[3pt] \hline
       & Accès aux soins
         & Module communautaire
         & Non disponible - proxy $= 0$ \\
-    \midrule
+    \hline
     Protection
       & Acte de naissance
         & \texttt{s01q05} (\texttt{s01\_me})
-        & $= 2$ (pas d'acte) \\[3pt]
+        & $= 2$ (pas d'acte) \\[3pt] \hline
       & Travail des enfants
         & \texttt{activ7j} (\texttt{ehcvm\_individu})
-        & $\in \{1, 2\}$ (5--14 ans) \\[3pt]
+        & $\in \{1, 2\}$ (5--14 ans) \\[3pt] \hline
       & Séparation parentale
         & \texttt{lien} (\texttt{ehcvm\_individu})
         & $> 3$ (hors liens parentaux) \\
-    \midrule
+    \hline
     Éducation
       & Non-scolarisation
         & \texttt{scol} (\texttt{ehcvm\_individu})
-        & $= 0$ (5--14 ans) \\[3pt]
+        & $= 0$ (5--14 ans) \\[3pt] \hline
       & Illettrisme
         & \texttt{alfab} (2018) / \texttt{alfa} (2021)
-        & $= 0$ (15--17 ans) \\[3pt]
+        & $= 0$ (15--17 ans) \\[3pt] \hline
       & NEET
         & \texttt{scol}, \texttt{activ7j}
         & Ni scolarisé ni actif (15--17 ans) \\
-    \bottomrule
+    \hline
   \end{tabular}
   \begin{tablenotes}
     \small

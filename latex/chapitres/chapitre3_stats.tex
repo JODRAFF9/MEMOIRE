@@ -23,19 +23,20 @@ principales caractéristiques des deux échantillons.
   \centering
   \caption{Caractéristiques des ménages : EHCVM I (2018-2019) et EHCVM II (2021-2022)}
   \label{tab:stats_menages}
-  \begin{tabular}{lcc}
-    \toprule
-    Variable & EHCVM I (2018-19) & EHCVM II (2021-22) \\
-    \midrule
-    Taille du ménage              & 10,01 & 9,38  \\
-    Chef féminin (\%)             & 26,1  & 27,8  \\
-    Milieu urbain (\%)            & 52,5  & 52,8  \\
-    Transferts de migrants (\%)   & 22,5  & 25,1  \\
+  \zebre
+  \begin{tabular}{|l|c|c|}
+    \hline
+\entete Variable & EHCVM I (2018-19) & EHCVM II (2021-22) \\
+    \hline
+    Taille du ménage              & 10,01 & 9,38  \\ \hline
+    Chef féminin (\%)             & 26,1  & 27,8  \\ \hline
+    Milieu urbain (\%)            & 52,5  & 52,8  \\ \hline
+    Transferts de migrants (\%)   & 22,5  & 25,1  \\ \hline
     PCE annuel (FCFA)             & 510~802 & 536~072 \\
-    \midrule
-    Taille d'échantillon ($n$ ménages) & 7~156 & 7~120 \\
+    \hline
+    Taille d'échantillon ($n$ ménages) & 7~156 & 7~120 \\ \hline
     dont enfants 0--17 ans ($n$)       & 33~844 & 31~033 \\
-    \bottomrule
+    \hline
   \end{tabular}
   \begin{tablenotes}
     \small
@@ -76,18 +77,19 @@ très au-delà du seuil conventionnel de 0,10
   \centering
   \caption{Comparaison des ménages selon le statut de transferts (EHCVM I, 2018-2019)}
   \label{tab:comparaison_statut}
-  \begin{tabular}{lccc}
-    \toprule
-    Variable & Bénéficiaires ($D=1$) & Non-bénéf. ($D=0$) & $p$-val. \\
-    \midrule
-    Taille du ménage              & 11,03 & 9,71  & $<$0,001 \\
-    Âge du chef de ménage (ans)   & 53,6  & 51,1  & $<$0,001 \\
-    Chef féminin (\%)             & 37,0  & 22,9  & $<$0,001 \\
-    Milieu urbain (\%)            & 66,6  & 48,4  & $<$0,001 \\
+  \zebre
+  \begin{tabular}{|l|c|c|c|}
+    \hline
+\entete Variable & Bénéficiaires ($D=1$) & Non-bénéf. ($D=0$) & $p$-val. \\
+    \hline
+    Taille du ménage              & 11,03 & 9,71  & $<$0,001 \\ \hline
+    Âge du chef de ménage (ans)   & 53,6  & 51,1  & $<$0,001 \\ \hline
+    Chef féminin (\%)             & 37,0  & 22,9  & $<$0,001 \\ \hline
+    Milieu urbain (\%)            & 66,6  & 48,4  & $<$0,001 \\ \hline
     PCE annuel (FCFA)             & 636~592 & 474~219 & $<$0,001 \\
-    \midrule
+    \hline
     Taille d'échantillon ($n$ ménages) & 1~448 & 4~979 & - \\
-    \bottomrule
+    \hline
   \end{tabular}
   \begin{tablenotes}
     \small
@@ -169,24 +171,25 @@ pour cette vague.}.
   \centering
   \caption{Prévalence des privations par dimension N-MODA (enfants 0--17 ans, \%)}
   \label{tab:prevalence_dim}
-  \begin{tabularx}{\linewidth}{Xccc}
-    \toprule
-    Dimension & EHCVM I & EHCVM II & Variation (pp) \\
-    \midrule
-    Assainissement (toilette non saine ou partagée)     & 56,1 & 52,9 & $-3{,}2$ \\
-    Eau (source non améliorée ou accès $>30$ min)       & 32,0 & 28,0 & $-4{,}0$ \\
-    Logement (ordures ou surpeuplement)                 & 72,6 & 60,7 & $-11{,}9$ \\
-    Nutrition (FIES + diversité HDDS)$^{\dagger}$       & 49,6 & 43,0 & $-6{,}6$ \\
-    Santé (combustible solide ou accès à pied)          & 96,7 & 98,2 & $+1{,}5$ \\
-    Protection de l'enfant                              & 62,1 & 59,8 & $-2{,}3$ \\
+  \zebre
+  \begin{tabularx}{\linewidth}{|X|c|c|c|}
+    \hline
+\entete Dimension & EHCVM I & EHCVM II & Variation (pp) \\
+    \hline
+    Assainissement (toilette non saine ou partagée)     & 56,1 & 52,9 & $-3{,}2$ \\ \hline
+    Eau (source non améliorée ou accès $>30$ min)       & 32,0 & 28,0 & $-4{,}0$ \\ \hline
+    Logement (ordures ou surpeuplement)                 & 72,6 & 60,7 & $-11{,}9$ \\ \hline
+    Nutrition (FIES + diversité HDDS)$^{\dagger}$       & 49,6 & 43,0 & $-6{,}6$ \\ \hline
+    Santé (combustible solide ou accès à pied)          & 96,7 & 98,2 & $+1{,}5$ \\ \hline
+    Protection de l'enfant                              & 62,1 & 59,8 & $-2{,}3$ \\ \hline
     Éducation (non-scolarisation, illettrisme, NEET)    & 30,0 & 31,2 & $+1{,}2$ \\
-    \midrule
-    \midrule
-    \multicolumn{4}{l}{\textit{Indice N-MODA (approche principale)}} \\
-    \quad Incidence $H$ (\%)                           & 63,8 & 55,9 & $-7{,}9$ \\
-    \quad Intensité $A$ (\%)                           & 70,2 & 68,5 & $-1{,}7$ \\
+    \hline
+    \hline
+    \multicolumn{4}{|c|}{\textit{Indice N-MODA (approche principale)}} \\ \hline
+    \quad Incidence $H$ (\%)                           & 63,8 & 55,9 & $-7{,}9$ \\ \hline
+    \quad Intensité $A$ (\%)                           & 70,2 & 68,5 & $-1{,}7$ \\ \hline
     \quad Indice ajusté $M_0 = H \times A$             & 0,448 & 0,383 & $-0{,}065$ \\
-    \bottomrule
+    \hline
   \end{tabularx}
   \begin{tablenotes}
     \small
@@ -227,18 +230,19 @@ concentrent les privations liées à l'alphabétisation et à la situation NEET
   \centering
   \caption{Taux de pauvreté N-MODA par groupe d'âge : EHCVM I (2018-2019) et EHCVM II (2021-2022)}
   \label{tab:moda_age}
-  \begin{tabular}{lcccc}
-    \toprule
-    Groupe d'âge & \multicolumn{2}{c}{$H$ (\%)} & \multicolumn{2}{c}{Obs.} \\
-    \cmidrule(lr){2-3}\cmidrule(lr){4-5}
+  \zebre
+  \begin{tabular}{|l|c|c|c|c|}
+    \hline
+\entete Groupe d'âge & \multicolumn{2}{|c|}{$H$ (\%)} & \multicolumn{2}{|c|}{Obs.} \\ \hline
+    
                  & EHCVM I & EHCVM II & EHCVM I & EHCVM II \\
-    \midrule
-    0--4 ans     & 59,9 & 50,8 & 10~160 & 7~795 \\
-    5--14 ans    & 66,9 & 59,4 & 19~207 & 18~636 \\
+    \hline
+    0--4 ans     & 59,9 & 50,8 & 10~160 & 7~795 \\ \hline
+    5--14 ans    & 66,9 & 59,4 & 19~207 & 18~636 \\ \hline
     15--17 ans   & 59,5 & 50,0 & 4~477  & 4~602  \\
-    \midrule
+    \hline
     Ensemble 0--17 ans & 63,8 & 55,9 & 33~844 & 31~033 \\
-    \bottomrule
+    \hline
   \end{tabular}
   \begin{tablenotes}
     \small
