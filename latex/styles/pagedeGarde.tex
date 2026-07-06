@@ -1,5 +1,5 @@
 % ============================================================
-%  Page de garde - style ENSAE Dakar
+%  Page de garde - style ENSAE Dakar (mise en forme TikZ)
 % ============================================================
 \begin{titlepage}
 \centering
@@ -19,50 +19,72 @@
 % ── ENSAE ────────────────────────────────────────────────────
 {\small\bfseries École Nationale de la Statistique et de l'Analyse Économique}\\
 {\small\bfseries Pierre Ndiaye (ENSAE)}\\[0.15cm]
-\includegraphics[height=1.7cm]{figures/logo_ensae_new.png}\\[0.3cm]
+\includegraphics[height=1.7cm]{figures/logo_ensae_new.png}\\[0.35cm]
 
-{\color{ensaecyan}\rule{\linewidth}{1pt}}\\[0.4cm]
+% ── Séparateur décoratif TikZ ────────────────────────────────
+\begin{tikzpicture}
+  \draw[ensaecyan, line width=1pt] (0,0) -- (0.42\textwidth,0);
+  \fill[ensaeblue]  (0.45\textwidth,0) circle (2.1pt);
+  \fill[ensaecyan] (0.45\textwidth,0) circle (1.1pt);
+  \draw[ensaecyan, line width=1pt] (0.48\textwidth,0) -- (0.9\textwidth,0);
+\end{tikzpicture}\\[0.4cm]
 
-% ── Badge "Mémoire de fin de formation" ──────────────────────
-\colorbox{ensaeblue}{\parbox{0.55\linewidth}{\centering
-  \color{white}\normalsize\bfseries Mémoire de fin de formation
-}}\\[0.35cm]
+% ── Badge « Mémoire de fin de formation » (TikZ) ─────────────
+\begin{tikzpicture}
+  \node[fill=ensaeblue, rounded corners=4pt, inner xsep=18pt, inner ysep=7pt,
+        text=white, font=\normalsize\bfseries]
+    {Mémoire de fin de formation};
+\end{tikzpicture}\\[0.45cm]
 
-% ── Encadré titre ────────────────────────────────────────────
-\setlength{\fboxrule}{1.5pt}
-\setlength{\fboxsep}{12pt}
-\fcolorbox{ensaeblue}{white}{%
-  \parbox{0.88\linewidth}{\centering
-    {\Large\bfseries Impact des transferts de migrants sur la}\\[0.4cm]
-    {\Large\bfseries pauvreté multidimensionnelle des enfants}\\[0.4cm]
-    {\Large\bfseries au Sénégal}
-  }%
-}\\[0.7cm]
+% ── Encadré titre (TikZ : liseré + fond teinté + ombre) ──────
+\begin{tikzpicture}
+  % ombre portée légère
+  \node[rounded corners=10pt, fill=ensaeblue!25,
+        inner sep=17pt, text width=0.80\textwidth, align=center]
+    at (0.09,-0.09) (shadow) {\phantom{\Large\bfseries Titre}};
+  % cadre principal
+  \node[draw=ensaeblue, line width=1.4pt, rounded corners=10pt,
+        fill=ensaecyan!8, inner sep=17pt, text width=0.80\textwidth,
+        align=center, text=ensaeblue] (titre)
+    {\Large\bfseries Impact des transferts de migrants\\
+     sur la pauvreté multidimensionnelle\\
+     des enfants au Sénégal\par};
+  % petits accents dans deux coins
+  \draw[ensaecyan, line width=1.2pt]
+    ([xshift=6pt,yshift=-6pt]titre.north west) -- ++(0.9,0)
+    ([xshift=6pt,yshift=-6pt]titre.north west) -- ++(0,-0.6);
+  \draw[ensaecyan, line width=1.2pt]
+    ([xshift=-6pt,yshift=6pt]titre.south east) -- ++(-0.9,0)
+    ([xshift=-6pt,yshift=6pt]titre.south east) -- ++(0,0.6);
+\end{tikzpicture}\\[0.75cm]
 
-% ── Auteur / Directeur ───────────────────────────────────────
-\setlength{\fboxsep}{6pt}
-\begin{minipage}[t]{0.48\linewidth}
-  \raggedright
-  \underline{\textbf{Rédigé par :}}\\[0.3cm]
-  {\bfseries Sié Rachid TRAORÉ}\\[0.1cm]
-  {\small\itshape Élève Ingénieur Statisticien Économiste}
-\end{minipage}
-\hfill
-\begin{minipage}[t]{0.48\linewidth}
-  \raggedleft
-  \underline{\textbf{Sous la supervision de :}}\\[0.3cm]
-  {\bfseries M. Mamadou Abdoulaye \textsc{Diallo}}\\[0.1cm]
-  {\small\itshape Ingénieur Statisticien Économiste}\\
-  {\small\itshape ENSAE-Dakar}
-\end{minipage}
+% ── Cartes Auteur / Encadreur (TikZ) ─────────────────────────
+\begin{tikzpicture}
+  \node[draw=ensaeblue!55, line width=0.7pt, rounded corners=6pt,
+        top color=white, bottom color=ensaecyan!10,
+        text width=0.40\textwidth, inner sep=10pt, align=left] (aut) {
+    {\color{ensaeblue}\bfseries\small Rédigé par}\\[4pt]
+    {\bfseries Sié Rachid TRAORÉ}\\[1pt]
+    {\small\itshape Élève Ingénieur Statisticien Économiste}
+  };
+  \node[draw=ensaeblue!55, line width=0.7pt, rounded corners=6pt,
+        top color=white, bottom color=ensaecyan!10,
+        text width=0.40\textwidth, inner sep=10pt, align=left,
+        right=0.6cm of aut] (enc) {
+    {\color{ensaeblue}\bfseries\small Sous la supervision de}\\[4pt]
+    {\bfseries M. Mamadou Abdoulaye \textsc{Diallo}}\\[1pt]
+    {\small\itshape Ingénieur Statisticien Économiste}\\
+    {\small\itshape ENSAE-Dakar}
+  };
+\end{tikzpicture}
 
 \vfill
 
-% ── Date ─────────────────────────────────────────────────────
-{\color{ensaecyan}\rule{\linewidth}{1pt}}\\[0.3cm]
-\colorbox{ensaecyan!20}{\parbox{0.3\linewidth}{\centering
-  \color{ensaeblue}\bfseries\normalsize Juillet 2026
-}}
+% ── Date (pastille TikZ) ─────────────────────────────────────
+\begin{tikzpicture}
+  \draw[ensaecyan, line width=1pt] (-0.45\textwidth,0.7) -- (0.45\textwidth,0.7);
+  \node[fill=ensaecyan!20, rounded corners=4pt, inner xsep=16pt, inner ysep=6pt,
+        text=ensaeblue, font=\bfseries\normalsize] {Juillet 2026};
+\end{tikzpicture}
 
 \end{titlepage}
-
