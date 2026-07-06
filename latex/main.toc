@@ -1,39 +1,17 @@
 \babel@toc {french}{}\relax 
-\contentsline {section}{Décharge}{i}{Doc-Start}%
-\contentsline {section}{Dedicace}{ii}{Doc-Start}%
-\contentsline {section}{Remerciements}{iii}{Doc-Start}%
-\contentsline {section}{Liste des abréviations}{vii}{Doc-Start}%
-\contentsline {section}{Introduction générale}{1}{Doc-Start}%
-\contentsline {section}{\numberline {1}Revue de la littérature}{4}{section.1}%
-\contentsline {subsection}{\numberline {1.1}Revue théorique}{4}{subsection.1.1}%
-\contentsline {subsubsection}{\numberline {1.1.1}Les transferts de migrants : définitions, ampleur et théories}{4}{subsubsection.1.1.1}%
-\contentsline {subsubsection}{\numberline {1.1.2}Canaux d'impact des transferts sur la pauvreté multidimensionnelle des enfants}{10}{subsubsection.1.1.2}%
-\contentsline {subsection}{\numberline {1.2}Revue empirique}{11}{subsection.1.2}%
-\contentsline {subsubsection}{\numberline {1.2.1}Impact des transferts sur le bien-être des ménages}{11}{subsubsection.1.2.1}%
-\contentsline {subsubsection}{\numberline {1.2.2}Effets ambigus et limites : la mise en garde de la littérature qualitative}{15}{subsubsection.1.2.2}%
-\contentsline {subsubsection}{\numberline {1.2.3}Synthèse de la revue empirique}{16}{subsubsection.1.2.3}%
-\contentsline {subsubsection}{\numberline {1.2.4}Transferts et pauvreté multidimensionnelle : bilan et lacunes}{16}{subsubsection.1.2.4}%
-\contentsline {section}{\numberline {2}Données et méthodologie}{19}{section.2}%
-\contentsline {subsection}{\numberline {2.1}Données : les enquêtes EHCVM I et II}{19}{subsection.2.1}%
-\contentsline {subsubsection}{\numberline {2.1.1}Présentation des enquêtes}{19}{subsubsection.2.1.1}%
-\contentsline {subsubsection}{\numberline {2.1.2}Construction de l'échantillon}{20}{subsubsection.2.1.2}%
-\contentsline {subsubsection}{\numberline {2.1.3}Variable de traitement}{21}{subsubsection.2.1.3}%
-\contentsline {subsubsection}{\numberline {2.1.4}Covariables du modèle de propension}{21}{subsubsection.2.1.4}%
-\contentsline {subsection}{\numberline {2.2}Mesure de la pauvreté multidimensionnelle des enfants}{22}{subsection.2.2}%
-\contentsline {subsubsection}{\numberline {2.2.1}Fondements conceptuels}{22}{subsubsection.2.2.1}%
-\contentsline {subsubsection}{\numberline {2.2.2}Première approche : l'indice Alkire-Foster (IPM-Enfant)}{23}{subsubsection.2.2.2}%
-\contentsline {subsubsection}{\numberline {2.2.3}Deuxième approche : MODA (Multiple Overlapping Deprivation Analysis)}{24}{subsubsection.2.2.3}%
-\contentsline {subsubsection}{\numberline {2.2.4}Variables de résultat dans l'estimation PSM-DD}{27}{subsubsection.2.2.4}%
-\contentsline {subsection}{\numberline {2.3}Stratégie d'identification causale : PSM-Double différence}{27}{subsection.2.3}%
-\contentsline {subsubsection}{\numberline {2.3.1}Le cadre des résultats potentiels}{27}{subsubsection.2.3.1}%
-\contentsline {subsubsection}{\numberline {2.3.2}L'appariement par score de propension (PSM)}{28}{subsubsection.2.3.2}%
-\contentsline {subsubsection}{\numberline {2.3.3}La double différence (DD)}{29}{subsubsection.2.3.3}%
-\contentsline {subsubsection}{\numberline {2.3.4}L'estimateur PSM-DD}{29}{subsubsection.2.3.4}%
-\contentsline {subsubsection}{\numberline {2.3.5}Analyses d'hétérogénéité et de robustesse}{29}{subsubsection.2.3.5}%
-\contentsline {section}{\numberline {3}Statistiques descriptives}{31}{section.3}%
-\contentsline {section}{\numberline {4}Résultats des estimations}{32}{section.4}%
-\contentsline {section}{\numberline {5}Discussion}{33}{section.5}%
-\contentsline {section}{Conclusion et recommandations}{34}{section*.7}%
-\contentsline {section}{Annexes}{35}{section*.8}%
-\contentsline {section}{Références bibliographiques}{36}{section*.9}%
-\contentsline {section}{Table des matières}{42}{section*.10}%
+\contentsline {section}{\numberline {1}Revue de la littérature}{1}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Revue théorique}{1}{subsection.1.1}%
+\contentsline {subsubsection}{\numberline {1.1.1}Les transferts de migrants : définitions, ampleur et théories}{1}{subsubsection.1.1.1}%
+\contentsline {subsubsection}{\numberline {1.1.2}Canaux d'impact des transferts sur la pauvreté multidimensionnelle des enfants}{7}{subsubsection.1.1.2}%
+\contentsline {subsection}{\numberline {1.2}Revue empirique}{8}{subsection.1.2}%
+\contentsline {subsubsection}{\numberline {1.2.1}Impact des transferts sur le bien-être des ménages}{8}{subsubsection.1.2.1}%
+\contentsline {subsubsection}{\numberline {1.2.2}Effets ambigus et limites : la mise en garde de la littérature qualitative}{12}{subsubsection.1.2.2}%
+\contentsline {subsubsection}{\numberline {1.2.3}Synthèse de la revue empirique}{13}{subsubsection.1.2.3}%
+\contentsline {subsubsection}{\numberline {1.2.4}Transferts et pauvreté multidimensionnelle : bilan et lacunes}{13}{subsubsection.1.2.4}%
+\contentsline {section}{\numberline {2}Statistiques descriptives}{16}{section.2}%
+\contentsline {section}{\numberline {3}Résultats des estimations}{17}{section.3}%
+\contentsline {section}{\numberline {4}Discussion}{18}{section.4}%
+\contentsline {section}{Conclusion et recommandations}{19}{section*.1}%
+\contentsline {section}{Annexes}{20}{section*.2}%
+\contentsline {section}{Références bibliographiques}{21}{section*.3}%
+\contentsline {section}{Table des matières}{27}{section*.4}%

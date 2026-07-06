@@ -203,19 +203,19 @@
 \begin{document}
 
 % ── Page de garde ────────────────────────────────────────────
-\input{styles/pagedeGarde}
+%\input{styles/pagedeGarde}
 
 % ── Pages liminaires (numérotation romaine) ──────────────────
 \pagestyle{plain}
 \pagenumbering{roman}
 \setcounter{page}{1}
 
-\input{chapitres/decharge}
-\clearpage
-\input{chapitres/dedicace}
-\clearpage
-\input{chapitres/remerciements}
-\clearpage
+%\input{chapitres/decharge}
+%\clearpage
+%\input{chapitres/dedicace}
+%\clearpage
+%\input{chapitres/remerciements}
+%\clearpage
 %% ── VERSION DE PRÉSENTATION : résumé et abstract masqués ──
 %% (décommenter les 4 lignes ci-dessous pour la version complète)
 % \input{chapitres/resume}
@@ -224,18 +224,18 @@
 % \clearpage
 
 % ── Sommaire (sections uniquement, via shorttoc) ─────────────
-\shorttoc{Sommaire}{1}
+%\shorttoc{Sommaire}{1}
 \markboth{}{}
 \clearpage
 
-\listoffigures
-\markboth{}{}
-\clearpage
-\listoftables
-\markboth{}{}
-\clearpage
+%\listoffigures
+%\markboth{}{}
+%\clearpage
+%\listoftables
+%\markboth{}{}
+%\clearpage
 
-\input{chapitres/abreviations}
+%\input{chapitres/abreviations}
 \clearpage
 
 % ── Corps du mémoire (numérotation arabe) ────────────────────
@@ -245,13 +245,13 @@
 \setcounter{page}{1}
 
 % 1. Introduction
-\input{chapitres/introduction}
+%\input{chapitres/introduction}
 
 % 2. Revue de la littérature
 \input{chapitres/chapitre1}
 
 % 3. Données et méthodologie
-\input{chapitres/chapitre2}
+%\input{chapitres/chapitre2}
 
 %% ══════════════════════════════════════════════════════════
 %% VERSION DE PRÉSENTATION : les parties ci-dessous sont
@@ -274,6 +274,7 @@
 % \input{chapitres/conclusion}
 
 %% ── Parties à venir (titres seuls) ─────────────────────────
+<<<<<<< Updated upstream
 \newcommand{\partieavenir}{%
   \begin{center}
     \vspace{0.8cm}
@@ -344,5 +345,77 @@ multidimensionnelle.
 \phantomsection
 \addcontentsline{toc}{section}{Table des matières}
 \tableofcontents
+=======
+%\newcommand{\partieavenir}{%
+%  \begin{center}
+%    \vspace{0.8cm}
+%    \itshape Partie en cours de finalisation -- non incluse dans
+%    cette version intermédiaire du mémoire.
+%  \end{center}\medskip}
+%
+%%\section{Statistiques descriptives}
+%%\partieavenir
+%Cette section présentera le profil de la pauvreté multidimensionnelle des
+%enfants dans les deux vagues de l'EHCVM~: incidence, intensité et indice
+%ajusté, décomposition par dimension, par milieu de résidence et par région,
+%ainsi que les caractéristiques comparées des ménages bénéficiaires et non
+%bénéficiaires de transferts.
+%
+%\section{Résultats des estimations}
+%\partieavenir
+%Cette section exposera l'estimation du score de propension, la qualité de
+%l'appariement (support commun, équilibrage des covariables), puis les
+%estimations PSM-DD de l'effet des transferts sur la pauvreté
+%multidimensionnelle des enfants, globalement puis dimension par dimension.
+%
+%\section{Discussion}
+%\label{sec:discussion}
+%\partieavenir
+%Cette section évaluera la robustesse des résultats (sensibilité aux seuils
+%et aux méthodes d'appariement, test placebo, analyse de l'attrition),
+%étudiera l'hétérogénéité des effets par milieu de résidence, sexe et groupe
+%d'âge, et proposera une interprétation des mécanismes en jeu.
+%
+%\clearpage
+%\phantomsection
+%\addcontentsline{toc}{section}{Conclusion et recommandations}
+%\section*{Conclusion et recommandations}
+%\partieavenir
+%La conclusion synthétisera les résultats au regard des trois hypothèses de
+%recherche, formulera des recommandations de politique économique et
+%discutera les limites de l'étude ainsi que les perspectives de recherche.
+%
+%% ── Annexes ──────────────────────────────────────────────────
+%\clearpage
+%\phantomsection
+%\addcontentsline{toc}{section}{Annexes}
+%\section*{Annexes}
+%\label{ann:D}% renvoi du chapitre 2 vers l'annexe croisement (masquée)
+%\partieavenir
+%Les annexes documenteront les tests de validité de la stratégie
+%d'identification (tendances parallèles, placebo, attrition), les tableaux
+%régionaux détaillés et le croisement entre pauvreté monétaire et pauvreté
+%multidimensionnelle.
+%% \begin{appendices}
+%%   % Bandeau : affiche "Annexe A Titre" sans modifier \thesection
+%%   \renewcommand{\ensaebandeaunum}[1]{\ensaebandeau{Annexe~\thesection\quad #1}}
+%%   {\let\clearpage\relax \input{annexes/annexe_A}}
+%%   \input{annexes/annexe_C}
+%%   \input{annexes/annexe_D}
+%% \end{appendices}
+%
+%% ── Bibliographie ────────────────────────────────────────────
+%\clearpage
+%\phantomsection
+%\addcontentsline{toc}{section}{Références bibliographiques}
+%\section*{Références bibliographiques}
+%\printbibliography[heading=none]
+%
+%% ── Table des matières complète ──────────────────────────────
+%\clearpage
+%\phantomsection
+%\addcontentsline{toc}{section}{Table des matières}
+%\tableofcontents
+>>>>>>> Stashed changes
 
 \end{document}
