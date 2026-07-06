@@ -2188,54 +2188,6 @@
       \field{pages}{173\bibrangedash 178}
       \range{pages}{6}
     \endentry
-    \entry{taylor2008}{article}{}
-      \name{author}{4}{}{%
-        {{un=0,uniquepart=base,hash=b11c454be6664944b5a1f55b438f9302}{%
-           family={Taylor},
-           familyi={T\bibinitperiod},
-           given={J.\bibnamedelimi Edward},
-           giveni={J\bibinitperiod\bibinitdelim E\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=72b63aeeeae65f1ba613b88372937b08}{%
-           family={Mora},
-           familyi={M\bibinitperiod},
-           given={Jorge},
-           giveni={J\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=9a7febdcb234b8800e7b984daf0ef821}{%
-           family={Adams},
-           familyi={A\bibinitperiod},
-           given={Richard},
-           giveni={R\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=a26d43bda1f5c23962aa43605d2ca8b6}{%
-           family={Lopez-\bibnamedelima Feldman},
-           familyi={L\bibinitperiod\bibinitdelim F\bibinitperiod},
-           given={Alejandro},
-           giveni={A\bibinitperiod},
-           givenun=0}}%
-      }
-      \strng{namehash}{4453f8f5bd571df15fbe74cb32b5a335}
-      \strng{fullhash}{4cfb50903b12006328853d702d0af521}
-      \strng{bibnamehash}{4cfb50903b12006328853d702d0af521}
-      \strng{authorbibnamehash}{4cfb50903b12006328853d702d0af521}
-      \strng{authornamehash}{4453f8f5bd571df15fbe74cb32b5a335}
-      \strng{authorfullhash}{4cfb50903b12006328853d702d0af521}
-      \field{sortinit}{T}
-      \field{sortinithash}{9af77f0292593c26bde9a56e688eaee9}
-      \field{extradatescope}{labelyear}
-      \field{labeldatesource}{}
-      \true{uniqueprimaryauthor}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{journaltitle}{Migration Letters}
-      \field{number}{1}
-      \field{title}{Remittances, inequality and poverty: Evidence from rural Mexico}
-      \field{volume}{5}
-      \field{year}{2008}
-      \field{pages}{1\bibrangedash 12}
-      \range{pages}{12}
-    \endentry
     \entry{townsend1979}{book}{}
       \name{author}{1}{}{%
         {{un=0,uniquepart=base,hash=15dacca53172dc5b1ef80eba1d290a1a}{%
@@ -4530,54 +4482,6 @@
       \field{year}{1985}
       \field{pages}{173\bibrangedash 178}
       \range{pages}{6}
-    \endentry
-    \entry{taylor2008}{article}{}
-      \name{author}{4}{}{%
-        {{un=0,uniquepart=base,hash=b11c454be6664944b5a1f55b438f9302}{%
-           family={Taylor},
-           familyi={T\bibinitperiod},
-           given={J.\bibnamedelimi Edward},
-           giveni={J\bibinitperiod\bibinitdelim E\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=72b63aeeeae65f1ba613b88372937b08}{%
-           family={Mora},
-           familyi={M\bibinitperiod},
-           given={Jorge},
-           giveni={J\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=9a7febdcb234b8800e7b984daf0ef821}{%
-           family={Adams},
-           familyi={A\bibinitperiod},
-           given={Richard},
-           giveni={R\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=a26d43bda1f5c23962aa43605d2ca8b6}{%
-           family={Lopez-\bibnamedelima Feldman},
-           familyi={L\bibinitperiod\bibinitdelim F\bibinitperiod},
-           given={Alejandro},
-           giveni={A\bibinitperiod},
-           givenun=0}}%
-      }
-      \strng{namehash}{4453f8f5bd571df15fbe74cb32b5a335}
-      \strng{fullhash}{4cfb50903b12006328853d702d0af521}
-      \strng{bibnamehash}{4cfb50903b12006328853d702d0af521}
-      \strng{authorbibnamehash}{4cfb50903b12006328853d702d0af521}
-      \strng{authornamehash}{4453f8f5bd571df15fbe74cb32b5a335}
-      \strng{authorfullhash}{4cfb50903b12006328853d702d0af521}
-      \field{sortinit}{T}
-      \field{sortinithash}{9af77f0292593c26bde9a56e688eaee9}
-      \field{extradatescope}{labelyear}
-      \field{labeldatesource}{}
-      \true{uniqueprimaryauthor}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{journaltitle}{Migration Letters}
-      \field{number}{1}
-      \field{title}{Remittances, inequality and poverty: Evidence from rural Mexico}
-      \field{volume}{5}
-      \field{year}{2008}
-      \field{pages}{1\bibrangedash 12}
-      \range{pages}{12}
     \endentry
     \entry{townsend1979}{book}{}
       \name{author}{1}{}{%
