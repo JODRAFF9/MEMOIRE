@@ -47,16 +47,16 @@ procédure (script \texttt{09\_placebo\_attrition.do}).
   \centering
   \caption{Distribution des ATT placebo (200 réplications, faux traitement aléatoire)}
   \label{tab:placebo}
-  \begin{tabular}{lcc}
+  \begin{tabular}{lc}
     \toprule
-    Statistique & Pauvreté AF & Pauvreté N-MODA \\
+    Statistique & Pauvreté N-MODA \\
     \midrule
-    ATT placebo moyen            & $-0{,}001$ & $-0{,}003$ \\
-    Écart-type                   & $0{,}022$  & $0{,}025$  \\
-    Fraction $|$ATT$|$ $>$ 0,05 & 2,5\,\%    & 4,0\,\%    \\
+    ATT placebo moyen            & $-0{,}003$ \\
+    Écart-type                   & $0{,}025$  \\
+    Fraction $|$ATT$|$ $>$ 0,05 & 4,0\,\%    \\
     \midrule
-    ATT réel (tableau~\ref{tab:psmdd_att}) & $+0{,}051$ & $+0{,}073$ \\
-    Rang dans la distribution placebo      & 99\textsuperscript{e} centile & 100\textsuperscript{e} centile \\
+    ATT réel (tableau~\ref{tab:psmdd_att}) & $+0{,}073$ \\
+    Rang dans la distribution placebo      & 100\textsuperscript{e} centile \\
     \bottomrule
   \end{tabular}
   \begin{tablenotes}
@@ -68,11 +68,11 @@ procédure (script \texttt{09\_placebo\_attrition.do}).
   \end{tablenotes}
 \end{table}
 
-La distribution des ATT placebo est centrée sur zéro dans les deux cas,
-avec un écart-type de 0,022 à 0,025~: parmi les ménages jamais traités, des groupes
+La distribution des ATT placebo est centrée sur zéro,
+avec un écart-type de 0,025~: parmi les ménages jamais traités, des groupes
 constitués au hasard suivent bien des trajectoires parallèles. L'ATT réel
-($+0{,}051$ et $+0{,}073$) se situe aux 99\textsuperscript{e} et
-100\textsuperscript{e} centiles de la distribution placebo~: l'écart de
+($+0{,}073$) se situe au 100\textsuperscript{e}
+centile de la distribution placebo~: l'écart de
 trajectoire mesuré entre bénéficiaires stables et témoins appariés est donc
 très improbable sous l'hypothèse d'une simple fluctuation d'échantillonnage,
 ce qui conforte sa lecture comme un signal réel, dont l'interprétation

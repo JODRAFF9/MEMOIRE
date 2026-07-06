@@ -142,81 +142,6 @@
       \verb 10.1016/j.worlddev.2005.05.004
       \endverb
     \endentry
-    \entry{alkire2007}{article}{}
-      \name{author}{2}{}{%
-        {{un=0,uniquepart=base,hash=9d04481abcbf806747a8c553a56ed68b}{%
-           family={Alkire},
-           familyi={A\bibinitperiod},
-           given={Sabina},
-           giveni={S\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=7ed2b774df544a66ceab2d2897dd2ae5}{%
-           family={Foster},
-           familyi={F\bibinitperiod},
-           given={James},
-           giveni={J\bibinitperiod},
-           givenun=0}}%
-      }
-      \strng{namehash}{7c0bb08fee9b4e58743213245f2325d6}
-      \strng{fullhash}{7c0bb08fee9b4e58743213245f2325d6}
-      \strng{bibnamehash}{7c0bb08fee9b4e58743213245f2325d6}
-      \strng{authorbibnamehash}{7c0bb08fee9b4e58743213245f2325d6}
-      \strng{authornamehash}{7c0bb08fee9b4e58743213245f2325d6}
-      \strng{authorfullhash}{7c0bb08fee9b4e58743213245f2325d6}
-      \field{extraname}{1}
-      \field{sortinit}{A}
-      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
-      \field{extradatescope}{labelyear}
-      \field{labeldatesource}{}
-      \true{uniqueprimaryauthor}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{journaltitle}{OPHI Working Paper}
-      \field{note}{Oxford Poverty and Human Development Initiative}
-      \field{number}{7}
-      \field{title}{Counting and multidimensional poverty measures}
-      \field{year}{2007}
-    \endentry
-    \entry{alkire2011}{article}{}
-      \name{author}{2}{}{%
-        {{un=0,uniquepart=base,hash=9d04481abcbf806747a8c553a56ed68b}{%
-           family={Alkire},
-           familyi={A\bibinitperiod},
-           given={Sabina},
-           giveni={S\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=7ed2b774df544a66ceab2d2897dd2ae5}{%
-           family={Foster},
-           familyi={F\bibinitperiod},
-           given={James},
-           giveni={J\bibinitperiod},
-           givenun=0}}%
-      }
-      \strng{namehash}{7c0bb08fee9b4e58743213245f2325d6}
-      \strng{fullhash}{7c0bb08fee9b4e58743213245f2325d6}
-      \strng{bibnamehash}{7c0bb08fee9b4e58743213245f2325d6}
-      \strng{authorbibnamehash}{7c0bb08fee9b4e58743213245f2325d6}
-      \strng{authornamehash}{7c0bb08fee9b4e58743213245f2325d6}
-      \strng{authorfullhash}{7c0bb08fee9b4e58743213245f2325d6}
-      \field{extraname}{2}
-      \field{sortinit}{A}
-      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
-      \field{extradatescope}{labelyear}
-      \field{labeldatesource}{}
-      \true{uniqueprimaryauthor}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{journaltitle}{Journal of Public Economics}
-      \field{number}{7--8}
-      \field{title}{Counting and multidimensional poverty measurement}
-      \field{volume}{95}
-      \field{year}{2011}
-      \field{pages}{476\bibrangedash 487}
-      \range{pages}{12}
-      \verb{doi}
-      \verb 10.1016/j.jpubeco.2010.11.006
-      \endverb
-    \endentry
     \entry{amuedo2007}{article}{}
       \name{author}{2}{}{%
         {{un=0,uniquepart=base,hash=98ad6b1422bdb26c9fff5c1b805bde63}{%
@@ -565,63 +490,6 @@
       \field{title}{Migration and development brief 39}
       \field{type}{techreport}
       \field{year}{2023}
-    \endentry
-    \entry{battiston2013}{article}{}
-      \name{author}{5}{}{%
-        {{un=0,uniquepart=base,hash=b26b185c1ebce1c042d9ec667c1e2d25}{%
-           family={Battiston},
-           familyi={B\bibinitperiod},
-           given={Diego},
-           giveni={D\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=d55e4d3690f5759d5d814179ab839e45}{%
-           family={Cruces},
-           familyi={C\bibinitperiod},
-           given={Guillermo},
-           giveni={G\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=a27c8333a813d15aafba1937948f29a3}{%
-           family={Lopez-Calva},
-           familyi={L\bibinithyphendelim C\bibinitperiod},
-           given={Luis\bibnamedelima F.},
-           giveni={L\bibinitperiod\bibinitdelim F\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=35a3dee3b41a0aa2d8bd8b31dca279df}{%
-           family={Lugo},
-           familyi={L\bibinitperiod},
-           given={Maria\bibnamedelima Ana},
-           giveni={M\bibinitperiod\bibinitdelim A\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=402b0a3c5b52d8994d1aaf4e887b407d}{%
-           family={Santos},
-           familyi={S\bibinitperiod},
-           given={Maria\bibnamedelima Emma},
-           giveni={M\bibinitperiod\bibinitdelim E\bibinitperiod},
-           givenun=0}}%
-      }
-      \strng{namehash}{09866ed9aaecaa312145168cf64eb2a2}
-      \strng{fullhash}{acb49b4298de336a585465a0203c2b8b}
-      \strng{bibnamehash}{acb49b4298de336a585465a0203c2b8b}
-      \strng{authorbibnamehash}{acb49b4298de336a585465a0203c2b8b}
-      \strng{authornamehash}{09866ed9aaecaa312145168cf64eb2a2}
-      \strng{authorfullhash}{acb49b4298de336a585465a0203c2b8b}
-      \field{sortinit}{B}
-      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
-      \field{extradatescope}{labelyear}
-      \field{labeldatesource}{}
-      \true{uniqueprimaryauthor}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{journaltitle}{Social Indicators Research}
-      \field{number}{2}
-      \field{title}{Income and beyond: Multidimensional poverty in six Latin American countries}
-      \field{volume}{112}
-      \field{year}{2013}
-      \field{pages}{291\bibrangedash 314}
-      \range{pages}{24}
-      \verb{doi}
-      \verb 10.1007/s11205-013-0249-3
-      \endverb
     \endentry
     \entry{bouoiyour2016}{article}{}
       \name{author}{2}{}{%
@@ -1344,45 +1212,6 @@
       \field{pages}{163\bibrangedash 182}
       \range{pages}{20}
     \endentry
-    \entry{ferreira2011}{article}{}
-      \name{author}{2}{}{%
-        {{un=0,uniquepart=base,hash=7df41c69999dbee1f11aafad008cb3e6}{%
-           family={Ferreira},
-           familyi={F\bibinitperiod},
-           given={Francisco\bibnamedelimb H.\bibnamedelimi G.},
-           giveni={F\bibinitperiod\bibinitdelim H\bibinitperiod\bibinitdelim G\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=35a3dee3b41a0aa2d8bd8b31dca279df}{%
-           family={Lugo},
-           familyi={L\bibinitperiod},
-           given={Maria\bibnamedelima Ana},
-           giveni={M\bibinitperiod\bibinitdelim A\bibinitperiod},
-           givenun=0}}%
-      }
-      \strng{namehash}{997b5da44c413088a7b3f7772bdc63df}
-      \strng{fullhash}{997b5da44c413088a7b3f7772bdc63df}
-      \strng{bibnamehash}{997b5da44c413088a7b3f7772bdc63df}
-      \strng{authorbibnamehash}{997b5da44c413088a7b3f7772bdc63df}
-      \strng{authornamehash}{997b5da44c413088a7b3f7772bdc63df}
-      \strng{authorfullhash}{997b5da44c413088a7b3f7772bdc63df}
-      \field{sortinit}{F}
-      \field{sortinithash}{2638baaa20439f1b5a8f80c6c08a13b4}
-      \field{extradatescope}{labelyear}
-      \field{labeldatesource}{}
-      \true{uniqueprimaryauthor}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{journaltitle}{World Bank Research Observer}
-      \field{number}{2}
-      \field{title}{Multidimensional poverty analysis: Looking for a middle ground}
-      \field{volume}{28}
-      \field{year}{2013}
-      \field{pages}{220\bibrangedash 235}
-      \range{pages}{16}
-      \verb{doi}
-      \verb 10.1093/wbro/lks012
-      \endverb
-    \endentry
     \entry{fontenla2022}{article}{}
       \name{author}{2}{}{%
         {{un=0,uniquepart=base,hash=289f52110f5136906224d9bd56fddb27}{%
@@ -2075,35 +1904,6 @@
       \verb 10.1787/9789264278615-fr
       \endverb
     \endentry
-    \entry{pnud2010}{report}{}
-      \name{author}{1}{}{%
-        {{un=0,uniquepart=base,hash=a9bd184f91d73c51b3b5710f8649c517}{%
-           family={{PNUD}},
-           familyi={P\bibinitperiod}}}%
-      }
-      \list{institution}{1}{%
-        {Programme des Nations Unies pour le developpement}%
-      }
-      \list{location}{1}{%
-        {New York}%
-      }
-      \strng{namehash}{a9bd184f91d73c51b3b5710f8649c517}
-      \strng{fullhash}{a9bd184f91d73c51b3b5710f8649c517}
-      \strng{bibnamehash}{a9bd184f91d73c51b3b5710f8649c517}
-      \strng{authorbibnamehash}{a9bd184f91d73c51b3b5710f8649c517}
-      \strng{authornamehash}{a9bd184f91d73c51b3b5710f8649c517}
-      \strng{authorfullhash}{a9bd184f91d73c51b3b5710f8649c517}
-      \field{sortinit}{P}
-      \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
-      \field{extradatescope}{labelyear}
-      \field{labeldatesource}{}
-      \true{uniqueprimaryauthor}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{title}{Rapport sur le developpement humain 2010 : La vraie richesse des nations - les chemins du developpement humain}
-      \field{type}{techreport}
-      \field{year}{2010}
-    \endentry
     \entry{rapport2006}{article}{}
       \name{author}{2}{}{%
         {{un=0,uniquepart=base,hash=9daaee552ff8fa38bcb10ab97603cdf6}{%
@@ -2174,41 +1974,6 @@
       \field{number}{2008/WP002}
       \field{title}{Measuring child poverty and well-being: A literature review}
       \field{year}{2008}
-    \endentry
-    \entry{rosenbaum2002}{book}{}
-      \name{author}{1}{}{%
-        {{un=0,uniquepart=base,hash=2619036f349e499ca578ec1a7ebb3a46}{%
-           family={Rosenbaum},
-           familyi={R\bibinitperiod},
-           given={Paul\bibnamedelima R.},
-           giveni={P\bibinitperiod\bibinitdelim R\bibinitperiod},
-           givenun=0}}%
-      }
-      \list{location}{1}{%
-        {New York}%
-      }
-      \list{publisher}{1}{%
-        {Springer}%
-      }
-      \strng{namehash}{2619036f349e499ca578ec1a7ebb3a46}
-      \strng{fullhash}{2619036f349e499ca578ec1a7ebb3a46}
-      \strng{bibnamehash}{2619036f349e499ca578ec1a7ebb3a46}
-      \strng{authorbibnamehash}{2619036f349e499ca578ec1a7ebb3a46}
-      \strng{authornamehash}{2619036f349e499ca578ec1a7ebb3a46}
-      \strng{authorfullhash}{2619036f349e499ca578ec1a7ebb3a46}
-      \field{sortinit}{R}
-      \field{sortinithash}{5e1c39a9d46ffb6bebd8f801023a9486}
-      \field{extradatescope}{labelyear}
-      \field{labeldatesource}{}
-      \true{uniqueprimaryauthor}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{edition}{2}
-      \field{title}{Observational studies}
-      \field{year}{2002}
-      \verb{doi}
-      \verb 10.1007/978-1-4757-3692-2
-      \endverb
     \endentry
     \entry{rosenbaum1983}{article}{}
       \name{author}{2}{}{%
@@ -2720,81 +2485,6 @@
       \verb 10.1016/j.worlddev.2005.05.004
       \endverb
     \endentry
-    \entry{alkire2007}{article}{}
-      \name{author}{2}{}{%
-        {{un=0,uniquepart=base,hash=9d04481abcbf806747a8c553a56ed68b}{%
-           family={Alkire},
-           familyi={A\bibinitperiod},
-           given={Sabina},
-           giveni={S\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=7ed2b774df544a66ceab2d2897dd2ae5}{%
-           family={Foster},
-           familyi={F\bibinitperiod},
-           given={James},
-           giveni={J\bibinitperiod},
-           givenun=0}}%
-      }
-      \strng{namehash}{7c0bb08fee9b4e58743213245f2325d6}
-      \strng{fullhash}{7c0bb08fee9b4e58743213245f2325d6}
-      \strng{bibnamehash}{7c0bb08fee9b4e58743213245f2325d6}
-      \strng{authorbibnamehash}{7c0bb08fee9b4e58743213245f2325d6}
-      \strng{authornamehash}{7c0bb08fee9b4e58743213245f2325d6}
-      \strng{authorfullhash}{7c0bb08fee9b4e58743213245f2325d6}
-      \field{extraname}{1}
-      \field{sortinit}{A}
-      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
-      \field{extradatescope}{labelyear}
-      \field{labeldatesource}{}
-      \true{uniqueprimaryauthor}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{journaltitle}{OPHI Working Paper}
-      \field{note}{Oxford Poverty and Human Development Initiative}
-      \field{number}{7}
-      \field{title}{Counting and multidimensional poverty measures}
-      \field{year}{2007}
-    \endentry
-    \entry{alkire2011}{article}{}
-      \name{author}{2}{}{%
-        {{un=0,uniquepart=base,hash=9d04481abcbf806747a8c553a56ed68b}{%
-           family={Alkire},
-           familyi={A\bibinitperiod},
-           given={Sabina},
-           giveni={S\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=7ed2b774df544a66ceab2d2897dd2ae5}{%
-           family={Foster},
-           familyi={F\bibinitperiod},
-           given={James},
-           giveni={J\bibinitperiod},
-           givenun=0}}%
-      }
-      \strng{namehash}{7c0bb08fee9b4e58743213245f2325d6}
-      \strng{fullhash}{7c0bb08fee9b4e58743213245f2325d6}
-      \strng{bibnamehash}{7c0bb08fee9b4e58743213245f2325d6}
-      \strng{authorbibnamehash}{7c0bb08fee9b4e58743213245f2325d6}
-      \strng{authornamehash}{7c0bb08fee9b4e58743213245f2325d6}
-      \strng{authorfullhash}{7c0bb08fee9b4e58743213245f2325d6}
-      \field{extraname}{2}
-      \field{sortinit}{A}
-      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
-      \field{extradatescope}{labelyear}
-      \field{labeldatesource}{}
-      \true{uniqueprimaryauthor}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{journaltitle}{Journal of Public Economics}
-      \field{number}{7--8}
-      \field{title}{Counting and multidimensional poverty measurement}
-      \field{volume}{95}
-      \field{year}{2011}
-      \field{pages}{476\bibrangedash 487}
-      \range{pages}{12}
-      \verb{doi}
-      \verb 10.1016/j.jpubeco.2010.11.006
-      \endverb
-    \endentry
     \entry{amuedo2007}{article}{}
       \name{author}{2}{}{%
         {{un=0,uniquepart=base,hash=98ad6b1422bdb26c9fff5c1b805bde63}{%
@@ -3143,63 +2833,6 @@
       \field{title}{Migration and development brief 39}
       \field{type}{techreport}
       \field{year}{2023}
-    \endentry
-    \entry{battiston2013}{article}{}
-      \name{author}{5}{}{%
-        {{un=0,uniquepart=base,hash=b26b185c1ebce1c042d9ec667c1e2d25}{%
-           family={Battiston},
-           familyi={B\bibinitperiod},
-           given={Diego},
-           giveni={D\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=d55e4d3690f5759d5d814179ab839e45}{%
-           family={Cruces},
-           familyi={C\bibinitperiod},
-           given={Guillermo},
-           giveni={G\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=a27c8333a813d15aafba1937948f29a3}{%
-           family={Lopez-Calva},
-           familyi={L\bibinithyphendelim C\bibinitperiod},
-           given={Luis\bibnamedelima F.},
-           giveni={L\bibinitperiod\bibinitdelim F\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=35a3dee3b41a0aa2d8bd8b31dca279df}{%
-           family={Lugo},
-           familyi={L\bibinitperiod},
-           given={Maria\bibnamedelima Ana},
-           giveni={M\bibinitperiod\bibinitdelim A\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=402b0a3c5b52d8994d1aaf4e887b407d}{%
-           family={Santos},
-           familyi={S\bibinitperiod},
-           given={Maria\bibnamedelima Emma},
-           giveni={M\bibinitperiod\bibinitdelim E\bibinitperiod},
-           givenun=0}}%
-      }
-      \strng{namehash}{09866ed9aaecaa312145168cf64eb2a2}
-      \strng{fullhash}{acb49b4298de336a585465a0203c2b8b}
-      \strng{bibnamehash}{acb49b4298de336a585465a0203c2b8b}
-      \strng{authorbibnamehash}{acb49b4298de336a585465a0203c2b8b}
-      \strng{authornamehash}{09866ed9aaecaa312145168cf64eb2a2}
-      \strng{authorfullhash}{acb49b4298de336a585465a0203c2b8b}
-      \field{sortinit}{B}
-      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
-      \field{extradatescope}{labelyear}
-      \field{labeldatesource}{}
-      \true{uniqueprimaryauthor}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{journaltitle}{Social Indicators Research}
-      \field{number}{2}
-      \field{title}{Income and beyond: Multidimensional poverty in six Latin American countries}
-      \field{volume}{112}
-      \field{year}{2013}
-      \field{pages}{291\bibrangedash 314}
-      \range{pages}{24}
-      \verb{doi}
-      \verb 10.1007/s11205-013-0249-3
-      \endverb
     \endentry
     \entry{bouoiyour2016}{article}{}
       \name{author}{2}{}{%
@@ -3922,45 +3555,6 @@
       \field{pages}{163\bibrangedash 182}
       \range{pages}{20}
     \endentry
-    \entry{ferreira2011}{article}{}
-      \name{author}{2}{}{%
-        {{un=0,uniquepart=base,hash=7df41c69999dbee1f11aafad008cb3e6}{%
-           family={Ferreira},
-           familyi={F\bibinitperiod},
-           given={Francisco\bibnamedelimb H.\bibnamedelimi G.},
-           giveni={F\bibinitperiod\bibinitdelim H\bibinitperiod\bibinitdelim G\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=35a3dee3b41a0aa2d8bd8b31dca279df}{%
-           family={Lugo},
-           familyi={L\bibinitperiod},
-           given={Maria\bibnamedelima Ana},
-           giveni={M\bibinitperiod\bibinitdelim A\bibinitperiod},
-           givenun=0}}%
-      }
-      \strng{namehash}{997b5da44c413088a7b3f7772bdc63df}
-      \strng{fullhash}{997b5da44c413088a7b3f7772bdc63df}
-      \strng{bibnamehash}{997b5da44c413088a7b3f7772bdc63df}
-      \strng{authorbibnamehash}{997b5da44c413088a7b3f7772bdc63df}
-      \strng{authornamehash}{997b5da44c413088a7b3f7772bdc63df}
-      \strng{authorfullhash}{997b5da44c413088a7b3f7772bdc63df}
-      \field{sortinit}{F}
-      \field{sortinithash}{2638baaa20439f1b5a8f80c6c08a13b4}
-      \field{extradatescope}{labelyear}
-      \field{labeldatesource}{}
-      \true{uniqueprimaryauthor}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{journaltitle}{World Bank Research Observer}
-      \field{number}{2}
-      \field{title}{Multidimensional poverty analysis: Looking for a middle ground}
-      \field{volume}{28}
-      \field{year}{2013}
-      \field{pages}{220\bibrangedash 235}
-      \range{pages}{16}
-      \verb{doi}
-      \verb 10.1093/wbro/lks012
-      \endverb
-    \endentry
     \entry{fontenla2022}{article}{}
       \name{author}{2}{}{%
         {{un=0,uniquepart=base,hash=289f52110f5136906224d9bd56fddb27}{%
@@ -4653,35 +4247,6 @@
       \verb 10.1787/9789264278615-fr
       \endverb
     \endentry
-    \entry{pnud2010}{report}{}
-      \name{author}{1}{}{%
-        {{un=0,uniquepart=base,hash=a9bd184f91d73c51b3b5710f8649c517}{%
-           family={{PNUD}},
-           familyi={P\bibinitperiod}}}%
-      }
-      \list{institution}{1}{%
-        {Programme des Nations Unies pour le developpement}%
-      }
-      \list{location}{1}{%
-        {New York}%
-      }
-      \strng{namehash}{a9bd184f91d73c51b3b5710f8649c517}
-      \strng{fullhash}{a9bd184f91d73c51b3b5710f8649c517}
-      \strng{bibnamehash}{a9bd184f91d73c51b3b5710f8649c517}
-      \strng{authorbibnamehash}{a9bd184f91d73c51b3b5710f8649c517}
-      \strng{authornamehash}{a9bd184f91d73c51b3b5710f8649c517}
-      \strng{authorfullhash}{a9bd184f91d73c51b3b5710f8649c517}
-      \field{sortinit}{P}
-      \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
-      \field{extradatescope}{labelyear}
-      \field{labeldatesource}{}
-      \true{uniqueprimaryauthor}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{title}{Rapport sur le developpement humain 2010 : La vraie richesse des nations - les chemins du developpement humain}
-      \field{type}{techreport}
-      \field{year}{2010}
-    \endentry
     \entry{rapport2006}{article}{}
       \name{author}{2}{}{%
         {{un=0,uniquepart=base,hash=9daaee552ff8fa38bcb10ab97603cdf6}{%
@@ -4752,41 +4317,6 @@
       \field{number}{2008/WP002}
       \field{title}{Measuring child poverty and well-being: A literature review}
       \field{year}{2008}
-    \endentry
-    \entry{rosenbaum2002}{book}{}
-      \name{author}{1}{}{%
-        {{un=0,uniquepart=base,hash=2619036f349e499ca578ec1a7ebb3a46}{%
-           family={Rosenbaum},
-           familyi={R\bibinitperiod},
-           given={Paul\bibnamedelima R.},
-           giveni={P\bibinitperiod\bibinitdelim R\bibinitperiod},
-           givenun=0}}%
-      }
-      \list{location}{1}{%
-        {New York}%
-      }
-      \list{publisher}{1}{%
-        {Springer}%
-      }
-      \strng{namehash}{2619036f349e499ca578ec1a7ebb3a46}
-      \strng{fullhash}{2619036f349e499ca578ec1a7ebb3a46}
-      \strng{bibnamehash}{2619036f349e499ca578ec1a7ebb3a46}
-      \strng{authorbibnamehash}{2619036f349e499ca578ec1a7ebb3a46}
-      \strng{authornamehash}{2619036f349e499ca578ec1a7ebb3a46}
-      \strng{authorfullhash}{2619036f349e499ca578ec1a7ebb3a46}
-      \field{sortinit}{R}
-      \field{sortinithash}{5e1c39a9d46ffb6bebd8f801023a9486}
-      \field{extradatescope}{labelyear}
-      \field{labeldatesource}{}
-      \true{uniqueprimaryauthor}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{edition}{2}
-      \field{title}{Observational studies}
-      \field{year}{2002}
-      \verb{doi}
-      \verb 10.1007/978-1-4757-3692-2
-      \endverb
     \endentry
     \entry{rosenbaum1983}{article}{}
       \name{author}{2}{}{%

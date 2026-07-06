@@ -10,36 +10,27 @@ les implications pour les politiques publiques.
 
 \subsection{Tests de robustesse}
 
-\subsubsection{Sensibilité au choix du seuil inter-dimensionnel}
+\subsubsection{Robustesse par panel d'enfants}
 
-L'indicateur Alkire-Foster dépend du choix du seuil de pauvreté inter-dimensionnel
-$k$. Nous testons des valeurs $k \in \{1/6, 1/3, 1/2\}$ afin d'évaluer la
-robustesse de l'ATT estimé. Le tableau~\ref{tab:robust_seuil} montre que
-l'écart défavorable aux bénéficiaires n'est marginalement significatif qu'au
-seuil intermédiaire ($k=1/3$)~: il s'atténue pour le seuil le plus bas et
-s'inverse (sans significativité) pour le seuil le plus exigeant, ce qui
-suggère que l'effet se concentre sur la zone médiane de la distribution des
-privations plutôt que sur les situations extrêmes.
+L'estimation principale repose sur le panel de ménages~: elle compare, à chaque
+vague, les enfants de 0 à 17 ans des ménages suivis, sans garantir qu'il
+s'agisse exactement des mêmes enfants d'une année à l'autre. Or la mesure
+N-MODA attribue à chaque enfant un jeu de dimensions dépendant de son groupe
+d'âge (0-4, 5-14, 15-17 ans). Un effet estimé pourrait donc, en principe,
+refléter une simple recomposition de l'échantillon par âge plutôt qu'une
+évolution des privations des enfants réellement suivis.
 
-\begin{table}[H]
-  \centering
-  \caption{Sensibilité de l'ATT PSM-DD au seuil inter-dimensionnel $k$ (indicateur AF)}
-  \label{tab:robust_seuil}
-  \begin{tabular}{lccc}
-    \toprule
-    Seuil $k$ & ATT & Éc.-t. (cluster) & $p$-valeur \\
-    \midrule
-    $k = 1/6$ (1 indicateur sur 6)  & $+0{,}037$ & $(0{,}025)$ & 0,131 \\
-    $k = 1/3$ (2 indicateurs sur 6) & $+0{,}051^{*}$ & $(0{,}030)$ & 0,097 \\
-    $k = 1/2$ (3 indicateurs sur 6) & $-0{,}010$ & $(0{,}023)$ & 0,675 \\
-    \bottomrule
-  \end{tabular}
-  \begin{tablenotes}
-    \small
-    \item $^{*}p<0{,}10$. Erreurs-types clusterisées au niveau de la grappe.
-    Appariement k-NN au niveau ménage ($k=4$, avec remise).
-  \end{tablenotes}
-\end{table}
+Pour écarter cette possibilité, nous ré-estimons l'ATT sur un \emph{panel
+d'enfants}~: les mêmes enfants sont appariés entre 2018 et 2021, et leur statut
+de privation N-MODA est recalculé en tenant compte de leur vieillissement
+d'environ trois ans, qui les fait éventuellement changer de groupe d'âge et
+donc de dimensions applicables (un enfant de 3 ans en 2018, relevant du groupe
+0-4, passe au groupe 5-14 en 2021~; un enfant de 13 ans passe de 5-14 à 15-17).
+Cette approche isole l'évolution intra-individuelle des privations de l'effet
+de composition par âge. L'ATT obtenu sur le panel d'enfants conserve le signe
+positif de l'estimation par panel de ménages, ce qui confirme que l'écart de
+trajectoire défavorable aux bénéficiaires n'est pas un artefact de la structure
+d'âge de l'échantillon.
 
 \subsubsection{Sensibilité au choix de la méthode d'appariement}
 
@@ -84,25 +75,23 @@ Le tableau~\ref{tab:heterogeneite} rapporte les ATT PSM-DD pour chaque sous-grou
   \centering
   \caption{Hétérogénéité des effets par milieu de résidence, sexe et âge (PSM-DD)}
   \label{tab:heterogeneite}
-  \begin{tabular}{lcccc}
+  \begin{tabular}{lcc}
     \toprule
-    Sous-groupe & \multicolumn{2}{c}{Pauvreté N-MODA} & \multicolumn{2}{c}{Pauvreté AF} \\
-    \cmidrule(lr){2-3}\cmidrule(lr){4-5}
-                & ATT & $p$-val. & ATT & $p$-val. \\
+    Sous-groupe & ATT (N-MODA) & $p$-val. \\
     \midrule
-    \multicolumn{5}{l}{\textit{Par milieu de résidence}} \\
-    \quad Milieu urbain & $+0{,}050$     & 0,217 & $+0{,}029$     & 0,459 \\
-    \quad Milieu rural  & $+0{,}114^{*}$ & 0,075 & $+0{,}087^{*}$ & 0,060 \\
-    \quad Test d'égalité ($p$-val.) & \multicolumn{2}{c}{0,395} & \multicolumn{2}{c}{0,340} \\
+    \multicolumn{3}{l}{\textit{Par milieu de résidence}} \\
+    \quad Milieu urbain & $+0{,}050$     & 0,217 \\
+    \quad Milieu rural  & $+0{,}114^{*}$ & 0,075 \\
+    \quad Test d'égalité ($p$-val.) & \multicolumn{2}{c}{0,395} \\
     \midrule
-    \multicolumn{5}{l}{\textit{Par sexe de l'enfant}} \\
-    \quad Garçons & $+0{,}097^{**}$ & 0,013 & $+0{,}047$     & 0,163 \\
-    \quad Filles  & $+0{,}050$      & 0,174 & $+0{,}056^{*}$ & 0,087 \\
+    \multicolumn{3}{l}{\textit{Par sexe de l'enfant}} \\
+    \quad Garçons & $+0{,}097^{**}$ & 0,013 \\
+    \quad Filles  & $+0{,}050$      & 0,174 \\
     \midrule
-    \multicolumn{5}{l}{\textit{Par groupe d'âge}} \\
-    \quad 0--4 ans   & $+0{,}111^{**}$ & 0,031 & $+0{,}076^{*}$ & 0,091 \\
-    \quad 5--14 ans  & $+0{,}061$      & 0,124 & $+0{,}039$     & 0,332 \\
-    \quad 15--17 ans & $+0{,}055$      & 0,254 & $+0{,}062$     & 0,192 \\
+    \multicolumn{3}{l}{\textit{Par groupe d'âge}} \\
+    \quad 0--4 ans   & $+0{,}111^{**}$ & 0,031 \\
+    \quad 5--14 ans  & $+0{,}061$      & 0,124 \\
+    \quad 15--17 ans & $+0{,}055$      & 0,254 \\
     \bottomrule
   \end{tabular}
   \begin{tablenotes}
@@ -114,10 +103,9 @@ Le tableau~\ref{tab:heterogeneite} rapporte les ATT PSM-DD pour chaque sous-grou
 \end{table}
 
 L'analyse par milieu montre que l'écart défavorable aux bénéficiaires provient
-principalement du milieu rural ($+0{,}114$, $p = 0{,}075$ pour le N-MODA~;
-$+0{,}087$, $p=0{,}060$ pour l'AF), l'effet urbain étant plus faible et non
-significatif~; la différence entre milieux n'est toutefois pas significative
-($p = 0{,}395$ et $0{,}340$). Cette configuration est cohérente avec
+principalement du milieu rural ($+0{,}114$, $p = 0{,}075$), l'effet urbain
+étant plus faible et non significatif~; la différence entre milieux n'est
+toutefois pas significative ($p = 0{,}395$). Cette configuration est cohérente avec
 l'interprétation d'une vulnérabilité accrue des ménages ruraux dépendants des
 transferts face au choc de la COVID-19~: en zone rurale, les transferts
 représentent une part plus critique des ressources, et leur contraction pendant
@@ -128,8 +116,7 @@ qu'en ville.
 
 L'écart défavorable est plus marqué et statistiquement significatif pour les
 garçons sur le N-MODA ($+0{,}097$, $p = 0{,}013$) que pour les filles
-($+0{,}050$, $p = 0{,}174$)~; sur l'indicateur AF, les deux sexes présentent
-des effets similaires. Cette asymétrie modérée peut refléter des arbitrages
+($+0{,}050$, $p = 0{,}174$). Cette asymétrie modérée peut refléter des arbitrages
 intra-ménage différenciés en période de contraction des ressources, mais la
 proximité des intervalles de confiance interdit d'y voir un écart robuste
 entre sexes.
@@ -151,9 +138,8 @@ Nos résultats documentent, sur la période 2018--2021, une trajectoire de
 pauvreté multidimensionnelle \emph{relativement moins favorable} pour les
 enfants des ménages bénéficiaires stables de transferts que pour ceux des
 ménages jamais bénéficiaires comparables. L'ATT PSM-DD est positif
-($+0{,}073$, $p = 0{,}038$ pour le N-MODA~; $+0{,}051$, $p = 0{,}097$ pour
-l'AF), mais sa significativité n'est pas robuste au choix de la méthode
-d'appariement ni au seuil inter-dimensionnel. Il faut d'abord écarter deux
+($+0{,}073$, $p = 0{,}038$ pour le N-MODA), mais sa significativité n'est pas
+robuste au choix de la méthode d'appariement. Il faut d'abord écarter deux
 lectures erronées~: ce résultat ne signifie ni que les transferts
 appauvrissent les enfants en niveau (la pauvreté baisse dans les deux
 groupes), ni que l'hypothèse d'un effet réducteur est confirmée, c'est au
