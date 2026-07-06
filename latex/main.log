@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2026.7.1)  6 JUL 2026 22:38
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2026.7.1)  6 JUL 2026 22:44
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1559,121 +1559,121 @@ l.56
 ] [2]) (./chapitres/chapitre1.tex [3] [4
 
 ] [5] [6] [7] [8] [9] [10]
-[11] [12] [13] [14] [15] [16]) (./chapitres/chapitre2.tex [17]
+[11] [12] [13] [14] [15]) (./chapitres/chapitre2.tex [16]
 LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 2
-7.
+2.
 
 (/usr/share/texmf/tex/latex/lm/ts1lmr.fd
 File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-) [18
+) [17
 
 {/usr/share/texmf/fonts/enc/dvips/lm/lm-ts1.enc}]
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10.95> on input line 82.
- [19]
-Underfull \hbox (badness 10000) in paragraph at lines 169--170
+(Font)              <10.95> on input line 77.
+ [18]
+Underfull \hbox (badness 10000) in paragraph at lines 164--165
 []|\T1/lmr/m/n/10.95 (+20) Variable
  []
 
-[20] [21] [22{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathex.enc}]
-Underfull \hbox (badness 1490) in paragraph at lines 302--302
+[19] [20] [21{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathex.enc}]
+Underfull \hbox (badness 1490) in paragraph at lines 297--297
 []|\T1/lmr/m/n/12 (+20) Fréquentation sco-
  []
 
 
-Underfull \hbox (badness 1888) in paragraph at lines 307--307
+Underfull \hbox (badness 1888) in paragraph at lines 302--302
 []|\T1/lmr/m/n/12 (+20) Vaccination in-com-plète (0-5
  []
 
 
-Underfull \hbox (badness 1231) in paragraph at lines 310--310
+Underfull \hbox (badness 1231) in paragraph at lines 305--305
 []|\T1/lmr/m/n/12 (+20) Source d'eau non amé-lio-rée
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 311--311
+Underfull \hbox (badness 10000) in paragraph at lines 306--306
 []|\T1/lmr/m/n/12 (+20) Toilettes non amé-lio-rées
  []
 
-[23]
-Underfull \hbox (badness 10000) in paragraph at lines 374--375
+[22]
+Underfull \hbox (badness 10000) in paragraph at lines 369--370
 []|\T1/lmr/m/n/10.95 (+20) Variables
  []
 
 
-Overfull \hbox (2.29344pt too wide) in paragraph at lines 376--377
+Overfull \hbox (2.29344pt too wide) in paragraph at lines 371--372
 []|\T1/lmr/m/n/10.95 (-20) Assainissement| 
  []
 
 
-Underfull \hbox (badness 6396) in paragraph at lines 377--377
+Underfull \hbox (badness 6396) in paragraph at lines 372--372
 []|\T1/lmr/m/n/10.95 (+20) Sanitaires non conformes
  []
 
 
-Overfull \hbox (6.2723pt too wide) in paragraph at lines 378--379
+Overfull \hbox (6.2723pt too wide) in paragraph at lines 373--374
 []|\T1/lmtt/m/n/10.95 partag_toi| 
  []
 
 
-Overfull \hbox (17.76976pt too wide) in paragraph at lines 381--381
+Overfull \hbox (17.76976pt too wide) in paragraph at lines 376--376
 []|\T1/lmtt/m/n/10.95 eauboi_ss/sp| 
  []
 
 
-Overfull \hbox (23.5185pt too wide) in paragraph at lines 382--383
+Overfull \hbox (23.5185pt too wide) in paragraph at lines 377--378
 []|\T1/lmtt/m/n/10.95 tps_eau_ss/sp| 
  []
 
 
-Underfull \hbox (badness 1661) in paragraph at lines 385--385
+Underfull \hbox (badness 1661) in paragraph at lines 380--380
 []|\T1/lmr/m/n/10.95 (+20) Brûlée, dé-pôt sau-vage ou
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 386--386
+Underfull \hbox (badness 10000) in paragraph at lines 381--381
 []|\T1/lmr/m/n/10.95 (+20) Surpeuplement $\OML/lmm/m/it/10.95 > \OT1/lmr/m/n/10
 .95 (+20) 3$
  []
 
 
-Underfull \hbox (badness 6842) in paragraph at lines 389--389
+Underfull \hbox (badness 6842) in paragraph at lines 384--384
 []|$\OMS/lmsy/m/n/10.95 ^^U \OT1/lmr/m/n/10.95 (+20) 1$ \T1/lmr/m/n/10.95 (+20)
  macro-groupe non
  []
 
 
-Overfull \hbox (4.80139pt too wide) in paragraph at lines 389--389
+Overfull \hbox (4.80139pt too wide) in paragraph at lines 384--384
 []|\T1/lmtt/m/n/10.95 s08b02a-j$[]$| 
  []
 
 
-Underfull \hbox (badness 1281) in paragraph at lines 390--390
+Underfull \hbox (badness 1281) in paragraph at lines 385--385
 []|\T1/lmr/m/n/10.95 (+20) Saut re-pas, mangé moins,
  []
 
 
-Overfull \hbox (6.2723pt too wide) in paragraph at lines 390--391
+Overfull \hbox (6.2723pt too wide) in paragraph at lines 385--386
 []|\T1/lmtt/m/n/10.95 s08aq04--08| 
  []
 
 
-Underfull \hbox (badness 1990) in paragraph at lines 393--393
+Underfull \hbox (badness 1990) in paragraph at lines 388--388
 []|\T1/lmr/m/n/10.95 (+20) Bois, char-bon ou dé-chets
  []
 
 
-Overfull \hbox (0.52356pt too wide) in paragraph at lines 397--397
+Overfull \hbox (0.52356pt too wide) in paragraph at lines 392--392
 []|\T1/lmtt/m/n/10.95 acte_nais| 
  []
 
 
-Underfull \hbox (badness 2753) in paragraph at lines 403--403
+Underfull \hbox (badness 2753) in paragraph at lines 398--398
 []|\T1/lmr/m/it/10.95 (+20) 15--17 ans \T1/lmr/m/n/10.95 (+20) : pas de lec-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 404--405
+Underfull \hbox (badness 10000) in paragraph at lines 399--400
 []|\T1/lmtt/m/n/10.95 scol\T1/lmr/m/n/10.95 (+20) ,
  []
 
@@ -1681,45 +1681,45 @@ Package microtype Info: Character `029' is missing
 (microtype)             in font `T1/lmr/m/sc/10.95'.
 (microtype)             Ignoring protrusion settings for this character.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 414.
-[24] [25] [26] [27]) [28] (./chapitres/chapitre3_stats.tex [29] [30
+(Font)              <5> on input line 409.
+[23] [24] [25] [26]) [27] (./chapitres/chapitre3_stats.tex [28] [29
 
 ]
 Overfull \hbox (16.92616pt too wide) in paragraph at lines 79--93
  [][] 
  []
 
-[31]
+[30]
 
 pdfTeX warning: pdflatex (file ./figures/fig_evolution_ipm.pdf): PDF inclusion:
  found PDF version <1.6>, but at most version <1.5> allowed
-<figures/fig_evolution_ipm.pdf, id=944, 397.485pt x 289.08pt>
+<figures/fig_evolution_ipm.pdf, id=945, 397.485pt x 289.08pt>
 File: figures/fig_evolution_ipm.pdf Graphic file (type pdf)
 <use figures/fig_evolution_ipm.pdf>
 Package pdftex.def Info: figures/fig_evolution_ipm.pdf  used on input line 149.
 
 (pdftex.def)             Requested size: 374.86775pt x 272.63948pt.
-[32] [33 <./figures/fig_evolution_ipm.pdf>]
+[31] [32 <./figures/fig_evolution_ipm.pdf>]
 
 pdfTeX warning: pdflatex (file ./figures/fig_privations_dim.pdf): PDF inclusion
 : found PDF version <1.6>, but at most version <1.5> allowed
-<figures/fig_privations_dim.pdf, id=967, 397.485pt x 289.08pt>
+<figures/fig_privations_dim.pdf, id=968, 397.485pt x 289.08pt>
 File: figures/fig_privations_dim.pdf Graphic file (type pdf)
 <use figures/fig_privations_dim.pdf>
 Package pdftex.def Info: figures/fig_privations_dim.pdf  used on input line 216
 .
 (pdftex.def)             Requested size: 396.91325pt x 288.67346pt.
-[34] [35 <./figures/fig_privations_dim.pdf>]
+[33] [34 <./figures/fig_privations_dim.pdf>]
 
 pdfTeX warning: pdflatex (file ./figures/fig_pauvrete_milieu_age.pdf): PDF incl
 usion: found PDF version <1.6>, but at most version <1.5> allowed
-<figures/fig_pauvrete_milieu_age.pdf, id=1004, 397.485pt x 289.08pt>
+<figures/fig_pauvrete_milieu_age.pdf, id=1005, 397.485pt x 289.08pt>
 File: figures/fig_pauvrete_milieu_age.pdf Graphic file (type pdf)
 <use figures/fig_pauvrete_milieu_age.pdf>
 Package pdftex.def Info: figures/fig_pauvrete_milieu_age.pdf  used on input lin
 e 263.
 (pdftex.def)             Requested size: 374.86775pt x 272.63948pt.
-[36 <./figures/fig_pauvrete_milieu_age.pdf>]
+[35 <./figures/fig_pauvrete_milieu_age.pdf>]
 
 pdfTeX warning: pdflatex (file ./figures/fig_carte_nmoda.pdf): PDF inclusion: f
 ound PDF version <1.6>, but at most version <1.5> allowed
@@ -1728,19 +1728,19 @@ File: figures/fig_carte_nmoda.pdf Graphic file (type pdf)
 <use figures/fig_carte_nmoda.pdf>
 Package pdftex.def Info: figures/fig_carte_nmoda.pdf  used on input line 284.
 (pdftex.def)             Requested size: 396.91325pt x 288.67346pt.
-) (./chapitres/chapitre3_resultats.tex [37 <./figures/fig_carte_nmoda.pdf>]
-[38
+) (./chapitres/chapitre3_resultats.tex [36 <./figures/fig_carte_nmoda.pdf>]
+[37
 
-] [39]
+] [38]
 
 pdfTeX warning: pdflatex (file ./figures/overlap_panel.pdf): PDF inclusion: fou
 nd PDF version <1.6>, but at most version <1.5> allowed
-<figures/overlap_panel.pdf, id=1072, 397.485pt x 289.08pt>
+<figures/overlap_panel.pdf, id=1073, 397.485pt x 289.08pt>
 File: figures/overlap_panel.pdf Graphic file (type pdf)
 <use figures/overlap_panel.pdf>
 Package pdftex.def Info: figures/overlap_panel.pdf  used on input line 90.
 (pdftex.def)             Requested size: 374.86775pt x 272.63948pt.
-[40 <./figures/overlap_panel.pdf>] [41] [42]
+[39 <./figures/overlap_panel.pdf>] [40] [41]
 
 pdfTeX warning: pdflatex (file ./figures/fig_effets_dim.pdf): PDF inclusion: fo
 und PDF version <1.6>, but at most version <1.5> allowed
@@ -1749,16 +1749,16 @@ File: figures/fig_effets_dim.pdf Graphic file (type pdf)
 <use figures/fig_effets_dim.pdf>
 Package pdftex.def Info: figures/fig_effets_dim.pdf  used on input line 256.
 (pdftex.def)             Requested size: 374.86775pt x 272.63948pt.
-) [43 <./figures/fig_effets_dim.pdf>] (./chapitres/chapitre4.tex [44] [45
+) [42 <./figures/fig_effets_dim.pdf>] (./chapitres/chapitre4.tex [43] [44
 
 ]
-[46] [47] [48]) [49] (./chapitres/conclusion.tex [50] [51
+[45] [46] [47]) [48] (./chapitres/conclusion.tex [49] [50
 
-] [52] [53]) [54]
-(./annexes/annexe_A.tex [55
+] [51] [52]) [53]
+(./annexes/annexe_A.tex [54
 
 
-] [56]) (./annexes/annexe_C.tex [57] [58
+] [55]) (./annexes/annexe_C.tex [56] [57
 
 ]
 Overfull \hbox (13.67438pt too wide) in paragraph at lines 96--97
@@ -1909,40 +1909,40 @@ Underfull \hbox (badness 10000) in paragraph at lines 149--150
 []|\T1/lmtt/m/n/10.95 scol
  []
 
-[59] [60]
+[58] [59]
 Overfull \vbox (219.81227pt too high) has occurred while \output is active []
 
 
-[61]) (./annexes/annexe_D.tex [62]
+[60]) (./annexes/annexe_D.tex [61]
 Underfull \hbox (badness 2951) in paragraph at lines 42--45
 []\T1/lmr/m/it/10.95 (+20) Note : \T1/lmr/m/n/10.95 (+20) Pro-por-tions cal-cu-
 lées sur ef-fec-tifs bruts. Seuil mo-né-taire :
  []
 
-[63
+[62
 
 ]
 
 pdfTeX warning: pdflatex (file ./figures/fig_croisement_pauvrete.pdf): PDF incl
 usion: found PDF version <1.6>, but at most version <1.5> allowed
-<figures/fig_croisement_pauvrete.pdf, id=1281, 397.485pt x 289.08pt>
+<figures/fig_croisement_pauvrete.pdf, id=1282, 397.485pt x 289.08pt>
 File: figures/fig_croisement_pauvrete.pdf Graphic file (type pdf)
 <use figures/fig_croisement_pauvrete.pdf>
 Package pdftex.def Info: figures/fig_croisement_pauvrete.pdf  used on input lin
 e 95.
 (pdftex.def)             Requested size: 330.76329pt x 240.56268pt.
-) [64] [65 <./figures/fig_croisement_pauvrete.pdf>] [66
+) [63] [64 <./figures/fig_croisement_pauvrete.pdf>] [65
 
 
-] [67] [68] [69]
-[70] (./main.toc [71
+] [66] [67] [68]
+[69] (./main.toc [70
 
 
-] [72])
+] [71])
 \tf@toc=\write8
 \openout8 = `main.toc'.
 
- [73] (./main.aux)
+ [72] (./main.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-22>
@@ -1952,17 +1952,17 @@ L3 programming layer <2024-01-22>
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 34B9C184FB15A5E0FD6AF72DE64B45C1;21570.
+(rerunfilecheck)             Checksum: 4D376559FCE4A820F30B257E7F61AF6A;21583.
 Package logreq Info: Writing requests to 'main.run.xml'.
 \openout1 = `main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 39326 strings out of 476153
- 733921 string characters out of 5794327
+ 39336 strings out of 476153
+ 734009 string characters out of 5794327
  1961975 words of memory out of 5000000
- 59905 multiletter control sequences out of 15000+600000
- 683556 words of font info for 335 fonts, out of 8000000 for 9000
+ 59900 multiletter control sequences out of 15000+600000
+ 684089 words of font info for 340 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  102i,14n,117p,1149b,2907s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texmf/fonts/type1/public/lm/lmbx10.pfb></usr/share/texmf/fonts/ty
@@ -1980,10 +1980,10 @@ share/texmf/fonts/type1/public/lm/lmsy8.pfb></usr/share/texmf/fonts/type1/publi
 c/lm/lmtt10.pfb></usr/share/texmf/fonts/type1/public/lm/lmtt12.pfb></usr/share/
 texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/share/t
 exlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on main.pdf (86 pages, 1249317 bytes).
+Output written on main.pdf (85 pages, 1245965 bytes).
 PDF statistics:
- 1749 PDF objects out of 2073 (max. 8388607)
- 1563 compressed objects within 16 object streams
- 303 named destinations out of 1000 (max. 500000)
+ 1752 PDF objects out of 2073 (max. 8388607)
+ 1567 compressed objects within 16 object streams
+ 308 named destinations out of 1000 (max. 500000)
  64741 words of extra memory for PDF output out of 74296 (max. 10000000)
 
