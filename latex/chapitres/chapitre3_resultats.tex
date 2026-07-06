@@ -132,9 +132,8 @@ maximale passe de 0,66 (log PCE, avant appariement) à 0,04 en valeur absolue
 
 À titre de référence, nous estimons d'abord un estimateur de double différence
 sur effectifs bruts, sans appariement (tableau~\ref{tab:dd_brut}). L'effet
-estimé est positif, marginalement significatif pour le N-MODA
-($+4{,}6$ pp, $p = 0{,}063$), non significatif pour l'AF ($+3{,}8$ pp,
-$p = 0{,}160$)~: la pauvreté multidimensionnelle des enfants des ménages
+estimé est positif et marginalement significatif pour le N-MODA
+($+4{,}6$ pp, $p = 0{,}063$)~: la pauvreté multidimensionnelle des enfants des ménages
 bénéficiaires stables a reculé moins vite que celle des enfants des ménages
 jamais bénéficiaires. Cette comparaison naïve confond toutefois l'effet des
 transferts avec les différences initiales considérables entre les deux groupes
@@ -152,7 +151,6 @@ indispensable.
     Variable de résultat & ATT$_{\text{DD}}$ & Éc.-t. (cluster) & $p$-valeur \\
     \midrule
     Pauvreté N-MODA ($\hat{H}_{\text{MODA}}$) & $+0{,}046^{*}$ & $(0{,}025)$ & 0,063 \\
-    Pauvreté AF ($\hat{H}_{\text{AF}}$)       & $+0{,}038$     & $(0{,}027)$ & 0,160 \\
     \bottomrule
   \end{tabular}
   \begin{tablenotes}
@@ -182,11 +180,8 @@ sélection sur observables et les effets fixes inobservables constants dans le t
     \toprule
     Variable de résultat & ATT & Éc.-t. (cluster) & $p$-valeur \\
     \midrule
-    \multicolumn{4}{l}{\textit{Approche N-MODA (7 dimensions, $k=4$), approche principale}} \\
+    \multicolumn{4}{l}{\textit{Approche N-MODA (7 dimensions, $k=4$)}} \\
     \quad Incidence $\hat{H}_{\text{MODA}}$         & $+0{,}073^{**}$ & $(0{,}035)$ & 0,038 \\
-    \midrule
-    \multicolumn{4}{l}{\textit{Approche Alkire-Foster (6 indicateurs, $k=1/3$), robustesse}} \\
-    \quad Incidence $\hat{H}_{\text{AF}}$           & $+0{,}051^{*}$ & $(0{,}030)$ & 0,097 \\
     \bottomrule
   \end{tabular}
   \begin{tablenotes}
@@ -199,13 +194,12 @@ sélection sur observables et les effets fixes inobservables constants dans le t
 \end{table}
 
 L'estimateur PSM-DD donne un ATT de $+0{,}073$ ($p = 0{,}038$) sur la pauvreté
-N-MODA et de $+0{,}051$ ($p = 0{,}097$) sur la pauvreté Alkire-Foster. Après
-correction du biais de sélection par l'appariement, l'écart de trajectoire
-défavorable aux ménages bénéficiaires persiste~: la probabilité de pauvreté
-multidimensionnelle des enfants de ménages bénéficiaires stables a diminué de
-7,3 points de pourcentage de \emph{moins} que celle des enfants de ménages
-jamais bénéficiaires comparables (significatif au seuil de 5\,\% pour le
-N-MODA, à 10\,\% seulement pour l'AF). Il faut souligner d'emblée que ce
+N-MODA. Après correction du biais de sélection par l'appariement, l'écart de
+trajectoire défavorable aux ménages bénéficiaires persiste~: la probabilité de
+pauvreté multidimensionnelle des enfants de ménages bénéficiaires stables a
+diminué de 7,3 points de pourcentage de \emph{moins} que celle des enfants de
+ménages jamais bénéficiaires comparables (significatif au seuil de 5\,\%). Il
+faut souligner d'emblée que ce
 résultat ne signifie pas que les transferts \emph{appauvrissent} les enfants
 en niveau, la pauvreté recule dans les deux groupes, mais que la baisse
 a été plus lente chez les bénéficiaires sur la période 2018-2021, marquée par
@@ -229,16 +223,14 @@ d'incertitude que la discussion prend explicitement en compte.
   \centering
   \caption{Sensibilité de l'ATT PSM-DD au choix de la méthode d'appariement}
   \label{tab:psm_methodes}
-  \begin{tabular}{lcccc}
+  \begin{tabular}{lcc}
     \toprule
-    Méthode d'appariement & \multicolumn{2}{c}{Pauvreté N-MODA} & \multicolumn{2}{c}{Pauvreté AF} \\
-    \cmidrule(lr){2-3}\cmidrule(lr){4-5}
-                          & ATT & $p$-val. & ATT & $p$-val. \\
+    Méthode d'appariement & ATT (N-MODA) & $p$-val. \\
     \midrule
-    k-NN ($k=4$, avec remise)             & $+0{,}073^{**}$ & 0,038 & $+0{,}051^{*}$ & 0,097 \\
-    Noyau Epanechnikov ($h=0{,}06$)       & $+0{,}071^{*}$  & 0,066 & $+0{,}051$     & 0,116 \\
-    Caliper ($\varepsilon = 0{,}05$, sans remise) & $+0{,}050$ & 0,131 & $+0{,}055^{*}$  & 0,078 \\
-    DD brute (sans appariement)           & $+0{,}046^{*}$  & 0,064 & $+0{,}038$     & 0,160 \\
+    k-NN ($k=4$, avec remise)             & $+0{,}073^{**}$ & 0,038 \\
+    Noyau Epanechnikov ($h=0{,}06$)       & $+0{,}071^{*}$  & 0,066 \\
+    Caliper ($\varepsilon = 0{,}05$, sans remise) & $+0{,}050$ & 0,131 \\
+    DD brute (sans appariement)           & $+0{,}046^{*}$  & 0,064 \\
     \bottomrule
   \end{tabular}
   \begin{tablenotes}

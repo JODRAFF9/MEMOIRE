@@ -2,8 +2,8 @@
 \label{sec:methodo}
 
 Cette section présente les données et la méthodologie de la recherche. La
-pauvreté multidimensionnelle des enfants est mesurée par deux approches
-complémentaires, Alkire-Foster et N-MODA, qui servent de variables de résultat.
+pauvreté multidimensionnelle des enfants est mesurée par l'approche N-MODA de
+l'UNICEF, qui sert de variable de résultat.
 L'effet causal des transferts est estimé sur les deux vagues de l'EHCVM par la
 combinaison du score de propension (PSM) et de la double différence (DD).
 
@@ -105,7 +105,7 @@ en 2021-2022 selon leur statut de suivi et le milieu de résidence.
 Après nettoyage (exclusion des observations avec plus de deux indicateurs de
 privation manquants et des ménages sans information sur les transferts),
 l'échantillon retenu comprend les enfants âgés de 0 à 17 ans pour lesquels
-l'intégralité des indicateurs AF et MODA ainsi que la variable de traitement
+l'intégralité des indicateurs N-MODA ainsi que la variable de traitement
 sont disponibles dans les deux vagues. L'échantillon complet incluant les
 993 nouveaux ménages de 2021 (\texttt{PanelHH} = 0) est utilisé dans
 les analyses de robustesse. La limite principale de cette construction est
@@ -224,110 +224,24 @@ l'enfance ont des effets durables sur le développement cognitif, la santé et
 les trajectoires éducatives et professionnelles futures
 \parencite{townsend1979, gordon2003}.
 
-Dans ce cadre, deux méthodes de mesure de la pauvreté multidimensionnelle
-des enfants sont adoptées~; chacune apporte une information complémentaire
-sur les privations subies~: l'indice Alkire-Foster, référence méthodologique
-dominante pour la mesure agrégée, et la méthode N-MODA de l'UNICEF, adaptée
-aux spécificités de l'enfance et retenue comme approche principale.
+Dans ce cadre, la pauvreté multidimensionnelle des enfants est mesurée par la
+méthode N-MODA de l'UNICEF, adaptée aux spécificités de l'enfance et retenue
+comme méthodologie officielle par l'ANSD au Sénégal.
 
-\subsubsection{Première approche : l'indice Alkire-Foster (IPM-Enfant)}
-
-
-La méthode d'Alkire-Foster \parencite{alkire2007, alkire2011} construit un
-indice synthétique de pauvreté multidimensionnelle en deux étapes. Soit $n$
-enfants, $d = 6$ indicateurs répartis en trois dimensions (éducation, santé,
-niveau de vie) et $y_{ij}$ la valeur de l'indicateur $j$ pour l'enfant $i$.
-La variable de privation élémentaire est :
-\begin{equation}
-  g_{ij} = \mathbf{1}\left[y_{ij} < z_j\right]
-  \label{eq:privation_af}
-\end{equation}
-où $z_j$ est le seuil de privation de la dimension $j$.
-
-Le score de privation pondéré de l'enfant $i$ est :
-\begin{equation}
-  c_i = \sum_{j=1}^{d} w_j \, g_{ij}
-  \label{eq:score_af}
-\end{equation}
-avec des poids égaux $w_j = 1/6$. Un enfant est identifié comme
-multidimensionnellement pauvre si $c_i \geq k$, avec $k = 1/3$ (au moins
-deux indicateurs sur six).
-
-L'IPM-Enfant est ensuite calculé comme le produit de l'incidence $H$ et de
-l'intensité moyenne $A$ :
-\begin{equation}
-  M_0 = H \times A
-  \label{eq:ipm}
-\end{equation}
-où $H = q/n$ est la proportion d'enfants pauvres et $A = \frac{1}{q}
-\sum_{i:\,c_i \geq k} c_i$ l'intensité moyenne des privations parmi les
-pauvres. La mesure $M_0$ est décomposable par groupe de population et par
-dimension, ce qui permet d'analyser la contribution de chaque région, milieu
-et dimension à la pauvreté globale.
-
-Cette famille de mesures constitue le fondement méthodologique de l'Indice
-de Pauvreté Multidimensionnelle utilisé par le Programme des Nations Unies
-pour le Développement depuis 2010 \parencite{pnud2010}. Elle doit sa
-diffusion à deux propriétés~: le double seuil d'identification (seuil de
-privation $z_j$ propre à chaque dimension, puis seuil inter-dimensionnel $k$),
-qui permet de distinguer les enfants cumulant les privations, les plus
-vulnérables, de ceux qui n'en subissent qu'une ou deux~; et la
-décomposabilité, qui en fait un outil directement utile au ciblage des
-politiques publiques. Elle a été appliquée à de nombreux contextes africains
-\parencite{battiston2013, ferreira2011} et au Sénégal en particulier
-\parencite{ba2017, ansd2022}~: les résultats sénégalais montrent une pauvreté
-multidimensionnelle significativement plus élevée que la pauvreté monétaire,
-en particulier dans les dimensions de l'assainissement, de l'accès à l'eau
-et de l'éducation en milieu rural, un constat qui motive le choix, dans ce
-mémoire, d'indicateurs couvrant précisément ces dimensions
-(tableau~\ref{tab:af_indicateurs}).
-
-
-\begin{table}[H]
-  \centering
-  \caption{Dimensions, indicateurs et seuils de privation, approche
-  Alkire-Foster}
-  \label{tab:af_indicateurs}
-  \begin{threeparttable}
-  \begin{tabular}{p{2.5cm}p{3.5cm}p{5.5cm}c}
-    \toprule
-    Dimension & Indicateur & Seuil de privation & Poids \\
-    \midrule
-    \multirow{2}{2.5cm}{Éducation}
-      & Fréquentation scolaire & Enfant de 6 à 17 ans non scolarisé  & 1/6 \\[4pt]
-      & Retard scolaire        & Retard supérieur ou égal à 2 ans    & 1/6 \\
-    \midrule
-    \multirow{2}{2.5cm}{Santé}
-      & Suivi nutritionnel & Aucune consultation dans les 12 mois    & 1/6 \\[4pt]
-      & Vaccination        & Vaccination incomplète (0-5 ans)        & 1/6 \\
-    \midrule
-    \multirow{2}{2.5cm}{Niveau de vie}
-      & Accès à l'eau     & Source d'eau non améliorée (normes JMP)  & 1/6 \\[4pt]
-      & Assainissement    & Toilettes non améliorées (normes JMP)    & 1/6 \\
-    \bottomrule
-  \end{tabular}
-  \begin{tablenotes}
-    \small
-    \item \textit{Note :} Normes JMP : Joint Monitoring Programme OMS/UNICEF.
-    Seuil inter-dimensionnel $k = 1/3$. Poids égaux $w_j = 1/6$.
-  \end{tablenotes}
-  \end{threeparttable}
-\end{table}
-
-\subsubsection{Deuxième approche : MODA (Multiple Overlapping Deprivation Analysis)}
+\subsubsection{L'approche MODA (Multiple Overlapping Deprivation Analysis)}
 
 
 L'approche MODA, développée par \textcite{deneubourg2012} au sein du bureau
 de recherche de l'UNICEF et appliquée en Afrique subsaharienne par
-\textcite{demilliano2014}, part du constat que l'approche Alkire-Foster
-présente deux limites lorsqu'elle est appliquée aux enfants. D'abord, elle
-utilise les mêmes indicateurs et seuils quel que soit l'âge, alors que les
-besoins fondamentaux varient considérablement entre un nourrisson et un
-adolescent. Ensuite, elle hérite de la tradition centrée sur le ménage et ne
-reflète pas directement les privations de l'enfant individuel
-\parencite{roelen2008}, les poids et le seuil inter-dimensionnel étant en
-outre fixés de manière normative plutôt que dérivés des configurations de
-privations effectives.
+\textcite{demilliano2014}, part du constat que les indices synthétiques
+classiques de pauvreté multidimensionnelle présentent deux limites lorsqu'ils
+sont appliqués aux enfants. D'abord, ils utilisent les mêmes indicateurs et
+seuils quel que soit l'âge, alors que les besoins fondamentaux varient
+considérablement entre un nourrisson et un adolescent. Ensuite, ils héritent
+de la tradition centrée sur le ménage et ne reflètent pas directement les
+privations de l'enfant individuel \parencite{roelen2008}, les poids et le seuil
+inter-dimensionnel étant en outre fixés de manière normative plutôt que dérivés
+des configurations de privations effectives.
 
 MODA répond à ces limites selon trois principes. Premièrement, l'enfant
 individuel, et non le ménage, est l'unité d'analyse. Deuxièmement, les
@@ -337,18 +251,20 @@ porte sur les \textit{privations superposées} (overlapping deprivations) :
 quelles privations se combinent chez les enfants les plus vulnérables, et
 avec quelle intensité.
 
-MODA est ainsi complémentaire à Alkire-Foster : là où AF fournit un indice
-synthétique agrégeable, MODA fournit une analyse fine de la structure des
-privations par âge et de leurs combinaisons. Appliquant cette méthodologie à
-trente pays d'Afrique subsaharienne, \textcite{demilliano2014} montrent que les
-configurations de privations varient considérablement selon le groupe d'âge
-et le pays, ce qui justifie empiriquement l'approche désagrégée~: en Afrique
-de l'Ouest, les privations les plus fréquentes chez les jeunes enfants
-(0-4 ans) concernent l'accès à l'eau potable et l'assainissement, tandis que
-pour les enfants d'âge scolaire (5-14 ans), la non-scolarisation et le retard
-scolaire occupent une place centrale. Dans notre étude, les deux mesures
-constituent des variables de résultat alternatives pour l'estimation PSM-DD,
-ce qui permet de vérifier la robustesse des conclusions.
+L'analyse par privations superposées fournit ainsi une lecture fine de la
+structure des privations par âge et de leurs combinaisons. Appliquant cette
+méthodologie à trente pays d'Afrique subsaharienne, \textcite{demilliano2014}
+montrent que les configurations de privations varient considérablement selon le
+groupe d'âge et le pays, ce qui justifie empiriquement l'approche désagrégée~:
+en Afrique de l'Ouest, les privations les plus fréquentes chez les jeunes
+enfants (0-4 ans) concernent l'accès à l'eau potable et l'assainissement,
+tandis que pour les enfants d'âge scolaire (5-14 ans), la non-scolarisation et
+le retard scolaire occupent une place centrale. Cette dépendance des dimensions
+au groupe d'âge est précisément ce que mobilise notre analyse de robustesse par
+\emph{panel d'enfants} (section~\ref{subsec:robustesse})~: un enfant suivi entre
+2018 et 2021 vieillit d'environ trois ans et peut ainsi changer de groupe
+d'âge, de sorte que l'ensemble des dimensions qui lui sont applicables se
+modifie d'une vague à l'autre.
 
 
 Suivant \textcite{deneubourg2012} et l'adaptation nationale N-MODA développée
@@ -467,12 +383,11 @@ de leur croisement conduite en annexe~\ref{ann:D}.
 
 \subsubsection{Variables de résultat dans l'estimation PSM-DD}
 
-Les deux approches fournissent des variables de résultat complémentaires estimées
-dans le cadre PSM-DD. L'approche Alkire-Foster fournit l'IPM-Enfant $M_0$ (et
-ses composantes $H$ et $A$) comme mesure synthétique unique. L'approche N-MODA
-fournit l'indicateur binaire \texttt{pauvre\_MODA} (privé dans au moins $k=4$
-dimensions sur 7) comme variable de résultat principale, et les taux de
-privation par dimension $H_j$ comme mesures secondaires.
+L'approche N-MODA fournit la variable de résultat principale~: l'indicateur
+binaire \texttt{pauvre\_MODA} (privé dans au moins $k=4$ dimensions sur 7). Les
+taux de privation par dimension $H_j$ et l'indice ajusté $M_0 = H \times A$
+servent de mesures secondaires, décomposables par milieu, région et groupe
+d'âge.
 
 % ─────────────────────────────────────────────────────────────────────────────
 \subsection{Stratégie d'identification causale : PSM-Double différence}
@@ -481,7 +396,7 @@ privation par dimension $H_j$ comme mesures secondaires.
 \subsubsection{Le cadre des résultats potentiels}
 
 Pour chaque enfant $i$, on définit deux résultats potentiels : $Y_i(1)$ la
-mesure de pauvreté (AF ou MODA) si le ménage reçoit des transferts, et
+mesure de pauvreté N-MODA si le ménage reçoit des transferts, et
 $Y_i(0)$ si le ménage n'en reçoit pas. On observe seulement $Y_i = D_i \cdot
 Y_i(1) + (1 - D_i) \cdot Y_i(0)$. Le paramètre d'intérêt est l'effet moyen
 du traitement sur les traités (ATT) :
@@ -590,17 +505,31 @@ le temps (DD) :
   \label{eq:psm-dd}
 \end{equation}
 où $\Delta Y_i = Y_{i,t=2} - Y_{i,t=1}$ est la variation intra-ménage
-de la variable de résultat (AF ou MODA), calculée directement sur les
+de la variable de résultat N-MODA, calculée directement sur les
 ménages suivis entre les deux vagues. Le panel vrai dont nous disposons
 rend cette différence directement observable sans agrégation par cellule,
 ce qui renforce la validité de l'hypothèse de tendances parallèles. Les
 écarts-types sont calculés par bootstrap (1\,000 réplications) \parencite{caliendo2008}.
 
 \subsubsection{Analyses d'hétérogénéité et de robustesse}
+\label{subsec:robustesse}
 
 Les analyses d'hétérogénéité estiment l'effet PSM-DD séparément selon le
-milieu de résidence (urbain et rural), le groupe d'âge (pour les mesures MODA),
-le genre et chaque dimension de privation. La robustesse est vérifiée par la
-comparaison entre les trois algorithmes d'appariement, le test des bornes de
-Rosenbaum \parencite{rosenbaum2002} et un test placebo sur des dimensions
-non affectables par les transferts.
+milieu de résidence (urbain et rural), le groupe d'âge, le genre et chaque
+dimension de privation. La robustesse est vérifiée par la comparaison entre les
+trois algorithmes d'appariement, un test placebo et l'analyse de l'attrition.
+
+La principale vérification de robustesse repose sur une \emph{approche par
+panel d'enfants}. La mesure N-MODA attribue à chaque enfant un jeu de
+dimensions dépendant de son groupe d'âge (0-4, 5-14, 15-17 ans). Or un enfant
+suivi entre 2018 et 2021 vieillit d'environ trois ans et peut donc changer de
+groupe d'âge~: un enfant de 3 ans en 2018 (groupe 0-4) relève du groupe 5-14 en
+2021, un enfant de 13 ans (groupe 5-14) passe au groupe 15-17. Les dimensions
+et indicateurs qui lui sont applicables se modifient alors d'une vague à
+l'autre. Plutôt que de comparer des enfants distincts d'une même tranche d'âge
+à chaque vague, l'approche par panel d'enfants suit les \emph{mêmes} enfants et
+recalcule leur statut de privation N-MODA en tenant compte de cette transition
+d'âge. Elle constitue une alternative au panel de ménages~: elle vérifie que
+l'effet estimé des transferts sur la pauvreté multidimensionnelle n'est pas un
+artefact de la composition par âge de l'échantillon, mais reflète bien une
+évolution des privations des enfants réellement suivis.
