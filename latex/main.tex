@@ -156,11 +156,15 @@
 ]{biblatex}
 \addbibresource{references.bib}
 
-% Supprimer la mise en gras des noms d'auteurs dans les citations APA
-\renewcommand*{\mkbibnamefamily}[1]{#1}
-\renewcommand*{\mkbibnamegiven}[1]{#1}
-\renewcommand*{\mkbibnameprefix}[1]{#1}
-\renewcommand*{\mkbibnamesuffix}[1]{#1}
+% Noms d'auteurs en casse normale (ni gras ni petites capitales) dans les
+% citations et la bibliographie : \textnormal annule un éventuel \scshape ambiant
+\AtBeginDocument{%
+  \renewcommand*{\mkbibnamefamily}[1]{\textnormal{#1}}%
+  \renewcommand*{\mkbibnamegiven}[1]{\textnormal{#1}}%
+  \renewcommand*{\mkbibnameprefix}[1]{\textnormal{#1}}%
+  \renewcommand*{\mkbibnamesuffix}[1]{\textnormal{#1}}%
+  \renewcommand*{\mkbibcompletename}[1]{\textnormal{#1}}%
+}
 
 % ── Listes & énumérations ───────────────────────────────────
 % Puces rondes au lieu du tiret long par défaut de babel-french
