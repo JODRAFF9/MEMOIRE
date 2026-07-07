@@ -135,7 +135,7 @@ maximale passe de 0,66 (log PCE, avant appariement) à 0,04 en valeur absolue
 À titre de référence, nous estimons d'abord un estimateur de double différence
 sur effectifs bruts, sans appariement (tableau~\ref{tab:dd_brut}). L'effet
 estimé est positif et marginalement significatif pour le N-MODA
-($+4{,}6$ pp, $p = 0{,}063$)~: la pauvreté multidimensionnelle des enfants des ménages
+($+4{,}6$ pp, $p = 0{,}056$)~: la pauvreté multidimensionnelle des enfants des ménages
 bénéficiaires stables a reculé moins vite que celle des enfants des ménages
 jamais bénéficiaires. Cette comparaison naïve confond toutefois l'effet des
 transferts avec les différences initiales considérables entre les deux groupes
@@ -153,7 +153,7 @@ indispensable.
     \hline
 \entete Variable de résultat & ATT$_{\text{DD}}$ & Éc.-t. (cluster) & $p$-valeur \\
     \hline
-    Pauvreté N-MODA ($\hat{H}_{\text{MODA}}$) & $+0{,}046^{*}$ & $(0{,}025)$ & 0,063 \\
+    Pauvreté N-MODA ($\hat{H}_{\text{MODA}}$) & $+0{,}046^{*}$ & $(0{,}024)$ & 0,056 \\
     \hline
   \end{tabular}
   \begin{tablenotes}
@@ -185,7 +185,7 @@ sélection sur observables et les effets fixes inobservables constants dans le t
 \entete Variable de résultat & ATT & Éc.-t. (cluster) & $p$-valeur \\
     \hline
     \multicolumn{4}{|c|}{\textit{Approche N-MODA (7 dimensions, $k=4$)}} \\ \hline
-    \quad Incidence $\hat{H}_{\text{MODA}}$         & $+0{,}073^{**}$ & $(0{,}035)$ & 0,038 \\
+    \quad Incidence $\hat{H}_{\text{MODA}}$         & $+0{,}079^{**}$ & $(0{,}035)$ & 0,025 \\
     \hline
   \end{tabular}
   \begin{tablenotes}
@@ -197,11 +197,11 @@ sélection sur observables et les effets fixes inobservables constants dans le t
   \end{tablenotes}
 \end{table}
 
-L'estimateur PSM-DD donne un ATT de $+0{,}073$ ($p = 0{,}038$) sur la pauvreté
+L'estimateur PSM-DD donne un ATT de $+0{,}079$ ($p = 0{,}025$) sur la pauvreté
 N-MODA. Après correction du biais de sélection par l'appariement, l'écart de
 trajectoire défavorable aux ménages bénéficiaires persiste~: la probabilité de
 pauvreté multidimensionnelle des enfants de ménages bénéficiaires stables a
-diminué de 7,3 points de pourcentage de \emph{moins} que celle des enfants de
+diminué de 7,9 points de pourcentage de \emph{moins} que celle des enfants de
 ménages jamais bénéficiaires comparables (significatif au seuil de 5\,\%). Il
 faut souligner d'emblée que ce
 résultat ne signifie pas que les transferts \emph{appauvrissent} les enfants
@@ -217,11 +217,11 @@ discutées en détail dans la section~\ref{sec:discussion}.
 Le tableau~\ref{tab:psm_methodes} examine la stabilité des résultats selon
 la méthode d'appariement retenue. Les trois spécifications (k-NN, noyau
 Epanechnikov, caliper) produisent des ATT systématiquement positifs, mais
-d'ampleur et de significativité variables~: l'effet N-MODA est significatif
-à 5\,\% avec le k-NN, marginalement significatif avec le noyau ($p = 0{,}066$)
-et non significatif avec le caliper ($p = 0{,}131$). La direction de l'effet
-est donc robuste, mais pas sa significativité statistique, un élément
-d'incertitude que la discussion prend explicitement en compte.
+d'ampleur voisine~: l'effet N-MODA est significatif
+à 5\,\% avec le k-NN ($p = 0{,}025$) comme avec le noyau ($p = 0{,}039$), et
+marginalement significatif avec le caliper ($p = 0{,}077$). La direction comme
+la significativité de l'effet sont donc largement robustes au choix
+algorithmique, un point que la discussion prend en compte.
 
 \begin{table}[H]
   \centering
@@ -232,10 +232,10 @@ d'incertitude que la discussion prend explicitement en compte.
     \hline
 \entete Méthode d'appariement & ATT (N-MODA) & $p$-val. \\
     \hline
-    k-NN ($k=4$, avec remise)             & $+0{,}073^{**}$ & 0,038 \\ \hline
-    Noyau Epanechnikov ($h=0{,}06$)       & $+0{,}071^{*}$  & 0,066 \\ \hline
-    Caliper ($\varepsilon = 0{,}05$, sans remise) & $+0{,}050$ & 0,131 \\ \hline
-    DD brute (sans appariement)           & $+0{,}046^{*}$  & 0,064 \\
+    k-NN ($k=4$, avec remise)             & $+0{,}079^{**}$ & 0,025 \\ \hline
+    Noyau Epanechnikov ($h=0{,}06$)       & $+0{,}081^{**}$ & 0,039 \\ \hline
+    Caliper ($\varepsilon = 0{,}05$, sans remise) & $+0{,}058^{*}$ & 0,077 \\ \hline
+    DD brute (sans appariement)           & $+0{,}046^{*}$  & 0,056 \\
     \hline
   \end{tabular}
   \begin{tablenotes}
@@ -256,17 +256,17 @@ d'incertitude que la discussion prend explicitement en compte.
 \end{figure}
 
 L'analyse par dimension (figure~\ref{fig:effets_dim}) décompose l'ATT global sur
-les sept dimensions N-MODA. Aucune dimension n'atteint la significativité au
-seuil de 5\,\%, mais trois s'en approchent et dessinent une structure cohérente.
+les sept dimensions N-MODA et dessine une structure cohérente.
 D'un côté, la dimension \emph{éducation} est la seule dont le signe est
 favorable aux enfants des ménages bénéficiaires (ATT $= -0{,}029$,
 $p = 0{,}083$)~: la probabilité de privation éducative y diminue de 2,9 points
 de pourcentage de plus que chez les témoins appariés, ce qui est cohérent avec
 l'hypothèse d'un investissement prioritaire des transferts dans la
-scolarisation \parencite{cox2003,bucheli2018}. De l'autre, les dimensions
-\emph{protection de l'enfant} (ATT $= +0{,}034$, $p = 0{,}051$) et
-\emph{assainissement} (ATT $= +0{,}076$, $p = 0{,}083$) se dégradent
-relativement chez les bénéficiaires. La détérioration relative de la dimension
+scolarisation \parencite{cox2003,bucheli2018}. De l'autre, plusieurs dimensions
+se dégradent relativement chez les bénéficiaires~: la \emph{santé}
+(ATT $= +0{,}042$, $p = 0{,}036$), la \emph{protection de l'enfant}
+(ATT $= +0{,}034$, $p = 0{,}051$) et l'\emph{assainissement}
+(ATT $= +0{,}076$, $p = 0{,}083$). La détérioration relative de la dimension
 protection, qui agrège l'absence d'acte de naissance, le travail des enfants
 et la séparation d'avec les parents biologiques, est particulièrement
 parlante~: elle inclut mécaniquement le fait de ne pas vivre avec ses deux
@@ -274,5 +274,5 @@ parents, consubstantiel à la migration d'un parent, et rejoint les coûts
 psychosociaux de l'absence parentale documentés par la littérature
 \parencite{cortes2007,davis2016}. Les effets sur les autres dimensions
 (logement~: $+6{,}6$ pp, $p=0{,}103$~; nutrition~: $+7{,}7$ pp, $p=0{,}100$~;
-eau~: $-3{,}2$ pp~; santé~: $+1{,}7$ pp) ne sont pas statistiquement
+eau~: $-3{,}2$ pp) ne sont pas statistiquement
 significatifs au seuil de 10\,\%.

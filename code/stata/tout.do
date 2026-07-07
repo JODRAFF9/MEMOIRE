@@ -498,35 +498,12 @@ program define indic_menage
         replace m_combust = 1 if `v' >= 1 & !missing(`v')
     }
 
-    /* [Dim 5/7 : Sante] Indicateur 2 — Acces a une structure de sante
-       (module communautaire s02_co). Enfant prive si, dans sa localite
-       (grappe), aucun des 3 services de sante (Hopital public/prive=5,
-       Autre centre de sante public=6, Cabinet medical/Clinique privee=7)
-       n'est accessible a pied (s02q02 == 1 "Pieds" comme principal moyen
-       de locomotion).
-       2018 : long format avec identifiant de service s02q00.
-       2021 : long format sans identifiant explicite, mais 26 lignes/grappe
-              dans le meme ordre que la liste de services 2018 ;
-              service_id = rang (_n) au sein de la grappe. */
-    preserve
-        use "`base'/s02_co_sen`annee'.dta", clear
-        if `annee' == 2018 {
-            keep if inlist(s02q00, 5, 6, 7)
-        }
-        else {
-            bysort grappe: gen byte service_id = _n
-            keep if inlist(service_id, 5, 6, 7)
-        }
-        gen byte acces_pied = (s02q02 == 1) if !missing(s02q02)
-        replace  acces_pied = 0 if missing(acces_pied)
-        collapse (max) acces_pied, by(grappe)
-        tempfile s02_temp
-        save `s02_temp'
-    restore
-    merge m:1 grappe using `s02_temp', nogenerate keep(master match)
-    gen byte m_acces_sante = (acces_pied == 0) if !missing(acces_pied)
-    replace  m_acces_sante = 0 if missing(m_acces_sante)
-    capture drop acces_pied
+    /* [Dim 5/7 : Sante] Indicateur 2 — Acces a une structure de sante :
+       NON RETENU. Le module communautaire s02_co n'est pas exploitable de
+       maniere comparable entre les deux vagues (2021 sans identifiant de
+       service explicite). Seuls les indicateurs disponibles et comparables
+       dans les deux vagues sont conserves : la dimension Sante repose sur
+       le combustible de cuisine uniquement. */
 
     /* [Dim 4/7 : Nutrition] Indicateur 1 — Securite alimentaire (FIES)
        (s08a — 2018 et 2021)
@@ -549,37 +526,10 @@ program define indic_menage
         keepusing(m_securite) nogenerate keep(master match)
     replace m_securite = 0 if missing(m_securite)
 
-    /* [Dim 4/7 : Nutrition] Indicateur 2 — Diversite alimentaire
-       (s08b1 — 2018 seulement)
-       Definition N-MODA : 4 macro-groupes (carbohydrates, proteines,
-       fruits/legumes, graisses) consommes chaque jour sur la semaine (7/7)
-       Mapping s08b02a-j :
-         Carbohydrates : max(a cereales, b tubercules)
-         Proteines     : max(c legumineuses, e poisson/viande, g lait/oeufs)
-         Fruits/legumes: max(d legumes, f fruits)
-         Graisses      : h huile/graisse
-       Prive si au moins un groupe < 7 jours (5-17 ans)  */
-    gen byte m_diversite = 0
-    if `annee' == 2018 {
-        preserve
-            use "`base'/s08b1_me_sen2018.dta", clear
-            foreach v of varlist s08b02a-s08b02j {
-                replace `v' = 0 if missing(`v')
-            }
-            gen g_carb  = max(s08b02a, s08b02b)
-            gen g_prot  = max(s08b02c, s08b02e, s08b02g)
-            gen g_fv    = max(s08b02d, s08b02f)
-            gen g_gras  = s08b02h
-            gen byte m_diversite = ///
-                (g_carb < 7 | g_prot < 7 | g_fv < 7 | g_gras < 7)
-            keep grappe menage m_diversite
-            tempfile s08b_temp
-            save `s08b_temp'
-        restore
-        merge m:1 grappe menage using `s08b_temp', ///
-            keepusing(m_diversite) nogenerate keep(master match)
-        replace m_diversite = 0 if missing(m_diversite)
-    }
+    /* [Dim 4/7 : Nutrition] Indicateur 2 — Diversite alimentaire :
+       NON RETENU. Le module s08b1 (HDDS) n'existe qu'en 2018 ; pour garder
+       une mesure comparable entre les deux vagues, la dimension Nutrition
+       repose sur la securite alimentaire (FIES) uniquement. */
 end
 
 /* ============================================================
@@ -640,14 +590,11 @@ program define agreger_ipm
     /* [Dim 3/7 : Logement] = indic.1 (ordures) OU indic.2 (surpeuplement) */
     gen byte dim_logem  = (m_ordures == 1 | m_surpeup == 1)
 
-    /* [Dim 4/7 : Nutrition] = indic.1 securite alim (0-17 ans)
-       OU indic.2 diversite alimentaire (5-17 ans seulement) */
-    gen byte dim_nutri = 0
-    replace  dim_nutri = 1 if m_securite == 1
-    replace  dim_nutri = 1 if m_diversite == 1 & age >= 5
+    /* [Dim 4/7 : Nutrition] = securite alimentaire (FIES, 0-17 ans) */
+    gen byte dim_nutri = (m_securite == 1)
 
-    /* [Dim 5/7 : Sante] = indic.1 (combustible) OU indic.2 (acces structure) */
-    gen byte dim_sante  = (m_combust == 1 | m_acces_sante == 1)
+    /* [Dim 5/7 : Sante] = combustible solide pour cuisiner */
+    gen byte dim_sante  = (m_combust == 1)
 
     /* [Dim 7/7 : Education] selon groupe d'age :
        5-14 ans  -> indic.2 (scolarisation)

@@ -52,13 +52,11 @@ L'approche N-MODA repose sur quatre principes fondamentaux :
       & Ordures non saines         & \checkmark & \checkmark & \checkmark \\[2pt] \hline
       & Surpeuplement ($>3$ p./p.) & \checkmark & \checkmark & \checkmark \\
     \hline
-    \multirow{2}{2.2cm}{Nutrition}
-      & Diversité des repas        & -        & \checkmark & \checkmark \\[2pt] \hline
+    Nutrition
       & Sécurité alimentaire       & \checkmark & \checkmark & \checkmark \\
     \hline
-    \multirow{2}{2.2cm}{Santé}
-      & Combustible solide         & \checkmark & \checkmark & \checkmark \\[2pt] \hline
-      & Accès aux soins            & \checkmark & \checkmark & \checkmark \\
+    Santé
+      & Combustible solide         & \checkmark & \checkmark & \checkmark \\
     \hline
     \multirow{3}{2.2cm}{Protection}
       & Absence acte de naissance  & \checkmark & \checkmark & - \\[2pt] \hline
@@ -120,9 +118,6 @@ L'approche N-MODA repose sur quatre principes fondamentaux :
         & $> 3$ personnes/pièce \\
     \hline
     Nutrition
-      & Diversité des repas (\textit{5--17 ans})
-        & \texttt{s08b02a-j} (\texttt{s08b1\_me}, 2018)$^{\dagger}$
-        & $\geq 1$ macro-groupe (carb., prot., fruits/lég., graisses) non consommé quotidiennement sur 7 jours \\[3pt] \hline
       & Sécurité alimentaire (\textit{0--17 ans})
         & \texttt{s08aq04--08} (\texttt{s08a\_me}, 2018+2021)
         & Saut repas, mangé moins que nécessaire, plus de nourriture, faim, ou journée sans manger \\
@@ -130,10 +125,7 @@ L'approche N-MODA repose sur quatre principes fondamentaux :
     Santé
       & Combustible solide
         & \texttt{s11q53\_\_*} (2018) / \texttt{s11q52\_\_*} (2021)
-        & Bois, charbon ou déchets \\[3pt] \hline
-      & Accès aux soins
-        & Module communautaire
-        & Non disponible - proxy $= 0$ \\
+        & Bois, charbon ou déchets \\
     \hline
     Protection
       & Acte de naissance
@@ -160,10 +152,10 @@ L'approche N-MODA repose sur quatre principes fondamentaux :
   \end{tabular}
   \begin{tablenotes}
     \small
-    \item[$\dagger$] Le module \texttt{s08b1\_me} (diversité alimentaire HDDS) n'est
-    disponible que pour 2018. Pour 2021, \texttt{m\_diversite} est codé à 0 ;
-    seule la sécurité alimentaire (\texttt{s08a\_me}) est disponible dans les deux vagues.
-    L'accès aux soins (module communautaire) n'est pas disponible au niveau individuel.
+    \item \textit{Note :} Seuls les indicateurs disponibles et comparables dans
+    les deux vagues sont retenus. La diversité alimentaire (module
+    \texttt{s08b1\_me}, 2018 uniquement) et l'accès à pied à une structure de
+    santé (module communautaire non comparable entre vagues) sont exclus.
     \item \textit{Source :} Adaptation de \textcite{ansd2024} aux fichiers EHCVM I (2018-2019)
     et EHCVM II (2021-2022). Sections 8A et 8B du questionnaire ménage.
   \end{tablenotes}
@@ -174,19 +166,21 @@ L'approche N-MODA repose sur quatre principes fondamentaux :
 \subsection{Limites de l'opérationnalisation}
 % ─────────────────────────────────────────────────────────────────────────────
 
-Une dimension de la méthodologie N-MODA officielle ne peut être pleinement
-opérationnalisée, et une limite partielle affecte la comparabilité inter-temporelle :
+Deux indicateurs de la méthodologie N-MODA officielle ne sont pas mobilisables
+de manière comparable entre les deux vagues et sont écartés~; les dimensions
+concernées reposent donc sur leur second indicateur, disponible dans les deux
+vagues :
 
 \begin{enumerate}
   \item Diversité des repas (Nutrition) : le module \texttt{s08b1\_me}
-    (score HDDS) est disponible uniquement dans l'EHCVM I (2018-2019). Pour l'EHCVM II
-    (2021-2022), seule la sécurité alimentaire (\texttt{s08a\_me}) est disponible.
-    L'indicateur \texttt{m\_diversite} est donc codé à 0 pour tous les enfants en 2021,
-    ce qui sous-estime légèrement la dimension Nutrition en 2021 par rapport à 2018.
+    (score HDDS) n'existe que dans l'EHCVM I (2018-2019). La dimension Nutrition
+    repose donc sur la seule sécurité alimentaire (\texttt{s08a\_me}, FIES),
+    disponible dans les deux vagues.
 
   \item Accès aux soins (dimension Santé) : cet indicateur est collecté
-    dans le module communautaire de l'EHCVM, non disponible au niveau individuel.
-    Il est codé à 0 par défaut dans les deux vagues.
+    dans le module communautaire de l'EHCVM, non comparable entre les deux
+    vagues (2021 sans identifiant de service explicite). La dimension Santé
+    repose donc sur le seul combustible de cuisine.
 \end{enumerate}
 
 Ces limites sont inhérentes aux données disponibles et non à la méthodologie.

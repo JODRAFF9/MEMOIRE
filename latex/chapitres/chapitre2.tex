@@ -289,12 +289,10 @@ indicateurs retenus, en cohérence avec l'EHCVM et la méthodologie N-MODA.
       & Surpeuplement $> 3$ pers./pièce & Rapport personnes/pièces & \texttt{nbpiec} \\
     \hline
     Nutrition
-      & Diversité des repas (\textit{5--17 ans}) & $\geq 1$ macro-groupe non consommé quotidiennement (7j/7) & \texttt{s08b02a-j}$^{\dagger}$ \\[2pt] \hline
       & Sécurité alimentaire (\textit{0--17 ans}) & Saut repas, mangé moins, faim ou journée sans manger & \texttt{s08aq04--08} \\
     \hline
     Santé
-      & Combustible solide & Bois, charbon ou déchets pour cuisiner & \texttt{combust} \\[2pt] \hline
-      & Accès aux soins & Pas d'accès à pied à une structure & \textit{n.d.}$^{\dagger}$ \\
+      & Combustible solide & Bois, charbon ou déchets pour cuisiner & \texttt{combust} \\
     \hline
     \multirow{3}{2.0cm}{Protection de l'enfant}
       & Absence d'acte de naissance & \textit{0--14 ans} : \texttt{acte\_nais} = 0 & \texttt{acte\_nais} \\[2pt] \hline
@@ -309,7 +307,11 @@ indicateurs retenus, en cohérence avec l'EHCVM et la méthodologie N-MODA.
   \end{tabular}
   \begin{tablenotes}
     \small
-    \item \textit{Source :} \textcite{ansd2024}. Méthodologie N-MODA Sénégal
+    \item \textit{Source :} \textcite{ansd2024}. Méthodologie N-MODA Sénégal.
+    Seuls les indicateurs disponibles et comparables dans les deux vagues de
+    l'EHCVM sont retenus~: la diversité alimentaire (module \texttt{s08b1},
+    2018 uniquement) et l'accès à pied à une structure de santé (module
+    communautaire non comparable entre vagues) sont exclus.
   \end{tablenotes}
   \end{threeparttable}
 \end{table}
