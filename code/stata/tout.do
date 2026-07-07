@@ -15,7 +15,7 @@
      utils        — programmes utilitaires
      01_visitation  — exploration des bases brutes
      02_traitement  — variable D + identification panel
-     03_deprivation — indicateurs IPM (AF et N-MODA)
+     03_deprivation — indicateurs N-MODA
      04_panel       — panel vrai + traitement stable
      05_psm_dd      — estimation PSM-DD (matching niveau menage)
      06_stats_desc  — statistiques descriptives
@@ -52,7 +52,6 @@ global LOGS      "code/stata/logs"
 
 /* Parametres methodologiques */
 global SEED              123
-global K_SEUIL           0.3333   /* seuil Alkire-Foster (2 indicateurs sur 6) */
 global K_MODA            4        /* seuil N-MODA : >= 4 dimensions sur 7      */
 global N_BOOT            1000
 global CODE_ETRANGER_MIN 4        /* s13aq14 / s13q19 >= 4 = expediteur etranger */
@@ -288,8 +287,7 @@ save "$TEMP/traitement_2021.dta", replace
 /* ============================================================
    03_deprivation.do — Indicateurs de pauvrete multidimensionnelle
 
-   Approche 1 : Alkire-Foster (6 indicateurs, poids egaux, k=1/3)
-   Approche 2 : N-MODA Senegal (7 dimensions, k=4)
+   Approche : N-MODA Senegal (7 dimensions, k=4)
 
    Produit : $TEMP/enfants_dep_ANNEE.dta pour annee in {2018, 2021}
    ============================================================ */
@@ -569,7 +567,7 @@ program define indic_acte_nais
 end
 
 /* ============================================================
-   Sous-programme : agregation N-MODA et Alkire-Foster
+   Sous-programme : agregation N-MODA
    ============================================================ */
 
 capture program drop agreger_ipm
@@ -629,23 +627,6 @@ program define agreger_ipm
        en privation, calculee sur les enfants pauvres pauvre_MODA==1) */
     gen float intensite_moda = nb_dep / 7
 
-    /* ── Indicateurs Alkire-Foster ── */
-
-    gen byte d1_educ  = 0
-    replace  d1_educ  = 1 if age >= 6 & (scol == 0 | missing(scol))
-    gen byte d2_sante = 0
-    replace  d2_sante = 1 if mal30j == 1 & con30j == 0 ///
-        & !missing(mal30j) & !missing(con30j)
-    gen byte d3_nutri = 0
-    replace  d3_nutri = 1 if age <= 4 & mal30j == 1 & !missing(mal30j)
-    gen byte d4_eau   = m_eau_source
-    gen byte d5_assai = m_toilet
-    gen byte d6_habit = dim_logem
-
-    gen score_dep = (d1_educ + d2_sante + d3_nutri + ///
-                     d4_eau  + d5_assai + d6_habit) / 6
-    gen byte pauvre_AF = (score_dep >= $K_SEUIL) if !missing(score_dep)
-
     /* ── Affichage ── */
 
     di _newline "=== N-MODA `annee' (k=$K_MODA, 7 dimensions) ==="
@@ -656,13 +637,6 @@ program define agreger_ipm
         taux_dep dim_`dim' "`dim'"
     }
     tabstat pauvre_MODA nb_dep, by(groupe_moda) stat(mean n) format(%6.3f)
-
-    di _newline "=== Alkire-Foster `annee' (k=$K_SEUIL, 6 indicateurs) ==="
-    quietly summarize pauvre_AF
-    scalar H_af = r(mean)
-    quietly summarize score_dep if pauvre_AF == 1
-    scalar A_af = r(mean)
-    di "  H=" %6.3f H_af "  A=" %6.3f A_af "  M0=" %6.3f H_af * A_af
 end
 
 /* ============================================================
@@ -1022,7 +996,7 @@ save "$TEMP/poids_caliper.dta", replace
 
 use "$TEMP/panel_vrai.dta", clear
 di _newline "=== Stats descriptives (panel vrai, D stable) ==="
-tabstat pauvre_AF pauvre_MODA nb_dep score_dep pcexp, ///
+tabstat pauvre_MODA nb_dep pcexp, ///
     by(D) stat(mean n) format(%6.3f)
 
 /* ============================================================
@@ -1030,7 +1004,7 @@ tabstat pauvre_AF pauvre_MODA nb_dep score_dep pcexp, ///
    ============================================================ */
 
 di _newline "=== Double Difference brute (sans appariement) ==="
-foreach outcome in pauvre_AF pauvre_MODA {
+foreach outcome in pauvre_MODA {
     di _newline "--- DD `outcome' ---"
     regress `outcome' i.t##i.D, vce(cluster grappe)
     lincom 1.t#1.D
@@ -1053,7 +1027,7 @@ di _newline "Panel apparie (k-NN, niveau menage) : " _N " obs enfants"
 tabstat D, by(t) stat(mean sum n) format(%6.3f)
 
 di _newline "=== PSM-DD — ATT principal (Heckman 1997/1998) ==="
-foreach outcome in pauvre_AF pauvre_MODA {
+foreach outcome in pauvre_MODA {
     di _newline "--- PSM-DD `outcome' ---"
     regress `outcome' i.t##i.D [aw=weight_knn], vce(cluster grappe)
     lincom 1.t#1.D
@@ -1073,7 +1047,7 @@ foreach mil in 1 2 {
     if `mil' == 1 local lab_mil "Urbain"
     else          local lab_mil "Rural"
 
-    foreach outcome in pauvre_AF pauvre_MODA {
+    foreach outcome in pauvre_MODA {
         quietly count if milieu == `mil'
         if r(N) > 30 {
             di _newline "--- `lab_mil' — `outcome' ---"
@@ -1088,7 +1062,7 @@ foreach mil in 1 2 {
 /* Test d'egalite urbain vs rural */
 di _newline "Test d'egalite (urbain vs rural) :"
 gen byte urban = (milieu == 1)
-foreach outcome in pauvre_AF pauvre_MODA {
+foreach outcome in pauvre_MODA {
     regress `outcome' i.t##i.D##i.urban [aw=weight_knn], vce(cluster grappe)
     lincom 1.t#1.D#1.urban
     di "  Diff ATT (urbain - rural) : " %8.4f r(estimate) "  p = " %6.4f r(p)
@@ -1099,7 +1073,7 @@ drop urban
 di _newline "=== Heterogeneite par sexe ==="
 capture confirm variable sexe
 if _rc == 0 {
-    foreach outcome in pauvre_AF pauvre_MODA {
+    foreach outcome in pauvre_MODA {
         foreach s in 1 2 {
             if `s' == 1 local lab_s "Garcons"
             else        local lab_s "Filles"
@@ -1118,7 +1092,7 @@ if _rc == 0 {
 /* -- 6c. Par groupe d'age ----------------------------------- */
 di _newline "=== Heterogeneite par groupe d'age ==="
 foreach g in 1 2 3 {
-    foreach outcome in pauvre_AF pauvre_MODA {
+    foreach outcome in pauvre_MODA {
         quietly count if groupe_moda == `g'
         if r(N) > 30 {
             di "--- Groupe `g' — `outcome' ---"
@@ -1134,27 +1108,14 @@ foreach g in 1 2 3 {
    7. Robustesse
    ============================================================ */
 
-/* -- 7a. Sensibilite au seuil k (Alkire-Foster) ------------- */
-di _newline "=== Sensibilite au seuil k (Alkire-Foster) ==="
-/* Seuils legerement arrondis vers le bas : score_dep est stocke en float
-   (1/6 = 0.1666667 < 0.1667), un seuil a 0.1667 raterait les enfants
-   prives sur exactement 1 indicateur. */
-foreach k_test in 0.16 0.33 0.5 {
-    gen byte pauvre_ktest = (score_dep >= `k_test') if !missing(score_dep)
-    regress pauvre_ktest i.t##i.D [aw=weight_knn], vce(cluster grappe)
-    lincom 1.t#1.D
-    di "  k=" %5.4f `k_test' " : ATT=" %8.4f r(estimate) "  p=" %6.4f r(p)
-    drop pauvre_ktest
-}
-
-/* -- 7b. Robustesse aux trois methodes d'appariement -------- */
+/* -- 7. Robustesse aux trois methodes d'appariement -------- */
 di _newline "=== Comparaison des trois methodes d'appariement ==="
 foreach poids_var in weight_kernel weight_caliper {
     merge m:1 grappe menage using "$TEMP/poids_`=substr("`poids_var'",8,.)'.dta", ///
         keepusing(`poids_var') keep(master match) nogenerate
 }
 foreach poids_var in weight_knn weight_kernel weight_caliper {
-    foreach outcome in pauvre_AF pauvre_MODA {
+    foreach outcome in pauvre_MODA {
         quietly count if !missing(`poids_var') & `poids_var' > 0
         if r(N) > 0 {
             regress `outcome' i.t##i.D [aw=`poids_var'] ///
@@ -1296,7 +1257,7 @@ preserve
 restore
 
 /* ============================================================
-   3. Incidence N-MODA et AF par vague, milieu, groupe d'âge
+   3. Incidence N-MODA par vague, milieu, groupe d'âge
    ============================================================ */
 
 di _newline "=== 3. Incidence pauvreté multidimensionnelle ==="
@@ -1309,10 +1270,6 @@ foreach annee in 2018 2021 {
         by(milieu) stat(mean n) format(%6.3f)
     tabstat pauvre_MODA nb_dep, ///
         by(groupe_moda) stat(mean n) format(%6.3f)
-
-    di "-- Alkire-Foster `annee' --"
-    tabstat pauvre_AF score_dep, ///
-        by(milieu) stat(mean n) format(%6.3f)
 }
 
 /* Export tab_moda_age : H par groupe d'âge et vague */
@@ -1374,13 +1331,11 @@ foreach annee in 2018 2021 {
 
 di _newline "=== 5. Graphiques ==="
 
-/* ── Fig 1 : Évolution H N-MODA et AF par vague ── */
+/* ── Fig 1 : Évolution H N-MODA par vague ── */
 foreach annee in 2018 2021 {
     use "$TEMP/vague_`annee'.dta", clear
     quietly summarize pauvre_MODA
     scalar H_moda_`annee' = r(mean)*100
-    quietly summarize pauvre_AF
-    scalar H_af_`annee'   = r(mean)*100
 }
 clear
 set obs 2
@@ -1388,14 +1343,11 @@ gen annee  = 2018 in 1
 replace annee  = 2021 in 2
 gen H_MODA = H_moda_2018 in 1
 replace H_MODA = H_moda_2021 in 2
-gen H_AF   = H_af_2018 in 1
-replace H_AF   = H_af_2021 in 2
 
-twoway (connected H_MODA annee, lcolor(navy) mcolor(navy) msymbol(circle)  lwidth(medthick)) ///
-       (connected H_AF   annee, lcolor(orange) mcolor(orange) msymbol(diamond) lwidth(medthick)), ///
+twoway (connected H_MODA annee, lcolor(navy) mcolor(navy) msymbol(circle)  lwidth(medthick)), ///
     xlabel(2018 2021) xtitle("Vague EHCVM") ytitle("Incidence H (%)") ///
     ylabel(30(10)80, grid) ///
-    legend(order(1 "N-MODA (k=4, 7 dim.)" 2 "Alkire-Foster (k=1/3, 6 ind.)") pos(6) rows(1)) ///
+    legend(order(1 "N-MODA (k=4, 7 dim.)") pos(6) rows(1)) ///
     title("Évolution de la pauvreté multidimensionnelle des enfants") ///
     subtitle("Sénégal, 2018-2019 → 2021-2022") ///
     graphregion(color(white)) plotregion(color(white))
@@ -1763,7 +1715,7 @@ di _newline ">>> 08_carte_region.do terminé."
 di _newline "=== Test placebo (200 replications) ==="
 
 local n_rep 200
-matrix PLA = J(`n_rep', 2, .)   /* col 1 = AF, col 2 = MODA */
+matrix PLA = J(`n_rep', 1, .)   /* col 1 = MODA */
 
 /* Echantillon : menages jamais traites uniquement */
 use "$TEMP/panel_vrai.dta", clear
@@ -1796,7 +1748,7 @@ forvalues r = 1/`n_rep' {
         merge m:1 grappe menage using `fake', keep(match) nogenerate
 
         /* DD placebo (moyennes des 4 cellules) */
-        foreach y in pauvre_AF pauvre_MODA {
+        foreach y in pauvre_MODA {
             summarize `y' if t==1 & fakeD==1
             local m11 = r(mean)
             summarize `y' if t==0 & fakeD==1
@@ -1806,8 +1758,7 @@ forvalues r = 1/`n_rep' {
             summarize `y' if t==0 & fakeD==0
             local m00 = r(mean)
             local att = (`m11'-`m01') - (`m10'-`m00')
-            if "`y'" == "pauvre_AF"  matrix PLA[`r',1] = `att'
-            else                     matrix PLA[`r',2] = `att'
+            matrix PLA[`r',1] = `att'
         }
     }
     if mod(`r', 50) == 0 di "  replication `r'/`n_rep'"
@@ -1816,9 +1767,8 @@ forvalues r = 1/`n_rep' {
 /* Statistiques de la distribution placebo */
 clear
 svmat PLA, names(col)
-rename c1 att_af
-rename c2 att_moda
-foreach y in af moda {
+rename c1 att_moda
+foreach y in moda {
     quietly summarize att_`y'
     di _newline "Placebo `y' : moyenne=" %7.4f r(mean) "  sd=" %6.4f r(sd)
     quietly count if abs(att_`y') > 0.05
