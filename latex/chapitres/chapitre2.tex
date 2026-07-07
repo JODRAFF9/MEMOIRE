@@ -19,34 +19,16 @@ réalisées dans le cadre du programme statistique de l'UEMOA
 reposent sur un plan de sondage aléatoire stratifié à deux degrés :
 
 \begin{itemize}
-  \item Strates : les 14 régions administrative du Sénégal sont chacune
-  subdivisées en deux domaines (urbain/rural), soit 28 strates.
+  \item Strates : les 14 régions administratives du Sénégal sont chacune
+  subdivisées suivant le milieu de résidence (urbain,rural), soit 28 strates.
   Le tirage est indépendant dans chaque strate, ce qui garantit la
-  représentativité au niveau région $\times$ milieu.
-  \item Unités primaires (1\textsuperscript{er} degré) : des Districts
-  de Recensement (DR) issus du RGPHAE 2013 constituent les grappes.
-  598 DR ont été sélectionnés (330 urbains, 268 ruraux).
-  \item Unités secondaires (2\textsuperscript{e} degré) : 12 ménages
-  sont enquêtés dans chaque DR, pour un total théorique de 7\,176 ménages.
+  représentativité au niveau région et milieu de résidence;
+  \item Unités primaires : des districts
+  de recensement (DR) issus du RGPHAE 2013 constituent les grappes.
+  598 DR ont été sélectionnés (330 urbains, 268 ruraux);
+  \item Unités secondaires : 12 ménages
+  sont enquêtés dans chaque DR.
 \end{itemize}
-
-Les poids de sondage (\texttt{hhweight}) reflètent la probabilité de sélection
-inverse et intègrent un redressement pour la non-réponse. Ce mémoire fait
-toutefois le choix de ne pas pondérer les statistiques et estimations par
-\texttt{hhweight} : toutes les analyses sont calculées sur effectifs bruts,
-avec des erreurs-types clusterisées au niveau de la grappe
-(\texttt{vce(cluster grappe)}) afin de tenir compte de la structure en
-grappes du plan de sondage sans recourir aux poids d'extrapolation, dans la
-lignée des recommandations de \textcite{deaton1997} pour les enquêtes complexes
-lorsque l'objectif est l'inférence sur les paramètres d'un modèle plutôt que
-l'estimation de totaux ou moyennes de population.
-
-EHCVM II (2021-2022) reproduit le même protocole en suivant effectivement une
-large partie des ménages enquêtés en 2018-2019 : la variable \texttt{PanelHH}
-identifie 6\,127 ménages retrouvés dans les deux vagues, soit 85,6\,\% de
-l'échantillon de 2021. La fenêtre temporelle 2018-2022 couvre une période
-de transformations importantes des flux migratoires sénégalais et de leurs
-effets sur les ménages.
 
 \subsubsection{Construction de l'échantillon}
 
@@ -230,7 +212,7 @@ Dans ce cadre, la pauvreté multidimensionnelle des enfants est mesurée par la
 méthode N-MODA de l'UNICEF, adaptée aux spécificités de l'enfance et retenue
 comme méthodologie officielle par l'ANSD au Sénégal.
 
-\subsubsection{L'approche MODA (Multiple Overlapping Deprivation Analysis)}
+\subsubsection{Approche MODA (Multiple Overlapping Deprivation Analysis)}
 
 
 L'approche MODA, développée par \textcite{deneubourg2012} au sein du bureau
@@ -327,15 +309,7 @@ indicateurs retenus, en cohérence avec l'EHCVM et la méthodologie N-MODA.
   \end{tabular}
   \begin{tablenotes}
     \small
-    \item \textit{Source :} \textcite{ansd2024}. Méthodologie N-MODA Sénégal (National Multiple Overlapping
-    Deprivation Analysis). \textit{Approche union} intra-dimension : un enfant est privé dans une dimension
-    s'il l'est dans \textit{au moins un} de ses indicateurs. \textit{Seuil inter-dimensionnel :} $k = 4$
-    (enfant multidimensionnellement pauvre si privé dans au moins 4 dimensions sur 7 simultanément).
-    H = 50{,}7\,\%, A = 72{,}2\,\%, $M_0 = 0{,}366$ en 2018-2019 selon \textcite{ansd2024}.
-    \item[$\dagger$] Module \texttt{s08b1\_me} (HDDS) disponible uniquement en 2018.
-    Pour 2021, \texttt{m\_diversite} est codé à 0 (borne inférieure). La sécurité
-    alimentaire (\texttt{s08a\_me}) est disponible dans les deux vagues.
-    L'accès aux soins (module communautaire) est codé à 0 dans les deux vagues.
+    \item \textit{Source :} \textcite{ansd2024}. Méthodologie N-MODA Sénégal
   \end{tablenotes}
   \end{threeparttable}
 \end{table}
@@ -403,7 +377,7 @@ d'âge.
 \subsection{Stratégie d'identification causale : PSM-Double différence}
 % ─────────────────────────────────────────────────────────────────────────────
 
-\subsubsection{Le cadre des résultats potentiels}
+\subsubsection{Cadre des résultats potentiels}
 
 Pour chaque enfant $i$, on définit deux résultats potentiels : $Y_i(1)$ la
 mesure de pauvreté N-MODA si le ménage reçoit des transferts, et
@@ -418,7 +392,7 @@ L'estimateur naïf est biaisé car les ménages bénéficiaires et non-bénéfic
 diffèrent systématiquement sur des caractéristiques observables et inobservables
 (biais de sélection).
 
-\subsubsection{L'appariement par score de propension (PSM)}
+\subsubsection{Appariement par score de propension (PSM)}
 
 Le PSM repose sur deux hypothèses. La première est l'indépendance
 conditionnelle (CIA) : conditionnellement aux covariables observées $X_i$,
@@ -437,7 +411,7 @@ estimé par un modèle probit :
   \label{eq:probit}
 \end{equation}
 
-L'appariement est réalisé \emph{au niveau du ménage}~: toutes les covariables
+L'appariement est réalisé au niveau du ménage : toutes les covariables
 du score de propension étant des caractéristiques du ménage (taille, dépense
 par tête, sexe, âge, éducation et statut matrimonial du chef, milieu, région),
 tous les enfants d'un même ménage partagent le même score. Apparier au niveau
@@ -479,7 +453,7 @@ La qualité de l'appariement est évaluée par le biais standardisé
 un $|SB| < 10$ traduit un équilibre satisfaisant \parencite{caliendo2008},
 ainsi que par le test $t$ d'égalité des moyennes et la statistique pseudo-$R^2$.
 
-\subsubsection{La double différence (DD)}
+\subsubsection{Double différence (DD)}
 
 La DD exploite la dimension temporelle des deux vagues EHCVM pour contrôler
 les effets fixes inobservables stables dans le temps :
@@ -502,7 +476,7 @@ Cette exclusion garantit que le terme $\bar{Y}^0_{t=2} - \bar{Y}^0_{t=1}$
 décrit bien la tendance contrefactuelle des non-bénéficiaires, non contaminée
 par une réception tardive de transferts \parencite{callaway2021}.
 
-\subsubsection{L'estimateur PSM-DD}
+\subsubsection{Estimateur PSM-DD}
 
 La combinaison PSM-DD proposée par \textcite{heckman1997} et
 \textcite{heckman1998} neutralise simultanément le biais lié aux différences
@@ -529,15 +503,15 @@ milieu de résidence (urbain et rural), le groupe d'âge, le genre et chaque
 dimension de privation. La robustesse est vérifiée par la comparaison entre les
 trois algorithmes d'appariement, un test placebo et l'analyse de l'attrition.
 
-La principale vérification de robustesse repose sur une \emph{approche par
-panel d'enfants}. La mesure N-MODA attribue à chaque enfant un jeu de
+La principale vérification de robustesse repose sur une approche par
+panel d'enfants. La mesure N-MODA attribue à chaque enfant un jeu de
 dimensions dépendant de son groupe d'âge (0-4, 5-14, 15-17 ans). Or un enfant
 suivi entre 2018 et 2021 vieillit d'environ trois ans et peut donc changer de
 groupe d'âge~: un enfant de 3 ans en 2018 (groupe 0-4) relève du groupe 5-14 en
 2021, un enfant de 13 ans (groupe 5-14) passe au groupe 15-17. Les dimensions
 et indicateurs qui lui sont applicables se modifient alors d'une vague à
 l'autre. Plutôt que de comparer des enfants distincts d'une même tranche d'âge
-à chaque vague, l'approche par panel d'enfants suit les \emph{mêmes} enfants et
+à chaque vague, l'approche par panel d'enfants suit les mêmes enfants et
 recalcule leur statut de privation N-MODA en tenant compte de cette transition
 d'âge. Elle constitue une alternative au panel de ménages~: elle vérifie que
 l'effet estimé des transferts sur la pauvreté multidimensionnelle n'est pas un
