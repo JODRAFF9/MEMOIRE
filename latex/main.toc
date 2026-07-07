@@ -23,17 +23,15 @@
 \contentsline {subsection}{\numberline {2.1}Sources de données}{10}{subsection.2.1}%
 \contentsline {subsubsection}{\numberline {2.1.1}Présentation des enquêtes}{10}{subsubsection.2.1.1}%
 \contentsline {subsubsection}{\numberline {2.1.2}Construction de l'échantillon}{10}{subsubsection.2.1.2}%
-\contentsline {subsubsection}{\numberline {2.1.3}Variable de traitement}{11}{subsubsection.2.1.3}%
-\contentsline {subsubsection}{\numberline {2.1.4}Covariables du modèle de propension}{12}{subsubsection.2.1.4}%
-\contentsline {subsection}{\numberline {2.2}Mesure de la pauvreté multidimensionnelle des enfants}{12}{subsection.2.2}%
-\contentsline {subsubsection}{\numberline {2.2.1}Approche MODA (Multiple Overlapping Deprivation Analysis)}{12}{subsubsection.2.2.1}%
-\contentsline {subsubsection}{\numberline {2.2.2}Variables de résultat dans l'estimation PSM-DD}{16}{subsubsection.2.2.2}%
-\contentsline {subsection}{\numberline {2.3}Stratégie d'identification causale : PSM-Double différence}{16}{subsection.2.3}%
-\contentsline {subsubsection}{\numberline {2.3.1}Cadre des résultats potentiels}{16}{subsubsection.2.3.1}%
-\contentsline {subsubsection}{\numberline {2.3.2}Appariement par score de propension (PSM)}{16}{subsubsection.2.3.2}%
-\contentsline {subsubsection}{\numberline {2.3.3}Double différence (DD)}{17}{subsubsection.2.3.3}%
-\contentsline {subsubsection}{\numberline {2.3.4}Estimateur PSM-DD}{18}{subsubsection.2.3.4}%
-\contentsline {subsubsection}{\numberline {2.3.5}Analyses d'hétérogénéité et de robustesse}{18}{subsubsection.2.3.5}%
+\contentsline {subsection}{\numberline {2.2}Construction de la variable de traitement}{11}{subsection.2.2}%
+\contentsline {subsubsection}{\numberline {2.2.1}Covariables du modèle de propension}{12}{subsubsection.2.2.1}%
+\contentsline {subsection}{\numberline {2.3}Mesure de la pauvreté multidimensionnelle des enfants :Approche MODA}{12}{subsection.2.3}%
+\contentsline {subsection}{\numberline {2.4}Stratégie d'identification causale : PSM-Double différence}{15}{subsection.2.4}%
+\contentsline {subsubsection}{\numberline {2.4.1}Cadre des résultats potentiels}{15}{subsubsection.2.4.1}%
+\contentsline {subsubsection}{\numberline {2.4.2}Appariement par score de propension (PSM)}{16}{subsubsection.2.4.2}%
+\contentsline {subsubsection}{\numberline {2.4.3}Double différence (DD)}{17}{subsubsection.2.4.3}%
+\contentsline {subsubsection}{\numberline {2.4.4}Estimateur PSM-DD}{17}{subsubsection.2.4.4}%
+\contentsline {subsubsection}{\numberline {2.4.5}Analyses d'hétérogénéité et de robustesse}{17}{subsubsection.2.4.5}%
 \contentsline {section}{\numberline {3}Statistiques descriptives}{19}{section.3}%
 \contentsline {subsection}{\numberline {3.1}Profil des ménages enquêtés}{19}{subsection.3.1}%
 \contentsline {subsubsection}{\numberline {3.1.1}Caractéristiques générales}{19}{subsubsection.3.1.1}%
@@ -70,18 +68,18 @@
 \contentsline {paragraph}{Renforcement de la protection sociale des enfants de ménages migrants :}{37}{paragraph*.23}%
 \contentsline {section}{Conclusion et recommandations}{38}{paragraph*.23}%
 \contentsline {section}{Annexes}{41}{section*.24}%
-\contentsline {section}{Annexe \numberline {A}Validité de l'hypothèse de tendances parallèles et tests complémentaires}{41}{appendix.1.A}%
+\contentsline {section}{Annexe \numberline {A}Validité de l'hypothèse de tendances parallèles et tests complémentaires}{41}{section.1.A}%
 \contentsline {subsection}{\numberline {A.1}Discussion de l'hypothèse de tendances parallèles}{41}{subsection.1.A.1}%
 \contentsline {subsubsection}{\numberline {A.1.1}Argument de l'appariement}{41}{subsubsection.1.A.1.1}%
 \contentsline {subsubsection}{\numberline {A.1.2}Test placebo sur les ménages jamais traités}{41}{subsubsection.1.A.1.2}%
 \contentsline {subsection}{\numberline {A.2}Résultats PSM avec différentes méthodes d'appariement}{42}{subsection.1.A.2}%
 \contentsline {subsection}{\numberline {A.3}Analyse de l'attrition différentielle}{42}{subsection.1.A.3}%
-\contentsline {section}{Annexe \numberline {B}Méthodologie N-MODA Sénégal : matrice des indicateurs}{44}{appendix.1.B}%
+\contentsline {section}{Annexe \numberline {B}Méthodologie N-MODA Sénégal : matrice des indicateurs}{44}{section.1.B}%
 \contentsline {subsection}{\numberline {B.1}Principes généraux}{44}{subsection.1.B.1}%
 \contentsline {subsection}{\numberline {B.2}Matrice des indicateurs par groupe d'âge}{45}{subsection.1.B.2}%
 \contentsline {subsection}{\numberline {B.3}Correspondance indicateurs, variables EHCVM}{46}{subsection.1.B.3}%
 \contentsline {subsection}{\numberline {B.4}Limites de l'opérationnalisation}{47}{subsection.1.B.4}%
-\contentsline {section}{Annexe \numberline {C}Pauvreté monétaire et pauvreté multidimensionnelle : analyse croisée}{48}{appendix.1.C}%
+\contentsline {section}{Annexe \numberline {C}Pauvreté monétaire et pauvreté multidimensionnelle : analyse croisée}{48}{section.1.C}%
 \contentsline {subsection}{\numberline {C.1}Cadre conceptuel : complémentarité des deux mesures}{48}{subsection.1.C.1}%
 \contentsline {subsection}{\numberline {C.2}Tableau croisé pauvreté monétaire / N-MODA (EHCVM I, 2018-2019)}{48}{subsection.1.C.2}%
 \contentsline {subsection}{\numberline {C.3}Interprétation}{49}{subsection.1.C.3}%
