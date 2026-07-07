@@ -1,19 +1,19 @@
 \babel@toc {french}{}\relax 
 \contentsline {table}{\numberline {1}{\ignorespaces Répartition des ménages EHCVM II selon le statut de suivi (\texttt {PanelHH})}}{11}{table.caption.1}%
 \contentsline {table}{\numberline {2}{\ignorespaces Covariables du modèle de propension et sources EHCVM}}{12}{table.caption.2}%
-\contentsline {table}{\numberline {3}{\ignorespaces Dimensions, indicateurs et seuils de privation, N-MODA Sénégal (ANSD/UNICEF 2024)}}{15}{table.caption.3}%
-\contentsline {table}{\numberline {4}{\ignorespaces Caractéristiques des ménages : EHCVM I (2018-2019) et EHCVM II (2021-2022)}}{20}{table.caption.5}%
-\contentsline {table}{\numberline {5}{\ignorespaces Comparaison des ménages selon le statut de transferts (EHCVM I, 2018-2019)}}{21}{table.caption.6}%
-\contentsline {table}{\numberline {6}{\ignorespaces Prévalence des privations par dimension N-MODA (enfants 0--17 ans, \%)}}{23}{table.caption.8}%
-\contentsline {table}{\numberline {7}{\ignorespaces Taux de pauvreté N-MODA par groupe d'âge : EHCVM I (2018-2019) et EHCVM II (2021-2022)}}{25}{table.caption.10}%
-\contentsline {table}{\numberline {8}{\ignorespaces Modèle probit pour l'estimation du score de propension (EHCVM I, 2018-2019)}}{28}{table.caption.13}%
-\contentsline {table}{\numberline {9}{\ignorespaces Équilibre des covariables avant et après appariement PSM ($k=4$, niveau ménage)}}{30}{table.caption.15}%
-\contentsline {table}{\numberline {10}{\ignorespaces Estimations par double différence (DD brute, sans appariement, effectifs bruts)}}{30}{table.caption.16}%
-\contentsline {table}{\numberline {11}{\ignorespaces Impact des transferts sur la pauvreté multidimensionnelle : estimateur PSM-DD (ATT)}}{31}{table.caption.17}%
-\contentsline {table}{\numberline {12}{\ignorespaces Sensibilité de l'ATT PSM-DD au choix de la méthode d'appariement}}{32}{table.caption.18}%
-\contentsline {table}{\numberline {13}{\ignorespaces Hétérogénéité des effets par milieu de résidence, sexe et âge (PSM-DD)}}{35}{table.caption.20}%
-\contentsline {table}{\numberline {14}{\ignorespaces Distribution des ATT placebo (200 réplications, faux traitement aléatoire)}}{43}{table.caption.25}%
-\contentsline {table}{\numberline {15}{\ignorespaces Comparaison ménages suivis et ménages perdus (attrition, EHCVM I)}}{44}{table.caption.26}%
-\contentsline {table}{\numberline {16}{\ignorespaces Matrice N-MODA : indicateurs par dimension et groupe d'âge}}{46}{table.caption.27}%
-\contentsline {table}{\numberline {17}{\ignorespaces Opérationnalisation des indicateurs N-MODA avec les variables EHCVM}}{47}{table.caption.29}%
-\contentsline {table}{\numberline {18}{\ignorespaces Croisement pauvreté monétaire et pauvreté multidimensionnelle N-MODA (enfants 0--17 ans, EHCVM I, 2018-2019)}}{49}{table.caption.31}%
+\contentsline {table}{\numberline {3}{\ignorespaces Dimensions, indicateurs et seuils de privation, N-MODA Sénégal (ANSD/UNICEF 2024)}}{14}{table.caption.3}%
+\contentsline {table}{\numberline {4}{\ignorespaces Caractéristiques des ménages : EHCVM I (2018-2019) et EHCVM II (2021-2022)}}{19}{table.caption.5}%
+\contentsline {table}{\numberline {5}{\ignorespaces Comparaison des ménages selon le statut de transferts (EHCVM I, 2018-2019)}}{20}{table.caption.6}%
+\contentsline {table}{\numberline {6}{\ignorespaces Prévalence des privations par dimension N-MODA (enfants 0--17 ans, \%)}}{22}{table.caption.8}%
+\contentsline {table}{\numberline {7}{\ignorespaces Taux de pauvreté N-MODA par groupe d'âge : EHCVM I (2018-2019) et EHCVM II (2021-2022)}}{24}{table.caption.10}%
+\contentsline {table}{\numberline {8}{\ignorespaces Modèle probit pour l'estimation du score de propension (EHCVM I, 2018-2019)}}{27}{table.caption.13}%
+\contentsline {table}{\numberline {9}{\ignorespaces Équilibre des covariables avant et après appariement PSM ($k=4$, niveau ménage)}}{29}{table.caption.15}%
+\contentsline {table}{\numberline {10}{\ignorespaces Estimations par double différence (DD brute, sans appariement, effectifs bruts)}}{29}{table.caption.16}%
+\contentsline {table}{\numberline {11}{\ignorespaces Impact des transferts sur la pauvreté multidimensionnelle : estimateur PSM-DD (ATT)}}{30}{table.caption.17}%
+\contentsline {table}{\numberline {12}{\ignorespaces Sensibilité de l'ATT PSM-DD au choix de la méthode d'appariement}}{31}{table.caption.18}%
+\contentsline {table}{\numberline {13}{\ignorespaces Hétérogénéité des effets par milieu de résidence, sexe et âge (PSM-DD)}}{34}{table.caption.20}%
+\contentsline {table}{\numberline {14}{\ignorespaces Distribution des ATT placebo (200 réplications, faux traitement aléatoire)}}{42}{table.caption.25}%
+\contentsline {table}{\numberline {15}{\ignorespaces Comparaison ménages suivis et ménages perdus (attrition, EHCVM I)}}{43}{table.caption.26}%
+\contentsline {table}{\numberline {16}{\ignorespaces Matrice N-MODA : indicateurs par dimension et groupe d'âge}}{45}{table.caption.27}%
+\contentsline {table}{\numberline {17}{\ignorespaces Opérationnalisation des indicateurs N-MODA avec les variables EHCVM}}{46}{table.caption.29}%
+\contentsline {table}{\numberline {18}{\ignorespaces Croisement pauvreté monétaire et pauvreté multidimensionnelle N-MODA (enfants 0--17 ans, EHCVM I, 2018-2019)}}{48}{table.caption.31}%
