@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2026.7.1)  7 JUL 2026 09:20
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2026.7.1)  7 JUL 2026 09:37
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1412,17 +1412,17 @@ Package biblatex Info: ... file 'main.bbl' found.
 Package biblatex Info: Reference section=0 on input line 217.
 Package biblatex Info: Reference segment=0 on input line 217.
 (./styles/pagedeGarde.tex
-<figures/armoiries_senegal.png, id=350, 513.92pt x 513.92pt>
+<figures/armoiries_senegal.png, id=346, 513.92pt x 513.92pt>
 File: figures/armoiries_senegal.png Graphic file (type png)
 <use figures/armoiries_senegal.png>
 Package pdftex.def Info: figures/armoiries_senegal.png  used on input line 13.
 (pdftex.def)             Requested size: 56.89993pt x 56.9055pt.
-<figures/logo_ansd.jpg, id=352, 511.9125pt x 425.59pt>
+<figures/logo_ansd.jpg, id=348, 511.9125pt x 425.59pt>
 File: figures/logo_ansd.jpg Graphic file (type jpg)
 <use figures/logo_ansd.jpg>
 Package pdftex.def Info: figures/logo_ansd.jpg  used on input line 17.
 (pdftex.def)             Requested size: 54.75612pt x 45.52458pt.
-<figures/logo_ensae_new.png, id=353, 1547.7825pt x 1547.7825pt>
+<figures/logo_ensae_new.png, id=349, 1547.7825pt x 1547.7825pt>
 File: figures/logo_ensae_new.png Graphic file (type png)
 <use figures/logo_ensae_new.png>
 Package pdftex.def Info: figures/logo_ensae_new.png  used on input line 22.
@@ -1585,110 +1585,110 @@ Underfull \hbox (badness 10000) in paragraph at lines 148--149
 []|\T1/lmr/m/n/10.95 (+20) Variable
  []
 
-[12] [13]
-Underfull \hbox (badness 10000) in paragraph at lines 277--278
+[12]
+Underfull \hbox (badness 10000) in paragraph at lines 242--243
 []|\T1/lmr/m/n/10.95 (+20) Variables
  []
 
 
-Overfull \hbox (2.29344pt too wide) in paragraph at lines 279--280
+Overfull \hbox (2.29344pt too wide) in paragraph at lines 244--245
 []|\T1/lmr/m/n/10.95 (-20) Assainissement| 
  []
 
 
-Underfull \hbox (badness 6396) in paragraph at lines 280--280
+Underfull \hbox (badness 6396) in paragraph at lines 245--245
 []|\T1/lmr/m/n/10.95 (+20) Sanitaires non conformes
  []
 
 
-Overfull \hbox (6.2723pt too wide) in paragraph at lines 281--282
+Overfull \hbox (6.2723pt too wide) in paragraph at lines 246--247
 []|\T1/lmtt/m/n/10.95 partag_toi| 
  []
 
 
-Overfull \hbox (17.76976pt too wide) in paragraph at lines 284--284
+Overfull \hbox (17.76976pt too wide) in paragraph at lines 249--249
 []|\T1/lmtt/m/n/10.95 eauboi_ss/sp| 
  []
 
 
-Overfull \hbox (23.5185pt too wide) in paragraph at lines 285--286
+Overfull \hbox (23.5185pt too wide) in paragraph at lines 250--251
 []|\T1/lmtt/m/n/10.95 tps_eau_ss/sp| 
  []
 
 
-Underfull \hbox (badness 1661) in paragraph at lines 288--288
+Underfull \hbox (badness 1661) in paragraph at lines 253--253
 []|\T1/lmr/m/n/10.95 (+20) Brûlée, dé-pôt sau-vage ou
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 289--289
+Underfull \hbox (badness 10000) in paragraph at lines 254--254
 []|\T1/lmr/m/n/10.95 (+20) Surpeuplement $\OML/lmm/m/it/10.95 > \OT1/lmr/m/n/10
 .95 (+20) 3$
  []
 
 
-Underfull \hbox (badness 1281) in paragraph at lines 292--292
+Underfull \hbox (badness 1281) in paragraph at lines 257--257
 []|\T1/lmr/m/n/10.95 (+20) Saut re-pas, mangé moins,
  []
 
 
-Overfull \hbox (6.2723pt too wide) in paragraph at lines 292--293
+Overfull \hbox (6.2723pt too wide) in paragraph at lines 257--258
 []|\T1/lmtt/m/n/10.95 s08aq04--08| 
  []
 
 
-Underfull \hbox (badness 1990) in paragraph at lines 295--295
+Underfull \hbox (badness 1990) in paragraph at lines 260--260
 []|\T1/lmr/m/n/10.95 (+20) Bois, char-bon ou dé-chets
  []
 
 
-Overfull \hbox (0.52356pt too wide) in paragraph at lines 298--298
+Overfull \hbox (0.52356pt too wide) in paragraph at lines 263--263
 []|\T1/lmtt/m/n/10.95 acte_nais| 
  []
 
 
-Underfull \hbox (badness 2753) in paragraph at lines 304--304
+Underfull \hbox (badness 2753) in paragraph at lines 269--269
 []|\T1/lmr/m/it/10.95 (+20) 15--17 ans \T1/lmr/m/n/10.95 (+20) : pas de lec-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 305--306
+Underfull \hbox (badness 10000) in paragraph at lines 270--271
 []|\T1/lmtt/m/n/10.95 scol\T1/lmr/m/n/10.95 (+20) ,
  []
 
-[14{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathex.enc}] [15] [16] [17] [18])
-(./chapitres/chapitre3_stats.tex [19] [20
+[13] [14] [15{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathex.enc}] [16] [17])
+(./chapitres/chapitre3_stats.tex [18] [19
 
 ]
 Overfull \hbox (18.92607pt too wide) in paragraph at lines 81--95
  [][] 
  []
 
-[21]
+[20]
 
 pdfTeX warning: pdflatex (file ./figures/fig_evolution_ipm.pdf): PDF inclusion:
  found PDF version <1.6>, but at most version <1.5> allowed
-<figures/fig_evolution_ipm.pdf, id=827, 397.485pt x 289.08pt>
+<figures/fig_evolution_ipm.pdf, id=811, 397.485pt x 289.08pt>
 File: figures/fig_evolution_ipm.pdf Graphic file (type pdf)
 <use figures/fig_evolution_ipm.pdf>
 Package pdftex.def Info: figures/fig_evolution_ipm.pdf  used on input line 147.
 
 (pdftex.def)             Requested size: 374.86775pt x 272.63948pt.
-[22 <./figures/fig_evolution_ipm.pdf>]
+[21 <./figures/fig_evolution_ipm.pdf>]
 
 pdfTeX warning: pdflatex (file ./figures/fig_privations_dim.pdf): PDF inclusion
 : found PDF version <1.6>, but at most version <1.5> allowed
-<figures/fig_privations_dim.pdf, id=844, 397.485pt x 289.08pt>
+<figures/fig_privations_dim.pdf, id=828, 397.485pt x 289.08pt>
 File: figures/fig_privations_dim.pdf Graphic file (type pdf)
 <use figures/fig_privations_dim.pdf>
 Package pdftex.def Info: figures/fig_privations_dim.pdf  used on input line 201
 .
 (pdftex.def)             Requested size: 396.91325pt x 288.67346pt.
-[23] [24 <./figures/fig_privations_dim.pdf>]
+[22] [23 <./figures/fig_privations_dim.pdf>]
 
 pdfTeX warning: pdflatex (file ./figures/fig_pauvrete_milieu_age.pdf): PDF incl
 usion: found PDF version <1.6>, but at most version <1.5> allowed
-<figures/fig_pauvrete_milieu_age.pdf, id=881, 397.485pt x 289.08pt>
+<figures/fig_pauvrete_milieu_age.pdf, id=865, 397.485pt x 289.08pt>
 File: figures/fig_pauvrete_milieu_age.pdf Graphic file (type pdf)
 <use figures/fig_pauvrete_milieu_age.pdf>
 Package pdftex.def Info: figures/fig_pauvrete_milieu_age.pdf  used on input lin
@@ -1698,43 +1698,43 @@ e 249.
 
 pdfTeX warning: pdflatex (file ./figures/fig_carte_nmoda.pdf): PDF inclusion: f
 ound PDF version <1.6>, but at most version <1.5> allowed
-<figures/fig_carte_nmoda.pdf, id=884, 397.485pt x 289.08pt>
+<figures/fig_carte_nmoda.pdf, id=868, 397.485pt x 289.08pt>
 File: figures/fig_carte_nmoda.pdf Graphic file (type pdf)
 <use figures/fig_carte_nmoda.pdf>
 Package pdftex.def Info: figures/fig_carte_nmoda.pdf  used on input line 270.
 (pdftex.def)             Requested size: 396.91325pt x 288.67346pt.
-[25 <./figures/fig_pauvrete_milieu_age.pdf>])
-(./chapitres/chapitre3_resultats.tex [26 <./figures/fig_carte_nmoda.pdf>]
-[27
+[24 <./figures/fig_pauvrete_milieu_age.pdf>])
+(./chapitres/chapitre3_resultats.tex [25 <./figures/fig_carte_nmoda.pdf>]
+[26
 
-] [28]
+] [27]
 
 pdfTeX warning: pdflatex (file ./figures/overlap_panel.pdf): PDF inclusion: fou
 nd PDF version <1.6>, but at most version <1.5> allowed
-<figures/overlap_panel.pdf, id=949, 397.485pt x 289.08pt>
+<figures/overlap_panel.pdf, id=933, 397.485pt x 289.08pt>
 File: figures/overlap_panel.pdf Graphic file (type pdf)
 <use figures/overlap_panel.pdf>
 Package pdftex.def Info: figures/overlap_panel.pdf  used on input line 91.
 (pdftex.def)             Requested size: 374.86775pt x 272.63948pt.
-[29 <./figures/overlap_panel.pdf>] [30] [31]
+[28 <./figures/overlap_panel.pdf>] [29] [30]
 
 pdfTeX warning: pdflatex (file ./figures/fig_effets_dim.pdf): PDF inclusion: fo
 und PDF version <1.6>, but at most version <1.5> allowed
-<figures/fig_effets_dim.pdf, id=983, 397.485pt x 289.08pt>
+<figures/fig_effets_dim.pdf, id=967, 397.485pt x 289.08pt>
 File: figures/fig_effets_dim.pdf Graphic file (type pdf)
 <use figures/fig_effets_dim.pdf>
 Package pdftex.def Info: figures/fig_effets_dim.pdf  used on input line 253.
 (pdftex.def)             Requested size: 374.86775pt x 272.63948pt.
-) [32 <./figures/fig_effets_dim.pdf>] (./chapitres/chapitre4.tex [33] [34
+) [31 <./figures/fig_effets_dim.pdf>] (./chapitres/chapitre4.tex [32] [33
 
 ]
-[35] [36] [37]) (./chapitres/conclusion.tex [38] [39
+[34] [35] [36]) (./chapitres/conclusion.tex [37] [38
 
-] [40]) [41]
-(./annexes/annexe_A.tex [42
+] [39]) [40]
+(./annexes/annexe_A.tex [41
 
 
-] [43]) (./annexes/annexe_C.tex [44] [45
+] [42]) (./annexes/annexe_C.tex [43] [44
 
 ]
 Overfull \hbox (13.67438pt too wide) in paragraph at lines 96--97
@@ -1849,40 +1849,40 @@ Underfull \hbox (badness 10000) in paragraph at lines 143--144
 []|\T1/lmtt/m/n/10.95 scol
  []
 
-[46]
+[45]
 Overfull \vbox (70.92308pt too high) has occurred while \output is active []
 
 
-[47]) (./annexes/annexe_D.tex [48]
+[46]) (./annexes/annexe_D.tex [47]
 Underfull \hbox (badness 3323) in paragraph at lines 43--46
 []\T1/lmr/m/it/10.95 (+20) Note : \T1/lmr/m/n/10.95 (+20) Pro-por-tions cal-cu-
 lées sur ef-fec-tifs bruts. Seuil mo-né-taire :
  []
 
-[49
+[48
 
 ]
 
 pdfTeX warning: pdflatex (file ./figures/fig_croisement_pauvrete.pdf): PDF incl
 usion: found PDF version <1.6>, but at most version <1.5> allowed
-<figures/fig_croisement_pauvrete.pdf, id=1140, 397.485pt x 289.08pt>
+<figures/fig_croisement_pauvrete.pdf, id=1124, 397.485pt x 289.08pt>
 File: figures/fig_croisement_pauvrete.pdf Graphic file (type pdf)
 <use figures/fig_croisement_pauvrete.pdf>
 Package pdftex.def Info: figures/fig_croisement_pauvrete.pdf  used on input lin
 e 96.
 (pdftex.def)             Requested size: 330.76329pt x 240.56268pt.
-) [50] [51 <./figures/fig_croisement_pauvrete.pdf>] [52
+) [49] [50 <./figures/fig_croisement_pauvrete.pdf>] [51
 
 
-] [53] [54] [55]
-(./main.toc [56
+] [52] [53] [54]
+(./main.toc [55
 
 
-] [57])
+] [56])
 \tf@toc=\write8
 \openout8 = `main.toc'.
 
- [58] (./main.aux)
+ [57] (./main.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-22>
@@ -1892,16 +1892,16 @@ L3 programming layer <2024-01-22>
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 2304F2C84EA5C838C1C269F67A0D2DDE;21832.
+(rerunfilecheck)             Checksum: 31E5DBADA27EBE0F74682A1C5990E695;21651.
 Package logreq Info: Writing requests to 'main.run.xml'.
 \openout1 = `main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 39039 strings out of 476153
- 728176 string characters out of 5794327
+ 39024 strings out of 476153
+ 727943 string characters out of 5794327
  1968975 words of memory out of 5000000
- 59788 multiletter control sequences out of 15000+600000
+ 59775 multiletter control sequences out of 15000+600000
  663524 words of font info for 261 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  102i,15n,117p,1149b,2907s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -1920,10 +1920,10 @@ are/texmf/fonts/type1/public/lm/lmtt10.pfb></usr/share/texmf/fonts/type1/public
 /lm/lmtt12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbo
 ls/msam10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbol
 s/msbm10.pfb>
-Output written on main.pdf (69 pages, 1172374 bytes).
+Output written on main.pdf (68 pages, 1164766 bytes).
 PDF statistics:
- 1583 PDF objects out of 1728 (max. 8388607)
- 1417 compressed objects within 15 object streams
- 263 named destinations out of 1000 (max. 500000)
- 56061 words of extra memory for PDF output out of 61914 (max. 10000000)
+ 1564 PDF objects out of 1728 (max. 8388607)
+ 1400 compressed objects within 14 object streams
+ 261 named destinations out of 1000 (max. 500000)
+ 56053 words of extra memory for PDF output out of 61914 (max. 10000000)
 
