@@ -52,11 +52,11 @@ procédure .
     \hline
 \entete Statistique & Pauvreté N-MODA \\
     \hline
-    ATT placebo moyen            & $-0{,}003$ \\ \hline
-    Écart-type                   & $0{,}025$  \\ \hline
-    Fraction $|$ATT$|$ $>$ 0,05 & 4,0\,\%    \\
+    ATT placebo moyen            & $-0{,}001$ \\ \hline
+    Écart-type                   & $0{,}020$  \\ \hline
+    Fraction $|$ATT$|$ $>$ 0,05 & 1,5\,\%    \\
     \hline
-    ATT réel (tableau~\ref{tab:psmdd_att}) & $+0{,}073$ \\ \hline
+    ATT réel (tableau~\ref{tab:psmdd_att}) & $+0{,}079$ \\ \hline
     Rang dans la distribution placebo      & 100\textsuperscript{e} centile \\
     \hline
   \end{tabular}
@@ -67,9 +67,9 @@ procédure .
 \end{table}
 
 La distribution des ATT placebo est centrée sur zéro,
-avec un écart-type de 0,025~: parmi les ménages jamais traités, des groupes
+avec un écart-type de 0,020~: parmi les ménages jamais traités, des groupes
 constitués au hasard suivent bien des trajectoires parallèles. L'ATT réel
-($+0{,}073$) se situe au 100\textsuperscript{e}
+($+0{,}079$) se situe au 100\textsuperscript{e}
 centile de la distribution placebo~: l'écart de
 trajectoire mesuré entre bénéficiaires stables et témoins appariés est donc
 très improbable sous l'hypothèse d'une simple fluctuation d'échantillonnage,
@@ -83,9 +83,8 @@ Le tableau~\ref{tab:psm_methodes} (section~\ref{subsec:psmdd}) présente les
 ATT obtenus avec les trois méthodes d'appariement (k-NN, noyau Epanechnikov,
 caliper), toutes mises en œuvre au niveau ménage sur le même score de
 propension. Les trois méthodes produisent des ATT positifs~; pour le N-MODA,
-la significativité statistique n'est acquise que pour le k-NN
-($p = 0{,}038$) et, marginalement, le noyau ($p = 0{,}066$), tandis qu'elle
-disparaît avec le caliper ($p = 0{,}131$). Le caliper sans remise, qui
+la significativité statistique est acquise pour le k-NN ($p = 0{,}025$) et
+le noyau ($p = 0{,}039$), et marginalement pour le caliper ($p = 0{,}077$). Le caliper sans remise, qui
 n'apparie que 582 paires et écarte les traités sans contrepartie proche, est
 le plus exigeant en support commun~; la stabilité du signe sur les trois
 méthodes reste l'enseignement principal.
@@ -95,8 +94,7 @@ méthodes reste l'enseignement principal.
 Le panel vrai mobilise 6\,127 des 7\,156 ménages de l'EHCVM~I (taux de suivi
 de 85,6\,\%, variable \texttt{PanelHH}). Parmi les 6\,427 ménages comptant des
 enfants de 0 à 17 ans, 5\,643 sont retrouvés dans le panel et 784 sont perdus.
-Le tableau~\ref{tab:attrition} compare leurs caractéristiques de base (script
-\texttt{09\_placebo\_attrition.do}).
+Le tableau~\ref{tab:attrition} compare leurs caractéristiques de base.
 
 \begin{table}[H]
   \centering

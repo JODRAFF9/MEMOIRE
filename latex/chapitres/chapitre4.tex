@@ -36,13 +36,11 @@ d'âge de l'échantillon.
 
 Le tableau~\ref{tab:psm_methodes} (section~\ref{subsec:psmdd}) a documenté la
 sensibilité de l'ATT aux trois méthodes d'appariement (k-NN, noyau Epanechnikov,
-caliper). Les trois spécifications produisent des ATT positifs, compris entre
-$+0{,}050$ et $+0{,}073$ pour le N-MODA, mais la significativité statistique
-n'est acquise qu'avec le k-NN ($p=0{,}038$) et, marginalement, le noyau
-($p=0{,}066$)~; elle disparaît avec le caliper ($p=0{,}131$). La direction de
-l'effet est donc robuste au choix algorithmique, mais son intensité et sa
-précision ne le sont pas, ce qui commande de l'interpréter comme un
-\emph{faisceau d'indices} plutôt que comme un effet définitivement établi.
+caliper). Les trois spécifications produisent des ATT positifs et d'ampleur
+voisine, compris entre $+0{,}058$ et $+0{,}081$ pour le N-MODA, significatifs
+à 5\,\% avec le k-NN ($p=0{,}025$) et le noyau ($p=0{,}039$) et à 10\,\% avec
+le caliper ($p=0{,}077$). La direction comme la significativité de l'effet sont
+donc robustes au choix algorithmique.
 
 \subsubsection{Attrition et biais de sélection de l'échantillon panel}
 
@@ -81,32 +79,32 @@ Le tableau~\ref{tab:heterogeneite} rapporte les ATT PSM-DD pour chaque sous-grou
 \entete Sous-groupe & ATT (N-MODA) & $p$-val. \\
     \hline
     \multicolumn{3}{|c|}{\textit{Par milieu de résidence}} \\ \hline
-    \quad Milieu urbain & $+0{,}050$     & 0,217 \\ \hline
-    \quad Milieu rural  & $+0{,}114^{*}$ & 0,075 \\ \hline
-    \quad Test d'égalité ($p$-val.) & \multicolumn{2}{|c|}{0,395} \\
+    \quad Milieu urbain & $+0{,}060$     & 0,136 \\ \hline
+    \quad Milieu rural  & $+0{,}113^{*}$ & 0,078 \\ \hline
+    \quad Test d'égalité ($p$-val.) & \multicolumn{2}{|c|}{0,490} \\
     \hline
     \multicolumn{3}{|c|}{\textit{Par sexe de l'enfant}} \\ \hline
-    \quad Garçons & $+0{,}097^{**}$ & 0,013 \\ \hline
-    \quad Filles  & $+0{,}050$      & 0,174 \\
+    \quad Garçons & $+0{,}104^{***}$ & 0,008 \\ \hline
+    \quad Filles  & $+0{,}055$      & 0,139 \\
     \hline
     \multicolumn{3}{|c|}{\textit{Par groupe d'âge}} \\ \hline
-    \quad 0--4 ans   & $+0{,}111^{**}$ & 0,031 \\ \hline
-    \quad 5--14 ans  & $+0{,}061$      & 0,124 \\ \hline
-    \quad 15--17 ans & $+0{,}055$      & 0,254 \\
+    \quad 0--4 ans   & $+0{,}117^{**}$ & 0,023 \\ \hline
+    \quad 5--14 ans  & $+0{,}069^{*}$  & 0,082 \\ \hline
+    \quad 15--17 ans & $+0{,}052$      & 0,272 \\
     \hline
   \end{tabular}
   \begin{tablenotes}
     \small
-    \item $^{*}p<0{,}10$, $^{**}p<0{,}05$. Erreurs-types clusterisées au niveau
-    de la grappe, poids d'appariement k-NN (niveau ménage), sans pondération
-    par poids d'enquête.
+    \item $^{*}p<0{,}10$, $^{**}p<0{,}05$, $^{***}p<0{,}01$. Erreurs-types
+    clusterisées au niveau de la grappe, poids d'appariement k-NN (niveau
+    ménage), sans pondération par poids d'enquête.
   \end{tablenotes}
 \end{table}
 
 L'analyse par milieu montre que l'écart défavorable aux bénéficiaires provient
-principalement du milieu rural ($+0{,}114$, $p = 0{,}075$), l'effet urbain
+principalement du milieu rural ($+0{,}113$, $p = 0{,}078$), l'effet urbain
 étant plus faible et non significatif~; la différence entre milieux n'est
-toutefois pas significative ($p = 0{,}395$). Cette configuration est cohérente avec
+toutefois pas significative ($p = 0{,}490$). Cette configuration est cohérente avec
 l'interprétation d'une vulnérabilité accrue des ménages ruraux dépendants des
 transferts face au choc de la COVID-19~: en zone rurale, les transferts
 représentent une part plus critique des ressources, et leur contraction pendant
@@ -116,8 +114,8 @@ qu'en ville.
 \subsubsection{Selon le sexe de l'enfant}
 
 L'écart défavorable est plus marqué et statistiquement significatif pour les
-garçons sur le N-MODA ($+0{,}097$, $p = 0{,}013$) que pour les filles
-($+0{,}050$, $p = 0{,}174$). Cette asymétrie modérée peut refléter des arbitrages
+garçons sur le N-MODA ($+0{,}104$, $p = 0{,}008$) que pour les filles
+($+0{,}055$, $p = 0{,}139$). Cette asymétrie modérée peut refléter des arbitrages
 intra-ménage différenciés en période de contraction des ressources, mais la
 proximité des intervalles de confiance interdit d'y voir un écart robuste
 entre sexes.
@@ -125,10 +123,10 @@ entre sexes.
 \subsubsection{Selon la tranche d'âge}
 
 L'écart défavorable se concentre sur les enfants d'âge préscolaire
-(0--4 ans~: $+0{,}111$, $p = 0{,}031$ sur le N-MODA), tranche d'âge la plus
+(0--4 ans~: $+0{,}117$, $p = 0{,}023$ sur le N-MODA), tranche d'âge la plus
 sensible aux variations de court terme des ressources du ménage (nutrition,
-accès aux soins, enregistrement des naissances)~; il est plus faible et non
-significatif pour les 5--14 ans et les 15--17 ans. Cette gradation par âge est
+enregistrement des naissances)~; il reste positif mais plus faible pour les
+5--14 ans ($+0{,}069$, $p = 0{,}082$) et non significatif pour les 15--17 ans. Cette gradation par âge est
 cohérente avec la littérature qui identifie la petite enfance comme la période
 où les chocs de revenu se transmettent le plus directement au bien-être
 multidimensionnel \parencite{davis2016,fontenla2022}.
@@ -139,8 +137,8 @@ Nos résultats documentent, sur la période 2018--2021, une trajectoire de
 pauvreté multidimensionnelle \emph{relativement moins favorable} pour les
 enfants des ménages bénéficiaires stables de transferts que pour ceux des
 ménages jamais bénéficiaires comparables. L'ATT PSM-DD est positif
-($+0{,}073$, $p = 0{,}038$ pour le N-MODA), mais sa significativité n'est pas
-robuste au choix de la méthode d'appariement. Il faut d'abord écarter deux
+($+0{,}079$, $p = 0{,}025$ pour le N-MODA), significatif et robuste au choix de
+la méthode d'appariement. Il faut d'abord écarter deux
 lectures erronées~: ce résultat ne signifie ni que les transferts
 appauvrissent les enfants en niveau (la pauvreté baisse dans les deux
 groupes), ni que l'hypothèse d'un effet réducteur est confirmée, c'est au
@@ -196,8 +194,8 @@ une contrainte d'offre que le pouvoir d'achat supplémentaire ne lève pas
 rural, où ces contraintes sont les plus fortes, est cohérente avec ce canal.
 
 La comparaison des estimateurs illustre l'importance de la correction~:
-la DD brute donne $+0{,}046$ ($p=0{,}063$) sur le N-MODA, l'appariement
-porte l'estimation à $+0{,}073$ ($p=0{,}038$). Le biais de sélection à
+la DD brute donne $+0{,}046$ ($p=0{,}056$) sur le N-MODA, l'appariement
+porte l'estimation à $+0{,}079$ ($p=0{,}025$). Le biais de sélection à
 l'\oe{}uvre est massif (SMD jusqu'à 0,66 avant appariement) et sa correction
 change substantiellement l'inférence, ce qui valide la stratégie PSM-DD par
 rapport aux approches naïves, indépendamment du signe du résultat final.
