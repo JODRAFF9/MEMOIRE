@@ -24,8 +24,15 @@
      09_placebo_attrition — tests placebo et attrition
    ============================================================ */
 cd "C:\Users\Bmd\Documents\ISE\Cours\ISE3\Memoire"
-capture log close
-log using "code/stata/logs/tout.log", replace text
+capture log close _all
+/* Si un ancien log est verrouille par un autre programme (r(608)),
+   on bascule sur un nom horodate plutot que d'echouer */
+capture log using "code/stata/logs/tout.log", replace text
+if _rc {
+    local horodate = subinstr("`c(current_date)'_`c(current_time)'", ":", "-", .)
+    local horodate = subinstr("`horodate'", " ", "_", .)
+    log using "code/stata/logs/tout_`horodate'.log", replace text
+}
 
 di _newline(2) ">>> DEBUT DU PIPELINE COMPLET <<<"
 di "$(date)"
