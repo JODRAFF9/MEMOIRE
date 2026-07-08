@@ -1822,3 +1822,24 @@ foreach v in log_pcexp hhsize chef_f urbain hage D {
 
 di _newline ">>> 09_placebo_attrition.do termine."
 
+/* ============================================================
+   SECTION FINALE : copie des figures vers le rapport LaTeX
+   ------------------------------------------------------------
+   Recopie automatiquement les PDF generes dans output/figures
+   vers latex/figures, pour que le memoire compile toujours les
+   dernieres versions sans manipulation manuelle.
+   ============================================================ */
+
+di _newline ">>> Copie des figures vers latex/figures ..."
+local figs fig_evolution_ipm fig_privations_dim fig_pauvrete_milieu_age ///
+           fig_distrib_nbdep fig_effets_dim fig_carte_nmoda fig_croisement_pauvrete
+foreach f of local figs {
+    capture copy "$OUTPUT/figures/`f'.pdf" "latex/figures/`f'.pdf", replace
+    if _rc di "    !! echec copie `f'.pdf (rc=" _rc ")"
+    else   di "    ok `f'.pdf"
+}
+/* Graphique de support commun (a la racine de output) */
+capture copy "$OUTPUT/overlap_panel.pdf" "latex/figures/overlap_panel.pdf", replace
+
+di _newline ">>> FIN DU PIPELINE COMPLET <<<"
+
