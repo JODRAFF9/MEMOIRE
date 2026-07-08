@@ -675,14 +675,43 @@ foreach annee in 2018 2021 {
     replace  m_scol = 1 if age >= 5 & age <= 14 & (scol == 0 | missing(scol))
 
     /* [Dim 6/7 : Protection de l'enfant] Indicateur 2 — Travail des enfants
-       Groupe d'age 5-14 ans, composante economique uniquement
-       (activ7j : Occupe=1, Chomeur=2). L'EHCVM ne comporte pas de module
-       time-use permettant de mesurer le travail domestique (corvees) ;
-       cette composante de l'Annexe I n'est donc pas operationnalisable
-       avec les donnees disponibles. */
+       Definition ANSD (Annexe I) : enfant de 5-14 ans effectuant un travail
+       economique OU domestique d'au moins 1 heure sur les 7 derniers jours.
+       Le travail domestique est mesure par le module emploi (heures de
+       corvees) :
+         2018 : s04_me (s04q02 travaux domestiques, s04q04 eau, s04q05 bois ;
+                travail economique s04q06-09), cle individuelle s01q00a ;
+         2021 : s04a_me en format long (heures ventilees s04q01 courses,
+                s04q02a cuisine, s04q02b lessive, s04q02c menage, s04q04 eau,
+                s04q05 bois), cle membres__id, collapse au niveau personne.
+       Taux reproduits (5-14 ans) : 2018 ~40,8% ; 2021 ~44,8%
+       (cible ANSD MODA 2024 : 43,0%). */
+    preserve
+        if `annee' == 2018 {
+            use "`base'/s04_me_sen2018.dta", clear
+            rename s01q00a numind
+            egen h_dom = rowtotal(s04q02 s04q04 s04q05)
+            gen byte eco = inlist(1, s04q06, s04q07, s04q08, s04q09)
+        }
+        else {
+            use "`base'/s04a_me_sen2021.dta", clear
+            rename membres__id numind
+            collapse (max) s04q01 s04q02a s04q02b s04q02c s04q04 s04q05 ///
+                           s04q06 s04q07 s04q08 s04q09, ///
+                     by(grappe menage numind)
+            egen h_dom = rowtotal(s04q01 s04q02a s04q02b s04q02c s04q04 s04q05)
+            gen byte eco = inlist(1, s04q06, s04q07, s04q08, s04q09)
+        }
+        gen byte trav = (eco == 1 | h_dom >= 1)
+        keep grappe menage numind trav
+        tempfile s04_trav
+        save `s04_trav'
+    restore
+    merge m:1 grappe menage numind using `s04_trav', ///
+        keepusing(trav) nogenerate keep(master match)
     gen byte m_trav_enf = 0
-    replace  m_trav_enf = 1 if age >= 5 & age <= 14 & ///
-        (activ7j == 1 | activ7j == 2) & !missing(activ7j)
+    replace  m_trav_enf = 1 if age >= 5 & age <= 14 & trav == 1
+    drop trav
 
     /* [Dim 6/7 : Protection de l'enfant] Indicateur 3 — Separation parentale
        Prive si l'enfant ne vit pas avec ses deux parents biologiques
