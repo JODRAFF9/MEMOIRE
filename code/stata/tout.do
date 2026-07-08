@@ -1037,6 +1037,55 @@ foreach outcome in pauvre_MODA {
 
 save "$TEMP/panel_apparie.dta", replace
 
+/* ── Fig DD : trajectoires beneficiaires vs temoins + contrefactuel ──
+   Illustre visuellement la double difference et permet d'apprecier
+   l'hypothese de tendances paralleles. Les 4 moyennes de cellule sont
+   ponderees par les poids d'appariement k-NN. Le contrefactuel applique
+   la tendance des temoins au niveau initial des beneficiaires ; l'ecart
+   au point observe de 2021 est l'ATT. */
+quietly summarize pauvre_MODA if D==1 & t==0 [aw=weight_knn]
+scalar dd_b0 = r(mean)*100
+quietly summarize pauvre_MODA if D==1 & t==1 [aw=weight_knn]
+scalar dd_b1 = r(mean)*100
+quietly summarize pauvre_MODA if D==0 & t==0 [aw=weight_knn]
+scalar dd_c0 = r(mean)*100
+quietly summarize pauvre_MODA if D==0 & t==1 [aw=weight_knn]
+scalar dd_c1 = r(mean)*100
+scalar dd_cf1 = dd_b0 + (dd_c1 - dd_c0)   /* contrefactuel sous tendances paralleles */
+
+preserve
+clear
+set obs 2
+gen annee   = 2018 in 1
+replace annee   = 2021 in 2
+gen benef   = dd_b0 in 1
+replace benef   = dd_b1 in 2
+gen temoin  = dd_c0 in 1
+replace temoin  = dd_c1 in 2
+gen contref = dd_b0 in 1
+replace contref = dd_cf1 in 2
+gen str8 lb_b = string(benef,  "%3.1f") + " %"
+gen str8 lb_t = string(temoin, "%3.1f") + " %"
+
+twoway (connected benef annee, lcolor(orange) mcolor(orange) msymbol(circle) lwidth(medthick) ///
+            mlabel(lb_b) mlabcolor(black) mlabpos(12) mlabgap(2) mlabsize(small)) ///
+       (connected temoin annee, lcolor(gs7) mcolor(gs7) msymbol(square) lwidth(medthick) ///
+            mlabel(lb_t) mlabcolor(black) mlabpos(6) mlabgap(2) mlabsize(small)) ///
+       (connected contref annee, lcolor(orange) lpattern(dash) msymbol(diamond_hollow) ///
+            mcolor(orange) lwidth(medthick)), ///
+    xlabel(2018 2021) xscale(range(2017.7 2021.3)) ///
+    xtitle("Vague EHCVM") ytitle("Incidence N-MODA (H, %)") ///
+    ylabel(30(10)80, grid) ///
+    legend(order(1 "Bénéficiaires stables" 2 "Témoins appariés" ///
+                 3 "Contrefactuel (tendances parallèles)") pos(6) rows(2)) ///
+    title("Illustration de la double différence (PSM-DD)") ///
+    subtitle("Panel apparié — écart bénéficiaires/contrefactuel en 2021 = ATT") ///
+    note("Moyennes pondérées par les poids d'appariement k-NN (k=4).", size(vsmall)) ///
+    graphregion(color(white)) plotregion(color(white))
+graph export "$OUTPUT/figures/fig_dd_trajectoires.pdf", replace
+di ">>> fig_dd_trajectoires.pdf sauvegardé"
+restore
+
 /* ============================================================
    6. Heterogeneite
    ============================================================ */
@@ -1786,6 +1835,26 @@ foreach y in moda {
     di "  fraction |ATT|>0.05 : " %4.1f 100*r(N)/`n_rep' "%"
 }
 
+/* ── Fig placebo : distribution des ATT placebo vs ATT reel ──
+   Verifie la plausibilite des tendances paralleles : la distribution
+   placebo doit etre centree sur zero et l'ATT reel doit se situer dans
+   sa queue. */
+scalar att_reel = 0.079
+histogram att_moda, width(0.005) frequency ///
+    color(gs9) lcolor(white) ///
+    xline(0, lcolor(black) lpattern(solid)) ///
+    xline(`=att_reel', lcolor(orange) lpattern(dash) lwidth(medthick)) ///
+    xtitle("ATT placebo (faux traitement aléatoire)") ///
+    ytitle("Nombre de réplications") ///
+    xlabel(-0.06(0.02)0.10, grid) ///
+    title("Distribution des ATT placebo — test des tendances parallèles") ///
+    subtitle("200 réplications sur les ménages jamais bénéficiaires") ///
+    note("Trait plein : zéro. Trait orange pointillé : ATT réel (+0,079)." ///
+         "L'ATT réel se situe hors de la distribution placebo.", size(vsmall)) ///
+    graphregion(color(white)) plotregion(color(white))
+graph export "$OUTPUT/figures/fig_placebo_dd.pdf", replace
+di ">>> fig_placebo_dd.pdf sauvegardé"
+
 /* ============================================================
    2. Test d'attrition
    ============================================================ */
@@ -1834,7 +1903,8 @@ di _newline ">>> 09_placebo_attrition.do termine."
 
 di _newline ">>> Copie des figures vers latex/figures ..."
 local figs fig_evolution_ipm fig_privations_dim fig_pauvrete_milieu_age ///
-           fig_distrib_nbdep fig_effets_dim fig_carte_nmoda fig_croisement_pauvrete
+           fig_distrib_nbdep fig_effets_dim fig_carte_nmoda fig_croisement_pauvrete ///
+           fig_dd_trajectoires fig_placebo_dd
 foreach f of local figs {
     capture copy "$OUTPUT/figures/`f'.pdf" "latex/figures/`f'.pdf", replace
     if _rc di "    !! echec copie `f'.pdf (rc=" _rc ")"

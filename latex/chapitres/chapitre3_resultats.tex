@@ -212,6 +212,22 @@ La robustesse et l'interprétation de ce résultat, dont la significativité
 n'est pas stable selon la méthode d'appariement (section suivante), sont
 discutées en détail dans la section~\ref{sec:discussion}.
 
+La figure~\ref{fig:dd_trajectoires} illustre le mécanisme de la double
+différence. Elle représente l'incidence N-MODA des bénéficiaires stables et
+des témoins appariés aux deux vagues, ainsi que le contrefactuel obtenu en
+appliquant la tendance des témoins au niveau initial des bénéficiaires. L'ATT
+correspond à l'écart, en 2021, entre la trajectoire observée des bénéficiaires
+et ce contrefactuel~: les bénéficiaires se situent au-dessus de la trajectoire
+qu'ils auraient connue sous l'hypothèse de tendances parallèles.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.85\linewidth]{figures/fig_dd_trajectoires.pdf}
+  \caption{Illustration de la double différence : trajectoires des bénéficiaires,
+  des témoins appariés et contrefactuel (incidence N-MODA)}
+  \label{fig:dd_trajectoires}
+\end{figure}
+
 \subsubsection{Robustesse au choix de la méthode d'appariement}
 
 Le tableau~\ref{tab:psm_methodes} examine la stabilité des résultats selon
