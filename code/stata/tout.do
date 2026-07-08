@@ -1349,7 +1349,7 @@ twoway (connected H_MODA annee, lcolor(orange) mcolor(orange) msymbol(circle)  l
     ylabel(30(10)80, grid) ///
     legend(order(1 "N-MODA (k=4, 7 dim.)") pos(6) rows(1)) ///
     title("Évolution de la pauvreté multidimensionnelle des enfants") ///
-    subtitle("Sénégal, 2018-2019 → 2021-2022") ///
+    subtitle("Sénégal, 2018-2019 à 2021-2022") ///
     graphregion(color(white)) plotregion(color(white))
 graph export "$OUTPUT/figures/fig_evolution_ipm.pdf", replace
 di ">>> fig_evolution_ipm.pdf sauvegardé"
@@ -1558,7 +1558,7 @@ preserve
     sort H_nmoda
     gen ordre = _n
     gen str30 nom_reg = ""
-    /* Correspondance codes → noms régions Sénégal */
+    /* Correspondance codes vers noms régions Sénégal */
     replace nom_reg = "Dakar"        if cod_reg == 1
     replace nom_reg = "Ziguinchor"   if cod_reg == 2
     replace nom_reg = "Diourbel"     if cod_reg == 3
