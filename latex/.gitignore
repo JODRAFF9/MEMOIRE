@@ -11,6 +11,7 @@
 *-blx.bib
 *.fdb_latexmk
 *.fls
+*.stoc
 texput.log
 # Le .bbl et le .bcf de main sont VERSIONNÉS volontairement :
 # ils permettent d'afficher la bibliographie même si biber n'est pas lancé.
