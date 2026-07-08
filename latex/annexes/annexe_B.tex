@@ -57,7 +57,7 @@ merge m:1 grappe menage using "$TEMP/pscore_knn.dta", ///
     keepusing(weight_knn) keep(master match) nogenerate
 keep if !missing(weight_knn) & weight_knn > 0
 
-foreach outcome in pauvre_AF pauvre_MODA {
+foreach outcome in pauvre_MODA {
     regress `outcome' i.t##i.D [aw=weight_knn], ///
         vce(cluster grappe)
     lincom 1.t#1.D
