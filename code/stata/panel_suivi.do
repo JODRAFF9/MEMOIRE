@@ -108,4 +108,72 @@ save "$TEMP/menages_suivi.dta", replace
 quietly count if suivi == 1
 di _newline ">>> " r(N) " menages suivis identifies."
 di ">>> Liste sauvegardee : $TEMP/menages_suivi.dta"
-di ">>> panel_suivi.do termine."
+
+/* ============================================================
+   3. Base complete : enfants suivis + caracteristiques menage
+   ------------------------------------------------------------
+   Enfants de 0 a 17 ans des menages suivis (panel vrai), enrichis
+   des caracteristiques du menage (taille, depense par tete, milieu,
+   region, sexe/age/education du chef). Base prete pour les
+   statistiques descriptives.
+   ============================================================ */
+
+di _newline(2) "=== Construction de la base complete (enfants suivis) ==="
+
+foreach annee in 2018 2021 {
+    local base = cond(`annee' == 2018, "$BASE_2018", "$BASE_2021")
+
+    use "$TEMP/indiv_menage_`annee'.dta", clear
+
+    /* Enfants de 0 a 17 ans */
+    keep if inrange(age, 0, 17)
+
+    /* Caracteristiques du menage depuis la base welfare (evite les
+       conflits en supprimant d'eventuels doublons deja presents) */
+    capture drop hhsize pcexp region milieu hgender hage heduc hmstat
+    merge m:1 grappe menage using "`base'/ehcvm_welfare_sen`annee'.dta", ///
+        keepusing(hhsize pcexp region milieu hgender hage heduc hmstat) ///
+        nogenerate keep(master match)
+
+    /* Restriction aux menages suivis (panel vrai) */
+    merge m:1 grappe menage using "$TEMP/menages_suivi.dta", ///
+        keepusing(suivi) nogenerate keep(master match)
+    keep if suivi == 1
+
+    gen int vague_obs = `annee'
+    tempfile enf_`annee'
+    save `enf_`annee''
+    di "  `annee' : " _N " enfants suivis"
+}
+
+use `enf_2018', clear
+append using `enf_2021'
+
+/* Variables derivees utiles aux statistiques descriptives */
+gen byte urbain = (milieu == 1)  if !missing(milieu)
+gen byte chef_f = (hgender == 2) if !missing(hgender)
+label var urbain "Menage urbain"
+label var chef_f "Chef de menage feminin"
+label var vague_obs "Vague d'observation"
+
+save "$TEMP/base_enfants_suivis.dta", replace
+di ">>> Base complete sauvegardee : $TEMP/base_enfants_suivis.dta (" _N " enfants-vagues)"
+
+/* ============================================================
+   4. Statistiques descriptives
+   ============================================================ */
+
+di _newline "=== Statistiques descriptives (enfants suivis) ==="
+
+foreach annee in 2018 2021 {
+    di _newline "-- Vague `annee' --"
+    tabstat hhsize pcexp hage urbain chef_f if vague_obs == `annee', ///
+        stat(mean sd n) format(%9.2f) columns(statistics)
+}
+
+di _newline "Repartition des enfants par milieu et vague :"
+tab milieu vague_obs
+di _newline "Repartition des enfants par sexe et vague :"
+tab sexe vague_obs
+
+di _newline ">>> panel_suivi.do termine."
