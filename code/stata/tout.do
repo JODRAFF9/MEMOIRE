@@ -1075,7 +1075,7 @@ twoway (connected benef annee, lcolor(orange) mcolor(orange) msymbol(circle) lwi
             mcolor(orange) lwidth(medthick)), ///
     xlabel(2018 2021) xscale(range(2017.7 2021.3)) ///
     xtitle("Vague EHCVM") ytitle("Incidence N-MODA (H, %)") ///
-    ylabel(30(10)80, grid) ///
+    ylabel(0(20)100, grid) ///
     legend(order(1 "Bénéficiaires stables" 2 "Témoins appariés" ///
                  3 "Contrefactuel (tendances parallèles)") pos(6) rows(2)) ///
     title("Illustration de la double différence (PSM-DD)") ///
@@ -1397,7 +1397,7 @@ gen str12 lbl_H = string(H_MODA, "%3.1f") + " %"
 twoway (connected H_MODA annee, lcolor(orange) mcolor(orange) msymbol(circle)  lwidth(medthick) ///
         mlabel(lbl_H) mlabformat(%3.1f) mlabcolor(black) mlabpos(12) mlabgap(2) mlabsize(medium)), ///
     xlabel(2018 2021) xtitle("Vague EHCVM") ytitle("Incidence H (%)") ///
-    ylabel(30(10)80, grid) ///
+    ylabel(0(20)100, grid) ///
     legend(order(1 "N-MODA (k=4, 7 dim.)") pos(6) rows(1)) ///
     title("Évolution de la pauvreté multidimensionnelle des enfants") ///
     subtitle("Sénégal, 2018-2019 à 2021-2022") ///
@@ -1444,10 +1444,11 @@ di ">>> fig_privations_dim.pdf sauvegardé"
 
 /* ── Fig 3 : Pauvreté par milieu et groupe d'âge (EHCVM I) ── */
 use "$TEMP/vague_2018.dta", clear
-graph bar pauvre_MODA, over(groupe_moda) over(milieu) ///
+gen pauvre_MODA_pct = pauvre_MODA*100
+graph bar (mean) pauvre_MODA_pct, over(groupe_moda) over(milieu) ///
     bar(1, color(orange)) ///
-    blabel(bar, position(center) color(white) format(%3.2f)) ///
-    ytitle("Incidence N-MODA (H, %)") ylabel(0(0.1)0.8, format(%3.1f) grid) ///
+    blabel(bar, position(center) color(white) format(%3.1f)) ///
+    ytitle("Incidence N-MODA (H, %)") ylabel(0(20)100, grid) ///
     title("Pauvreté N-MODA par groupe d'âge et milieu (2018-19)") ///
     legend(off) ///
     graphregion(color(white)) plotregion(color(white))
@@ -1738,7 +1739,7 @@ preserve
         ylab(`ylab_str', angle(0) noticks labsize(small)) ///
         yscale(range(0.5 4.5)) ///
         xtitle("Part des enfants 0--17 ans (%)") ytitle("") ///
-        xlabel(0(10)60, grid) ///
+        xlabel(0(20)100, grid) ///
         title("Croisement pauvreté monétaire et N-MODA") ///
         subtitle("Sénégal, EHCVM I (2018-2019) — enfants 0--17 ans") ///
         note("Estimations sur effectifs bruts (sans ponderation).", size(vsmall)) ///
