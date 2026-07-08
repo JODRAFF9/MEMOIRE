@@ -944,8 +944,8 @@ label var pscore "Score de propension (menage)"
 
 /* Graphique de densite (support commun) */
 twoway ///
-    (kdensity pscore if D == 0, lcolor(ltblue) lwidth(medthick)) ///
-    (kdensity pscore if D == 1, lcolor(navy) lwidth(medthick)), ///
+    (kdensity pscore if D == 0, lcolor(gs9) lwidth(medthick)) ///
+    (kdensity pscore if D == 1, lcolor(orange) lwidth(medthick)), ///
     legend(order(1 "Jamais traites" 2 "Traites stables")) ///
     xtitle("Score de propension") ytitle("Densité") ///
     title("Support commun — panel vrai (niveau ménage)") ///
@@ -1344,7 +1344,7 @@ replace annee  = 2021 in 2
 gen H_MODA = H_moda_2018 in 1
 replace H_MODA = H_moda_2021 in 2
 
-twoway (connected H_MODA annee, lcolor(navy) mcolor(navy) msymbol(circle)  lwidth(medthick)), ///
+twoway (connected H_MODA annee, lcolor(orange) mcolor(orange) msymbol(circle)  lwidth(medthick)), ///
     xlabel(2018 2021) xtitle("Vague EHCVM") ytitle("Incidence H (%)") ///
     ylabel(30(10)80, grid) ///
     legend(order(1 "N-MODA (k=4, 7 dim.)") pos(6) rows(1)) ///
@@ -1382,7 +1382,8 @@ forvalues i = 1/7 {
     replace v2021 = d_`d'_2021 in `i'
 }
 graph bar v2018 v2021, over(dim, sort(ordre) label(angle(30))) ///
-    bar(1, color(navy)) bar(2, color(orange)) ///
+    bar(1, color(gs9)) bar(2, color(orange)) ///
+    blabel(bar, position(center) color(white) format(%3.0f)) ///
     legend(order(1 "EHCVM I (2018-19)" 2 "EHCVM II (2021-22)") pos(6) rows(1)) ///
     ytitle("Taux de privation (%)") ylabel(0(20)100, grid) ///
     title("Prévalence des privations par dimension N-MODA") ///
@@ -1393,7 +1394,8 @@ di ">>> fig_privations_dim.pdf sauvegardé"
 /* ── Fig 3 : Pauvreté par milieu et groupe d'âge (EHCVM I) ── */
 use "$TEMP/vague_2018.dta", clear
 graph bar pauvre_MODA, over(groupe_moda) over(milieu) ///
-    bar(1, color(navy)) ///
+    bar(1, color(orange)) ///
+    blabel(bar, position(center) color(white) format(%3.2f)) ///
     ytitle("Incidence N-MODA (H, %)") ylabel(0(0.1)0.8, format(%3.1f) grid) ///
     title("Pauvreté N-MODA par groupe d'âge et milieu (2018-19)") ///
     legend(off) ///
@@ -1412,7 +1414,7 @@ label values D dl
 histogram nb_dep, by(D, cols(1) note("") ///
     title("Distribution du nombre de privations (2018-19)")) ///
     fraction width(1) gap(10) ///
-    color(ltblue) lcolor(white) ///
+    color(gs9) lcolor(white) ///
     xtitle("Nombre de dimensions en privation (sur 7)") ///
     ytitle("Fraction") ylabel(, format(%4.2f) grid) ///
     graphregion(color(white)) plotregion(color(white))
@@ -1497,7 +1499,7 @@ forvalues i = 1/`n_dims' {
 
 /* Graphique à barres horizontales avec IC 95 % */
 twoway ///
-    (bar att ordre, horizontal barwidth(0.6) color(navy)) ///
+    (bar att ordre, horizontal barwidth(0.6) color(gs9)) ///
     (rcap lb ub ordre, horizontal lcolor(orange) lwidth(medthick) msize(medium)), ///
     ylab(`ylab_str', angle(0) noticks) ///
     yscale(range(0.5 7.5)) ///
@@ -1579,8 +1581,12 @@ preserve
         local ylab_str `"`ylab_str' `i' "`lbl'""'
     }
 
+    gen mid_lbl = H_nmoda/2
     twoway (bar H_nmoda ordre, horizontal barwidth(0.6) ///
-            color(navy) lcolor(white)), ///
+            color(gs9) lcolor(white)) ///
+           (scatter ordre mid_lbl, msymbol(none) ///
+            mlabel(H_nmoda) mlabformat(%3.0f) mlabcolor(white) mlabpos(0) mlabsize(small)), ///
+        legend(off) ///
         ylab(`ylab_str', angle(0) noticks labsize(small)) ///
         yscale(range(0.5 14.5)) ///
         xtitle("Incidence N-MODA H (%)") ytitle("") ///
@@ -1673,8 +1679,11 @@ preserve
         local ylab_str `"`ylab_str' `i' "`lbl'""'
     }
 
+    gen mid_lbl = pct/2
     twoway (bar pct ordre, horizontal barwidth(0.65) ///
-            color(ltblue midblue orange navy)), ///
+            color(gs5 gs10 orange gs13)) ///
+           (scatter ordre mid_lbl, msymbol(none) ///
+            mlabel(pct) mlabformat(%3.0f) mlabcolor(white) mlabpos(0) mlabsize(small)), ///
         ylab(`ylab_str', angle(0) noticks labsize(small)) ///
         yscale(range(0.5 4.5)) ///
         xtitle("Part des enfants 0--17 ans (%)") ytitle("") ///
