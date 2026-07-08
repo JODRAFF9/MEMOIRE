@@ -1066,17 +1066,23 @@ gen contref = dd_b0 in 1
 replace contref = dd_cf1 in 2
 gen str8 lb_b = string(benef,  "%3.1f") + " %"
 gen str8 lb_t = string(temoin, "%3.1f") + " %"
+/* etiquette du contrefactuel affichee seulement en 2021 (2018 = point benef) */
+gen str8 lb_c = ""
+replace  lb_c = string(contref, "%3.1f") + " %" in 2
 
-twoway (connected benef annee, lcolor(orange) mcolor(orange) msymbol(circle) lwidth(medthick) ///
-            mlabel(lb_b) mlabcolor(black) mlabpos(12) mlabgap(2) mlabsize(small)) ///
-       (connected temoin annee, lcolor(gs7) mcolor(gs7) msymbol(square) lwidth(medthick) ///
-            mlabel(lb_t) mlabcolor(black) mlabpos(6) mlabgap(2) mlabsize(small)) ///
+/* Courbe haute (temoin) : etiquettes au-dessus. Courbe basse (benef) et
+   contrefactuel : etiquettes en dessous, pour eviter tout chevauchement. */
+twoway (connected temoin annee, lcolor(gs7) mcolor(gs7) msymbol(square) lwidth(medthick) ///
+            mlabel(lb_t) mlabcolor(black) mlabpos(12) mlabgap(2.5) mlabsize(small)) ///
+       (connected benef annee, lcolor(orange) mcolor(orange) msymbol(circle) lwidth(medthick) ///
+            mlabel(lb_b) mlabcolor(black) mlabpos(6) mlabgap(2.5) mlabsize(small)) ///
        (connected contref annee, lcolor(orange) lpattern(dash) msymbol(diamond_hollow) ///
-            mcolor(orange) lwidth(medthick)), ///
+            mcolor(orange) lwidth(medthick) ///
+            mlabel(lb_c) mlabcolor(black) mlabpos(6) mlabgap(2.5) mlabsize(small)), ///
     xlabel(2018 2021) xscale(range(2017.7 2021.3)) ///
     xtitle("Vague EHCVM") ytitle("Incidence N-MODA (H, %)") ///
     ylabel(0(20)100, grid) ///
-    legend(order(1 "Bénéficiaires stables" 2 "Témoins appariés" ///
+    legend(order(2 "Bénéficiaires stables" 1 "Témoins appariés" ///
                  3 "Contrefactuel (tendances parallèles)") pos(6) rows(2)) ///
     title("Illustration de la double différence (PSM-DD)") ///
     subtitle("Panel apparié — écart bénéficiaires/contrefactuel en 2021 = ATT") ///
