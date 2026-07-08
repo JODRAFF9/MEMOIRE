@@ -1,0 +1,5 @@
+# Logs de compilation Stata (régénérés à chaque exécution)
+*.log
+*.smcl
+# On garde ce fichier pour préserver le dossier logs/ dans le dépôt
+!.gitignore
