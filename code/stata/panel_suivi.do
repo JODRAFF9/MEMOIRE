@@ -39,7 +39,9 @@ program define charger_vague
     use "`base'/ehcvm_individu_sen`annee'.dta", clear
     di "  Individus : " _N " observations"
 
-    /* -- Fusion avec la base menage (niveau menage) -- */
+    /* -- Fusion avec la base menage (niveau menage) --
+       (la base individus contient deja un hhid : on le recalcule) */
+    capture drop hhid
     if `annee' == 2018 gen long hhid = grappe*1000 + menage
     else               gen long hhid = grappe*100  + menage
 
