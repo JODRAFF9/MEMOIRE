@@ -26,141 +26,55 @@ L'approche N-MODA repose sur quatre principes fondamentaux :
 \end{enumerate}
 
 % ─────────────────────────────────────────────────────────────────────────────
-\subsection{Matrice des indicateurs par groupe d'âge}
+\subsection{Matrice des indicateurs, sources et seuils}
 % ─────────────────────────────────────────────────────────────────────────────
 
+Le tableau~\ref{tab:matrice_nmoda} rassemble, pour chaque dimension, les
+indicateurs retenus, leur applicabilité par groupe d'âge, le module source de
+l'EHCVM et le seuil de privation.
+
+\begin{landscape}
 \begin{table}[H]
   \centering
-  \caption{Matrice N-MODA : indicateurs par dimension et groupe d'âge}
+  \caption{Matrice N-MODA : indicateurs, applicabilité par âge, sources et seuils}
   \label{tab:matrice_nmoda}
   \begin{threeparttable}
-  \small
+  \footnotesize
   \zebre
-  \begin{tabular}{|p{2.2cm}|p{3.6cm}|p{2.2cm}|p{2.4cm}|p{2.2cm}|}
+  \begin{tabular}{|l|l|c|c|c|l|l|}
     \hline
-\entete Dimension & Indicateur & 0--4 ans & 5--14 ans & 15--17 ans \\
+\entete Dimension & Indicateur & 0--4 & 5--14 & 15--17 & Module source & Seuil de privation \\
     \hline
-    \multirow{2}{2.2cm}{Assainis-sement}
-      & Toilettes non améliorées   & \checkmark & \checkmark & \checkmark \\[2pt] \hline
-      & Partage des toilettes      & \checkmark & \checkmark & \checkmark \\
-    \hline
-    \multirow{2}{2.2cm}{Eau}
-      & Source non améliorée       & \checkmark & \checkmark & \checkmark \\[2pt] \hline
-      & Temps d'accès $> 30$ min  & \checkmark & \checkmark & \checkmark \\
-    \hline
-    \multirow{2}{2.2cm}{Logement}
-      & Ordures non saines         & \checkmark & \checkmark & \checkmark \\[2pt] \hline
-      & Surpeuplement ($>3$ p./p.) & \checkmark & \checkmark & \checkmark \\
-    \hline
-    Nutrition
-      & Sécurité alimentaire       & \checkmark & \checkmark & \checkmark \\
-    \hline
-    Santé
-      & Combustible solide         & \checkmark & \checkmark & \checkmark \\
-    \hline
-    \multirow{3}{2.2cm}{Protection}
-      & Absence acte de naissance  & \checkmark & \checkmark & - \\[2pt] \hline
-      & Travail des enfants        & -        & \checkmark & - \\[2pt] \hline
-      & Séparation parentale       & \checkmark & \checkmark & \checkmark \\
-    \hline
-    \multirow{3}{2.2cm}{Éducation}
-      & Non-scolarisation          & -        & \checkmark & - \\[2pt] \hline
-      & Illettrisme                & -        & -        & \checkmark \\[2pt] \hline
-      & NEET                       & -        & -        & \checkmark \\
+    Assainissement & Toilettes non améliorées & \checkmark & \checkmark & \checkmark & Ménage (habitat) & Non conformes aux normes JMP \\ \hline
+                   & Partage des toilettes    & \checkmark & \checkmark & \checkmark & Ménage (habitat) & Installation partagée \\ \hline
+    Eau            & Source non améliorée     & \checkmark & \checkmark & \checkmark & Ménage (habitat) & Non conforme aux normes JMP \\ \hline
+                   & Temps d'accès $> 30$ min & \checkmark & \checkmark & \checkmark & Ménage (habitat) & Plus de 30 minutes aller-retour \\ \hline
+    Logement       & Gestion des ordures      & \checkmark & \checkmark & \checkmark & Ménage (habitat) & Évacuation non saine \\ \hline
+                   & Surpeuplement            & \checkmark & \checkmark & \checkmark & Ménage (habitat) & Plus de 3 personnes par pièce \\ \hline
+    Nutrition      & Sécurité alimentaire     & \checkmark & \checkmark & \checkmark & Ménage (sécu. alim.) & Insécurité alimentaire (indice FIES) \\ \hline
+    Santé          & Combustible solide       & \checkmark & \checkmark & \checkmark & Ménage (habitat) & Bois, charbon ou déchets \\ \hline
+    Protection     & Absence d'acte de naissance & \checkmark & \checkmark & - & Individu (état civil) & Enfant non enregistré \\ \hline
+                   & Travail des enfants      & -          & \checkmark & - & Individu (emploi) & Exercice d'une activité économique \\ \hline
+                   & Séparation parentale     & \checkmark & \checkmark & \checkmark & Individu (parenté) & Sans ses deux parents biologiques \\ \hline
+    Éducation      & Non-scolarisation        & -          & \checkmark & - & Individu (éducation) & Enfant non scolarisé \\ \hline
+                   & Illettrisme              & -          & -          & \checkmark & Individu (éducation) & Ne sait ni lire ni écrire \\ \hline
+                   & NEET                     & -          & -          & \checkmark & Individu (éduc. et emploi) & Ni scolarisé ni actif \\
     \hline
   \end{tabular}
   \begin{tablenotes}
-    \small
+    \footnotesize
     \item \checkmark~= indicateur applicable au groupe d'âge. - = non applicable.
-    \item \textit{Source :} ANSD/UNICEF \parencite{ansd2024}.
-    Seuil inter-dimensionnel : $k = 4$ (enfant pauvre si privé dans $\geq 4$ dimensions sur 7).
+    Approche union intra-dimension~; seuil inter-dimensionnel $k = 4$ (enfant
+    pauvre si privé dans $\geq 4$ dimensions sur 7).
+    \item \textit{Source :} adaptation de \textcite{ansd2024} aux fichiers EHCVM I
+    (2018-2019) et EHCVM II (2021-2022). Seuls les indicateurs disponibles et
+    comparables dans les deux vagues sont retenus~: la diversité alimentaire
+    (renseignée en 2018 uniquement) et l'accès à pied à une structure de santé
+    (module communautaire non comparable) sont exclus.
   \end{tablenotes}
   \end{threeparttable}
 \end{table}
-
-% ─────────────────────────────────────────────────────────────────────────────
-\subsection{Correspondance indicateurs et sources}
-% ─────────────────────────────────────────────────────────────────────────────
-
-\begin{table}[H]
-  \centering
-  \caption{Opérationnalisation des indicateurs N-MODA et modules sources de l'EHCVM}
-  \label{tab:operationnalisation}
-  \begin{threeparttable}
-  \small
-  \zebre
-  \begin{tabular}{|p{2.0cm}|p{3.2cm}|p{3.2cm}|p{3.3cm}|}
-    \hline
-\entete Dimension & Indicateur & Module source & Seuil de privation \\
-    \hline
-    Assainissement
-      & Toilettes non améliorées
-        & Module ménage (habitat)
-        & Sanitaires non conformes aux normes JMP \\[3pt] \hline
-      & Partage des toilettes
-        & Module ménage (habitat)
-        & Installation partagée entre ménages \\
-    \hline
-    Eau
-      & Source non améliorée
-        & Module ménage (habitat)
-        & Source non conforme aux normes JMP pour au moins une saison \\[3pt] \hline
-      & Temps d'accès $> 30$ min
-        & Module ménage (habitat)
-        & Plus de 30 minutes aller-retour \\
-    \hline
-    Logement
-      & Gestion des ordures
-        & Module ménage (habitat)
-        & Méthode d'évacuation non saine \\[3pt] \hline
-      & Surpeuplement
-        & Module ménage (habitat et composition)
-        & Plus de 3 personnes par pièce \\
-    \hline
-    Nutrition
-      & Sécurité alimentaire (\textit{0--17 ans})
-        & Module ménage (sécurité alimentaire)
-        & Saut de repas, portions réduites, faim ou journée sans manger \\
-    \hline
-    Santé
-      & Combustible solide
-        & Module ménage (habitat)
-        & Bois, charbon ou déchets pour cuisiner \\
-    \hline
-    Protection
-      & Acte de naissance
-        & Module individu (état civil)
-        & Enfant non enregistré à l'état civil \\[3pt] \hline
-      & Travail des enfants
-        & Module individu (emploi)
-        & Exercice d'une activité économique (5--14 ans) \\[3pt] \hline
-      & Séparation parentale
-        & Module individu (lien de parenté)
-        & Ne vit pas avec ses deux parents biologiques \\
-    \hline
-    Éducation
-      & Non-scolarisation
-        & Module individu (éducation)
-        & Enfant non scolarisé (5--14 ans) \\[3pt] \hline
-      & Illettrisme
-        & Module individu (éducation)
-        & Ne sait ni lire ni écrire (15--17 ans) \\[3pt] \hline
-      & NEET
-        & Module individu (éducation et emploi)
-        & Ni scolarisé ni actif (15--17 ans) \\
-    \hline
-  \end{tabular}
-  \begin{tablenotes}
-    \small
-    \item \textit{Note :} Seuls les indicateurs disponibles et comparables dans
-    les deux vagues sont retenus. La diversité alimentaire (renseignée en 2018
-    uniquement) et l'accès à pied à une structure de
-    santé (module communautaire non comparable entre vagues) sont exclus.
-    \item \textit{Source :} Adaptation de \textcite{ansd2024} aux fichiers EHCVM I (2018-2019)
-    et EHCVM II (2021-2022).
-  \end{tablenotes}
-  \end{threeparttable}
-\end{table}
+\end{landscape}
 
 % ─────────────────────────────────────────────────────────────────────────────
 \subsection{Limites de l'opérationnalisation}
