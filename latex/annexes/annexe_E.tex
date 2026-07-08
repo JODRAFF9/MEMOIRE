@@ -1,0 +1,56 @@
+\section{Validation : reproduction des taux de privation de l'ANSD}
+\label{ann:E}
+
+L'ANSD, dans son actualisation N-MODA de 2024, publie des taux de privation par
+indicateur et groupe d'âge calculés sur l'EHCVM 2018/19. Comme cette étude
+mobilise les mêmes données, il est possible de vérifier que
+l'opérationnalisation des indicateurs retenue ici reproduit bien ces taux. Le
+tableau~\ref{tab:validation_ansd} confronte, indicateur par indicateur, les taux
+obtenus dans ce mémoire à ceux publiés par l'ANSD (colonne MODA 2024).
+
+\begin{table}[H]
+  \centering
+  \caption{Comparaison des taux de privation par indicateur : ce mémoire vs ANSD (EHCVM 2018, \%)}
+  \label{tab:validation_ansd}
+  \begin{threeparttable}
+  \small
+  \zebre
+  \begin{tabular}{|l|c|c|c|c|c|c|}
+    \hline
+\entete Indicateur & \multicolumn{3}{|c|}{Ce mémoire} & \multicolumn{3}{|c|}{ANSD (MODA 2024)} \\ \hline
+\entete & 0--4 & 5--14 & 15--17 & 0--4 & 5--14 & 15--17 \\
+    \hline
+    Temps d'accès à l'eau $> 30$ min & 17,5 & 16,5 & 13,8 & 17,7 & 16,4 & 13,9 \\ \hline
+    Source d'eau non améliorée       & 14,2 & 13,0 & 11,3 & 12,0 & 10,7 & 8,5  \\ \hline
+    Partage des toilettes            & 18,1 & 17,4 & 17,0 & 20,4 & 19,4 & 18,6 \\ \hline
+    Débarras des ordures             & 64,4 & 63,1 & 58,4 & 59,3 & 58,2 & 53,0 \\ \hline
+    Insécurité alimentaire           & 49,0 & 50,3 & 47,9 & 45,0 & 46,5 & 44,9 \\ \hline
+    Combustible solide               & 95,2 & 95,3 & 94,5 & 92,3 & 92,3 & 91,5 \\ \hline
+    Acte de naissance                & 31,1 & 28,6 & --   & 31,8 & 30,1 & --   \\ \hline
+    Travail des enfants              & --   & 40,8 & --   & --   & 43,0 & --   \\ \hline
+    Non-scolarisation                & --   & 43,3 & --   & --   & 45,3 & --   \\ \hline
+    Illettrisme                      & --   & --   & 28,3 & --   & --   & 28,1 \\
+    \hline
+  \end{tabular}
+  \begin{tablenotes}
+    \small
+    \item \textit{Source :} calculs de l'auteur sur l'EHCVM 2018 et rapport ANSD/UNICEF
+    (colonne MODA 2024). Taux sur effectifs bruts.
+    \item \textit{Note :} l'écart le plus important portait sur le travail des enfants~;
+    la définition de l'ANSD retient le travail économique ou domestique d'au
+    moins une heure, alors qu'une opérationnalisation limitée au seul travail
+    économique conduisait à un taux très sous-estimé. La prise en compte du travail
+    domestique (heures de corvées d'eau, de bois et de tâches ménagères) permet de
+    reproduire le taux de l'ANSD.
+  \end{tablenotes}
+  \end{threeparttable}
+\end{table}
+
+L'ensemble des indicateurs reproduit les taux de l'ANSD à quelques points près, ce
+qui valide l'opérationnalisation retenue. Deux indicateurs ne sont pas
+reproductibles en l'état~: le surpeuplement, dont la définition de l'ANSD repose
+sur le nombre de pièces réservées au coucher (variable absente de l'EHCVM,
+qui ne renseigne que le nombre total de pièces), et l'indicateur NEET des 15--17
+ans, dont la valeur publiée (85,7~\%) est difficilement conciliable avec le taux
+de scolarisation observé à ces âges. La reproduction est effectuée par le script
+\texttt{validation\_ansd.do}.
