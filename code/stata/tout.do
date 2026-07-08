@@ -1343,8 +1343,10 @@ gen annee  = 2018 in 1
 replace annee  = 2021 in 2
 gen H_MODA = H_moda_2018 in 1
 replace H_MODA = H_moda_2021 in 2
+gen str12 lbl_H = string(H_MODA, "%3.1f") + " %"
 
-twoway (connected H_MODA annee, lcolor(orange) mcolor(orange) msymbol(circle)  lwidth(medthick)), ///
+twoway (connected H_MODA annee, lcolor(orange) mcolor(orange) msymbol(circle)  lwidth(medthick) ///
+        mlabel(lbl_H) mlabformat(%3.1f) mlabcolor(black) mlabpos(12) mlabgap(2) mlabsize(medium)), ///
     xlabel(2018 2021) xtitle("Vague EHCVM") ytitle("Incidence H (%)") ///
     ylabel(30(10)80, grid) ///
     legend(order(1 "N-MODA (k=4, 7 dim.)") pos(6) rows(1)) ///
