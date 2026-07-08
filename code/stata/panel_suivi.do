@@ -50,6 +50,7 @@ program define charger_vague
     di "  Individus + menage fusionnes : " _N " observations"
 
     /* -- Sauvegarde de la base individuelle fusionnee -- */
+    capture drop vague
     gen int vague = `annee'
     save "$TEMP/indiv_menage_`annee'.dta", replace
 
@@ -88,6 +89,7 @@ save `panelhh'
 
 /* Croisement avec la presence effective dans les deux vagues */
 use "$TEMP/menages_2021.dta", clear
+drop vague    /* evite le conflit avec la variable vague du fichier using */
 merge 1:1 grappe menage using "$TEMP/menages_2018.dta", ///
     keepusing(vague) generate(_present)
 /* _present : 1 = 2021 seul, 2 = 2018 seul, 3 = present aux deux vagues */
@@ -152,6 +154,7 @@ use `enf_2018', clear
 append using `enf_2021'
 
 /* Variables derivees utiles aux statistiques descriptives */
+capture drop urbain chef_f
 gen byte urbain = (milieu == 1)  if !missing(milieu)
 gen byte chef_f = (hgender == 2) if !missing(hgender)
 label var urbain "Menage urbain"
