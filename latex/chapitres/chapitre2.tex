@@ -97,11 +97,11 @@ peuvent être biaisées, ce point est discuté dans la section~\ref{sec:discussi
 
 \subsection{Construction de la variable de traitement}
 
-La variable de traitement $D_i \in \{0, 1\}$ est un indicateur \emph{stable},
+La variable de traitement $D_i \in \{0, 1\}$ est un indicateur stable,
 fixe au niveau du ménage sur les deux périodes, qui vaut 1 si le ménage de
 l'enfant $i$ a reçu des transferts d'un membre émigré à l'étranger au cours
-des 12 mois précédant l'enquête \emph{dans chacune des deux vagues} (2018
-\emph{et} 2021). Cette définition garantit la stabilité du statut de
+des 12 mois précédant l'enquête dans chacune des deux vagues (2018
+et 2021). Cette définition garantit la stabilité du statut de
 traitement entre les deux vagues, condition indispensable à l'estimateur de
 double différence, qui requiert un indicateur de groupe fixe dans le temps, et est conforme aux conventions de la littérature empirique sur les
 remittances en Afrique \parencite{azam2016, combes2019}.
@@ -119,7 +119,7 @@ l'expéditeur est localisé hors du Sénégal ;
 (ii) il a également reçu un tel transfert en 2021.
 
 Le groupe témoin ($D_i = 0$) est composé de ménages n'ayant reçu aucun
-transfert international ni en 2018 ni en 2021 (\textit{never treated}).
+transfert international ni en 2018 ni en 2021 (never treated).
 
 Les ménages dont le statut change entre les deux vagues, entrants tardifs
 ($D=0$ en 2018 puis $D=1$ en 2021) et sortants ($D=1$ puis $D=0$), sont
@@ -144,24 +144,18 @@ tout en évitant d'inclure des variables potentiellement affectées par le trait
   \label{tab:covariables}
   \small
   \zebre
-  \begin{tabular}{|p{2.8cm}|p{5.5cm}|}
+  \begin{tabular}{|l|l|}
     \hline
 \entete Groupe & Variable \\
     \hline
-    \multirow{4}{2.8cm}{Chef de ménage}
-      & Âge du chef de ménage \\ \hline
-      & Sexe (féminin = 1)    \\ \hline
-      & Niveau d'éducation    \\ \hline
-      & Statut matrimonial    \\
-    \hline
-    \multirow{2}{2.8cm}{Composition}
-      & Taille du ménage      \\ \hline
-      & Bien-être initial (dépense par tête) \\
-    \hline
-    \multirow{2}{2.8cm}{Localisation}
-      & Milieu (urbain = 1)   \\ \hline
-      & Région (14 régions)   \\
-    \hline
+    Chef de ménage & Âge du chef de ménage \\ \hline
+                   & Sexe (féminin = 1)    \\ \hline
+                   & Niveau d'éducation    \\ \hline
+                   & Statut matrimonial    \\ \hline
+    Composition    & Taille du ménage      \\ \hline
+                   & Bien-être initial (dépense par tête) \\ \hline
+    Localisation   & Milieu (urbain = 1)   \\ \hline
+                   & Région (14 régions)   \\ \hline
   \end{tabular}
   \begin{minipage}{\linewidth}
     \small\vspace{2pt}
@@ -200,7 +194,7 @@ dimension du N-MODA (santé, nutrition, éducation, eau, assainissement,
 logement, protection) correspond à un droit fondamental garanti par ces textes,
 ce qui ancre la mesure dans une définition normative du bien-être de l'enfant
 plutôt que dans le seul revenu du ménage. Troisièmement, l'analyse
-porte sur les \textit{privations superposées} (overlapping deprivations) :
+porte sur les privations superposées (overlapping deprivations) :
 quelles privations se combinent chez les enfants les plus vulnérables, et
 avec quelle intensité.
 
@@ -214,7 +208,7 @@ enfants (0-4 ans) concernent l'accès à l'eau potable et l'assainissement,
 tandis que pour les enfants d'âge scolaire (5-14 ans), la non-scolarisation et
 le retard scolaire occupent une place centrale. Cette dépendance des dimensions
 au groupe d'âge est précisément ce que mobilise notre analyse de robustesse par
-\emph{panel d'enfants} (section~\ref{subsec:robustesse})~: un enfant suivi entre
+panel d'enfants (section~\ref{subsec:robustesse})~: un enfant suivi entre
 2018 et 2021 vieillit d'environ trois ans et peut ainsi changer de groupe
 d'âge, de sorte que l'ensemble des dimensions qui lui sont applicables se
 modifie d'une vague à l'autre.
@@ -337,7 +331,7 @@ pondérée de l'ensemble des témoins, les poids décroissant avec la distance e
   \label{eq:kernel}
 \end{equation}
 où $h = 0{,}06$ est la largeur de bande. L'appariement
-par rayon (\textit{caliper}, $\epsilon = 0{,}05$, sans remise) \parencite{caliendo2008}
+par rayon (caliper, $\epsilon = 0{,}05$, sans remise) \parencite{caliendo2008}
 exclut les appariements de faible qualité en imposant une distance maximale
 sur le score de propension.
 
@@ -361,7 +355,7 @@ les effets fixes inobservables stables dans le temps :
   \label{eq:dd}
 \end{equation}
 où les exposants 1 et 0 désignent respectivement le groupe traité ($D_i=1$)
-et le groupe témoin ($D_i=0$), sous l'hypothèse de \textit{tendances parallèles} :
+et le groupe témoin ($D_i=0$), sous l'hypothèse de tendances parallèles :
 \begin{equation}
   \E\!\left[Y_i(0)_{t=2} - Y_i(0)_{t=1} \mid D_i = 1\right]
   = \E\!\left[Y_i(0)_{t=2} - Y_i(0)_{t=1} \mid D_i = 0\right].
@@ -369,7 +363,7 @@ et le groupe témoin ($D_i=0$), sous l'hypothèse de \textit{tendances parallèl
 \end{equation}
 Parce que $D_i$ est figé sur la valeur de 2018, les ménages dont le statut
 de réception change entre les deux vagues sont exclus de l'échantillon
-d'estimation (restriction \textit{never-treated} pour le groupe témoin).
+d'estimation (restriction never-treated pour le groupe témoin).
 Cette exclusion garantit que le terme $\bar{Y}^0_{t=2} - \bar{Y}^0_{t=1}$
 décrit bien la tendance contrefactuelle des non-bénéficiaires, non contaminée
 par une réception tardive de transferts \parencite{callaway2021}.
