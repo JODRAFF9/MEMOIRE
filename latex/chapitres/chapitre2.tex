@@ -36,13 +36,13 @@ Notre population cible est l'ensemble des enfants âgés de 0 à 17 ans résidan
 dans les ménages enquêtés dans les deux vagues. L'EHCVM I couvre 7\,156 ménages
 (vagues 1 et 2 réunies après appariement), et l'EHCVM II 7\,120 ménages
 théoriques selon le même plan de sondage (598 DR $\times$ 12 ménages), avec un
-sous-échantillon panel identifié par la variable \texttt{PanelHH}
-\parencite{ansd2019, ansd2022}.
+sous-échantillon panel identifié dans les données par un indicateur de statut
+de suivi \parencite{ansd2019, ansd2022}.
 
 L'échantillon analytique repose sur le panel vrai constitué des
-6\,127 ménages identifiés par \texttt{PanelHH} = 1, c'est-à-dire les
+6\,127 ménages panel, c'est-à-dire les
 ménages enquêtés lors des deux vagues et retrouvés dans leur logement d'origine
-(variable \texttt{s00q07e} : 5\,643 ménages dans le même logement ; 290 ménages
+(5\,643 ménages dans le même logement ; 290 ménages
 retrouvés dans un nouveau logement). Chaque ménage est ainsi observé en $t = 0$
 (2018-2019) et $t = 1$ (2021-2022), ce qui autorise une estimation DD en
 différences intra-ménage sans recourir à des hypothèses d'agrégation au niveau
@@ -53,7 +53,7 @@ en 2021-2022 selon leur statut de suivi et le milieu de résidence.
 
 \begin{table}[H]
   \centering
-  \caption{Répartition des ménages EHCVM II selon le statut de suivi (\texttt{PanelHH})}
+  \caption{Répartition des ménages EHCVM II selon le statut de suivi}
   \label{tab:panelhh}
   \small
   \zebre
@@ -76,9 +76,8 @@ en 2021-2022 selon leur statut de suivi et le milieu de résidence.
   \end{tabular}
   \begin{tablenotes}
     \small
-    \item \textit{Source :} EHCVM II (2021-2022), module \texttt{s00\_me\_sen2021},
-    variable \texttt{PanelHH} (\textit{Type de ménage}) et \texttt{s00q07e}
-    (\textit{Le ménage occupait-il le même logement lors de l'enquête de 2018/19 ?}).
+    \item \textit{Source :} EHCVM II (2021-2022), module ménage
+    (statut de suivi du ménage et occupation du même logement qu'en 2018-2019).
     \textit{Note :} Le milieu urbain présente un taux d'attrition plus élevé
     (18,9\,\%) que le milieu rural (7,9\,\%), ce qui reflète une plus grande mobilité
     résidentielle en zone urbaine.
@@ -90,7 +89,7 @@ privation manquants et des ménages sans information sur les transferts),
 l'échantillon retenu comprend les enfants âgés de 0 à 17 ans pour lesquels
 l'intégralité des indicateurs N-MODA ainsi que la variable de traitement
 sont disponibles dans les deux vagues. L'échantillon complet incluant les
-993 nouveaux ménages de 2021 (\texttt{PanelHH} = 0) est utilisé dans
+993 nouveaux ménages de 2021 est utilisé dans
 les analyses de robustesse. La limite principale de cette construction est
 l'attrition différentielle : si les ménages perdus entre les deux vagues
 diffèrent systématiquement des ménages retenus, les estimations PSM-DD
@@ -117,8 +116,7 @@ deux conditions suivantes :
 (i) il a reçu en 2018 au moins un transfert dont
 l'expéditeur est localisé hors du Sénégal ;
 
-(ii) il a également reçu un tel transfert en 2021
-(variable \texttt{s13q19}).
+(ii) il a également reçu un tel transfert en 2021.
 
 Le groupe témoin ($D_i = 0$) est composé de ménages n'ayant reçu aucun
 transfert international ni en 2018 ni en 2021 (\textit{never treated}).
@@ -142,37 +140,36 @@ tout en évitant d'inclure des variables potentiellement affectées par le trait
 
 \begin{table}[H]
   \centering
-  \caption{Covariables du modèle de propension et sources EHCVM}
+  \caption{Covariables du modèle de propension}
   \label{tab:covariables}
   \small
   \zebre
-  \begin{tabular}{|p{2.2cm}|p{3.5cm}|p{2.5cm}|}
+  \begin{tabular}{|p{2.8cm}|p{5.5cm}|}
     \hline
-\entete Groupe & Variable & Variable EHCVM \\
+\entete Groupe & Variable \\
     \hline
-    \multirow{4}{2.2cm}{Chef de ménage}
-      & Âge du CM            & \texttt{hage} \\ \hline
-      & Sexe (féminin = 1)   & \texttt{hgender} \\ \hline
-      & Niveau d'éducation   & \texttt{heduc} \\ \hline
-      & Statut matrimonial   & \texttt{hmstat} \\
+    \multirow{4}{2.8cm}{Chef de ménage}
+      & Âge du chef de ménage \\ \hline
+      & Sexe (féminin = 1)    \\ \hline
+      & Niveau d'éducation    \\ \hline
+      & Statut matrimonial    \\
     \hline
-    \multirow{2}{2.2cm}{Composition}
-      & Taille du ménage     & \texttt{hhsize} \\ \hline
-      & Bien-être initial    & \texttt{pcexp} \\
+    \multirow{2}{2.8cm}{Composition}
+      & Taille du ménage      \\ \hline
+      & Bien-être initial (dépense par tête) \\
     \hline
-    \multirow{2}{2.2cm}{Localisation}
-      & Milieu (urbain = 1)  & \texttt{milieu} \\ \hline
-      & Région (14 régions)  & \texttt{region} \\
+    \multirow{2}{2.8cm}{Localisation}
+      & Milieu (urbain = 1)   \\ \hline
+      & Région (14 régions)   \\
     \hline
   \end{tabular}
   \begin{minipage}{\linewidth}
     \small\vspace{2pt}
-    \textit{Note :} CM = chef de ménage. \texttt{pcexp} est transformée en
-    logarithme (\texttt{log\_pcexp}) pour réduire l'asymétrie de la distribution.
-    \texttt{region} est traitée comme un facteur à 14 modalités.
-    La spécification finale est : $D \sim \texttt{hhsize} + \log(\texttt{pcexp})
-    + \texttt{milieu} + \texttt{region} + \texttt{hgender} + \texttt{hage}
-    + \texttt{heduc} + \texttt{hmstat}$.
+    \textit{Note :} le bien-être initial (dépense par tête) est transformé en
+    logarithme pour réduire l'asymétrie de la distribution~; la région est
+    traitée comme un facteur à 14 modalités. La spécification retient la taille
+    du ménage, le logarithme de la dépense par tête, le milieu, la région, le
+    sexe, l'âge, l'éducation et le statut matrimonial du chef de ménage.
   \end{minipage}
 \end{table}
 
@@ -237,45 +234,45 @@ indicateurs retenus, en cohérence avec l'EHCVM et la méthodologie N-MODA.
   \begin{threeparttable}
   \small
   \zebre
-  \begin{tabular}{|p{2.4cm}|p{4.2cm}|p{4.8cm}|p{1.8cm}|}
+  \begin{tabular}{|p{2.6cm}|p{4.6cm}|p{5.4cm}|}
     \hline
-\entete Dimension & Indicateurs de privation & Seuil / Définition & Variables EHCVM \\
+\entete Dimension & Indicateurs de privation & Seuil / Définition \\
     \hline
     Assainissement
-      & Toilettes non améliorées & Sanitaires non conformes normes JMP & \texttt{toilet} \\[2pt] \hline
-      & Partage des toilettes & Installation partagée entre ménages & \texttt{partag\_toi} \\
+      & Toilettes non améliorées & Sanitaires non conformes aux normes JMP \\[2pt] \hline
+      & Partage des toilettes & Installation partagée entre ménages \\
     \hline
     Eau
-      & Source non améliorée & Codes non-JMP (sèche ou pluies) & \texttt{eauboi\_ss/sp} \\[2pt] \hline
-      & Temps d'accès $> 30$ min & Saison sèche ou pluies & \texttt{tps\_eau\_ss/sp} \\
+      & Source non améliorée & Source non conforme aux normes JMP \\[2pt] \hline
+      & Temps d'accès $> 30$ min & Aller-retour au point d'eau \\
     \hline
     Logement
-      & Gestion des ordures inadéquate & Brûlée, dépôt sauvage ou autre & \texttt{ordure} \\[2pt] \hline
-      & Surpeuplement $> 3$ pers./pièce & Rapport personnes/pièces & \texttt{nbpiec} \\
+      & Gestion des ordures inadéquate & Brûlée, dépôt sauvage ou autre \\[2pt] \hline
+      & Surpeuplement $> 3$ pers./pièce & Rapport personnes/pièces \\
     \hline
     Nutrition
-      & Sécurité alimentaire (\textit{0--17 ans}) & Saut repas, mangé moins, faim ou journée sans manger & \texttt{s08aq04--08} \\
+      & Sécurité alimentaire (\textit{0--17 ans}) & Saut de repas, portions réduites, faim ou journée sans manger \\
     \hline
     Santé
-      & Combustible solide & Bois, charbon ou déchets pour cuisiner & \texttt{combust} \\
+      & Combustible solide & Bois, charbon ou déchets pour cuisiner \\
     \hline
-    \multirow{3}{2.0cm}{Protection de l'enfant}
-      & Absence d'acte de naissance & \textit{0--14 ans} : \texttt{acte\_nais} = 0 & \texttt{acte\_nais} \\[2pt] \hline
-      & Travail des enfants & \textit{5--14 ans} : \texttt{activ7j} $\in \{1,2\}$ & \texttt{activ7j} \\[2pt] \hline
-      & Séparation parentale & Ne vit pas avec 2 parents biologiques & \texttt{lien} \\
+    \multirow{3}{2.4cm}{Protection de l'enfant}
+      & Absence d'acte de naissance & \textit{0--14 ans} : enfant non enregistré à l'état civil \\[2pt] \hline
+      & Travail des enfants & \textit{5--14 ans} : exercice d'une activité économique \\[2pt] \hline
+      & Séparation parentale & Ne vit pas avec ses deux parents biologiques \\
     \hline
-    \multirow{3}{2.0cm}{Éducation}
-      & Non-scolarisation & \textit{5--14 ans} : \texttt{scol} = 0 & \texttt{scol} \\[2pt] \hline
-      & Illettrisme & \textit{15--17 ans} : pas de lecture/écriture & \texttt{alfab} \\[2pt] \hline
-      & NEET & \textit{15--17 ans} : ni étude, ni emploi & \texttt{scol}, \texttt{activ7j} \\
+    \multirow{3}{2.4cm}{Éducation}
+      & Non-scolarisation & \textit{5--14 ans} : enfant non scolarisé \\[2pt] \hline
+      & Illettrisme & \textit{15--17 ans} : ne sait ni lire ni écrire \\[2pt] \hline
+      & NEET & \textit{15--17 ans} : ni en étude, ni en emploi \\
     \hline
   \end{tabular}
   \begin{tablenotes}
     \small
     \item \textit{Source :} \textcite{ansd2024}. Méthodologie N-MODA Sénégal.
     Seuls les indicateurs disponibles et comparables dans les deux vagues de
-    l'EHCVM sont retenus~: la diversité alimentaire (module \texttt{s08b1},
-    2018 uniquement) et l'accès à pied à une structure de santé (module
+    l'EHCVM sont retenus~: la diversité alimentaire (renseignée en 2018
+    uniquement) et l'accès à pied à une structure de santé (module
     communautaire non comparable entre vagues) sont exclus.
   \end{tablenotes}
   \end{threeparttable}
