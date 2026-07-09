@@ -1080,6 +1080,47 @@
       \field{pages}{13\bibrangedash 23}
       \range{pages}{11}
     \endentry
+    \entry{diagne2008}{report}{}{}
+      \name{author}{2}{}{%
+        {{un=0,uniquepart=base,hash=eede4b132cb9e9d30d90956362280450}{%
+           family={Diagne},
+           familyi={D\bibinitperiod},
+           given={Youssoupha\bibnamedelima Sakrya},
+           giveni={Y\bibinitperiod\bibinitdelim S\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=044820c67fdb4f475d3c6e5fb43c2114}{%
+           family={Diane},
+           familyi={D\bibinitperiod},
+           given={Fatou},
+           giveni={F\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{institution}{1}{%
+        {Direction de la Prevision et des Etudes Economiques (DPEE)}%
+      }
+      \list{location}{1}{%
+        {Dakar}%
+      }
+      \strng{namehash}{29e9ac493c6fe78e225ffc91130ef3d9}
+      \strng{fullhash}{29e9ac493c6fe78e225ffc91130ef3d9}
+      \strng{fullhashraw}{29e9ac493c6fe78e225ffc91130ef3d9}
+      \strng{bibnamehash}{29e9ac493c6fe78e225ffc91130ef3d9}
+      \strng{authorbibnamehash}{29e9ac493c6fe78e225ffc91130ef3d9}
+      \strng{authornamehash}{29e9ac493c6fe78e225ffc91130ef3d9}
+      \strng{authorfullhash}{29e9ac493c6fe78e225ffc91130ef3d9}
+      \strng{authorfullhashraw}{29e9ac493c6fe78e225ffc91130ef3d9}
+      \field{sortinit}{D}
+      \field{sortinithash}{6f385f66841fb5e82009dc833c761848}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{MPRA Paper No. 54866}
+      \field{title}{Impact des transferts des migrants sur la pauvrete au Senegal}
+      \field{type}{Document de travail}
+      \field{year}{2008}
+    \endentry
     \entry{fall2010}{article}{}{}
       \name{author}{1}{}{%
         {{un=0,uniquepart=base,hash=39a358ba7eee1cd124faa959a44993ec}{%
@@ -3179,6 +3220,47 @@
       \field{year}{2013}
       \field{pages}{13\bibrangedash 23}
       \range{pages}{11}
+    \endentry
+    \entry{diagne2008}{report}{}{}
+      \name{author}{2}{}{%
+        {{un=0,uniquepart=base,hash=eede4b132cb9e9d30d90956362280450}{%
+           family={Diagne},
+           familyi={D\bibinitperiod},
+           given={Youssoupha\bibnamedelima Sakrya},
+           giveni={Y\bibinitperiod\bibinitdelim S\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=044820c67fdb4f475d3c6e5fb43c2114}{%
+           family={Diane},
+           familyi={D\bibinitperiod},
+           given={Fatou},
+           giveni={F\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{institution}{1}{%
+        {Direction de la Prevision et des Etudes Economiques (DPEE)}%
+      }
+      \list{location}{1}{%
+        {Dakar}%
+      }
+      \strng{namehash}{29e9ac493c6fe78e225ffc91130ef3d9}
+      \strng{fullhash}{29e9ac493c6fe78e225ffc91130ef3d9}
+      \strng{fullhashraw}{29e9ac493c6fe78e225ffc91130ef3d9}
+      \strng{bibnamehash}{29e9ac493c6fe78e225ffc91130ef3d9}
+      \strng{authorbibnamehash}{29e9ac493c6fe78e225ffc91130ef3d9}
+      \strng{authornamehash}{29e9ac493c6fe78e225ffc91130ef3d9}
+      \strng{authorfullhash}{29e9ac493c6fe78e225ffc91130ef3d9}
+      \strng{authorfullhashraw}{29e9ac493c6fe78e225ffc91130ef3d9}
+      \field{sortinit}{D}
+      \field{sortinithash}{6f385f66841fb5e82009dc833c761848}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{MPRA Paper No. 54866}
+      \field{title}{Impact des transferts des migrants sur la pauvrete au Senegal}
+      \field{type}{Document de travail}
+      \field{year}{2008}
     \endentry
     \entry{fall2010}{article}{}{}
       \name{author}{1}{}{%

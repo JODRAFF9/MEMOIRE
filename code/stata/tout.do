@@ -306,7 +306,7 @@ Groupe d'âge
 Dimensions Indicateurs Définition
 
 1/Assainissement :
-	Type de sanitaire (2018: s11q55;)
+	Type de sanitaire (2018: s11q55;2021 :)
 		Enfant vivant dans un ménage utilisant des toilettes
 		non améliorées :
 		7. Latrines SANPLAT;
@@ -316,7 +316,7 @@ Dimensions Indicateurs Définition
 		11. Aucune toilette;
 		12. Autre
 
-	Partage des toilettes (2018: s11q56;)
+	Partage des toilettes (2018: s11q56;2021: )
 		Enfant vivant dans un ménage partageant les toilettes
 		avec d'autres ménages
 
