@@ -48,6 +48,7 @@ global BASE_2018 "Base/2018-2019/SEN_2018_EHCVM_v02_M_Stata"
 global BASE_2021 "Base/2021-2022/SEN_2021_EHCVM-2_v01_M_STATA14"
 global OUTPUT    "code/stata/output"
 global TEMP      "code/stata/temp"
+global PREP      "code/stata/temp/prepared"
 global LOGS      "code/stata/logs"
 
 /* Parametres methodologiques */
@@ -68,7 +69,7 @@ set varabbrev off
    (vce(cluster grappe)) pour tenir compte du plan de sondage en grappes,
    sans recourir aux poids de sondage. */
 
-foreach d in "$OUTPUT" "$TEMP" "$LOGS" {
+foreach d in "$OUTPUT" "$TEMP" "$PREP" "$LOGS" {
     capture mkdir "`d'"
 }
 
@@ -569,6 +570,11 @@ foreach annee in 2018 2021 {
     /* Les variables scol, activ7j, lien, alfab/alfa sont deja presentes
        dans ehcvm_individu (chargee en A1) : aucune fusion supplementaire
        n'est necessaire pour la dimension Education. */
+
+    /* A8. Sauvegarde de la base preparee (fusionnee, avant calcul),
+       dans un dossier separe des bases finales avec indicateurs. */
+    save "$PREP/base_prep_`annee'.dta", replace
+    di ">>> Base preparee sauvegardee : $PREP/base_prep_`annee'.dta (" _N " obs)"
 
     /* ============================================================
        B. CALCUL DES INDICATEURS ET DES DIMENSIONS N-MODA, par
