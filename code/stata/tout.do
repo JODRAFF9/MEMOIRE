@@ -463,178 +463,86 @@ foreach annee in 2018 2021 {
     if `annee' == 2018 local base "$BASE_2018"
     else               local base "$BASE_2021"
 
-    /* 1. Individus 0-17 ans */
+    /* ============================================================
+       A. PREPARATION DES DONNEES — fusion de toutes les sections
+          necessaires de l'annee, avant tout calcul d'indicateur.
+       ============================================================ */
+
+    /* A1. Individus 0-17 ans (ehcvm_individu) */
     use "`base'/ehcvm_individu_sen`annee'.dta", clear
     keep if age >= 0 & age <= 17 & !missing(age)
     gen annee = `annee'
     di _newline ">>> Enfants `annee' : " _N
 
-    /* 2. Welfare (hhsize, pcexp, covariables PSM) */
+    /* A2. Welfare : hhsize, pcexp, covariables PSM */
     merge m:1 grappe menage using ///
         "`base'/ehcvm_welfare_sen`annee'.dta", ///
         keepusing(hhsize pcexp region milieu hgender hage heduc hmstat hhweight) ///
         nogenerate keep(master match)
 
-    /* 3. Indicateurs menage */
-        /*
-           Fusionne ehcvm_menage et s11_me pour construire :
-             m_toilet, m_eau_source, m_ordures,
-             m_partag_toi, m_eau_temps, m_surpeup, m_combust
-           Requiert : grappe menage hhsize deja presents
-        */
+    /* A3. Menage (ehcvm_menage) : toilettes, eau, ordures.
+       ehcvm_menage n'a pas grappe/menage, seulement hhid
+       (2018 : hhid = grappe*1000+menage ; 2021 : grappe*100+menage). */
+    if `annee' == 2018 {
+        local v_partag "s11q56"
+        local v_tps_ss "s11q29a"
+        local v_tps_sp "s11q31a"
+        local v_comb   "s11q53"
+    }
+    else {
+        local v_partag "s11q55"
+        local v_tps_ss "s11q28a"
+        local v_tps_sp "s11q30a"
+        local v_comb   "s11q52"
+    }
+    /* Annexe I : combustible solide = bois ramasse(1), bois achete(2),
+       charbon de bois(3), dechets animaux(7), autres(8). Exclut gaz(4),
+       electricite(5), petrole/huile(6) consideres comme non solides. */
+    local comb_vars "`v_comb'__1 `v_comb'__2 `v_comb'__3 `v_comb'__7 `v_comb'__8"
 
-        if `annee' == 2018 {
-            local base "$BASE_2018"
-            local v_partag "s11q56"
-            local v_tps_ss "s11q29a"
-            local v_tps_sp "s11q31a"
-            local v_comb   "s11q53"
-        }
-        else {
-            local base "$BASE_2021"
-            local v_partag "s11q55"
-            local v_tps_ss "s11q28a"
-            local v_tps_sp "s11q30a"
-            local v_comb   "s11q52"
-        }
-        /* Annexe I : combustible solide = bois ramasse(1), bois achete(2),
-           charbon de bois(3), dechets animaux(7), autres(8). Exclut gaz(4),
-           electricite(5), petrole/huile(6) consideres comme non solides. */
-        local comb_vars "`v_comb'__1 `v_comb'__2 `v_comb'__3 `v_comb'__7 `v_comb'__8"
+    capture drop hhid
+    if `annee' == 2018 gen long hhid = grappe * 1000 + menage
+    else               gen long hhid = grappe * 100  + menage
+    merge m:1 hhid using ///
+        "`base'/ehcvm_menage_sen`annee'.dta", ///
+        keepusing(toilet eauboi_ss eauboi_sp ordure) ///
+        nogenerate keep(master match)
 
-        /* Binaires harmonises depuis ehcvm_menage
-           NB : ehcvm_menage n'a pas grappe/menage, seulement hhid
-                2018 : hhid = grappe * 1000 + menage  (range 1001-598012)
-                2021 : hhid = grappe * 100  + menage  (range 201-59812)  */
-        capture drop hhid
-        if `annee' == 2018 gen long hhid = grappe * 1000 + menage
-        else               gen long hhid = grappe * 100  + menage
-        merge m:1 hhid using ///
-            "`base'/ehcvm_menage_sen`annee'.dta", ///
-            keepusing(toilet eauboi_ss eauboi_sp ordure) ///
-            nogenerate keep(master match)
-
-        /* [Dim 1/7 : Assainissement] Indicateur 1 — Type de sanitaire
-           (toilet, harmonise depuis s11q55 en 2018 / s11q54 en 2021) */
-        gen byte m_toilet    = (toilet == 0)          if !missing(toilet)
-
-        /* [Dim 2/7 : Eau] Indicateur 1 — Source d'eau de boisson
-           (eauboi_ss/eauboi_sp, harmonise depuis s11q27a et s11q27b) */
-        gen byte m_eau_source = (eauboi_ss == 0 | eauboi_sp == 0) ///
-            if !missing(eauboi_ss) | !missing(eauboi_sp)
-
-        /* [Dim 3/7 : Logement] Indicateur 1 — Debarras des ordures menageres
-           (ordure, harmonise depuis s11q54) */
-        gen byte m_ordures   = (ordure == 0)           if !missing(ordure)
-
-        /* Variables brutes depuis s11_me */
-        preserve
-            use "`base'/s11_me_sen`annee'.dta", clear
-            keep grappe menage s11q02 `v_partag' `v_tps_ss' `v_tps_sp' `comb_vars'
-            tempfile s11_temp
-            save `s11_temp'
-        restore
-        merge m:1 grappe menage using `s11_temp', nogenerate keep(master match)
-
-        /* [Dim 1/7 : Assainissement] Indicateur 2 — Partage des toilettes
-           (2018: s11q56 ; 2021: s11q55) */
-        gen byte m_partag_toi = (`v_partag' == 1)       if !missing(`v_partag')
-        replace  m_partag_toi = 0                        if missing(m_partag_toi)
-
-        /* [Dim 2/7 : Eau] Indicateur 2 — Temps d'acces a l'eau
-           Prive si > 30 min en saison seche OU en saison des pluies
-           (2018: s11q29a / s11q31a ; 2021: s11q28a / s11q30a) */
-        gen byte m_eau_temps  = (`v_tps_ss' > 30 & !missing(`v_tps_ss')) | ///
-                                 (`v_tps_sp' > 30 & !missing(`v_tps_sp'))
-        replace  m_eau_temps  = 0 if missing(`v_tps_ss') & missing(`v_tps_sp')
+    /* A4. Module habitat (s11_me) : partage toilettes, temps d'acces
+       a l'eau, nombre de pieces, combustible de cuisine. */
+    preserve
+        use "`base'/s11_me_sen`annee'.dta", clear
+        keep grappe menage s11q02 `v_partag' `v_tps_ss' `v_tps_sp' `comb_vars'
         rename s11q02 nb_pieces
+        tempfile s11_temp
+        save `s11_temp'
+    restore
+    merge m:1 grappe menage using `s11_temp', nogenerate keep(master match)
 
-        /* [Dim 3/7 : Logement] Indicateur 2 — Surpeuplement
-           Prive si hhsize/nb_pieces (s11q02) > 3 (calcule apres merge welfare) */
-        gen byte m_surpeup = (hhsize / nb_pieces > 3) ///
-            if !missing(nb_pieces) & nb_pieces > 0 & !missing(hhsize)
-        replace  m_surpeup = 0 if missing(m_surpeup)
+    /* A5. Securite alimentaire (s08a_me), variables brutes (traitement Non-retenu en calcul) */
+    preserve
+        use "`base'/s08a_me_sen`annee'.dta", clear
+        keep grappe menage s08aq04 s08aq05 s08aq06 s08aq07 s08aq08
+        tempfile s08a_temp
+        save `s08a_temp'
+    restore
+    merge m:1 grappe menage using `s08a_temp', nogenerate keep(master match)
 
-        /* [Dim 5/7 : Sante] Indicateur 1 — Combustible solide pour cuisiner
-           (2018: s11q53 ; 2021: s11q52, modalites bois ramasse/achete/
-           charbon/dechets animaux/autres — cf. comb_vars) */
-        gen byte m_combust = 0
-        foreach v of varlist `comb_vars' {
-            replace m_combust = 1 if `v' >= 1 & !missing(`v')
-        }
+    /* A6. Acte de naissance (s01_me), cle individuelle */
+    preserve
+        use "`base'/s01_me_sen`annee'.dta", clear
+        if `annee' == 2018 rename s01q00a numind
+        else               rename membres__id numind
+        keep grappe menage numind s01q05
+        tempfile s01_temp
+        save `s01_temp'
+    restore
+    merge m:1 grappe menage numind using `s01_temp', ///
+        keepusing(s01q05) nogenerate keep(master match)
 
-        /* [Dim 5/7 : Sante] Indicateur 2 — Acces a une structure de sante :
-           NON RETENU. Le module communautaire s02_co n'est pas exploitable de
-           maniere comparable entre les deux vagues (2021 sans identifiant de
-           service explicite). Seuls les indicateurs disponibles et comparables
-           dans les deux vagues sont conserves : la dimension Sante repose sur
-           le combustible de cuisine uniquement. */
-
-        /* [Dim 4/7 : Nutrition] Indicateur 1 — Securite alimentaire (FIES)
-           (s08a — 2018 et 2021)
-           Definition N-MODA : membre ayant saute un repas, mange moins que necessaire,
-           manque de nourriture, eu faim ou passe une journee sans manger
-           s08aq04 : saute repas | s08aq05 : mange moins | s08aq06 : plus de nourriture
-           s08aq07 : faim        | s08aq08 : journee sans manger
-           1=Oui 2=Non 98/99=NSP/Refus (traites comme Non)  */
-        preserve
-            use "`base'/s08a_me_sen`annee'.dta", clear
-            gen byte m_securite = 0
-            foreach v in s08aq04 s08aq05 s08aq06 s08aq07 s08aq08 {
-                replace m_securite = 1 if `v' == 1 & !missing(`v')
-            }
-            keep grappe menage m_securite
-            tempfile s08a_temp
-            save `s08a_temp'
-        restore
-        merge m:1 grappe menage using `s08a_temp', ///
-            keepusing(m_securite) nogenerate keep(master match)
-        replace m_securite = 0 if missing(m_securite)
-
-        /* [Dim 4/7 : Nutrition] Indicateur 2 — Diversite alimentaire :
-           NON RETENU. Le module s08b1 (HDDS) n'existe qu'en 2018 ; pour garder
-           une mesure comparable entre les deux vagues, la dimension Nutrition
-           repose sur la securite alimentaire (FIES) uniquement. */
-
-    /* 4. Acte de naissance */
-
-        if `annee' == 2018 local base "$BASE_2018"
-        else               local base "$BASE_2021"
-
-        preserve
-            use "`base'/s01_me_sen`annee'.dta", clear
-            if `annee' == 2018 rename s01q00a numind
-            else               rename membres__id numind
-            keep grappe menage numind s01q05
-            gen byte m_acte_nais = (s01q05 == 2) if !missing(s01q05)
-            tempfile s01_temp
-            save `s01_temp'
-        restore
-
-        merge m:1 grappe menage numind using `s01_temp', ///
-            keepusing(m_acte_nais) nogenerate keep(master match)
-        replace m_acte_nais = 0 if missing(m_acte_nais)
-
-    /* 5. Indicateurs individuels (ehcvm_individu : scol, activ7j, lien,
-          alfab/alfa) — un bloc par dimension de l'Annexe I */
-
-    /* [Dim 7/7 : Education] Indicateur 2 — Frequentation scolaire
-       Non-scolarise, groupe d'age 5-14 ans (variable scol) */
-    gen byte m_scol = 0
-    replace  m_scol = 1 if age >= 5 & age <= 14 & (scol == 0 | missing(scol))
-
-    /* [Dim 6/7 : Protection de l'enfant] Indicateur 2 — Travail des enfants
-       Definition ANSD (Annexe I) : enfant de 5-14 ans effectuant un travail
-       economique OU domestique d'au moins 1 heure sur les 7 derniers jours.
-       Le travail domestique est mesure par le module emploi (heures de
-       corvees) :
-         2018 : s04_me (s04q02 travaux domestiques, s04q04 eau, s04q05 bois ;
-                travail economique s04q06-09), cle individuelle s01q00a ;
-         2021 : s04a_me en format long (heures ventilees s04q01 courses,
-                s04q02a cuisine, s04q02b lessive, s04q02c menage, s04q04 eau,
-                s04q05 bois), cle membres__id, collapse au niveau personne.
-       Taux reproduits (5-14 ans) : 2018 ~40,8% ; 2021 ~44,8%
-       (cible ANSD MODA 2024 : 43,0%). */
+    /* A7. Travail des enfants (s04_me / s04a_me), heures de travail
+       economique et domestique. 2018 : cle s01q00a. 2021 : s04a_me en
+       format long (membres__id), collapse au niveau personne. */
     preserve
         if `annee' == 2018 {
             use "`base'/s04_me_sen2018.dta", clear
@@ -651,25 +559,113 @@ foreach annee in 2018 2021 {
             egen h_dom = rowtotal(s04q01 s04q02a s04q02b s04q02c s04q04 s04q05)
             gen byte eco = inlist(1, s04q06, s04q07, s04q08, s04q09)
         }
-        gen byte trav = (eco == 1 | h_dom >= 1)
-        keep grappe menage numind trav
+        keep grappe menage numind h_dom eco
         tempfile s04_trav
         save `s04_trav'
     restore
     merge m:1 grappe menage numind using `s04_trav', ///
-        keepusing(trav) nogenerate keep(master match)
-    gen byte m_trav_enf = 0
-    replace  m_trav_enf = 1 if age >= 5 & age <= 14 & trav == 1
-    drop trav
+        keepusing(h_dom eco) nogenerate keep(master match)
 
-    /* [Dim 6/7 : Protection de l'enfant] Indicateur 3 — Separation parentale
-       Prive si l'enfant ne vit pas avec ses deux parents biologiques
-       (lien > 3, tous groupes d'age) */
+    /* Les variables scol, activ7j, lien, alfab/alfa sont deja presentes
+       dans ehcvm_individu (chargee en A1) : aucune fusion supplementaire
+       n'est necessaire pour la dimension Education. */
+
+    /* ============================================================
+       B. CALCUL DES INDICATEURS ET DES DIMENSIONS N-MODA, par
+          dimension. Toutes les donnees sources sont deja fusionnees
+          (etape A) : cette section ne contient plus aucun merge.
+       ============================================================ */
+
+    /* Groupes d'age N-MODA (utilises par plusieurs dimensions ci-dessous) */
+    gen byte groupe_moda = .
+    replace  groupe_moda = 1 if age <= 4
+    replace  groupe_moda = 2 if age >= 5  & age <= 14
+    replace  groupe_moda = 3 if age >= 15 & age <= 17
+    label define grp 1 "0-4 ans" 2 "5-14 ans" 3 "15-17 ans", replace
+    label values groupe_moda grp
+
+    /* ── [Dimension 1/7 : Assainissement] ────────────────────────
+       Indicateur 1 - Type de sanitaire non ameliore (toilet)
+       Indicateur 2 - Partage des toilettes avec un autre menage */
+    gen byte m_toilet     = (toilet == 0) if !missing(toilet)
+    gen byte m_partag_toi = (`v_partag' == 1) if !missing(`v_partag')
+    replace  m_partag_toi = 0 if missing(m_partag_toi)
+    gen byte dim_assai    = (m_toilet == 1 | m_partag_toi == 1)
+
+    /* ── [Dimension 2/7 : Eau] ─────────────────────────────────────
+       Indicateur 1 - Source d'eau de boisson non amelioree
+       Indicateur 2 - Temps d'acces a l'eau > 30 min (saison seche OU pluies) */
+    gen byte m_eau_source = (eauboi_ss == 0 | eauboi_sp == 0) ///
+        if !missing(eauboi_ss) | !missing(eauboi_sp)
+    gen byte m_eau_temps  = (`v_tps_ss' > 30 & !missing(`v_tps_ss')) | ///
+                             (`v_tps_sp' > 30 & !missing(`v_tps_sp'))
+    replace  m_eau_temps  = 0 if missing(`v_tps_ss') & missing(`v_tps_sp')
+    gen byte dim_eau      = (m_eau_source == 1 | m_eau_temps == 1)
+
+    /* ── [Dimension 3/7 : Logement] ────────────────────────────────
+       Indicateur 1 - Debarras des ordures menageres inadequat
+       Indicateur 2 - Surpeuplement (> 3 personnes par piece) */
+    gen byte m_ordures = (ordure == 0) if !missing(ordure)
+    gen byte m_surpeup = (hhsize / nb_pieces > 3) ///
+        if !missing(nb_pieces) & nb_pieces > 0 & !missing(hhsize)
+    replace  m_surpeup = 0 if missing(m_surpeup)
+    gen byte dim_logem = (m_ordures == 1 | m_surpeup == 1)
+
+    /* ── [Dimension 4/7 : Nutrition] ───────────────────────────────
+       Indicateur unique - Insecurite alimentaire (FIES) : membre ayant
+       saute un repas, mange moins que necessaire, manque de nourriture,
+       eu faim ou passe une journee sans manger (1=Oui ; 98/99 traites Non).
+       Diversite alimentaire (module s08b1, 2018 uniquement) NON RETENUE
+       pour rester comparable entre les deux vagues. */
+    gen byte m_securite = 0
+    foreach v in s08aq04 s08aq05 s08aq06 s08aq07 s08aq08 {
+        replace m_securite = 1 if `v' == 1 & !missing(`v')
+    }
+    gen byte dim_nutri = (m_securite == 1)
+
+    /* ── [Dimension 5/7 : Sante] ────────────────────────────────────
+       Indicateur unique - Combustible solide pour cuisiner (bois,
+       charbon, dechets animaux). Acces a une structure de sante NON
+       RETENU (module communautaire non comparable entre les vagues). */
+    gen byte m_combust = 0
+    foreach v of varlist `comb_vars' {
+        replace m_combust = 1 if `v' >= 1 & !missing(`v')
+    }
+    gen byte dim_sante = (m_combust == 1)
+
+    /* ── [Dimension 6/7 : Protection de l'enfant] ────────────────────
+       Indicateur 1 - Absence d'acte de naissance (non pertinent > 14 ans)
+       Indicateur 2 - Travail des enfants (economique OU domestique
+       >=1h, 5-14 ans uniquement)
+       Indicateur 3 - Separation parentale (ne vit pas avec ses 2 parents)
+       Combinaison par groupe d'age : 0-4 ans = ind.1 OU ind.3 ;
+       5-14 ans = ind.1 OU ind.2 OU ind.3 ; 15-17 ans = ind.3 seul. */
+    gen byte m_acte_nais = (s01q05 == 2) if !missing(s01q05)
+    replace  m_acte_nais = 0 if missing(m_acte_nais)
+    replace  m_acte_nais = 0 if age > 14
+
+    gen byte m_trav_enf = 0
+    replace  m_trav_enf = 1 if age >= 5 & age <= 14 & (eco == 1 | h_dom >= 1)
+
     gen byte m_parents = (lien > 3) if !missing(lien)
     replace  m_parents = 0 if missing(m_parents)
 
-    /* [Dim 7/7 : Education] Indicateur 1 — Capacite de lecture et d'ecriture
-       Groupe d'age 15-17 ans (2018: alfab ; 2021: alfa) */
+    gen byte dim_protect = 0
+    replace  dim_protect = (m_acte_nais == 1 | m_parents == 1) ///
+        if groupe_moda == 1
+    replace  dim_protect = (m_acte_nais == 1 | m_trav_enf == 1 | m_parents == 1) ///
+        if groupe_moda == 2
+    replace  dim_protect = (m_parents == 1) if groupe_moda == 3
+
+    /* ── [Dimension 7/7 : Education] ──────────────────────────────
+       Indicateur 1 - Illettrisme, ne sait ni lire ni ecrire (15-17 ans)
+       Indicateur 2 - Non-scolarisation (5-14 ans)
+       Indicateur 3 - NEET, ni scolarise ni employe (15-17 ans)
+       Combinaison par groupe d'age : 5-14 ans = ind.2 seul ;
+       15-17 ans = ind.1 OU ind.3. */
+    gen byte m_scol = 0
+    replace  m_scol = 1 if age >= 5 & age <= 14 & (scol == 0 | missing(scol))
+
     gen byte m_alfab = 0
     if `annee' == 2018 {
         replace m_alfab = 1 if age >= 15 & alfab == 0 & !missing(alfab)
@@ -679,84 +675,35 @@ foreach annee in 2018 2021 {
         if !_rc replace m_alfab = 1 if age >= 15 & alfa == 0 & !missing(alfa)
     }
 
-    /* [Dim 7/7 : Education] Indicateur 3 — NEET
-       Groupe d'age 15-17 ans : ni scolarise ni employe
-       (activ7j != 1 : inactifs + chomeurs) */
     gen byte m_neet = 0
     replace  m_neet = 1 if age >= 15 & ///
         (scol == 0 | missing(scol)) & (activ7j != 1 | missing(activ7j))
 
-    /* Acte de naissance non pertinent > 14 ans */
-    replace m_acte_nais = 0 if age > 14
+    gen byte dim_educ = 0
+    replace  dim_educ = m_scol if groupe_moda == 2
+    replace  dim_educ = (m_alfab == 1 | m_neet == 1) if groupe_moda == 3
 
-    /* 6. Agregation IPM */
+    /* ── Agregation N-MODA (union intra-dimension, seuil k=$K_MODA) ── */
+    gen byte nb_dep = dim_assai + dim_eau + dim_logem + dim_nutri + ///
+                      dim_sante + dim_protect + dim_educ
+    gen byte pauvre_MODA = (nb_dep >= $K_MODA) if !missing(nb_dep)
 
-        /* Groupes d'age MODA */
-        gen byte groupe_moda = .
-        replace  groupe_moda = 1 if age <= 4
-        replace  groupe_moda = 2 if age >= 5  & age <= 14
-        replace  groupe_moda = 3 if age >= 15 & age <= 17
-        label define grp 1 "0-4 ans" 2 "5-14 ans" 3 "15-17 ans", replace
-        label values groupe_moda grp
+    /* Intensite moyenne N-MODA (Annexe II : A = part des 7 dimensions
+       en privation, calculee sur les enfants pauvres pauvre_MODA==1) */
+    gen float intensite_moda = nb_dep / 7
 
-        /* ── Dimensions N-MODA (union intra-dimension des indicateurs) ──
-           Chaque dim_* combine les indicateurs construits ci-dessus, avec
-           application des groupes d'age propres a l'Annexe I. */
+    /* ── Affichage ── */
+    di _newline "=== N-MODA `annee' (k=$K_MODA, 7 dimensions) ==="
+    quietly summarize pauvre_MODA
+    di "  H = " %6.3f r(mean)*100 "%"
+    di "  Privation par dimension :"
+    foreach dim in assai eau logem nutri sante protect educ {
+        quietly summarize dim_`dim'
+        di "  `dim' : " %5.1f r(mean)*100 "%"
+    }
+    tabstat pauvre_MODA nb_dep, by(groupe_moda) stat(mean n) format(%6.3f)
 
-        /* [Dim 1/7 : Assainissement] = indic.1 (type sanitaire) OU indic.2 (partage) */
-        gen byte dim_assai  = (m_toilet == 1 | m_partag_toi == 1)
-
-        /* [Dim 2/7 : Eau] = indic.1 (source) OU indic.2 (temps d'acces) */
-        gen byte dim_eau    = (m_eau_source == 1 | m_eau_temps == 1)
-
-        /* [Dim 3/7 : Logement] = indic.1 (ordures) OU indic.2 (surpeuplement) */
-        gen byte dim_logem  = (m_ordures == 1 | m_surpeup == 1)
-
-        /* [Dim 4/7 : Nutrition] = securite alimentaire (FIES, 0-17 ans) */
-        gen byte dim_nutri = (m_securite == 1)
-
-        /* [Dim 5/7 : Sante] = combustible solide pour cuisiner */
-        gen byte dim_sante  = (m_combust == 1)
-
-        /* [Dim 7/7 : Education] selon groupe d'age :
-           5-14 ans  -> indic.2 (scolarisation)
-           15-17 ans -> indic.1 (lecture-ecriture) OU indic.3 (NEET) */
-        gen byte dim_educ   = 0
-        replace  dim_educ   = m_scol  if groupe_moda == 2
-        replace  dim_educ   = (m_alfab == 1 | m_neet == 1) if groupe_moda == 3
-
-        /* [Dim 6/7 : Protection de l'enfant] selon groupe d'age :
-           0-4 ans   -> indic.1 (acte naissance) OU indic.3 (separation parentale)
-           5-14 ans  -> indic.1 OU indic.2 (travail enfants) OU indic.3
-           15-17 ans -> indic.3 seulement (acte naissance non pertinent > 14 ans) */
-        gen byte dim_protect = 0
-        replace  dim_protect = (m_acte_nais == 1 | m_parents == 1) ///
-            if groupe_moda == 1
-        replace  dim_protect = (m_acte_nais == 1 | m_trav_enf == 1 | m_parents == 1) ///
-            if groupe_moda == 2
-        replace  dim_protect = (m_parents == 1) if groupe_moda == 3
-
-        gen byte nb_dep    = dim_assai + dim_eau + dim_logem + dim_nutri + ///
-                             dim_sante + dim_protect + dim_educ
-        gen byte pauvre_MODA = (nb_dep >= $K_MODA) if !missing(nb_dep)
-
-        /* Intensite moyenne N-MODA (Annexe II : A = part des 7 dimensions
-           en privation, calculee sur les enfants pauvres pauvre_MODA==1) */
-        gen float intensite_moda = nb_dep / 7
-
-        /* ── Affichage ── */
-
-        di _newline "=== N-MODA `annee' (k=$K_MODA, 7 dimensions) ==="
-        quietly summarize pauvre_MODA
-        di "  H = " %6.3f r(mean)*100 "%"
-        di "  Privation par dimension :"
-        foreach dim in assai eau logem nutri sante protect educ {
-            quietly summarize dim_`dim'
-            di "  `dim' : " %5.1f r(mean)*100 "%"
-        }
-        tabstat pauvre_MODA nb_dep, by(groupe_moda) stat(mean n) format(%6.3f)
-
-    /* 7. Sauvegarde */
+    /* C. Sauvegarde */
     save "$TEMP/enfants_dep_`annee'.dta", replace
     di _newline ">>> Sauvegarde : enfants_dep_`annee'.dta (" _N " obs)"
 }
