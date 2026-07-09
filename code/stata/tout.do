@@ -1173,6 +1173,66 @@ foreach poids_var in weight_knn weight_kernel weight_caliper {
     }
 }
 
+/* ============================================================
+   8. Robustesse : definition alternative du traitement (entrants)
+
+   Design DD "classique" : entrants (D_2018=0, D_2021=1) compares aux
+   menages jamais beneficiaires (D_2018=0, D_2021=0), sur les memes
+   menages panel que l'analyse principale. Ce design capte l'effet de
+   COMMENCER a recevoir des transferts, mais expose davantage a la
+   causalite inverse (le passage au statut beneficiaire coincide
+   souvent avec un depart en migration recent, evenement confondu
+   avec d'autres chocs simultanes du menage) : c'est pourquoi le
+   design principal du memoire retient plutot le traitement STABLE
+   (beneficiaire aux deux vagues vs jamais beneficiaire). Fourni ici
+   a titre de comparaison.
+   ============================================================ */
+
+preserve
+    use "$TEMP/panel_vrai.dta", clear
+    keep grappe menage
+    duplicates drop grappe menage, force
+    tempfile menages_panel
+    save `menages_panel'
+restore
+
+use "$TEMP/vague_2018.dta", clear
+merge m:1 grappe menage using `menages_panel', keep(match) nogenerate
+merge m:1 grappe menage using "$TEMP/traitement_stable.dta", ///
+    keepusing(D_2018 D_2021) keep(match) nogenerate
+tempfile ent_t0
+save `ent_t0'
+
+use "$TEMP/vague_2021.dta", clear
+merge m:1 grappe menage using `menages_panel', keep(match) nogenerate
+merge m:1 grappe menage using "$TEMP/traitement_stable.dta", ///
+    keepusing(D_2018 D_2021) keep(match) nogenerate
+tempfile ent_t1
+save `ent_t1'
+
+use `ent_t0', clear
+append using `ent_t1'
+
+/* Restreindre aux menages jamais beneficiaires en 2018 (exclut les
+   beneficiaires stables et les sortants) */
+keep if D_2018 == 0
+gen byte D_entrant = D_2021
+label var D_entrant "1=entrant (beneficiaire seulement en 2021), 0=jamais beneficiaire"
+
+quietly count if D_entrant == 1 & t == 0
+local n_ent = r(N)
+quietly count if D_entrant == 0 & t == 0
+local n_jam = r(N)
+di _newline "=== Robustesse : entrants (D=0->1) vs jamais beneficiaires ==="
+di "  Entrants (D=0 en 2018 -> D=1 en 2021) : `n_ent' menages"
+di "  Jamais beneficiaires (aux 2 vagues)   : `n_jam' menages"
+
+di _newline "--- DD brute, entrants vs jamais beneficiaires ---"
+regress pauvre_MODA i.t##i.D_entrant, vce(cluster grappe)
+lincom 1.t#1.D_entrant
+di "  ATT_DD_entrants = " %8.4f r(estimate) ///
+   "  SE = " %8.4f r(se) "  p = " %6.4f r(p)
+
 di _newline ">>> 05_psm_dd.do termine."
 
 /* ============================================================
