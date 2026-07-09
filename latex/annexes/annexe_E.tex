@@ -1,12 +1,10 @@
 \section{Validation : reproduction de la prévalence des privations de l'ANSD}
 \label{ann:E}
 
-L'ANSD, dans son actualisation N-MODA de 2024, publie la prévalence des privations par
-indicateur et groupe d'âge calculée sur l'EHCVM 2018/19. Comme cette étude
-mobilise les mêmes données, il est possible de vérifier que
-l'opérationnalisation des indicateurs retenue ici reproduit bien ces valeurs. Le
-tableau~\ref{tab:validation_ansd} confronte, indicateur par indicateur, les valeurs
-obtenues dans ce mémoire à celles publiées par l'ANSD (colonne MODA 2024).
+L'ANSD publie, dans son actualisation N-MODA 2024, la prévalence des
+privations par indicateur et groupe d'âge sur l'EHCVM 2018/19. Le
+tableau~\ref{tab:validation_ansd} confronte ces valeurs à celles obtenues avec
+l'opérationnalisation retenue dans ce mémoire.
 
 \begin{table}[H]
   \centering
@@ -36,21 +34,15 @@ obtenues dans ce mémoire à celles publiées par l'ANSD (colonne MODA 2024).
     \small
     \item \textit{Source :} calculs de l'auteur sur l'EHCVM 2018 et rapport ANSD/UNICEF
     (colonne MODA 2024). Taux sur effectifs bruts.
-    \item \textit{Note :} l'écart le plus important portait sur le travail des enfants~;
-    la définition de l'ANSD retient le travail économique ou domestique d'au
-    moins une heure, alors qu'une opérationnalisation limitée au seul travail
-    économique conduisait à un taux très sous-estimé. La prise en compte du travail
-    domestique (heures de corvées d'eau, de bois et de tâches ménagères) permet de
-    reproduire le taux de l'ANSD.
+    \item \textit{Note :} l'écart le plus important (travail des enfants) est résorbé
+    en retenant, comme l'ANSD, le travail économique ou domestique d'au moins
+    une heure plutôt que le seul travail économique.
   \end{tablenotes}
   \end{threeparttable}
 \end{table}
 
-L'ensemble des indicateurs reproduit les taux de l'ANSD à quelques points près, ce
-qui valide l'opérationnalisation retenue. Deux indicateurs ne sont pas
-reproductibles en l'état~: le surpeuplement, dont la définition de l'ANSD repose
-sur le nombre de pièces réservées au coucher (variable absente de l'EHCVM,
-qui ne renseigne que le nombre total de pièces), et l'indicateur NEET des 15--17
-ans, dont la valeur publiée (85,7~\%) est difficilement conciliable avec le taux
-de scolarisation observé à ces âges. La reproduction est effectuée par le script
+L'ensemble des indicateurs reproduit les taux de l'ANSD à quelques points près.
+Deux ne sont pas reproductibles en l'état~: le surpeuplement (variable
+« pièces pour dormir » absente de l'EHCVM) et le NEET des 15--17 ans (valeur
+ANSD de 85,7\,\% incohérente avec le taux de scolarisation observé). Script~:
 \texttt{validation\_ansd.do}.
