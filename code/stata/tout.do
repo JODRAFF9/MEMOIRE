@@ -826,9 +826,9 @@ label var D_stable "Traitement stable (1=recu 2 vagues, 0=jamais, .=switcher)"
 di _newline ">>> Cellules de traitement (menages presents aux 2 vagues) :"
 tab D_2018 D_2021
 quietly count if D_stable == 1
-di "  Traites stables   : " r(N)
+di "  Traités stables   : " r(N)
 quietly count if D_stable == 0
-di "  Jamais traites    : " r(N)
+di "  Jamais traités    : " r(N)
 quietly count if missing(D_stable)
 di "  Switchers exclus  : " r(N)
 
@@ -977,7 +977,6 @@ twoway ///
     (kdensity pscore if D == 1, lcolor(orange) lwidth(medthick)), ///
     legend(order(1 "Jamais traites" 2 "Traites stables")) ///
     xtitle("Score de propension") ytitle("Densité") ///
-    title("Support commun — panel vrai (niveau ménage)") ///
     saving("$OUTPUT/overlap_panel.gph", replace)
 graph export "$OUTPUT/overlap_panel.pdf", replace
 
@@ -1113,9 +1112,6 @@ twoway (connected temoin annee, lcolor(gs7) mcolor(gs7) msymbol(square) lwidth(m
     ylabel(0(20)100, grid) ///
     legend(order(2 "Bénéficiaires stables" 1 "Témoins appariés" ///
                  3 "Contrefactuel (tendances parallèles)") pos(6) rows(2)) ///
-    title("Illustration de la double différence (PSM-DD)") ///
-    subtitle("Panel apparié — écart bénéficiaires/contrefactuel en 2021 = ATT") ///
-    note("Moyennes pondérées par les poids d'appariement k-NN (k=4).", size(vsmall)) ///
     graphregion(color(white)) plotregion(color(white))
 graph export "$OUTPUT/figures/fig_dd_trajectoires.pdf", replace
 di ">>> fig_dd_trajectoires.pdf sauvegardé"
@@ -1434,8 +1430,6 @@ twoway (connected H_MODA annee, lcolor(orange) mcolor(orange) msymbol(circle)  l
     xlabel(2018 2021) xtitle("Vague EHCVM") ytitle("Incidence H (%)") ///
     ylabel(0(20)100, grid) ///
     legend(order(1 "N-MODA (k=4, 7 dim.)") pos(6) rows(1)) ///
-    title("Évolution de la pauvreté multidimensionnelle des enfants") ///
-    subtitle("Sénégal, 2018-2019 à 2021-2022") ///
     graphregion(color(white)) plotregion(color(white))
 graph export "$OUTPUT/figures/fig_evolution_ipm.pdf", replace
 di ">>> fig_evolution_ipm.pdf sauvegardé"
@@ -1472,7 +1466,6 @@ graph bar v2018 v2021, over(dim, sort(ordre) label(angle(30))) ///
     blabel(bar, position(center) color(white) format(%3.0f)) ///
     legend(order(1 "EHCVM I (2018-19)" 2 "EHCVM II (2021-22)") pos(6) rows(1)) ///
     ytitle("Taux de privation (%)") ylabel(0(20)100, grid) ///
-    title("Prévalence des privations par dimension N-MODA") ///
     graphregion(color(white)) plotregion(color(white))
 graph export "$OUTPUT/figures/fig_privations_dim.pdf", replace
 di ">>> fig_privations_dim.pdf sauvegardé"
@@ -1484,7 +1477,6 @@ graph bar (mean) pauvre_MODA_pct, over(groupe_moda) over(milieu) ///
     bar(1, color(orange)) ///
     blabel(bar, position(center) color(white) format(%3.1f)) ///
     ytitle("Incidence N-MODA (H, %)") ylabel(0(20)100, grid) ///
-    title("Pauvreté N-MODA par groupe d'âge et milieu (2018-19)") ///
     legend(off) ///
     graphregion(color(white)) plotregion(color(white))
 graph export "$OUTPUT/figures/fig_pauvrete_milieu_age.pdf", replace
@@ -1498,8 +1490,7 @@ replace D = 0 if missing(D)
 label define dl 0 "Non-bénéficiaires" 1 "Bénéficiaires", replace
 label values D dl
 
-histogram nb_dep, by(D, cols(1) note("") ///
-    title("Distribution du nombre de privations (2018-19)")) ///
+histogram nb_dep, by(D, cols(1) note("")) ///
     fraction width(1) gap(10) ///
     color(gs9) lcolor(white) ///
     xtitle("Nombre de dimensions en privation (sur 7)") ///
@@ -1593,10 +1584,6 @@ twoway ///
     ytitle("") xtitle("ATT (points de pourcentage)") ///
     xline(0, lcolor(black) lpattern(dash)) ///
     legend(off) ///
-    title("Impact des transferts par dimension N-MODA") ///
-    subtitle("Estimateur PSM-DD — IC 95 %") ///
-    note("Erreurs-types clusterisées au niveau de la grappe. Appariement k-NN (k=4)." ///
-         "Aucun effet n'est significatif au seuil de 10 %.", size(vsmall)) ///
     graphregion(color(white)) plotregion(color(white))
 
 graph export "$OUTPUT/figures/fig_effets_dim.pdf", replace
@@ -1679,9 +1666,6 @@ preserve
         xtitle("Incidence N-MODA H (%)") ytitle("") ///
         xlabel(0(10)100, grid) ///
         xline(58.9, lcolor(orange) lpattern(dash) lwidth(medthick)) ///
-        note("Ligne pointillée : moyenne nationale (58,9 %). EHCVM I (2018-2019)." ///
-             "Estimations sur effectifs bruts (sans ponderation).", size(vsmall)) ///
-        title("Incidence N-MODA par région --- Sénégal, 2018-2019") ///
         graphregion(color(white)) plotregion(color(white))
     graph export "$OUTPUT/figures/fig_carte_nmoda.pdf", replace
     di ">>> fig_carte_nmoda.pdf sauvegardé"
@@ -1773,11 +1757,8 @@ preserve
             mlabel(pct) mlabformat(%3.0f) mlabcolor(white) mlabpos(0) mlabsize(small)), ///
         ylab(`ylab_str', angle(0) noticks labsize(small)) ///
         yscale(range(0.5 4.5)) ///
-        xtitle("Part des enfants 0--17 ans (%)") ytitle("") ///
+        xtitle("Part des enfants 0-17 ans (%)") ytitle("") ///
         xlabel(0(20)100, grid) ///
-        title("Croisement pauvreté monétaire et N-MODA") ///
-        subtitle("Sénégal, EHCVM I (2018-2019) — enfants 0--17 ans") ///
-        note("Estimations sur effectifs bruts (sans ponderation).", size(vsmall)) ///
         legend(off) ///
         graphregion(color(white)) plotregion(color(white))
     graph export "$OUTPUT/figures/fig_croisement_pauvrete.pdf", replace
@@ -1883,10 +1864,6 @@ histogram att_moda, width(0.005) frequency ///
     xtitle("ATT placebo (faux traitement aléatoire)") ///
     ytitle("Nombre de réplications") ///
     xlabel(-0.06(0.02)0.10, grid) ///
-    title("Distribution des ATT placebo — test des tendances parallèles") ///
-    subtitle("200 réplications sur les ménages jamais bénéficiaires") ///
-    note("Trait plein : zéro. Trait orange pointillé : ATT réel (+0,079)." ///
-         "L'ATT réel se situe hors de la distribution placebo.", size(vsmall)) ///
     graphregion(color(white)) plotregion(color(white))
 graph export "$OUTPUT/figures/fig_placebo_dd.pdf", replace
 di ">>> fig_placebo_dd.pdf sauvegardé"

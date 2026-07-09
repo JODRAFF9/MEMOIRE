@@ -74,11 +74,7 @@ en 2021-2022 selon leur statut de suivi et le milieu de résidence.
   \end{tabular}
   \begin{tablenotes}
     \small
-    \item \textit{Source :} EHCVM II (2021-2022), module ménage
-    (statut de suivi du ménage et occupation du même logement qu'en 2018-2019).
-    \textit{Note :} Le milieu urbain présente un taux d'attrition plus élevé
-    (18,9\,\%) que le milieu rural (7,9\,\%), ce qui reflète une plus grande mobilité
-    résidentielle en zone urbaine.
+    \item \textit{Source :} EHCVM II, calcul de l'auteur
   \end{tablenotes}
 \end{table}
 
@@ -129,7 +125,7 @@ jamais traités et 1\,465 switchers exclus (816 entrants tardifs et
 relèvent d'une logique de redistribution domestique distincte des envois
 de la diaspora internationale \parencite{ndiaye2013}.
 
-\subsubsection{Covariables du modèle de propension}
+\subsection{Covariables du modèle de propension}
 
 Le modèle probit estime la probabilité qu'un ménage reçoive des transferts
 en fonction de ses caractéristiques pré-transfert observées. Les covariables
@@ -170,7 +166,7 @@ tout en évitant d'inclure des variables potentiellement affectées par le trait
 % ─────────────────────────────────────────────────────────────────────────────
 
 L'approche MODA, développée par \textcite{deneubourg2012} au sein du bureau
-de recherche de l'UNICEF et appliquée en Afrique subsaharienne par
+de recherche de l'UNICEF et appliquée en afrique subsaharienne par
 \textcite{demilliano2014}, part du constat que les indices synthétiques
 classiques de pauvreté multidimensionnelle présentent deux limites lorsqu'ils
 sont appliqués aux enfants. D'abord, ils utilisent les mêmes indicateurs et
@@ -225,7 +221,7 @@ sur des indicateurs comparables entre les deux vagues de l'EHCVM.
 
 Pour chaque enfant $i$ et chaque dimension $j \in \{1, \ldots, 7\}$, la variable
 de privation est $d_{ij} = \mathbf{1}[\text{privé dans au moins un indicateur
-de la dimension } j]$ (approche union intra-dimension). Le \textit{score de
+de la dimension } j]$. Le \textit{score de
 privation} de l'enfant $i$ est le nombre de dimensions dans lesquelles il est privé :
 \begin{equation}
   s_i = \sum_{j=1}^{7} d_{ij}.
@@ -246,8 +242,8 @@ d'enfants privés dans au moins $k$ dimensions simultanément :
   \label{eq:pk}
 \end{equation}
 Conformément à la méthodologie N-MODA Sénégal \parencite{ansd2024}, nous
-retenons $k = 4$ : un enfant est considéré multidimensionnellement pauvre s'il
-est privé dans au moins 4 des 7 dimensions simultanément.
+retenons qu'un enfant est considéré multidimensionnellement pauvre s'il
+est privé dans au moins 4 des 7 dimensions simultanément ($k = 4$).
 
 L'intensité moyenne des privations parmi les enfants pauvres est :
 \begin{equation}
@@ -264,7 +260,7 @@ servent de mesures secondaires, décomposables par milieu, région et groupe
 d'âge.
 
 % ─────────────────────────────────────────────────────────────────────────────
-\subsection{Stratégie d'identification causale : PSM-Double différence}
+\subsection{Stratégie d'identification causale}
 % ─────────────────────────────────────────────────────────────────────────────
 
 \subsubsection{Cadre des résultats potentiels}
