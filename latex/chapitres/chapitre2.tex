@@ -362,7 +362,12 @@ tous les enfants d'un même ménage partagent le même score. Apparier au niveau
 de l'enfant induirait des ex-aequo massifs et une pondération arbitraire par
 le nombre d'enfants~; l'appariement au niveau ménage évite ces artefacts, les
 poids d'appariement étant ensuite appliqués à l'ensemble des enfants du ménage
-dans l'estimation.
+dans l'estimation. Ce poids n'est pas divisé par le nombre d'enfants du
+ménage~: chaque enfant hérite du poids complet de son ménage, de sorte qu'un
+ménage comptant davantage d'enfants pèse proportionnellement plus dans
+l'estimation. Ce choix est cohérent avec l'unité d'analyse retenue,
+l'enfant, l'objectif étant de mesurer l'effet moyen sur les enfants et non
+sur les ménages.
 
 Trois algorithmes d'appariement sont mis en œuvre et comparés \parencite{caliendo2008,
 heckman1997}. L'appariement aux $k$ plus proches voisins \parencite{rosenbaum1983}
