@@ -1,47 +1,18 @@
 \section{Validité de l'hypothèse de tendances parallèles et tests complémentaires}
 \label{ann:A}
 
-\subsection{Discussion de l'hypothèse de tendances parallèles}
+\subsection{Argument de l'appariement}
 
-L'estimateur de double différence (DD) repose sur l'hypothèse que, en l'absence
-de traitement, les trajectoires de pauvreté multidimensionnelle des ménages
-bénéficiaires ($D=1$) et jamais bénéficiaires ($D=0$) auraient suivi des tendances
-parallèles entre 2018 et 2021. Cette hypothèse est fondamentalement
-non testable directement sur la période d'intérêt, puisqu'on n'observe pas
-le contrefactuel des ménages traités. Plusieurs éléments permettent néanmoins
-d'en apprécier la plausibilité.
+Le PSM rend l'hypothèse de tendances parallèles plus crédible en sélectionnant
+des ménages jamais traités statistiquement indiscernables des traités à $t=0$.
+Après appariement k-NN ($k=4$, avec remise), toutes les SMD sont inférieures à
+0,05 en valeur absolue (tableau~\ref{tab:balance}).
 
-\subsubsection{Argument de l'appariement}
+\subsection{Test placebo}
 
-Le PSM est précisément conçu pour rendre l'hypothèse de tendances parallèles
-plus crédible~: en conditionnant sur le score de propension, on sélectionne
-des ménages jamais traités qui, au moment $t=0$, sont statistiquement
-indiscernables des ménages traités sur l'ensemble des covariables observables.
-Après appariement k-NN au niveau ménage ($k=4$, avec remise), toutes les
-différences standardisées (SMD) sont inférieures à 0,05 en valeur absolue
-(tableau~\ref{tab:balance}), ce qui signifie que les
-groupes appariés partagent des niveaux initiaux de dépense par tête, de
-composition du ménage et de milieu de résidence très proches.
-Des ménages similaires sur ces dimensions sont susceptibles de connaître des
-tendances de pauvreté communes en l'absence de transferts. Cette condition
-est nécessaire mais non suffisante~: elle ne protège pas contre une sélection
-dynamique sur des chocs postérieurs à 2018, discutée comme limite en
-conclusion.
-
-\subsubsection{Test placebo sur les ménages jamais traités}
-
-Bien que l'EHCVM ne dispose pas d'une vague antérieure à 2018 permettant un
-test formel en deux périodes pré-traitement, on peut conduire un test placebo
-indirect. En restreignant l'échantillon aux ménages jamais traités ($D=0$ aux
-deux vagues) et en affectant aléatoirement un faux statut de traitement à
-14,6\,\% d'entre eux (proportion observée de ménages traités stables), on
-estime la DD sur ce pseudo-traitement. Si les trajectoires des ménages
-comparables sont bien parallèles, l'ATT placebo doit être statistiquement nul
-et l'ATT réel doit se situer dans la queue de la distribution placebo pour
-être interprétable comme un signal.
-
-Le tableau~\ref{tab:placebo} rapporte les résultats de 200 répétitions de cette
-procédure .
+En affectant aléatoirement un faux statut de traitement à 14,6\,\% des ménages
+jamais traités et en estimant la DD sur ce pseudo-traitement (200 réplications),
+on obtient la distribution suivante.
 
 \begin{table}[H]
   \centering
@@ -73,35 +44,22 @@ procédure .
   \label{fig:placebo_dd}
 \end{figure}
 
-La distribution des ATT placebo (figure~\ref{fig:placebo_dd}) est centrée sur zéro,
-avec un écart-type de 0,020~: parmi les ménages jamais traités, des groupes
-constitués au hasard suivent bien des trajectoires parallèles. L'ATT réel
-($+0{,}079$) se situe au 100\textsuperscript{e}
-centile de la distribution placebo~: l'écart de
-trajectoire mesuré entre bénéficiaires stables et témoins appariés est donc
-très improbable sous l'hypothèse d'une simple fluctuation d'échantillonnage,
-ce qui conforte sa lecture comme un signal réel, dont l'interprétation
-causale reste, elle, conditionnée aux mécanismes discutés en
-section~\ref{sec:discussion}.
+La distribution placebo est centrée sur zéro (écart-type 0,020) ; l'ATT réel
+($+0{,}079$) se situe au 100\textsuperscript{e} centile, ce qui conforte sa
+lecture comme un signal réel.
 
 \subsection{Résultats PSM avec différentes méthodes d'appariement}
 
-Le tableau~\ref{tab:psm_methodes} (section~\ref{subsec:psmdd}) présente les
-ATT obtenus avec les trois méthodes d'appariement (k-NN, noyau Epanechnikov,
-caliper), toutes mises en œuvre au niveau ménage sur le même score de
-propension. Les trois méthodes produisent des ATT positifs~; pour le N-MODA,
-la significativité statistique est acquise pour le k-NN ($p = 0{,}025$) et
-le noyau ($p = 0{,}039$), et marginalement pour le caliper ($p = 0{,}077$). Le caliper sans remise, qui
-n'apparie que 582 paires et écarte les traités sans contrepartie proche, est
-le plus exigeant en support commun~; la stabilité du signe sur les trois
-méthodes reste l'enseignement principal.
+Le tableau~\ref{tab:psm_methodes} (section~\ref{subsec:psmdd}) produit des ATT
+positifs avec les trois méthodes~: significatif pour le k-NN ($p=0{,}025$) et
+le noyau ($p=0{,}039$), marginal pour le caliper ($p=0{,}077$, 582 paires
+seulement). La stabilité du signe reste l'enseignement principal.
 
 \subsection{Analyse de l'attrition différentielle}
 
 Le panel vrai mobilise 6\,127 des 7\,156 ménages de l'EHCVM~I (taux de suivi
-de 85,6\,\%). Parmi les 6\,427 ménages comptant des
-enfants de 0 à 17 ans, 5\,643 sont retrouvés dans le panel et 784 sont perdus.
-Le tableau~\ref{tab:attrition} compare leurs caractéristiques de base.
+85,6\,\%). Parmi les 6\,427 ménages avec enfants, 5\,643 sont retrouvés et 784
+sont perdus.
 
 \begin{table}[H]
   \centering
@@ -128,17 +86,7 @@ Le tableau~\ref{tab:attrition} compare leurs caractéristiques de base.
   \end{tablenotes}
 \end{table}
 
-L'attrition n'est pas aléatoire~: les ménages perdus sont nettement plus
-urbains, plus aisés, de plus petite taille et plus souvent dirigés par une
-femme, le profil classique de la mobilité résidentielle urbaine, cohérent
-avec le taux d'attrition urbain plus élevé documenté au
-tableau~\ref{tab:panelhh}. La dernière ligne montre en outre que la
-probabilité d'être perdu de vue est corrélée au statut de bénéficiaire de
-2018 (26,9\,\% contre 21,9\,\%, SMD $=-0{,}12$, $p = 0{,}004$)~: les ménages
-bénéficiaires sortent un peu plus souvent du panel, ce qui est cohérent avec
-une mobilité accrue des ménages liés à la migration. Si les bénéficiaires
-perdus de vue avaient connu des trajectoires plus favorables que ceux restés
-observables, l'ATT serait biaisé vers le haut~; l'ampleur modérée du
-différentiel (5 points de pourcentage) borne ce risque, mais il s'ajoute aux
-raisons de lire l'écart défavorable estimé comme une borne haute. La portée
-externe des résultats reste par ailleurs restreinte aux ménages sédentaires.
+L'attrition n'est pas aléatoire (ménages perdus plus urbains, aisés et
+féminisés) et modestement corrélée au statut de bénéficiaire 2018 (26,9\,\%
+contre 21,9\,\%, $p=0{,}004$), ce qui borne l'écart estimé comme une borne
+haute pour les ménages sédentaires.
