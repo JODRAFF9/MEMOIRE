@@ -827,6 +827,8 @@ keep if _merge == 3   /* presents dans les deux vagues */
 keep grappe menage
 tempfile ids_panel
 save `ids_panel'
+save "$TEMP/ids_panel.dta", replace   /* liste complete (switchers inclus),
+    reutilisee par l'analyse de robustesse "entrants" */
 
 quietly count
 di _newline "Menages vraiment suivis (presences dans les 2 vagues) : " r(N)
@@ -1188,13 +1190,12 @@ foreach poids_var in weight_knn weight_kernel weight_caliper {
    a titre de comparaison.
    ============================================================ */
 
-preserve
-    use "$TEMP/panel_vrai.dta", clear
-    keep grappe menage
-    duplicates drop grappe menage, force
-    tempfile menages_panel
-    save `menages_panel'
-restore
+/* Liste des menages presents aux deux vagues, switchers INCLUS (contrairement
+   a panel_vrai.dta, qui les exclut deja pour l'analyse principale) : les
+   entrants sont eux-memes des switchers, ils seraient sinon perdus ici. */
+use "$TEMP/ids_panel.dta", clear
+tempfile menages_panel
+save `menages_panel'
 
 use "$TEMP/vague_2018.dta", clear
 merge m:1 grappe menage using `menages_panel', keep(match) nogenerate
