@@ -19,6 +19,63 @@
 
 \refsection{0}
   \datalist[entry]{nyt/apasortcite//global/global/global}
+    \entry{abadi2018}{report}{}{}
+      \name{author}{5}{}{%
+        {{un=0,uniquepart=base,hash=34f08c86b9eca11ad8ee890f91dcd172}{%
+           family={Abadi},
+           familyi={A\bibinitperiod},
+           given={Nigussie},
+           giveni={N\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=9a6bed6502c0652ff99f29bd60503dee}{%
+           family={Techane},
+           familyi={T\bibinitperiod},
+           given={Ataklti},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=841f2172d85093566f4f98a96306c537}{%
+           family={Tesfay},
+           familyi={T\bibinitperiod},
+           given={Girmay},
+           giveni={G\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=f9c581ebca23dfbe48e5a30ed8b046f6}{%
+           family={Maxwell},
+           familyi={M\bibinitperiod},
+           given={Daniel},
+           giveni={D\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=0c78d480250b68cd7cdda1a0956a083d}{%
+           family={Vaitla},
+           familyi={V\bibinitperiod},
+           given={Bapu},
+           giveni={B\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{institution}{1}{%
+        {UNU-WIDER}%
+      }
+      \strng{namehash}{cde53fc67e0d9dcdd009f486505225a2}
+      \strng{fullhash}{21046ecc0375006bd3adf9f2c36fb1b9}
+      \strng{fullhashraw}{21046ecc0375006bd3adf9f2c36fb1b9}
+      \strng{bibnamehash}{21046ecc0375006bd3adf9f2c36fb1b9}
+      \strng{authorbibnamehash}{21046ecc0375006bd3adf9f2c36fb1b9}
+      \strng{authornamehash}{cde53fc67e0d9dcdd009f486505225a2}
+      \strng{authorfullhash}{21046ecc0375006bd3adf9f2c36fb1b9}
+      \strng{authorfullhashraw}{21046ecc0375006bd3adf9f2c36fb1b9}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{number}{2018/40}
+      \field{series}{WIDER Working Paper}
+      \field{title}{The impact of remittances on household food security: a micro perspective from Tigray, Ethiopia}
+      \field{type}{techreport}
+      \field{year}{2018}
+    \endentry
     \entry{acosta2011}{article}{}{}
       \name{author}{1}{}{%
         {{un=0,uniquepart=base,hash=28284a495a048059b02c36c7184ab15e}{%
@@ -249,6 +306,44 @@
       \field{pages}{293\bibrangedash 308}
       \range{pages}{16}
     \endentry
+    \entry{anyanwu2010}{article}{}{}
+      \name{author}{2}{}{%
+        {{un=0,uniquepart=base,hash=ae0c6126a740817bb1019662b320ba4b}{%
+           family={Anyanwu},
+           familyi={A\bibinitperiod},
+           given={John\bibnamedelima C.},
+           giveni={J\bibinitperiod\bibinitdelim C\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=c5eab1f970d66df45ca629f8e1a4931b}{%
+           family={Erhijakpor},
+           familyi={E\bibinitperiod},
+           given={Andrew\bibnamedelimb E.\bibnamedelimi O.},
+           giveni={A\bibinitperiod\bibinitdelim E\bibinitperiod\bibinitdelim O\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{37487acc0b59c35871c062adade5eaa5}
+      \strng{fullhash}{37487acc0b59c35871c062adade5eaa5}
+      \strng{fullhashraw}{37487acc0b59c35871c062adade5eaa5}
+      \strng{bibnamehash}{37487acc0b59c35871c062adade5eaa5}
+      \strng{authorbibnamehash}{37487acc0b59c35871c062adade5eaa5}
+      \strng{authornamehash}{37487acc0b59c35871c062adade5eaa5}
+      \strng{authorfullhash}{37487acc0b59c35871c062adade5eaa5}
+      \strng{authorfullhashraw}{37487acc0b59c35871c062adade5eaa5}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{African Development Review}
+      \field{number}{1}
+      \field{title}{Do international remittances affect poverty in Africa?}
+      \field{volume}{22}
+      \field{year}{2010}
+      \field{pages}{51\bibrangedash 91}
+      \range{pages}{41}
+    \endentry
     \entry{austin2009}{article}{}{}
       \name{author}{1}{}{%
         {{un=0,uniquepart=base,hash=72bb99ace345dcf7ae8b3e877ab1dc2f}{%
@@ -390,6 +485,50 @@
       \field{title}{Migration and development brief 39}
       \field{type}{techreport}
       \field{year}{2023}
+    \endentry
+    \entry{bettin2017}{article}{}{}
+      \name{author}{3}{}{%
+        {{un=0,uniquepart=base,hash=af8ff089539cc8cb6d95c5d7779b3ec0}{%
+           family={Bettin},
+           familyi={B\bibinitperiod},
+           given={Giulia},
+           giveni={G\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=93a5b829bc0058c226ead01e3174d48f}{%
+           family={Presbitero},
+           familyi={P\bibinitperiod},
+           given={Andrea\bibnamedelima F.},
+           giveni={A\bibinitperiod\bibinitdelim F\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=afc3ea7ced06fdcb74271cd129a1db3d}{%
+           family={Spatafora},
+           familyi={S\bibinitperiod},
+           given={Nikola\bibnamedelima L.},
+           giveni={N\bibinitperiod\bibinitdelim L\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{a261f8b4addd1b603d19d575130fa5d0}
+      \strng{fullhash}{7750eaaf53df38527e67c56eed1ebd31}
+      \strng{fullhashraw}{7750eaaf53df38527e67c56eed1ebd31}
+      \strng{bibnamehash}{7750eaaf53df38527e67c56eed1ebd31}
+      \strng{authorbibnamehash}{7750eaaf53df38527e67c56eed1ebd31}
+      \strng{authornamehash}{a261f8b4addd1b603d19d575130fa5d0}
+      \strng{authorfullhash}{7750eaaf53df38527e67c56eed1ebd31}
+      \strng{authorfullhashraw}{7750eaaf53df38527e67c56eed1ebd31}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{The World Bank Economic Review}
+      \field{number}{1}
+      \field{title}{Remittances and vulnerability in developing countries}
+      \field{volume}{31}
+      \field{year}{2017}
+      \field{pages}{1\bibrangedash 23}
+      \range{pages}{23}
     \endentry
     \entry{bouoiyour2016}{article}{}{}
       \name{author}{2}{}{%
@@ -1807,6 +1946,38 @@
       \verb 10.1016/S1574-0714(06)02017-3
       \endverb
     \endentry
+    \entry{ratha2021}{report}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=3262f805999bc18c55c7fd9d34964cec}{%
+           family={Ratha},
+           familyi={R\bibinitperiod},
+           given={Dilip},
+           giveni={D\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{institution}{2}{%
+        {World Bank, G-24 Session on Remittances}%
+        {Migration for Development}%
+      }
+      \strng{namehash}{3262f805999bc18c55c7fd9d34964cec}
+      \strng{fullhash}{3262f805999bc18c55c7fd9d34964cec}
+      \strng{fullhashraw}{3262f805999bc18c55c7fd9d34964cec}
+      \strng{bibnamehash}{3262f805999bc18c55c7fd9d34964cec}
+      \strng{authorbibnamehash}{3262f805999bc18c55c7fd9d34964cec}
+      \strng{authornamehash}{3262f805999bc18c55c7fd9d34964cec}
+      \strng{authorfullhash}{3262f805999bc18c55c7fd9d34964cec}
+      \strng{authorfullhashraw}{3262f805999bc18c55c7fd9d34964cec}
+      \field{sortinit}{R}
+      \field{sortinithash}{5e1c39a9d46ffb6bebd8f801023a9486}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Remittances during {COVID-19} Crisis and Beyond}
+      \field{type}{techreport}
+      \field{year}{2021}
+    \endentry
     \entry{roelen2008}{article}{}{}
       \name{author}{2}{}{%
         {{un=0,uniquepart=base,hash=606250486001f2a1202acb7126e25f09}{%
@@ -2122,6 +2293,43 @@
       \field{title}{Situation des enfants au Senegal 2016}
       \field{type}{techreport}
       \field{year}{2016}
+    \endentry
+    \entry{wagle2018}{article}{}{}
+      \name{author}{2}{}{%
+        {{un=0,uniquepart=base,hash=62114a4be04d6932d0e316160dfabfad}{%
+           family={Wagle},
+           familyi={W\bibinitperiod},
+           given={Udaya\bibnamedelima R.},
+           giveni={U\bibinitperiod\bibinitdelim R\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=b9b94d7bcdd42763ce2f6b4791cee58d}{%
+           family={Devkota},
+           familyi={D\bibinitperiod},
+           given={Satis},
+           giveni={S\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{3565bc800364776d4d28b24cbfc4b2a3}
+      \strng{fullhash}{3565bc800364776d4d28b24cbfc4b2a3}
+      \strng{fullhashraw}{3565bc800364776d4d28b24cbfc4b2a3}
+      \strng{bibnamehash}{3565bc800364776d4d28b24cbfc4b2a3}
+      \strng{authorbibnamehash}{3565bc800364776d4d28b24cbfc4b2a3}
+      \strng{authornamehash}{3565bc800364776d4d28b24cbfc4b2a3}
+      \strng{authorfullhash}{3565bc800364776d4d28b24cbfc4b2a3}
+      \strng{authorfullhashraw}{3565bc800364776d4d28b24cbfc4b2a3}
+      \field{sortinit}{W}
+      \field{sortinithash}{4315d78024d0cea9b57a0c6f0e35ed0d}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{World Development}
+      \field{title}{The impact of foreign remittances on poverty in {Nepal}: a panel study of household survey data, 1996--2011}
+      \field{volume}{110}
+      \field{year}{2018}
+      \field{pages}{38\bibrangedash 50}
+      \range{pages}{13}
     \endentry
     \entry{yang2008}{article}{}{}
       \name{author}{1}{}{%
@@ -2160,6 +2368,63 @@
     \endentry
   \enddatalist
   \datalist[entry]{nyt/global//global/global/global}
+    \entry{abadi2018}{report}{}{}
+      \name{author}{5}{}{%
+        {{un=0,uniquepart=base,hash=34f08c86b9eca11ad8ee890f91dcd172}{%
+           family={Abadi},
+           familyi={A\bibinitperiod},
+           given={Nigussie},
+           giveni={N\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=9a6bed6502c0652ff99f29bd60503dee}{%
+           family={Techane},
+           familyi={T\bibinitperiod},
+           given={Ataklti},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=841f2172d85093566f4f98a96306c537}{%
+           family={Tesfay},
+           familyi={T\bibinitperiod},
+           given={Girmay},
+           giveni={G\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=f9c581ebca23dfbe48e5a30ed8b046f6}{%
+           family={Maxwell},
+           familyi={M\bibinitperiod},
+           given={Daniel},
+           giveni={D\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=0c78d480250b68cd7cdda1a0956a083d}{%
+           family={Vaitla},
+           familyi={V\bibinitperiod},
+           given={Bapu},
+           giveni={B\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{institution}{1}{%
+        {UNU-WIDER}%
+      }
+      \strng{namehash}{cde53fc67e0d9dcdd009f486505225a2}
+      \strng{fullhash}{21046ecc0375006bd3adf9f2c36fb1b9}
+      \strng{fullhashraw}{21046ecc0375006bd3adf9f2c36fb1b9}
+      \strng{bibnamehash}{21046ecc0375006bd3adf9f2c36fb1b9}
+      \strng{authorbibnamehash}{21046ecc0375006bd3adf9f2c36fb1b9}
+      \strng{authornamehash}{cde53fc67e0d9dcdd009f486505225a2}
+      \strng{authorfullhash}{21046ecc0375006bd3adf9f2c36fb1b9}
+      \strng{authorfullhashraw}{21046ecc0375006bd3adf9f2c36fb1b9}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{number}{2018/40}
+      \field{series}{WIDER Working Paper}
+      \field{title}{The impact of remittances on household food security: a micro perspective from Tigray, Ethiopia}
+      \field{type}{techreport}
+      \field{year}{2018}
+    \endentry
     \entry{acosta2011}{article}{}{}
       \name{author}{1}{}{%
         {{un=0,uniquepart=base,hash=28284a495a048059b02c36c7184ab15e}{%
@@ -2390,6 +2655,44 @@
       \field{pages}{293\bibrangedash 308}
       \range{pages}{16}
     \endentry
+    \entry{anyanwu2010}{article}{}{}
+      \name{author}{2}{}{%
+        {{un=0,uniquepart=base,hash=ae0c6126a740817bb1019662b320ba4b}{%
+           family={Anyanwu},
+           familyi={A\bibinitperiod},
+           given={John\bibnamedelima C.},
+           giveni={J\bibinitperiod\bibinitdelim C\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=c5eab1f970d66df45ca629f8e1a4931b}{%
+           family={Erhijakpor},
+           familyi={E\bibinitperiod},
+           given={Andrew\bibnamedelimb E.\bibnamedelimi O.},
+           giveni={A\bibinitperiod\bibinitdelim E\bibinitperiod\bibinitdelim O\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{37487acc0b59c35871c062adade5eaa5}
+      \strng{fullhash}{37487acc0b59c35871c062adade5eaa5}
+      \strng{fullhashraw}{37487acc0b59c35871c062adade5eaa5}
+      \strng{bibnamehash}{37487acc0b59c35871c062adade5eaa5}
+      \strng{authorbibnamehash}{37487acc0b59c35871c062adade5eaa5}
+      \strng{authornamehash}{37487acc0b59c35871c062adade5eaa5}
+      \strng{authorfullhash}{37487acc0b59c35871c062adade5eaa5}
+      \strng{authorfullhashraw}{37487acc0b59c35871c062adade5eaa5}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{African Development Review}
+      \field{number}{1}
+      \field{title}{Do international remittances affect poverty in Africa?}
+      \field{volume}{22}
+      \field{year}{2010}
+      \field{pages}{51\bibrangedash 91}
+      \range{pages}{41}
+    \endentry
     \entry{austin2009}{article}{}{}
       \name{author}{1}{}{%
         {{un=0,uniquepart=base,hash=72bb99ace345dcf7ae8b3e877ab1dc2f}{%
@@ -2531,6 +2834,50 @@
       \field{title}{Migration and development brief 39}
       \field{type}{techreport}
       \field{year}{2023}
+    \endentry
+    \entry{bettin2017}{article}{}{}
+      \name{author}{3}{}{%
+        {{un=0,uniquepart=base,hash=af8ff089539cc8cb6d95c5d7779b3ec0}{%
+           family={Bettin},
+           familyi={B\bibinitperiod},
+           given={Giulia},
+           giveni={G\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=93a5b829bc0058c226ead01e3174d48f}{%
+           family={Presbitero},
+           familyi={P\bibinitperiod},
+           given={Andrea\bibnamedelima F.},
+           giveni={A\bibinitperiod\bibinitdelim F\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=afc3ea7ced06fdcb74271cd129a1db3d}{%
+           family={Spatafora},
+           familyi={S\bibinitperiod},
+           given={Nikola\bibnamedelima L.},
+           giveni={N\bibinitperiod\bibinitdelim L\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{a261f8b4addd1b603d19d575130fa5d0}
+      \strng{fullhash}{7750eaaf53df38527e67c56eed1ebd31}
+      \strng{fullhashraw}{7750eaaf53df38527e67c56eed1ebd31}
+      \strng{bibnamehash}{7750eaaf53df38527e67c56eed1ebd31}
+      \strng{authorbibnamehash}{7750eaaf53df38527e67c56eed1ebd31}
+      \strng{authornamehash}{a261f8b4addd1b603d19d575130fa5d0}
+      \strng{authorfullhash}{7750eaaf53df38527e67c56eed1ebd31}
+      \strng{authorfullhashraw}{7750eaaf53df38527e67c56eed1ebd31}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{The World Bank Economic Review}
+      \field{number}{1}
+      \field{title}{Remittances and vulnerability in developing countries}
+      \field{volume}{31}
+      \field{year}{2017}
+      \field{pages}{1\bibrangedash 23}
+      \range{pages}{23}
     \endentry
     \entry{bouoiyour2016}{article}{}{}
       \name{author}{2}{}{%
@@ -3948,6 +4295,38 @@
       \verb 10.1016/S1574-0714(06)02017-3
       \endverb
     \endentry
+    \entry{ratha2021}{report}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=3262f805999bc18c55c7fd9d34964cec}{%
+           family={Ratha},
+           familyi={R\bibinitperiod},
+           given={Dilip},
+           giveni={D\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{institution}{2}{%
+        {World Bank, G-24 Session on Remittances}%
+        {Migration for Development}%
+      }
+      \strng{namehash}{3262f805999bc18c55c7fd9d34964cec}
+      \strng{fullhash}{3262f805999bc18c55c7fd9d34964cec}
+      \strng{fullhashraw}{3262f805999bc18c55c7fd9d34964cec}
+      \strng{bibnamehash}{3262f805999bc18c55c7fd9d34964cec}
+      \strng{authorbibnamehash}{3262f805999bc18c55c7fd9d34964cec}
+      \strng{authornamehash}{3262f805999bc18c55c7fd9d34964cec}
+      \strng{authorfullhash}{3262f805999bc18c55c7fd9d34964cec}
+      \strng{authorfullhashraw}{3262f805999bc18c55c7fd9d34964cec}
+      \field{sortinit}{R}
+      \field{sortinithash}{5e1c39a9d46ffb6bebd8f801023a9486}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Remittances during {COVID-19} Crisis and Beyond}
+      \field{type}{techreport}
+      \field{year}{2021}
+    \endentry
     \entry{roelen2008}{article}{}{}
       \name{author}{2}{}{%
         {{un=0,uniquepart=base,hash=606250486001f2a1202acb7126e25f09}{%
@@ -4263,6 +4642,43 @@
       \field{title}{Situation des enfants au Senegal 2016}
       \field{type}{techreport}
       \field{year}{2016}
+    \endentry
+    \entry{wagle2018}{article}{}{}
+      \name{author}{2}{}{%
+        {{un=0,uniquepart=base,hash=62114a4be04d6932d0e316160dfabfad}{%
+           family={Wagle},
+           familyi={W\bibinitperiod},
+           given={Udaya\bibnamedelima R.},
+           giveni={U\bibinitperiod\bibinitdelim R\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=b9b94d7bcdd42763ce2f6b4791cee58d}{%
+           family={Devkota},
+           familyi={D\bibinitperiod},
+           given={Satis},
+           giveni={S\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{3565bc800364776d4d28b24cbfc4b2a3}
+      \strng{fullhash}{3565bc800364776d4d28b24cbfc4b2a3}
+      \strng{fullhashraw}{3565bc800364776d4d28b24cbfc4b2a3}
+      \strng{bibnamehash}{3565bc800364776d4d28b24cbfc4b2a3}
+      \strng{authorbibnamehash}{3565bc800364776d4d28b24cbfc4b2a3}
+      \strng{authornamehash}{3565bc800364776d4d28b24cbfc4b2a3}
+      \strng{authorfullhash}{3565bc800364776d4d28b24cbfc4b2a3}
+      \strng{authorfullhashraw}{3565bc800364776d4d28b24cbfc4b2a3}
+      \field{sortinit}{W}
+      \field{sortinithash}{4315d78024d0cea9b57a0c6f0e35ed0d}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{World Development}
+      \field{title}{The impact of foreign remittances on poverty in {Nepal}: a panel study of household survey data, 1996--2011}
+      \field{volume}{110}
+      \field{year}{2018}
+      \field{pages}{38\bibrangedash 50}
+      \range{pages}{13}
     \endentry
     \entry{yang2008}{article}{}{}
       \name{author}{1}{}{%
