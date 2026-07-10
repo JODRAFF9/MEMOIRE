@@ -58,24 +58,21 @@
     ([xshift=-6pt,yshift=6pt]titre.south east) -- ++(0,0.6);
 \end{tikzpicture}\\[0.75cm]
 
-% ── Cartes Auteur / Encadreur (TikZ) ─────────────────────────
-\begin{tikzpicture}
-  \node[draw=ensaeblue!55, line width=0.7pt, rounded corners=6pt,
-        top color=white, bottom color=ensaecyan!10,
-        text width=0.40\textwidth, inner sep=10pt, align=left] (aut) {
-    {\color{ensaeblue}\bfseries\small Rédigé par :}\\[4pt]
-    {\bfseries Sié Rachid TRAORÉ}\\[1pt]
-    {\small\itshape Élève Ingénieur Statisticien Économiste}
-  };
-  \node[draw=ensaeblue!55, line width=0.7pt, rounded corners=6pt,
-        top color=white, bottom color=ensaecyan!10,
-        text width=0.40\textwidth, inner sep=10pt, align=left,
-        right=0.7cm of aut] (enc) {
-    {\color{ensaeblue}\bfseries\small Sous la supervision de :}\\[4pt]
-    {\bfseries Mamadou Abdoulaye DIALLO}\\[1pt]
-    {\small\itshape Chercheur postdoctoral en économie appliquée, Ingénieur Statisticien Économiste}
-  };
-\end{tikzpicture}
+% ── Auteur / Encadreur (texte aligné, sans encadré) ──────────
+\noindent
+\begin{minipage}[t]{0.40\textwidth}
+  \raggedright
+  {\color{ensaeblue}\bfseries\small Rédigé par :}\\[4pt]
+  {\bfseries Sié Rachid TRAORÉ}\\[1pt]
+  {\small\itshape Élève Ingénieur Statisticien Économiste}
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.40\textwidth}
+  \raggedright
+  {\color{ensaeblue}\bfseries\small Sous la supervision de :}\\[4pt]
+  {\bfseries Mamadou Abdoulaye DIALLO}\\[1pt]
+  {\small\itshape Chercheur postdoctoral en économie appliquée, Ingénieur Statisticien Économiste}
+\end{minipage}
 
 \vfill
 
