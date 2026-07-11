@@ -486,6 +486,7 @@ foreach annee in 2018 2021 {
        (2018 : hhid = grappe*1000+menage ; 2021 : grappe*100+menage). */
     if `annee' == 2018 {
         local v_partag "s11q56"
+        local v_type_toi "s11q55"
         local v_tps_ss "s11q29a"
         local v_tps_sp "s11q31a"
         local v_comb   "s11q53"
@@ -494,6 +495,7 @@ foreach annee in 2018 2021 {
     }
     else {
         local v_partag "s11q55"
+        local v_type_toi "s11q54"
         local v_tps_ss "s11q28a"
         local v_tps_sp "s11q30a"
         local v_comb   "s11q52"
@@ -517,7 +519,7 @@ foreach annee in 2018 2021 {
        a l'eau, nombre de pieces, combustible de cuisine. */
     preserve
         use "`base'/s11_me_sen`annee'.dta", clear
-        keep grappe menage s11q02 `v_partag' `v_tps_ss' `v_tps_sp' ///
+        keep grappe menage s11q02 `v_partag' `v_type_toi' `v_tps_ss' `v_tps_sp' ///
             `v_src_ss' `v_src_sp' `comb_vars'
         rename s11q02 nb_pieces
         tempfile s11_temp
@@ -602,7 +604,14 @@ foreach annee in 2018 2021 {
        SEUL indicateur manque, meme si l'autre indicateur est renseigne
        et positif. Aucun "sauvetage" par un indicateur deja positif. */
     gen byte m_toilet     = (toilet == 0) if !missing(toilet)
+    /* Le partage des sanitaires n'est demande que si le menage dispose
+       d'une installation propre : verifie empiriquement, la question est
+       sautee a 100% quand le type de sanitaire (v_type_toi) est "Aucune
+       toilette" (code 11) ou "Toilettes publiques" (code 10). Dans ces
+       deux cas, la question ne s'applique pas (pas de sanitaire prive a
+       "partager"), et m_toilet suffit deja a etablir la privation. */
     gen byte m_partag_toi = (`v_partag' == 1) if !missing(`v_partag')
+    replace  m_partag_toi = 0 if missing(m_partag_toi) & inlist(`v_type_toi', 10, 11)
     gen byte dim_assai    = (m_toilet == 1 | m_partag_toi == 1) ///
         if !missing(m_toilet) & !missing(m_partag_toi)
 
