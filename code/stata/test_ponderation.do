@@ -73,4 +73,31 @@ regress pauvre_MODA i.t##i.D [pw=hhweight], vce(cluster grappe)
 lincom 1.t#1.D
 di "  ATT poids enquete seul = " %8.4f r(estimate) "  SE=" %8.4f r(se) "  p=" %6.4f r(p)
 
+/* ============================================================
+   4. Design d'enquete complet (svyset) : grappe + strate (region x
+   milieu) + hhweight. Comparaison des ecarts-types "design-based"
+   (svy:) a ceux obtenus par simple poids applique a summarize/regress
+   (aweight/pweight, sans tenir compte de la stratification).
+
+   Documentation EHCVM (basicinformationdocument_sen.pdf) : plan de
+   sondage a 2 degres (598 grappes tirees au 1er degre, 12 menages par
+   grappe au 2e), stratifie par region x milieu. Aucune variable de
+   strate dediee dans les donnees : reconstruite ici par region x milieu.
+   ============================================================ */
+
+di _newline "=== 4. Design d'enquete complet (svyset : grappe, strate region x milieu, hhweight) ==="
+
+foreach annee in 2018 2021 {
+    use "$TEMP/vague_`annee'.dta", clear
+
+    egen strate = group(region milieu)
+    svyset grappe [pweight=hhweight], strata(strate)
+
+    di _newline "--- `annee' : H, svy: mean (design-based) ---"
+    svy: mean pauvre_MODA
+
+    di _newline "--- `annee' : prevalence par dimension, svy: mean ---"
+    svy: mean dim_assai dim_eau dim_logem dim_nutri dim_sante dim_protect dim_educ
+}
+
 di _newline ">>> test_ponderation.do termine."
