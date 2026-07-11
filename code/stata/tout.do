@@ -974,6 +974,10 @@ save "$TEMP/pscore_knn.dta", replace
 di _newline "=== Appariement Kernel (Epanechnikov, h=0.06) ==="
 use "$TEMP/pscore_t0.dta", clear
 psmatch2 D, pscore(pscore) kernel kerneltype(epan) bwidth(0.06) common
+
+di _newline "Balance avant/apres (SMD), methode kernel :"
+pstest hhsize log_pcexp i.milieu i.region hgender hage i.heduc i.hmstat, both
+
 rename _weight weight_kernel
 keep grappe menage weight_kernel
 save "$TEMP/poids_kernel.dta", replace
@@ -982,6 +986,10 @@ save "$TEMP/poids_kernel.dta", replace
 di _newline "=== Appariement Caliper (eps=$CALIPER, sans remise) ==="
 use "$TEMP/pscore_t0.dta", clear
 psmatch2 D, pscore(pscore) caliper($CALIPER) noreplacement common
+
+di _newline "Balance avant/apres (SMD), methode caliper :"
+pstest hhsize log_pcexp i.milieu i.region hgender hage i.heduc i.hmstat, both
+
 rename _weight weight_caliper
 keep grappe menage weight_caliper
 save "$TEMP/poids_caliper.dta", replace
