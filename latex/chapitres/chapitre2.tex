@@ -338,7 +338,13 @@ diffèrent systématiquement sur des caractéristiques observables et inobservab
 
 \subsubsection{Appariement par score de propension (PSM)}
 
-Le PSM repose sur deux hypothèses. La première est l'indépendance
+L'appariement par score de propension, introduit par \textcite{rosenbaum1983},
+corrige le biais de sélection lié aux caractéristiques observables dans les
+études non expérimentales. Plutôt qu'une comparaison directe entre ménages
+bénéficiaires et non-bénéficiaires, potentiellement très différents dès le
+départ, il construit pour chaque ménage bénéficiaire un contrefactuel crédible
+à partir de ménages non-bénéficiaires aux caractéristiques observables
+similaires. Le PSM repose sur deux hypothèses. La première est l'indépendance
 conditionnelle (CIA) : conditionnellement aux covariables observées $X_i$,
 les résultats potentiels sont indépendants du traitement,
 \begin{equation}
