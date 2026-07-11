@@ -48,6 +48,28 @@ La distribution placebo est centrée sur zéro (écart-type 0,020) ; l'ATT réel
 ($0{,}079$) se situe au 100\textsuperscript{e} centile, ce qui conforte sa
 lecture comme un signal réel.
 
+\subsection{Sensibilité au seuil de dimensions (k)}
+
+Le seuil $k=4$ retenu comme approche principale (section~\ref{sec:methodo})
+est une convention, conformément à la méthodologie N-MODA Sénégal
+\parencite{ansd2024}. La figure~\ref{fig:distrib_dimensions} présente la
+distribution complète du nombre de dimensions en privation, à l'image du
+rapport ANSD/UNICEF sur la pauvreté de l'enfant au Sénégal.
+
+\begin{figure}[H]
+  \centering
+  \caption{Distribution du nombre de dimensions en privation (EHCVM I et II)}
+  \includegraphics[width=0.85\linewidth]{figures/fig_distrib_dimensions.pdf}
+  \label{fig:distrib_dimensions}
+\end{figure}
+
+La distribution se déplace vers la gauche entre les deux vagues, cohérent
+avec la baisse de l'incidence N-MODA documentée au chapitre~3~: la part des
+enfants privés dans 5 dimensions ou plus recule, tandis que celle des enfants
+privés dans 0 à 3 dimensions progresse. Le choix de $k=4$ se situe au
+voisinage du mode de la distribution, sans discontinuité marquée qui
+justifierait un autre seuil.
+
 \subsection{Résultats PSM avec différentes méthodes d'appariement}
 
 Le tableau~\ref{tab:psm_methodes} (section~\ref{subsec:psmdd}) produit des ATT
@@ -87,10 +109,10 @@ sont perdus.
 \entete Variable & Suivis ($n=5\,643$) & Perdus ($n=784$) & SMD & $p$-val. \\
     \hline
     Log dépense par tête   & 12,92 & 13,24 & -$0{,}52$ & $<$0,001 \\ \hline
-    Taille du ménage       & 10,27 & 8,15  & +$0{,}39$ & $<$0,001 \\ \hline
+    Taille du ménage       & 10,27 & 8,15  & $0{,}39$ & $<$0,001 \\ \hline
     Chef féminin (\%)      & 24,2  & 39,9  & -$0{,}34$ & $<$0,001 \\ \hline
     Milieu urbain (\%)     & 49,8  & 71,7  & -$0{,}46$ & $<$0,001 \\ \hline
-    Âge du chef (années)   & 51,9  & 49,6  & +$0{,}16$ & $<$0,001 \\
+    Âge du chef (années)   & 51,9  & 49,6  & $0{,}16$ & $<$0,001 \\
     \hline
     Bénéficiaires 2018 ($D$, \%) & 21,9 & 26,9 & -$0{,}12$ & 0,004 \\
     \hline
