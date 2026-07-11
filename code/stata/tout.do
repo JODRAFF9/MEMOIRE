@@ -606,7 +606,8 @@ foreach annee in 2018 2021 {
        Indicateur 2 - Temps d'acces a l'eau > 30 min (saison seche OU pluies) */
     gen byte m_eau_source = (eauboi_ss == 0 | eauboi_sp == 0) ///
         if !missing(eauboi_ss) | !missing(eauboi_sp)
-    gen byte m_eau_temps  = (`v_tps_ss' > 30 | `v_tps_sp' > 30) ///
+    gen byte m_eau_temps  = (`v_tps_ss' > 30 & !missing(`v_tps_ss')) | ///
+                             (`v_tps_sp' > 30 & !missing(`v_tps_sp')) ///
         if !missing(`v_tps_ss') | !missing(`v_tps_sp')
     gen byte dim_eau      = (m_eau_source == 1 | m_eau_temps == 1) ///
         if !missing(m_eau_source) & !missing(m_eau_temps)
@@ -666,7 +667,7 @@ foreach annee in 2018 2021 {
     gen byte m_acte_nais = (s01q05 == 2) if !missing(s01q05)
     replace  m_acte_nais = 0 if age > 14
 
-    gen byte m_trav_enf = (eco == 1 | h_dom >= 1) ///
+    gen byte m_trav_enf = (eco == 1 & !missing(eco)) | (h_dom >= 1 & !missing(h_dom)) ///
         if age >= 5 & age <= 14 & (!missing(eco) | !missing(h_dom))
     replace  m_trav_enf = 0 if age < 5 | age > 14
 
