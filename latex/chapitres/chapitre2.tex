@@ -254,6 +254,25 @@ taux de privation par dimension $H_j$ et l'indice ajusté $M_0 = H \times A$
 servent de mesures secondaires, décomposables par milieu, région et groupe
 d'âge.
 
+Le traitement des valeurs manquantes suit une analyse en cas complets~:
+une dimension n'est calculée que si tous les indicateurs qui la composent
+sont renseignés pour l'enfant concerné, sans imputation. Un enfant pour
+lequel un seul indicateur manque sur une dimension est exclu du calcul de
+cette dimension, et donc de l'indicateur N-MODA global, plutôt que de se
+voir attribuer une hypothèse arbitraire sur la valeur manquante. Cette
+règle est distincte des cas de non-applicabilité par groupe d'âge (par
+exemple l'acte de naissance, non pertinent après 14 ans, ou le travail des
+enfants, mesuré uniquement entre 5 et 14 ans), qui ne relèvent pas d'une
+donnée manquante mais d'un champ d'application différent selon le stade de
+développement de l'enfant, conformément au principe de désagrégation par
+âge de MODA. Deux sauts de question ont par ailleurs été identifiés et
+corrigés dans les modules sources~: le temps d'accès à l'eau n'est
+demandé que si le ménage doit se déplacer pour s'approvisionner, et la
+question du partage des sanitaires n'est posée que si le ménage dispose
+d'une installation propre. Dans ces deux cas, l'absence de réponse traduit
+la non-applicabilité de la question plutôt qu'une non-réponse, et est donc
+traitée comme telle.
+
 % ─────────────────────────────────────────────────────────────────────────────
 \subsection{Stratégie d'identification causale}
 % ─────────────────────────────────────────────────────────────────────────────
