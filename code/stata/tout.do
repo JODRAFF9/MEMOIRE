@@ -1598,6 +1598,44 @@ histogram nb_dep, by(D, cols(1) note("")) ///
 graph export "$OUTPUT/figures/fig_distrib_nbdep.pdf", replace
 di ">>> fig_distrib_nbdep.pdf sauvegardé"
 
+/* ── Fig 5 : Distribution du nombre de dimensions en privation ──
+   Abscisse : nombre exact de dimensions en privation (0 a 7).
+   Ordonnee  : part des enfants (%), a l'image du rapport ANSD/UNICEF
+   N-MODA. Ligne verticale entre 3 et 4 marquant le seuil k=4 retenu. */
+tempname distrib
+matrix `distrib' = J(8, 3, .)
+foreach annee in 2018 2021 {
+    use "$TEMP/vague_`annee'.dta", clear
+    local col = cond(`annee' == 2018, 2, 3)
+    quietly count if !missing(nb_dep)
+    local n_tot = r(N)
+    forvalues d = 0/7 {
+        quietly count if nb_dep == `d' & !missing(nb_dep)
+        matrix `distrib'[`d' + 1, 1] = `d'
+        matrix `distrib'[`d' + 1, `col'] = r(N) / `n_tot' * 100
+    }
+}
+clear
+svmat `distrib', names(col)
+rename c1 nb_dim
+rename c2 pct_2018
+rename c3 pct_2021
+gen str8 lbl_18 = subinstr(string(pct_2018, "%3.1f"), ".", ",", 1) + " %"
+gen str8 lbl_21 = subinstr(string(pct_2021, "%3.1f"), ".", ",", 1) + " %"
+gen x_2018 = nb_dim - 0.19
+gen x_2021 = nb_dim + 0.19
+
+graph twoway ///
+    (bar pct_2018 x_2018, barwidth(0.35) color(gs9)) ///
+    (bar pct_2021 x_2021, barwidth(0.35) color(orange)) ///
+    , xline(3.5, lcolor(red) lpattern(dash) lwidth(medthick)) ///
+    xlabel(0(1)7) xtitle("Nombre de dimensions en privation (sur 7)") ///
+    ylabel(0(5)30, grid) ytitle("Part des enfants (%)") ///
+    legend(order(1 "EHCVM I (2018-19)" 2 "EHCVM II (2021-22)") pos(6) rows(1)) ///
+    graphregion(color(white)) plotregion(color(white))
+graph export "$OUTPUT/figures/fig_distrib_dimensions.pdf", replace
+di ">>> fig_distrib_dimensions.pdf sauvegardé"
+
 di _newline ">>> 06_stats_desc.do terminé."
 di ">>> Sorties dans : $OUTPUT/tables/ et $OUTPUT/figures/"
 
@@ -2016,7 +2054,7 @@ di _newline ">>> 09_placebo_attrition.do termine."
 di _newline ">>> Copie des figures vers latex/figures ..."
 local figs fig_evolution_ipm fig_privations_dim fig_pauvrete_milieu_age ///
            fig_distrib_nbdep fig_effets_dim fig_carte_nmoda fig_croisement_pauvrete ///
-           fig_dd_trajectoires fig_placebo_dd fig_profil_statut
+           fig_dd_trajectoires fig_placebo_dd fig_profil_statut fig_distrib_dimensions
 foreach f of local figs {
     capture copy "$OUTPUT/figures/`f'.pdf" "latex/figures/`f'.pdf", replace
     if _rc di "    !! echec copie `f'.pdf (rc=" _rc ")"
