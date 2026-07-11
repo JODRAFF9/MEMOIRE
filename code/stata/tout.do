@@ -1371,6 +1371,24 @@ preserve
     di ">>> tab_balance.csv sauvegardé"
 restore
 
+/* ── Fig profil : ménages bénéficiaires vs non-bénéficiaires ──
+   Comparaison visuelle du profil socio-demographique selon le statut de
+   transfert (EHCVM I), en complement du tableau de balance (tab_balance). */
+preserve
+    replace chef_f = chef_f * 100
+    replace urbain = urbain * 100
+    label define statutD 0 "Non-beneficiaires" 1 "Beneficiaires", replace
+    label values D statutD
+    graph bar (mean) chef_f urbain, over(D) ///
+        bar(1, color(gs9)) bar(2, color(orange)) ///
+        blabel(bar, position(center) color(white) format(%3.0f)) ///
+        legend(order(1 "Chef feminin (%)" 2 "Milieu urbain (%)") pos(6) rows(1)) ///
+        ytitle("Part des menages (%)") ylabel(0(20)100, grid) ///
+        graphregion(color(white)) plotregion(color(white))
+    graph export "$OUTPUT/figures/fig_profil_statut.pdf", replace
+    di ">>> fig_profil_statut.pdf sauvegardé"
+restore
+
 /* ============================================================
    3. Incidence N-MODA par vague, milieu, groupe d'âge
    ============================================================ */
@@ -1952,7 +1970,7 @@ di _newline ">>> 09_placebo_attrition.do termine."
 di _newline ">>> Copie des figures vers latex/figures ..."
 local figs fig_evolution_ipm fig_privations_dim fig_pauvrete_milieu_age ///
            fig_distrib_nbdep fig_effets_dim fig_carte_nmoda fig_croisement_pauvrete ///
-           fig_dd_trajectoires fig_placebo_dd
+           fig_dd_trajectoires fig_placebo_dd fig_profil_statut
 foreach f of local figs {
     capture copy "$OUTPUT/figures/`f'.pdf" "latex/figures/`f'.pdf", replace
     if _rc di "    !! echec copie `f'.pdf (rc=" _rc ")"
