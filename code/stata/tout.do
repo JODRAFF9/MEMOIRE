@@ -592,10 +592,12 @@ foreach annee in 2018 2021 {
 
     /* ── [Dimension 1/7 : Assainissement] ────────────────────────
        Indicateur 1 - Type de sanitaire non ameliore (toilet)
-       Indicateur 2 - Partage des toilettes avec un autre menage */
+       Indicateur 2 - Partage des toilettes avec un autre menage
+       Valeur manquante sur un indicateur = indicateur laisse manquant
+       (aucune imputation a 0) : un enfant sans aucune information sur
+       la dimension est exclu de pauvre_MODA (nb_dep devient manquant). */
     gen byte m_toilet     = (toilet == 0) if !missing(toilet)
     gen byte m_partag_toi = (`v_partag' == 1) if !missing(`v_partag')
-    replace  m_partag_toi = 0 if missing(m_partag_toi)
     gen byte dim_assai    = (m_toilet == 1 | m_partag_toi == 1)
 
     /* ── [Dimension 2/7 : Eau] ─────────────────────────────────────
@@ -603,9 +605,8 @@ foreach annee in 2018 2021 {
        Indicateur 2 - Temps d'acces a l'eau > 30 min (saison seche OU pluies) */
     gen byte m_eau_source = (eauboi_ss == 0 | eauboi_sp == 0) ///
         if !missing(eauboi_ss) | !missing(eauboi_sp)
-    gen byte m_eau_temps  = (`v_tps_ss' > 30 & !missing(`v_tps_ss')) | ///
-                             (`v_tps_sp' > 30 & !missing(`v_tps_sp'))
-    replace  m_eau_temps  = 0 if missing(`v_tps_ss') & missing(`v_tps_sp')
+    gen byte m_eau_temps  = (`v_tps_ss' > 30 | `v_tps_sp' > 30) ///
+        if !missing(`v_tps_ss') | !missing(`v_tps_sp')
     gen byte dim_eau      = (m_eau_source == 1 | m_eau_temps == 1)
 
     /* ── [Dimension 3/7 : Logement] ────────────────────────────────
@@ -614,7 +615,6 @@ foreach annee in 2018 2021 {
     gen byte m_ordures = (ordure == 0) if !missing(ordure)
     gen byte m_surpeup = (hhsize / nb_pieces > 3) ///
         if !missing(nb_pieces) & nb_pieces > 0 & !missing(hhsize)
-    replace  m_surpeup = 0 if missing(m_surpeup)
     gen byte dim_logem = (m_ordures == 1 | m_surpeup == 1)
 
     /* ── [Dimension 4/7 : Nutrition] ───────────────────────────────
@@ -622,21 +622,27 @@ foreach annee in 2018 2021 {
        saute un repas, mange moins que necessaire, manque de nourriture,
        eu faim ou passe une journee sans manger (1=Oui ; 98/99 traites Non).
        Diversite alimentaire (module s08b1, 2018 uniquement) NON RETENUE
-       pour rester comparable entre les deux vagues. */
-    gen byte m_securite = 0
+       pour rester comparable entre les deux vagues. Manquant si les 5
+       questions du module sont toutes non renseignees. */
+    egen byte n_nonmiss_sec = rownonmiss(s08aq04 s08aq05 s08aq06 s08aq07 s08aq08)
+    gen byte m_securite = 0 if n_nonmiss_sec > 0
     foreach v in s08aq04 s08aq05 s08aq06 s08aq07 s08aq08 {
         replace m_securite = 1 if `v' == 1 & !missing(`v')
     }
+    drop n_nonmiss_sec
     gen byte dim_nutri = (m_securite == 1)
 
     /* ── [Dimension 5/7 : Sante] ────────────────────────────────────
        Indicateur unique - Combustible solide pour cuisiner (bois,
        charbon, dechets animaux). Acces a une structure de sante NON
-       RETENU (module communautaire non comparable entre les vagues). */
-    gen byte m_combust = 0
+       RETENU (module communautaire non comparable entre les vagues).
+       Manquant si le module combustible est entierement non renseigne. */
+    egen byte n_nonmiss_comb = rownonmiss(`comb_vars')
+    gen byte m_combust = 0 if n_nonmiss_comb > 0
     foreach v of varlist `comb_vars' {
         replace m_combust = 1 if `v' >= 1 & !missing(`v')
     }
+    drop n_nonmiss_comb
     gen byte dim_sante = (m_combust == 1)
 
     /* ── [Dimension 6/7 : Protection de l'enfant] ────────────────────
@@ -645,16 +651,18 @@ foreach annee in 2018 2021 {
        >=1h, 5-14 ans uniquement)
        Indicateur 3 - Separation parentale (ne vit pas avec ses 2 parents)
        Combinaison par groupe d'age : 0-4 ans = ind.1 OU ind.3 ;
-       5-14 ans = ind.1 OU ind.2 OU ind.3 ; 15-17 ans = ind.3 seul. */
+       5-14 ans = ind.1 OU ind.2 OU ind.3 ; 15-17 ans = ind.3 seul.
+       replace ... if age > 14/hors 5-14 ans = non-applicabilite (pas une
+       imputation de valeur manquante) : l'indicateur ne sert pas pour ce
+       groupe d'age, quelle que soit l'info disponible. */
     gen byte m_acte_nais = (s01q05 == 2) if !missing(s01q05)
-    replace  m_acte_nais = 0 if missing(m_acte_nais)
     replace  m_acte_nais = 0 if age > 14
 
-    gen byte m_trav_enf = 0
-    replace  m_trav_enf = 1 if age >= 5 & age <= 14 & (eco == 1 | h_dom >= 1)
+    gen byte m_trav_enf = (eco == 1 | h_dom >= 1) ///
+        if age >= 5 & age <= 14 & (!missing(eco) | !missing(h_dom))
+    replace  m_trav_enf = 0 if age < 5 | age > 14
 
     gen byte m_parents = (lien > 3) if !missing(lien)
-    replace  m_parents = 0 if missing(m_parents)
 
     gen byte dim_protect = 0
     replace  dim_protect = (m_acte_nais == 1 | m_parents == 1) ///
@@ -669,21 +677,22 @@ foreach annee in 2018 2021 {
        Indicateur 3 - NEET, ni scolarise ni employe (15-17 ans)
        Combinaison par groupe d'age : 5-14 ans = ind.2 seul ;
        15-17 ans = ind.1 OU ind.3. */
-    gen byte m_scol = 0
-    replace  m_scol = 1 if age >= 5 & age <= 14 & (scol == 0 | missing(scol))
+    gen byte m_scol = (scol == 0) if age >= 5 & age <= 14 & !missing(scol)
+    replace  m_scol = 0 if age < 5 | age > 14
 
-    gen byte m_alfab = 0
+    gen byte m_alfab = .
     if `annee' == 2018 {
-        replace m_alfab = 1 if age >= 15 & alfab == 0 & !missing(alfab)
+        replace m_alfab = (alfab == 0) if age >= 15 & !missing(alfab)
     }
     else {
         capture confirm variable alfa
-        if !_rc replace m_alfab = 1 if age >= 15 & alfa == 0 & !missing(alfa)
+        if !_rc replace m_alfab = (alfa == 0) if age >= 15 & !missing(alfa)
     }
+    replace m_alfab = 0 if age < 15
 
-    gen byte m_neet = 0
-    replace  m_neet = 1 if age >= 15 & ///
-        (scol == 0 | missing(scol)) & (activ7j != 1 | missing(activ7j))
+    gen byte m_neet = (scol == 0 & activ7j != 1) ///
+        if age >= 15 & !missing(scol) & !missing(activ7j)
+    replace  m_neet = 0 if age < 15
 
     gen byte dim_educ = 0
     replace  dim_educ = m_scol if groupe_moda == 2
