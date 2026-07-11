@@ -593,16 +593,13 @@ foreach annee in 2018 2021 {
     /* ── [Dimension 1/7 : Assainissement] ────────────────────────
        Indicateur 1 - Type de sanitaire non ameliore (toilet)
        Indicateur 2 - Partage des toilettes avec un autre menage
-       Un enfant n'est exclu (dim manquante) que si TOUS les indicateurs
-       de la dimension lui manquent a la fois ; un seul indicateur
-       renseigne suffit a determiner la dimension (aucune hypothese
-       n'est faite sur l'indicateur manquant, il est simplement ignore
-       plutot que suppose "non prive"). */
+       Analyse en cas complets : la dimension est manquante des qu'UN
+       SEUL indicateur manque, meme si l'autre indicateur est renseigne
+       et positif. Aucun "sauvetage" par un indicateur deja positif. */
     gen byte m_toilet     = (toilet == 0) if !missing(toilet)
     gen byte m_partag_toi = (`v_partag' == 1) if !missing(`v_partag')
-    gen byte dim_assai    = 0
-    replace  dim_assai    = 1 if m_toilet == 1 | m_partag_toi == 1
-    replace  dim_assai    = . if missing(m_toilet) & missing(m_partag_toi)
+    gen byte dim_assai    = (m_toilet == 1 | m_partag_toi == 1) ///
+        if !missing(m_toilet) & !missing(m_partag_toi)
 
     /* ── [Dimension 2/7 : Eau] ─────────────────────────────────────
        Indicateur 1 - Source d'eau de boisson non amelioree
@@ -611,9 +608,8 @@ foreach annee in 2018 2021 {
         if !missing(eauboi_ss) | !missing(eauboi_sp)
     gen byte m_eau_temps  = (`v_tps_ss' > 30 | `v_tps_sp' > 30) ///
         if !missing(`v_tps_ss') | !missing(`v_tps_sp')
-    gen byte dim_eau      = 0
-    replace  dim_eau      = 1 if m_eau_source == 1 | m_eau_temps == 1
-    replace  dim_eau      = . if missing(m_eau_source) & missing(m_eau_temps)
+    gen byte dim_eau      = (m_eau_source == 1 | m_eau_temps == 1) ///
+        if !missing(m_eau_source) & !missing(m_eau_temps)
 
     /* ── [Dimension 3/7 : Logement] ────────────────────────────────
        Indicateur 1 - Debarras des ordures menageres inadequat
@@ -621,36 +617,40 @@ foreach annee in 2018 2021 {
     gen byte m_ordures = (ordure == 0) if !missing(ordure)
     gen byte m_surpeup = (hhsize / nb_pieces > 3) ///
         if !missing(nb_pieces) & nb_pieces > 0 & !missing(hhsize)
-    gen byte dim_logem = 0
-    replace  dim_logem = 1 if m_ordures == 1 | m_surpeup == 1
-    replace  dim_logem = . if missing(m_ordures) & missing(m_surpeup)
+    gen byte dim_logem = (m_ordures == 1 | m_surpeup == 1) ///
+        if !missing(m_ordures) & !missing(m_surpeup)
 
     /* ── [Dimension 4/7 : Nutrition] ───────────────────────────────
        Indicateur unique - Insecurite alimentaire (FIES) : membre ayant
        saute un repas, mange moins que necessaire, manque de nourriture,
        eu faim ou passe une journee sans manger (1=Oui ; 98/99 traites Non).
        Diversite alimentaire (module s08b1, 2018 uniquement) NON RETENUE
-       pour rester comparable entre les deux vagues. Manquant si les 5
-       questions du module sont toutes non renseignees. */
-    egen byte n_nonmiss_sec = rownonmiss(s08aq04 s08aq05 s08aq06 s08aq07 s08aq08)
-    gen byte m_securite = 0 if n_nonmiss_sec > 0
+       pour rester comparable entre les deux vagues. Analyse en cas
+       complets : manquant des qu'UNE SEULE des 5 questions du module
+       manque, meme si une autre question etablit deja la privation. */
+    gen byte m_securite = 0
     foreach v in s08aq04 s08aq05 s08aq06 s08aq07 s08aq08 {
         replace m_securite = 1 if `v' == 1 & !missing(`v')
     }
-    drop n_nonmiss_sec
+    egen byte n_miss_sec = rowmiss(s08aq04 s08aq05 s08aq06 s08aq07 s08aq08)
+    replace m_securite = . if n_miss_sec > 0
+    drop n_miss_sec
     gen byte dim_nutri = (m_securite == 1)
 
     /* ── [Dimension 5/7 : Sante] ────────────────────────────────────
        Indicateur unique - Combustible solide pour cuisiner (bois,
        charbon, dechets animaux). Acces a une structure de sante NON
        RETENU (module communautaire non comparable entre les vagues).
-       Manquant si le module combustible est entierement non renseigne. */
-    egen byte n_nonmiss_comb = rownonmiss(`comb_vars')
-    gen byte m_combust = 0 if n_nonmiss_comb > 0
+       Analyse en cas complets : manquant des qu'UNE SEULE des options
+       de combustible manque, meme si une autre etablit deja la
+       privation. */
+    gen byte m_combust = 0
     foreach v of varlist `comb_vars' {
         replace m_combust = 1 if `v' >= 1 & !missing(`v')
     }
-    drop n_nonmiss_comb
+    egen byte n_miss_comb = rowmiss(`comb_vars')
+    replace m_combust = . if n_miss_comb > 0
+    drop n_miss_comb
     gen byte dim_sante = (m_combust == 1)
 
     /* ── [Dimension 6/7 : Protection de l'enfant] ────────────────────
@@ -672,16 +672,14 @@ foreach annee in 2018 2021 {
 
     gen byte m_parents = (lien > 3) if !missing(lien)
 
-    /* dim_protect manquante seulement si TOUS les indicateurs pertinents
-       pour le groupe d'age de l'enfant lui manquent a la fois. */
-    gen byte dim_protect = 0
-    replace  dim_protect = 1 if (m_acte_nais == 1 | m_parents == 1) & groupe_moda == 1
-    replace  dim_protect = . if missing(m_acte_nais) & missing(m_parents) & groupe_moda == 1
-    replace  dim_protect = 1 if (m_acte_nais == 1 | m_trav_enf == 1 | m_parents == 1) ///
-        & groupe_moda == 2
-    replace  dim_protect = . if missing(m_acte_nais) & missing(m_trav_enf) & ///
-        missing(m_parents) & groupe_moda == 2
-    replace  dim_protect = (m_parents == 1) if groupe_moda == 3
+    /* dim_protect manquante des qu'UN SEUL indicateur pertinent pour le
+       groupe d'age de l'enfant lui manque (analyse en cas complets). */
+    gen byte dim_protect = .
+    replace  dim_protect = (m_acte_nais == 1 | m_parents == 1) ///
+        if groupe_moda == 1 & !missing(m_acte_nais) & !missing(m_parents)
+    replace  dim_protect = (m_acte_nais == 1 | m_trav_enf == 1 | m_parents == 1) ///
+        if groupe_moda == 2 & !missing(m_acte_nais) & !missing(m_trav_enf) & !missing(m_parents)
+    replace  dim_protect = (m_parents == 1) if groupe_moda == 3 & !missing(m_parents)
 
     /* ── [Dimension 7/7 : Education] ──────────────────────────────
        Indicateur 1 - Illettrisme, ne sait ni lire ni ecrire (15-17 ans)
@@ -706,10 +704,13 @@ foreach annee in 2018 2021 {
         if age >= 15 & !missing(scol) & !missing(activ7j)
     replace  m_neet = 0 if age < 15
 
+    /* Non applicable aux 0-4 ans (groupe_moda==1) : dim_educ = 0 par
+       defaut, pas de "sauvetage" pour les 5-14 et 15-17 ans. */
     gen byte dim_educ = 0
     replace  dim_educ = m_scol if groupe_moda == 2
-    replace  dim_educ = 1 if (m_alfab == 1 | m_neet == 1) & groupe_moda == 3
-    replace  dim_educ = . if missing(m_alfab) & missing(m_neet) & groupe_moda == 3
+    replace  dim_educ = (m_alfab == 1 | m_neet == 1) ///
+        if groupe_moda == 3 & !missing(m_alfab) & !missing(m_neet)
+    replace  dim_educ = . if groupe_moda == 3 & (missing(m_alfab) | missing(m_neet))
 
     /* ── Agregation N-MODA (union intra-dimension, seuil k=$K_MODA) ── */
     gen byte nb_dep = dim_assai + dim_eau + dim_logem + dim_nutri + ///
