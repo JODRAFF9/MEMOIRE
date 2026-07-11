@@ -111,6 +111,7 @@ résiduelle n'est significative au seuil de 5\,\%.
   \label{tab:balance}
   \zebre
   \small
+  \resizebox{\linewidth}{!}{%
   \begin{tabular}{|l|c|c|c|c|c|}
     \hline
 \entete Variable & Moyenne traités & Moyenne témoins & Biais standardisé (\%) & T-stat & $P>|t|$ \\
@@ -121,7 +122,8 @@ résiduelle n'est significative au seuil de 5\,\%.
     Sexe du chef (1=H, 2=F)    & 1,401  & 1,398  & 0,7  & 0,11  & 0,910 \\ \hline
     Âge du chef                & 54,416 & 55,012 & -4,1 & -0,73 & 0,464 \\
     \hline
-  \end{tabular}
+  \end{tabular}%
+  }
   \begin{tablenotes}
     \small
     \item \textit{Note :} calculé au niveau ménage sur l'échantillon d'estimation
