@@ -1598,6 +1598,43 @@ histogram nb_dep, by(D, cols(1) note("")) ///
 graph export "$OUTPUT/figures/fig_distrib_nbdep.pdf", replace
 di ">>> fig_distrib_nbdep.pdf sauvegardé"
 
+/* ── Fig 5 : Sensibilite de l'incidence N-MODA au seuil k ──
+   Abscisse : seuil de dimensions simultanees k (1 a 7).
+   Ordonnee  : incidence H(k) = part des enfants prives dans au moins
+   k dimensions sur 7, calculee separement pour les deux vagues. */
+tempname H_seuil
+matrix `H_seuil' = J(7, 3, .)
+foreach annee in 2018 2021 {
+    use "$TEMP/vague_`annee'.dta", clear
+    local col = cond(`annee' == 2018, 2, 3)
+    forvalues k = 1/7 {
+        quietly count if nb_dep >= `k' & !missing(nb_dep)
+        local n_priv = r(N)
+        quietly count if !missing(nb_dep)
+        matrix `H_seuil'[`k', 1] = `k'
+        matrix `H_seuil'[`k', `col'] = `n_priv' / r(N) * 100
+    }
+}
+clear
+svmat `H_seuil', names(col)
+rename c1 seuil_k
+rename c2 H_2018
+rename c3 H_2021
+gen str8 lbl_18 = subinstr(string(H_2018, "%3.1f"), ".", ",", 1) + " %"
+gen str8 lbl_21 = subinstr(string(H_2021, "%3.1f"), ".", ",", 1) + " %"
+
+twoway (connected H_2018 seuil_k, lcolor(gs7) mcolor(gs7) msymbol(square) lwidth(medthick) ///
+            mlabel(lbl_18) mlabcolor(black) mlabpos(12) mlabgap(2) mlabsize(small)) ///
+       (connected H_2021 seuil_k, lcolor(orange) mcolor(orange) msymbol(circle) lwidth(medthick) ///
+            mlabel(lbl_21) mlabcolor(black) mlabpos(6) mlabgap(2) mlabsize(small)) ///
+       , xline(4, lcolor(black) lpattern(dash)) ///
+       xlabel(1(1)7) xtitle("Seuil de dimensions simultanées (k)") ///
+       ylabel(0(20)100, grid) ytitle("Incidence N-MODA H(k), %") ///
+       legend(order(1 "EHCVM I (2018-19)" 2 "EHCVM II (2021-22)") pos(6) rows(1)) ///
+       graphregion(color(white)) plotregion(color(white))
+graph export "$OUTPUT/figures/fig_sensibilite_seuil.pdf", replace
+di ">>> fig_sensibilite_seuil.pdf sauvegardé"
+
 di _newline ">>> 06_stats_desc.do terminé."
 di ">>> Sorties dans : $OUTPUT/tables/ et $OUTPUT/figures/"
 
@@ -2016,7 +2053,7 @@ di _newline ">>> 09_placebo_attrition.do termine."
 di _newline ">>> Copie des figures vers latex/figures ..."
 local figs fig_evolution_ipm fig_privations_dim fig_pauvrete_milieu_age ///
            fig_distrib_nbdep fig_effets_dim fig_carte_nmoda fig_croisement_pauvrete ///
-           fig_dd_trajectoires fig_placebo_dd fig_profil_statut
+           fig_dd_trajectoires fig_placebo_dd fig_profil_statut fig_sensibilite_seuil
 foreach f of local figs {
     capture copy "$OUTPUT/figures/`f'.pdf" "latex/figures/`f'.pdf", replace
     if _rc di "    !! echec copie `f'.pdf (rc=" _rc ")"
