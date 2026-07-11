@@ -1068,11 +1068,11 @@ gen temoin  = dd_c0 in 1
 replace temoin  = dd_c1 in 2
 gen contref = dd_b0 in 1
 replace contref = dd_cf1 in 2
-gen str8 lb_b = string(benef,  "%3.1f") + " %"
-gen str8 lb_t = string(temoin, "%3.1f") + " %"
+gen str8 lb_b = subinstr(string(benef,  "%3.1f"), ".", ",", 1) + " %"
+gen str8 lb_t = subinstr(string(temoin, "%3.1f"), ".", ",", 1) + " %"
 /* etiquette du contrefactuel affichee seulement en 2021 (2018 = point benef) */
 gen str8 lb_c = ""
-replace  lb_c = string(contref, "%3.1f") + " %" in 2
+replace  lb_c = subinstr(string(contref, "%3.1f"), ".", ",", 1) + " %" in 2
 
 /* Courbe haute (temoin) : etiquettes au-dessus. Courbe basse (benef) et
    contrefactuel : etiquettes en dessous, pour eviter tout chevauchement. */
@@ -1476,12 +1476,12 @@ gen annee  = 2018 in 1
 replace annee  = 2021 in 2
 gen H_MODA = H_moda_2018 in 1
 replace H_MODA = H_moda_2021 in 2
-gen str12 lbl_H = string(H_MODA, "%3.1f") + " %"
+gen str12 lbl_H = subinstr(string(H_MODA, "%3.1f"), ".", ",", 1) + " %"
 
 twoway (connected H_MODA annee, lcolor(orange) mcolor(orange) msymbol(circle)  lwidth(medthick) ///
-        mlabel(lbl_H) mlabformat(%3.1f) mlabcolor(black) mlabpos(12) mlabgap(2) mlabsize(medium)), ///
-    xlabel(2018 2021) xtitle("Vague EHCVM") ytitle("Incidence H (%)") ///
-    ylabel(0(20)100, grid) ///
+        mlabel(lbl_H) mlabcolor(black) mlabpos(12) mlabgap(2) mlabsize(medium)), ///
+    xlabel(2018 2021) xscale(range(2017.7 2021.3)) xtitle("Vague EHCVM") ytitle("Incidence H (%)") ///
+    ylabel(0(20)100, grid) yscale(range(0 108)) ///
     legend(order(1 "N-MODA (k=4, 7 dim.)") pos(6) rows(1)) ///
     graphregion(color(white)) plotregion(color(white))
 graph export "$OUTPUT/figures/fig_evolution_ipm.pdf", replace
