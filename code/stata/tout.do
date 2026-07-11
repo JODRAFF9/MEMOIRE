@@ -593,12 +593,16 @@ foreach annee in 2018 2021 {
     /* ── [Dimension 1/7 : Assainissement] ────────────────────────
        Indicateur 1 - Type de sanitaire non ameliore (toilet)
        Indicateur 2 - Partage des toilettes avec un autre menage
-       Valeur manquante sur un indicateur = indicateur laisse manquant
-       (aucune imputation a 0) : un enfant sans aucune information sur
-       la dimension est exclu de pauvre_MODA (nb_dep devient manquant). */
+       Un enfant n'est exclu (dim manquante) que si TOUS les indicateurs
+       de la dimension lui manquent a la fois ; un seul indicateur
+       renseigne suffit a determiner la dimension (aucune hypothese
+       n'est faite sur l'indicateur manquant, il est simplement ignore
+       plutot que suppose "non prive"). */
     gen byte m_toilet     = (toilet == 0) if !missing(toilet)
     gen byte m_partag_toi = (`v_partag' == 1) if !missing(`v_partag')
-    gen byte dim_assai    = (m_toilet == 1 | m_partag_toi == 1)
+    gen byte dim_assai    = 0
+    replace  dim_assai    = 1 if m_toilet == 1 | m_partag_toi == 1
+    replace  dim_assai    = . if missing(m_toilet) & missing(m_partag_toi)
 
     /* ── [Dimension 2/7 : Eau] ─────────────────────────────────────
        Indicateur 1 - Source d'eau de boisson non amelioree
@@ -607,7 +611,9 @@ foreach annee in 2018 2021 {
         if !missing(eauboi_ss) | !missing(eauboi_sp)
     gen byte m_eau_temps  = (`v_tps_ss' > 30 | `v_tps_sp' > 30) ///
         if !missing(`v_tps_ss') | !missing(`v_tps_sp')
-    gen byte dim_eau      = (m_eau_source == 1 | m_eau_temps == 1)
+    gen byte dim_eau      = 0
+    replace  dim_eau      = 1 if m_eau_source == 1 | m_eau_temps == 1
+    replace  dim_eau      = . if missing(m_eau_source) & missing(m_eau_temps)
 
     /* ── [Dimension 3/7 : Logement] ────────────────────────────────
        Indicateur 1 - Debarras des ordures menageres inadequat
@@ -615,7 +621,9 @@ foreach annee in 2018 2021 {
     gen byte m_ordures = (ordure == 0) if !missing(ordure)
     gen byte m_surpeup = (hhsize / nb_pieces > 3) ///
         if !missing(nb_pieces) & nb_pieces > 0 & !missing(hhsize)
-    gen byte dim_logem = (m_ordures == 1 | m_surpeup == 1)
+    gen byte dim_logem = 0
+    replace  dim_logem = 1 if m_ordures == 1 | m_surpeup == 1
+    replace  dim_logem = . if missing(m_ordures) & missing(m_surpeup)
 
     /* ── [Dimension 4/7 : Nutrition] ───────────────────────────────
        Indicateur unique - Insecurite alimentaire (FIES) : membre ayant
@@ -664,11 +672,15 @@ foreach annee in 2018 2021 {
 
     gen byte m_parents = (lien > 3) if !missing(lien)
 
+    /* dim_protect manquante seulement si TOUS les indicateurs pertinents
+       pour le groupe d'age de l'enfant lui manquent a la fois. */
     gen byte dim_protect = 0
-    replace  dim_protect = (m_acte_nais == 1 | m_parents == 1) ///
-        if groupe_moda == 1
-    replace  dim_protect = (m_acte_nais == 1 | m_trav_enf == 1 | m_parents == 1) ///
-        if groupe_moda == 2
+    replace  dim_protect = 1 if (m_acte_nais == 1 | m_parents == 1) & groupe_moda == 1
+    replace  dim_protect = . if missing(m_acte_nais) & missing(m_parents) & groupe_moda == 1
+    replace  dim_protect = 1 if (m_acte_nais == 1 | m_trav_enf == 1 | m_parents == 1) ///
+        & groupe_moda == 2
+    replace  dim_protect = . if missing(m_acte_nais) & missing(m_trav_enf) & ///
+        missing(m_parents) & groupe_moda == 2
     replace  dim_protect = (m_parents == 1) if groupe_moda == 3
 
     /* ── [Dimension 7/7 : Education] ──────────────────────────────
@@ -696,7 +708,8 @@ foreach annee in 2018 2021 {
 
     gen byte dim_educ = 0
     replace  dim_educ = m_scol if groupe_moda == 2
-    replace  dim_educ = (m_alfab == 1 | m_neet == 1) if groupe_moda == 3
+    replace  dim_educ = 1 if (m_alfab == 1 | m_neet == 1) & groupe_moda == 3
+    replace  dim_educ = . if missing(m_alfab) & missing(m_neet) & groupe_moda == 3
 
     /* ── Agregation N-MODA (union intra-dimension, seuil k=$K_MODA) ── */
     gen byte nb_dep = dim_assai + dim_eau + dim_logem + dim_nutri + ///
