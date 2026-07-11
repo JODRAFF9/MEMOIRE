@@ -489,12 +489,16 @@ foreach annee in 2018 2021 {
         local v_tps_ss "s11q29a"
         local v_tps_sp "s11q31a"
         local v_comb   "s11q53"
+        local v_src_ss "s11q27a"
+        local v_src_sp "s11q27b"
     }
     else {
         local v_partag "s11q55"
         local v_tps_ss "s11q28a"
         local v_tps_sp "s11q30a"
         local v_comb   "s11q52"
+        local v_src_ss "s11q26a"
+        local v_src_sp "s11q26b"
     }
     /* Annexe I : combustible solide = bois ramasse(1), bois achete(2),
        charbon de bois(3), dechets animaux(7), autres(8). Exclut gaz(4),
@@ -513,7 +517,8 @@ foreach annee in 2018 2021 {
        a l'eau, nombre de pieces, combustible de cuisine. */
     preserve
         use "`base'/s11_me_sen`annee'.dta", clear
-        keep grappe menage s11q02 `v_partag' `v_tps_ss' `v_tps_sp' `comb_vars'
+        keep grappe menage s11q02 `v_partag' `v_tps_ss' `v_tps_sp' ///
+            `v_src_ss' `v_src_sp' `comb_vars'
         rename s11q02 nb_pieces
         tempfile s11_temp
         save `s11_temp'
@@ -606,9 +611,17 @@ foreach annee in 2018 2021 {
        Indicateur 2 - Temps d'acces a l'eau > 30 min (saison seche OU pluies) */
     gen byte m_eau_source = (eauboi_ss == 0 | eauboi_sp == 0) ///
         if !missing(eauboi_ss) | !missing(eauboi_sp)
+    /* Le temps d'acces (s11q29a/28a, s11q31a/30a) n'est demande que si le
+       menage doit se deplacer pour s'approvisionner : le saut de question
+       (verifie empiriquement, >94% de non-reponse) s'applique quand la
+       source est un robinet dans le logement (code 1) ou dans la cour/
+       concession (code 2), auquel cas le temps d'acces est nul par
+       construction (eau sur place), et non manquant. */
     gen byte m_eau_temps  = (`v_tps_ss' > 30 & !missing(`v_tps_ss')) | ///
                              (`v_tps_sp' > 30 & !missing(`v_tps_sp')) ///
         if !missing(`v_tps_ss') | !missing(`v_tps_sp')
+    replace  m_eau_temps  = 0 if missing(m_eau_temps) & ///
+        inlist(`v_src_ss', 1, 2) & inlist(`v_src_sp', 1, 2)
     gen byte dim_eau      = (m_eau_source == 1 | m_eau_temps == 1) ///
         if !missing(m_eau_source) & !missing(m_eau_temps)
 
