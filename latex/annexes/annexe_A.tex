@@ -8,6 +8,52 @@ des ménages jamais traités statistiquement indiscernables des traités à $t=0
 Après appariement k-NN ($k=4$, avec remise), toutes les SMD sont inférieures à
 0,05 en valeur absolue (tableau~\ref{tab:balance}).
 
+\subsection{PSM seul, sans double différence}
+\label{subsec:psm_sans_dd}
+
+Pour illustrer concrètement l'apport de la double différence par rapport à un
+appariement transversal seul, l'écart de pauvreté N-MODA entre ménages
+traités et témoins appariés (poids $k$-NN) est estimé séparément à $t=0$
+(EHCVM~I) et $t=1$ (EHCVM~II), sans les différencier.
+
+\begin{table}[H]
+  \centering
+  \caption{PSM seul (transversal) vs PSM-DD, traitement stable}
+  \label{tab:psm_sans_dd}
+  \zebre
+  \begin{tabular}{|l|c|c|c|}
+    \hline
+\entete Spécification & Coefficient & Écart-type & $p$-val. \\
+    \hline
+    PSM seul, $t=0$ (écart initial)  & -$0{,}150$ & $0{,}033$ & $<$0,001 \\ \hline
+    PSM seul, $t=1$ (écart final)    & -$0{,}061$ & $0{,}034$ & $0{,}076$ \\ \hline
+    PSM-DD (référence, tableau~\ref{tab:psmdd_att}) & $0{,}089$ & $0{,}037$ & $0{,}018$ \\
+    \hline
+  \end{tabular}
+  \begin{tablenotes}
+    \small
+    \item \textit{Source :} calculs de l'auteur, poids d'appariement $k$-NN,
+    erreurs-types clusterisées au niveau de la grappe.
+  \end{tablenotes}
+\end{table}
+
+Même après appariement sur les caractéristiques observables du ménage, les
+ménages traités affichent dès $t=0$ une pauvreté N-MODA inférieure de 15
+points à celle des témoins appariés~: cet écart, antérieur à toute
+possibilité d'effet des transferts sur la période étudiée, révèle un
+déséquilibre résiduel non capté par le score de propension (probablement lié
+à des caractéristiques non observées, telles que le réseau migratoire ou le
+capital social du ménage). À $t=1$, cet écart se réduit à 6 points
+(significatif seulement à 10\,\%). Une lecture purement transversale
+conclurait à tort que les transferts n'ont pas d'effet notable, voire à un
+effet défavorable~: en réalité, l'écart entre traités et témoins se
+\emph{referme} sur la période (de -15 à -6 points), ce que seule la double
+différence permet d'isoler comme un effet causal positif
+($0{,}089 = -0{,}061 - (-0{,}150)$, aux arrondis près). Ce résultat confirme
+empiriquement, sur les données du mémoire, la nécessité du design PSM-DD
+plutôt qu'un simple appariement transversal, déjà motivée sur le plan
+théorique par \textcite{heckman1997,heckman1998}.
+
 \subsection{Test placebo}
 
 En affectant aléatoirement un faux statut de traitement à 14,6\,\% des ménages
