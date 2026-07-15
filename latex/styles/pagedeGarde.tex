@@ -19,7 +19,18 @@
 % ── ENSAE ────────────────────────────────────────────────────
 {\small\bfseries École Nationale de la Statistique et de l'Analyse Économique}\\
 {\small\bfseries Pierre Ndiaye (ENSAE)}\\[0.15cm]
-\includegraphics[height=1.7cm]{figures/logo_ensae_new.png}\\[0.35cm]
+\includegraphics[height=1.7cm]{figures/logo_ensae_new.png}\\[0.3cm]
+
+% ── ITIE (structure d'accueil) : logo puis nom en dessous ────
+\IfFileExists{figures/logo_itie.png}{%
+  \includegraphics[height=1.5cm]{figures/logo_itie.png}\\[0.1cm]
+  {\small\bfseries Initiative pour la Transparence dans les Industries Extractives (ITIE)}\\[0.3cm]
+}{%
+  \IfFileExists{figures/logo_itie.jpg}{%
+    \includegraphics[height=1.5cm]{figures/logo_itie.jpg}\\[0.1cm]
+    {\small\bfseries Initiative pour la Transparence dans les Industries Extractives (ITIE)}\\[0.3cm]
+  }{}%
+}
 
 % ── Séparateur décoratif TikZ ────────────────────────────────
 \begin{tikzpicture}
