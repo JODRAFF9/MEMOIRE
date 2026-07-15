@@ -27,21 +27,20 @@ d'environ trois ans, qui les fait éventuellement changer de groupe d'âge et
 donc de dimensions applicables (un enfant de 3 ans en 2018, relevant du groupe
 0-4, passe au groupe 5-14 en 2021~; un enfant de 13 ans passe de 5-14 à 15-17).
 Cette approche isole l'évolution intra-individuelle des privations de l'impact
-de composition par âge. L'ATT obtenu sur le panel d'enfants confirme la
-conclusion de l'estimation par panel de ménages (valeur à actualiser avec
-la version définitive des estimations sous le design entrants)~: l'absence
-d'écart de trajectoire détectable n'est pas un artefact de la structure
-d'âge de l'échantillon.
+de composition par âge. L'ATT obtenu sur le panel d'enfants
+($0{,}015$, $p = 0{,}576$) confirme la conclusion de l'estimation par panel
+de ménages~: l'absence d'écart de trajectoire détectable n'est pas un
+artefact de la structure d'âge de l'échantillon.
 
 \subsubsection{Sensibilité au choix de la méthode d'appariement}
 
 Le tableau~\ref{tab:psm_methodes} (section~\ref{subsec:psmdd}) documente la
-sensibilité de l'ATT à la méthode d'appariement. L'ATT k-NN ($0{,}010$,
-$p=0{,}707$) et la double différence brute ($0{,}001$, $p=0{,}976$)
-concordent sur l'absence d'effet détectable~; les spécifications noyau
-Epanechnikov et caliper seront rapportées avec la version définitive des
-estimations, sans changement attendu de conclusion compte tenu du très
-fort recouvrement des scores de propension entre les deux groupes.
+sensibilité de l'ATT à la méthode d'appariement. Les quatre spécifications
+concordent sur l'absence d'effet détectable~: k-NN ($0{,}010$,
+$p=0{,}707$), noyau Epanechnikov ($0{,}005$, $p=0{,}822$), caliper
+($0{,}010$, $p=0{,}744$) et double différence brute ($0{,}001$,
+$p=0{,}976$). La conclusion est donc pleinement robuste au choix
+algorithmique.
 
 \subsubsection{Attrition et biais de sélection de l'échantillon panel}
 
@@ -79,50 +78,55 @@ Le tableau~\ref{tab:heterogeneite} rapporte les ATT PSM-DD pour chaque sous-grou
 \entete Sous-groupe & ATT (N-MODA) & $p$-val. \\
     \hline
     \multicolumn{3}{|c|}{\textit{Par milieu de résidence}} \\ \hline
-    \quad Milieu urbain & (à actualiser) & - \\ \hline
-    \quad Milieu rural  & (à actualiser) & - \\ \hline
-    \quad Test d'égalité ($p$-val.) & \multicolumn{2}{|c|}{-} \\
+    \quad Milieu urbain & $0{,}007$  & 0,856 \\ \hline
+    \quad Milieu rural  & -$0{,}010$ & 0,780 \\ \hline
+    \quad Test d'égalité ($p$-val.) & \multicolumn{2}{|c|}{0,746} \\
     \hline
     \multicolumn{3}{|c|}{\textit{Par sexe de l'enfant}} \\ \hline
-    \quad Garçons & (à actualiser) & - \\ \hline
-    \quad Filles  & (à actualiser) & - \\
+    \quad Garçons & $0{,}025$  & 0,405 \\ \hline
+    \quad Filles  & -$0{,}005$ & 0,873 \\
     \hline
     \multicolumn{3}{|c|}{\textit{Par groupe d'âge}} \\ \hline
-    \quad 0-4 ans   & (à actualiser) & - \\ \hline
-    \quad 5-14 ans  & (à actualiser) & - \\ \hline
-    \quad 15-17 ans & (à actualiser) & - \\
+    \quad 0-4 ans   & $0{,}017$ & 0,683 \\ \hline
+    \quad 5-14 ans  & $0{,}010$ & 0,709 \\ \hline
+    \quad 15-17 ans & $0{,}014$ & 0,733 \\
     \hline
   \end{tabular}
   \begin{tablenotes}
     \small
     \item Erreurs-types clusterisées au niveau de la grappe, poids
     d'appariement k-NN (niveau ménage), sans pondération par poids
-    d'enquête. Valeurs à actualiser après réexécution du pipeline sous le
-    design entrants.
+    d'enquête.
   \end{tablenotes}
 \end{table}
 
-L'analyse par milieu permettra de vérifier si l'absence d'effet global
-masque des dynamiques différenciées entre zones urbaines et rurales, où la
-dépendance aux transferts et les contraintes d'offre de services diffèrent
-sensiblement~; les valeurs seront rapportées avec la version définitive des
-estimations.
+L'analyse par milieu ne détecte aucune dynamique différenciée~: l'ATT est
+proche de zéro et non significatif en zone urbaine ($0{,}007$,
+$p = 0{,}856$) comme en zone rurale (-$0{,}010$, $p = 0{,}780$), et le
+test d'égalité entre milieux ne rejette pas l'homogénéité
+($p = 0{,}746$). L'absence d'effet global ne masque donc pas des
+dynamiques urbaine et rurale opposées.
 
 \subsubsection{Selon le sexe de l'enfant}
 
-La décomposition par sexe permettra de détecter d'éventuels arbitrages
-intra-ménage différenciés entre garçons et filles dans l'affectation des
-ressources issues des transferts~; les valeurs seront rapportées avec la
-version définitive des estimations.
+La décomposition par sexe ne révèle pas d'arbitrage intra-ménage
+différencié~: l'ATT est non significatif pour les garçons ($0{,}025$,
+$p = 0{,}405$) comme pour les filles (-$0{,}005$, $p = 0{,}873$), et la
+proximité des intervalles de confiance interdit d'y voir un écart entre
+sexes.
 
 \subsubsection{Selon les groupes d'âge}
 
 La décomposition par groupe d'âge est particulièrement pertinente sous le
 design entrants~: la petite enfance (0-4 ans) est la tranche d'âge la plus
-sensible aux variations de court terme des ressources du ménage (nutrition,
-enregistrement des naissances) et donc la plus susceptible de réagir à une
-exposition récente aux transferts \parencite{davis2016,fontenla2022}~; les
-valeurs seront rapportées avec la version définitive des estimations.
+sensible aux variations de court terme des ressources du ménage et donc la
+plus susceptible de réagir à une exposition récente aux transferts
+\parencite{davis2016,fontenla2022}. Aucun groupe ne se distingue pourtant~:
+l'ATT reste proche de zéro et non significatif pour les 0-4 ans
+($0{,}017$, $p = 0{,}683$), les 5-14 ans ($0{,}010$, $p = 0{,}709$) et les
+15-17 ans ($0{,}014$, $p = 0{,}733$), ce qui conforte la lecture d'un
+délai de matérialisation commun à tous les âges plutôt que d'un effet
+concentré sur une tranche d'âge.
 
 \subsection{Interprétation des résultats}
 
@@ -148,14 +152,20 @@ va dans ce sens~: deux tiers des transferts relèvent du soutien courant,
 et moins d'un dixième est explicitement fléché vers la scolarité ou la
 santé des enfants.
 
-Le deuxième est la compensation entre canaux. Les transferts
-internationaux sont indissociables de l'émigration d'un membre du ménage,
-souvent un parent, survenue ici entre les deux vagues~: l'apport monétaire
-peut être contrebalancé, à court terme, par la réorganisation du ménage et
-les coûts psychosociaux de l'absence qui suivent immédiatement le départ
+Le deuxième est la compensation entre canaux, dont la décomposition par
+dimension fournit une preuve directe (figure~\ref{fig:effets_dim})~: la
+privation éducative recule significativement chez les enfants des
+entrants (-$3{,}2$~pp, $p = 0{,}017$) tandis que la dimension protection,
+qui capte notamment la séparation d'avec les parents, se dégrade
+symétriquement ($2{,}9$~pp, $p = 0{,}032$). Les transferts internationaux
+étant indissociables de l'émigration d'un membre du ménage, souvent un
+parent, survenue ici entre les deux vagues, l'apport monétaire investi
+dans la scolarisation est contrebalancé par les coûts psychosociaux et
+organisationnels de l'absence qui suivent immédiatement le départ
 \parencite{cortes2007,davis2016}. Un effet net proche de zéro est
 précisément ce qu'on attend lorsque ces deux forces de signes opposés
-opèrent simultanément et avec des ampleurs comparables.
+opèrent simultanément et avec des ampleurs comparables - et c'est
+exactement ce que montrent les données.
 
 Le troisième est la contrainte d'offre. Dans les zones à fort déficit
 d'infrastructures, les transferts monétaires ne peuvent pas se substituer

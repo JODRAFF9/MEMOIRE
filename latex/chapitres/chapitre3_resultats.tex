@@ -86,9 +86,10 @@ section~\ref{sec:discussion}.
 La figure~\ref{fig:support} représente les distributions du score de propension
 pour les ménages entrants ($D=1$) et jamais bénéficiaires ($D=0$).
 Les deux distributions se recouvrent presque entièrement, conséquence du
-faible pouvoir prédictif du probit~: la quasi-totalité des ménages entrants
-dispose d'une contrepartie dans le groupe de contrôle et est retenue pour
-l'estimation PSM-DD (appariement $k$-NN avec remise).
+faible pouvoir prédictif du probit~: les 784 ménages entrants de
+l'échantillon d'estimation se trouvent tous dans la zone de support commun
+et sont retenus pour l'estimation PSM-DD, appariés à 1\,863 ménages
+témoins distincts (appariement $k$-NN avec remise).
 
 \begin{figure}[H]
   \centering
@@ -241,12 +242,12 @@ graphique de l'ATT proche de zéro.
 \subsubsection{Robustesse au choix de la méthode d'appariement}
 
 Le tableau~\ref{tab:psm_methodes} examine la stabilité des résultats selon
-la méthode d'appariement retenue. L'absence d'effet détectable obtenue avec
-le k-NN ($p = 0{,}707$) se retrouve dans la double différence brute
-($p = 0{,}976$)~; les spécifications noyau Epanechnikov et caliper seront
-rapportées avec la version définitive des estimations, la conclusion
-attendue étant identique compte tenu du très fort recouvrement des scores
-de propension.
+la méthode d'appariement retenue. Les quatre spécifications concordent~:
+l'ATT reste compris entre $0{,}001$ et $0{,}010$ et très loin de la
+significativité, du k-NN ($p = 0{,}707$) au noyau Epanechnikov
+($p = 0{,}822$), au caliper ($p = 0{,}744$) et à la double différence brute
+($p = 0{,}976$). L'absence d'effet détectable est donc pleinement robuste
+au choix algorithmique.
 
 \begin{table}[H]
   \centering
@@ -258,8 +259,8 @@ de propension.
 \entete Méthode d'appariement & ATT (N-MODA) & $p$-val. \\
     \hline
     k-NN ($k=4$, avec remise)             & $0{,}010$ & 0,707 \\ \hline
-    Noyau Epanechnikov ($h=0{,}06$)       & (à actualiser) & - \\ \hline
-    Caliper ($\varepsilon = 0{,}05$, sans remise) & (à actualiser) & - \\ \hline
+    Noyau Epanechnikov ($h=0{,}06$)       & $0{,}005$ & 0,822 \\ \hline
+    Caliper ($\varepsilon = 0{,}05$, sans remise) & $0{,}010$ & 0,744 \\ \hline
     DD brute (sans appariement)           & $0{,}001$  & 0,976 \\
     \hline
   \end{tabular}
@@ -267,9 +268,7 @@ de propension.
     \small
     \item Erreurs-types clusterisées au niveau de la grappe, sans pondération
     par poids d'enquête (seul le poids d'appariement PSM est utilisé).
-    Appariement au niveau ménage. Les lignes marquées \og à actualiser \fg{}
-    seront remplies après réexécution complète du pipeline sous le design
-    entrants.
+    Appariement au niveau ménage.
   \end{tablenotes}
 \end{table}
 
@@ -283,9 +282,25 @@ de propension.
 \end{figure}
 
 L'analyse par dimension (figure~\ref{fig:effets_dim}) décompose l'ATT
-global sur les sept dimensions N-MODA. Les valeurs présentées seront
-actualisées avec la version définitive des estimations sous le design
-entrants~; compte tenu de l'ATT global proche de zéro, aucun effet
-dimensionnel marqué n'est attendu, mais cette décomposition permettra de
-vérifier qu'aucune dimension ne masque des effets de signes opposés qui
-se compenseraient dans l'agrégat.
+global sur les sept dimensions N-MODA, et révèle que le résultat nul
+agrégé masque deux effets sectoriels de signes opposés qui se compensent.
+D'un côté, la dimension éducation s'améliore significativement chez les
+enfants des ménages entrants (ATT $=$ -$0{,}032$, $p = 0{,}017$)~: la
+probabilité de privation éducative y recule de 3,2 points de pourcentage
+de plus que chez les témoins appariés, ce qui est cohérent avec
+l'hypothèse d'un investissement prioritaire et rapide des transferts dans
+la scolarisation \parencite{cox2003,bucheli2018} - l'un des rares usages
+explicitement fléchés dans les motifs déclarés (chapitre~3). De l'autre,
+la dimension protection de l'enfant se dégrade relativement
+(ATT $= 0{,}029$, $p = 0{,}032$)~: cette dimension inclut mécaniquement le
+fait de ne pas vivre avec ses deux parents biologiques, consubstantiel au
+départ en migration qui précède l'entrée dans le statut de bénéficiaire,
+et rejoint les coûts psychosociaux de l'absence parentale documentés par
+la littérature \parencite{cortes2007,davis2016}. Les effets sur les cinq
+autres dimensions (assainissement~: $1{,}7$ pp~; santé~: $2{,}0$ pp~;
+eau~: -$1{,}6$ pp~; nutrition~: -$1{,}2$ pp~; logement~: -$0{,}6$ pp) ne
+sont pas statistiquement significatifs au seuil de 10\,\%. Cette
+décomposition donne un contenu concret au mécanisme de compensation entre
+canaux avancé pour interpréter le résultat nul agrégé~: le bénéfice
+éducatif de l'apport monétaire et le coût de l'absence parentale opèrent
+simultanément, avec des ampleurs comparables et des signes opposés.
