@@ -1436,6 +1436,64 @@ preserve
 restore
 
 /* ============================================================
+   2bis. Caracteristiques des transferts etrangers recus :
+   motifs declares et montants annualises
+
+   Source : module detail des transferts (une ligne par transfert).
+   Restreint aux transferts dont l'expediteur reside a l'etranger
+   (meme definition que le traitement D). Le montant annuel est
+   obtenu en multipliant le montant par envoi par la frequence
+   declaree (mois x12, trimestre x4, semestre x2, annee x1 ;
+   irregulier = montant deja declare sur 12 mois, x1), puis somme
+   au niveau menage sur l'ensemble de ses transferts etrangers.
+   ============================================================ */
+
+di _newline "=== 2bis. Motifs et montants des transferts etrangers ==="
+
+foreach annee in 2018 2021 {
+
+    if `annee' == 2018 {
+        local base      "$BASE_2018"
+        local fich_det  s13a_2
+        local v_lieu    s13aq14
+        local v_motif   s13aq15
+        local v_montant s13aq17a
+        local v_freq    s13aq17b
+    }
+    else {
+        local base      "$BASE_2021"
+        local fich_det  s13_2
+        local v_lieu    s13q19
+        local v_motif   s13q20
+        local v_montant s13q22a
+        local v_freq    s13q22b
+    }
+
+    use "`base'/`fich_det'_me_sen`annee'.dta", clear
+    keep if `v_lieu' >= $CODE_ETRANGER_MIN & !missing(`v_lieu')
+
+    quietly count
+    di _newline "-- `annee' : " r(N) " transferts etrangers --"
+
+    di "  Repartition des motifs (%):"
+    tab `v_motif'
+
+    /* Montant annualise par transfert */
+    gen double mult = .
+    replace mult = 12 if `v_freq' == 1   /* mois       */
+    replace mult = 4  if `v_freq' == 2   /* trimestre  */
+    replace mult = 2  if `v_freq' == 3   /* semestre   */
+    replace mult = 1  if `v_freq' == 4   /* annee      */
+    replace mult = 1  if `v_freq' == 5   /* irregulier : montant sur 12 mois */
+    gen double montant_annuel = `v_montant' * mult
+
+    /* Somme au niveau menage */
+    collapse (sum) montant_annuel, by(grappe menage)
+    di "  Montant annuel recu par menage beneficiaire (FCFA) :"
+    summarize montant_annuel, detail
+}
+
+/* ============================================================
    3. Incidence N-MODA par vague, milieu, groupe d'âge
    ============================================================ */
 
