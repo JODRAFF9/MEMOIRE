@@ -11,46 +11,47 @@ La stratégie d'identification combine l'appariement par score de propension
 afin de contrôler simultanément les biais de sélection sur observables et
 les effets fixes inobservables stables dans le temps.
 
-Le premier résultat principal est le rejet net de l'hypothèse d'un impact
-réducteur des transferts. L'estimateur PSM-DD fournit un ATT de $0{,}079$
-($p = 0{,}025$) sur l'incidence N-MODA~: sur la période 2018-2021, la pauvreté
-multidimensionnelle des enfants des ménages bénéficiaires stables a reculé
-moins vite que celle des enfants de ménages jamais bénéficiaires aux
-caractéristiques initiales comparables. Cet écart est robuste au choix de la
-méthode d'appariement (k-NN, noyau Epanechnikov, caliper), significatif à 5\,\%
-sauf avec le caliper (10\,\%), et confirmé par la vérification par panel
-d'enfants.
+Le premier résultat principal est l'absence d'effet détectable à court
+terme. L'estimateur PSM-DD fournit un ATT proche de zéro et non
+significatif ($0{,}010$, $p = 0{,}707$) sur l'incidence N-MODA~: sur la
+période 2018-2021, la pauvreté multidimensionnelle des enfants des ménages
+devenus bénéficiaires a reculé au même rythme que celle des enfants de
+ménages jamais bénéficiaires aux caractéristiques initiales comparables.
+Cette conclusion est partagée par la double différence brute
+($p = 0{,}976$) et cohérente à chaque étape de l'estimateur (écarts
+transversaux faibles et non significatifs aux deux dates, annexe~A).
 
-Le second résultat concerne la décomposition par dimension N-MODA, qui éclaire
-les mécanismes en jeu. L'éducation est la seule dimension au signe favorable
-aux enfants des ménages bénéficiaires (ATT $=$ -$0{,}029$, $p = 0{,}083$),
-cohérente avec l'hypothèse d'un investissement prioritaire des transferts dans
-la scolarisation \parencite{cox2003,bucheli2018}. À l'inverse, la protection
-de l'enfant, qui agrège l'absence d'acte de naissance, le travail des
-enfants et la séparation d'avec les parents biologiques, se dégrade
-relativement chez les bénéficiaires (ATT $= 0{,}034$, $p = 0{,}051$),
-signature des coûts non monétaires de l'absence du parent migrant
-\parencite{cortes2007,davis2016}. L'écart défavorable global se concentre
-par ailleurs sur le milieu rural, les garçons et la petite enfance (0-4 ans).
+Le second résultat concerne la temporalité des effets, éclairée par la
+définition alternative du traitement~: chez les ménages durablement
+bénéficiaires (transferts aux deux vagues), la dynamique relative des
+privations est défavorable et significative ($0{,}089$, $p = 0{,}018$),
+signature plausible des coûts de l'absence parentale qui se cumulent avec
+la durée \parencite{cortes2007,davis2016}. Le contraste entre les deux
+designs suggère que les effets des transferts, dans un sens comme dans
+l'autre, se matérialisent au-delà de l'horizon de trois ans.
 
-Deux mécanismes permettent d'interpréter ce constat. D'abord, le
-motif assurantiel des transferts \parencite{gubert2002, bettin2017} implique une sélection
-dynamique résiduelle~: les ménages restés bénéficiaires jusqu'en 2021 sont
-plausiblement ceux dont les besoins ont persisté, ce qui biaise l'ATT vers le
-haut et suggère que l'impact causal réel est plus proche de zéro. Ensuite, les
-transferts s'accompagnent des coûts psychosociaux de l'absence parentale, que
-la dimension protection capte directement.
+Trois mécanismes permettent d'interpréter le résultat nul du design
+principal. D'abord, le délai de matérialisation~: les privations N-MODA
+sont pour l'essentiel structurelles (eau, assainissement, logement) et une
+exposition aux transferts de moins de trois ans peut soutenir la
+consommation courante sans encore se traduire en équipements observables,
+d'autant que deux tiers des transferts relèvent du soutien courant
+(chapitre~3). Ensuite, la compensation entre canaux~: l'apport monétaire
+coexiste avec la réorganisation du ménage et les coûts psychosociaux qui
+suivent immédiatement le départ du migrant. Enfin, les contraintes
+d'offre de services de base, que le pouvoir d'achat supplémentaire ne
+lève pas à lui seul \parencite{mansuri2006}.
 
-Ces résultats conduisent à rejeter l'hypothèse H1 du mémoire~: les transferts
-de migrants ne réduisent pas significativement la pauvreté multidimensionnelle
-globale des enfants au Sénégal sur l'horizon d'analyse retenu, la
-trajectoire relative des bénéficiaires est au contraire défavorable, quoique
-non fragile. L'hypothèse H2 (hétérogénéité) est partiellement validée~: les
-effets diffèrent nettement selon la dimension (éducation favorable vs
-protection défavorable) et selon l'âge, sans différence significative entre
-milieux de résidence. L'hypothèse H3 est confirmée~: la correction du biais
-de sélection (SMD jusqu'à 0,66 avant appariement, $<0{,}05$ après) modifie
-substantiellement l'inférence par rapport aux comparaisons naïves.
+Ces résultats conduisent à ne pas rejeter l'hypothèse nulle associée à
+H1~: le fait de commencer à recevoir des transferts ne modifie pas
+significativement la pauvreté multidimensionnelle globale des enfants au
+Sénégal sur l'horizon d'analyse retenu. L'hypothèse H2 (hétérogénéité)
+sera réexaminée avec la version définitive des estimations par
+sous-groupes. L'hypothèse H3 est confirmée dans son principe~: la
+stratégie PSM-DD garantit que la comparaison porte sur des groupes
+équilibrés (biais standardisé moyen de 1,4\,\% après appariement), même
+si, dans ce design où la sélection initiale est modérée, la correction
+change peu l'inférence par rapport à la comparaison brute.
 
 \subsection*{Recommandations de politique économique}
 
@@ -59,22 +60,22 @@ Sur la base des résultats obtenus, nous formulons les recommandations suivantes
 
 \begin{enumerate}
   \item Renforcer la complémentarité transferts-éducation.
-        L'impact favorable sur la dimension éducation suggère que les ménages
-        bénéficiaires investissent préférentiellement les transferts dans la
-        scolarisation. Les pouvoirs publics devraient amplifier ce canal en
+        La littérature comme la structure des motifs déclarés suggèrent que
+        la scolarisation est l'un des rares usages explicitement fléchés des
+        transferts. Les pouvoirs publics devraient amplifier ce canal en
         réduisant les coûts directs et indirects de la scolarisation (frais de
         transport, fournitures, uniformes) dans les communes d'émigration, afin
         que les transferts se traduisent en inscriptions effectives et en
         assiduité scolaire.
 
-  \item Protéger les ménages dépendants des transferts contre les chocs
-        affectant les diasporas.
-        La trajectoire relative défavorable des bénéficiaires suggère que la
-        dépendance aux transferts constitue un facteur de vulnérabilité
-        spécifique. Un mécanisme de protection sociale contracyclique,
-        activable lors des crises frappant les principaux pays d'accueil de
-        la diaspora, amortirait la transmission de ces chocs aux enfants des
-        ménages récipiendaires.
+  \item Accompagner les ménages nouvellement bénéficiaires dans la durée.
+        L'absence d'effet à court terme suggère que les transferts mettent
+        du temps à se traduire en amélioration des conditions de vie des
+        enfants, la phase qui suit le départ du migrant étant une période
+        de transition pour le ménage. Des dispositifs d'accompagnement
+        (inclusion financière, appui à l'investissement dans l'habitat et
+        les équipements de base) accéléreraient la conversion des flux en
+        bien-être des enfants.
 
   \item Réduire les coûts de transaction des transferts formels.
         Les frais élevés des canaux formels (banques, services de transfert)
@@ -102,12 +103,12 @@ Sur la base des résultats obtenus, nous formulons les recommandations suivantes
         infantile.
 
   \item Renforcer la protection sociale des enfants de ménages migrants.
-        La dégradation relative de la dimension protection chez les bénéficiaires
-        (acte de naissance, travail des enfants, séparation parentale) souligne la
-        vulnérabilité spécifique des enfants dont un parent est absent pour cause
-        de migration. Des programmes ciblés (appui à l'état civil, suivi scolaire
-        et nutritionnel) dans les zones de forte émigration compléteraient les
-        mécanismes informels de transferts.
+        La dynamique défavorable observée chez les bénéficiaires durables
+        (annexe~A) souligne la vulnérabilité spécifique des enfants dont un
+        parent est durablement absent pour cause de migration. Des programmes
+        ciblés (appui à l'état civil, suivi scolaire et nutritionnel) dans
+        les zones de forte émigration compléteraient les mécanismes
+        informels de transferts.
 \end{enumerate}
 
 \subsection*{Limites de l'étude}
@@ -117,22 +118,21 @@ première tient au panel non parfaitement cylindré~: si 85,6\,\% des
 ménages de l'EHCVM I ont été retrouvés en 2021-2022,
 l'attrition est sélective sur les covariables (ménages urbains, aisés et de
 petite taille surreprésentés parmi les perdus) et modestement corrélée au
-statut de traitement (26,9\,\% de bénéficiaires 2018 parmi les perdus contre
-21,9\,\% parmi les suivis, $p = 0{,}004$). Si les bénéficiaires perdus de vue
-ont connu des trajectoires plus favorables que ceux restés observables,
-l'écart défavorable estimé constitue une borne haute~; l'ampleur limitée du
-différentiel (5 points) borne ce risque, au prix d'une généralisabilité
-restreinte pour les ménages urbains les plus mobiles.
+statut de transfert initial (26,9\,\% de bénéficiaires 2018 parmi les
+perdus contre 21,9\,\% parmi les suivis, $p = 0{,}004$). L'ampleur limitée
+du différentiel (5 points) borne le risque de biais associé, au prix d'une
+généralisabilité restreinte pour les ménages urbains les plus mobiles.
 
-La deuxième limite concerne la définition du traitement~: le statut stable
-(bénéficiaire aux deux vagues vs jamais bénéficiaire) conditionne
-l'appartenance au groupe de traitement sur le comportement de transfert
-postérieur à la période de base. Combinée au motif assurantiel des transferts,
-cette définition expose l'estimateur à une sélection dynamique résiduelle, les ménages restés bénéficiaires étant plausiblement ceux dont les besoins
-ont persisté, que l'appariement sur les caractéristiques de 2018 ne corrige
-pas. La variable de traitement est par ailleurs déclarée et peut être sujette
-à des erreurs de classification, notamment une sous-déclaration des
-transferts informels.
+La deuxième limite concerne la définition du traitement~: le passage au
+statut de bénéficiaire coïncide souvent avec le départ en migration récent
+d'un membre du ménage, événement qui affecte lui-même la composition et
+l'organisation du ménage au moment où l'issue est mesurée, si bien que
+l'ATT estimé capte l'effet conjoint du départ et des transferts. La date
+exacte d'entrée dans le statut n'étant pas observée à l'intérieur de la
+fenêtre 2019-2021, la durée d'exposition varie au sein du groupe traité et
+l'effet estimé s'interprète comme un effet de court terme. La variable de
+traitement est par ailleurs déclarée et peut être sujette à des erreurs de
+classification, notamment une sous-déclaration des transferts informels.
 
 La troisième limite est relative à la dimension nutrition~: faute de
 variables harmonisées sur la diversité alimentaire et la sécurité alimentaire

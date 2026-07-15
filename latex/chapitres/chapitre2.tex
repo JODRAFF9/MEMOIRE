@@ -91,59 +91,61 @@ peuvent être biaisées, ce point est discuté dans la section~\ref{sec:discussi
 
 \subsection{Construction de la variable de traitement}
 
-La variable de traitement $D_i \in \{0, 1\}$ est un indicateur stable,
-fixe au niveau du ménage sur les deux périodes, qui vaut 1 si le ménage de
-l'enfant $i$ a reçu des transferts d'un membre émigré à l'étranger au cours
-des 12 mois précédant l'enquête dans chacune des deux vagues (2018
-et 2021). Cette définition garantit la stabilité du statut de
-traitement entre les deux vagues, condition indispensable à l'estimateur de
-double différence, qui requiert un indicateur de groupe fixe dans le temps, et est conforme aux conventions de la littérature empirique sur les
-remittances en Afrique \parencite{azam2016, combes2019}.
+La variable de traitement $D_i \in \{0, 1\}$ suit le design canonique de la
+double différence, dans lequel la période de base précède le début du
+traitement~: elle vaut 1 pour les ménages \emph{entrants}, c'est-à-dire
+ceux qui ne recevaient aucun transfert international en 2018 et qui en
+reçoivent en 2021, le traitement démarrant ainsi entre les deux vagues.
+Cette définition garantit que la période de base (2018) est une véritable
+période pré-traitement, observée avant toute exposition aux transferts -
+condition au c\oe ur de l'identification par double différence, où la
+première vague sert à mesurer les niveaux initiaux des deux groupes avant
+l'intervention.
 
 La construction de cette variable repose sur la section 13 de transferts des
 deux vagues EHCVM.
 
-Un ménage est classé comme bénéficiaire stable ($D_i=1$) s'il satisfait les
+Un ménage est classé comme traité ($D_i=1$) s'il satisfait les
 deux conditions suivantes :
 
 
-(i) il a reçu en 2018 au moins un transfert dont
-l'expéditeur est localisé hors du Sénégal ;
+(i) il n'a reçu en 2018 aucun transfert dont l'expéditeur est localisé
+hors du Sénégal ;
 
-(ii) il a également reçu un tel transfert en 2021.
+(ii) il a reçu en 2021 au moins un tel transfert.
 
 Le groupe témoin ($D_i = 0$) est composé de ménages n'ayant reçu aucun
 transfert international ni en 2018 ni en 2021 (never treated).
 
-Les ménages dont le statut change entre les deux vagues, entrants tardifs
-($D=0$ en 2018 puis $D=1$ en 2021) et sortants ($D=1$ puis $D=0$), sont
-exclus de l'analyse causale, leur inclusion biaisant l'estimateur de la
-double différence \parencite{callaway2021}. Sur les 6\,127 ménages du panel
-vrai, cette classification donne 681 ménages traités stables, 3\,981 ménages
-jamais traités et 1\,465 switchers exclus (816 entrants tardifs et
-649 sortants). Les transferts internes sont exclus dans les deux vagues car ils
-relèvent d'une logique de redistribution domestique distincte des envois
-de la diaspora internationale \parencite{ndiaye2013}.
+Les ménages déjà bénéficiaires en 2018 (bénéficiaires aux deux vagues et
+sortants), dont le traitement est antérieur à la période d'observation et
+pour lesquels aucune période pré-traitement n'est observée, sont exclus de
+l'analyse causale \parencite{callaway2021}. Sur les 6\,127 ménages du
+panel vrai, cette classification donne 816 ménages entrants, 3\,981 ménages
+jamais bénéficiaires et 1\,330 ménages exclus (681 bénéficiaires aux deux
+vagues et 649 sortants). Les transferts internes sont exclus dans les deux vagues
+car ils relèvent d'une logique de redistribution domestique distincte des
+envois de la diaspora internationale \parencite{ndiaye2013}.
 
-Une définition alternative du traitement aurait pu retenir les entrants
-tardifs comme groupe traité (comparés aux jamais bénéficiaires), un design
-de double différence plus classique où le traitement démarre entre les deux
-vagues. Ce choix a été écarté au profit du traitement stable pour trois
-raisons. D'abord, le passage au statut de bénéficiaire coïncide le plus
-souvent avec un départ en migration récent d'un membre du ménage, lui-même
-motivé par un choc économique antérieur~; l'évolution observée capterait
-alors en partie l'effet de ce choc initial plutôt que celui du transfert.
-Ensuite, ce départ modifie mécaniquement la composition du ménage (taille,
-main-d'\oe uvre disponible, rapport de dépendance) au moment même où l'issue
-est mesurée, un facteur de confusion propre aux entrants et largement absent
-chez les bénéficiaires stables, dont la migration est antérieure à la période
-de base et dont le ménage s'est déjà réorganisé en 2018. Enfin, la date exacte
-d'entrée dans le statut de bénéficiaire n'est pas observée à l'intérieur de la
-fenêtre 2019-2021, si bien que l'intensité et la durée du traitement varient
-fortement au sein du groupe des entrants, contrairement au traitement stable,
-observé aux deux bornes de la période. Cette définition alternative du
-traitement fait néanmoins l'objet d'une estimation de robustesse, rapportée
-à titre de comparaison en annexe~\ref{ann:A}.
+Une définition alternative du traitement aurait pu retenir les
+bénéficiaires stables (transferts reçus aux deux vagues) comme groupe
+traité, afin de capter l'effet d'une exposition durable aux transferts.
+Ce choix n'a pas été retenu comme design principal car le traitement y est
+déjà en cours à la période de base~: la première vague n'y mesure pas un
+niveau pré-traitement mais un niveau déjà affecté par les transferts, ce
+qui s'écarte du cadre canonique de la double différence où les deux
+périodes encadrent le début de l'intervention. Deux mises en garde
+symétriques s'imposent néanmoins sur le design retenu. D'une part, le
+passage au statut de bénéficiaire coïncide souvent avec un départ en
+migration récent d'un membre du ménage, événement qui peut lui-même
+modifier la composition du ménage et ses conditions de vie au moment où
+l'issue est mesurée~; l'ATT estimé capte alors l'effet conjoint du départ
+et des transferts. D'autre part, la date exacte d'entrée dans le statut de
+bénéficiaire n'étant pas observée à l'intérieur de la fenêtre 2019-2021,
+la durée d'exposition varie au sein du groupe traité et l'effet estimé
+s'interprète comme un effet de court terme. La définition alternative
+(bénéficiaires stables) fait l'objet d'une estimation de robustesse,
+rapportée à titre de comparaison en annexe~\ref{ann:A}.
 
 % ─────────────────────────────────────────────────────────────────────────────
 \subsection{Mesure de la pauvreté multidimensionnelle des enfants : approche MODA}

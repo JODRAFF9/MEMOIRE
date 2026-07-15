@@ -8,7 +8,8 @@
    Aucune ponderation par poids d'enquete (hhweight) : toutes les
    statistiques et estimations sont calculees sur effectifs bruts,
    avec erreurs-types clusterisees au niveau de la grappe.
-   Traitement : statut STABLE (recu aux 2 vagues vs jamais recu).
+   Traitement : design ENTRANTS (aucun transfert en 2018, transfert
+   etranger recu en 2021, vs jamais beneficiaire aux deux vagues).
 
    Pipeline :
      config       — chemins, constantes
@@ -16,7 +17,7 @@
      01_visitation  — exploration des bases brutes
      02_traitement  — variable D + identification panel
      03_deprivation — indicateurs N-MODA
-     04_panel       — panel vrai + traitement stable
+     04_panel       — panel vrai + traitement entrants
      05_psm_dd      — estimation PSM-DD (matching niveau menage)
      06_stats_desc  — statistiques descriptives
      07_effets_dim  — effets par dimension
@@ -815,14 +816,18 @@ foreach annee in 2018 2021 {
 }
 
 /* ============================================================
-   2. Statut de traitement stable (fixe au niveau menage)
+   2. Statut de traitement : design "entrants" (DD classique)
 
-   L'estimateur DD requiert un indicateur de groupe de traitement
-   FIXE dans le temps. On definit :
-     - traites  (D_stable=1) : transfert etranger recu aux DEUX vagues
-     - temoins  (D_stable=0) : aucun transfert etranger aux DEUX vagues
-     - switchers (D_stable=.) : statut changeant entre les vagues,
-       EXCLUS de l'analyse causale (Callaway & Sant'Anna 2021)
+   Design principal : ne conserve que les menages SANS transfert
+   etranger a la periode de base (D_2018=0). On definit :
+     - traites (D_stable=1) : entrants — aucun transfert en 2018,
+       transfert etranger recu en 2021 (D=0 -> D=1)
+     - temoins (D_stable=0) : jamais beneficiaires aux deux vagues
+     - exclus  (D_stable=.) : menages deja beneficiaires en 2018
+       (beneficiaires stables et sortants), dont le traitement est
+       anterieur a la periode d'observation
+   Le traitement debute donc ENTRE les deux vagues, conformement au
+   design DD canonique (periode pre-traitement observee a t=0).
    ============================================================ */
 
 use "$TEMP/traitement_2018.dta", clear
@@ -831,18 +836,18 @@ merge 1:1 grappe menage using "$TEMP/traitement_2021.dta", ///
     keepusing(D) keep(match) nogenerate
 rename D D_2021
 gen byte D_stable = .
-replace D_stable = 1 if D_2018 == 1 & D_2021 == 1
+replace D_stable = 1 if D_2018 == 0 & D_2021 == 1
 replace D_stable = 0 if D_2018 == 0 & D_2021 == 0
-label var D_stable "Traitement stable (1=recu 2 vagues, 0=jamais, .=switcher)"
+label var D_stable "Traitement entrant (1=D 0->1, 0=jamais, .=deja beneficiaire en 2018)"
 
 di _newline ">>> Cellules de traitement (menages presents aux 2 vagues) :"
 tab D_2018 D_2021
 quietly count if D_stable == 1
-di "  Traités stables   : " r(N)
+di "  Entrants (D=0->1)          : " r(N)
 quietly count if D_stable == 0
-di "  Jamais traités    : " r(N)
+di "  Jamais beneficiaires       : " r(N)
 quietly count if missing(D_stable)
-di "  Switchers exclus  : " r(N)
+di "  Exclus (benef. en 2018)    : " r(N)
 
 keep grappe menage D_stable D_2018 D_2021
 save "$TEMP/traitement_stable.dta", replace
@@ -852,7 +857,7 @@ save "$TEMP/traitement_stable.dta", replace
 
    On conserve les menages qui apparaissent dans les DEUX vagues
    avec le meme identifiant grappe+menage, avec un statut de
-   traitement stable (switchers exclus).
+   traitement entrant (menages deja beneficiaires en 2018 exclus).
    ============================================================ */
 
 /* Identifier les menages presents dans les deux vagues */
@@ -873,8 +878,8 @@ keep if _merge == 3   /* presents dans les deux vagues */
 keep grappe menage
 tempfile ids_panel
 save `ids_panel'
-save "$TEMP/ids_panel.dta", replace   /* liste complete (switchers inclus),
-    reutilisee par l'analyse de robustesse "entrants" */
+save "$TEMP/ids_panel.dta", replace   /* liste complete de tous les menages
+    suivis, reutilisee par l'analyse de robustesse "beneficiaires stables" */
 
 quietly count
 di _newline "Menages vraiment suivis (presences dans les 2 vagues) : " r(N)
@@ -894,15 +899,16 @@ use `panel_t0', clear
 append using `panel_t1'
 sort grappe menage t
 
-/* Appliquer le statut de traitement STABLE et exclure les switchers */
+/* Appliquer le statut de traitement ENTRANT et exclure les menages
+   deja beneficiaires en 2018 (traitement anterieur a la periode) */
 merge m:1 grappe menage using "$TEMP/traitement_stable.dta", ///
     keepusing(D_stable) keep(master match) nogenerate
 drop if missing(D_stable)
 replace D = D_stable
 drop D_stable
-label var D "Traitement stable (1=transfert etranger aux 2 vagues)"
+label var D "Traitement entrant (1=transfert etranger recu en 2021, aucun en 2018)"
 
-di _newline "=== Panel vrai (statut de traitement stable) ==="
+di _newline "=== Panel vrai (design entrants) ==="
 di "Observations totales     : " _N
 quietly count if t == 0
 di "  - Periode t=0 (2018)  : " r(N)
@@ -950,8 +956,9 @@ save "$TEMP/panel_complet.dta", replace
      6. Heterogeneite (milieu, sexe, age)
      7. Robustesse (seuil k, methodes d'appariement)
 
-   Traitement : statut STABLE (transferts etrangers recus aux
-   deux vagues vs jamais recus ; switchers exclus en 04_panel).
+   Traitement : design ENTRANTS (aucun transfert en 2018 puis
+   transfert etranger en 2021, vs jamais beneficiaire ; menages
+   deja beneficiaires en 2018 exclus en 04_panel).
 
    Aucune ponderation par poids d'enquete (hhweight) : estimations
    sur effectifs bruts, erreurs-types clusterisees par grappe.
@@ -989,7 +996,7 @@ label var pscore "Score de propension (menage)"
 twoway ///
     (kdensity pscore if D == 0, lcolor(gs9) lwidth(medthick)) ///
     (kdensity pscore if D == 1, lcolor(orange) lwidth(medthick)), ///
-    legend(order(1 "Jamais traites" 2 "Traites stables")) ///
+    legend(order(1 "Jamais beneficiaires" 2 "Entrants (D=0 vers 1)")) ///
     xtitle("Score de propension") ytitle("Densité") ///
     saving("$OUTPUT/overlap_panel.gph", replace)
 graph export "$OUTPUT/overlap_panel.pdf", replace
@@ -1045,7 +1052,7 @@ save "$TEMP/poids_caliper.dta", replace
    ============================================================ */
 
 use "$TEMP/panel_vrai.dta", clear
-di _newline "=== Stats descriptives (panel vrai, D stable) ==="
+di _newline "=== Stats descriptives (panel vrai, design entrants) ==="
 tabstat pauvre_MODA nb_dep pcexp, ///
     by(D) stat(mean n) format(%6.3f)
 
@@ -1083,6 +1090,7 @@ foreach outcome in pauvre_MODA {
     lincom 1.t#1.D
     di "  ATT_PSM-DD = " %8.4f r(estimate) ///
        "  SE = " %8.4f r(se) "  p = " %6.4f r(p)
+    global ATT_REEL = r(estimate)   /* reutilise par le test placebo */
 }
 
 save "$TEMP/panel_apparie.dta", replace
@@ -1132,7 +1140,7 @@ twoway (connected temoin annee, lcolor(gs7) mcolor(gs7) msymbol(square) lwidth(m
     xlabel(2018 2021) xscale(range(2017.7 2021.3)) ///
     xtitle("Vague EHCVM") ytitle("Incidence N-MODA (H, %)") ///
     ylabel(0(20)100, grid) ///
-    legend(order(2 "Bénéficiaires stables" 1 "Témoins appariés" ///
+    legend(order(2 "Entrants" 1 "Témoins appariés" ///
                  3 "Contrefactuel (tendances parallèles)") pos(6) rows(2)) ///
     graphregion(color(white)) plotregion(color(white))
 graph export "$OUTPUT/figures/fig_dd_trajectoires.pdf", replace
@@ -1230,23 +1238,20 @@ foreach poids_var in weight_knn weight_kernel weight_caliper {
 }
 
 /* ============================================================
-   8. Robustesse : definition alternative du traitement (entrants)
+   8. Robustesse : definition alternative du traitement
+      (beneficiaires stables)
 
-   Design DD "classique" : entrants (D_2018=0, D_2021=1) compares aux
-   menages jamais beneficiaires (D_2018=0, D_2021=0), sur les memes
-   menages panel que l'analyse principale. Ce design capte l'effet de
-   COMMENCER a recevoir des transferts, mais expose davantage a la
-   causalite inverse (le passage au statut beneficiaire coincide
-   souvent avec un depart en migration recent, evenement confondu
-   avec d'autres chocs simultanes du menage) : c'est pourquoi le
-   design principal du memoire retient plutot le traitement STABLE
-   (beneficiaire aux deux vagues vs jamais beneficiaire). Fourni ici
-   a titre de comparaison.
+   En complement du design principal (entrants, DD canonique avec
+   periode pre-traitement observee), l'ATT est aussi estime en
+   comparant les beneficiaires STABLES (D_2018=1 et D_2021=1) aux
+   menages jamais beneficiaires, sur les memes menages panel. Ce
+   design capte l'effet d'une exposition durable aux transferts,
+   mais le traitement y est deja en cours a t=0 : la periode de
+   base n'est pas une periode pre-traitement, ce qui fragilise
+   l'interpretation causale canonique de la DD. Fourni ici a titre
+   de comparaison.
    ============================================================ */
 
-/* Liste des menages presents aux deux vagues, switchers INCLUS (contrairement
-   a panel_vrai.dta, qui les exclut deja pour l'analyse principale) : les
-   entrants sont eux-memes des switchers, ils seraient sinon perdus ici. */
 use "$TEMP/ids_panel.dta", clear
 tempfile menages_panel
 save `menages_panel'
@@ -1255,37 +1260,37 @@ use "$TEMP/vague_2018.dta", clear
 merge m:1 grappe menage using `menages_panel', keep(match) nogenerate
 merge m:1 grappe menage using "$TEMP/traitement_stable.dta", ///
     keepusing(D_2018 D_2021) keep(match) nogenerate
-tempfile ent_t0
-save `ent_t0'
+tempfile alt_t0
+save `alt_t0'
 
 use "$TEMP/vague_2021.dta", clear
 merge m:1 grappe menage using `menages_panel', keep(match) nogenerate
 merge m:1 grappe menage using "$TEMP/traitement_stable.dta", ///
     keepusing(D_2018 D_2021) keep(match) nogenerate
-tempfile ent_t1
-save `ent_t1'
+tempfile alt_t1
+save `alt_t1'
 
-use `ent_t0', clear
-append using `ent_t1'
+use `alt_t0', clear
+append using `alt_t1'
 
-/* Restreindre aux menages jamais beneficiaires en 2018 (exclut les
-   beneficiaires stables et les sortants) */
-keep if D_2018 == 0
-gen byte D_entrant = D_2021
-label var D_entrant "1=entrant (beneficiaire seulement en 2021), 0=jamais beneficiaire"
+/* Restreindre aux menages a statut constant : beneficiaires stables
+   (D=1 aux deux vagues) et jamais beneficiaires (D=0 aux deux vagues) */
+keep if D_2018 == D_2021
+gen byte D_stable_alt = D_2018
+label var D_stable_alt "1=beneficiaire stable (2 vagues), 0=jamais beneficiaire"
 
-quietly count if D_entrant == 1 & t == 0
-local n_ent = r(N)
-quietly count if D_entrant == 0 & t == 0
+quietly count if D_stable_alt == 1 & t == 0
+local n_sta = r(N)
+quietly count if D_stable_alt == 0 & t == 0
 local n_jam = r(N)
-di _newline "=== Robustesse : entrants (D=0->1) vs jamais beneficiaires ==="
-di "  Entrants (D=0 en 2018 -> D=1 en 2021) : `n_ent' menages"
-di "  Jamais beneficiaires (aux 2 vagues)   : `n_jam' menages"
+di _newline "=== Robustesse : beneficiaires stables vs jamais beneficiaires ==="
+di "  Beneficiaires stables (D=1 aux 2 vagues) : `n_sta' obs"
+di "  Jamais beneficiaires (aux 2 vagues)      : `n_jam' obs"
 
-di _newline "--- DD brute, entrants vs jamais beneficiaires ---"
-regress pauvre_MODA i.t##i.D_entrant, vce(cluster grappe)
-lincom 1.t#1.D_entrant
-di "  ATT_DD_entrants = " %8.4f r(estimate) ///
+di _newline "--- DD brute, beneficiaires stables vs jamais beneficiaires ---"
+regress pauvre_MODA i.t##i.D_stable_alt, vce(cluster grappe)
+lincom 1.t#1.D_stable_alt
+di "  ATT_DD_stables = " %8.4f r(estimate) ///
    "  SE = " %8.4f r(se) "  p = " %6.4f r(p)
 
 di _newline ">>> 05_psm_dd.do termine."
@@ -2002,8 +2007,16 @@ tempfile liste_men
 save `liste_men'
 quietly count
 local n_men = r(N)
-/* part de faux traites = part observee de traites stables (~14.6%) */
-local part_fake = 681/4662
+/* part de faux traites = part observee de traites (entrants) parmi les
+   menages du panel d'analyse, calculee dynamiquement */
+preserve
+    use "$TEMP/panel_vrai.dta", clear
+    keep if t == 0
+    bysort grappe menage: keep if _n == 1
+    quietly summarize D
+    local part_fake = r(mean)
+restore
+di "  Part de faux traites appliquee : " %6.4f `part_fake'
 
 forvalues r = 1/`n_rep' {
     quietly {
@@ -2051,7 +2064,7 @@ foreach y in moda {
    Verifie la plausibilite des tendances paralleles : la distribution
    placebo doit etre centree sur zero et l'ATT reel doit se situer dans
    sa queue. */
-scalar att_reel = 0.079
+scalar att_reel = $ATT_REEL   /* ATT PSM-DD principal, sauvegarde en section 5 */
 histogram att_moda, width(0.005) frequency ///
     color(gs9) lcolor(white) ///
     xline(0, lcolor(black) lpattern(solid)) ///
@@ -2078,7 +2091,7 @@ tempfile men18
 save `men18'
 
 /* Menages retrouves en 2021 : variable officielle PanelHH (et non la
-   presence dans panel_vrai.dta, qui exclut aussi les switchers et
+   presence dans panel_vrai.dta, qui exclut aussi les menages deja beneficiaires en 2018 et
    confondrait attrition et exclusion de l'echantillon d'analyse) */
 use "$BASE_2021/s00_me_sen2021.dta", clear
 keep if PanelHH == 1

@@ -14,9 +14,11 @@ par dimension de la pauvreté.
 
 Le score de propension est estimé par un probit au niveau du ménage
 sur les données de la période de base (EHCVM I, 2018-2019), en conservant
-uniquement les ménages du panel vrai au statut de traitement stable et pour
-lesquels toutes les covariables sont disponibles ($n = 4\,292$ ménages,
-dont 649 traités). Le modèle inclut les variables retenues dans
+uniquement les ménages du panel vrai sans transfert en 2018 (entrants et
+jamais bénéficiaires) pour lesquels toutes les covariables sont disponibles
+($n = 4\,424$ ménages). Les covariables étant mesurées à la période de
+base, avant le début du traitement, elles ne peuvent pas être affectées par
+celui-ci. Le modèle inclut les variables retenues dans
 la littérature sur les déterminants des transferts de migrants
 \parencite{adams2005,gubert2002}~: log de la dépense par tête, taille du ménage,
 sexe et âge du chef, niveau d'éducation du chef, état matrimonial, milieu et
@@ -32,24 +34,24 @@ région de résidence.
 \entete Variable & Coefficient & Éc.-t. (cluster) \\
     \hline
     \textit{Caractéristiques du chef de ménage} & & \\ \hline
-    \quad Âge du chef (années)                 & +$0{,}008^{***}$ & $(0{,}002)$ \\ \hline
-    \quad Chef féminin                         & +$0{,}640^{***}$ & $(0{,}075)$ \\ \hline
-    \quad Éducation : primaire                 & -$0{,}064$  & $(0{,}081)$ \\ \hline
-    \quad Éducation : secondaire gén.~1        & +$0{,}094$  & $(0{,}108)$ \\ \hline
-    \quad Éducation : supérieur                & -$0{,}130$  & $(0{,}155)$ \\ \hline
-    \quad Marié (monogame)                     & -$0{,}601^{***}$ & $(0{,}206)$ \\ \hline
-    \quad Marié (polygame)                     & -$0{,}523^{**}$  & $(0{,}211)$ \\ \hline
-    \quad Veuf(ve)                             & -$0{,}934^{***}$ & $(0{,}229)$ \\ \hline
+    \quad Âge du chef (années)                 & $0{,}007^{***}$ & $(0{,}002)$ \\ \hline
+    \quad Chef féminin                         & $0{,}206^{***}$ & $(0{,}076)$ \\ \hline
+    \quad Éducation : primaire                 & -$0{,}056$  & $(0{,}069)$ \\ \hline
+    \quad Éducation : secondaire gén.~2        & $0{,}296^{**}$  & $(0{,}126)$ \\ \hline
+    \quad Éducation : supérieur                & $0{,}277^{**}$  & $(0{,}127)$ \\ \hline
+    \quad Marié (monogame)                     & -$0{,}270$ & $(0{,}210)$ \\ \hline
+    \quad Marié (polygame)                     & -$0{,}303$  & $(0{,}214)$ \\ \hline
+    \quad Veuf(ve)                             & -$0{,}378^{*}$ & $(0{,}227)$ \\ \hline
     \textit{Caractéristiques du ménage} & & \\ \hline
-    \quad Taille du ménage                     & +$0{,}065^{***}$ & $(0{,}005)$ \\ \hline
-    \quad Log dépense par tête                 & +$0{,}882^{***}$ & $(0{,}061)$ \\ \hline
-    \quad Milieu rural                         & -$0{,}241^{***}$ & $(0{,}059)$ \\ \hline
+    \quad Taille du ménage                     & $0{,}021^{***}$ & $(0{,}005)$ \\ \hline
+    \quad Log dépense par tête                 & $0{,}313^{***}$ & $(0{,}052)$ \\ \hline
+    \quad Milieu rural                         & -$0{,}078$ & $(0{,}061)$ \\ \hline
     \textit{Effets fixes région}               & \multicolumn{2}{|c|}{Oui} \\
     \hline
-    Constante                                  & -$13{,}58^{***}$ & $(0{,}864)$ \\
+    Constante                                  & -$5{,}59^{***}$ & $(0{,}736)$ \\
     \hline
-    Pseudo-$R^2$ de McFadden                   & \multicolumn{2}{|c|}{$0{,}209$} \\ \hline
-    Observations (ménages, panel vrai $t=0$)   & \multicolumn{2}{|c|}{$4\,292$} \\
+    Pseudo-$R^2$ de McFadden                   & \multicolumn{2}{|c|}{$0{,}042$} \\ \hline
+    Observations (ménages, panel vrai $t=0$)   & \multicolumn{2}{|c|}{$4\,424$} \\
     \hline
   \end{tabular}
   \begin{tablenotes}
@@ -62,29 +64,31 @@ région de résidence.
   \end{tablenotes}
 \end{table}
 
-Le modèle présente un pseudo-$R^2$ de McFadden de 20,9\,\%, dans la fourchette
-haute des valeurs habituellement observées pour ce type de régression dans les
-enquêtes ménages africaines \parencite{caliendo2008}, signe d'une sélection
-marquée. Les déterminants sont cohérents avec le profil descriptif du
-tableau~\ref{tab:comparaison_statut}~: la probabilité de recevoir des transferts
-de façon stable croît fortement avec la dépense par tête (+$0{,}88$), la
-présence d'une femme à la tête du ménage (+$0{,}64$), la taille du ménage et
-l'âge du chef, et décroît en milieu rural. Le coefficient positif de la
-log-dépense confirme la sélection positive des ménages bénéficiaires~; celui
-du chef féminin reflète la configuration migratoire typique où l'époux émigré
-laisse la gestion du ménage à son épouse, configuration au c\oe{}ur du canal
-\og absence parentale \fg{} discuté en section~\ref{sec:discussion}.
+Le modèle présente un pseudo-$R^2$ de McFadden de 4,2\,\%, nettement plus
+faible que celui obtenu avec la définition alternative du traitement
+(bénéficiaires stables, annexe~\ref{ann:A})~: le fait de devenir
+bénéficiaire entre les deux vagues est bien moins prévisible à partir des
+caractéristiques initiales que le fait de l'être durablement, ce qui est
+cohérent avec un traitement débutant après la période de base. Les
+déterminants restent cohérents avec la littérature~: la probabilité de
+devenir bénéficiaire croît avec la dépense par tête ($0{,}31$), la présence
+d'une femme à la tête du ménage ($0{,}21$), la taille du ménage, l'âge et
+le niveau d'éducation du chef. Le coefficient positif de la log-dépense
+signale une sélection positive, plus modérée que pour les bénéficiaires
+stables~; celui du chef féminin reflète la configuration migratoire typique
+où l'époux émigré laisse la gestion du ménage à son épouse, configuration
+au c\oe{}ur du canal \og absence parentale \fg{} discuté en
+section~\ref{sec:discussion}.
 
 \subsubsection{Vérification de la qualité de l'appariement}
 
 
 La figure~\ref{fig:support} représente les distributions du score de propension
-pour les ménages traités ($D=1$) et jamais traités ($D=0$).
-Le test de support commun montre que la quasi-totalité des ménages traités
-dispose d'une contrepartie dans le groupe de contrôle~: sur les 649 ménages
-traités stables de la période de base, 646 (99,5\,\%) se trouvent dans la zone
-de support commun et sont retenus pour l'estimation PSM-DD, appariés à
-1\,246 ménages témoins distincts (appariement $k$-NN avec remise).
+pour les ménages entrants ($D=1$) et jamais bénéficiaires ($D=0$).
+Les deux distributions se recouvrent presque entièrement, conséquence du
+faible pouvoir prédictif du probit~: la quasi-totalité des ménages entrants
+dispose d'une contrepartie dans le groupe de contrôle et est retenue pour
+l'estimation PSM-DD (appariement $k$-NN avec remise).
 
 \begin{figure}[H]
   \centering
@@ -94,16 +98,19 @@ de support commun et sont retenus pour l'estimation PSM-DD, appariés à
 \end{figure}
 
 
-Avant appariement, les déséquilibres sont considérables (SMD jusqu'à 0,66
-sur le log de la dépense par tête). Le tableau~\ref{tab:balance} présente le
-diagnostic d'équilibrage \emph{après} appariement k-plus-proches-voisins
-($k=4$, avec remise, au niveau ménage)~: pour chaque covariable, la moyenne
-chez les bénéficiaires (traités) et chez leurs témoins appariés, le biais
-standardisé (SMD, en \%) et le test de Student associé. L'appariement
-élimine pratiquement les déséquilibres~: le biais standardisé maximal après
-appariement est de 4,1\,\% (âge du chef), largement sous le seuil
-conventionnel de 10\,\% \parencite{austin2009}, et aucune différence
-résiduelle n'est significative au seuil de 5\,\%.
+Avant appariement, les déséquilibres sont modérés (biais standardisé moyen
+de 7,7\,\%, avec un maximum de 27,1\,\% sur le log de la dépense par tête),
+bien plus faibles que sous la définition alternative du traitement, ce qui
+reflète là encore le fait qu'aucun des deux groupes n'est traité à la
+période de base. Le tableau~\ref{tab:balance} présente le diagnostic
+d'équilibrage \emph{après} appariement k-plus-proches-voisins ($k=4$, avec
+remise, au niveau ménage)~: pour chaque covariable, la moyenne chez les
+entrants (traités) et chez leurs témoins appariés, le biais standardisé
+(SMD, en \%) et le test de Student associé. L'appariement élimine
+pratiquement les déséquilibres~: le biais standardisé moyen après
+appariement tombe à 1,4\,\%, largement sous le seuil conventionnel de
+10\,\% \parencite{austin2009}, et aucune différence résiduelle n'est
+significative au seuil de 5\,\%.
 
 \begin{table}[H]
   \centering
@@ -116,18 +123,18 @@ résiduelle n'est significative au seuil de 5\,\%.
     \hline
 \entete Variable & Moyenne traités & Moyenne témoins & Biais standardisé (\%) & T-stat & $P>|t|$ \\
     \hline
-    Taille du ménage           & 11,898 & 11,693 & 3,2  & 0,49  & 0,627 \\ \hline
-    Log dépense par tête       & 13,197 & 13,203 & -1,1 & -0,19 & 0,852 \\ \hline
-    Milieu rural (\%)          & 0,347  & 0,332  & 3,0  & 0,56  & 0,577 \\ \hline
-    Sexe du chef (1=H, 2=F)    & 1,401  & 1,398  & 0,7  & 0,11  & 0,910 \\ \hline
-    Âge du chef                & 54,416 & 55,012 & -4,1 & -0,73 & 0,464 \\
+    Taille du ménage           & 10,504 & 10,513 & -0,2 & -0,03 & 0,976 \\ \hline
+    Log dépense par tête       & 12,982 & 12,981 & 0,1  & 0,03  & 0,977 \\ \hline
+    Milieu rural (\%)          & 0,473  & 0,470  & 0,7  & 0,14  & 0,889 \\ \hline
+    Sexe du chef (1=H, 2=F)    & 1,267  & 1,265  & 0,4  & 0,09  & 0,932 \\ \hline
+    Âge du chef                & 53,385 & 53,522 & -1,0 & -0,20 & 0,844 \\
     \hline
   \end{tabular}%
   }
   \begin{tablenotes}
     \small
     \item \textit{Note :} calculé au niveau ménage sur l'échantillon d'estimation
-    ($n = 4\,292$)~; SMD après appariement pondérée par les poids $k$-NN.
+    ($n = 4\,424$)~; SMD après appariement pondérée par les poids $k$-NN.
     Un SMD inférieur à 0,10 en valeur absolue est conventionnellement jugé
     satisfaisant \parencite{austin2009}.
   \end{tablenotes}
@@ -139,15 +146,13 @@ résiduelle n'est significative au seuil de 5\,\%.
 
 À titre de référence, nous estimons d'abord un estimateur de double différence
 sur effectifs bruts, sans appariement (tableau~\ref{tab:dd_brut}). L'impact
-estimé est positif et marginalement significatif pour le N-MODA
-($4{,}6$ pp, $p = 0{,}056$)~: la pauvreté multidimensionnelle des enfants des ménages
-bénéficiaires stables a reculé moins vite que celle des enfants des ménages
-jamais bénéficiaires. Cette comparaison naïve confond toutefois l'impact des
-transferts avec les différences initiales considérables entre les deux groupes
-(tableau~\ref{tab:balance})~: les ménages bénéficiaires, plus riches et plus
-urbains, partent de niveaux de privation nettement plus faibles, avec des marges
-de progression différentes. C'est précisément pourquoi l'appariement PSM est
-indispensable.
+estimé est nul et très loin de la significativité pour le N-MODA
+($0{,}1$ pp, $p = 0{,}976$)~: la pauvreté multidimensionnelle des enfants a
+reculé au même rythme chez les entrants et chez les jamais bénéficiaires.
+Cette comparaison brute reste toutefois exposée aux différences initiales
+entre les deux groupes (les futurs entrants sont un peu plus aisés et
+urbains que les jamais bénéficiaires), d'où le recours à l'appariement PSM
+pour confirmer le résultat sur des groupes rendus comparables.
 
 \begin{table}[H]
   \centering
@@ -158,17 +163,17 @@ indispensable.
     \hline
 \entete Variable de résultat & ATT$_{\text{DD}}$ & Éc.-t. (cluster) & $p$-valeur \\
     \hline
-    Pauvreté N-MODA ($\hat{H}_{\text{MODA}}$) & $0{,}046^{*}$ & $(0{,}024)$ & 0,056 \\
+    Pauvreté N-MODA ($\hat{H}_{\text{MODA}}$) & $0{,}001$ & $(0{,}022)$ & 0,976 \\
     \hline
   \end{tabular}
   \begin{tablenotes}
     \small
-    \item $^{*}p<0{,}10$. Erreurs-types clusterisées au niveau de la grappe,
+    \item Erreurs-types clusterisées au niveau de la grappe,
     sans pondération par poids d'enquête.
     Spécification~:
     $Y_{it} = \alpha + \beta t + \gamma D + \delta(t \times D) + \varepsilon_{it}$.
-    $\delta$ est l'ATT rapporté. Panel vrai 2018-2021, traitement stable,
-    switchers exclus.
+    $\delta$ est l'ATT rapporté. Panel vrai 2018-2021, design entrants,
+    ménages déjà bénéficiaires en 2018 exclus.
   \end{tablenotes}
 \end{table}
 
@@ -190,39 +195,40 @@ sélection sur observables et les effets fixes inobservables constants dans le t
 \entete Variable de résultat & ATT & Éc.-t. (cluster) & $p$-valeur \\
     \hline
     \multicolumn{4}{|c|}{\textit{Approche N-MODA (7 dimensions, $k=4$)}} \\ \hline
-    \quad Incidence $\hat{H}_{\text{MODA}}$         & $0{,}079^{**}$ & $(0{,}035)$ & 0,025 \\
+    \quad Incidence $\hat{H}_{\text{MODA}}$         & $0{,}010$ & $(0{,}026)$ & 0,707 \\
     \hline
   \end{tabular}
   \begin{tablenotes}
     \small
-    \item $^{*}p<0{,}10$, $^{**}p<0{,}05$. Poids d'appariement PSM uniquement
+    \item Poids d'appariement PSM uniquement
     (pas de pondération par poids d'enquête). Appariement k-NN au niveau ménage
     ($k=4$, avec remise, support commun). Erreurs-types clusterisées au niveau
-    de la grappe (panel vrai apparié, $n = 20\,869$ obs. enfants, 2 périodes).
+    de la grappe (panel vrai apparié, $n = 25\,028$ obs. enfants, 2 périodes).
   \end{tablenotes}
 \end{table}
 
-L'estimateur PSM-DD donne un ATT de $0{,}079$ ($p = 0{,}025$) sur la pauvreté
-N-MODA. Après correction du biais de sélection par l'appariement, l'écart de
-trajectoire défavorable aux ménages bénéficiaires persiste~: la probabilité de
-pauvreté multidimensionnelle des enfants de ménages bénéficiaires stables a
-diminué de 7,9 points de pourcentage de moins que celle des enfants de
-ménages jamais bénéficiaires comparables (significatif au seuil de 5\,\%). Il
-faut souligner d'emblée que ce
-résultat ne signifie pas que les transferts appauvrissent les enfants
-en niveau, la pauvreté recule dans les deux groupes, mais que la baisse
-a été plus lente chez les bénéficiaires sur la période 2018-2021.
-La robustesse et l'interprétation de ce résultat, dont la significativité
-n'est pas stable selon la méthode d'appariement (section suivante), sont
-discutées en détail dans la section~\ref{sec:discussion}.
+L'estimateur PSM-DD donne un ATT de $0{,}010$ ($p = 0{,}707$) sur la pauvreté
+N-MODA~: après appariement, aucune divergence de trajectoire n'est
+détectable entre les enfants des ménages entrants et ceux des témoins
+comparables. La pauvreté multidimensionnelle recule dans les deux groupes
+à un rythme statistiquement indiscernable sur la période 2018-2021.
+Ce résultat s'interprète comme un effet de court terme~: les entrants ne
+reçoivent des transferts que depuis une date comprise entre les deux
+vagues, une durée d'exposition sans doute trop brève pour que les envois
+se traduisent en améliorations mesurables des conditions de vie des
+enfants, d'autant que le départ du migrant qui les précède peut peser
+temporairement sur l'organisation du ménage. L'interprétation de ce
+résultat, et son contraste avec la dynamique défavorable observée chez
+les bénéficiaires durables (annexe~\ref{ann:A}), sont discutés en détail
+dans la section~\ref{sec:discussion}.
 
 La figure~\ref{fig:dd_trajectoires} illustre le mécanisme de la double
-différence. Elle représente l'incidence N-MODA des bénéficiaires stables et
-des témoins appariés aux deux vagues, ainsi que le contrefactuel obtenu en
-appliquant la tendance des témoins au niveau initial des bénéficiaires. L'ATT
-correspond à l'écart, en 2021, entre la trajectoire observée des bénéficiaires
-et ce contrefactuel~: les bénéficiaires se situent au-dessus de la trajectoire
-qu'ils auraient connue sous l'hypothèse de tendances parallèles.
+différence. Elle représente l'incidence N-MODA des entrants et des témoins
+appariés aux deux vagues, ainsi que le contrefactuel obtenu en appliquant
+la tendance des témoins au niveau initial des entrants. Les deux
+trajectoires observées sont presque parallèles~: la trajectoire des
+entrants se confond pratiquement avec son contrefactuel, illustration
+graphique de l'ATT proche de zéro.
 
 \begin{figure}[H]
   \centering
@@ -235,13 +241,12 @@ qu'ils auraient connue sous l'hypothèse de tendances parallèles.
 \subsubsection{Robustesse au choix de la méthode d'appariement}
 
 Le tableau~\ref{tab:psm_methodes} examine la stabilité des résultats selon
-la méthode d'appariement retenue. Les trois spécifications (k-NN, noyau
-Epanechnikov, caliper) produisent des ATT systématiquement positifs, mais
-d'ampleur voisine~: l'impact N-MODA est significatif
-à 5\,\% avec le k-NN ($p = 0{,}025$) comme avec le noyau ($p = 0{,}039$), et
-marginalement significatif avec le caliper ($p = 0{,}077$). La direction comme
-la significativité de l'impact sont donc largement robustes au choix
-algorithmique, un point que la discussion prend en compte.
+la méthode d'appariement retenue. L'absence d'effet détectable obtenue avec
+le k-NN ($p = 0{,}707$) se retrouve dans la double différence brute
+($p = 0{,}976$)~; les spécifications noyau Epanechnikov et caliper seront
+rapportées avec la version définitive des estimations, la conclusion
+attendue étant identique compte tenu du très fort recouvrement des scores
+de propension.
 
 \begin{table}[H]
   \centering
@@ -252,17 +257,19 @@ algorithmique, un point que la discussion prend en compte.
     \hline
 \entete Méthode d'appariement & ATT (N-MODA) & $p$-val. \\
     \hline
-    k-NN ($k=4$, avec remise)             & $0{,}079^{**}$ & 0,025 \\ \hline
-    Noyau Epanechnikov ($h=0{,}06$)       & $0{,}081^{**}$ & 0,039 \\ \hline
-    Caliper ($\varepsilon = 0{,}05$, sans remise) & $0{,}058^{*}$ & 0,077 \\ \hline
-    DD brute (sans appariement)           & $0{,}046^{*}$  & 0,056 \\
+    k-NN ($k=4$, avec remise)             & $0{,}010$ & 0,707 \\ \hline
+    Noyau Epanechnikov ($h=0{,}06$)       & (à actualiser) & - \\ \hline
+    Caliper ($\varepsilon = 0{,}05$, sans remise) & (à actualiser) & - \\ \hline
+    DD brute (sans appariement)           & $0{,}001$  & 0,976 \\
     \hline
   \end{tabular}
   \begin{tablenotes}
     \small
-    \item $^{*}p<0{,}10$, $^{**}p<0{,}05$. Erreurs-types clusterisées au niveau
-    de la grappe, sans pondération par poids d'enquête (seul le poids
-    d'appariement PSM est utilisé). Appariement au niveau ménage.
+    \item Erreurs-types clusterisées au niveau de la grappe, sans pondération
+    par poids d'enquête (seul le poids d'appariement PSM est utilisé).
+    Appariement au niveau ménage. Les lignes marquées \og à actualiser \fg{}
+    seront remplies après réexécution complète du pipeline sous le design
+    entrants.
   \end{tablenotes}
 \end{table}
 
@@ -275,24 +282,10 @@ algorithmique, un point que la discussion prend en compte.
   \label{fig:effets_dim}
 \end{figure}
 
-L'analyse par dimension (figure~\ref{fig:effets_dim}) décompose l'ATT global sur
-les sept dimensions N-MODA et dessine une structure cohérente.
-D'un côté, la dimension éducation est la seule dont le signe est
-favorable aux enfants des ménages bénéficiaires (ATT $=$ -$0{,}029$,
-$p = 0{,}083$)~: la probabilité de privation éducative y diminue de 2,9 points
-de pourcentage de plus que chez les témoins appariés, ce qui est cohérent avec
-l'hypothèse d'un investissement prioritaire des transferts dans la
-scolarisation \parencite{cox2003,bucheli2018}. De l'autre, plusieurs dimensions
-se dégradent relativement chez les bénéficiaires~: la santé
-(ATT $= 0{,}042$, $p = 0{,}036$), la protection de l'enfant
-(ATT $= 0{,}034$, $p = 0{,}051$) et l'assainissement
-(ATT $= 0{,}076$, $p = 0{,}083$). La détérioration relative de la dimension
-protection, qui agrège l'absence d'acte de naissance, le travail des enfants
-et la séparation d'avec les parents biologiques, est particulièrement
-parlante~: elle inclut mécaniquement le fait de ne pas vivre avec ses deux
-parents, consubstantiel à la migration d'un parent, et rejoint les coûts
-psychosociaux de l'absence parentale documentés par la littérature
-\parencite{cortes2007,davis2016}. Les effets sur les autres dimensions
-(logement~: $6{,}6$ pp, $p=0{,}103$~; nutrition~: $7{,}7$ pp, $p=0{,}100$~;
-eau~: -$3{,}2$ pp) ne sont pas statistiquement
-significatifs au seuil de 10\,\%.
+L'analyse par dimension (figure~\ref{fig:effets_dim}) décompose l'ATT
+global sur les sept dimensions N-MODA. Les valeurs présentées seront
+actualisées avec la version définitive des estimations sous le design
+entrants~; compte tenu de l'ATT global proche de zéro, aucun effet
+dimensionnel marqué n'est attendu, mais cette décomposition permettra de
+vérifier qu'aucune dimension ne masque des effets de signes opposés qui
+se compenseraient dans l'agrégat.
