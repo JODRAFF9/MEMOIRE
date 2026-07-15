@@ -947,6 +947,7 @@ save "$TEMP/panel_complet.dta", replace
      3. Appariement PSM (k-NN, kernel, caliper) au niveau menage
      4. DD brute (sans appariement)
      5. PSM-DD sur panel vrai (Heckman et al. 1997/1998)
+     5bis. PSM seul (sans DD) — ATT au niveau, t=1
      6. Heterogeneite (milieu, sexe, age)
      7. Robustesse (seuil k, methodes d'appariement)
 
@@ -1086,6 +1087,26 @@ foreach outcome in pauvre_MODA {
 }
 
 save "$TEMP/panel_apparie.dta", replace
+
+/* ============================================================
+   5bis. PSM seul (sans DD) — ATT au niveau, EHCVM II (t=1)
+
+   Meme echantillon apparie (score de propension estime en t=0,
+   poids k-NN), mais sans differencier par rapport a la periode
+   pre-traitement : ATT = niveau moyen pondere de l'outcome en
+   2021 chez les traites - niveau moyen pondere chez les temoins
+   apparies. Sert de point de comparaison au PSM-DD (section 5)
+   pour isoler l'apport de la double difference.
+   ============================================================ */
+
+di _newline "=== PSM seul (sans DD) — ATT au niveau, t=1 ==="
+foreach outcome in pauvre_MODA {
+    di _newline "--- PSM `outcome' (t=1, sans DD) ---"
+    regress `outcome' D [aw=weight_knn] if t == 1, vce(cluster grappe)
+    di "  ATT_PSM = " %8.4f _b[D] ///
+       "  SE = " %8.4f _se[D] ///
+       "  p = " %6.4f 2*ttail(e(df_r), abs(_b[D]/_se[D]))
+}
 
 /* ── Fig DD : trajectoires beneficiaires vs temoins + contrefactuel ──
    Illustre visuellement la double difference et permet d'apprecier
