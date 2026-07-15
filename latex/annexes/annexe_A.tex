@@ -4,30 +4,31 @@
 \subsection{Argument de l'appariement}
 
 Le PSM rend l'hypothèse de tendances parallèles plus crédible en sélectionnant
-des ménages jamais traités statistiquement indiscernables des traités à $t=0$.
-Après appariement k-NN ($k=4$, avec remise), toutes les SMD sont inférieures à
-0,05 en valeur absolue (tableau~\ref{tab:balance}).
+des ménages jamais bénéficiaires statistiquement indiscernables des futurs
+entrants à $t=0$, avant le début du traitement. Après appariement k-NN
+($k=4$, avec remise), le biais standardisé moyen tombe à 1,4\,\%
+(tableau~\ref{tab:balance}).
 
 \subsection{PSM seul, sans double différence}
 \label{subsec:psm_sans_dd}
 
 Pour illustrer concrètement l'apport de la double différence par rapport à un
 appariement transversal seul, l'écart de pauvreté N-MODA entre ménages
-traités et témoins appariés (poids $k$-NN) est estimé séparément à $t=0$
+entrants et témoins appariés (poids $k$-NN) est estimé séparément à $t=0$
 (EHCVM~I) et $t=1$ (EHCVM~II), sans les différencier.
 
 \begin{table}[H]
   \centering
-  \caption{PSM seul (transversal) vs PSM-DD, traitement stable}
+  \caption{PSM seul (transversal) vs PSM-DD, design entrants}
   \label{tab:psm_sans_dd}
   \zebre
   \begin{tabular}{|l|c|c|c|}
     \hline
 \entete Spécification & Coefficient & Écart-type & $p$-val. \\
     \hline
-    PSM seul, $t=0$ (écart initial)  & -$0{,}150$ & $0{,}033$ & $<$0,001 \\ \hline
-    PSM seul, $t=1$ (écart final)    & -$0{,}061$ & $0{,}034$ & $0{,}076$ \\ \hline
-    PSM-DD (référence, tableau~\ref{tab:psmdd_att}) & $0{,}089$ & $0{,}037$ & $0{,}018$ \\
+    PSM seul, $t=0$ (écart initial)  & -$0{,}037$ & $0{,}023$ & $0{,}116$ \\ \hline
+    PSM seul, $t=1$ (écart final)    & -$0{,}027$ & $0{,}027$ & $0{,}331$ \\ \hline
+    PSM-DD (référence, tableau~\ref{tab:psmdd_att}) & $0{,}010$ & $0{,}026$ & $0{,}707$ \\
     \hline
   \end{tabular}
   \begin{tablenotes}
@@ -37,22 +38,19 @@ traités et témoins appariés (poids $k$-NN) est estimé séparément à $t=0$
   \end{tablenotes}
 \end{table}
 
-Même après appariement sur les caractéristiques observables du ménage, les
-ménages traités affichent dès $t=0$ une pauvreté N-MODA inférieure de 15
-points à celle des témoins appariés~: cet écart, antérieur à toute
-possibilité d'effet des transferts sur la période étudiée, révèle un
-déséquilibre résiduel non capté par le score de propension (probablement lié
-à des caractéristiques non observées, telles que le réseau migratoire ou le
-capital social du ménage). À $t=1$, cet écart se réduit à 6 points
-(significatif seulement à 10\,\%). Une lecture purement transversale
-conclurait à tort que les transferts n'ont pas d'effet notable, voire à un
-effet défavorable~: en réalité, l'écart entre traités et témoins se
-\emph{referme} sur la période (de -15 à -6 points), ce que seule la double
-différence permet d'isoler comme un effet causal positif
-($0{,}089 = -0{,}061 - (-0{,}150)$, aux arrondis près). Ce résultat confirme
-empiriquement, sur les données du mémoire, la nécessité du design PSM-DD
-plutôt qu'un simple appariement transversal, déjà motivée sur le plan
-théorique par \textcite{heckman1997,heckman1998}.
+À la période de base, avant le début du traitement, les futurs entrants ne
+se distinguent pas significativement des témoins appariés (écart de
+3,7~points, $p=0{,}116$)~: l'appariement sur les caractéristiques
+observables suffit ici à équilibrer les deux groupes, ce qui est cohérent
+avec le fait qu'aucun des deux groupes n'est encore exposé aux transferts
+en 2018. À $t=1$, l'écart reste faible et non significatif (2,7~points,
+$p=0{,}331$), et la double différence, qui retranche l'écart initial de
+l'écart final, est proche de zéro
+($0{,}010 = -0{,}027 - (-0{,}037)$, aux arrondis près). La cohérence entre
+les lectures transversale et différenciée renforce la crédibilité du
+résultat central~: l'absence d'effet détectable ne provient pas d'un
+artefact de spécification, chaque étape de l'estimateur racontant la même
+histoire, conformément au cadre de \textcite{heckman1997,heckman1998}.
 
 \subsection{Test placebo}
 
@@ -69,12 +67,12 @@ on obtient la distribution suivante.
     \hline
 \entete Statistique & Pauvreté N-MODA \\
     \hline
-    ATT placebo moyen            & -$0{,}001$ \\ \hline
-    Écart-type                   & $0{,}020$  \\ \hline
-    Fraction $|$ATT$|$ $>$ 0,05 & 1,5\,\%    \\
+    ATT placebo moyen            & (à actualiser) \\ \hline
+    Écart-type                   & (à actualiser) \\ \hline
+    Fraction $|$ATT$|$ $>$ 0,05 & (à actualiser) \\
     \hline
-    ATT réel (tableau~\ref{tab:psmdd_att}) & $0{,}079$ \\ \hline
-    Rang dans la distribution placebo      & 100\textsuperscript{e} centile \\
+    ATT réel (tableau~\ref{tab:psmdd_att}) & $0{,}010$ \\ \hline
+    Rang dans la distribution placebo      & (à actualiser) \\
     \hline
   \end{tabular}
   \begin{tablenotes}
@@ -90,9 +88,13 @@ on obtient la distribution suivante.
   \label{fig:placebo_dd}
 \end{figure}
 
-La distribution placebo est centrée sur zéro (écart-type 0,020) ; l'ATT réel
-($0{,}079$) se situe au 100\textsuperscript{e} centile, ce qui conforte sa
-lecture comme un signal réel.
+La distribution placebo, centrée sur zéro, fournit la référence sous
+absence d'effet~: avec un ATT réel proche de zéro ($0{,}010$), il est
+attendu que celui-ci se situe au c\oe ur de la distribution placebo,
+c'est-à-dire qu'il soit indiscernable d'une assignation aléatoire du
+traitement - lecture cohérente avec le résultat nul. Les statistiques de
+la distribution seront actualisées après réexécution du pipeline sous le
+design entrants.
 
 \subsection{Sensibilité au seuil de dimensions (k)}
 
@@ -118,26 +120,34 @@ justifierait un autre seuil.
 
 \subsection{Résultats PSM avec différentes méthodes d'appariement}
 
-Le tableau~\ref{tab:psm_methodes} (section~\ref{subsec:psmdd}) produit des ATT
-positifs avec les trois méthodes~: significatif pour le k-NN ($p=0{,}025$) et
-le noyau ($p=0{,}039$), marginal pour le caliper ($p=0{,}077$, 582 paires
-seulement). La stabilité du signe reste l'enseignement principal.
+Le tableau~\ref{tab:psm_methodes} (section~\ref{subsec:psmdd}) confronte
+les méthodes d'appariement~: le k-NN ($p=0{,}707$) et la double différence
+brute ($p=0{,}976$) concordent sur l'absence d'effet détectable~; les
+valeurs noyau et caliper seront rapportées avec la version définitive des
+estimations. La stabilité de la conclusion entre méthodes reste
+l'enseignement principal.
 
-\subsection{Définition alternative du traitement : les entrants}
+\subsection{Définition alternative du traitement : les bénéficiaires stables}
 
-En complément du traitement stable retenu comme design principal (justifié
+En complément du design entrants retenu comme design principal (justifié
 en section~\ref{sec:methodo}), l'ATT est également estimé en comparant les
-ménages entrants ($D=0$ en 2018 puis $D=1$ en 2021, 4\,256 ménages) aux
-ménages jamais bénéficiaires (19\,767 ménages), sur le même panel de
-ménages. La double différence brute donne un ATT non significatif
-($0{,}004$, écart-type $0{,}020$, $p=0{,}858$), sans effet détectable sur
-la pauvreté N-MODA des enfants. Ce résultat, à l'opposé de l'ATT positif
-et significatif obtenu avec le traitement stable, illustre concrètement le
-risque de causalité inverse évoqué en section~\ref{sec:methodo}~: le
-passage récent au statut de bénéficiaire (souvent lié à un départ de
-migration tout juste survenu) ne laisse pas le temps aux transferts de
-produire un effet mesurable sur les conditions de vie des enfants, à la
-différence des ménages bénéficiaires de façon stable et durable.
+ménages bénéficiaires stables ($D=1$ aux deux vagues) aux ménages jamais
+bénéficiaires, sur le même panel de ménages. Le PSM-DD appliqué à cette
+définition donne un ATT positif et significatif ($0{,}089$, écart-type
+$0{,}037$, $p=0{,}018$)~: la pauvreté multidimensionnelle des enfants des
+ménages durablement bénéficiaires recule moins vite que celle des enfants
+des témoins appariés. Ce contraste avec l'absence d'effet du design
+principal doit toutefois être interprété avec prudence~: dans le design
+stable, le traitement est déjà en cours à la période de base (les
+bénéficiaires stables affichent dès 2018 une pauvreté inférieure de
+15~points à celle de leurs témoins appariés, écart antérieur à la période
+d'observation), si bien que la première vague ne mesure pas un niveau
+pré-traitement et que la dynamique estimée peut refléter un rattrapage des
+témoins autant qu'un effet des transferts. Il suggère néanmoins que
+l'exposition durable aux transferts et l'exposition récente ne produisent
+pas la même dynamique de conditions de vie, l'effet de court terme des
+entrants pouvant encore être masqué par la réorganisation du ménage qui
+suit le départ du migrant.
 
 \subsection{Analyse de l'attrition différentielle}
 

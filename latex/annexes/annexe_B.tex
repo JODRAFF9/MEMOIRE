@@ -7,19 +7,20 @@ PSM-DD. Le code complet est organisé en scripts numérotés dans le répertoire
 l'ensemble du pipeline). Aucune pondération par poids d'enquête n'est utilisée~;
 les erreurs-types sont clusterisées au niveau de la grappe.
 
-\subsection{Statut de traitement stable}
+\subsection{Statut de traitement (design entrants)}
 
 \begin{verbatim}
-/* 04_panel.do - traites stables vs jamais traites */
+/* 04_panel.do - entrants vs jamais beneficiaires */
 use "$TEMP/traitement_2018.dta", clear
 rename D D_2018
 merge 1:1 grappe menage using "$TEMP/traitement_2021.dta", ///
     keepusing(D) keep(match) nogenerate
 rename D D_2021
 gen byte D_stable = .
-replace D_stable = 1 if D_2018 == 1 & D_2021 == 1
+replace D_stable = 1 if D_2018 == 0 & D_2021 == 1
 replace D_stable = 0 if D_2018 == 0 & D_2021 == 0
-/* switchers (D_stable == .) exclus du panel causal */
+/* menages deja beneficiaires en 2018 (D_stable == .)
+   exclus du panel causal */
 \end{verbatim}
 
 \subsection{Estimation du score de propension (niveau ménage)}
@@ -83,7 +84,7 @@ foreach dim of local dims {
 Le script \texttt{main.do} orchestre l'ensemble du pipeline~: exploration des
 bases (\texttt{01\_visitation.do}), variable de traitement
 (\texttt{02\_traitement.do}), indicateurs de pauvreté
-(\texttt{03\_deprivation.do}), panel et traitement stable
+(\texttt{03\_deprivation.do}), panel et traitement entrants
 (\texttt{04\_panel.do}), estimation PSM-DD (\texttt{05\_psm\_dd.do}),
 statistiques descriptives (\texttt{06\_stats\_desc.do}), effets par dimension
 (\texttt{07\_effets\_dim.do}), analyses régionales

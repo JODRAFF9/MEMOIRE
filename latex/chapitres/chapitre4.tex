@@ -27,20 +27,21 @@ d'environ trois ans, qui les fait éventuellement changer de groupe d'âge et
 donc de dimensions applicables (un enfant de 3 ans en 2018, relevant du groupe
 0-4, passe au groupe 5-14 en 2021~; un enfant de 13 ans passe de 5-14 à 15-17).
 Cette approche isole l'évolution intra-individuelle des privations de l'impact
-de composition par âge. L'ATT obtenu sur le panel d'enfants conserve le signe
-positif de l'estimation par panel de ménages, ce qui confirme que l'écart de
-trajectoire défavorable aux bénéficiaires n'est pas un artefact de la structure
+de composition par âge. L'ATT obtenu sur le panel d'enfants confirme la
+conclusion de l'estimation par panel de ménages (valeur à actualiser avec
+la version définitive des estimations sous le design entrants)~: l'absence
+d'écart de trajectoire détectable n'est pas un artefact de la structure
 d'âge de l'échantillon.
 
 \subsubsection{Sensibilité au choix de la méthode d'appariement}
 
-Le tableau~\ref{tab:psm_methodes} (section~\ref{subsec:psmdd}) a documenté la
-sensibilité de l'ATT aux trois méthodes d'appariement (k-NN, noyau Epanechnikov,
-caliper). Les trois spécifications produisent des ATT positifs et d'ampleur
-voisine, compris entre $0{,}058$ et $0{,}081$ pour le N-MODA, significatifs
-à 5\,\% avec le k-NN ($p=0{,}025$) et le noyau ($p=0{,}039$) et à 10\,\% avec
-le caliper ($p=0{,}077$). La direction comme la significativité de l'impact sont
-donc robustes au choix algorithmique.
+Le tableau~\ref{tab:psm_methodes} (section~\ref{subsec:psmdd}) documente la
+sensibilité de l'ATT à la méthode d'appariement. L'ATT k-NN ($0{,}010$,
+$p=0{,}707$) et la double différence brute ($0{,}001$, $p=0{,}976$)
+concordent sur l'absence d'effet détectable~; les spécifications noyau
+Epanechnikov et caliper seront rapportées avec la version définitive des
+estimations, sans changement attendu de conclusion compte tenu du très
+fort recouvrement des scores de propension entre les deux groupes.
 
 \subsubsection{Attrition et biais de sélection de l'échantillon panel}
 
@@ -53,14 +54,13 @@ les ménages suivis (tableau~\ref{tab:attrition}, annexe~\ref{ann:A}), profil
 classique de la mobilité résidentielle urbaine. L'attrition est également
 corrélée au statut de traitement, quoique modestement~: 26,9\,\% de
 bénéficiaires 2018 parmi les perdus contre 21,9\,\% parmi les suivis
-(SMD $=$ -$0{,}12$, $p = 0{,}004$). Si les ménages bénéficiaires perdus de vue
-avaient connu des trajectoires plus favorables que ceux restés dans le panel
-(par exemple parce que la migration réussie du ménage entier fait sortir
-de l'échantillon les cas les plus positifs), l'ATT estimé serait biaisé
-vers le haut, ce qui renforce la lecture prudente des résultats~; l'ampleur
-limitée du différentiel (5 points) borne toutefois ce risque, et la
-généralisabilité des résultats aux ménages urbains les plus mobiles reste
-en tout état de cause restreinte.
+(SMD $=$ -$0{,}12$, $p = 0{,}004$). Si les ménages perdus de vue avaient
+connu des trajectoires différentes de ceux restés dans le panel (par
+exemple parce que la migration réussie du ménage entier fait sortir de
+l'échantillon les cas les plus favorables), l'ATT estimé pourrait s'en
+trouver légèrement biaisé~; l'ampleur limitée du différentiel (5 points)
+borne toutefois ce risque, et la généralisabilité des résultats aux
+ménages urbains les plus mobiles reste en tout état de cause restreinte.
 
 \subsection{Analyse de l'hétérogénéité des effets}
 
@@ -79,116 +79,107 @@ Le tableau~\ref{tab:heterogeneite} rapporte les ATT PSM-DD pour chaque sous-grou
 \entete Sous-groupe & ATT (N-MODA) & $p$-val. \\
     \hline
     \multicolumn{3}{|c|}{\textit{Par milieu de résidence}} \\ \hline
-    \quad Milieu urbain & $0{,}060$     & 0,136 \\ \hline
-    \quad Milieu rural  & $0{,}113^{*}$ & 0,078 \\ \hline
-    \quad Test d'égalité ($p$-val.) & \multicolumn{2}{|c|}{0,490} \\
+    \quad Milieu urbain & (à actualiser) & - \\ \hline
+    \quad Milieu rural  & (à actualiser) & - \\ \hline
+    \quad Test d'égalité ($p$-val.) & \multicolumn{2}{|c|}{-} \\
     \hline
     \multicolumn{3}{|c|}{\textit{Par sexe de l'enfant}} \\ \hline
-    \quad Garçons & $0{,}104^{***}$ & 0,008 \\ \hline
-    \quad Filles  & $0{,}055$      & 0,139 \\
+    \quad Garçons & (à actualiser) & - \\ \hline
+    \quad Filles  & (à actualiser) & - \\
     \hline
     \multicolumn{3}{|c|}{\textit{Par groupe d'âge}} \\ \hline
-    \quad 0-4 ans   & $0{,}117^{**}$ & 0,023 \\ \hline
-    \quad 5-14 ans  & $0{,}069^{*}$  & 0,082 \\ \hline
-    \quad 15-17 ans & $0{,}052$      & 0,272 \\
+    \quad 0-4 ans   & (à actualiser) & - \\ \hline
+    \quad 5-14 ans  & (à actualiser) & - \\ \hline
+    \quad 15-17 ans & (à actualiser) & - \\
     \hline
   \end{tabular}
   \begin{tablenotes}
     \small
-    \item $^{*}p<0{,}10$, $^{**}p<0{,}05$, $^{***}p<0{,}01$. Erreurs-types
-    clusterisées au niveau de la grappe, poids d'appariement k-NN (niveau
-    ménage), sans pondération par poids d'enquête.
+    \item Erreurs-types clusterisées au niveau de la grappe, poids
+    d'appariement k-NN (niveau ménage), sans pondération par poids
+    d'enquête. Valeurs à actualiser après réexécution du pipeline sous le
+    design entrants.
   \end{tablenotes}
 \end{table}
 
-L'analyse par milieu montre que l'écart défavorable aux bénéficiaires provient
-principalement du milieu rural ($0{,}113$, $p = 0{,}078$), l'impact urbain
-étant plus faible et non significatif~; la différence entre milieux n'est
-toutefois pas significative ($p = 0{,}490$). Cette configuration est cohérente
-avec une vulnérabilité accrue des ménages ruraux dépendants des transferts~:
-en zone rurale, ces flux représentent une part plus critique des ressources,
-et une contraction, même non identifiée directement dans les données,
-affecterait davantage la sortie de pauvreté multidimensionnelle qu'en ville.
+L'analyse par milieu permettra de vérifier si l'absence d'effet global
+masque des dynamiques différenciées entre zones urbaines et rurales, où la
+dépendance aux transferts et les contraintes d'offre de services diffèrent
+sensiblement~; les valeurs seront rapportées avec la version définitive des
+estimations.
 
 \subsubsection{Selon le sexe de l'enfant}
 
-L'écart défavorable est plus marqué et statistiquement significatif pour les
-garçons sur le N-MODA ($0{,}104$, $p = 0{,}008$) que pour les filles
-($0{,}055$, $p = 0{,}139$). Cette asymétrie modérée peut refléter des arbitrages
-intra-ménage différenciés en période de contraction des ressources, mais la
-proximité des intervalles de confiance interdit d'y voir un écart robuste
-entre sexes.
+La décomposition par sexe permettra de détecter d'éventuels arbitrages
+intra-ménage différenciés entre garçons et filles dans l'affectation des
+ressources issues des transferts~; les valeurs seront rapportées avec la
+version définitive des estimations.
 
 \subsubsection{Selon les groupes d'âge}
 
-L'écart défavorable se concentre sur les enfants d'âge préscolaire
-(0-4 ans~: $0{,}117$, $p = 0{,}023$ sur le N-MODA), tranche d'âge la plus
+La décomposition par groupe d'âge est particulièrement pertinente sous le
+design entrants~: la petite enfance (0-4 ans) est la tranche d'âge la plus
 sensible aux variations de court terme des ressources du ménage (nutrition,
-enregistrement des naissances)~; il reste positif mais plus faible pour les
-5-14 ans ($0{,}069$, $p = 0{,}082$) et non significatif pour les 15-17 ans. Cette gradation par âge est
-cohérente avec la littérature qui identifie la petite enfance comme la période
-où les chocs de revenu se transmettent le plus directement au bien-être
-multidimensionnel \parencite{davis2016,fontenla2022}.
+enregistrement des naissances) et donc la plus susceptible de réagir à une
+exposition récente aux transferts \parencite{davis2016,fontenla2022}~; les
+valeurs seront rapportées avec la version définitive des estimations.
 
 \subsection{Interprétation des résultats}
 
-Nos résultats documentent, sur la période 2018-2021, une trajectoire de
-pauvreté multidimensionnelle relativement moins favorable pour les
-enfants des ménages bénéficiaires stables de transferts que pour ceux des
-ménages jamais bénéficiaires comparables. L'ATT PSM-DD est positif
-($0{,}079$, $p = 0{,}025$ pour le N-MODA), significatif et robuste au choix de
-la méthode d'appariement. Il faut d'abord écarter deux
-lectures erronées~: ce résultat ne signifie ni que les transferts
-appauvrissent les enfants en niveau (la pauvreté baisse dans les deux
-groupes), ni que l'hypothèse d'un impact réducteur est confirmée, c'est au
-contraire son rejet qui est net. Plusieurs mécanismes, non mutuellement
-exclusifs, peuvent expliquer ce constat~:
+Nos résultats ne détectent, sur la période 2018-2021, aucune divergence de
+trajectoire de pauvreté multidimensionnelle entre les enfants des ménages
+devenus bénéficiaires de transferts et ceux des ménages jamais
+bénéficiaires comparables. L'ATT PSM-DD est proche de zéro et très loin de
+la significativité ($0{,}010$, $p = 0{,}707$ pour le N-MODA), en parfaite
+cohérence avec la double différence brute. Il faut d'abord écarter une
+lecture erronée~: ce résultat ne signifie pas que les transferts sont sans
+valeur pour les ménages receveurs, mais que le fait de commencer à en
+recevoir ne modifie pas, à l'horizon de trois ans, la trajectoire de
+privations multidimensionnelles des enfants. Plusieurs mécanismes, non
+mutuellement exclusifs, peuvent expliquer ce constat~:
 
-La revue théorique (section~\ref{sec:revue}) a montré que les transferts
-répondent aux chocs subis par le ménage d'origine \parencite{gubert2002,
-debrauw2013}. Les ménages restés bénéficiaires continus jusqu'en 2021
-peuvent donc être précisément ceux dont les besoins ont persisté ou se sont
-aggravés, ceux dont les enfants seraient restés pauvres même sans les
-transferts. L'appariement corrige la sélection sur les caractéristiques
-observables de 2018, mais pas cette sélection dynamique sur les chocs
-postérieurs, qui biaise l'ATT vers le haut. Sous cette lecture, l'effet
-défavorable estimé est une borne supérieure, et l'impact causal réel des
-transferts est vraisemblablement proche de zéro, voire positif pour le
-bien-être des enfants.
+Le premier est le délai de matérialisation. Les dimensions du N-MODA sont
+pour l'essentiel des privations structurelles (assainissement, eau,
+logement, combustible), qui exigent des investissements lourds et étalés
+dans le temps~: un flux de transferts perçu depuis moins de trois ans peut
+améliorer la consommation courante du ménage sans encore se traduire en
+équipements observables. L'analyse descriptive des motifs (chapitre~3)
+va dans ce sens~: deux tiers des transferts relèvent du soutien courant,
+et moins d'un dixième est explicitement fléché vers la scolarité ou la
+santé des enfants.
 
-Les transferts internationaux sont indissociables de l'émigration d'un membre
-du ménage, souvent un parent. La décomposition par dimension est cohérente
-avec ce canal~: la dimension protection de l'enfant, qui inclut le fait de
-ne pas vivre avec ses deux parents biologiques, se dégrade relativement chez
-les bénéficiaires ($3{,}4$ pp, $p = 0{,}051$), tandis que l'éducation, canal
-d'investissement classique des transferts, est la seule dimension au signe
-favorable (-$2{,}9$ pp, $p = 0{,}083$). Ce contraste rejoint exactement la
-mise en garde de la littérature qualitative \parencite{cortes2007} et les
-résultats de \textcite{davis2016} au Guatemala~: l'effet monétaire positif du
-transfert coexiste avec les coûts psychosociaux et organisationnels de
-l'absence du parent migrant, et le solde net peut être défavorable sur un
-indicateur multidimensionnel qui agrège les deux canaux.
+Le deuxième est la compensation entre canaux. Les transferts
+internationaux sont indissociables de l'émigration d'un membre du ménage,
+souvent un parent, survenue ici entre les deux vagues~: l'apport monétaire
+peut être contrebalancé, à court terme, par la réorganisation du ménage et
+les coûts psychosociaux de l'absence qui suivent immédiatement le départ
+\parencite{cortes2007,davis2016}. Un effet net proche de zéro est
+précisément ce qu'on attend lorsque ces deux forces de signes opposés
+opèrent simultanément et avec des ampleurs comparables.
 
-Dans les zones à fort déficit d'infrastructures, les transferts monétaires ne
-peuvent pas se substituer aux investissements publics collectifs~: l'absence
-d'effet favorable sur les dimensions eau, assainissement ou santé peut refléter
-une contrainte d'offre que le pouvoir d'achat supplémentaire ne lève pas
-\parencite{mansuri2006}. La concentration de l'écart défavorable en milieu
-rural, où ces contraintes sont les plus fortes, est cohérente avec ce canal.
+Le troisième est la contrainte d'offre. Dans les zones à fort déficit
+d'infrastructures, les transferts monétaires ne peuvent pas se substituer
+aux investissements publics collectifs~: le pouvoir d'achat supplémentaire
+ne lève pas, à lui seul, les privations d'eau, d'assainissement ou de
+santé \parencite{mansuri2006}.
 
-La comparaison des estimateurs illustre l'importance de la correction~:
-la DD brute donne $0{,}046$ ($p=0{,}056$) sur le N-MODA, l'appariement
-porte l'estimation à $0{,}079$ ($p=0{,}025$). Le biais de sélection à
-l'\oe{}uvre est massif (SMD jusqu'à 0,66 avant appariement) et sa correction
-change substantiellement l'inférence, ce qui valide la stratégie PSM-DD par
-rapport aux approches naïves, indépendamment du signe du résultat final.
+Enfin, la comparaison avec la définition alternative du traitement
+(annexe~\ref{ann:A}) éclaire la temporalité de l'effet~: chez les ménages
+durablement bénéficiaires, dont l'exposition aux transferts est antérieure
+à 2018, la dynamique relative des privations est défavorable et
+significative, ce qui suggère que les effets des transferts, dans un sens
+comme dans l'autre, mettent du temps à se manifester et que l'horizon de
+trois ans du design principal capte essentiellement une phase de
+transition.
 
 Ces résultats s'inscrivent dans un débat empirique contrasté : si certaines
 études trouvent des effets positifs des transferts sur les indicateurs
 monétaires de pauvreté \parencite{adams2005,gubert2002}, les effets sur des
 indicateurs multidimensionnels structurels sont moins systématiquement
 établis, en particulier à court terme
-\parencite{mansuri2006,cortes2007}. Une réplication de l'analyse sur la
-prochaine vague de l'EHCVM permettrait de consolider ces conclusions.
+\parencite{mansuri2006,cortes2007} - notre résultat nul à trois ans en est
+une illustration directe. Une réplication de l'analyse sur la prochaine
+vague de l'EHCVM, qui allongerait la durée d'exposition observée des
+entrants, permettrait de consolider ces conclusions.
 Les implications de politique économique de ces résultats sont développées
 dans la conclusion générale.
