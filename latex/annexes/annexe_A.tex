@@ -54,9 +54,10 @@ histoire, conformément au cadre de \textcite{heckman1997,heckman1998}.
 
 \subsection{Test placebo}
 
-En affectant aléatoirement un faux statut de traitement à 14,6\,\% des ménages
-jamais traités et en estimant la DD sur ce pseudo-traitement (200 réplications),
-on obtient la distribution suivante.
+En affectant aléatoirement un faux statut de traitement à 17,7\,\% des
+ménages jamais bénéficiaires (part observée des entrants) et en estimant la
+DD sur ce pseudo-traitement (200 réplications), on obtient la distribution
+suivante.
 
 \begin{table}[H]
   \centering
@@ -67,12 +68,12 @@ on obtient la distribution suivante.
     \hline
 \entete Statistique & Pauvreté N-MODA \\
     \hline
-    ATT placebo moyen            & (à actualiser) \\ \hline
-    Écart-type                   & (à actualiser) \\ \hline
-    Fraction $|$ATT$|$ $>$ 0,05 & (à actualiser) \\
+    ATT placebo moyen            & $0{,}002$ \\ \hline
+    Écart-type                   & $0{,}023$ \\ \hline
+    Fraction $|$ATT$|$ $>$ 0,05 & 1,0\,\% \\
     \hline
     ATT réel (tableau~\ref{tab:psmdd_att}) & $0{,}010$ \\ \hline
-    Rang dans la distribution placebo      & (à actualiser) \\
+    Rang dans la distribution placebo      & 63\textsuperscript{e} centile \\
     \hline
   \end{tabular}
   \begin{tablenotes}
@@ -88,13 +89,11 @@ on obtient la distribution suivante.
   \label{fig:placebo_dd}
 \end{figure}
 
-La distribution placebo, centrée sur zéro, fournit la référence sous
-absence d'effet~: avec un ATT réel proche de zéro ($0{,}010$), il est
-attendu que celui-ci se situe au c\oe ur de la distribution placebo,
-c'est-à-dire qu'il soit indiscernable d'une assignation aléatoire du
-traitement - lecture cohérente avec le résultat nul. Les statistiques de
-la distribution seront actualisées après réexécution du pipeline sous le
-design entrants.
+La distribution placebo, centrée sur zéro (écart-type 0,023), fournit la
+référence sous absence d'effet~: l'ATT réel ($0{,}010$) se situe au
+63\textsuperscript{e} centile, en plein c\oe ur de la distribution,
+c'est-à-dire qu'il est indiscernable d'une assignation aléatoire du
+traitement - lecture pleinement cohérente avec le résultat nul.
 
 \subsection{Sensibilité au seuil de dimensions (k)}
 
@@ -121,11 +120,10 @@ justifierait un autre seuil.
 \subsection{Résultats PSM avec différentes méthodes d'appariement}
 
 Le tableau~\ref{tab:psm_methodes} (section~\ref{subsec:psmdd}) confronte
-les méthodes d'appariement~: le k-NN ($p=0{,}707$) et la double différence
-brute ($p=0{,}976$) concordent sur l'absence d'effet détectable~; les
-valeurs noyau et caliper seront rapportées avec la version définitive des
-estimations. La stabilité de la conclusion entre méthodes reste
-l'enseignement principal.
+les méthodes d'appariement~: le k-NN ($p=0{,}707$), le noyau Epanechnikov
+($p=0{,}822$), le caliper ($p=0{,}744$) et la double différence brute
+($p=0{,}976$) concordent tous sur l'absence d'effet détectable. La
+stabilité de la conclusion entre méthodes reste l'enseignement principal.
 
 \subsection{Définition alternative du traitement : les bénéficiaires stables}
 
