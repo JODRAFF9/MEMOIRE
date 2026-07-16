@@ -146,7 +146,7 @@ significative au seuil de 5\,\%.
 \subsubsection{Double différence sans appariement}
 
 À titre de référence, nous estimons d'abord un estimateur de double différence
-sur effectifs bruts, sans appariement (tableau~\ref{tab:dd_brut}). L'impact
+sans appariement (tableau~\ref{tab:dd_brut}). L'impact
 estimé est nul et très loin de la significativité pour le N-MODA
 ($0{,}1$ pp, $p = 0{,}976$)~: la pauvreté multidimensionnelle des enfants a
 reculé au même rythme chez les entrants et chez les jamais bénéficiaires.
@@ -157,7 +157,7 @@ pour confirmer le résultat sur des groupes rendus comparables.
 
 \begin{table}[H]
   \centering
-  \caption{Estimations par double différence (DD brute, sans appariement, effectifs bruts)}
+  \caption{Estimations par double différence (DD brute, sans appariement)}
   \label{tab:dd_brut}
   \zebre
   \begin{tabular}{|l|c|c|c|}
@@ -169,8 +169,7 @@ pour confirmer le résultat sur des groupes rendus comparables.
   \end{tabular}
   \begin{tablenotes}
     \small
-    \item Erreurs-types clusterisées au niveau de la grappe,
-    sans pondération par poids d'enquête.
+    \item Erreurs-types clusterisées au niveau de la grappe.
     Spécification~:
     $Y_{it} = \alpha + \beta t + \gamma D + \delta(t \times D) + \varepsilon_{it}$.
     $\delta$ est l'ATT rapporté. Panel vrai 2018-2021, design entrants,
@@ -201,8 +200,7 @@ sélection sur observables et les effets fixes inobservables constants dans le t
   \end{tabular}
   \begin{tablenotes}
     \small
-    \item Poids d'appariement PSM uniquement
-    (pas de pondération par poids d'enquête). Appariement k-NN au niveau ménage
+    \item Poids d'appariement PSM uniquement. Appariement k-NN au niveau ménage
     ($k=4$, avec remise, support commun). Erreurs-types clusterisées au niveau
     de la grappe (panel vrai apparié, $n = 25\,028$ obs. enfants, 2 périodes).
   \end{tablenotes}
@@ -266,9 +264,8 @@ au choix algorithmique.
   \end{tabular}
   \begin{tablenotes}
     \small
-    \item Erreurs-types clusterisées au niveau de la grappe, sans pondération
-    par poids d'enquête (seul le poids d'appariement PSM est utilisé).
-    Appariement au niveau ménage.
+    \item Erreurs-types clusterisées au niveau de la grappe, seul le poids
+    d'appariement PSM étant utilisé. Appariement au niveau ménage.
   \end{tablenotes}
 \end{table}
 
