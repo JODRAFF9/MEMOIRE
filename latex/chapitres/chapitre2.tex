@@ -421,10 +421,26 @@ pondérée de l'ensemble des témoins, les poids décroissant avec la distance e
   \right],
   \label{eq:kernel}
 \end{equation}
-où $h = 0{,}06$ est la largeur de bande. L'appariement
-par rayon (caliper, $\epsilon = 0{,}05$, sans remise) \parencite{caliendo2008}
-exclut les appariements de faible qualité en imposant une distance maximale
-sur le score de propension.
+où $h = 0{,}06$ est la largeur de bande. Enfin, l'appariement par rayon
+(caliper) \parencite{caliendo2008} associe à chaque traité un unique témoin,
+le plus proche en score, à condition que leur distance ne dépasse pas un
+rayon maximal $\epsilon$~:
+\begin{equation}
+  \hat{\tau}_{\text{caliper}} = \frac{1}{n_T^{\epsilon}}
+  \sum_{i \in \mathcal{T}^{\epsilon}} \left[Y_i - Y_{j(i)}\right],
+  \qquad j(i) = \argmin_{j \in \mathcal{C}} \left|p_i - p_j\right|
+  \;\text{ sous contrainte }\; \left|p_i - p_{j(i)}\right| < \epsilon,
+  \label{eq:caliper}
+\end{equation}
+avec $\epsilon = 0{,}05$ et un appariement sans remise (chaque témoin ne
+peut être utilisé qu'une fois). Les traités sans témoin à l'intérieur du
+rayon sont écartés de l'estimation ($\mathcal{T}^{\epsilon}$ désigne les
+$n_T^{\epsilon}$ traités appariés)~: cette méthode privilégie donc la
+qualité de chaque appariement au prix d'une réduction de l'échantillon,
+à l'inverse du noyau qui mobilise tous les témoins. La comparaison des
+trois algorithmes, qui arbitrent différemment entre biais (proximité des
+appariements) et variance (nombre de témoins mobilisés), sert de test de
+robustesse au chapitre des résultats.
 
 La qualité de l'appariement est évaluée par le biais standardisé
 \parencite{rosenbaum1983},
