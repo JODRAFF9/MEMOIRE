@@ -7,27 +7,27 @@
 
 % ── En-tête institutionnel ───────────────────────────────────
 {\normalsize\scshape République du Sénégal}\\[0.1cm]
-{\small Un Peuple - Un But - Une Foi}\\[0.15cm]
+{\small Un Peuple - Un But - Une Foi}\\[0.1cm]
 
 % ── Armoiries du Sénégal ─────────────────────────────────────
-\includegraphics[height=2.6cm]{figures/armoiries_senegal.png}\\[0.2cm]
+\includegraphics[height=3.4cm]{figures/armoiries_senegal.png}\\[0.12cm]
 
 % ── ANSD au centre ───────────────────────────────────────────
-{\small\bfseries Agence Nationale de la Statistique et de la Démographie (ANSD)}\\[0.15cm]
-\includegraphics[height=2.1cm]{figures/logo_ansd.jpg}\\[0.25cm]
+{\small\bfseries Agence Nationale de la Statistique et de la Démographie (ANSD)}\\[0.1cm]
+\includegraphics[height=3cm]{figures/logo_ansd.jpg}\\[0.15cm]
 
 % ── ENSAE et ITIE sur la même ligne ──────────────────────────
 \noindent
 \begin{minipage}[t]{0.47\textwidth}
   \centering
-  \raisebox{-2.1cm}[0pt][2.1cm]{\includegraphics[height=2.1cm]{figures/logo_ensae_new.png}}\\[2.25cm]
+  \raisebox{-3cm}[0pt][3cm]{\includegraphics[height=3cm]{figures/logo_ensae_new.png}}\\[0.25cm]
   {\scriptsize\bfseries École Nationale de la Statistique et de l'Analyse Économique Pierre Ndiaye (ENSAE)\par}
 \end{minipage}\hfill
 \begin{minipage}[t]{0.47\textwidth}
   \centering
-  \raisebox{-2.1cm}[0pt][2.1cm]{\includegraphics[height=2.1cm]{figures/cropped-logo_ITIE-senegal-230-164.png}}\\[2.25cm]
-  {\scriptsize\bfseries Structure d'accueil~: Initiative pour la Transparence dans les Industries Extractives (ITIE)\par}
-\end{minipage}\\[0.25cm]
+  \raisebox{-3cm}[0pt][3cm]{\includegraphics[height=3cm]{figures/cropped-logo_ITIE-senegal-230-164.png}}\\[0.25cm]
+  {\scriptsize\bfseries Structure d'accueil~: ITIE Sénégal\par}
+\end{minipage}\\[0.35cm]
 
 % ── Séparateur décoratif TikZ ────────────────────────────────
 \begin{tikzpicture}
@@ -35,24 +35,24 @@
   \fill[ensaeblue]  (0.45\textwidth,0) circle (2.1pt);
   \fill[ensaecyan] (0.45\textwidth,0) circle (1.1pt);
   \draw[ensaecyan, line width=1pt] (0.48\textwidth,0) -- (0.9\textwidth,0);
-\end{tikzpicture}\\[0.3cm]
+\end{tikzpicture}\\[0.2cm]
 
 % ── Badge « Mémoire de fin de formation » (TikZ) ─────────────
 \begin{tikzpicture}
   \node[fill=ensaeblue, rounded corners=4pt, inner xsep=18pt, inner ysep=7pt,
         text=white, font=\normalsize\bfseries]
     {Mémoire de fin de formation};
-\end{tikzpicture}\\[0.35cm]
+\end{tikzpicture}\\[0.25cm]
 
 % ── Encadré titre (TikZ : liseré + fond teinté + ombre) ──────
 \begin{tikzpicture}
   % ombre portée légère
   \node[rounded corners=10pt, fill=ensaeblue!25,
-        inner sep=17pt, text width=0.80\textwidth, align=center]
+        inner sep=13pt, text width=0.80\textwidth, align=center]
     at (0.09,-0.09) (shadow) {\phantom{\Large\bfseries Titre}};
   % cadre principal
   \node[draw=ensaeblue, line width=1.4pt, rounded corners=10pt,
-        fill=ensaecyan!8, inner sep=17pt, text width=0.80\textwidth,
+        fill=ensaecyan!8, inner sep=13pt, text width=0.80\textwidth,
         align=center, text=ensaeblue] (titre)
     {\Large\bfseries Impact des transferts de migrants\\
      sur la pauvreté multidimensionnelle\\
@@ -64,7 +64,7 @@
   \draw[ensaecyan, line width=1.2pt]
     ([xshift=-6pt,yshift=6pt]titre.south east) -- ++(-0.9,0)
     ([xshift=-6pt,yshift=6pt]titre.south east) -- ++(0,0.6);
-\end{tikzpicture}\\[0.55cm]
+\end{tikzpicture}\\[0.4cm]
 
 % ── Auteur / Encadreur (texte aligné, sans encadré) ──────────
 \noindent
