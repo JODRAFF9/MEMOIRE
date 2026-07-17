@@ -2033,7 +2033,7 @@ preserve
            (scatter ordre out_lbl, msymbol(none) ///
             mlabel(pct) mlabformat(%4,1f) mlabcolor(black) mlabpos(0) mlabsize(small)), ///
         ylab(`ylab_str', angle(0) noticks labsize(small)) ///
-        yscale(range(0.5 4.5)) ///
+        yscale(range(0.5 4.5)) ysize(3.2) xsize(6.8) ///
         xtitle("Part des enfants 0-17 ans (%)") ytitle("") ///
         xlabel(0(20)100, grid) ///
         legend(off) ///
