@@ -45,8 +45,14 @@ di "$(date)"
    config.do — Chemins, constantes et options globales
    ============================================================ */
 
-global BASE_2018 "Base/2018-2019/SEN_2018_EHCVM_v02_M_Stata"
-global BASE_2021 "Base/2021-2022/SEN_2021_EHCVM-2_v01_M_STATA14"
+/* Donnees brutes : telechargement direct depuis le depot GitHub (public).
+   Stata lit les fichiers .dta via https avec use/merge, sans copie locale
+   prealable. Chaque execution re-telecharge les bases (~300 Mo au total),
+   prevoir une bonne connexion. Les sorties (temp, output, logs) restent
+   ecrites en local, car save ne peut pas ecrire vers une URL. */
+global RAW       "https://raw.githubusercontent.com/JODRAFF9/MEMOIRE/main"
+global BASE_2018 "$RAW/Base/2018-2019/SEN_2018_EHCVM_v02_M_Stata"
+global BASE_2021 "$RAW/Base/2021-2022/SEN_2021_EHCVM-2_v01_M_STATA14"
 global OUTPUT    "code/stata/output"
 global TEMP      "code/stata/temp"
 global PREP      "code/stata/temp/prepared"
