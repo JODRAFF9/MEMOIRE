@@ -1727,9 +1727,9 @@ graph twoway ///
     (bar pct_2018 x_2018, barwidth(0.35) color(gs9)) ///
     (bar pct_2021 x_2021, barwidth(0.35) color(orange)) ///
     (scatter pct_2018 x_2018, msymbol(none) mlabel(lbl_18) ///
-     mlabpos(12) mlabcolor(black) mlabsize(half_tiny)) ///
+     mlabpos(12) mlabcolor(black) mlabsize(vsmall)) ///
     (scatter pct_2021 x_2021, msymbol(none) mlabel(lbl_21) ///
-     mlabpos(12) mlabcolor(black) mlabsize(half_tiny)) ///
+     mlabpos(12) mlabcolor(black) mlabsize(vsmall)) ///
     , xline(3.5, lcolor(red) lpattern(dash) lwidth(medthick)) ///
     xlabel(0(1)7) xtitle("Nombre de dimensions en privation (sur 7)") ///
     ylabel(0(5)30, grid) ytitle("Part des enfants (%)") ///
