@@ -1128,15 +1128,20 @@ gen str8 lb_t = subinstr(string(temoin, "%3.1f"), ".", ",", 1) + " %"
 gen str8 lb_c = ""
 replace  lb_c = subinstr(string(contref, "%3.1f"), ".", ",", 1) + " %" in 2
 
-/* Courbe haute (temoin) : etiquettes au-dessus. Courbe basse (benef) et
-   contrefactuel : etiquettes en dessous, pour eviter tout chevauchement. */
+/* Positions d'etiquette par point pour eviter tout chevauchement :
+   temoin au-dessus (12) ; entrants a gauche du point en 2021 (9),
+   en dessous en 2018 (6) ; contrefactuel en dessous (6), avec un
+   ecart accru pour rester detache de l'etiquette des entrants. */
+gen byte vp_b = 6
+replace  vp_b = 9 in 2
+
 twoway (connected temoin annee, lcolor(gs7) mcolor(gs7) msymbol(square) lwidth(medthick) ///
-            mlabel(lb_t) mlabcolor(black) mlabpos(12) mlabgap(2.5) mlabsize(small)) ///
+            mlabel(lb_t) mlabcolor(black) mlabpos(12) mlabgap(3) mlabsize(small)) ///
        (connected benef annee, lcolor(orange) mcolor(orange) msymbol(circle) lwidth(medthick) ///
-            mlabel(lb_b) mlabcolor(black) mlabpos(6) mlabgap(2.5) mlabsize(small)) ///
+            mlabel(lb_b) mlabcolor(black) mlabvpos(vp_b) mlabgap(3) mlabsize(small)) ///
        (connected contref annee, lcolor(orange) lpattern(dash) msymbol(diamond_hollow) ///
             mcolor(orange) lwidth(medthick) ///
-            mlabel(lb_c) mlabcolor(black) mlabpos(6) mlabgap(2.5) mlabsize(small)), ///
+            mlabel(lb_c) mlabcolor(black) mlabpos(6) mlabgap(4.5) mlabsize(small)), ///
     xlabel(2018 2021) xscale(range(2017.7 2021.3)) ///
     xtitle("Vague EHCVM") ytitle("Incidence N-MODA (H, %)") ///
     ylabel(0(20)100, grid) ///
