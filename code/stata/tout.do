@@ -1430,12 +1430,14 @@ preserve
     replace urbain = urbain * 100
     label define statutD 0 "Non-beneficiaires" 1 "Beneficiaires", replace
     label values D statutD
+    set dp comma
     graph bar (mean) chef_f urbain, over(D) ///
         bar(1, color(gs9)) bar(2, color(orange)) ///
-        blabel(bar, position(center) color(white) format(%3.0f)) ///
+        blabel(bar, position(center) color(white) format(%3.1f)) ///
         legend(order(1 "Chef feminin (%)" 2 "Milieu urbain (%)") pos(6) rows(1)) ///
         ytitle("Part des menages (%)") ylabel(0(20)100, grid) ///
         graphregion(color(white)) plotregion(color(white))
+    set dp period
     graph export "$OUTPUT/figures/fig_profil_statut.pdf", replace
     di ">>> fig_profil_statut.pdf sauvegardé"
 restore
@@ -1623,12 +1625,14 @@ forvalues i = 1/7 {
     replace v2018 = d_`d'_2018 in `i'
     replace v2021 = d_`d'_2021 in `i'
 }
+set dp comma
 graph bar v2018 v2021, over(dim, sort(ordre) label(angle(30))) ///
     bar(1, color(gs9)) bar(2, color(orange)) ///
-    blabel(bar, position(center) color(white) format(%3.0f)) ///
+    blabel(bar, position(center) color(white) format(%3.1f) size(vsmall)) ///
     legend(order(1 "EHCVM I (2018-19)" 2 "EHCVM II (2021-22)") pos(6) rows(1)) ///
     ytitle("Taux de privation (%)") ylabel(0(20)100, grid) ///
     graphregion(color(white)) plotregion(color(white))
+set dp period
 graph export "$OUTPUT/figures/fig_privations_dim.pdf", replace
 di ">>> fig_privations_dim.pdf sauvegardé"
 
@@ -1650,12 +1654,14 @@ collapse (mean) pauvre_MODA, by(vague groupe_moda milieu)
 replace pauvre_MODA = pauvre_MODA * 100
 reshape wide pauvre_MODA, i(groupe_moda milieu) j(vague)
 
+set dp comma   /* etiquettes decimales avec virgule */
 graph bar pauvre_MODA1 pauvre_MODA2, over(groupe_moda) over(milieu) ///
     bar(1, color(gs9)) bar(2, color(orange)) ///
     blabel(bar, position(center) color(white) format(%3.1f) size(vsmall)) ///
     legend(order(1 "EHCVM I (2018-19)" 2 "EHCVM II (2021-22)") pos(6) rows(1)) ///
     ytitle("Incidence N-MODA (H, %)") ylabel(0(20)100, grid) ///
     graphregion(color(white)) plotregion(color(white))
+set dp period
 graph export "$OUTPUT/figures/fig_pauvrete_milieu_age.pdf", replace
 di ">>> fig_pauvrete_milieu_age.pdf sauvegardé"
 
@@ -1698,14 +1704,18 @@ svmat `distrib', names(col)
 rename c1 nb_dim
 rename c2 pct_2018
 rename c3 pct_2021
-gen str8 lbl_18 = subinstr(string(pct_2018, "%3.1f"), ".", ",", 1) + " %"
-gen str8 lbl_21 = subinstr(string(pct_2021, "%3.1f"), ".", ",", 1) + " %"
+gen str8 lbl_18 = subinstr(string(pct_2018, "%3.1f"), ".", ",", 1)
+gen str8 lbl_21 = subinstr(string(pct_2021, "%3.1f"), ".", ",", 1)
 gen x_2018 = nb_dim - 0.19
 gen x_2021 = nb_dim + 0.19
 
 graph twoway ///
     (bar pct_2018 x_2018, barwidth(0.35) color(gs9)) ///
     (bar pct_2021 x_2021, barwidth(0.35) color(orange)) ///
+    (scatter pct_2018 x_2018, msymbol(none) mlabel(lbl_18) ///
+     mlabpos(12) mlabcolor(black) mlabsize(tiny) mlabangle(90)) ///
+    (scatter pct_2021 x_2021, msymbol(none) mlabel(lbl_21) ///
+     mlabpos(12) mlabcolor(black) mlabsize(tiny) mlabangle(90)) ///
     , xline(3.5, lcolor(red) lpattern(dash) lwidth(medthick)) ///
     xlabel(0(1)7) xtitle("Nombre de dimensions en privation (sur 7)") ///
     ylabel(0(5)30, grid) ytitle("Part des enfants (%)") ///
@@ -1790,10 +1800,17 @@ forvalues i = 1/`n_dims' {
     local ylab_str `"`ylab_str' `i' "`lbl'""'
 }
 
+/* Etiquettes de valeur (virgule decimale), placees au-dela des IC */
+gen str8 lbl_att = subinstr(string(att, "%4.1f"), ".", ",", 1)
+gen xlbl = ub + 1.2 if att >= 0
+replace xlbl = lb - 1.2 if att < 0
+
 /* Graphique à barres horizontales avec IC 95 % */
 twoway ///
     (bar att ordre, horizontal barwidth(0.6) color(gs9)) ///
-    (rcap lb ub ordre, horizontal lcolor(orange) lwidth(medthick) msize(medium)), ///
+    (rcap lb ub ordre, horizontal lcolor(orange) lwidth(medthick) msize(medium)) ///
+    (scatter ordre xlbl, msymbol(none) mlabel(lbl_att) ///
+     mlabpos(0) mlabcolor(black) mlabsize(small)), ///
     ylab(`ylab_str', angle(0) noticks) ///
     yscale(range(0.5 7.5)) ///
     ytitle("") xtitle("ATT (points de pourcentage)") ///
@@ -1875,6 +1892,7 @@ preserve
         local ylab_str `"`ylab_str' `i' "`lbl'""'
     }
 
+    set dp comma
     /* Positions decalees : EHCVM I au-dessus, EHCVM II en dessous */
     gen y_2018 = ordre + 0.19
     gen y_2021 = ordre - 0.19
@@ -1886,9 +1904,9 @@ preserve
            (bar H_2021 y_2021, horizontal barwidth(0.35) ///
             color(orange) lcolor(white)) ///
            (scatter y_2018 mid_2018, msymbol(none) ///
-            mlabel(H_2018) mlabformat(%3.0f) mlabcolor(white) mlabpos(0) mlabsize(tiny)) ///
+            mlabel(H_2018) mlabformat(%3.1f) mlabcolor(white) mlabpos(0) mlabsize(tiny)) ///
            (scatter y_2021 mid_2021, msymbol(none) ///
-            mlabel(H_2021) mlabformat(%3.0f) mlabcolor(white) mlabpos(0) mlabsize(tiny)), ///
+            mlabel(H_2021) mlabformat(%3.1f) mlabcolor(white) mlabpos(0) mlabsize(tiny)), ///
         legend(order(1 "EHCVM I (2018-19)" 2 "EHCVM II (2021-22)") pos(6) rows(1)) ///
         ylab(`ylab_str', angle(0) noticks labsize(small)) ///
         yscale(range(0.5 14.5)) ///
@@ -1897,6 +1915,7 @@ preserve
         xline(`=scalar(H_nat_2018)', lcolor(gs9) lpattern(dash) lwidth(medthin)) ///
         xline(`=scalar(H_nat_2021)', lcolor(orange) lpattern(dash) lwidth(medthin)) ///
         graphregion(color(white)) plotregion(color(white))
+    set dp period
     graph export "$OUTPUT/figures/fig_carte_nmoda.pdf", replace
     di ">>> fig_carte_nmoda.pdf sauvegardé"
 restore
@@ -1981,16 +2000,18 @@ preserve
     }
 
     gen mid_lbl = pct/2
+    set dp comma
     twoway (bar pct ordre, horizontal barwidth(0.65) ///
             color(gs5 gs10 orange gs13)) ///
            (scatter ordre mid_lbl, msymbol(none) ///
-            mlabel(pct) mlabformat(%3.0f) mlabcolor(white) mlabpos(0) mlabsize(small)), ///
+            mlabel(pct) mlabformat(%3.1f) mlabcolor(white) mlabpos(0) mlabsize(small)), ///
         ylab(`ylab_str', angle(0) noticks labsize(small)) ///
         yscale(range(0.5 4.5)) ///
         xtitle("Part des enfants 0-17 ans (%)") ytitle("") ///
         xlabel(0(20)100, grid) ///
         legend(off) ///
         graphregion(color(white)) plotregion(color(white))
+    set dp period
     graph export "$OUTPUT/figures/fig_croisement_pauvrete.pdf", replace
     di ">>> fig_croisement_pauvrete.pdf sauvegardé"
 restore
