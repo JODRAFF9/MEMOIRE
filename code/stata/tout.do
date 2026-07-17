@@ -2021,12 +2021,17 @@ preserve
         local ylab_str `"`ylab_str' `i' "`lbl'""'
     }
 
-    gen mid_lbl = pct/2
+    /* Etiquette au centre (blanc) pour les barres longues, a droite
+       (noir) pour les barres trop courtes */
+    gen mid_lbl = pct/2 if pct >= 10
+    gen out_lbl = pct + 2.5 if pct < 10
     set dp comma
-    twoway (bar pct ordre, horizontal barwidth(0.65) ///
-            color(gs5 gs10 orange gs13)) ///
+    twoway (bar pct ordre, horizontal barwidth(0.45) ///
+            color(gs9) lcolor(white)) ///
            (scatter ordre mid_lbl, msymbol(none) ///
-            mlabel(pct) mlabformat(%4,1f) mlabcolor(white) mlabpos(0) mlabsize(small)), ///
+            mlabel(pct) mlabformat(%4,1f) mlabcolor(white) mlabpos(0) mlabsize(small)) ///
+           (scatter ordre out_lbl, msymbol(none) ///
+            mlabel(pct) mlabformat(%4,1f) mlabcolor(black) mlabpos(0) mlabsize(small)), ///
         ylab(`ylab_str', angle(0) noticks labsize(small)) ///
         yscale(range(0.5 4.5)) ///
         xtitle("Part des enfants 0-17 ans (%)") ytitle("") ///
