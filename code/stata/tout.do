@@ -993,12 +993,14 @@ predict pscore, pr
 label var pscore "Score de propension (menage)"
 
 /* Graphique de densite (support commun) */
+set dp comma
 twoway ///
     (kdensity pscore if D == 0, lcolor(gs9) lwidth(medthick)) ///
     (kdensity pscore if D == 1, lcolor(orange) lwidth(medthick)), ///
     legend(order(1 "Jamais beneficiaires" 2 "Entrants (D=0 vers 1)")) ///
     xtitle("Score de propension") ytitle("Densité") ///
     saving("$OUTPUT/overlap_panel.gph", replace)
+set dp period
 graph export "$OUTPUT/overlap_panel.pdf", replace
 
 save "$TEMP/pscore_t0.dta", replace
@@ -1135,6 +1137,7 @@ replace  lb_c = subinstr(string(contref, "%3.1f"), ".", ",", 1) + " %" in 2
 gen byte vp_b = 6
 replace  vp_b = 9 in 2
 
+set dp comma
 twoway (connected temoin annee, lcolor(gs7) mcolor(gs7) msymbol(square) lwidth(medthick) ///
             mlabel(lb_t) mlabcolor(black) mlabpos(12) mlabgap(3) mlabsize(small)) ///
        (connected benef annee, lcolor(orange) mcolor(orange) msymbol(circle) lwidth(medthick) ///
@@ -1148,6 +1151,7 @@ twoway (connected temoin annee, lcolor(gs7) mcolor(gs7) msymbol(square) lwidth(m
     legend(order(2 "Entrants" 1 "Témoins appariés" ///
                  3 "Contrefactuel (tendances parallèles)") pos(6) rows(2)) ///
     graphregion(color(white)) plotregion(color(white))
+set dp period
 graph export "$OUTPUT/figures/fig_dd_trajectoires.pdf", replace
 di ">>> fig_dd_trajectoires.pdf sauvegardé"
 restore
@@ -1594,12 +1598,14 @@ gen H_MODA = H_moda_2018 in 1
 replace H_MODA = H_moda_2021 in 2
 gen str12 lbl_H = subinstr(string(H_MODA, "%3.1f"), ".", ",", 1) + " %"
 
+set dp comma
 twoway (connected H_MODA annee, lcolor(orange) mcolor(orange) msymbol(circle)  lwidth(medthick) ///
         mlabel(lbl_H) mlabcolor(black) mlabpos(12) mlabgap(2) mlabsize(medium)), ///
     xlabel(2018 2021) xscale(range(2017.7 2021.3)) xtitle("Vague EHCVM") ytitle("Incidence H (%)") ///
     ylabel(0(20)100, grid) yscale(range(0 108)) ///
     legend(order(1 "N-MODA (k=4, 7 dim.)") pos(6) rows(1)) ///
     graphregion(color(white)) plotregion(color(white))
+set dp period
 graph export "$OUTPUT/figures/fig_evolution_ipm.pdf", replace
 di ">>> fig_evolution_ipm.pdf sauvegardé"
 
@@ -1678,12 +1684,14 @@ replace D = 0 if missing(D)
 label define dl 0 "Non-bénéficiaires" 1 "Bénéficiaires", replace
 label values D dl
 
+set dp comma
 histogram nb_dep, by(D, cols(1) note("")) ///
     fraction width(1) gap(10) ///
     color(gs9) lcolor(white) ///
     xtitle("Nombre de dimensions en privation (sur 7)") ///
     ytitle("Fraction") ylabel(, format(%4.2f) grid) ///
     graphregion(color(white)) plotregion(color(white))
+set dp period
 graph export "$OUTPUT/figures/fig_distrib_nbdep.pdf", replace
 di ">>> fig_distrib_nbdep.pdf sauvegardé"
 
@@ -1714,6 +1722,7 @@ gen str8 lbl_21 = subinstr(string(pct_2021, "%3.1f"), ".", ",", 1)
 gen x_2018 = nb_dim - 0.19
 gen x_2021 = nb_dim + 0.19
 
+set dp comma
 graph twoway ///
     (bar pct_2018 x_2018, barwidth(0.35) color(gs9)) ///
     (bar pct_2021 x_2021, barwidth(0.35) color(orange)) ///
@@ -1726,6 +1735,7 @@ graph twoway ///
     ylabel(0(5)30, grid) ytitle("Part des enfants (%)") ///
     legend(order(1 "EHCVM I (2018-19)" 2 "EHCVM II (2021-22)") pos(6) rows(1)) ///
     graphregion(color(white)) plotregion(color(white))
+set dp period
 graph export "$OUTPUT/figures/fig_distrib_dimensions.pdf", replace
 di ">>> fig_distrib_dimensions.pdf sauvegardé"
 
@@ -1811,6 +1821,7 @@ gen xlbl = ub + 1.2 if att >= 0
 replace xlbl = lb - 1.2 if att < 0
 
 /* Graphique à barres horizontales avec IC 95 % */
+set dp comma
 twoway ///
     (bar att ordre, horizontal barwidth(0.6) color(gs9)) ///
     (rcap lb ub ordre, horizontal lcolor(orange) lwidth(medthick) msize(medium)) ///
@@ -1823,6 +1834,7 @@ twoway ///
     legend(off) ///
     graphregion(color(white)) plotregion(color(white))
 
+set dp period
 graph export "$OUTPUT/figures/fig_effets_dim.pdf", replace
 di ">>> fig_effets_dim.pdf sauvegardé dans $OUTPUT/figures/"
 di ">>> 07_effets_dim.do terminé."
@@ -1897,6 +1909,11 @@ preserve
         local ylab_str `"`ylab_str' `i' "`lbl'""'
     }
 
+    /* Lignes de reference nationales : valeurs figees en local AVANT
+       set dp comma (l'expansion `=...' sous dp comma produirait une
+       virgule qui casserait la syntaxe de xline) */
+    local xl_2018 = scalar(H_nat_2018)
+    local xl_2021 = scalar(H_nat_2021)
     set dp comma
     /* Positions decalees : EHCVM I au-dessus, EHCVM II en dessous */
     gen y_2018 = ordre + 0.19
@@ -1917,8 +1934,8 @@ preserve
         yscale(range(0.5 14.5)) ///
         xtitle("Incidence N-MODA H (%)") ytitle("") ///
         xlabel(0(10)100, grid) ///
-        xline(`=scalar(H_nat_2018)', lcolor(gs9) lpattern(dash) lwidth(medthin)) ///
-        xline(`=scalar(H_nat_2021)', lcolor(orange) lpattern(dash) lwidth(medthin)) ///
+        xline(`xl_2018', lcolor(gs9) lpattern(dash) lwidth(medthin)) ///
+        xline(`xl_2021', lcolor(orange) lpattern(dash) lwidth(medthin)) ///
         graphregion(color(white)) plotregion(color(white))
     set dp period
     graph export "$OUTPUT/figures/fig_carte_nmoda.pdf", replace
@@ -2121,14 +2138,17 @@ foreach y in moda {
    placebo doit etre centree sur zero et l'ATT reel doit se situer dans
    sa queue. */
 scalar att_reel = $ATT_REEL   /* ATT PSM-DD principal, sauvegarde en section 5 */
+local xl_att = scalar(att_reel)
+set dp comma
 histogram att_moda, width(0.005) frequency ///
     color(gs9) lcolor(white) ///
     xline(0, lcolor(black) lpattern(solid)) ///
-    xline(`=att_reel', lcolor(orange) lpattern(dash) lwidth(medthick)) ///
+    xline(`xl_att', lcolor(orange) lpattern(dash) lwidth(medthick)) ///
     xtitle("ATT placebo (faux traitement aléatoire)") ///
     ytitle("Nombre de réplications") ///
     xlabel(-0.06(0.02)0.10, grid) ///
     graphregion(color(white)) plotregion(color(white))
+set dp period
 graph export "$OUTPUT/figures/fig_placebo_dd.pdf", replace
 di ">>> fig_placebo_dd.pdf sauvegardé"
 
