@@ -1632,14 +1632,29 @@ graph bar v2018 v2021, over(dim, sort(ordre) label(angle(30))) ///
 graph export "$OUTPUT/figures/fig_privations_dim.pdf", replace
 di ">>> fig_privations_dim.pdf sauvegardé"
 
-/* ── Fig 3 : Pauvreté par milieu et groupe d'âge (EHCVM I) ── */
+/* ── Fig 3 : Pauvreté par milieu et groupe d'âge (EHCVM I et II) ──
+   Barres groupées : les deux vagues côte à côte pour chaque groupe
+   d'âge, panneaux urbain/rural. */
 use "$TEMP/vague_2018.dta", clear
-gen pauvre_MODA_pct = pauvre_MODA*100
-graph bar (mean) pauvre_MODA_pct, over(groupe_moda) over(milieu) ///
-    bar(1, color(orange)) ///
-    blabel(bar, position(center) color(white) format(%3.1f)) ///
+keep pauvre_MODA groupe_moda milieu
+gen byte vague = 1
+tempfile mag_w1
+save `mag_w1'
+
+use "$TEMP/vague_2021.dta", clear
+keep pauvre_MODA groupe_moda milieu
+gen byte vague = 2
+append using `mag_w1'
+
+collapse (mean) pauvre_MODA, by(vague groupe_moda milieu)
+replace pauvre_MODA = pauvre_MODA * 100
+reshape wide pauvre_MODA, i(groupe_moda milieu) j(vague)
+
+graph bar pauvre_MODA1 pauvre_MODA2, over(groupe_moda) over(milieu) ///
+    bar(1, color(gs9)) bar(2, color(orange)) ///
+    blabel(bar, position(center) color(white) format(%3.1f) size(vsmall)) ///
+    legend(order(1 "EHCVM I (2018-19)" 2 "EHCVM II (2021-22)") pos(6) rows(1)) ///
     ytitle("Incidence N-MODA (H, %)") ylabel(0(20)100, grid) ///
-    legend(off) ///
     graphregion(color(white)) plotregion(color(white))
 graph export "$OUTPUT/figures/fig_pauvrete_milieu_age.pdf", replace
 di ">>> fig_pauvrete_milieu_age.pdf sauvegardé"
@@ -1804,32 +1819,37 @@ di ">>> 07_effets_dim.do terminé."
 
 
 /* ============================================================
-   1. Incidence N-MODA par région (EHCVM I, 2018-2019)
+   1. Incidence N-MODA par région (EHCVM I et II)
    ============================================================ */
 
-use "$TEMP/vague_2018.dta", clear
-
-/* Moyenne brute par région (pas de ponderation par poids d'enquete) */
-matrix H_reg = J(14, 2, .)
-
-levelsof region, local(regs)
-local i = 0
-foreach r of local regs {
-    local ++i
-    quietly summarize pauvre_MODA if region == `r'
-    matrix H_reg[`i', 1] = `r'
-    matrix H_reg[`i', 2] = r(mean)*100
-    local lbl : label (region) `r'
-    di "Région `r' (`lbl') : H=" %5.1f r(mean)*100 "%"
+/* Moyenne brute par région, pour chacune des deux vagues */
+matrix H_reg = J(14, 3, .)
+foreach annee in 2018 2021 {
+    use "$TEMP/vague_`annee'.dta", clear
+    local col = cond(`annee' == 2018, 2, 3)
+    quietly summarize pauvre_MODA
+    scalar H_nat_`annee' = r(mean)*100
+    levelsof region, local(regs)
+    local i = 0
+    foreach r of local regs {
+        local ++i
+        quietly summarize pauvre_MODA if region == `r'
+        matrix H_reg[`i', 1] = `r'
+        matrix H_reg[`i', `col'] = r(mean)*100
+        local lbl : label (region) `r'
+        di "Région `r' (`lbl'), `annee' : H=" %5.1f r(mean)*100 "%"
+    }
 }
 
-/* ── Fig carte : barres horizontales par région (substitut à la carte) ── */
+/* ── Fig carte : barres horizontales par région, deux vagues côte
+   à côte (gris = EHCVM I, orange = EHCVM II) ── */
 preserve
     clear
     svmat H_reg, names(col)
     rename c1 cod_reg
-    rename c2 H_nmoda
-    sort H_nmoda
+    rename c2 H_2018
+    rename c3 H_2021
+    sort H_2018
     gen ordre = _n
     gen str30 nom_reg = ""
     /* Correspondance codes vers noms régions Sénégal */
@@ -1855,17 +1875,27 @@ preserve
         local ylab_str `"`ylab_str' `i' "`lbl'""'
     }
 
-    gen mid_lbl = H_nmoda/2
-    twoway (bar H_nmoda ordre, horizontal barwidth(0.6) ///
+    /* Positions decalees : EHCVM I au-dessus, EHCVM II en dessous */
+    gen y_2018 = ordre + 0.19
+    gen y_2021 = ordre - 0.19
+    gen mid_2018 = H_2018/2
+    gen mid_2021 = H_2021/2
+
+    twoway (bar H_2018 y_2018, horizontal barwidth(0.35) ///
             color(gs9) lcolor(white)) ///
-           (scatter ordre mid_lbl, msymbol(none) ///
-            mlabel(H_nmoda) mlabformat(%3.0f) mlabcolor(white) mlabpos(0) mlabsize(small)), ///
-        legend(off) ///
+           (bar H_2021 y_2021, horizontal barwidth(0.35) ///
+            color(orange) lcolor(white)) ///
+           (scatter y_2018 mid_2018, msymbol(none) ///
+            mlabel(H_2018) mlabformat(%3.0f) mlabcolor(white) mlabpos(0) mlabsize(tiny)) ///
+           (scatter y_2021 mid_2021, msymbol(none) ///
+            mlabel(H_2021) mlabformat(%3.0f) mlabcolor(white) mlabpos(0) mlabsize(tiny)), ///
+        legend(order(1 "EHCVM I (2018-19)" 2 "EHCVM II (2021-22)") pos(6) rows(1)) ///
         ylab(`ylab_str', angle(0) noticks labsize(small)) ///
         yscale(range(0.5 14.5)) ///
         xtitle("Incidence N-MODA H (%)") ytitle("") ///
         xlabel(0(10)100, grid) ///
-        xline(58.9, lcolor(orange) lpattern(dash) lwidth(medthick)) ///
+        xline(`=scalar(H_nat_2018)', lcolor(gs9) lpattern(dash) lwidth(medthin)) ///
+        xline(`=scalar(H_nat_2021)', lcolor(orange) lpattern(dash) lwidth(medthin)) ///
         graphregion(color(white)) plotregion(color(white))
     graph export "$OUTPUT/figures/fig_carte_nmoda.pdf", replace
     di ">>> fig_carte_nmoda.pdf sauvegardé"
