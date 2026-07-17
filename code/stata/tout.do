@@ -1442,7 +1442,7 @@ preserve
     set dp comma
     graph bar (mean) chef_f urbain, over(D) ///
         bar(1, color(gs9)) bar(2, color(orange)) ///
-        blabel(bar, position(center) color(white) format(%3.1f)) ///
+        blabel(bar, position(center) color(white) format(%4,1f)) ///
         legend(order(1 "Chef feminin (%)" 2 "Milieu urbain (%)") pos(6) rows(1)) ///
         ytitle("Part des menages (%)") ylabel(0(20)100, grid) ///
         graphregion(color(white)) plotregion(color(white))
@@ -1639,7 +1639,7 @@ forvalues i = 1/7 {
 set dp comma
 graph bar v2018 v2021, over(dim, sort(ordre) label(angle(30))) ///
     bar(1, color(gs9)) bar(2, color(orange)) ///
-    blabel(bar, position(center) color(white) format(%3.1f) size(vsmall)) ///
+    blabel(bar, position(center) color(white) format(%4,1f) size(vsmall)) ///
     legend(order(1 "EHCVM I (2018-19)" 2 "EHCVM II (2021-22)") pos(6) rows(1)) ///
     ytitle("Taux de privation (%)") ylabel(0(20)100, grid) ///
     graphregion(color(white)) plotregion(color(white))
@@ -1668,7 +1668,7 @@ reshape wide pauvre_MODA, i(groupe_moda milieu) j(vague)
 set dp comma   /* etiquettes decimales avec virgule */
 graph bar pauvre_MODA1 pauvre_MODA2, over(groupe_moda) over(milieu) ///
     bar(1, color(gs9)) bar(2, color(orange)) ///
-    blabel(bar, position(center) color(white) format(%3.1f) size(vsmall)) ///
+    blabel(bar, position(center) color(white) format(%4,1f) size(vsmall)) ///
     legend(order(1 "EHCVM I (2018-19)" 2 "EHCVM II (2021-22)") pos(6) rows(1)) ///
     ytitle("Incidence N-MODA (H, %)") ylabel(0(20)100, grid) ///
     graphregion(color(white)) plotregion(color(white))
@@ -1727,9 +1727,9 @@ graph twoway ///
     (bar pct_2018 x_2018, barwidth(0.35) color(gs9)) ///
     (bar pct_2021 x_2021, barwidth(0.35) color(orange)) ///
     (scatter pct_2018 x_2018, msymbol(none) mlabel(lbl_18) ///
-     mlabpos(12) mlabcolor(black) mlabsize(tiny) mlabangle(90)) ///
+     mlabpos(12) mlabcolor(black) mlabsize(half_tiny)) ///
     (scatter pct_2021 x_2021, msymbol(none) mlabel(lbl_21) ///
-     mlabpos(12) mlabcolor(black) mlabsize(tiny) mlabangle(90)) ///
+     mlabpos(12) mlabcolor(black) mlabsize(half_tiny)) ///
     , xline(3.5, lcolor(red) lpattern(dash) lwidth(medthick)) ///
     xlabel(0(1)7) xtitle("Nombre de dimensions en privation (sur 7)") ///
     ylabel(0(5)30, grid) ytitle("Part des enfants (%)") ///
@@ -1926,9 +1926,9 @@ preserve
            (bar H_2021 y_2021, horizontal barwidth(0.35) ///
             color(orange) lcolor(white)) ///
            (scatter y_2018 mid_2018, msymbol(none) ///
-            mlabel(H_2018) mlabformat(%3.1f) mlabcolor(white) mlabpos(0) mlabsize(tiny)) ///
+            mlabel(H_2018) mlabformat(%4,1f) mlabcolor(white) mlabpos(0) mlabsize(tiny)) ///
            (scatter y_2021 mid_2021, msymbol(none) ///
-            mlabel(H_2021) mlabformat(%3.1f) mlabcolor(white) mlabpos(0) mlabsize(tiny)), ///
+            mlabel(H_2021) mlabformat(%4,1f) mlabcolor(white) mlabpos(0) mlabsize(tiny)), ///
         legend(order(1 "EHCVM I (2018-19)" 2 "EHCVM II (2021-22)") pos(6) rows(1)) ///
         ylab(`ylab_str', angle(0) noticks labsize(small)) ///
         yscale(range(0.5 14.5)) ///
@@ -2026,7 +2026,7 @@ preserve
     twoway (bar pct ordre, horizontal barwidth(0.65) ///
             color(gs5 gs10 orange gs13)) ///
            (scatter ordre mid_lbl, msymbol(none) ///
-            mlabel(pct) mlabformat(%3.1f) mlabcolor(white) mlabpos(0) mlabsize(small)), ///
+            mlabel(pct) mlabformat(%4,1f) mlabcolor(white) mlabpos(0) mlabsize(small)), ///
         ylab(`ylab_str', angle(0) noticks labsize(small)) ///
         yscale(range(0.5 4.5)) ///
         xtitle("Part des enfants 0-17 ans (%)") ytitle("") ///
