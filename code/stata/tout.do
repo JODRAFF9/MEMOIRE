@@ -2009,6 +2009,14 @@ merge 1:1 id using "$TEMP/sen_reg_db.dta", ///
     keepusing(nom_reg) nogenerate
 save "$TEMP/sen_reg_lbl.dta", replace
 
+/* Point de la fleche du nord : un marqueur triangle plein (pointe vers le
+   haut) dessine via l'option point() de spmap, surmonte du "N". */
+clear
+set obs 1
+gen double xa = $XNORD
+gen double ya = $YFLEC
+save "$TEMP/sen_narrow.dta", replace
+
 /* Recharger la base attributaire (avec H_2018/H_2021) : spmap lit la
    variable thematique dans le dataset en memoire, pas dans le fichier
    d'etiquettes qui vient d'etre construit. */
@@ -2028,7 +2036,8 @@ spmap H_2018 using "$TEMP/sen_reg_xy", id(id) ///
           label(nom_reg) size(*0.65) color(black)) ///
     subtitle("EHCVM I (2018-2019)", size(medsmall)) ///
     text($YNORD $XNORD "N", size(medlarge) color(black)) ///
-    text($YFLEC $XNORD "{&uarr}", size(huge) color(black)) ///
+    point(data("$TEMP/sen_narrow.dta") xcoord(xa) ycoord(ya) ///
+          shape(triangle) fcolor(black) ocolor(black) size(*2.2)) ///
     name(carte18, replace)
 spmap H_2021 using "$TEMP/sen_reg_xy", id(id) ///
     clmethod(custom) clbreaks(15 30 45 60 75 90) ///
@@ -2040,7 +2049,8 @@ spmap H_2021 using "$TEMP/sen_reg_xy", id(id) ///
           label(nom_reg) size(*0.65) color(black)) ///
     subtitle("EHCVM II (2021-2022)", size(medsmall)) ///
     text($YNORD $XNORD "N", size(medlarge) color(black)) ///
-    text($YFLEC $XNORD "{&uarr}", size(huge) color(black)) ///
+    point(data("$TEMP/sen_narrow.dta") xcoord(xa) ycoord(ya) ///
+          shape(triangle) fcolor(black) ocolor(black) size(*2.2)) ///
     name(carte21, replace)
 graph combine carte18 carte21, cols(2) ///
     graphregion(color(white))
