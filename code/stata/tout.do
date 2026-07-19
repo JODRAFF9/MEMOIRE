@@ -2010,40 +2010,44 @@ global RAD  = 0.045*xrng_                        /* rayon des branches  */
 global RIN  = 0.0135*xrng_                       /* rayon interne etoile*/
 global YNL  = ymin_ + 0.83*yrng_ + 0.075*xrng_   /* "N" au-dessus       */
 
-/* Cercle de la rose (37 points) */
+/* Cercle de la rose : format polyline spmap (1re ligne = coords
+   manquantes, puis 37 noeuds fermant le cercle). */
 clear
-set obs 37
+set obs 38
 gen _ID = 1
-gen double th = (_n - 1) * 2 * _pi / 36
+gen double th = (_n - 2) * 2 * _pi / 36
 gen double _X = $XC + $RAD * cos(th)
 gen double _Y = $YC + $RAD * sin(th)
+replace _X = . in 1
+replace _Y = . in 1
 drop th
 save "$TEMP/sen_rose_c.dta", replace
 
-/* Etoile a 4 branches (N, E, S, O + pointes internes) */
+/* Etoile a 4 branches (N, E, S, O + pointes internes). Format polyline
+   spmap : 1re ligne = coords manquantes, puis le contour ferme. */
 clear
-set obs 9
+set obs 10
 gen _ID = 1
 gen double _X = .
 gen double _Y = .
-replace _X = $XC        in 1
-replace _Y = $YC + $RAD in 1
-replace _X = $XC + $RIN in 2
-replace _Y = $YC + $RIN in 2
-replace _X = $XC + $RAD in 3
-replace _Y = $YC        in 3
-replace _X = $XC + $RIN in 4
-replace _Y = $YC - $RIN in 4
-replace _X = $XC        in 5
-replace _Y = $YC - $RAD in 5
-replace _X = $XC - $RIN in 6
-replace _Y = $YC - $RIN in 6
-replace _X = $XC - $RAD in 7
-replace _Y = $YC        in 7
-replace _X = $XC - $RIN in 8
-replace _Y = $YC + $RIN in 8
-replace _X = $XC        in 9
-replace _Y = $YC + $RAD in 9
+replace _X = $XC        in 2
+replace _Y = $YC + $RAD in 2
+replace _X = $XC + $RIN in 3
+replace _Y = $YC + $RIN in 3
+replace _X = $XC + $RAD in 4
+replace _Y = $YC        in 4
+replace _X = $XC + $RIN in 5
+replace _Y = $YC - $RIN in 5
+replace _X = $XC        in 6
+replace _Y = $YC - $RAD in 6
+replace _X = $XC - $RIN in 7
+replace _Y = $YC - $RIN in 7
+replace _X = $XC - $RAD in 8
+replace _Y = $YC        in 8
+replace _X = $XC - $RIN in 9
+replace _Y = $YC + $RIN in 9
+replace _X = $XC        in 10
+replace _Y = $YC + $RAD in 10
 save "$TEMP/sen_rose_s.dta", replace
 
 /* La barre d'echelle est dessinee par l'option native scalebar() de spmap
@@ -2093,8 +2097,8 @@ spmap H_2018 using "$TEMP/sen_reg_xy", id(id) ///
     line(data("$TEMP/sen_rose_c.dta") color(gs7) size(medthin)) ///
     line(data("$TEMP/sen_rose_s.dta") color(gs7) size(medthin)) ///
     text($YNL $XC "N", size(medium) color(gs7)) ///
-    scalebar(length(150000) units(1000) label("km") ///
-             position(5) size(*0.8)) ///
+    scalebar(units(150) scale(1/1000) label("km") ///
+             xpos(-70) ypos(-108) size(*0.9) tsize(*0.75)) ///
     name(carte18, replace)
 spmap H_2021 using "$TEMP/sen_reg_xy", id(id) ///
     clmethod(custom) clbreaks(0 20 40 60 80 100) ///
@@ -2175,8 +2179,8 @@ foreach d of local dims {
         line(data("$TEMP/sen_rose_c.dta") color(gs7) size(medthin)) ///
         line(data("$TEMP/sen_rose_s.dta") color(gs7) size(medthin)) ///
         text($YNL $XC "N", size(medium) color(gs7)) ///
-        scalebar(length(150000) units(1000) label("km") ///
-                 position(5) size(*0.8)) ///
+        scalebar(units(150) scale(1/1000) label("km") ///
+                 xpos(-70) ypos(-108) size(*0.9) tsize(*0.75)) ///
         name(cdim18, replace)
     spmap D2021 using "$TEMP/sen_reg_xy", id(id) ///
         clmethod(custom) clbreaks(0 20 40 60 80 100) ///
