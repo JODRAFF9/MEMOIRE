@@ -2004,6 +2004,11 @@ merge 1:1 id using "$TEMP/sen_reg_db.dta", ///
     keepusing(H18_lbl H21_lbl) nogenerate
 save "$TEMP/sen_reg_lbl.dta", replace
 
+/* Recharger la base attributaire (avec H_2018/H_2021) : spmap lit la
+   variable thematique dans le dataset en memoire, pas dans le fichier
+   d'etiquettes qui vient d'etre construit. */
+use "$TEMP/sen_reg_db.dta", clear
+
 /* Bornes de classes communes aux deux vagues pour une échelle de
    couleur partagée (memes clbreaks sur les deux cartes) */
 set dp comma
