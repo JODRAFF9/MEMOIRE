@@ -2005,21 +2005,38 @@ scalar yrng_ = r(max) - r(min)
 global YNORD = r(min) + 0.92*(r(max) - r(min))   /* "N" */
 global YFLEC = r(min) + 0.84*(r(max) - r(min))   /* fleche sous le N */
 
-/* Barre d'echelle de 100 km (100 000 m) en bas a gauche */
-global XSB0   = xmin_ + 0.05*xrng_               /* debut de la barre    */
-global XSB1   = xmin_ + 0.05*xrng_ + 100000      /* fin (+100 km)        */
-global XSBMID = xmin_ + 0.05*xrng_ + 50000       /* milieu (libelle)     */
-global YSB    = ymin_ + 0.05*yrng_               /* hauteur de la barre  */
-global YSBLAB = ymin_ + 0.09*yrng_               /* libelle au-dessus    */
+/* Barre d'echelle segmentee 0-75-150 km, placee dans une zone libre au
+   bas-centre de la carte (aucun polygone regional a cet endroit).
+   Deux blocs de 75 km (75 000 m) : le premier noir, le second blanc,
+   avec les graduations 0 / 75 / 150 km. Coordonnees en metres UTM. */
+global SBX0 = 470000                 /* debut du bloc 1              */
+global SBX1 = 470000 + 75000         /* limite bloc 1 / bloc 2 (75)  */
+global SBX2 = 470000 + 150000        /* fin du bloc 2 (150 km)       */
+global SBY0 = 1372000                /* bas de la barre             */
+global SBY1 = 1372000 + 11000        /* haut de la barre            */
+global SBYL = 1372000 - 12000        /* graduations sous la barre   */
 
-/* Format basemap (_ID _X _Y) : l'option line() de spmap lit ces variables,
-   elle n'accepte pas xcoord()/ycoord(). */
+/* Bloc 1 (noir) : rectangle ferme au format basemap _ID _X _Y */
 clear
-set obs 2
-gen _ID = 1
-gen double _X = cond(_n == 1, $XSB0, $XSB1)
-gen double _Y = $YSB
-save "$TEMP/sen_scalebar.dta", replace
+input _ID double _X double _Y
+1 470000 1372000
+1 545000 1372000
+1 545000 1383000
+1 470000 1383000
+1 470000 1372000
+end
+save "$TEMP/sen_sb1.dta", replace
+
+/* Bloc 2 (blanc, contour noir) */
+clear
+input _ID double _X double _Y
+1 545000 1372000
+1 620000 1372000
+1 620000 1383000
+1 545000 1383000
+1 545000 1372000
+end
+save "$TEMP/sen_sb2.dta", replace
 
 /* Points d'ancrage des noms de region : un point garanti a l'interieur de
    chaque polygone (representative_point), plus fiable que la moyenne des
@@ -2064,8 +2081,11 @@ spmap H_2018 using "$TEMP/sen_reg_xy", id(id) ///
     subtitle("EHCVM I (2018-2019)", size(medsmall)) ///
     text($YNORD $XNORD "N", size(medlarge) color(gs7)) ///
     text($YFLEC $XNORD "▲", size(vhuge) color(gs7)) ///
-    line(data("$TEMP/sen_scalebar.dta") color(black) size(medthick)) ///
-    text($YSBLAB $XSBMID "100 km", size(small) color(black)) ///
+    polygon(data("$TEMP/sen_sb1.dta") fcolor(black) ocolor(black) osize(0.15)) ///
+    polygon(data("$TEMP/sen_sb2.dta") fcolor(white) ocolor(black) osize(0.15)) ///
+    text($SBYL $SBX0 "0", size(vsmall) color(black)) ///
+    text($SBYL $SBX1 "75", size(vsmall) color(black)) ///
+    text($SBYL $SBX2 "150 km", size(vsmall) color(black)) ///
     name(carte18, replace)
 spmap H_2021 using "$TEMP/sen_reg_xy", id(id) ///
     clmethod(custom) clbreaks(0 20 40 60 80 100) ///
@@ -2145,8 +2165,11 @@ foreach d of local dims {
         subtitle("EHCVM I (2018-2019)", size(medsmall)) ///
         text($YNORD $XNORD "N", size(medium) color(gs7)) ///
         text($YFLEC $XNORD "▲", size(vhuge) color(gs7)) ///
-        line(data("$TEMP/sen_scalebar.dta") color(black) size(medthick)) ///
-        text($YSBLAB $XSBMID "100 km", size(small) color(black)) ///
+        polygon(data("$TEMP/sen_sb1.dta") fcolor(black) ocolor(black) osize(0.15)) ///
+        polygon(data("$TEMP/sen_sb2.dta") fcolor(white) ocolor(black) osize(0.15)) ///
+        text($SBYL $SBX0 "0", size(vsmall) color(black)) ///
+        text($SBYL $SBX1 "75", size(vsmall) color(black)) ///
+        text($SBYL $SBX2 "150 km", size(vsmall) color(black)) ///
         name(cdim18, replace)
     spmap D2021 using "$TEMP/sen_reg_xy", id(id) ///
         clmethod(custom) clbreaks(0 20 40 60 80 100) ///
