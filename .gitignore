@@ -1,0 +1,10 @@
+# Fichiers parasites macOS
+._*
+.DS_Store
+.AppleDouble
+.Spotlight-V100
+.Trashes
+
+# Fichiers temporaires
+*~
+*.tmp
