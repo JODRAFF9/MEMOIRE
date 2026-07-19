@@ -1964,7 +1964,7 @@ preserve
     replace NOMREG = "KAFFRINE"    if cod_reg == 12
     replace NOMREG = "KEDOUGOU"    if cod_reg == 13
     replace NOMREG = "SEDHIOU"     if cod_reg == 14
-    keep NOMREG H_2018 H_2021
+    keep NOMREG nom_reg H_2018 H_2021
     save "$TEMP/h_region.dta", replace
 restore
 
@@ -1983,25 +1983,30 @@ shp2dta using "Vecteurs_Sénégal/Limite_Région", ///
     database("$TEMP/sen_reg_db") coordinates("$TEMP/sen_reg_xy") ///
     genid(id) replace
 
-/* Fusion des incidences N-MODA sur le nom de région (NOMREG) et
-   preparation des etiquettes de valeur (virgule decimale) */
+/* Fusion des incidences N-MODA sur le nom de région (NOMREG) */
 use "$TEMP/sen_reg_db", clear
 replace NOMREG = trim(upper(NOMREG))
 merge 1:1 NOMREG using "$TEMP/h_region.dta"
 drop if _merge == 2
 drop _merge
-gen str8 H18_lbl = subinstr(string(H_2018, "%4.1f"), ".", ",", 1)
-gen str8 H21_lbl = subinstr(string(H_2021, "%4.1f"), ".", ",", 1)
 save "$TEMP/sen_reg_db.dta", replace
 
-/* Centroides des régions (moyenne des sommets) pour placer les
-   etiquettes : spmap ne label pas les zones automatiquement, il faut
-   fournir un fichier de coordonnees via l'option label(). */
+/* Position de la fleche du nord (coin superieur gauche), calculee sur
+   l'etendue du fond de carte (coordonnees UTM, le nord est vers le haut). */
 use "$TEMP/sen_reg_xy", clear
+quietly summarize _X
+global XNORD = r(min) + 0.05*(r(max) - r(min))
+quietly summarize _Y
+global YNORD = r(min) + 0.92*(r(max) - r(min))   /* "N" */
+global YFLEC = r(min) + 0.84*(r(max) - r(min))   /* fleche sous le N */
+
+/* Centroides des régions (moyenne des sommets) pour placer le nom de
+   chaque region : spmap ne label pas les zones automatiquement, il faut
+   fournir un fichier de coordonnees via l'option label(). */
 collapse (mean) x_c = _X y_c = _Y, by(_ID)
 rename _ID id
 merge 1:1 id using "$TEMP/sen_reg_db.dta", ///
-    keepusing(H18_lbl H21_lbl) nogenerate
+    keepusing(nom_reg) nogenerate
 save "$TEMP/sen_reg_lbl.dta", replace
 
 /* Recharger la base attributaire (avec H_2018/H_2021) : spmap lit la
@@ -2012,25 +2017,32 @@ use "$TEMP/sen_reg_db.dta", clear
 /* Bornes de classes communes aux deux vagues pour une échelle de
    couleur partagée (memes clbreaks sur les deux cartes) */
 set dp comma
+/* Carte EHCVM I : nom de region au centre, fleche du nord en haut a
+   gauche ; legende masquee (partagee, affichee sur la seconde carte).
+   Aucun titre general : la legende du rapport le fournit. */
 spmap H_2018 using "$TEMP/sen_reg_xy", id(id) ///
     clmethod(custom) clbreaks(15 30 45 60 75 90) ///
     fcolor(YlOrRd) ocolor(white ..) osize(0.15 ..) ///
     ndfcolor(gs12) legend(off) ///
     label(data("$TEMP/sen_reg_lbl.dta") xcoord(x_c) ycoord(y_c) ///
-          label(H18_lbl) size(*0.65) color(black)) ///
-    title("EHCVM I (2018-2019)", size(medium)) ///
+          label(nom_reg) size(*0.65) color(black)) ///
+    subtitle("EHCVM I (2018-2019)", size(medsmall)) ///
+    text($YNORD $XNORD "N", size(medlarge) color(black)) ///
+    text($YFLEC $XNORD "{&uarr}", size(huge) color(black)) ///
     name(carte18, replace)
 spmap H_2021 using "$TEMP/sen_reg_xy", id(id) ///
     clmethod(custom) clbreaks(15 30 45 60 75 90) ///
     fcolor(YlOrRd) ocolor(white ..) osize(0.15 ..) ///
     ndfcolor(gs12) ///
-    legend(position(4)) legtitle("Incidence N-MODA H (%)") ///
+    legend(position(6) ring(1) size(vsmall) rows(1)) ///
+    legtitle("Incidence N-MODA H (%)") ///
     label(data("$TEMP/sen_reg_lbl.dta") xcoord(x_c) ycoord(y_c) ///
-          label(H21_lbl) size(*0.65) color(black)) ///
-    title("EHCVM II (2021-2022)", size(medium)) ///
+          label(nom_reg) size(*0.65) color(black)) ///
+    subtitle("EHCVM II (2021-2022)", size(medsmall)) ///
+    text($YNORD $XNORD "N", size(medlarge) color(black)) ///
+    text($YFLEC $XNORD "{&uarr}", size(huge) color(black)) ///
     name(carte21, replace)
 graph combine carte18 carte21, cols(2) ///
-    title("Pauvreté multidimensionnelle des enfants par région", size(medium)) ///
     graphregion(color(white))
 set dp period
 graph export "$OUTPUT/figures/fig_carte_nmoda.pdf", replace
