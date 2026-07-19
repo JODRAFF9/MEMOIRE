@@ -2466,17 +2466,21 @@ di _newline ">>> 09_placebo_attrition.do termine."
    dernieres versions sans manipulation manuelle.
    ============================================================ */
 
-di _newline ">>> Copie des figures vers latex/figures ..."
+di _newline ">>> Copie des figures vers latex/figures et Presentation/figures ..."
 /* Copie dynamique de tous les PDF generes (inclut automatiquement les
-   cartes par dimension fig_carte_dim_*.pdf et toute figure future). */
+   cartes par dimension fig_carte_dim_*.pdf et toute figure future) vers
+   le rapport ET la presentation Beamer, pour les garder synchronises. */
 local figs : dir "$OUTPUT/figures" files "*.pdf"
 foreach f of local figs {
-    capture copy "$OUTPUT/figures/`f'" "latex/figures/`f'", replace
-    if _rc di "    !! echec copie `f' (rc=" _rc ")"
-    else   di "    ok `f'"
+    foreach dest in "latex/figures" "Presentation/figures" {
+        capture copy "$OUTPUT/figures/`f'" "`dest'/`f'", replace
+        if _rc di "    !! echec copie `f' vers `dest' (rc=" _rc ")"
+    }
+    di "    ok `f'"
 }
 /* Graphique de support commun (a la racine de output) */
 capture copy "$OUTPUT/overlap_panel.pdf" "latex/figures/overlap_panel.pdf", replace
+capture copy "$OUTPUT/overlap_panel.pdf" "Presentation/figures/overlap.pdf", replace
 
 di _newline ">>> FIN DU PIPELINE COMPLET <<<"
 
