@@ -2049,12 +2049,12 @@ spmap H_2021 using "$TEMP/sen_reg_xy", id(id) ///
     fcolor(YlOrRd) ocolor(white ..) osize(0.15 ..) ///
     ndfcolor(gs12) ///
     legend(position(6) ring(1) size(vsmall) rows(1)) ///
-    legtitle("Incidence N-MODA H (%)") ///
     label(data("$TEMP/sen_reg_lbl.dta") xcoord(x_c) ycoord(y_c) ///
           label(nom_reg) size(*0.65) color(black)) ///
     subtitle("EHCVM II (2021-2022)", size(medsmall)) ///
     name(carte21, replace)
 graph combine carte18 carte21, cols(2) ///
+    b1title("Incidence N-MODA H (%)", size(small)) ///
     graphregion(color(white))
 set dp period
 graph export "$OUTPUT/figures/fig_carte_nmoda.pdf", replace
@@ -2126,13 +2126,13 @@ foreach d of local dims {
         fcolor(YlOrRd) ocolor(white ..) osize(0.15 ..) ///
         ndfcolor(gs12) ///
         legend(position(6) ring(1) size(vsmall) rows(1)) ///
-        legtitle("Taux de privation (%)") ///
         label(data("$TEMP/sen_reg_lbl.dta") xcoord(x_c) ycoord(y_c) ///
               label(nom_reg) size(*0.6) color(black)) ///
         subtitle("EHCVM II (2021-2022)", size(medsmall)) ///
         name(cdim21, replace)
     graph combine cdim18 cdim21, cols(2) ///
         subtitle("`dnom'", size(medium)) ///
+        b1title("Taux de privation (%)", size(small)) ///
         graphregion(color(white))
     set dp period
     graph export "$OUTPUT/figures/fig_carte_dim_`d'.pdf", replace
