@@ -2110,7 +2110,7 @@ spmap H_2018 using "$TEMP/sen_reg_xy", id(id) ///
 spmap H_2021 using "$TEMP/sen_reg_xy", id(id) ///
     clmethod(custom) clbreaks(0 20 40 60 80 100) ///
     fcolor(YlOrRd) ocolor(white ..) osize(0.15 ..) ///
-    ndfcolor(gs12) ///
+    ndfcolor(gs12) legorder(lohi) ///
     legend(position(6) ring(1) size(vsmall) rows(1) ///
         label(2 "[0;20]") label(3 "[20;40]") label(4 "[40;60]") ///
         label(5 "[60;80]") label(6 "[80;100]")) ///
@@ -2191,7 +2191,7 @@ foreach d of local dims {
     spmap D2021 using "$TEMP/sen_reg_xy", id(id) ///
         clmethod(custom) clbreaks(0 20 40 60 80 100) ///
         fcolor(YlOrRd) ocolor(white ..) osize(0.15 ..) ///
-        ndfcolor(gs12) ///
+        ndfcolor(gs12) legorder(lohi) ///
         legend(position(6) ring(1) size(vsmall) rows(1) ///
             label(2 "[0;20]") label(3 "[20;40]") label(4 "[40;60]") ///
             label(5 "[60;80]") label(6 "[80;100]")) ///
