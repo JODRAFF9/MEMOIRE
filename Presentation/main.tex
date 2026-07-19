@@ -438,17 +438,7 @@
   \end{columns}
 \end{frame}
 
-\begin{frame}{Disparités régionales de la pauvreté N-MODA}
-  \centering
-  \includegraphics[width=0.92\linewidth]{figures/fig_carte_nmoda.pdf}
-  \begin{alertblock}{Forte hétérogénéité spatiale}
-    Dakar et l'ouest nettement moins touchés ; le sud et l'est
-    (Kolda, Sédhiou, Tambacounda, Kédougou) concentrent les incidences
-    les plus élevées, aux deux vagues.
-  \end{alertblock}
-\end{frame}
-
-\begin{frame}{Privations par dimension (N-MODA)}
+\begin{frame}[label=privations-dim]{Privations par dimension (N-MODA)}
   \begin{columns}
     \begin{column}{0.50\textwidth}
       \centering
@@ -463,6 +453,9 @@
     Baisse de 8,3 pp de l'incidence N-MODA ;
     plus d'un enfant sur deux reste privé dans au moins 4 dimensions.
   \end{alertblock}
+  \begin{center}
+    \hyperlink{maps-spatial}{\beamergotobutton{Voir les distributions spatiales}}
+  \end{center}
 \end{frame}
 
 \subsection{Qualité de l'appariement}
@@ -677,5 +670,70 @@
   \end{center}
 \end{frame}
 \endgroup
+
+% ============================================================
+% ANNEXE : distributions spatiales (cartes)
+% ============================================================
+\appendix
+
+\begin{frame}[label=maps-spatial]{Distribution spatiale de la pauvreté N-MODA}
+  \centering
+  \includegraphics[width=0.92\linewidth]{figures/fig_carte_nmoda.pdf}
+
+  \smallskip
+  {\footnotesize Dakar et l'ouest moins touchés ; le sud et l'est
+  (Kolda, Sédhiou, Tambacounda, Kédougou) concentrent les incidences les
+  plus élevées.}\\[0.2cm]
+  \hyperlink{privations-dim}{\beamerreturnbutton{Retour}}
+\end{frame}
+
+\begin{frame}{Taux de privation par dimension : assainissement et eau}
+  \begin{columns}
+    \begin{column}{0.5\textwidth}\centering
+      \includegraphics[width=\linewidth]{figures/fig_carte_dim_assai.pdf}\\
+      {\scriptsize Assainissement}
+    \end{column}
+    \begin{column}{0.5\textwidth}\centering
+      \includegraphics[width=\linewidth]{figures/fig_carte_dim_eau.pdf}\\
+      {\scriptsize Eau}
+    \end{column}
+  \end{columns}
+  \hfill\hyperlink{privations-dim}{\beamerreturnbutton{Retour}}
+\end{frame}
+
+\begin{frame}{Taux de privation par dimension : logement et nutrition}
+  \begin{columns}
+    \begin{column}{0.5\textwidth}\centering
+      \includegraphics[width=\linewidth]{figures/fig_carte_dim_logem.pdf}\\
+      {\scriptsize Logement}
+    \end{column}
+    \begin{column}{0.5\textwidth}\centering
+      \includegraphics[width=\linewidth]{figures/fig_carte_dim_nutri.pdf}\\
+      {\scriptsize Nutrition}
+    \end{column}
+  \end{columns}
+  \hfill\hyperlink{privations-dim}{\beamerreturnbutton{Retour}}
+\end{frame}
+
+\begin{frame}{Taux de privation par dimension : santé et protection}
+  \begin{columns}
+    \begin{column}{0.5\textwidth}\centering
+      \includegraphics[width=\linewidth]{figures/fig_carte_dim_sante.pdf}\\
+      {\scriptsize Santé}
+    \end{column}
+    \begin{column}{0.5\textwidth}\centering
+      \includegraphics[width=\linewidth]{figures/fig_carte_dim_protect.pdf}\\
+      {\scriptsize Protection}
+    \end{column}
+  \end{columns}
+  \hfill\hyperlink{privations-dim}{\beamerreturnbutton{Retour}}
+\end{frame}
+
+\begin{frame}{Taux de privation par dimension : éducation}
+  \centering
+  \includegraphics[width=0.7\linewidth]{figures/fig_carte_dim_educ.pdf}\\
+  {\scriptsize Éducation}\\[0.2cm]
+  \hyperlink{privations-dim}{\beamerreturnbutton{Retour}}
+\end{frame}
 
 \end{document}
