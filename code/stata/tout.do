@@ -2012,10 +2012,13 @@ global XSBMID = xmin_ + 0.05*xrng_ + 50000       /* milieu (libelle)     */
 global YSB    = ymin_ + 0.05*yrng_               /* hauteur de la barre  */
 global YSBLAB = ymin_ + 0.09*yrng_               /* libelle au-dessus    */
 
+/* Format basemap (_ID _X _Y) : l'option line() de spmap lit ces variables,
+   elle n'accepte pas xcoord()/ycoord(). */
 clear
 set obs 2
-gen double xb = cond(_n == 1, $XSB0, $XSB1)
-gen double yb = $YSB
+gen _ID = 1
+gen double _X = cond(_n == 1, $XSB0, $XSB1)
+gen double _Y = $YSB
 save "$TEMP/sen_scalebar.dta", replace
 
 /* Points d'ancrage des noms de region : un point garanti a l'interieur de
@@ -2061,8 +2064,7 @@ spmap H_2018 using "$TEMP/sen_reg_xy", id(id) ///
     subtitle("EHCVM I (2018-2019)", size(medsmall)) ///
     text($YNORD $XNORD "N", size(medlarge) color(gs7)) ///
     text($YFLEC $XNORD "▲", size(vhuge) color(gs7)) ///
-    line(data("$TEMP/sen_scalebar.dta") xcoord(xb) ycoord(yb) ///
-         color(black) size(medthick)) ///
+    line(data("$TEMP/sen_scalebar.dta") color(black) size(medthick)) ///
     text($YSBLAB $XSBMID "100 km", size(small) color(black)) ///
     name(carte18, replace)
 spmap H_2021 using "$TEMP/sen_reg_xy", id(id) ///
@@ -2143,8 +2145,7 @@ foreach d of local dims {
         subtitle("EHCVM I (2018-2019)", size(medsmall)) ///
         text($YNORD $XNORD "N", size(medium) color(gs7)) ///
         text($YFLEC $XNORD "▲", size(vhuge) color(gs7)) ///
-        line(data("$TEMP/sen_scalebar.dta") xcoord(xb) ycoord(yb) ///
-             color(black) size(medthick)) ///
+        line(data("$TEMP/sen_scalebar.dta") color(black) size(medthick)) ///
         text($YSBLAB $XSBMID "100 km", size(small) color(black)) ///
         name(cdim18, replace)
     spmap D2021 using "$TEMP/sen_reg_xy", id(id) ///
