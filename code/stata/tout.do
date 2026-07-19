@@ -2024,10 +2024,11 @@ drop th
 save "$TEMP/sen_rose_c.dta", replace
 
 /* Etoile a 4 branches (N, E, S, O + pointes internes). Format polyline
-   spmap : 1re ligne = coords manquantes, puis le contour ferme. */
+   spmap : 1re ligne = coords manquantes, puis le contour ferme.
+   _ID = 2 : deuxieme polyline du meme fichier que le cercle. */
 clear
 set obs 10
-gen _ID = 1
+gen _ID = 2
 gen double _X = .
 gen double _Y = .
 replace _X = $XC        in 2
@@ -2049,6 +2050,13 @@ replace _Y = $YC + $RIN in 9
 replace _X = $XC        in 10
 replace _Y = $YC + $RAD in 10
 save "$TEMP/sen_rose_s.dta", replace
+
+/* Un seul fichier de polylines (cercle _ID=1 + etoile _ID=2) : spmap
+   n'accepte l'option line() qu'une seule fois. */
+use "$TEMP/sen_rose_c.dta", clear
+append using "$TEMP/sen_rose_s.dta"
+sort _ID
+save "$TEMP/sen_rose.dta", replace
 
 /* La barre d'echelle est dessinee par l'option native scalebar() de spmap
    (voir les appels ci-dessous) : pas de dataset a construire. */
@@ -2094,8 +2102,7 @@ spmap H_2018 using "$TEMP/sen_reg_xy", id(id) ///
     label(data("$TEMP/sen_reg_lbl.dta") xcoord(x_c) ycoord(y_c) ///
           label(nom_reg) size(*0.55) color(black)) ///
     subtitle("EHCVM I (2018-2019)", size(medsmall)) ///
-    line(data("$TEMP/sen_rose_c.dta") color(gs7) size(medthin)) ///
-    line(data("$TEMP/sen_rose_s.dta") color(gs7) size(medthin)) ///
+    line(data("$TEMP/sen_rose.dta") color(gs7) size(medthin)) ///
     text($YNL $XC "N", size(medium) color(gs7)) ///
     scalebar(units(150) scale(1/1000) label("km") ///
              xpos(-70) ypos(-108) size(0.9) tsize(*0.75)) ///
@@ -2176,8 +2183,7 @@ foreach d of local dims {
         label(data("$TEMP/sen_reg_lbl.dta") xcoord(x_c) ycoord(y_c) ///
               label(nom_reg) size(*0.5) color(black)) ///
         subtitle("EHCVM I (2018-2019)", size(medsmall)) ///
-        line(data("$TEMP/sen_rose_c.dta") color(gs7) size(medthin)) ///
-        line(data("$TEMP/sen_rose_s.dta") color(gs7) size(medthin)) ///
+        line(data("$TEMP/sen_rose.dta") color(gs7) size(medthin)) ///
         text($YNL $XC "N", size(medium) color(gs7)) ///
         scalebar(units(150) scale(1/1000) label("km") ///
                  xpos(-70) ypos(-108) size(0.9) tsize(*0.75)) ///
