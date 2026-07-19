@@ -2041,8 +2041,8 @@ spmap H_2018 using "$TEMP/sen_reg_xy", id(id) ///
     label(data("$TEMP/sen_reg_lbl.dta") xcoord(x_c) ycoord(y_c) ///
           label(nom_reg) size(*0.65) color(black)) ///
     subtitle("EHCVM I (2018-2019)", size(medsmall)) ///
-    text($YNORD $XNORD "N", size(medlarge) color(black)) ///
-    text($YFLEC $XNORD "▲", size(vhuge) color(black)) ///
+    text($YNORD $XNORD "N", size(medlarge) color(gs7)) ///
+    text($YFLEC $XNORD "▲", size(vhuge) color(gs7)) ///
     name(carte18, replace)
 spmap H_2021 using "$TEMP/sen_reg_xy", id(id) ///
     clmethod(custom) clbreaks(0 20 40 60 80 100) ///
