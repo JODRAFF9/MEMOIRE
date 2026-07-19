@@ -2098,7 +2098,7 @@ spmap H_2018 using "$TEMP/sen_reg_xy", id(id) ///
     line(data("$TEMP/sen_rose_s.dta") color(gs7) size(medthin)) ///
     text($YNL $XC "N", size(medium) color(gs7)) ///
     scalebar(units(150) scale(1/1000) label("km") ///
-             xpos(-70) ypos(-108) size(*0.9) tsize(*0.75)) ///
+             xpos(-70) ypos(-108) size(0.9) tsize(*0.75)) ///
     name(carte18, replace)
 spmap H_2021 using "$TEMP/sen_reg_xy", id(id) ///
     clmethod(custom) clbreaks(0 20 40 60 80 100) ///
@@ -2180,7 +2180,7 @@ foreach d of local dims {
         line(data("$TEMP/sen_rose_s.dta") color(gs7) size(medthin)) ///
         text($YNL $XC "N", size(medium) color(gs7)) ///
         scalebar(units(150) scale(1/1000) label("km") ///
-                 xpos(-70) ypos(-108) size(*0.9) tsize(*0.75)) ///
+                 xpos(-70) ypos(-108) size(0.9) tsize(*0.75)) ///
         name(cdim18, replace)
     spmap D2021 using "$TEMP/sen_reg_xy", id(id) ///
         clmethod(custom) clbreaks(0 20 40 60 80 100) ///
