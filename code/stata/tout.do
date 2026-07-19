@@ -2119,7 +2119,6 @@ spmap H_2021 using "$TEMP/sen_reg_xy", id(id) ///
     subtitle("EHCVM II (2021-2022)", size(medsmall)) ///
     name(carte21, replace)
 graph combine carte18 carte21, cols(2) ///
-    b1title("Pourcentage (%)", size(small)) ///
     graphregion(color(white))
 set dp period
 graph export "$OUTPUT/figures/fig_carte_nmoda.pdf", replace
@@ -2200,7 +2199,6 @@ foreach d of local dims {
         subtitle("EHCVM II (2021-2022)", size(medsmall)) ///
         name(cdim21, replace)
     graph combine cdim18 cdim21, cols(2) ///
-        b1title("Pourcentage (%)", size(small)) ///
         graphregion(color(white))
     set dp period
     graph export "$OUTPUT/figures/fig_carte_dim_`d'.pdf", replace
