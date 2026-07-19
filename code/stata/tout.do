@@ -1991,19 +1991,60 @@ drop if _merge == 2
 drop _merge
 save "$TEMP/sen_reg_db.dta", replace
 
-/* Position de la fleche du nord (coin superieur gauche) et de la barre
-   d'echelle (en bas a gauche), calculees sur l'etendue du fond de carte
-   (coordonnees UTM zone 28N en metres, le nord est vers le haut). */
+/* Etendue du fond de carte (coordonnees UTM zone 28N en metres) pour
+   positionner la rose des vents (coin superieur gauche) et la barre
+   d'echelle (bas-centre). */
 use "$TEMP/sen_reg_xy", clear
 quietly summarize _X
 scalar xmin_ = r(min)
 scalar xrng_ = r(max) - r(min)
-global XNORD = r(min) + 0.05*(r(max) - r(min))
 quietly summarize _Y
 scalar ymin_ = r(min)
 scalar yrng_ = r(max) - r(min)
-global YNORD = r(min) + 0.92*(r(max) - r(min))   /* "N" */
-global YFLEC = r(min) + 0.84*(r(max) - r(min))   /* fleche sous le N */
+
+/* Rose des vents (indique le nord) : cercle + etoile a 4 branches +
+   lettre "N", en gris, dans le coin superieur gauche. */
+global XC   = xmin_ + 0.07*xrng_                 /* centre x            */
+global YC   = ymin_ + 0.83*yrng_                 /* centre y            */
+global RAD  = 0.045*xrng_                        /* rayon des branches  */
+global RIN  = 0.0135*xrng_                       /* rayon interne etoile*/
+global YNL  = ymin_ + 0.83*yrng_ + 0.075*xrng_   /* "N" au-dessus       */
+
+/* Cercle de la rose (37 points) */
+clear
+set obs 37
+gen _ID = 1
+gen double th = (_n - 1) * 2 * _pi / 36
+gen double _X = $XC + $RAD * cos(th)
+gen double _Y = $YC + $RAD * sin(th)
+drop th
+save "$TEMP/sen_rose_c.dta", replace
+
+/* Etoile a 4 branches (N, E, S, O + pointes internes) */
+clear
+set obs 9
+gen _ID = 1
+gen double _X = .
+gen double _Y = .
+replace _X = $XC        in 1
+replace _Y = $YC + $RAD in 1
+replace _X = $XC + $RIN in 2
+replace _Y = $YC + $RIN in 2
+replace _X = $XC + $RAD in 3
+replace _Y = $YC        in 3
+replace _X = $XC + $RIN in 4
+replace _Y = $YC - $RIN in 4
+replace _X = $XC        in 5
+replace _Y = $YC - $RAD in 5
+replace _X = $XC - $RIN in 6
+replace _Y = $YC - $RIN in 6
+replace _X = $XC - $RAD in 7
+replace _Y = $YC        in 7
+replace _X = $XC - $RIN in 8
+replace _Y = $YC + $RIN in 8
+replace _X = $XC        in 9
+replace _Y = $YC + $RAD in 9
+save "$TEMP/sen_rose_s.dta", replace
 
 /* Barre d'echelle segmentee 0-75-150 km, placee dans une zone libre au
    bas-centre de la carte (aucun polygone regional a cet endroit).
@@ -2079,8 +2120,9 @@ spmap H_2018 using "$TEMP/sen_reg_xy", id(id) ///
     label(data("$TEMP/sen_reg_lbl.dta") xcoord(x_c) ycoord(y_c) ///
           label(nom_reg) size(*0.55) color(black)) ///
     subtitle("EHCVM I (2018-2019)", size(medsmall)) ///
-    text($YNORD $XNORD "N", size(medlarge) color(gs7)) ///
-    text($YFLEC $XNORD "▲", size(vhuge) color(gs7)) ///
+    polygon(data("$TEMP/sen_rose_c.dta") fcolor(white) ocolor(gs7) osize(0.2)) ///
+    polygon(data("$TEMP/sen_rose_s.dta") fcolor(gs7) ocolor(gs6) osize(0.2)) ///
+    text($YNL $XC "N", size(medium) color(gs7)) ///
     polygon(data("$TEMP/sen_sb1.dta") fcolor(black) ocolor(black) osize(0.15)) ///
     polygon(data("$TEMP/sen_sb2.dta") fcolor(white) ocolor(black) osize(0.15)) ///
     text($SBYL $SBX0 "0", size(vsmall) color(black)) ///
@@ -2163,8 +2205,9 @@ foreach d of local dims {
         label(data("$TEMP/sen_reg_lbl.dta") xcoord(x_c) ycoord(y_c) ///
               label(nom_reg) size(*0.5) color(black)) ///
         subtitle("EHCVM I (2018-2019)", size(medsmall)) ///
-        text($YNORD $XNORD "N", size(medium) color(gs7)) ///
-        text($YFLEC $XNORD "▲", size(vhuge) color(gs7)) ///
+        polygon(data("$TEMP/sen_rose_c.dta") fcolor(white) ocolor(gs7) osize(0.2)) ///
+        polygon(data("$TEMP/sen_rose_s.dta") fcolor(gs7) ocolor(gs6) osize(0.2)) ///
+        text($YNL $XC "N", size(medium) color(gs7)) ///
         polygon(data("$TEMP/sen_sb1.dta") fcolor(black) ocolor(black) osize(0.15)) ///
         polygon(data("$TEMP/sen_sb2.dta") fcolor(white) ocolor(black) osize(0.15)) ///
         text($SBYL $SBX0 "0", size(vsmall) color(black)) ///
