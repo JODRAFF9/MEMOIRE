@@ -1944,8 +1944,10 @@ preserve
         xline(`xl_2021', lcolor(orange) lpattern(dash) lwidth(medthin)) ///
         graphregion(color(white)) plotregion(color(white))
     set dp period
-    graph export "$OUTPUT/figures/fig_carte_nmoda.pdf", replace
-    di ">>> fig_carte_nmoda.pdf sauvegardé"
+    graph export "$OUTPUT/figures/fig_carte_nmoda_barres.pdf", replace
+    di ">>> fig_carte_nmoda_barres.pdf sauvegardé (variante en barres)"
+    di ">>> Pour la carte choropleth du rapport (fig_carte_nmoda.pdf),"
+    di "    lancer apres ce do-file : python3 code/python/carte_nmoda.py"
 restore
 
 /* ============================================================
