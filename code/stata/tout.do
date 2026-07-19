@@ -1983,13 +1983,26 @@ shp2dta using "Vecteurs_Sénégal/Limite_Région", ///
     database("$TEMP/sen_reg_db") coordinates("$TEMP/sen_reg_xy") ///
     genid(id) replace
 
-/* Fusion des incidences N-MODA sur le nom de région (NOMREG) */
+/* Fusion des incidences N-MODA sur le nom de région (NOMREG) et
+   preparation des etiquettes de valeur (virgule decimale) */
 use "$TEMP/sen_reg_db", clear
 replace NOMREG = trim(upper(NOMREG))
 merge 1:1 NOMREG using "$TEMP/h_region.dta"
 drop if _merge == 2
 drop _merge
+gen str8 H18_lbl = subinstr(string(H_2018, "%4.1f"), ".", ",", 1)
+gen str8 H21_lbl = subinstr(string(H_2021, "%4.1f"), ".", ",", 1)
 save "$TEMP/sen_reg_db.dta", replace
+
+/* Centroides des régions (moyenne des sommets) pour placer les
+   etiquettes : spmap ne label pas les zones automatiquement, il faut
+   fournir un fichier de coordonnees via l'option label(). */
+use "$TEMP/sen_reg_xy", clear
+collapse (mean) x_c = _X y_c = _Y, by(_ID)
+rename _ID id
+merge 1:1 id using "$TEMP/sen_reg_db.dta", ///
+    keepusing(H18_lbl H21_lbl) nogenerate
+save "$TEMP/sen_reg_lbl.dta", replace
 
 /* Bornes de classes communes aux deux vagues pour une échelle de
    couleur partagée (memes clbreaks sur les deux cartes) */
@@ -1998,7 +2011,8 @@ spmap H_2018 using "$TEMP/sen_reg_xy", id(id) ///
     clmethod(custom) clbreaks(15 30 45 60 75 90) ///
     fcolor(YlOrRd) ocolor(white ..) osize(0.15 ..) ///
     ndfcolor(gs12) legend(off) ///
-    plabel(H_2018, format(%4.1f) size(vsmall) color(black)) ///
+    label(data("$TEMP/sen_reg_lbl.dta") xcoord(x_c) ycoord(y_c) ///
+          label(H18_lbl) size(*0.65) color(black)) ///
     title("EHCVM I (2018-2019)", size(medium)) ///
     name(carte18, replace)
 spmap H_2021 using "$TEMP/sen_reg_xy", id(id) ///
@@ -2006,7 +2020,8 @@ spmap H_2021 using "$TEMP/sen_reg_xy", id(id) ///
     fcolor(YlOrRd) ocolor(white ..) osize(0.15 ..) ///
     ndfcolor(gs12) ///
     legend(position(4)) legtitle("Incidence N-MODA H (%)") ///
-    plabel(H_2021, format(%4.1f) size(vsmall) color(black)) ///
+    label(data("$TEMP/sen_reg_lbl.dta") xcoord(x_c) ycoord(y_c) ///
+          label(H21_lbl) size(*0.65) color(black)) ///
     title("EHCVM II (2021-2022)", size(medium)) ///
     name(carte21, replace)
 graph combine carte18 carte21, cols(2) ///
