@@ -2401,13 +2401,13 @@ di _newline ">>> 09_placebo_attrition.do termine."
    ============================================================ */
 
 di _newline ">>> Copie des figures vers latex/figures ..."
-local figs fig_evolution_ipm fig_privations_dim fig_pauvrete_milieu_age ///
-           fig_distrib_nbdep fig_effets_dim fig_carte_nmoda fig_croisement_pauvrete ///
-           fig_dd_trajectoires fig_placebo_dd fig_profil_statut fig_distrib_dimensions
+/* Copie dynamique de tous les PDF generes (inclut automatiquement les
+   cartes par dimension fig_carte_dim_*.pdf et toute figure future). */
+local figs : dir "$OUTPUT/figures" files "*.pdf"
 foreach f of local figs {
-    capture copy "$OUTPUT/figures/`f'.pdf" "latex/figures/`f'.pdf", replace
-    if _rc di "    !! echec copie `f'.pdf (rc=" _rc ")"
-    else   di "    ok `f'.pdf"
+    capture copy "$OUTPUT/figures/`f'" "latex/figures/`f'", replace
+    if _rc di "    !! echec copie `f' (rc=" _rc ")"
+    else   di "    ok `f'"
 }
 /* Graphique de support commun (a la racine de output) */
 capture copy "$OUTPUT/overlap_panel.pdf" "latex/figures/overlap_panel.pdf", replace
