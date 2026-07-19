@@ -2027,7 +2027,7 @@ save "$TEMP/sen_scalebar.dta", replace
    (Dakar, Fatick). Coordonnees UTM zone 28N, figees comme constantes. */
 clear
 input str14 nom_reg double x_c double y_c
-"Dakar"        260296 1630241
+"Dakar"        262000 1630241
 "Diourbel"     389356 1634520
 "Fatick"       330648 1566850
 "Kaolack"      389907 1552721
@@ -2038,7 +2038,7 @@ input str14 nom_reg double x_c double y_c
 "Saint-Louis"  528600 1779250
 "Sédhiou"      440034 1427200
 "Tambacounda"  681879 1534429
-"Thiès"        299850 1631854
+"Thiès"        322000 1631854
 "Ziguinchor"   347984 1410445
 "Kaffrine"     477629 1574729
 end
@@ -2060,7 +2060,7 @@ spmap H_2018 using "$TEMP/sen_reg_xy", id(id) ///
     fcolor(YlOrRd) ocolor(white ..) osize(0.15 ..) ///
     ndfcolor(gs12) legend(off) ///
     label(data("$TEMP/sen_reg_lbl.dta") xcoord(x_c) ycoord(y_c) ///
-          label(nom_reg) size(*0.65) color(black)) ///
+          label(nom_reg) size(*0.55) color(black)) ///
     subtitle("EHCVM I (2018-2019)", size(medsmall)) ///
     text($YNORD $XNORD "N", size(medlarge) color(gs7)) ///
     text($YFLEC $XNORD "▲", size(vhuge) color(gs7)) ///
@@ -2075,7 +2075,7 @@ spmap H_2021 using "$TEMP/sen_reg_xy", id(id) ///
         label(1 "[80,100]") label(2 "[60,80]") label(3 "[40,60]") ///
         label(4 "[20,40]") label(5 "[0,20]")) ///
     label(data("$TEMP/sen_reg_lbl.dta") xcoord(x_c) ycoord(y_c) ///
-          label(nom_reg) size(*0.65) color(black)) ///
+          label(nom_reg) size(*0.55) color(black)) ///
     subtitle("EHCVM II (2021-2022)", size(medsmall)) ///
     name(carte21, replace)
 graph combine carte18 carte21, cols(2) ///
@@ -2141,7 +2141,7 @@ foreach d of local dims {
         fcolor(YlOrRd) ocolor(white ..) osize(0.15 ..) ///
         ndfcolor(gs12) legend(off) ///
         label(data("$TEMP/sen_reg_lbl.dta") xcoord(x_c) ycoord(y_c) ///
-              label(nom_reg) size(*0.6) color(black)) ///
+              label(nom_reg) size(*0.5) color(black)) ///
         subtitle("EHCVM I (2018-2019)", size(medsmall)) ///
         text($YNORD $XNORD "N", size(medium) color(gs7)) ///
         text($YFLEC $XNORD "▲", size(vhuge) color(gs7)) ///
@@ -2156,7 +2156,7 @@ foreach d of local dims {
             label(1 "[80,100]") label(2 "[60,80]") label(3 "[40,60]") ///
             label(4 "[20,40]") label(5 "[0,20]")) ///
         label(data("$TEMP/sen_reg_lbl.dta") xcoord(x_c) ycoord(y_c) ///
-              label(nom_reg) size(*0.6) color(black)) ///
+              label(nom_reg) size(*0.5) color(black)) ///
         subtitle("EHCVM II (2021-2022)", size(medsmall)) ///
         name(cdim21, replace)
     graph combine cdim18 cdim21, cols(2) ///
