@@ -2061,6 +2061,85 @@ graph export "$OUTPUT/figures/fig_carte_nmoda.pdf", replace
 di ">>> fig_carte_nmoda.pdf (carte choropleth) sauvegardé"
 
 /* ============================================================
+   1ter. Cartes du taux de privation par dimension et par vague
+         (annexe) : une figure a deux panneaux (EHCVM I / II) par
+         dimension, meme fond de carte et meme echelle 0-100.
+   ============================================================ */
+
+/* Correspondance code region (EHCVM) -> NOMREG (shapefile) */
+clear
+input int cod_reg str12 NOMREG
+1 "DAKAR"
+2 "ZIGUINCHOR"
+3 "DIOURBEL"
+4 "SAINT LOUIS"
+5 "TAMBACOUNDA"
+6 "KAOLACK"
+7 "THIES"
+8 "LOUGA"
+9 "FATICK"
+10 "KOLDA"
+11 "MATAM"
+12 "KAFFRINE"
+13 "KEDOUGOU"
+14 "SEDHIOU"
+end
+tempfile xwalk_reg
+save `xwalk_reg'
+
+local dims    assai eau logem nutri sante protect educ
+local dimnoms `" "Assainissement" "Eau" "Logement" "Nutrition" "Sante" "Protection" "Education" "'
+local i = 0
+foreach d of local dims {
+    local ++i
+    local dnom : word `i' of `dimnoms'
+
+    /* Taux de privation regional (%) de la dimension, chaque vague */
+    foreach annee in 2018 2021 {
+        use "$TEMP/vague_`annee'.dta", clear
+        collapse (mean) dim_`d', by(region)
+        replace dim_`d' = dim_`d' * 100
+        rename region cod_reg
+        rename dim_`d' D`annee'
+        tempfile dm`annee'
+        save `dm`annee''
+    }
+    use `dm2018', clear
+    merge 1:1 cod_reg using `dm2021', nogenerate
+    merge 1:1 cod_reg using `xwalk_reg', nogenerate
+    merge 1:1 NOMREG using "$TEMP/sen_reg_db.dta", keepusing(id) nogenerate
+    save "$TEMP/dimmap.dta", replace
+
+    set dp comma
+    spmap D2018 using "$TEMP/sen_reg_xy", id(id) ///
+        clmethod(custom) clbreaks(0 20 40 60 80 100) ///
+        fcolor(YlOrRd) ocolor(white ..) osize(0.15 ..) ///
+        ndfcolor(gs12) legend(off) ///
+        label(data("$TEMP/sen_reg_lbl.dta") xcoord(x_c) ycoord(y_c) ///
+              label(nom_reg) size(*0.6) color(black)) ///
+        subtitle("EHCVM I (2018-2019)", size(medsmall)) ///
+        text($YNORD $XNORD "N", size(medium) color(gs7)) ///
+        text($YFLEC $XNORD "▲", size(vhuge) color(gs7)) ///
+        name(cdim18, replace)
+    spmap D2021 using "$TEMP/sen_reg_xy", id(id) ///
+        clmethod(custom) clbreaks(0 20 40 60 80 100) ///
+        fcolor(YlOrRd) ocolor(white ..) osize(0.15 ..) ///
+        ndfcolor(gs12) ///
+        legend(position(6) ring(1) size(vsmall) rows(1)) ///
+        legtitle("Taux de privation (%)") ///
+        label(data("$TEMP/sen_reg_lbl.dta") xcoord(x_c) ycoord(y_c) ///
+              label(nom_reg) size(*0.6) color(black)) ///
+        subtitle("EHCVM II (2021-2022)", size(medsmall)) ///
+        name(cdim21, replace)
+    graph combine cdim18 cdim21, cols(2) ///
+        subtitle("`dnom'", size(medium)) ///
+        graphregion(color(white))
+    set dp period
+    graph export "$OUTPUT/figures/fig_carte_dim_`d'.pdf", replace
+    di ">>> fig_carte_dim_`d'.pdf sauvegardé"
+}
+
+/* ============================================================
    2. Croisement pauvreté monétaire / N-MODA (EHCVM I)
    ============================================================ */
 
