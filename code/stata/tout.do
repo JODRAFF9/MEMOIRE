@@ -2046,38 +2046,8 @@ replace _X = $XC        in 9
 replace _Y = $YC + $RAD in 9
 save "$TEMP/sen_rose_s.dta", replace
 
-/* Barre d'echelle segmentee 0-75-150 km, placee dans une zone libre au
-   bas-centre de la carte (aucun polygone regional a cet endroit).
-   Deux blocs de 75 km (75 000 m) : le premier noir, le second blanc,
-   avec les graduations 0 / 75 / 150 km. Coordonnees en metres UTM. */
-global SBX0 = 470000                 /* debut du bloc 1              */
-global SBX1 = 470000 + 75000         /* limite bloc 1 / bloc 2 (75)  */
-global SBX2 = 470000 + 150000        /* fin du bloc 2 (150 km)       */
-global SBY0 = 1372000                /* bas de la barre             */
-global SBY1 = 1372000 + 11000        /* haut de la barre            */
-global SBYL = 1372000 - 12000        /* graduations sous la barre   */
-
-/* Bloc 1 (noir) : rectangle ferme au format basemap _ID _X _Y */
-clear
-input _ID double _X double _Y
-1 470000 1372000
-1 545000 1372000
-1 545000 1383000
-1 470000 1383000
-1 470000 1372000
-end
-save "$TEMP/sen_sb1.dta", replace
-
-/* Bloc 2 (blanc, contour noir) */
-clear
-input _ID double _X double _Y
-1 545000 1372000
-1 620000 1372000
-1 620000 1383000
-1 545000 1383000
-1 545000 1372000
-end
-save "$TEMP/sen_sb2.dta", replace
+/* La barre d'echelle est dessinee par l'option native scalebar() de spmap
+   (voir les appels ci-dessous) : pas de dataset a construire. */
 
 /* Points d'ancrage des noms de region : un point garanti a l'interieur de
    chaque polygone (representative_point), plus fiable que la moyenne des
@@ -2120,14 +2090,11 @@ spmap H_2018 using "$TEMP/sen_reg_xy", id(id) ///
     label(data("$TEMP/sen_reg_lbl.dta") xcoord(x_c) ycoord(y_c) ///
           label(nom_reg) size(*0.55) color(black)) ///
     subtitle("EHCVM I (2018-2019)", size(medsmall)) ///
-    polygon(data("$TEMP/sen_rose_c.dta") fcolor(white) ocolor(gs7) osize(0.2)) ///
-    polygon(data("$TEMP/sen_rose_s.dta") fcolor(gs7) ocolor(gs6) osize(0.2)) ///
+    line(data("$TEMP/sen_rose_c.dta") color(gs7) size(medthin)) ///
+    line(data("$TEMP/sen_rose_s.dta") color(gs7) size(medthin)) ///
     text($YNL $XC "N", size(medium) color(gs7)) ///
-    polygon(data("$TEMP/sen_sb1.dta") fcolor(black) ocolor(black) osize(0.15)) ///
-    polygon(data("$TEMP/sen_sb2.dta") fcolor(white) ocolor(black) osize(0.15)) ///
-    text($SBYL $SBX0 "0", size(vsmall) color(black)) ///
-    text($SBYL $SBX1 "75", size(vsmall) color(black)) ///
-    text($SBYL $SBX2 "150 km", size(vsmall) color(black)) ///
+    scalebar(length(150000) units(1000) label("km") ///
+             position(5) size(*0.8)) ///
     name(carte18, replace)
 spmap H_2021 using "$TEMP/sen_reg_xy", id(id) ///
     clmethod(custom) clbreaks(0 20 40 60 80 100) ///
@@ -2205,14 +2172,11 @@ foreach d of local dims {
         label(data("$TEMP/sen_reg_lbl.dta") xcoord(x_c) ycoord(y_c) ///
               label(nom_reg) size(*0.5) color(black)) ///
         subtitle("EHCVM I (2018-2019)", size(medsmall)) ///
-        polygon(data("$TEMP/sen_rose_c.dta") fcolor(white) ocolor(gs7) osize(0.2)) ///
-        polygon(data("$TEMP/sen_rose_s.dta") fcolor(gs7) ocolor(gs6) osize(0.2)) ///
+        line(data("$TEMP/sen_rose_c.dta") color(gs7) size(medthin)) ///
+        line(data("$TEMP/sen_rose_s.dta") color(gs7) size(medthin)) ///
         text($YNL $XC "N", size(medium) color(gs7)) ///
-        polygon(data("$TEMP/sen_sb1.dta") fcolor(black) ocolor(black) osize(0.15)) ///
-        polygon(data("$TEMP/sen_sb2.dta") fcolor(white) ocolor(black) osize(0.15)) ///
-        text($SBYL $SBX0 "0", size(vsmall) color(black)) ///
-        text($SBYL $SBX1 "75", size(vsmall) color(black)) ///
-        text($SBYL $SBX2 "150 km", size(vsmall) color(black)) ///
+        scalebar(length(150000) units(1000) label("km") ///
+                 position(5) size(*0.8)) ///
         name(cdim18, replace)
     spmap D2021 using "$TEMP/sen_reg_xy", id(id) ///
         clmethod(custom) clbreaks(0 20 40 60 80 100) ///
