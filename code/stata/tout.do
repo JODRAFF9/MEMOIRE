@@ -2112,8 +2112,8 @@ spmap H_2021 using "$TEMP/sen_reg_xy", id(id) ///
     fcolor(YlOrRd) ocolor(white ..) osize(0.15 ..) ///
     ndfcolor(gs12) ///
     legend(position(6) ring(1) size(vsmall) rows(1) ///
-        label(1 "[0;20]") label(2 "[20;40]") label(3 "[40;60]") ///
-        label(4 "[60;80]") label(5 "[80;100]")) ///
+        label(2 "[0;20]") label(3 "[20;40]") label(4 "[40;60]") ///
+        label(5 "[60;80]") label(6 "[80;100]")) ///
     label(data("$TEMP/sen_reg_lbl.dta") xcoord(x_c) ycoord(y_c) ///
           label(nom_reg) size(*0.55) color(black)) ///
     subtitle("EHCVM II (2021-2022)", size(medsmall)) ///
@@ -2193,8 +2193,8 @@ foreach d of local dims {
         fcolor(YlOrRd) ocolor(white ..) osize(0.15 ..) ///
         ndfcolor(gs12) ///
         legend(position(6) ring(1) size(vsmall) rows(1) ///
-            label(1 "[0;20]") label(2 "[20;40]") label(3 "[40;60]") ///
-            label(4 "[60;80]") label(5 "[80;100]")) ///
+            label(2 "[0;20]") label(3 "[20;40]") label(4 "[40;60]") ///
+            label(5 "[60;80]") label(6 "[80;100]")) ///
         label(data("$TEMP/sen_reg_lbl.dta") xcoord(x_c) ycoord(y_c) ///
               label(nom_reg) size(*0.5) color(black)) ///
         subtitle("EHCVM II (2021-2022)", size(medsmall)) ///
