@@ -1946,9 +1946,75 @@ preserve
     set dp period
     graph export "$OUTPUT/figures/fig_carte_nmoda_barres.pdf", replace
     di ">>> fig_carte_nmoda_barres.pdf sauvegardé (variante en barres)"
-    di ">>> Pour la carte choropleth du rapport (fig_carte_nmoda.pdf),"
-    di "    lancer apres ce do-file : python3 code/python/carte_nmoda.py"
+
+    /* ── Table H par région, cle = nom en majuscules (NOMREG du
+       shapefile) pour la fusion avec le fond de carte ── */
+    gen str30 NOMREG = ""
+    replace NOMREG = "DAKAR"       if cod_reg == 1
+    replace NOMREG = "ZIGUINCHOR"  if cod_reg == 2
+    replace NOMREG = "DIOURBEL"    if cod_reg == 3
+    replace NOMREG = "SAINT LOUIS" if cod_reg == 4
+    replace NOMREG = "TAMBACOUNDA" if cod_reg == 5
+    replace NOMREG = "KAOLACK"     if cod_reg == 6
+    replace NOMREG = "THIES"       if cod_reg == 7
+    replace NOMREG = "LOUGA"       if cod_reg == 8
+    replace NOMREG = "FATICK"      if cod_reg == 9
+    replace NOMREG = "KOLDA"       if cod_reg == 10
+    replace NOMREG = "MATAM"       if cod_reg == 11
+    replace NOMREG = "KAFFRINE"    if cod_reg == 12
+    replace NOMREG = "KEDOUGOU"    if cod_reg == 13
+    replace NOMREG = "SEDHIOU"     if cod_reg == 14
+    keep NOMREG H_2018 H_2021
+    save "$TEMP/h_region.dta", replace
 restore
+
+/* ============================================================
+   1bis. Carte choropleth N-MODA par région (spmap)
+   ============================================================ */
+
+/* Packages requis (installes une seule fois si absents) */
+capture which shp2dta
+if _rc ssc install shp2dta, replace
+capture which spmap
+if _rc ssc install spmap, replace
+
+/* Conversion du shapefile des régions en format Stata */
+shp2dta using "Vecteurs_Sénégal/Limite_Région", ///
+    database("$TEMP/sen_reg_db") coordinates("$TEMP/sen_reg_xy") ///
+    genid(id) replace
+
+/* Fusion des incidences N-MODA sur le nom de région (NOMREG) */
+use "$TEMP/sen_reg_db", clear
+replace NOMREG = trim(upper(NOMREG))
+merge 1:1 NOMREG using "$TEMP/h_region.dta"
+drop if _merge == 2
+drop _merge
+save "$TEMP/sen_reg_db.dta", replace
+
+/* Bornes de classes communes aux deux vagues pour une échelle de
+   couleur partagée (memes clbreaks sur les deux cartes) */
+set dp comma
+spmap H_2018 using "$TEMP/sen_reg_xy", id(id) ///
+    clmethod(custom) clbreaks(15 30 45 60 75 90) ///
+    fcolor(YlOrRd) ocolor(white ..) osize(0.15 ..) ///
+    ndfcolor(gs12) legend(off) ///
+    plabel(H_2018, format(%4.1f) size(vsmall) color(black)) ///
+    title("EHCVM I (2018-2019)", size(medium)) ///
+    name(carte18, replace)
+spmap H_2021 using "$TEMP/sen_reg_xy", id(id) ///
+    clmethod(custom) clbreaks(15 30 45 60 75 90) ///
+    fcolor(YlOrRd) ocolor(white ..) osize(0.15 ..) ///
+    ndfcolor(gs12) ///
+    legend(position(4)) legtitle("Incidence N-MODA H (%)") ///
+    plabel(H_2021, format(%4.1f) size(vsmall) color(black)) ///
+    title("EHCVM II (2021-2022)", size(medium)) ///
+    name(carte21, replace)
+graph combine carte18 carte21, cols(2) ///
+    title("Pauvreté multidimensionnelle des enfants par région", size(medium)) ///
+    graphregion(color(white))
+set dp period
+graph export "$OUTPUT/figures/fig_carte_nmoda.pdf", replace
+di ">>> fig_carte_nmoda.pdf (carte choropleth) sauvegardé"
 
 /* ============================================================
    2. Croisement pauvreté monétaire / N-MODA (EHCVM I)
