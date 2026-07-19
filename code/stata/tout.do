@@ -2048,7 +2048,9 @@ spmap H_2021 using "$TEMP/sen_reg_xy", id(id) ///
     clmethod(custom) clbreaks(0 20 40 60 80 100) ///
     fcolor(YlOrRd) ocolor(white ..) osize(0.15 ..) ///
     ndfcolor(gs12) ///
-    legend(position(6) ring(1) size(vsmall) rows(1)) ///
+    legend(position(6) ring(1) size(vsmall) rows(1) ///
+        label(1 "[80,100]") label(2 "[60,80]") label(3 "[40,60]") ///
+        label(4 "[20,40]") label(5 "[0,20]")) ///
     label(data("$TEMP/sen_reg_lbl.dta") xcoord(x_c) ycoord(y_c) ///
           label(nom_reg) size(*0.65) color(black)) ///
     subtitle("EHCVM II (2021-2022)", size(medsmall)) ///
@@ -2125,13 +2127,14 @@ foreach d of local dims {
         clmethod(custom) clbreaks(0 20 40 60 80 100) ///
         fcolor(YlOrRd) ocolor(white ..) osize(0.15 ..) ///
         ndfcolor(gs12) ///
-        legend(position(6) ring(1) size(vsmall) rows(1)) ///
+        legend(position(6) ring(1) size(vsmall) rows(1) ///
+            label(1 "[80,100]") label(2 "[60,80]") label(3 "[40,60]") ///
+            label(4 "[20,40]") label(5 "[0,20]")) ///
         label(data("$TEMP/sen_reg_lbl.dta") xcoord(x_c) ycoord(y_c) ///
               label(nom_reg) size(*0.6) color(black)) ///
         subtitle("EHCVM II (2021-2022)", size(medsmall)) ///
         name(cdim21, replace)
     graph combine cdim18 cdim21, cols(2) ///
-        subtitle("`dnom'", size(medium)) ///
         b1title("Taux de privation (%)", size(small)) ///
         graphregion(color(white))
     set dp period
