@@ -1991,14 +1991,32 @@ drop if _merge == 2
 drop _merge
 save "$TEMP/sen_reg_db.dta", replace
 
-/* Position de la fleche du nord (coin superieur gauche), calculee sur
-   l'etendue du fond de carte (coordonnees UTM, le nord est vers le haut). */
+/* Position de la fleche du nord (coin superieur gauche) et de la barre
+   d'echelle (en bas a gauche), calculees sur l'etendue du fond de carte
+   (coordonnees UTM zone 28N en metres, le nord est vers le haut). */
 use "$TEMP/sen_reg_xy", clear
 quietly summarize _X
+scalar xmin_ = r(min)
+scalar xrng_ = r(max) - r(min)
 global XNORD = r(min) + 0.05*(r(max) - r(min))
 quietly summarize _Y
+scalar ymin_ = r(min)
+scalar yrng_ = r(max) - r(min)
 global YNORD = r(min) + 0.92*(r(max) - r(min))   /* "N" */
 global YFLEC = r(min) + 0.84*(r(max) - r(min))   /* fleche sous le N */
+
+/* Barre d'echelle de 100 km (100 000 m) en bas a gauche */
+global XSB0   = xmin_ + 0.05*xrng_               /* debut de la barre    */
+global XSB1   = xmin_ + 0.05*xrng_ + 100000      /* fin (+100 km)        */
+global XSBMID = xmin_ + 0.05*xrng_ + 50000       /* milieu (libelle)     */
+global YSB    = ymin_ + 0.05*yrng_               /* hauteur de la barre  */
+global YSBLAB = ymin_ + 0.09*yrng_               /* libelle au-dessus    */
+
+clear
+set obs 2
+gen double xb = cond(_n == 1, $XSB0, $XSB1)
+gen double yb = $YSB
+save "$TEMP/sen_scalebar.dta", replace
 
 /* Points d'ancrage des noms de region : un point garanti a l'interieur de
    chaque polygone (representative_point), plus fiable que la moyenne des
@@ -2043,6 +2061,9 @@ spmap H_2018 using "$TEMP/sen_reg_xy", id(id) ///
     subtitle("EHCVM I (2018-2019)", size(medsmall)) ///
     text($YNORD $XNORD "N", size(medlarge) color(gs7)) ///
     text($YFLEC $XNORD "▲", size(vhuge) color(gs7)) ///
+    line(data("$TEMP/sen_scalebar.dta") xcoord(xb) ycoord(yb) ///
+         color(black) size(medthick)) ///
+    text($YSBLAB $XSBMID "100 km", size(small) color(black)) ///
     name(carte18, replace)
 spmap H_2021 using "$TEMP/sen_reg_xy", id(id) ///
     clmethod(custom) clbreaks(0 20 40 60 80 100) ///
@@ -2122,6 +2143,9 @@ foreach d of local dims {
         subtitle("EHCVM I (2018-2019)", size(medsmall)) ///
         text($YNORD $XNORD "N", size(medium) color(gs7)) ///
         text($YFLEC $XNORD "▲", size(vhuge) color(gs7)) ///
+        line(data("$TEMP/sen_scalebar.dta") xcoord(xb) ycoord(yb) ///
+             color(black) size(medthick)) ///
+        text($YSBLAB $XSBMID "100 km", size(small) color(black)) ///
         name(cdim18, replace)
     spmap D2021 using "$TEMP/sen_reg_xy", id(id) ///
         clmethod(custom) clbreaks(0 20 40 60 80 100) ///
