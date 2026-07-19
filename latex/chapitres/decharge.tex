@@ -2,21 +2,45 @@
 \addcontentsline{toc}{section}{Décharge}
 \thispagestyle{plain}
 
-\vspace*{2cm}
+\vspace*{2.5cm}
 
 \begin{center}
-\setlength{\fboxrule}{1.5pt}
-\setlength{\fboxsep}{18pt}
-\fcolorbox{ensaeblue}{gray!8}{%
-  \parbox{0.88\linewidth}{%
-    \vspace{0.5cm}
-
-    \itshape
+\begin{tikzpicture}
+  % Carte principale : coins arrondis, fond doux, ombre portee
+  \node[
+    draw=ensaeblue,
+    line width=1pt,
+    rounded corners=10pt,
+    top color=white,
+    bottom color=gray!8,
+    blur shadow={shadow blur steps=6, shadow xshift=1.5pt,
+                 shadow yshift=-2.5pt, shadow opacity=45},
+    inner xsep=30pt,
+    inner ysep=34pt,
+    text width=0.74\linewidth,
+    align=justify,
+    font=\itshape
+  ] (box) {
     L'École Nationale de la Statistique et de l'Analyse Économique Pierre
     Ndiaye (ENSAE) et l'Agence Nationale de la Statistique et de la
     Démographie (ANSD) n'entendent donner aucune approbation ni improbation
     aux idées et opinions émises dans ce mémoire. Ces idées et opinions
     doivent être considérées comme propres à leur auteur.
-  }%
-}
+  };
+
+  % Filet d'accent bleu sur le bord gauche
+  \draw[ensaeblue, line width=3pt, rounded corners=10pt]
+    ([xshift=1pt,yshift=-12pt]box.north west) --
+    ([xshift=1pt,yshift=12pt]box.south west);
+
+  % Grand guillemet ouvrant, en filigrane dans le coin superieur gauche
+  \node[anchor=north west, text=ensaeblue, opacity=0.30,
+        font=\fontsize{54}{54}\selectfont\bfseries]
+    at ([xshift=8pt,yshift=14pt]box.north west) {\guillemotleft};
+
+  % Guillemet fermant discret en bas a droite
+  \node[anchor=south east, text=ensaeblue, opacity=0.30,
+        font=\fontsize{54}{54}\selectfont\bfseries]
+    at ([xshift=-8pt,yshift=-14pt]box.south east) {\guillemotright};
+\end{tikzpicture}
 \end{center}
