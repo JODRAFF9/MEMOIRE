@@ -2000,13 +2000,27 @@ quietly summarize _Y
 global YNORD = r(min) + 0.92*(r(max) - r(min))   /* "N" */
 global YFLEC = r(min) + 0.84*(r(max) - r(min))   /* fleche sous le N */
 
-/* Centroides des régions (moyenne des sommets) pour placer le nom de
-   chaque region : spmap ne label pas les zones automatiquement, il faut
-   fournir un fichier de coordonnees via l'option label(). */
-collapse (mean) x_c = _X y_c = _Y, by(_ID)
-rename _ID id
-merge 1:1 id using "$TEMP/sen_reg_db.dta", ///
-    keepusing(nom_reg) nogenerate
+/* Points d'ancrage des noms de region : un point garanti a l'interieur de
+   chaque polygone (representative_point), plus fiable que la moyenne des
+   sommets qui, pour les formes concaves, peut tomber hors de la region
+   (Dakar, Fatick). Coordonnees UTM zone 28N, figees comme constantes. */
+clear
+input str14 nom_reg double x_c double y_c
+"Dakar"        260296 1630241
+"Diourbel"     389356 1634520
+"Fatick"       330648 1566850
+"Kaolack"      389907 1552721
+"Kédougou"     795247 1425893
+"Kolda"        562662 1451754
+"Louga"        425604 1702445
+"Matam"        642112 1689583
+"Saint-Louis"  528600 1779250
+"Sédhiou"      440034 1427200
+"Tambacounda"  681879 1534429
+"Thiès"        299850 1631854
+"Ziguinchor"   347984 1410445
+"Kaffrine"     477629 1574729
+end
 save "$TEMP/sen_reg_lbl.dta", replace
 
 /* Point de la fleche du nord : un marqueur triangle plein (pointe vers le
@@ -2029,7 +2043,7 @@ set dp comma
    gauche ; legende masquee (partagee, affichee sur la seconde carte).
    Aucun titre general : la legende du rapport le fournit. */
 spmap H_2018 using "$TEMP/sen_reg_xy", id(id) ///
-    clmethod(custom) clbreaks(15 30 45 60 75 90) ///
+    clmethod(custom) clbreaks(0 20 40 60 80 100) ///
     fcolor(YlOrRd) ocolor(white ..) osize(0.15 ..) ///
     ndfcolor(gs12) legend(off) ///
     label(data("$TEMP/sen_reg_lbl.dta") xcoord(x_c) ycoord(y_c) ///
@@ -2040,7 +2054,7 @@ spmap H_2018 using "$TEMP/sen_reg_xy", id(id) ///
           shape(triangle) fcolor(black) ocolor(black) size(*2.2)) ///
     name(carte18, replace)
 spmap H_2021 using "$TEMP/sen_reg_xy", id(id) ///
-    clmethod(custom) clbreaks(15 30 45 60 75 90) ///
+    clmethod(custom) clbreaks(0 20 40 60 80 100) ///
     fcolor(YlOrRd) ocolor(white ..) osize(0.15 ..) ///
     ndfcolor(gs12) ///
     legend(position(6) ring(1) size(vsmall) rows(1)) ///
