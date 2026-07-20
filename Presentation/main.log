@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.5) (preloaded format=pdflatex 2026.7.10)  20 JUL 2026 09:02
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.5) (preloaded format=pdflatex 2026.7.10)  20 JUL 2026 23:19
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1323,48 +1323,48 @@ Package pdftex.def Info: figures/fig_evolution_ipm.pdf  used on input line 432.
 <figures/fig_privations_dim.pdf, id=358, 397.485pt x 289.08pt>
 File: figures/fig_privations_dim.pdf Graphic file (type pdf)
 <use figures/fig_privations_dim.pdf>
-Package pdftex.def Info: figures/fig_privations_dim.pdf  used on input line 452
+Package pdftex.def Info: figures/fig_privations_dim.pdf  used on input line 453
 .
 (pdftex.def)             Requested size: 199.1693pt x 144.85281pt.
 <figures/fig_pauvrete_milieu_age.pdf, id=359, 397.485pt x 289.08pt>
 File: figures/fig_pauvrete_milieu_age.pdf Graphic file (type pdf)
 <use figures/fig_pauvrete_milieu_age.pdf>
 Package pdftex.def Info: figures/fig_pauvrete_milieu_age.pdf  used on input lin
-e 452.
+e 453.
 (pdftex.def)             Requested size: 191.20082pt x 139.05676pt.
 
-Overfull \vbox (21.72324pt too high) detected at line 452
+Overfull \vbox (21.72324pt too high) detected at line 453
  []
 
 [17
 
  <./figures/fig_privations_dim.pdf> <./figures/fig_pauvrete_milieu_age.pdf>]
-<figures/overlap.pdf, id=399, 397.485pt x 289.08pt>
+<figures/overlap.pdf, id=401, 397.485pt x 289.08pt>
 File: figures/overlap.pdf Graphic file (type pdf)
 <use figures/overlap.pdf>
-Package pdftex.def Info: figures/overlap.pdf  used on input line 476.
+Package pdftex.def Info: figures/overlap.pdf  used on input line 477.
 (pdftex.def)             Requested size: 207.13776pt x 150.64886pt.
 [18
 
  <./figures/overlap.pdf>]
 
 LaTeX Font Warning: Font shape `T1/cmss/b/n' undefined
-(Font)              using `T1/cmss/m/n' instead on input line 506.
+(Font)              using `T1/cmss/m/n' instead on input line 507.
 
 
 Class beamer Warning: Frame text is shrunk by a factor of 21.12427 percent inst
-ead of 15 percent on input line 506.
+ead of 15 percent on input line 507.
 
 [19
 
 ]
-<figures/fig_effets_dim.pdf, id=442, 397.485pt x 289.08pt>
+<figures/fig_effets_dim.pdf, id=444, 397.485pt x 289.08pt>
 File: figures/fig_effets_dim.pdf Graphic file (type pdf)
 <use figures/fig_effets_dim.pdf>
-Package pdftex.def Info: figures/fig_effets_dim.pdf  used on input line 533.
+Package pdftex.def Info: figures/fig_effets_dim.pdf  used on input line 534.
 (pdftex.def)             Requested size: 219.08743pt x 159.33855pt.
 
-Overfull \vbox (32.59691pt too high) detected at line 533
+Overfull \vbox (32.59691pt too high) detected at line 534
  []
 
 [20
@@ -1372,12 +1372,12 @@ Overfull \vbox (32.59691pt too high) detected at line 533
  <./figures/fig_effets_dim.pdf>] [21
 
 ]
-Underfull \hbox (badness 1552) in paragraph at lines 576--576
+Underfull \hbox (badness 1552) in paragraph at lines 577--577
 []|\T1/cmss/m/n/10 Réduction de la pau-
  []
 
 
-Underfull \hbox (badness 2970) in paragraph at lines 576--576
+Underfull \hbox (badness 2970) in paragraph at lines 577--577
 []|\T1/cmss/m/n/10 PSM-DD contrôle les
  []
 
@@ -1402,115 +1402,128 @@ Underfull \hbox (badness 2970) in paragraph at lines 576--576
 ] [31
 
 ]
-Overfull \vbox (3.89813pt too high) detected at line 701
+Overfull \vbox (3.89813pt too high) detected at line 702
  []
 
 [32
 
 ]
-<figures/fig_carte_nmoda.pdf, id=607, 397.485pt x 289.08pt>
+<figures/fig_carte_nmoda.pdf, id=609, 397.485pt x 289.08pt>
 File: figures/fig_carte_nmoda.pdf Graphic file (type pdf)
 <use figures/fig_carte_nmoda.pdf>
-Package pdftex.def Info: figures/fig_carte_nmoda.pdf  used on input line 707.
+Package pdftex.def Info: figures/fig_carte_nmoda.pdf  used on input line 708.
 (pdftex.def)             Requested size: 326.64055pt x 237.56322pt.
 
-Overfull \vbox (66.16069pt too high) detected at line 707
+Overfull \vbox (66.16069pt too high) detected at line 708
  []
 
 [33
 
  <./figures/fig_carte_nmoda.pdf>]
-<figures/fig_carte_dim_assai.pdf, id=627, 397.485pt x 289.08pt>
+<figures/fig_carte_dim_assai.pdf, id=629, 397.485pt x 289.08pt>
 File: figures/fig_carte_dim_assai.pdf Graphic file (type pdf)
 <use figures/fig_carte_dim_assai.pdf>
 Package pdftex.def Info: figures/fig_carte_dim_assai.pdf  used on input line 71
-3.
+4.
 (pdftex.def)             Requested size: 326.64055pt x 237.56322pt.
 
-Overfull \vbox (66.16069pt too high) detected at line 713
+Overfull \vbox (66.16069pt too high) detected at line 714
  []
 
 [34
 
  <./figures/fig_carte_dim_assai.pdf>]
-<figures/fig_carte_dim_eau.pdf, id=646, 397.485pt x 289.08pt>
+<figures/fig_carte_dim_eau.pdf, id=648, 397.485pt x 289.08pt>
 File: figures/fig_carte_dim_eau.pdf Graphic file (type pdf)
 <use figures/fig_carte_dim_eau.pdf>
-Package pdftex.def Info: figures/fig_carte_dim_eau.pdf  used on input line 719.
+Package pdftex.def Info: figures/fig_carte_dim_eau.pdf  used on input line 720.
 
 (pdftex.def)             Requested size: 326.64055pt x 237.56322pt.
 
-Overfull \vbox (66.16069pt too high) detected at line 719
+Overfull \vbox (66.16069pt too high) detected at line 720
  []
 
 [35
 
  <./figures/fig_carte_dim_eau.pdf>]
-<figures/fig_carte_dim_logem.pdf, id=665, 397.485pt x 289.08pt>
+<figures/fig_carte_dim_logem.pdf, id=667, 397.485pt x 289.08pt>
 File: figures/fig_carte_dim_logem.pdf Graphic file (type pdf)
 <use figures/fig_carte_dim_logem.pdf>
 Package pdftex.def Info: figures/fig_carte_dim_logem.pdf  used on input line 72
-5.
+6.
 (pdftex.def)             Requested size: 326.64055pt x 237.56322pt.
 
-Overfull \vbox (66.16069pt too high) detected at line 725
+Overfull \vbox (66.16069pt too high) detected at line 726
  []
 
 [36
 
  <./figures/fig_carte_dim_logem.pdf>]
-<figures/fig_carte_dim_nutri.pdf, id=684, 397.485pt x 289.08pt>
+<figures/fig_carte_dim_nutri.pdf, id=686, 397.485pt x 289.08pt>
 File: figures/fig_carte_dim_nutri.pdf Graphic file (type pdf)
 <use figures/fig_carte_dim_nutri.pdf>
 Package pdftex.def Info: figures/fig_carte_dim_nutri.pdf  used on input line 73
-1.
+2.
 (pdftex.def)             Requested size: 326.64055pt x 237.56322pt.
 
-Overfull \vbox (66.16069pt too high) detected at line 731
+Overfull \vbox (66.16069pt too high) detected at line 732
  []
 
 [37
 
  <./figures/fig_carte_dim_nutri.pdf>]
-<figures/fig_carte_dim_sante.pdf, id=704, 397.485pt x 289.08pt>
+<figures/fig_carte_dim_sante.pdf, id=706, 397.485pt x 289.08pt>
 File: figures/fig_carte_dim_sante.pdf Graphic file (type pdf)
 <use figures/fig_carte_dim_sante.pdf>
 Package pdftex.def Info: figures/fig_carte_dim_sante.pdf  used on input line 73
-7.
+8.
 (pdftex.def)             Requested size: 326.64055pt x 237.56322pt.
 
-Overfull \vbox (66.16069pt too high) detected at line 737
+Overfull \vbox (66.16069pt too high) detected at line 738
  []
 
 [38
 
  <./figures/fig_carte_dim_sante.pdf>]
-<figures/fig_carte_dim_protect.pdf, id=723, 397.485pt x 289.08pt>
+<figures/fig_carte_dim_protect.pdf, id=725, 397.485pt x 289.08pt>
 File: figures/fig_carte_dim_protect.pdf Graphic file (type pdf)
 <use figures/fig_carte_dim_protect.pdf>
 Package pdftex.def Info: figures/fig_carte_dim_protect.pdf  used on input line 
-743.
+744.
 (pdftex.def)             Requested size: 326.64055pt x 237.56322pt.
 
-Overfull \vbox (66.16069pt too high) detected at line 743
+Overfull \vbox (66.16069pt too high) detected at line 744
  []
 
 [39
 
  <./figures/fig_carte_dim_protect.pdf>]
-<figures/fig_carte_dim_educ.pdf, id=742, 397.485pt x 289.08pt>
+<figures/fig_carte_dim_educ.pdf, id=744, 397.485pt x 289.08pt>
 File: figures/fig_carte_dim_educ.pdf Graphic file (type pdf)
 <use figures/fig_carte_dim_educ.pdf>
-Package pdftex.def Info: figures/fig_carte_dim_educ.pdf  used on input line 749
+Package pdftex.def Info: figures/fig_carte_dim_educ.pdf  used on input line 750
 .
 (pdftex.def)             Requested size: 326.64055pt x 237.56322pt.
 
-Overfull \vbox (66.16069pt too high) detected at line 749
+Overfull \vbox (66.16069pt too high) detected at line 750
  []
 
 [40
 
  <./figures/fig_carte_dim_educ.pdf>]
+<figures/fig_distrib_dimensions.pdf, id=763, 397.485pt x 289.08pt>
+File: figures/fig_distrib_dimensions.pdf Graphic file (type pdf)
+<use figures/fig_distrib_dimensions.pdf>
+Package pdftex.def Info: figures/fig_distrib_dimensions.pdf  used on input line
+ 759.
+(pdftex.def)             Requested size: 286.80426pt x 208.59177pt.
+
+Overfull \vbox (80.30241pt too high) detected at line 759
+ []
+
+[41
+
+ <./figures/fig_distrib_dimensions.pdf>]
 \tf@nav=\write6
 \openout6 = `main.nav'.
 
@@ -1533,46 +1546,47 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: 250B063B21AD6A4C3EC85E2C6F53BB86;3764.
  ) 
 Here is how much of TeX's memory you used:
- 29998 strings out of 467510
- 618444 string characters out of 5409766
- 1049177 words of memory out of 5000000
- 58529 multiletter control sequences out of 15000+600000
- 645638 words of font info for 72 fonts, out of 8000000 for 9000
+ 30047 strings out of 467510
+ 619492 string characters out of 5409766
+ 1049340 words of memory out of 5000000
+ 58567 multiletter control sequences out of 15000+600000
+ 651059 words of font info for 88 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  128i,15n,123p,381b,820s stack positions out of 10000i,1000n,20000p,200000b,200000s
- <C:\Users\Bmd\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecsi07
+ <C:\Users\Bmd\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecss08
 00.pk> <C:\Users\Bmd\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ec
-si0900.pk> <C:\Users\Bmd\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi60
-0\ecsx2488.pk> <C:\Users\Bmd\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/d
-pi600\ecsi1000.pk> <C:\Users\Bmd\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/
-ec/dpi600\ecso1200.pk> <C:\Users\Bmd\AppData\Local\MiKTeX\fonts/pk/ljfour/jknap
-pen/ec/dpi600\ecsi1200.pk> <C:\Users\Bmd\AppData\Local\MiKTeX\fonts/pk/ljfour/j
-knappen/ec/dpi600\ecsx1000.pk> <C:\Users\Bmd\AppData\Local\MiKTeX\fonts/pk/ljfo
-ur/jknappen/ec/dpi600\ecss1000.pk> <C:\Users\Bmd\AppData\Local\MiKTeX\fonts/pk/
-ljfour/jknappen/ec/dpi600\ecss1440.pk> <C:\Users\Bmd\AppData\Local\MiKTeX\fonts
-/pk/ljfour/jknappen/ec/dpi600\ecss0500.pk> <C:\Users\Bmd\AppData\Local\MiKTeX\f
-onts/pk/ljfour/jknappen/ec/dpi600\ecsx0900.pk> <C:\Users\Bmd\AppData\Local\MiKT
-eX\fonts/pk/ljfour/jknappen/ec/dpi600\ecss0700.pk> <C:\Users\Bmd\AppData\Local\
-MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecsx1440.pk> <C:\Users\Bmd\AppData\Lo
-cal\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecss0900.pk> <C:\Users\Bmd\AppDat
-a\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecsx0700.pk><C:/Users/Bmd/App
-Data/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/
-Bmd/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:
-/Users/Bmd/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi7.p
-fb><C:/Users/Bmd/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/c
-mss10.pfb><C:/Users/Bmd/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfon
-ts/cm/cmss8.pfb><C:/Users/Bmd/AppData/Local/Programs/MiKTeX/fonts/type1/public/
-amsfonts/cm/cmssi10.pfb><C:/Users/Bmd/AppData/Local/Programs/MiKTeX/fonts/type1
-/public/amsfonts/cm/cmssi8.pfb><C:/Users/Bmd/AppData/Local/Programs/MiKTeX/font
-s/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/Bmd/AppData/Local/Programs/MiKT
-eX/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Users/Bmd/AppData/Local/Program
-s/MiKTeX/fonts/type1/public/amsfonts/symbols/msam10.pfb><C:/Users/Bmd/AppData/L
-ocal/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msam7.pfb><C:/Users/Bm
-d/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-
-Output written on main.pdf (40 pages, 4796717 bytes).
+si0700.pk> <C:\Users\Bmd\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi60
+0\ecsi0900.pk> <C:\Users\Bmd\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/d
+pi600\ecsx2488.pk> <C:\Users\Bmd\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/
+ec/dpi600\ecsi1000.pk> <C:\Users\Bmd\AppData\Local\MiKTeX\fonts/pk/ljfour/jknap
+pen/ec/dpi600\ecso1200.pk> <C:\Users\Bmd\AppData\Local\MiKTeX\fonts/pk/ljfour/j
+knappen/ec/dpi600\ecsi1200.pk> <C:\Users\Bmd\AppData\Local\MiKTeX\fonts/pk/ljfo
+ur/jknappen/ec/dpi600\ecsx1000.pk> <C:\Users\Bmd\AppData\Local\MiKTeX\fonts/pk/
+ljfour/jknappen/ec/dpi600\ecss1000.pk> <C:\Users\Bmd\AppData\Local\MiKTeX\fonts
+/pk/ljfour/jknappen/ec/dpi600\ecss1440.pk> <C:\Users\Bmd\AppData\Local\MiKTeX\f
+onts/pk/ljfour/jknappen/ec/dpi600\ecss0500.pk> <C:\Users\Bmd\AppData\Local\MiKT
+eX\fonts/pk/ljfour/jknappen/ec/dpi600\ecsx0900.pk> <C:\Users\Bmd\AppData\Local\
+MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecss0700.pk> <C:\Users\Bmd\AppData\Lo
+cal\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecsx1440.pk> <C:\Users\Bmd\AppDat
+a\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecss0900.pk> <C:\Users\Bmd\Ap
+pData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecsx0700.pk><C:/Users/Bmd
+/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Us
+ers/Bmd/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb
+><C:/Users/Bmd/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmm
+i7.pfb><C:/Users/Bmd/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/
+cm/cmss10.pfb><C:/Users/Bmd/AppData/Local/Programs/MiKTeX/fonts/type1/public/am
+sfonts/cm/cmss8.pfb><C:/Users/Bmd/AppData/Local/Programs/MiKTeX/fonts/type1/pub
+lic/amsfonts/cm/cmssi10.pfb><C:/Users/Bmd/AppData/Local/Programs/MiKTeX/fonts/t
+ype1/public/amsfonts/cm/cmssi8.pfb><C:/Users/Bmd/AppData/Local/Programs/MiKTeX/
+fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/Bmd/AppData/Local/Programs/
+MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Users/Bmd/AppData/Local/Pro
+grams/MiKTeX/fonts/type1/public/amsfonts/symbols/msam10.pfb><C:/Users/Bmd/AppDa
+ta/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msam7.pfb><C:/User
+s/Bmd/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.
+pfb>
+Output written on main.pdf (41 pages, 4868400 bytes).
 PDF statistics:
- 1382 PDF objects out of 1440 (max. 8388607)
- 108 named destinations out of 1000 (max. 500000)
- 298 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1440 PDF objects out of 1440 (max. 8388607)
+ 112 named destinations out of 1000 (max. 500000)
+ 303 words of extra memory for PDF output out of 10000 (max. 10000000)
 
