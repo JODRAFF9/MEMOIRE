@@ -1,0 +1,20 @@
+# Artefacts de compilation LaTeX / Beamer (régénérés automatiquement)
+*.aux
+*.blg
+*.bcf
+*.lof
+*.log
+*.lot
+*.nav
+*.out
+*.run.xml
+*.snm
+*.synctex.gz
+*.synctex
+*.toc
+*.vrb
+*-blx.bib
+*.fdb_latexmk
+*.fls
+texput.log
+# Le PDF final Presentation/main.pdf reste suivi volontairement.
