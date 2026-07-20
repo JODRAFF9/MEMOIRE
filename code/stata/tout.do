@@ -519,7 +519,7 @@ foreach annee in 2018 2021 {
     else               gen long hhid = grappe * 100  + menage
     merge m:1 hhid using ///
         "`base'/ehcvm_menage_sen`annee'.dta", ///
-        keepusing(toilet eauboi_ss eauboi_sp ordure) ///
+        keepusing(eauboi_ss eauboi_sp ordure) ///
         nogenerate keep(master match)
 
     /* A4. Module habitat (s11_me) : partage toilettes, temps d'acces
@@ -605,12 +605,18 @@ foreach annee in 2018 2021 {
     label values groupe_moda grp
 
     /* ── [Dimension 1/7 : Assainissement] ────────────────────────
-       Indicateur 1 - Type de sanitaire non ameliore (toilet)
+       Indicateur 1 - Type de sanitaire non ameliore
        Indicateur 2 - Partage des toilettes avec un autre menage
        Analyse en cas complets : la dimension est manquante des qu'UN
        SEUL indicateur manque, meme si l'autre indicateur est renseigne
        et positif. Aucun "sauvetage" par un indicateur deja positif. */
-    gen byte m_toilet     = (toilet == 0) if !missing(toilet)
+    /* Toilettes non ameliorees : type de sanitaire (v_type_toi, soit
+       s11q55 en 2018 et s11q54 en 2021) dans les categories
+       7. Latrines SANPLAT ; 8. Latrines dallees simples ;
+       9. Fosse rudimentaire ; 10. Toilettes publiques ;
+       11. Aucune toilette ; 12. Autre. */
+    gen byte m_toilet     = inlist(`v_type_toi', 7, 8, 9, 10, 11, 12) ///
+        if !missing(`v_type_toi')
     /* Le partage des sanitaires n'est demande que si le menage dispose
        d'une installation propre : verifie empiriquement, la question est
        sautee a 100% quand le type de sanitaire (v_type_toi) est "Aucune
