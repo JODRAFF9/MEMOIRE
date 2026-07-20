@@ -316,6 +316,9 @@
     Union intra-dimension (privé si privé dans au moins un indicateur) ;
     seuil inter-dimensionnel $k = 4$ (pauvre si privé dans $\geq 4$ dimensions sur 7).
   \end{alertblock}
+  \begin{center}
+    \hyperlink{matrice-nmoda}{\beamergotobutton{Voir la matrice N-MODA complète}}
+  \end{center}
 \end{frame}
 
 \begin{frame}[shrink=8]{Le traitement : les transferts de migrants en pratique}
@@ -672,9 +675,40 @@
 \endgroup
 
 % ============================================================
-% ANNEXE : distributions spatiales (cartes)
+% ANNEXE : matrice N-MODA complète + distributions spatiales
 % ============================================================
 \appendix
+
+\begin{frame}[label=matrice-nmoda]{Matrice N-MODA complète : indicateurs, âges, sources et seuils}
+  \centering
+  \resizebox{\textwidth}{!}{%
+  \renewcommand{\arraystretch}{1.15}
+  \begin{tabular}{llcccll}
+    \toprule
+    Dimension & Indicateur & 0-4 & 5-14 & 15-17 & Module source & Seuil de privation \\
+    \midrule
+    Assainissement & Toilettes non améliorées & \checkmark & \checkmark & \checkmark & Ménage (habitat) & Non conformes aux normes JMP \\
+                   & Partage des toilettes    & \checkmark & \checkmark & \checkmark & Ménage (habitat) & Installation partagée \\
+    Eau            & Source non améliorée     & \checkmark & \checkmark & \checkmark & Ménage (habitat) & Non conforme aux normes JMP \\
+                   & Temps d'accès $> 30$ min & \checkmark & \checkmark & \checkmark & Ménage (habitat) & Plus de 30 min aller-retour \\
+    Logement       & Gestion des ordures      & \checkmark & \checkmark & \checkmark & Ménage (habitat) & Évacuation non saine \\
+                   & Surpeuplement            & \checkmark & \checkmark & \checkmark & Ménage (habitat) & Plus de 3 personnes par pièce \\
+    Nutrition      & Sécurité alimentaire     & \checkmark & \checkmark & \checkmark & Ménage (sécu. alim.) & Insécurité alimentaire (FIES) \\
+    Santé          & Combustible solide       & \checkmark & \checkmark & \checkmark & Ménage (habitat) & Bois, charbon ou déchets \\
+    Protection     & Absence d'acte de naissance & \checkmark & \checkmark & - & Individu (état civil) & Enfant non enregistré \\
+                   & Travail des enfants      & -          & \checkmark & - & Individu (emploi) & Travail éco. ou domestique $\geq$ 1h \\
+                   & Séparation parentale     & \checkmark & \checkmark & \checkmark & Individu (parenté) & Sans ses deux parents biologiques \\
+    Éducation      & Non-scolarisation        & -          & \checkmark & - & Individu (éducation) & Enfant non scolarisé \\
+                   & Illettrisme              & -          & -          & \checkmark & Individu (éducation) & Ne sait ni lire ni écrire \\
+                   & NEET                     & -          & -          & \checkmark & Individu (éduc./emploi) & Ni scolarisé ni actif \\
+    \bottomrule
+  \end{tabular}}
+
+  \smallskip
+  {\scriptsize \checkmark~= applicable au groupe d'âge~; -~= non applicable.
+   \textit{Source :} adaptation de l'ANSD/UNICEF (2024) aux fichiers EHCVM I et II.}\\[0.2cm]
+  \hyperlink{privations-dim}{\beamerreturnbutton{Retour}}
+\end{frame}
 
 \begin{frame}[label=maps-spatial]{Taux de privation régionale}
   \centering
