@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.5) (preloaded format=pdflatex 2026.7.10)  19 JUL 2026 01:16
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.5) (preloaded format=pdflatex 2026.7.10)  19 JUL 2026 22:54
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1223,7 +1223,7 @@ Dictionary: translator-theorem-dictionary, Language: English
 LaTeX Info: Redefining \degres on input line 167.
  (main.nav)
 Package babel Info: Main language set to 'french'.
-<prism-uploads/ENSAE.png, id=94, 963.6pt x 542.025pt>
+<prism-uploads/ENSAE.png, id=98, 963.6pt x 542.025pt>
 File: prism-uploads/ENSAE.png Graphic file (type png)
 <use prism-uploads/ENSAE.png>
 Package pdftex.def Info: prism-uploads/ENSAE.png  used on input line 173.
@@ -1232,7 +1232,7 @@ File: prism-uploads/ENSAE.png Graphic file (type png)
 <use prism-uploads/ENSAE.png>
 Package pdftex.def Info: prism-uploads/ENSAE.png  used on input line 173.
 (pdftex.def)             Requested size: 52.34386pt x 48.36661pt.
-<figures/logo_itie.png, id=95, 230.8625pt x 141.52875pt>
+<figures/logo_itie.png, id=99, 230.8625pt x 141.52875pt>
 File: figures/logo_itie.png Graphic file (type png)
 <use figures/logo_itie.png>
 Package pdftex.def Info: figures/logo_itie.png  used on input line 173.
@@ -1311,7 +1311,7 @@ ead of 25 percent on input line 383.
 ] [15
 
 ]
-<figures/fig_evolution_ipm.pdf, id=327, 397.485pt x 289.08pt>
+<figures/fig_evolution_ipm.pdf, id=331, 397.485pt x 289.08pt>
 File: figures/fig_evolution_ipm.pdf Graphic file (type pdf)
 <use figures/fig_evolution_ipm.pdf>
 Package pdftex.def Info: figures/fig_evolution_ipm.pdf  used on input line 439.
@@ -1320,51 +1320,51 @@ Package pdftex.def Info: figures/fig_evolution_ipm.pdf  used on input line 439.
  [16
 
  <./figures/fig_evolution_ipm.pdf>]
-<figures/fig_privations_dim.pdf, id=352, 397.485pt x 289.08pt>
+<figures/fig_privations_dim.pdf, id=356, 397.485pt x 289.08pt>
 File: figures/fig_privations_dim.pdf Graphic file (type pdf)
 <use figures/fig_privations_dim.pdf>
-Package pdftex.def Info: figures/fig_privations_dim.pdf  used on input line 456
+Package pdftex.def Info: figures/fig_privations_dim.pdf  used on input line 459
 .
 (pdftex.def)             Requested size: 199.1693pt x 144.85281pt.
-<figures/fig_pauvrete_milieu_age.pdf, id=353, 397.485pt x 289.08pt>
+<figures/fig_pauvrete_milieu_age.pdf, id=357, 397.485pt x 289.08pt>
 File: figures/fig_pauvrete_milieu_age.pdf Graphic file (type pdf)
 <use figures/fig_pauvrete_milieu_age.pdf>
 Package pdftex.def Info: figures/fig_pauvrete_milieu_age.pdf  used on input lin
-e 456.
+e 459.
 (pdftex.def)             Requested size: 191.20082pt x 139.05676pt.
 
-Overfull \vbox (3.72324pt too high) detected at line 456
+Overfull \vbox (21.72324pt too high) detected at line 459
  []
 
 [17
 
  <./figures/fig_privations_dim.pdf> <./figures/fig_pauvrete_milieu_age.pdf>]
-<figures/overlap.pdf, id=389, 397.485pt x 289.08pt>
+<figures/overlap.pdf, id=397, 397.485pt x 289.08pt>
 File: figures/overlap.pdf Graphic file (type pdf)
 <use figures/overlap.pdf>
-Package pdftex.def Info: figures/overlap.pdf  used on input line 480.
+Package pdftex.def Info: figures/overlap.pdf  used on input line 483.
 (pdftex.def)             Requested size: 207.13776pt x 150.64886pt.
 [18
 
  <./figures/overlap.pdf>]
 
 LaTeX Font Warning: Font shape `T1/cmss/b/n' undefined
-(Font)              using `T1/cmss/m/n' instead on input line 510.
+(Font)              using `T1/cmss/m/n' instead on input line 513.
 
 
 Class beamer Warning: Frame text is shrunk by a factor of 21.12427 percent inst
-ead of 15 percent on input line 510.
+ead of 15 percent on input line 513.
 
 [19
 
 ]
-<figures/fig_effets_dim.pdf, id=432, 397.485pt x 289.08pt>
+<figures/fig_effets_dim.pdf, id=440, 397.485pt x 289.08pt>
 File: figures/fig_effets_dim.pdf Graphic file (type pdf)
 <use figures/fig_effets_dim.pdf>
-Package pdftex.def Info: figures/fig_effets_dim.pdf  used on input line 537.
+Package pdftex.def Info: figures/fig_effets_dim.pdf  used on input line 540.
 (pdftex.def)             Requested size: 219.08743pt x 159.33855pt.
 
-Overfull \vbox (32.59691pt too high) detected at line 537
+Overfull \vbox (32.59691pt too high) detected at line 540
  []
 
 [20
@@ -1372,12 +1372,12 @@ Overfull \vbox (32.59691pt too high) detected at line 537
  <./figures/fig_effets_dim.pdf>] [21
 
 ]
-Underfull \hbox (badness 1552) in paragraph at lines 580--580
+Underfull \hbox (badness 1552) in paragraph at lines 583--583
 []|\T1/cmss/m/n/10 Réduction de la pau-
  []
 
 
-Underfull \hbox (badness 2970) in paragraph at lines 580--580
+Underfull \hbox (badness 2970) in paragraph at lines 583--583
 []|\T1/cmss/m/n/10 PSM-DD contrôle les
  []
 
@@ -1402,6 +1402,109 @@ Underfull \hbox (badness 2970) in paragraph at lines 580--580
 ] [31
 
 ]
+<figures/fig_carte_nmoda.pdf, id=594, 397.485pt x 289.08pt>
+File: figures/fig_carte_nmoda.pdf Graphic file (type pdf)
+<use figures/fig_carte_nmoda.pdf>
+Package pdftex.def Info: figures/fig_carte_nmoda.pdf  used on input line 683.
+(pdftex.def)             Requested size: 326.64055pt x 237.56322pt.
+
+Overfull \vbox (66.16069pt too high) detected at line 683
+ []
+
+[32
+
+ <./figures/fig_carte_nmoda.pdf>]
+<figures/fig_carte_dim_assai.pdf, id=614, 397.485pt x 289.08pt>
+File: figures/fig_carte_dim_assai.pdf Graphic file (type pdf)
+<use figures/fig_carte_dim_assai.pdf>
+Package pdftex.def Info: figures/fig_carte_dim_assai.pdf  used on input line 68
+9.
+(pdftex.def)             Requested size: 326.64055pt x 237.56322pt.
+
+Overfull \vbox (66.16069pt too high) detected at line 689
+ []
+
+[33
+
+ <./figures/fig_carte_dim_assai.pdf>]
+<figures/fig_carte_dim_eau.pdf, id=633, 397.485pt x 289.08pt>
+File: figures/fig_carte_dim_eau.pdf Graphic file (type pdf)
+<use figures/fig_carte_dim_eau.pdf>
+Package pdftex.def Info: figures/fig_carte_dim_eau.pdf  used on input line 695.
+
+(pdftex.def)             Requested size: 326.64055pt x 237.56322pt.
+
+Overfull \vbox (66.16069pt too high) detected at line 695
+ []
+
+[34
+
+ <./figures/fig_carte_dim_eau.pdf>]
+<figures/fig_carte_dim_logem.pdf, id=652, 397.485pt x 289.08pt>
+File: figures/fig_carte_dim_logem.pdf Graphic file (type pdf)
+<use figures/fig_carte_dim_logem.pdf>
+Package pdftex.def Info: figures/fig_carte_dim_logem.pdf  used on input line 70
+1.
+(pdftex.def)             Requested size: 326.64055pt x 237.56322pt.
+
+Overfull \vbox (66.16069pt too high) detected at line 701
+ []
+
+[35
+
+ <./figures/fig_carte_dim_logem.pdf>]
+<figures/fig_carte_dim_nutri.pdf, id=671, 397.485pt x 289.08pt>
+File: figures/fig_carte_dim_nutri.pdf Graphic file (type pdf)
+<use figures/fig_carte_dim_nutri.pdf>
+Package pdftex.def Info: figures/fig_carte_dim_nutri.pdf  used on input line 70
+7.
+(pdftex.def)             Requested size: 326.64055pt x 237.56322pt.
+
+Overfull \vbox (66.16069pt too high) detected at line 707
+ []
+
+[36
+
+ <./figures/fig_carte_dim_nutri.pdf>]
+<figures/fig_carte_dim_sante.pdf, id=690, 397.485pt x 289.08pt>
+File: figures/fig_carte_dim_sante.pdf Graphic file (type pdf)
+<use figures/fig_carte_dim_sante.pdf>
+Package pdftex.def Info: figures/fig_carte_dim_sante.pdf  used on input line 71
+3.
+(pdftex.def)             Requested size: 326.64055pt x 237.56322pt.
+
+Overfull \vbox (66.16069pt too high) detected at line 713
+ []
+
+[37
+
+ <./figures/fig_carte_dim_sante.pdf>]
+<figures/fig_carte_dim_protect.pdf, id=710, 397.485pt x 289.08pt>
+File: figures/fig_carte_dim_protect.pdf Graphic file (type pdf)
+<use figures/fig_carte_dim_protect.pdf>
+Package pdftex.def Info: figures/fig_carte_dim_protect.pdf  used on input line 
+719.
+(pdftex.def)             Requested size: 326.64055pt x 237.56322pt.
+
+Overfull \vbox (66.16069pt too high) detected at line 719
+ []
+
+[38
+
+ <./figures/fig_carte_dim_protect.pdf>]
+<figures/fig_carte_dim_educ.pdf, id=729, 397.485pt x 289.08pt>
+File: figures/fig_carte_dim_educ.pdf Graphic file (type pdf)
+<use figures/fig_carte_dim_educ.pdf>
+Package pdftex.def Info: figures/fig_carte_dim_educ.pdf  used on input line 725
+.
+(pdftex.def)             Requested size: 326.64055pt x 237.56322pt.
+
+Overfull \vbox (66.16069pt too high) detected at line 725
+ []
+
+[39
+
+ <./figures/fig_carte_dim_educ.pdf>]
 \tf@nav=\write6
 \openout6 = `main.nav'.
 
@@ -1421,13 +1524,13 @@ L3 programming layer <2026-06-18>
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 12BF50ECEE8EFAF47EF3ED7372374313;3692.
+(rerunfilecheck)             Checksum: 250B063B21AD6A4C3EC85E2C6F53BB86;3764.
  ) 
 Here is how much of TeX's memory you used:
- 29844 strings out of 467510
- 614413 string characters out of 5409766
- 1039227 words of memory out of 5000000
- 58401 multiletter control sequences out of 15000+600000
+ 29979 strings out of 467510
+ 618044 string characters out of 5409766
+ 1039427 words of memory out of 5000000
+ 58515 multiletter control sequences out of 15000+600000
  644811 words of font info for 71 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  128i,15n,123p,381b,820s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -1458,9 +1561,9 @@ pe1/public/amsfonts/cm/cmsy10.pfb><C:/Users/Bmd/AppData/Local/Programs/MiKTeX/f
 onts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Users/Bmd/AppData/Local/Programs/Mi
 KTeX/fonts/type1/public/amsfonts/symbols/msam10.pfb><C:/Users/Bmd/AppData/Local
 /Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on main.pdf (31 pages, 957802 bytes).
+Output written on main.pdf (39 pages, 4774507 bytes).
 PDF statistics:
- 1160 PDF objects out of 1200 (max. 8388607)
- 83 named destinations out of 1000 (max. 500000)
- 250 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1328 PDF objects out of 1440 (max. 8388607)
+ 104 named destinations out of 1000 (max. 500000)
+ 298 words of extra memory for PDF output out of 10000 (max. 10000000)
 

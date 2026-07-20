@@ -710,6 +710,44 @@
       \verb 10.1016/j.jeconom.2020.12.001
       \endverb
     \endentry
+    \entry{card1994}{article}{}{}
+      \name{author}{2}{}{%
+        {{un=0,uniquepart=base,hash=a9e88233ec6ce30d2d31e294961e3e76}{%
+           family={Card},
+           familyi={C\bibinitperiod},
+           given={David},
+           giveni={D\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=34526c3bf548080921683822747fad7e}{%
+           family={Krueger},
+           familyi={K\bibinitperiod},
+           given={Alan\bibnamedelima B.},
+           giveni={A\bibinitperiod\bibinitdelim B\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{88d00363e1018b78cd4ea4a59ccee815}
+      \strng{fullhash}{88d00363e1018b78cd4ea4a59ccee815}
+      \strng{fullhashraw}{88d00363e1018b78cd4ea4a59ccee815}
+      \strng{bibnamehash}{88d00363e1018b78cd4ea4a59ccee815}
+      \strng{authorbibnamehash}{88d00363e1018b78cd4ea4a59ccee815}
+      \strng{authornamehash}{88d00363e1018b78cd4ea4a59ccee815}
+      \strng{authorfullhash}{88d00363e1018b78cd4ea4a59ccee815}
+      \strng{authorfullhashraw}{88d00363e1018b78cd4ea4a59ccee815}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{American Economic Review}
+      \field{number}{4}
+      \field{title}{Minimum wages and employment: A case study of the fast-food industry in new jersey and pennsylvania}
+      \field{volume}{84}
+      \field{year}{1994}
+      \field{pages}{772\bibrangedash 793}
+      \range{pages}{22}
+    \endentry
     \entry{carrasco2023}{article}{}{}
       \name{author}{2}{}{%
         {{un=0,uniquepart=base,hash=9750252caaf278c32d79900b32fee10e}{%
@@ -1906,6 +1944,43 @@
       \field{number}{2008/WP002}
       \field{title}{Measuring child poverty and well-being: A literature review}
       \field{year}{2008}
+    \endentry
+    \entry{rosenbaum2002}{book}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=2619036f349e499ca578ec1a7ebb3a46}{%
+           family={Rosenbaum},
+           familyi={R\bibinitperiod},
+           given={Paul\bibnamedelima R.},
+           giveni={P\bibinitperiod\bibinitdelim R\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{location}{1}{%
+        {New York}%
+      }
+      \list{publisher}{1}{%
+        {Springer}%
+      }
+      \strng{namehash}{2619036f349e499ca578ec1a7ebb3a46}
+      \strng{fullhash}{2619036f349e499ca578ec1a7ebb3a46}
+      \strng{fullhashraw}{2619036f349e499ca578ec1a7ebb3a46}
+      \strng{bibnamehash}{2619036f349e499ca578ec1a7ebb3a46}
+      \strng{authorbibnamehash}{2619036f349e499ca578ec1a7ebb3a46}
+      \strng{authornamehash}{2619036f349e499ca578ec1a7ebb3a46}
+      \strng{authorfullhash}{2619036f349e499ca578ec1a7ebb3a46}
+      \strng{authorfullhashraw}{2619036f349e499ca578ec1a7ebb3a46}
+      \field{sortinit}{R}
+      \field{sortinithash}{5e1c39a9d46ffb6bebd8f801023a9486}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{edition}{2}
+      \field{title}{Observational studies}
+      \field{year}{2002}
+      \verb{doi}
+      \verb 10.1007/978-1-4757-3692-2
+      \endverb
     \endentry
     \entry{rosenbaum1983}{article}{}{}
       \name{author}{2}{}{%
@@ -2953,6 +3028,44 @@
       \verb 10.1016/j.jeconom.2020.12.001
       \endverb
     \endentry
+    \entry{card1994}{article}{}{}
+      \name{author}{2}{}{%
+        {{un=0,uniquepart=base,hash=a9e88233ec6ce30d2d31e294961e3e76}{%
+           family={Card},
+           familyi={C\bibinitperiod},
+           given={David},
+           giveni={D\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=34526c3bf548080921683822747fad7e}{%
+           family={Krueger},
+           familyi={K\bibinitperiod},
+           given={Alan\bibnamedelima B.},
+           giveni={A\bibinitperiod\bibinitdelim B\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{88d00363e1018b78cd4ea4a59ccee815}
+      \strng{fullhash}{88d00363e1018b78cd4ea4a59ccee815}
+      \strng{fullhashraw}{88d00363e1018b78cd4ea4a59ccee815}
+      \strng{bibnamehash}{88d00363e1018b78cd4ea4a59ccee815}
+      \strng{authorbibnamehash}{88d00363e1018b78cd4ea4a59ccee815}
+      \strng{authornamehash}{88d00363e1018b78cd4ea4a59ccee815}
+      \strng{authorfullhash}{88d00363e1018b78cd4ea4a59ccee815}
+      \strng{authorfullhashraw}{88d00363e1018b78cd4ea4a59ccee815}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{American Economic Review}
+      \field{number}{4}
+      \field{title}{Minimum wages and employment: A case study of the fast-food industry in new jersey and pennsylvania}
+      \field{volume}{84}
+      \field{year}{1994}
+      \field{pages}{772\bibrangedash 793}
+      \range{pages}{22}
+    \endentry
     \entry{carrasco2023}{article}{}{}
       \name{author}{2}{}{%
         {{un=0,uniquepart=base,hash=9750252caaf278c32d79900b32fee10e}{%
@@ -4149,6 +4262,43 @@
       \field{number}{2008/WP002}
       \field{title}{Measuring child poverty and well-being: A literature review}
       \field{year}{2008}
+    \endentry
+    \entry{rosenbaum2002}{book}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=2619036f349e499ca578ec1a7ebb3a46}{%
+           family={Rosenbaum},
+           familyi={R\bibinitperiod},
+           given={Paul\bibnamedelima R.},
+           giveni={P\bibinitperiod\bibinitdelim R\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{location}{1}{%
+        {New York}%
+      }
+      \list{publisher}{1}{%
+        {Springer}%
+      }
+      \strng{namehash}{2619036f349e499ca578ec1a7ebb3a46}
+      \strng{fullhash}{2619036f349e499ca578ec1a7ebb3a46}
+      \strng{fullhashraw}{2619036f349e499ca578ec1a7ebb3a46}
+      \strng{bibnamehash}{2619036f349e499ca578ec1a7ebb3a46}
+      \strng{authorbibnamehash}{2619036f349e499ca578ec1a7ebb3a46}
+      \strng{authornamehash}{2619036f349e499ca578ec1a7ebb3a46}
+      \strng{authorfullhash}{2619036f349e499ca578ec1a7ebb3a46}
+      \strng{authorfullhashraw}{2619036f349e499ca578ec1a7ebb3a46}
+      \field{sortinit}{R}
+      \field{sortinithash}{5e1c39a9d46ffb6bebd8f801023a9486}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{edition}{2}
+      \field{title}{Observational studies}
+      \field{year}{2002}
+      \verb{doi}
+      \verb 10.1007/978-1-4757-3692-2
+      \endverb
     \endentry
     \entry{rosenbaum1983}{article}{}{}
       \name{author}{2}{}{%
