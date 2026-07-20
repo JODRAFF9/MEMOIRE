@@ -1729,19 +1729,33 @@ replace dimo = 5 if dimg == "Santé"
 replace dimo = 6 if dimg == "Protection"
 replace dimo = 7 if dimg == "Éducation"
 
+/* Un seul over() (par indicateur) : le double over(indicateur)#over(dimension)
+   echoue (r(198), "failed to setup collapse problem") car les indicateurs
+   ne se repetent pas d'une dimension a l'autre (croisement non rectangulaire).
+   Le regroupement par dimension facon figure ANSD est reproduit en inserant,
+   avant les indicateurs de chaque dimension, une ligne d'en-tete a barre vide
+   (taux manquant) portant le nom de la dimension. L'ordre d'affichage _po
+   place Education en haut et Assainissement en bas (8 - dimo), en-tete juste
+   au-dessus de ses indicateurs. */
 foreach g in 0 1 2 3 {
     local suf  = cond(`g'==0,"all",cond(`g'==1,"0_4",cond(`g'==2,"5_14","15_17")))
     local titl = cond(`g'==0,"0 à 17 ans",cond(`g'==1,"0-4 ans",cond(`g'==2,"5-14 ans","15-17 ans")))
     preserve
         keep if grp == `g'
-        gsort dimo ordre
+        gen double _po = (8 - dimo)*100 + ordre
+        tempfile _rows
+        save `_rows'
+        * En-tetes de dimension (une ligne par dimension, barre vide)
+        bysort dimo (ordre): keep if _n == 1
+        replace indic    = strupper(dimg)
+        replace taux2018 = .
+        replace taux2021 = .
+        replace _po      = (8 - dimo)*100
+        append using `_rows'
+        gsort _po
         set dp comma
         graph hbar (mean) taux2018 taux2021, ///
-            over(indic, sort(ordre) label(labsize(vsmall))) ///
-            over(dimo, relabel(1 "Assainis." 2 "Eau" 3 "Logement" ///
-                4 "Nutrition" 5 "Santé" 6 "Protection" 7 "Éducation") ///
-                sort(dimo) label(labsize(small))) ///
-            nofill ///
+            over(indic, sort(_po) label(labsize(vsmall))) ///
             bar(1, color(gs9)) bar(2, color(orange)) ///
             blabel(bar, format(%4.1f) size(tiny)) ///
             legend(order(1 "EHCVM I (2018-19)" 2 "EHCVM II (2021-22)") pos(6) rows(1)) ///
