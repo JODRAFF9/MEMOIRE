@@ -15,13 +15,18 @@ au Sénégal par l'ANSD et l'UNICEF \parencite{ansd2024}.
 
 \subsection{Matrice des indicateurs, sources et seuils}
 
-\begin{landscape}
-\begin{table}[H]
+% Tableau pivote a 90 (contenu non flottant, sur sa propre page) pour eviter
+% la page blanche que le bloc landscape inserait en twoside.
+\clearpage
+\vspace*{\fill}
+\begin{center}
+\rotatebox{90}{%
+\begin{minipage}{\textheight}
   \centering
-  \caption{Matrice N-MODA : indicateurs, applicabilité par âge, sources et seuils}
-  \label{tab:matrice_nmoda}
   \begin{threeparttable}
   \footnotesize
+  \captionof{table}{Matrice N-MODA : indicateurs, applicabilité par âge, sources et seuils}
+  \label{tab:matrice_nmoda}
   \zebre
   \begin{tabular}{|l|l|c|c|c|l|l|}
     \hline
@@ -51,8 +56,10 @@ au Sénégal par l'ANSD et l'UNICEF \parencite{ansd2024}.
     et accès à une structure de santé (module communautaire non comparable) exclus.
   \end{tablenotes}
   \end{threeparttable}
-\end{table}
-\end{landscape}
+\end{minipage}}
+\end{center}
+\vspace*{\fill}
+\clearpage
 
 \subsection{Limites de l'opérationnalisation}
 
