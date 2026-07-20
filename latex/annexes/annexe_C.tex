@@ -16,12 +16,12 @@ au Sénégal par l'ANSD et l'UNICEF \parencite{ansd2024}.
 \subsection{Matrice des indicateurs, sources et seuils}
 
 % Tableau pivote a 90 (contenu non flottant, sur sa propre page) pour eviter
-% la page blanche que le bloc landscape inserait en twoside.
+% la page blanche que le bloc landscape inserait en twoside. La minipage est
+% plus etroite que \textheight pour que le tableau pivote tienne sur la page.
 \clearpage
-\vspace*{\fill}
 \begin{center}
 \rotatebox{90}{%
-\begin{minipage}{\textheight}
+\begin{minipage}{0.88\textheight}
   \centering
   \begin{threeparttable}
   \footnotesize
@@ -58,7 +58,6 @@ au Sénégal par l'ANSD et l'UNICEF \parencite{ansd2024}.
   \end{threeparttable}
 \end{minipage}}
 \end{center}
-\vspace*{\fill}
 \clearpage
 
 \subsection{Limites de l'opérationnalisation}
