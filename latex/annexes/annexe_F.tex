@@ -1,4 +1,3 @@
-\begin{landscape}
 \section{Cartes régionales du taux de privation par dimension}
 \label{ann:F}
 
@@ -10,67 +9,28 @@ est commune (0 à 100\,\%), ce qui permet de comparer directement les
 dimensions entre elles et les deux périodes. Les régions les plus
 sombres sont les plus privées.
 
-\begin{figure}[H]
-  \centering
-  \caption{Taux de privation : assainissement}
-  \includegraphics[width=0.8\linewidth]{figures/fig_carte_dim_assai.pdf}
-  \label{fig:carte_dim_assai}
+% Chaque carte est pivotee a 90 degres (contenu non flottant, une par page)
+% pour occuper la largeur d'une orientation paysage sans inserer de page
+% blanche : l'introduction ci-dessus reste en portrait.
+\newcommand{\cartedim}[3]{%
+  \clearpage
+  \vspace*{\fill}
+  \begin{center}
+  \rotatebox{90}{%
+    \begin{minipage}{0.85\textheight}
+      \centering
+      \includegraphics[width=\linewidth]{figures/#1}\par\smallskip
+      \captionof{figure}{Taux de privation : #2}\label{#3}\par
+      {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM.}
+    \end{minipage}}
+  \end{center}
+  \vspace*{\fill}
+}
 
-  {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM.}
-\end{figure}
-
-\begin{figure}[H]
-  \centering
-  \caption{Taux de privation : eau}
-  \includegraphics[width=0.8\linewidth]{figures/fig_carte_dim_eau.pdf}
-  \label{fig:carte_dim_eau}
-
-  {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM.}
-\end{figure}
-
-\begin{figure}[H]
-  \centering
-  \caption{Taux de privation : logement}
-  \includegraphics[width=0.8\linewidth]{figures/fig_carte_dim_logem.pdf}
-  \label{fig:carte_dim_logem}
-
-  {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM.}
-\end{figure}
-
-\begin{figure}[H]
-  \centering
-  \caption{Taux de privation : nutrition}
-  \includegraphics[width=0.8\linewidth]{figures/fig_carte_dim_nutri.pdf}
-  \label{fig:carte_dim_nutri}
-
-  {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM.}
-\end{figure}
-
-\begin{figure}[H]
-  \centering
-  \caption{Taux de privation : santé}
-  \includegraphics[width=0.8\linewidth]{figures/fig_carte_dim_sante.pdf}
-  \label{fig:carte_dim_sante}
-
-  {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM.}
-\end{figure}
-
-\begin{figure}[H]
-  \centering
-  \caption{Taux de privation : protection}
-  \includegraphics[width=0.8\linewidth]{figures/fig_carte_dim_protect.pdf}
-  \label{fig:carte_dim_protect}
-
-  {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM.}
-\end{figure}
-
-\begin{figure}[H]
-  \centering
-  \caption{Taux de privation : éducation}
-  \includegraphics[width=0.8\linewidth]{figures/fig_carte_dim_educ.pdf}
-  \label{fig:carte_dim_educ}
-
-  {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM.}
-\end{figure}
-
-\end{landscape}
+\cartedim{fig_carte_dim_assai.pdf}{assainissement}{fig:carte_dim_assai}
+\cartedim{fig_carte_dim_eau.pdf}{eau}{fig:carte_dim_eau}
+\cartedim{fig_carte_dim_logem.pdf}{logement}{fig:carte_dim_logem}
+\cartedim{fig_carte_dim_nutri.pdf}{nutrition}{fig:carte_dim_nutri}
+\cartedim{fig_carte_dim_sante.pdf}{santé}{fig:carte_dim_sante}
+\cartedim{fig_carte_dim_protect.pdf}{protection}{fig:carte_dim_protect}
+\cartedim{fig_carte_dim_educ.pdf}{éducation}{fig:carte_dim_educ}
