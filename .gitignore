@@ -8,3 +8,6 @@
 # Fichiers temporaires
 *~
 *.tmp
+
+# Journaux Stata / logs d'analyse a la racine
+analyse.log
