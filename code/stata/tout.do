@@ -1323,8 +1323,11 @@ di _newline ">>> 05_psm_dd.do termine."
    06_stats_desc.do — Statistiques descriptives
    Chapitre 3 : profil ménages, pauvreté, privations, comparaison D=0/1
 
-   Aucune ponderation par poids d'enquete (hhweight) : toutes les
-   statistiques sont calculees sur effectifs bruts.
+   Les statistiques de pauvrete/privation (incidence N-MODA, par dimension,
+   par age, par milieu, par region) sont PONDEREES par les poids de sondage
+   (hhweight) pour assurer la representativite nationale et la comparabilite
+   avec les chiffres officiels de l'ANSD (cf. annexe E). Le profil des menages
+   et la balance traites/non-traites restent sur effectifs bruts.
 
    Sorties :
      output/tab_menages.csv          — caractéristiques ménages (tab 5)
@@ -1530,10 +1533,10 @@ di _newline "=== 3. Incidence pauvreté multidimensionnelle ==="
 foreach annee in 2018 2021 {
     use "$TEMP/vague_`annee'.dta", clear
 
-    di _newline "-- N-MODA `annee' --"
-    tabstat pauvre_MODA nb_dep, ///
+    di _newline "-- N-MODA `annee' (pondéré hhweight) --"
+    tabstat pauvre_MODA nb_dep [aw=hhweight], ///
         by(milieu) stat(mean n) format(%6.3f)
-    tabstat pauvre_MODA nb_dep, ///
+    tabstat pauvre_MODA nb_dep [aw=hhweight], ///
         by(groupe_moda) stat(mean n) format(%6.3f)
 }
 
@@ -1550,7 +1553,7 @@ foreach annee in 2018 2021 {
     use "$TEMP/vague_`annee'.dta", clear
     foreach g in 1 2 3 {
         local ++r
-        quietly summarize pauvre_MODA if groupe_moda == `g'
+        quietly summarize pauvre_MODA [aw=hhweight] if groupe_moda == `g'
         local hmoda = r(mean)*100
         local nobs  = r(N)
         local lbl   = cond(`g'==1,"0-4 ans",cond(`g'==2,"5-14 ans","15-17 ans"))
@@ -1568,7 +1571,7 @@ foreach annee in 2018 2021 {
     use "$TEMP/vague_`annee'.dta", clear
     di _newline "-- Dimensions `annee' --"
     foreach dim in assai eau logem nutri sante protect educ {
-        quietly summarize dim_`dim'
+        quietly summarize dim_`dim' [aw=hhweight]
         di "  `dim' : " %5.1f r(mean)*100 "%"
     }
 }
@@ -1577,7 +1580,7 @@ foreach annee in 2018 2021 {
 foreach annee in 2018 2021 {
     use "$TEMP/vague_`annee'.dta", clear
     collapse (mean) dim_assai dim_eau dim_logem dim_nutri ///
-                    dim_sante dim_protect dim_educ
+                    dim_sante dim_protect dim_educ [aw=hhweight]
     gen annee = `annee'
     if `annee' == 2018 {
         tempfile dim_2018
@@ -1599,7 +1602,7 @@ di _newline "=== 5. Graphiques ==="
 /* ── Fig 1 : Évolution H N-MODA par vague ── */
 foreach annee in 2018 2021 {
     use "$TEMP/vague_`annee'.dta", clear
-    quietly summarize pauvre_MODA
+    quietly summarize pauvre_MODA [aw=hhweight]
     scalar H_moda_`annee' = r(mean)*100
 }
 clear
@@ -1625,7 +1628,7 @@ di ">>> fig_evolution_ipm.pdf sauvegardé"
 foreach annee in 2018 2021 {
     use "$TEMP/vague_`annee'.dta", clear
     foreach dim in assai eau logem nutri sante protect educ {
-        quietly summarize dim_`dim'
+        quietly summarize dim_`dim' [aw=hhweight]
         scalar d_`dim'_`annee' = r(mean)*100
     }
 }
@@ -1705,7 +1708,7 @@ foreach an in 2018 2021 {
                     else if "`ap'" == "g2"  local cond "age >= 5 & age <= 14"
                     else if "`ap'" == "g3"  local cond "age >= 15"
                 }
-                quietly summarize `v' if `cond'
+                quietly summarize `v' [aw=hhweight] if `cond'
                 if r(N) > 0 {
                     local dd : word `i' of `IND_dims'
                     local ll : word `i' of `IND_labs'
@@ -1772,17 +1775,17 @@ foreach g in 0 1 2 3 {
    Barres groupées : les deux vagues côte à côte pour chaque groupe
    d'âge, panneaux urbain/rural. */
 use "$TEMP/vague_2018.dta", clear
-keep pauvre_MODA groupe_moda milieu
+keep pauvre_MODA groupe_moda milieu hhweight
 gen byte vague = 1
 tempfile mag_w1
 save `mag_w1'
 
 use "$TEMP/vague_2021.dta", clear
-keep pauvre_MODA groupe_moda milieu
+keep pauvre_MODA groupe_moda milieu hhweight
 gen byte vague = 2
 append using `mag_w1'
 
-collapse (mean) pauvre_MODA, by(vague groupe_moda milieu)
+collapse (mean) pauvre_MODA [aw=hhweight], by(vague groupe_moda milieu)
 replace pauvre_MODA = pauvre_MODA * 100
 reshape wide pauvre_MODA, i(groupe_moda milieu) j(vague)
 
@@ -1977,18 +1980,18 @@ di ">>> 07_effets_dim.do terminé."
    1. Incidence N-MODA par région (EHCVM I et II)
    ============================================================ */
 
-/* Moyenne brute par région, pour chacune des deux vagues */
+/* Moyenne pondérée (poids de sondage) par région, pour chacune des deux vagues */
 matrix H_reg = J(14, 3, .)
 foreach annee in 2018 2021 {
     use "$TEMP/vague_`annee'.dta", clear
     local col = cond(`annee' == 2018, 2, 3)
-    quietly summarize pauvre_MODA
+    quietly summarize pauvre_MODA [aw=hhweight]
     scalar H_nat_`annee' = r(mean)*100
     levelsof region, local(regs)
     local i = 0
     foreach r of local regs {
         local ++i
-        quietly summarize pauvre_MODA if region == `r'
+        quietly summarize pauvre_MODA [aw=hhweight] if region == `r'
         matrix H_reg[`i', 1] = `r'
         matrix H_reg[`i', `col'] = r(mean)*100
         local lbl : label (region) `r'
@@ -2276,7 +2279,7 @@ foreach d of local dims {
     /* Taux de privation regional (%) de la dimension, chaque vague */
     foreach annee in 2018 2021 {
         use "$TEMP/vague_`annee'.dta", clear
-        collapse (mean) dim_`d', by(region)
+        collapse (mean) dim_`d' [aw=hhweight], by(region)
         replace dim_`d' = dim_`d' * 100
         rename region cod_reg
         rename dim_`d' D`annee'
