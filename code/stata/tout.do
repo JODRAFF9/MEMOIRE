@@ -1757,7 +1757,7 @@ foreach g in 0 1 2 3 {
         graph hbar (mean) taux2018 taux2021, ///
             over(indic, sort(_po) label(labsize(vsmall))) ///
             bar(1, color(gs9)) bar(2, color(orange)) ///
-            blabel(bar, format(%4.1f) size(tiny)) ///
+            blabel(bar, format(%4,1f) size(tiny)) ///
             legend(order(1 "EHCVM I (2018-19)" 2 "EHCVM II (2021-22)") pos(6) rows(1)) ///
             ytitle("Taux de privation (%)") ylabel(0(20)100, grid) ///
             title("Enfants âgés de `titl'", size(medium)) ///
