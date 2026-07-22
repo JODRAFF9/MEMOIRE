@@ -94,22 +94,25 @@
 % ── Bordure de page ENSAE (double filet cyan) ────────────────
 \usepackage{tikz}
 \usetikzlibrary{positioning,shadows.blur,calc}
-% Bordure de page (double filet cyan) dessinee au coin de la feuille via
-% eso-pic, SANS remember picture : robuste quel que soit le moteur
-% (pdflatex/xelatex) et le nombre de passes. L'ancien mecanisme
-% (background + current page) se decalait sous XeLaTeX.
+% Bordure de page dessinee au coin de la feuille via eso-pic, SANS
+% remember picture : robuste quel que soit le moteur (pdflatex/xelatex).
+% Double filet a coins arrondis (bleu ENSAE + cyan) avec petits accents
+% orange aux quatre angles.
 \usepackage{eso-pic}
 \AddToShipoutPictureBG{%
   \AtPageLowerLeft{%
     \begin{tikzpicture}[overlay]
-      \draw[ensaecyan, line width=3.5pt]
-        ([shift={( 10pt, 10pt)}]0,0)
-        rectangle
-        ([shift={(-10pt,-10pt)}]\paperwidth,\paperheight);
-      \draw[ensaecyan, line width=0.8pt]
-        ([shift={( 15pt, 15pt)}]0,0)
-        rectangle
-        ([shift={(-15pt,-15pt)}]\paperwidth,\paperheight);
+      \coordinate (SW) at (14pt,14pt);
+      \coordinate (NE) at ($(\paperwidth,\paperheight)-(14pt,14pt)$);
+      \coordinate (sw) at (19pt,19pt);
+      \coordinate (ne) at ($(\paperwidth,\paperheight)-(19pt,19pt)$);
+      % filet bleu exterieur (coins arrondis)
+      \draw[ensaeblue, line width=1.8pt, rounded corners=7pt] (SW) rectangle (NE);
+      % filet cyan interieur
+      \draw[ensaecyan, line width=0.7pt, rounded corners=5pt] (sw) rectangle (ne);
+      % accents d'angle
+      \foreach \c in {(SW),(NE),($(NE|-SW)$),($(SW|-NE)$)}
+        \fill[ensaeorange] \c circle (2.4pt);
     \end{tikzpicture}%
   }%
 }
