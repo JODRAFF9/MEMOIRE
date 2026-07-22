@@ -101,18 +101,27 @@
 \usepackage{eso-pic}
 \AddToShipoutPictureBG{%
   \AtPageLowerLeft{%
-    \begin{tikzpicture}[overlay]
-      \coordinate (SW) at (14pt,14pt);
-      \coordinate (NE) at ($(\paperwidth,\paperheight)-(14pt,14pt)$);
-      \coordinate (sw) at (19pt,19pt);
-      \coordinate (ne) at ($(\paperwidth,\paperheight)-(19pt,19pt)$);
+    \begin{tikzpicture}[overlay, line cap=round, line join=round]
+      \coordinate (SW) at (15pt,15pt);
+      \coordinate (NE) at ($(\paperwidth,\paperheight)-(15pt,15pt)$);
+      \coordinate (sw) at (20pt,20pt);
+      \coordinate (ne) at ($(\paperwidth,\paperheight)-(20pt,20pt)$);
+      \coordinate (SE) at (NE|-SW);
+      \coordinate (NW) at (SW|-NE);
       % filet bleu exterieur (coins arrondis)
-      \draw[ensaeblue, line width=1.8pt, rounded corners=7pt] (SW) rectangle (NE);
-      % filet cyan interieur
-      \draw[ensaecyan, line width=0.7pt, rounded corners=5pt] (sw) rectangle (ne);
-      % accents d'angle
-      \foreach \c in {(SW),(NE),($(NE|-SW)$),($(SW|-NE)$)}
-        \fill[ensaeorange] \c circle (2.4pt);
+      \draw[ensaeblue, line width=1.7pt, rounded corners=9pt] (SW) rectangle (NE);
+      % filet cyan interieur, plus fin
+      \draw[ensaecyan, line width=0.6pt, rounded corners=6pt] (sw) rectangle (ne);
+      % equerres orange dans les quatre angles (accent discret)
+      \def\L{16pt}
+      \draw[ensaeorange, line width=1.4pt, rounded corners=5pt]
+        ($(SW)+(0,\L)$) -- ($(SW)+(0,6pt)$) arc (180:270:6pt) -- ($(SW)+(\L,0)$);
+      \draw[ensaeorange, line width=1.4pt, rounded corners=5pt]
+        ($(SE)+(0,\L)$) -- ($(SE)+(0,6pt)$) arc (0:-90:6pt) -- ($(SE)+(-\L,0)$);
+      \draw[ensaeorange, line width=1.4pt, rounded corners=5pt]
+        ($(NW)+(0,-\L)$) -- ($(NW)+(0,-6pt)$) arc (180:90:6pt) -- ($(NW)+(\L,0)$);
+      \draw[ensaeorange, line width=1.4pt, rounded corners=5pt]
+        ($(NE)+(0,-\L)$) -- ($(NE)+(0,-6pt)$) arc (0:90:6pt) -- ($(NE)+(-\L,0)$);
     \end{tikzpicture}%
   }%
 }
