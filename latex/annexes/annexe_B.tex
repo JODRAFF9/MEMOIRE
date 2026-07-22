@@ -7,7 +7,7 @@ PSM-DD. Le code complet est organisé en scripts numérotés dans le répertoire
 l'ensemble du pipeline)~;
 les erreurs-types sont clusterisées au niveau de la grappe.
 
-\subsection{Statut de traitement (design entrants)}
+\subsection{Statut de traitement des entrants}
 
 \begin{verbatim}
 /* 04_panel.do - entrants vs jamais beneficiaires */
@@ -23,7 +23,7 @@ replace D_stable = 0 if D_2018 == 0 & D_2021 == 0
    exclus du panel causal */
 \end{verbatim}
 
-\subsection{Estimation du score de propension (niveau ménage)}
+\subsection{Estimation du score de propension au niveau ménage}
 
 \begin{verbatim}
 /* 05_psm_dd.do - Probit menage sur t=0 */
