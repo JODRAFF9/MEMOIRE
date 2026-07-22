@@ -1009,8 +1009,10 @@ set dp comma
 twoway ///
     (kdensity pscore if D == 0, lcolor(gs9) lwidth(medthick)) ///
     (kdensity pscore if D == 1, lcolor(orange) lwidth(medthick)), ///
-    legend(order(1 "Jamais bénéficiaires" 2 "Entrants (D=0 vers 1)")) ///
+    legend(order(1 "Jamais bénéficiaires" 2 "Entrants (D=0 vers 1)") ///
+           pos(6) rows(1) region(color(white))) ///
     xtitle("Score de propension") ytitle("Densité") ///
+    graphregion(color(white)) plotregion(color(white)) ///
     saving("$OUTPUT/overlap_panel.gph", replace)
 set dp period
 graph export "$OUTPUT/overlap_panel.pdf", replace
