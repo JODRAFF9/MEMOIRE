@@ -1,26 +1,27 @@
-\section*{Décharge}
+\phantomsection
 \addcontentsline{toc}{section}{Décharge}
 \thispagestyle{plain}
 
-\vspace*{2.5cm}
+\vspace*{3cm}
 
 \begin{center}
 \begin{tikzpicture}
-  % Carte principale : coins arrondis, fond doux, ombre portee
+  % Carte principale : coins arrondis, dégradé doux, ombre portée
   \node[
     draw=ensaeblue,
     line width=1pt,
     rounded corners=10pt,
     top color=white,
-    bottom color=gray!8,
+    bottom color=ensaeblue!6,
     blur shadow={shadow blur steps=6, shadow xshift=1.5pt,
                  shadow yshift=-2.5pt, shadow opacity=45},
-    inner xsep=30pt,
-    inner ysep=34pt,
-    text width=0.74\linewidth,
+    inner xsep=32pt,
+    inner ysep=36pt,
+    text width=0.72\linewidth,
     align=justify,
     font=\itshape
   ] (box) {
+    \vspace{6pt}%
     L'École nationale de la statistique et de l'analyse économique Pierre
     Ndiaye (ENSAE) et l'Agence nationale de la statistique et de la
     démographie (ANSD) n'entendent donner aucune approbation ni improbation
@@ -28,19 +29,34 @@
     doivent être considérées comme propres à leur auteur.
   };
 
+  % Filet fin intérieur (effet double encadrement)
+  \draw[ensaecyan, line width=0.4pt, rounded corners=7pt]
+    ([xshift=6pt,yshift=-6pt]box.north west)
+    rectangle
+    ([xshift=-6pt,yshift=6pt]box.south east);
+
   % Filet d'accent bleu sur le bord gauche
   \draw[ensaeblue, line width=3pt, rounded corners=10pt]
-    ([xshift=1pt,yshift=-12pt]box.north west) --
-    ([xshift=1pt,yshift=12pt]box.south west);
+    ([xshift=1pt,yshift=-14pt]box.north west) --
+    ([xshift=1pt,yshift=14pt]box.south west);
 
-  % Grand guillemet ouvrant, en filigrane dans le coin superieur gauche
-  \node[anchor=north west, text=ensaeblue, opacity=0.30,
-        font=\fontsize{54}{54}\selectfont\bfseries]
-    at ([xshift=8pt,yshift=14pt]box.north west) {\guillemotleft};
+  % Pastille de titre « Décharge » posée sur le bord supérieur
+  \node[
+    fill=ensaeblue,
+    text=white,
+    rounded corners=4pt,
+    inner xsep=16pt,
+    inner ysep=6pt,
+    font=\normalfont\scshape\large,
+    anchor=center
+  ] at (box.north) {Décharge};
 
-  % Guillemet fermant discret en bas a droite
-  \node[anchor=south east, text=ensaeblue, opacity=0.30,
-        font=\fontsize{54}{54}\selectfont\bfseries]
-    at ([xshift=-8pt,yshift=-14pt]box.south east) {\guillemotright};
+  % Guillemets en filigrane
+  \node[anchor=north west, text=ensaeblue, opacity=0.22,
+        font=\fontsize{50}{50}\selectfont\bfseries]
+    at ([xshift=10pt,yshift=6pt]box.north west) {\guillemotleft};
+  \node[anchor=south east, text=ensaeblue, opacity=0.22,
+        font=\fontsize{50}{50}\selectfont\bfseries]
+    at ([xshift=-10pt,yshift=-8pt]box.south east) {\guillemotright};
 \end{tikzpicture}
 \end{center}
