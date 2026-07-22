@@ -555,12 +555,12 @@
            giveni={M\bibinitperiod},
            givenun=0}}%
       }
-      \strng{namehash}{60a42690f31cd2dce4957cd21c05a3ad}
+      \strng{namehash}{ac609e4c7625c0f73ed2449d9a98c2f8}
       \strng{fullhash}{ac609e4c7625c0f73ed2449d9a98c2f8}
       \strng{fullhashraw}{ac609e4c7625c0f73ed2449d9a98c2f8}
       \strng{bibnamehash}{ac609e4c7625c0f73ed2449d9a98c2f8}
       \strng{authorbibnamehash}{ac609e4c7625c0f73ed2449d9a98c2f8}
-      \strng{authornamehash}{60a42690f31cd2dce4957cd21c05a3ad}
+      \strng{authornamehash}{ac609e4c7625c0f73ed2449d9a98c2f8}
       \strng{authorfullhash}{ac609e4c7625c0f73ed2449d9a98c2f8}
       \strng{authorfullhashraw}{ac609e4c7625c0f73ed2449d9a98c2f8}
       \field{sortinit}{B}
@@ -602,12 +602,12 @@
            giveni={R\bibinitperiod},
            givenun=0}}%
       }
-      \strng{namehash}{8175f444954c654a3ba9bc6b0ddc15c3}
+      \strng{namehash}{fe9488dc6aa4130e5c50124eb74bac82}
       \strng{fullhash}{fe9488dc6aa4130e5c50124eb74bac82}
       \strng{fullhashraw}{fe9488dc6aa4130e5c50124eb74bac82}
       \strng{bibnamehash}{fe9488dc6aa4130e5c50124eb74bac82}
       \strng{authorbibnamehash}{fe9488dc6aa4130e5c50124eb74bac82}
-      \strng{authornamehash}{8175f444954c654a3ba9bc6b0ddc15c3}
+      \strng{authornamehash}{fe9488dc6aa4130e5c50124eb74bac82}
       \strng{authorfullhash}{fe9488dc6aa4130e5c50124eb74bac82}
       \strng{authorfullhashraw}{fe9488dc6aa4130e5c50124eb74bac82}
       \field{sortinit}{C}
@@ -938,12 +938,12 @@
       \list{location}{1}{%
         {Dakar}%
       }
-      \strng{namehash}{9eafd4fb06ded33ec4927ef3be3f25d6}
+      \strng{namehash}{54c538608639330705c03ab34907df1f}
       \strng{fullhash}{54c538608639330705c03ab34907df1f}
       \strng{fullhashraw}{54c538608639330705c03ab34907df1f}
       \strng{bibnamehash}{54c538608639330705c03ab34907df1f}
       \strng{authorbibnamehash}{54c538608639330705c03ab34907df1f}
-      \strng{authornamehash}{9eafd4fb06ded33ec4927ef3be3f25d6}
+      \strng{authornamehash}{54c538608639330705c03ab34907df1f}
       \strng{authorfullhash}{54c538608639330705c03ab34907df1f}
       \strng{authorfullhashraw}{54c538608639330705c03ab34907df1f}
       \field{sortinit}{D}
@@ -1414,54 +1414,6 @@
       \field{pages}{126\bibrangedash 142}
       \range{pages}{17}
     \endentry
-    \entry{heckman1997}{article}{}{}
-      \name{author}{3}{}{%
-        {{un=0,uniquepart=base,hash=b70b920520f54634a1f03f9312707db2}{%
-           family={Heckman},
-           familyi={H\bibinitperiod},
-           given={James\bibnamedelima J.},
-           giveni={J\bibinitperiod\bibinitdelim J\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=d0d261351e2d86ceaf41d62b7d7308f9}{%
-           family={Ichimura},
-           familyi={I\bibinitperiod},
-           given={Hidehiko},
-           giveni={H\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=a2a2e53cb36906936ce1abdb635a4c9a}{%
-           family={Todd},
-           familyi={T\bibinitperiod},
-           given={Petra\bibnamedelima E.},
-           giveni={P\bibinitperiod\bibinitdelim E\bibinitperiod},
-           givenun=0}}%
-      }
-      \strng{namehash}{f006d0e2174466d5917902b66def5494}
-      \strng{fullhash}{57bf4b5d09873569a6aeaf55c75dab91}
-      \strng{fullhashraw}{57bf4b5d09873569a6aeaf55c75dab91}
-      \strng{bibnamehash}{57bf4b5d09873569a6aeaf55c75dab91}
-      \strng{authorbibnamehash}{57bf4b5d09873569a6aeaf55c75dab91}
-      \strng{authornamehash}{f006d0e2174466d5917902b66def5494}
-      \strng{authorfullhash}{57bf4b5d09873569a6aeaf55c75dab91}
-      \strng{authorfullhashraw}{57bf4b5d09873569a6aeaf55c75dab91}
-      \field{extraname}{1}
-      \field{sortinit}{H}
-      \field{sortinithash}{23a3aa7c24e56cfa16945d55545109b5}
-      \field{extradatescope}{labelyear}
-      \field{labeldatesource}{}
-      \true{uniqueprimaryauthor}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{journaltitle}{Review of Economic Studies}
-      \field{number}{4}
-      \field{title}{Matching as an econometric evaluation estimator: Evidence from evaluating a job training programme}
-      \field{volume}{64}
-      \field{year}{1997}
-      \field{pages}{605\bibrangedash 654}
-      \range{pages}{50}
-      \verb{doi}
-      \verb 10.2307/2971733
-      \endverb
-    \endentry
     \entry{heckman1998}{article}{}{}
       \name{author}{4}{}{%
         {{un=0,uniquepart=base,hash=b70b920520f54634a1f03f9312707db2}{%
@@ -1489,15 +1441,14 @@
            giveni={P\bibinitperiod\bibinitdelim E\bibinitperiod},
            givenun=0}}%
       }
-      \strng{namehash}{f006d0e2174466d5917902b66def5494}
+      \strng{namehash}{65d878cca4bc8ccaea99b3804a4e5499}
       \strng{fullhash}{65d878cca4bc8ccaea99b3804a4e5499}
       \strng{fullhashraw}{65d878cca4bc8ccaea99b3804a4e5499}
       \strng{bibnamehash}{65d878cca4bc8ccaea99b3804a4e5499}
       \strng{authorbibnamehash}{65d878cca4bc8ccaea99b3804a4e5499}
-      \strng{authornamehash}{f006d0e2174466d5917902b66def5494}
+      \strng{authornamehash}{65d878cca4bc8ccaea99b3804a4e5499}
       \strng{authorfullhash}{65d878cca4bc8ccaea99b3804a4e5499}
       \strng{authorfullhashraw}{65d878cca4bc8ccaea99b3804a4e5499}
-      \field{extraname}{2}
       \field{sortinit}{H}
       \field{sortinithash}{23a3aa7c24e56cfa16945d55545109b5}
       \field{extradatescope}{labelyear}
@@ -1514,6 +1465,53 @@
       \range{pages}{82}
       \verb{doi}
       \verb 10.2307/2999630
+      \endverb
+    \endentry
+    \entry{heckman1997}{article}{}{}
+      \name{author}{3}{}{%
+        {{un=0,uniquepart=base,hash=b70b920520f54634a1f03f9312707db2}{%
+           family={Heckman},
+           familyi={H\bibinitperiod},
+           given={James\bibnamedelima J.},
+           giveni={J\bibinitperiod\bibinitdelim J\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=d0d261351e2d86ceaf41d62b7d7308f9}{%
+           family={Ichimura},
+           familyi={I\bibinitperiod},
+           given={Hidehiko},
+           giveni={H\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=a2a2e53cb36906936ce1abdb635a4c9a}{%
+           family={Todd},
+           familyi={T\bibinitperiod},
+           given={Petra\bibnamedelima E.},
+           giveni={P\bibinitperiod\bibinitdelim E\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{57bf4b5d09873569a6aeaf55c75dab91}
+      \strng{fullhash}{57bf4b5d09873569a6aeaf55c75dab91}
+      \strng{fullhashraw}{57bf4b5d09873569a6aeaf55c75dab91}
+      \strng{bibnamehash}{57bf4b5d09873569a6aeaf55c75dab91}
+      \strng{authorbibnamehash}{57bf4b5d09873569a6aeaf55c75dab91}
+      \strng{authornamehash}{57bf4b5d09873569a6aeaf55c75dab91}
+      \strng{authorfullhash}{57bf4b5d09873569a6aeaf55c75dab91}
+      \strng{authorfullhashraw}{57bf4b5d09873569a6aeaf55c75dab91}
+      \field{sortinit}{H}
+      \field{sortinithash}{23a3aa7c24e56cfa16945d55545109b5}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Review of Economic Studies}
+      \field{number}{4}
+      \field{title}{Matching as an econometric evaluation estimator: Evidence from evaluating a job training programme}
+      \field{volume}{64}
+      \field{year}{1997}
+      \field{pages}{605\bibrangedash 654}
+      \range{pages}{50}
+      \verb{doi}
+      \verb 10.2307/2971733
       \endverb
     \endentry
     \entry{hildebrandt2005}{article}{}{}
@@ -1637,7 +1635,7 @@
       \field{title}{Remittances: Development impact and future prospects}
       \field{year}{2005}
     \endentry
-    \entry{mansuri2006}{article}{}{}
+    \entry{mansuri2006}{report}{}{}
       \name{author}{1}{}{%
         {{un=0,uniquepart=base,hash=6511cf3483e5ef65127c7da6f595a96d}{%
            family={Mansuri},
@@ -1667,9 +1665,9 @@
       \true{uniqueprimaryauthor}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{journaltitle}{World Bank Policy Research Working Paper}
       \field{number}{3945}
       \field{title}{Migration, school attainment, and child labour: Evidence from rural pakistan}
+      \field{type}{World Bank Policy Research Working Paper}
       \field{year}{2006}
     \endentry
     \entry{massey1993}{article}{}{}
@@ -1758,12 +1756,12 @@
            giveni={P\bibinitperiod},
            givenun=0}}%
       }
-      \strng{namehash}{614f7bea9e922d53eb28936658acd62f}
+      \strng{namehash}{4b90d463345054ae0bd445b2fdce9d31}
       \strng{fullhash}{4b90d463345054ae0bd445b2fdce9d31}
       \strng{fullhashraw}{4b90d463345054ae0bd445b2fdce9d31}
       \strng{bibnamehash}{4b90d463345054ae0bd445b2fdce9d31}
       \strng{authorbibnamehash}{4b90d463345054ae0bd445b2fdce9d31}
-      \strng{authornamehash}{614f7bea9e922d53eb28936658acd62f}
+      \strng{authornamehash}{4b90d463345054ae0bd445b2fdce9d31}
       \strng{authorfullhash}{4b90d463345054ae0bd445b2fdce9d31}
       \strng{authorfullhashraw}{4b90d463345054ae0bd445b2fdce9d31}
       \field{sortinit}{M}
@@ -1973,12 +1971,12 @@
       \list{location}{1}{%
         {Washington D.C.}%
       }
-      \strng{namehash}{df6828e19778cdd9d5aaed9b81bfc7c5}
+      \strng{namehash}{9ca4dd09723e7b98357af56eb5c029c4}
       \strng{fullhash}{9ca4dd09723e7b98357af56eb5c029c4}
       \strng{fullhashraw}{9ca4dd09723e7b98357af56eb5c029c4}
       \strng{bibnamehash}{9ca4dd09723e7b98357af56eb5c029c4}
       \strng{authorbibnamehash}{9ca4dd09723e7b98357af56eb5c029c4}
-      \strng{authornamehash}{df6828e19778cdd9d5aaed9b81bfc7c5}
+      \strng{authornamehash}{9ca4dd09723e7b98357af56eb5c029c4}
       \strng{authorfullhash}{9ca4dd09723e7b98357af56eb5c029c4}
       \strng{authorfullhashraw}{9ca4dd09723e7b98357af56eb5c029c4}
       \field{sortinit}{R}
@@ -1992,7 +1990,7 @@
       \field{title}{The migration and remittances factbook 2011}
       \field{year}{2011}
     \endentry
-    \entry{roelen2008}{article}{}{}
+    \entry{roelen2008}{report}{}{}
       \name{author}{2}{}{%
         {{un=0,uniquepart=base,hash=606250486001f2a1202acb7126e25f09}{%
            family={Roelen},
@@ -2006,6 +2004,9 @@
            given={Franziska},
            giveni={F\bibinitperiod},
            givenun=0}}%
+      }
+      \list{institution}{1}{%
+        {Maastricht University}%
       }
       \strng{namehash}{e2ec9ecef3e8327489ed272d39a31b5b}
       \strng{fullhash}{e2ec9ecef3e8327489ed272d39a31b5b}
@@ -2022,9 +2023,9 @@
       \true{uniqueprimaryauthor}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{journaltitle}{Maastricht Graduate School of Governance Working Paper}
       \field{number}{2008/WP002}
       \field{title}{Measuring child poverty and well-being: A literature review}
+      \field{type}{Maastricht Graduate School of Governance Working Paper}
       \field{year}{2008}
     \endentry
     \entry{rosenbaum2002}{book}{}{}
@@ -2955,12 +2956,12 @@
            giveni={M\bibinitperiod},
            givenun=0}}%
       }
-      \strng{namehash}{60a42690f31cd2dce4957cd21c05a3ad}
+      \strng{namehash}{ac609e4c7625c0f73ed2449d9a98c2f8}
       \strng{fullhash}{ac609e4c7625c0f73ed2449d9a98c2f8}
       \strng{fullhashraw}{ac609e4c7625c0f73ed2449d9a98c2f8}
       \strng{bibnamehash}{ac609e4c7625c0f73ed2449d9a98c2f8}
       \strng{authorbibnamehash}{ac609e4c7625c0f73ed2449d9a98c2f8}
-      \strng{authornamehash}{60a42690f31cd2dce4957cd21c05a3ad}
+      \strng{authornamehash}{ac609e4c7625c0f73ed2449d9a98c2f8}
       \strng{authorfullhash}{ac609e4c7625c0f73ed2449d9a98c2f8}
       \strng{authorfullhashraw}{ac609e4c7625c0f73ed2449d9a98c2f8}
       \field{sortinit}{B}
@@ -3002,12 +3003,12 @@
            giveni={R\bibinitperiod},
            givenun=0}}%
       }
-      \strng{namehash}{8175f444954c654a3ba9bc6b0ddc15c3}
+      \strng{namehash}{fe9488dc6aa4130e5c50124eb74bac82}
       \strng{fullhash}{fe9488dc6aa4130e5c50124eb74bac82}
       \strng{fullhashraw}{fe9488dc6aa4130e5c50124eb74bac82}
       \strng{bibnamehash}{fe9488dc6aa4130e5c50124eb74bac82}
       \strng{authorbibnamehash}{fe9488dc6aa4130e5c50124eb74bac82}
-      \strng{authornamehash}{8175f444954c654a3ba9bc6b0ddc15c3}
+      \strng{authornamehash}{fe9488dc6aa4130e5c50124eb74bac82}
       \strng{authorfullhash}{fe9488dc6aa4130e5c50124eb74bac82}
       \strng{authorfullhashraw}{fe9488dc6aa4130e5c50124eb74bac82}
       \field{sortinit}{C}
@@ -3338,12 +3339,12 @@
       \list{location}{1}{%
         {Dakar}%
       }
-      \strng{namehash}{9eafd4fb06ded33ec4927ef3be3f25d6}
+      \strng{namehash}{54c538608639330705c03ab34907df1f}
       \strng{fullhash}{54c538608639330705c03ab34907df1f}
       \strng{fullhashraw}{54c538608639330705c03ab34907df1f}
       \strng{bibnamehash}{54c538608639330705c03ab34907df1f}
       \strng{authorbibnamehash}{54c538608639330705c03ab34907df1f}
-      \strng{authornamehash}{9eafd4fb06ded33ec4927ef3be3f25d6}
+      \strng{authornamehash}{54c538608639330705c03ab34907df1f}
       \strng{authorfullhash}{54c538608639330705c03ab34907df1f}
       \strng{authorfullhashraw}{54c538608639330705c03ab34907df1f}
       \field{sortinit}{D}
@@ -3841,15 +3842,14 @@
            giveni={P\bibinitperiod\bibinitdelim E\bibinitperiod},
            givenun=0}}%
       }
-      \strng{namehash}{f006d0e2174466d5917902b66def5494}
+      \strng{namehash}{65d878cca4bc8ccaea99b3804a4e5499}
       \strng{fullhash}{65d878cca4bc8ccaea99b3804a4e5499}
       \strng{fullhashraw}{65d878cca4bc8ccaea99b3804a4e5499}
       \strng{bibnamehash}{65d878cca4bc8ccaea99b3804a4e5499}
       \strng{authorbibnamehash}{65d878cca4bc8ccaea99b3804a4e5499}
-      \strng{authornamehash}{f006d0e2174466d5917902b66def5494}
+      \strng{authornamehash}{65d878cca4bc8ccaea99b3804a4e5499}
       \strng{authorfullhash}{65d878cca4bc8ccaea99b3804a4e5499}
       \strng{authorfullhashraw}{65d878cca4bc8ccaea99b3804a4e5499}
-      \field{extraname}{1}
       \field{sortinit}{H}
       \field{sortinithash}{23a3aa7c24e56cfa16945d55545109b5}
       \field{extradatescope}{labelyear}
@@ -3889,15 +3889,14 @@
            giveni={P\bibinitperiod\bibinitdelim E\bibinitperiod},
            givenun=0}}%
       }
-      \strng{namehash}{f006d0e2174466d5917902b66def5494}
+      \strng{namehash}{57bf4b5d09873569a6aeaf55c75dab91}
       \strng{fullhash}{57bf4b5d09873569a6aeaf55c75dab91}
       \strng{fullhashraw}{57bf4b5d09873569a6aeaf55c75dab91}
       \strng{bibnamehash}{57bf4b5d09873569a6aeaf55c75dab91}
       \strng{authorbibnamehash}{57bf4b5d09873569a6aeaf55c75dab91}
-      \strng{authornamehash}{f006d0e2174466d5917902b66def5494}
+      \strng{authornamehash}{57bf4b5d09873569a6aeaf55c75dab91}
       \strng{authorfullhash}{57bf4b5d09873569a6aeaf55c75dab91}
       \strng{authorfullhashraw}{57bf4b5d09873569a6aeaf55c75dab91}
-      \field{extraname}{2}
       \field{sortinit}{H}
       \field{sortinithash}{23a3aa7c24e56cfa16945d55545109b5}
       \field{extradatescope}{labelyear}
@@ -4037,7 +4036,7 @@
       \field{title}{Remittances: Development impact and future prospects}
       \field{year}{2005}
     \endentry
-    \entry{mansuri2006}{article}{}{}
+    \entry{mansuri2006}{report}{}{}
       \name{author}{1}{}{%
         {{un=0,uniquepart=base,hash=6511cf3483e5ef65127c7da6f595a96d}{%
            family={Mansuri},
@@ -4067,9 +4066,9 @@
       \true{uniqueprimaryauthor}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{journaltitle}{World Bank Policy Research Working Paper}
       \field{number}{3945}
       \field{title}{Migration, school attainment, and child labour: Evidence from rural pakistan}
+      \field{type}{World Bank Policy Research Working Paper}
       \field{year}{2006}
     \endentry
     \entry{massey1993}{article}{}{}
@@ -4158,12 +4157,12 @@
            giveni={P\bibinitperiod},
            givenun=0}}%
       }
-      \strng{namehash}{614f7bea9e922d53eb28936658acd62f}
+      \strng{namehash}{4b90d463345054ae0bd445b2fdce9d31}
       \strng{fullhash}{4b90d463345054ae0bd445b2fdce9d31}
       \strng{fullhashraw}{4b90d463345054ae0bd445b2fdce9d31}
       \strng{bibnamehash}{4b90d463345054ae0bd445b2fdce9d31}
       \strng{authorbibnamehash}{4b90d463345054ae0bd445b2fdce9d31}
-      \strng{authornamehash}{614f7bea9e922d53eb28936658acd62f}
+      \strng{authornamehash}{4b90d463345054ae0bd445b2fdce9d31}
       \strng{authorfullhash}{4b90d463345054ae0bd445b2fdce9d31}
       \strng{authorfullhashraw}{4b90d463345054ae0bd445b2fdce9d31}
       \field{sortinit}{M}
@@ -4373,12 +4372,12 @@
       \list{location}{1}{%
         {Washington D.C.}%
       }
-      \strng{namehash}{df6828e19778cdd9d5aaed9b81bfc7c5}
+      \strng{namehash}{9ca4dd09723e7b98357af56eb5c029c4}
       \strng{fullhash}{9ca4dd09723e7b98357af56eb5c029c4}
       \strng{fullhashraw}{9ca4dd09723e7b98357af56eb5c029c4}
       \strng{bibnamehash}{9ca4dd09723e7b98357af56eb5c029c4}
       \strng{authorbibnamehash}{9ca4dd09723e7b98357af56eb5c029c4}
-      \strng{authornamehash}{df6828e19778cdd9d5aaed9b81bfc7c5}
+      \strng{authornamehash}{9ca4dd09723e7b98357af56eb5c029c4}
       \strng{authorfullhash}{9ca4dd09723e7b98357af56eb5c029c4}
       \strng{authorfullhashraw}{9ca4dd09723e7b98357af56eb5c029c4}
       \field{sortinit}{R}
@@ -4392,7 +4391,7 @@
       \field{title}{The migration and remittances factbook 2011}
       \field{year}{2011}
     \endentry
-    \entry{roelen2008}{article}{}{}
+    \entry{roelen2008}{report}{}{}
       \name{author}{2}{}{%
         {{un=0,uniquepart=base,hash=606250486001f2a1202acb7126e25f09}{%
            family={Roelen},
@@ -4406,6 +4405,9 @@
            given={Franziska},
            giveni={F\bibinitperiod},
            givenun=0}}%
+      }
+      \list{institution}{1}{%
+        {Maastricht University}%
       }
       \strng{namehash}{e2ec9ecef3e8327489ed272d39a31b5b}
       \strng{fullhash}{e2ec9ecef3e8327489ed272d39a31b5b}
@@ -4422,9 +4424,9 @@
       \true{uniqueprimaryauthor}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{journaltitle}{Maastricht Graduate School of Governance Working Paper}
       \field{number}{2008/WP002}
       \field{title}{Measuring child poverty and well-being: A literature review}
+      \field{type}{Maastricht Graduate School of Governance Working Paper}
       \field{year}{2008}
     \endentry
     \entry{rosenbaum2002}{book}{}{}
