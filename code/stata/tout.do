@@ -496,6 +496,10 @@ foreach annee in 2018 2021 {
         local v_type_toi "s11q55"
         local v_tps_ss "s11q29a"
         local v_tps_sp "s11q31a"
+        local v_tps_ss_h "s11q29b_heure"
+        local v_tps_ss_m "s11q29b_minute"
+        local v_tps_sp_h "s11q31b_heure"
+        local v_tps_sp_m "s11q31b_minutes"
         local v_comb   "s11q53"
         local v_src_ss "s11q27a"
         local v_src_sp "s11q27b"
@@ -506,6 +510,10 @@ foreach annee in 2018 2021 {
         local v_type_toi "s11q54"
         local v_tps_ss "s11q28a"
         local v_tps_sp "s11q30a"
+        local v_tps_ss_h "s11q28b_heure"
+        local v_tps_ss_m "s11q28b_minute"
+        local v_tps_sp_h "s11q30b_heure"
+        local v_tps_sp_m "s11q30b_minutes"
         local v_comb   "s11q52"
         local v_src_ss "s11q26a"
         local v_src_sp "s11q26b"
@@ -529,11 +537,11 @@ foreach annee in 2018 2021 {
        a l'eau, nombre de pieces, combustible de cuisine. */
     preserve
         use "`base'/s11_me_sen`annee'.dta", clear
+        local v_opt "`v_treat'__1 `v_treat'__2 `v_treat'__4 `v_treat'__5 `v_tps_ss_h' `v_tps_ss_m' `v_tps_sp_h' `v_tps_sp_m'"
         capture keep grappe menage s11q02 `v_partag' `v_type_toi' `v_tps_ss' `v_tps_sp' ///
-            `v_src_ss' `v_src_sp' `comb_vars' ///
-            `v_treat'__1 `v_treat'__2 `v_treat'__4 `v_treat'__5
+            `v_src_ss' `v_src_sp' `comb_vars' `v_opt'
         if _rc {
-            di as error ">>> ATTENTION : traitement de l'eau (`v_treat'__*) introuvable pour `annee' : traitement ignore (verifier le nom de la variable)."
+            di as error ">>> ATTENTION : variables eau optionnelles (traitement `v_treat'__* et/ou temps a la source `v_tps_ss_h'...) introuvables pour `annee' : verifier les noms."
             keep grappe menage s11q02 `v_partag' `v_type_toi' `v_tps_ss' `v_tps_sp' ///
                 `v_src_ss' `v_src_sp' `comb_vars'
         }
@@ -666,11 +674,26 @@ foreach annee in 2018 2021 {
        source est un robinet dans le logement (code 1) ou dans la cour/
        concession (code 2), auquel cas le temps d'acces est nul par
        construction (eau sur place), et non manquant. */
-    gen byte m_eau_temps  = (`v_tps_ss' > 30 & !missing(`v_tps_ss')) | ///
-                             (`v_tps_sp' > 30 & !missing(`v_tps_sp')) ///
-        if !missing(`v_tps_ss') | !missing(`v_tps_sp')
+    /* Definition ANSD : temps de collecte = temps pour aller a la source
+       (`v_tps_ss'/`v_tps_sp', min) PLUS le temps passe une fois a la source
+       (`v_tps_*_h' heures + `v_tps_*_m' minutes), l'une ou l'autre saison,
+       > 30 min. L'ancien calcul n'utilisait que l'aller (d'ou ~2 %). Les
+       menages a eau sur place (robinet logement/cour, codes 1-2) gardent un
+       temps nul : non prives (0), conserves au denominateur. */
+    gen double t_ss = `v_tps_ss'
+    gen double t_sp = `v_tps_sp'
+    capture confirm variable `v_tps_ss_h'
+    if _rc == 0 replace t_ss = t_ss + `v_tps_ss_h'*60 + `v_tps_ss_m' ///
+        if !missing(t_ss) & !missing(`v_tps_ss_h')
+    capture confirm variable `v_tps_sp_h'
+    if _rc == 0 replace t_sp = t_sp + `v_tps_sp_h'*60 + `v_tps_sp_m' ///
+        if !missing(t_sp) & !missing(`v_tps_sp_h')
+    gen byte m_eau_temps  = (t_ss > 30 & !missing(t_ss)) | ///
+                             (t_sp > 30 & !missing(t_sp)) ///
+        if !missing(t_ss) | !missing(t_sp)
     replace  m_eau_temps  = 0 if missing(m_eau_temps) & ///
         inlist(`v_src_ss', 1, 2) & inlist(`v_src_sp', 1, 2)
+    drop t_ss t_sp
     gen byte dim_eau      = (m_eau_source == 1 | m_eau_temps == 1) ///
         if !missing(m_eau_source) & !missing(m_eau_temps)
 
