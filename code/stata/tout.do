@@ -589,18 +589,24 @@ foreach annee in 2018 2021 {
             egen h_dom = rowtotal(s04q01 s04q02 s04q03 s04q04 s04q05)
             egen byte nrep = rownonmiss(s04q01 s04q02 s04q03 s04q04 s04q05 ///
                                         s04q06 s04q07 s04q08 s04q09)
-            gen byte eco = inlist(1, s04q06, s04q07, s04q08, s04q09)
+            /* Travail economique = travail remunere ou pour propre compte
+               (q06-q09) ET travail familial non remunere pour un autre membre
+               du menage (q13 champ/jardin, q14 commerce), poses a ceux qui ont
+               dit non a q06-q09. */
+            gen byte eco = inlist(1, s04q06, s04q07, s04q08, s04q09, ///
+                                     s04q13, s04q14)
         }
         else {
             use "`base'/s04a_me_sen2021.dta", clear
             rename membres__id numind
             collapse (max) s04q01 s04q02a s04q02b s04q02c s04q03 s04q04 s04q05 ///
-                           s04q06 s04q07 s04q08 s04q09, ///
+                           s04q06 s04q07 s04q08 s04q09 s04q13 s04q14, ///
                      by(grappe menage numind)
             egen h_dom = rowtotal(s04q01 s04q02a s04q02b s04q02c s04q03 s04q04 s04q05)
             egen byte nrep = rownonmiss(s04q01 s04q02a s04q02b s04q02c s04q03 ///
                                         s04q04 s04q05 s04q06 s04q07 s04q08 s04q09)
-            gen byte eco = inlist(1, s04q06, s04q07, s04q08, s04q09)
+            gen byte eco = inlist(1, s04q06, s04q07, s04q08, s04q09, ///
+                                     s04q13, s04q14)
         }
         keep grappe menage numind h_dom eco nrep
         tempfile s04_trav

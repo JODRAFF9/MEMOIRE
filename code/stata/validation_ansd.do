@@ -39,13 +39,16 @@ save `base'
 
 /* ============================================================
    1. TRAVAIL DES ENFANTS (5-14) — economique OU domestique >=1h
-      Cible ANSD : 43,0   |  Reproduit : ~40,8
-      s04q02 heures domestiques, s04q04 eau, s04q05 bois ;
-      s04q06-09 travail economique >=1h
+      Cible ANSD : 43,0   |  Reproduit : ~44,3
+      Domestique (heures) : q01 courses, q02 travaux domestiques, q03 garde,
+      q04 eau, q05 bois. Economique : q06-q09 (remunere/propre compte) et
+      q13-q14 (travail familial non remunere pour un autre membre).
    ============================================================ */
 use "$B18/s04_me_sen2018.dta", clear
 rename s01q00a numind
-gen byte trav_eco = inlist(1, s04q06, s04q07, s04q08, s04q09)
+* Travail economique : remunere ou propre compte (q06-q09) ET travail familial
+* non remunere pour un autre membre du menage (q13 champ, q14 commerce).
+gen byte trav_eco = inlist(1, s04q06, s04q07, s04q08, s04q09, s04q13, s04q14)
 * Travail domestique : cinq postes d'heures du module (courses q01, travaux
 * domestiques q02, garde q03, eau q04, bois q05).
 egen h_dom = rowtotal(s04q01 s04q02 s04q03 s04q04 s04q05)
