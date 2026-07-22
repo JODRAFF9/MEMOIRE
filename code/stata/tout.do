@@ -537,7 +537,7 @@ foreach annee in 2018 2021 {
        a l'eau, nombre de pieces, combustible de cuisine. */
     preserve
         use "`base'/s11_me_sen`annee'.dta", clear
-        local v_opt "`v_treat'__1 `v_treat'__2 `v_treat'__4 `v_treat'__5 `v_tps_ss_h' `v_tps_ss_m' `v_tps_sp_h' `v_tps_sp_m'"
+        local v_opt "`v_treat'* `v_tps_ss_h' `v_tps_ss_m' `v_tps_sp_h' `v_tps_sp_m'"
         capture keep grappe menage s11q02 `v_partag' `v_type_toi' `v_tps_ss' `v_tps_sp' ///
             `v_src_ss' `v_src_sp' `comb_vars' `v_opt'
         if _rc {
@@ -663,6 +663,21 @@ foreach annee in 2018 2021 {
     if _rc == 0 gen byte trait_adeq = (`v_treat'__1 == 1 | `v_treat'__2 == 1 | ///
                                        `v_treat'__4 == 1 | `v_treat'__5 == 1)
     else        gen byte trait_adeq = 0
+    /* Verification croisee avec les methodes INADEQUATES (linge __3,
+       laisser reposer __6, autre __7) : un menage traitant uniquement de
+       facon inadequate doit rester classe NON traite adequatement
+       (trait_adeq==0), donc prive s'il a une source non amelioree. */
+    capture confirm variable `v_treat'__3
+    if _rc == 0 {
+        gen byte trait_inad = (`v_treat'__3 == 1 | `v_treat'__6 == 1 | `v_treat'__7 == 1)
+        count if trait_adeq == 1
+        local n_adeq = r(N)
+        count if trait_adeq == 0 & trait_inad == 1
+        local n_inad = r(N)
+        di as text ">>> [verif traitement eau `annee'] adequat (1,2,4,5) : `n_adeq'" ///
+            " ; inadequat seul (3,6,7) classe non traite : `n_inad'"
+        drop trait_inad
+    }
     gen byte src_ss = inlist(`v_src_ss', 5, 6, 12, 13, 16, 17)
     gen byte src_sp = inlist(`v_src_sp', 5, 6, 12, 13, 16, 17)
     gen byte m_eau_source = (src_ss == 1 & src_sp == 1 & trait_adeq == 0) ///
