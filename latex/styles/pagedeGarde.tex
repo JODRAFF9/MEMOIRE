@@ -44,16 +44,14 @@
     {Mémoire de fin de formation};
 \end{tikzpicture}\\[0.25cm]
 
-% ── Encadré titre (TikZ : liseré + fond teinté + ombre) ──────
+% ── Encadré titre (TikZ : liseré + fond teinté + ombre portée) ──
 \begin{tikzpicture}
-  % ombre portée légère
-  \node[rounded corners=10pt, fill=ensaeblue!25,
-        inner sep=13pt, text width=0.80\textwidth, align=center]
-    at (0.09,-0.09) (shadow) {\phantom{\Large\bfseries Titre}};
-  % cadre principal
+  % cadre principal avec ombre portee douce qui epouse le cadre
   \node[draw=ensaeblue, line width=1.4pt, rounded corners=10pt,
         fill=ensaecyan!8, inner sep=13pt, text width=0.80\textwidth,
-        align=center, text=ensaeblue] (titre)
+        align=center, text=ensaeblue,
+        blur shadow={shadow blur steps=6, shadow xshift=1.5pt,
+                     shadow yshift=-2.5pt, shadow opacity=40}] (titre)
     {\Large\bfseries Impact des transferts de migrants\\
      sur la pauvreté multidimensionnelle\\
      des enfants au Sénégal\par};
