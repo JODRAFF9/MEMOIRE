@@ -2451,7 +2451,7 @@ histogram att_moda, width(0.005) frequency ///
     xline(`xl_att', lcolor(orange) lpattern(dash) lwidth(medthick)) ///
     xtitle("ATT placebo (faux traitement aléatoire)") ///
     ytitle("Nombre de réplications") ///
-    xlabel(-0.06(0.02)0.10, grid) ///
+    xlabel(-0.06(0.02)0.10, grid format(%5.2f)) ///
     graphregion(color(white)) plotregion(color(white))
 set dp period
 graph export "$OUTPUT/figures/fig_placebo_dd.pdf", replace
