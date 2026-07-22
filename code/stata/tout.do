@@ -1663,113 +1663,15 @@ graph export "$OUTPUT/figures/fig_privations_dim.pdf", replace
 di ">>> fig_privations_dim.pdf sauvegardé"
 
 /* ── Fig 2b : Taux de privation par indicateur, par tranche d'age et par
-   vague (quatre graphiques : ensemble 0-17 ans, puis 0-4, 5-14 et 15-17
-   ans), a l'image de la figure ANSD/UNICEF. Barres horizontales groupees
-   par dimension ; deux series (EHCVM I / II).
-
-   Certains indicateurs ne s'appliquent qu'a certaines tranches d'age et
-   sont codes 0 hors de leur plage (voir dimensions Protection et
-   Education) : on ne peut donc pas se fier a r(N). L'applicabilite est
-   donnee explicitement (IND_appl) : all=toutes tranches ; g12=0-14 ans ;
-   g2=5-14 ans ; g3=15-17 ans. Pour l'ensemble (grp 0), chaque indicateur
-   est calcule sur sa seule sous-population applicable. */
-tempfile RES_IND
-tempname pf_ind
-postfile `pf_ind' byte grp int an int ordre str16 dimg str40 indic double taux ///
-    using `RES_IND', replace
-
-* Metadonnees : variable, dimension, libelle (guillemets pour les espaces), applicabilite
-local IND_vars  m_toilet m_partag_toi m_eau_source m_eau_temps m_ordures m_surpeup m_securite m_combust m_acte_nais m_trav_enf m_parents m_scol m_alfab m_neet
-local IND_dims  `" "Assainissement" "Assainissement" "Eau" "Eau" "Logement" "Logement" "Nutrition" "Santé" "Protection" "Protection" "Protection" "Éducation" "Éducation" "Éducation" "'
-local IND_labs  `" "Type de toilettes" "Partage des toilettes" "Source d'eau non améliorée" "Temps d'accès à l'eau" "Gestion des ordures" "Surpeuplement" "Insécurité alimentaire" "Combustible solide" "Absence d'acte de naissance" "Travail des enfants" "Séparation parentale" "Non-scolarisation" "Illettrisme" "NEET" "'
-local IND_appl  all all all all all all all all g12 g2 all g2 g3 g3
-
-foreach an in 2018 2021 {
-    use "$TEMP/vague_`an'.dta", clear
-    forvalues g = 0/3 {
-        local i = 0
-        foreach v of local IND_vars {
-            local ++i
-            local ap : word `i' of `IND_appl'
-            * L'indicateur est-il applicable a ce graphique ?
-            local ok = 0
-            if "`ap'" == "all"                              local ok = 1
-            if "`ap'" == "g12" & inlist(`g', 0, 1, 2)       local ok = 1
-            if "`ap'" == "g2"  & inlist(`g', 0, 2)          local ok = 1
-            if "`ap'" == "g3"  & inlist(`g', 0, 3)          local ok = 1
-            if `ok' {
-                * Sous-population de calcul
-                if `g' > 0 {
-                    local cond "groupe_moda == `g'"
-                }
-                else {
-                    if "`ap'" == "all"      local cond "1"
-                    else if "`ap'" == "g12" local cond "age <= 14"
-                    else if "`ap'" == "g2"  local cond "age >= 5 & age <= 14"
-                    else if "`ap'" == "g3"  local cond "age >= 15"
-                }
-                quietly summarize `v' [aw=hhweight] if `cond'
-                if r(N) > 0 {
-                    local dd : word `i' of `IND_dims'
-                    local ll : word `i' of `IND_labs'
-                    post `pf_ind' (`g') (`an') (`i') ("`dd'") ("`ll'") (r(mean)*100)
-                }
-            }
-        }
-    }
-}
-postclose `pf_ind'
-
-use `RES_IND', clear
-reshape wide taux, i(grp ordre dimg indic) j(an)
-* Dimension en numerique ordonne pour le regroupement du graphique
-gen byte dimo = .
-replace dimo = 1 if dimg == "Assainissement"
-replace dimo = 2 if dimg == "Eau"
-replace dimo = 3 if dimg == "Logement"
-replace dimo = 4 if dimg == "Nutrition"
-replace dimo = 5 if dimg == "Santé"
-replace dimo = 6 if dimg == "Protection"
-replace dimo = 7 if dimg == "Éducation"
-
-/* Un seul over() (par indicateur) : le double over(indicateur)#over(dimension)
-   echoue (r(198), "failed to setup collapse problem") car les indicateurs
-   ne se repetent pas d'une dimension a l'autre (croisement non rectangulaire).
-   Le regroupement par dimension facon figure ANSD est reproduit en inserant,
-   avant les indicateurs de chaque dimension, une ligne d'en-tete a barre vide
-   (taux manquant) portant le nom de la dimension. L'ordre d'affichage _po
-   place Education en haut et Assainissement en bas (8 - dimo), en-tete juste
-   au-dessus de ses indicateurs. */
-foreach g in 0 1 2 3 {
-    local suf  = cond(`g'==0,"all",cond(`g'==1,"0_4",cond(`g'==2,"5_14","15_17")))
-    local titl = cond(`g'==0,"0 à 17 ans",cond(`g'==1,"0-4 ans",cond(`g'==2,"5-14 ans","15-17 ans")))
-    preserve
-        keep if grp == `g'
-        gen double _po = (8 - dimo)*100 + ordre
-        tempfile _rows
-        save `_rows'
-        * En-tetes de dimension (une ligne par dimension, barre vide)
-        bysort dimo (ordre): keep if _n == 1
-        replace indic    = strupper(dimg)
-        replace taux2018 = .
-        replace taux2021 = .
-        replace _po      = (8 - dimo)*100
-        append using `_rows'
-        gsort _po
-        set dp comma
-        graph hbar (mean) taux2018 taux2021, ///
-            over(indic, sort(_po) label(labsize(vsmall))) ///
-            bar(1, color(gs9)) bar(2, color(orange)) ///
-            blabel(bar, format(%4,1f) size(tiny)) ///
-            legend(order(1 "EHCVM I (2018-19)" 2 "EHCVM II (2021-22)") pos(6) rows(1)) ///
-            ytitle("Taux de privation (%)") ylabel(0(20)100, grid) ///
-            title("Enfants âgés de `titl'", size(medium)) ///
-            graphregion(color(white)) plotregion(color(white))
-        set dp period
-        graph export "$OUTPUT/figures/fig_privind_`suf'.pdf", replace
-        di ">>> fig_privind_`suf'.pdf sauvegardé"
-    restore
-}
+   vague (ensemble 0-17, 0-4, 5-14, 15-17 ans), facon figure ANSD/UNICEF.
+   Ces quatre figures (fig_privind_all/0_4/5_14/15_17) sont produites par
+   un script Python dedie, execute APRES tout.do :
+       python code/python/gen_fig_privind.py
+   Motif : la mise en page ANSD (libelles de dimension centres a gauche,
+   regroupant leurs indicateurs) n'est pas realisable proprement avec
+   graph hbar — le double over(indicateur)#over(dimension) echoue sur un
+   croisement non rectangulaire (r(198)). Le script lit les memes .dta et
+   applique les memes poids de sondage (hhweight). */
 
 /* ── Fig 3 : Pauvreté par milieu et groupe d'âge (EHCVM I et II) ──
    Barres groupées : les deux vagues côte à côte pour chaque groupe
