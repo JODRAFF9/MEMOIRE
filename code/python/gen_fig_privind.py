@@ -114,7 +114,7 @@ def main():
         h = 0.38
 
         fig, ax = plt.subplots(figsize=(10.2, 0.46 * n + 1.4))
-        fig.subplots_adjust(left=0.40, right=0.97, top=0.90, bottom=0.13)
+        fig.subplots_adjust(left=0.40, right=0.97, top=0.97, bottom=0.13)
         ax.barh(yy + h / 2, v18, height=h, color=GREY,
                 label="EHCVM I (2018-19)", zorder=3)
         ax.barh(yy - h / 2, v21, height=h, color=ORANGE,
@@ -132,7 +132,7 @@ def main():
         ax.set_xlim(0, 100)
         ax.xaxis.set_major_locator(MultipleLocator(10))
         ax.set_xlabel("Taux de privation (%)", fontsize=9)
-        ax.set_title(f"Enfants âgés de {glabel}", fontsize=12, style="italic")
+        # Pas de titre integre : la figure est titree par le \caption LaTeX.
         ax.grid(axis="x", color="#dddddd", lw=0.6, zorder=0)
         ax.set_axisbelow(True)
         for sp in ("top", "right", "left"):
