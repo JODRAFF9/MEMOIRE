@@ -133,7 +133,9 @@ def main():
         ax.xaxis.set_major_locator(MultipleLocator(10))
         ax.set_xlabel("Taux de privation (%)", fontsize=9)
         # Pas de titre integre : la figure est titree par le \caption LaTeX.
-        ax.grid(axis="x", color="#dddddd", lw=0.6, zorder=0)
+        # Un seul trait vertical a l'origine (x=0) ; pas de grille verticale
+        # a droite.
+        ax.axvline(0, color="#999999", lw=0.8, zorder=1)
         ax.set_axisbelow(True)
         for sp in ("top", "right", "left"):
             ax.spines[sp].set_visible(False)
