@@ -7,9 +7,7 @@
 
 \documentclass[12pt, a4paper, twoside]{article}
 
-% ── Encodage & langue ───────────────────────────────────────
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
+% ── Encodage & langue (XeLaTeX/LuaLaTeX : Unicode natif) ─────
 \usepackage[french]{babel}
 \usepackage{csquotes}
 
@@ -23,8 +21,9 @@
 \onehalfspacing
 \raggedbottom
 
-% ── Police (Times New Roman) ────────────────────────────────
-\usepackage{mathptmx}    % texte et maths facon Times New Roman
+% ── Police (Times New Roman via XeLaTeX/LuaLaTeX) ────────────
+\usepackage{fontspec}
+\setmainfont{Times New Roman}
 \usepackage{microtype}
 
 % ── En-têtes et pieds de page ───────────────────────────────
