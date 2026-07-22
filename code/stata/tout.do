@@ -499,6 +499,7 @@ foreach annee in 2018 2021 {
         local v_comb   "s11q53"
         local v_src_ss "s11q27a"
         local v_src_sp "s11q27b"
+        local v_treat  "s11q33"
     }
     else {
         local v_partag "s11q55"
@@ -508,6 +509,8 @@ foreach annee in 2018 2021 {
         local v_comb   "s11q52"
         local v_src_ss "s11q26a"
         local v_src_sp "s11q26b"
+        local v_treat  "s11q32"   /* methode de traitement de l'eau EHCVM II
+                                     (s11q31 = traite/non ; s11q32 = methode) */
     }
     /* Annexe I : combustible solide = bois ramasse(1), bois achete(2),
        charbon de bois(3), dechets animaux(7), autres(8). Exclut gaz(4),
@@ -526,8 +529,14 @@ foreach annee in 2018 2021 {
        a l'eau, nombre de pieces, combustible de cuisine. */
     preserve
         use "`base'/s11_me_sen`annee'.dta", clear
-        keep grappe menage s11q02 `v_partag' `v_type_toi' `v_tps_ss' `v_tps_sp' ///
-            `v_src_ss' `v_src_sp' `comb_vars'
+        capture keep grappe menage s11q02 `v_partag' `v_type_toi' `v_tps_ss' `v_tps_sp' ///
+            `v_src_ss' `v_src_sp' `comb_vars' ///
+            `v_treat'__1 `v_treat'__2 `v_treat'__4 `v_treat'__5
+        if _rc {
+            di as error ">>> ATTENTION : traitement de l'eau (`v_treat'__*) introuvable pour `annee' : traitement ignore (verifier le nom de la variable)."
+            keep grappe menage s11q02 `v_partag' `v_type_toi' `v_tps_ss' `v_tps_sp' ///
+                `v_src_ss' `v_src_sp' `comb_vars'
+        }
         rename s11q02 nb_pieces
         tempfile s11_temp
         save `s11_temp'
@@ -636,8 +645,21 @@ foreach annee in 2018 2021 {
     /* ── [Dimension 2/7 : Eau] ─────────────────────────────────────
        Indicateur 1 - Source d'eau de boisson non amelioree
        Indicateur 2 - Temps d'acces a l'eau > 30 min (saison seche OU pluies) */
-    gen byte m_eau_source = (eauboi_ss == 0 | eauboi_sp == 0) ///
-        if !missing(eauboi_ss) | !missing(eauboi_sp)
+    /* Definition ANSD : source non amelioree (codes 5, 6, 12, 13, 16, 17)
+       aux DEUX saisons ET eau non traitee de maniere adequate. Traitement
+       adequat = bouillir, javel/chlore, filtre, desinfection solaire
+       (options 1, 2, 4, 5 de la methode `v_treat' ; 2018 s11q33, 2021
+       s11q32). Un menage a source non amelioree mais traitant son eau n'est
+       donc PAS prive. */
+    capture confirm variable `v_treat'__1
+    if _rc == 0 gen byte trait_adeq = (`v_treat'__1 == 1 | `v_treat'__2 == 1 | ///
+                                       `v_treat'__4 == 1 | `v_treat'__5 == 1)
+    else        gen byte trait_adeq = 0
+    gen byte src_ss = inlist(`v_src_ss', 5, 6, 12, 13, 16, 17)
+    gen byte src_sp = inlist(`v_src_sp', 5, 6, 12, 13, 16, 17)
+    gen byte m_eau_source = (src_ss == 1 & src_sp == 1 & trait_adeq == 0) ///
+        if !missing(`v_src_ss') & !missing(`v_src_sp')
+    drop src_ss src_sp trait_adeq
     /* Le temps d'acces (s11q29a/28a, s11q31a/30a) n'est demande que si le
        menage doit se deplacer pour s'approvisionner : le saut de question
        (verifie empiriquement, >94% de non-reponse) s'applique quand la
