@@ -1775,36 +1775,22 @@ file code/stata/temp/traitement_2021.dta saved
 >        Indicateur 1 - Source d'eau de boisson non amelioree
 >        Indicateur 2 - Temps d'acces a l'eau > 30 min (saison seche OU pluies) */
 .     /* Definition ANSD : source non amelioree (codes 5, 6, 12, 13, 16, 17)
->        aux DEUX saisons ET eau non traitee de maniere adequate. Traitement
->        adequat = bouillir, javel/chlore, filtre, desinfection solaire
->        (options 1, 2, 4, 5 de la methode `v_treat' ; 2018 s11q33, 2021
->        s11q32). Un menage a source non amelioree mais traitant son eau n'est
->        donc PAS prive. */
-.     capture confirm variable `v_treat'__1
-104.     if _rc == 0 gen byte trait_adeq = (`v_treat'__1 == 1 | `v_treat'__2 == 1 | ///
->                                        `v_treat'__4 == 1 | `v_treat'__5 == 1)
-105.     else        gen byte trait_adeq = 0
-106.     /* Verification croisee avec les methodes INADEQUATES (linge __3,
->        laisser reposer __6, autre __7) : un menage traitant uniquement de
->        facon inadequate doit rester classe NON traite adequatement
->        (trait_adeq==0), donc prive s'il a une source non amelioree. */
+>        en saison des pluies OU en saison seche, ET traitement NON adequat de
+>        l'eau. Suivant le rapport ANSD, "traitement non adequat" est verifie
+>        directement sur les methodes inadequates : filtrer a travers un linge
+>        (`v_treat'__3), laisser reposer (`v_treat'__6), autre (`v_treat'__7).
+>        On regarde si l'une de ces variables vaut 1 (trait_inad). 2018 s11q33,
+>        2021 s11q32. */
 .     capture confirm variable `v_treat'__3
-107.     if _rc == 0 {
-108.         gen byte trait_inad = (`v_treat'__3 == 1 | `v_treat'__6 == 1 | `v_treat'__7 == 1)
-109.         count if trait_adeq == 1
-110.         local n_adeq = r(N)
-111.         count if trait_adeq == 0 & trait_inad == 1
-112.         local n_inad = r(N)
-113.         di as text ">>> [verif traitement eau `annee'] adequat (1,2,4,5) : `n_adeq'" ///
->             " ; inadequat seul (3,6,7) classe non traite : `n_inad'"
-114.         drop trait_inad
-115.     }
-116.     gen byte src_ss = inlist(`v_src_ss', 5, 6, 12, 13, 16, 17)
-117.     gen byte src_sp = inlist(`v_src_sp', 5, 6, 12, 13, 16, 17)
-118.     gen byte m_eau_source = (src_ss == 1 & src_sp == 1 & trait_adeq == 0) ///
+104.     if _rc == 0 gen byte trait_inad = (`v_treat'__3 == 1 | `v_treat'__6 == 1 | ///
+>                                        `v_treat'__7 == 1)
+105.     else        gen byte trait_inad = 0
+106.     gen byte src_ss = inlist(`v_src_ss', 5, 6, 12, 13, 16, 17)
+107.     gen byte src_sp = inlist(`v_src_sp', 5, 6, 12, 13, 16, 17)
+108.     gen byte m_eau_source = ((src_ss == 1 | src_sp == 1) & trait_inad == 1) ///
 >         if !missing(`v_src_ss') & !missing(`v_src_sp')
-119.     drop src_ss src_sp trait_adeq
-120.     /* Le temps d'acces (s11q29a/28a, s11q31a/30a) n'est demande que si le
+109.     drop src_ss src_sp trait_inad
+110.     /* Le temps d'acces (s11q29a/28a, s11q31a/30a) n'est demande que si le
 >        menage doit se deplacer pour s'approvisionner : le saut de question
 >        (verifie empiriquement, >94% de non-reponse) s'applique quand la
 >        source est un robinet dans le logement (code 1) ou dans la cour/
@@ -1817,31 +1803,31 @@ file code/stata/temp/traitement_2021.dta saved
 >        menages a eau sur place (robinet logement/cour, codes 1-2) gardent un
 >        temps nul : non prives (0), conserves au denominateur. */
 .     gen double t_ss = `v_tps_ss'
-121.     gen double t_sp = `v_tps_sp'
-122.     capture confirm variable `v_tps_ss_h'
-123.     if _rc == 0 replace t_ss = t_ss + `v_tps_ss_h'*60 + `v_tps_ss_m' ///
+111.     gen double t_sp = `v_tps_sp'
+112.     capture confirm variable `v_tps_ss_h'
+113.     if _rc == 0 replace t_ss = t_ss + `v_tps_ss_h'*60 + `v_tps_ss_m' ///
 >         if !missing(t_ss) & !missing(`v_tps_ss_h')
-124.     capture confirm variable `v_tps_sp_h'
-125.     if _rc == 0 replace t_sp = t_sp + `v_tps_sp_h'*60 + `v_tps_sp_m' ///
+114.     capture confirm variable `v_tps_sp_h'
+115.     if _rc == 0 replace t_sp = t_sp + `v_tps_sp_h'*60 + `v_tps_sp_m' ///
 >         if !missing(t_sp) & !missing(`v_tps_sp_h')
-126.     gen byte m_eau_temps  = (t_ss > 30 & !missing(t_ss)) | ///
+116.     gen byte m_eau_temps  = (t_ss > 30 & !missing(t_ss)) | ///
 >                              (t_sp > 30 & !missing(t_sp)) ///
 >         if !missing(t_ss) | !missing(t_sp)
-127.     replace  m_eau_temps  = 0 if missing(m_eau_temps) & ///
+117.     replace  m_eau_temps  = 0 if missing(m_eau_temps) & ///
 >         inlist(`v_src_ss', 1, 2) & inlist(`v_src_sp', 1, 2)
-128.     drop t_ss t_sp
-129.     gen byte dim_eau      = (m_eau_source == 1 | m_eau_temps == 1) ///
+118.     drop t_ss t_sp
+119.     gen byte dim_eau      = (m_eau_source == 1 | m_eau_temps == 1) ///
 >         if !missing(m_eau_source) & !missing(m_eau_temps)
-130. 
+120. 
 .     /* ── [Dimension 3/7 : Logement] ────────────────────────────────
 >        Indicateur 1 - Debarras des ordures menageres inadequat
 >        Indicateur 2 - Surpeuplement (> 3 personnes par piece) */
 .     gen byte m_ordures = (ordure == 0) if !missing(ordure)
-131.     gen byte m_surpeup = (hhsize / nb_pieces > 3) ///
+121.     gen byte m_surpeup = (hhsize / nb_pieces > 3) ///
 >         if !missing(nb_pieces) & nb_pieces > 0 & !missing(hhsize)
-132.     gen byte dim_logem = (m_ordures == 1 | m_surpeup == 1) ///
+122.     gen byte dim_logem = (m_ordures == 1 | m_surpeup == 1) ///
 >         if !missing(m_ordures) & !missing(m_surpeup)
-133. 
+123. 
 .     /* ── [Dimension 4/7 : Nutrition] ───────────────────────────────
 >        Indicateur unique - Insecurite alimentaire (FIES) : membre ayant
 >        saute un repas, mange moins que necessaire, manque de nourriture,
@@ -1851,14 +1837,14 @@ file code/stata/temp/traitement_2021.dta saved
 >        complets : manquant des qu'UNE SEULE des 5 questions du module
 >        manque, meme si une autre question etablit deja la privation. */
 .     gen byte m_securite = 0
-134.     foreach v in s08aq04 s08aq05 s08aq06 s08aq07 s08aq08 {
-135.         replace m_securite = 1 if `v' == 1 & !missing(`v')
-136.     }
-137.     egen byte n_miss_sec = rowmiss(s08aq04 s08aq05 s08aq06 s08aq07 s08aq08)
-138.     replace m_securite = . if n_miss_sec > 0
-139.     drop n_miss_sec
-140.     gen byte dim_nutri = (m_securite == 1)
-141. 
+124.     foreach v in s08aq04 s08aq05 s08aq06 s08aq07 s08aq08 {
+125.         replace m_securite = 1 if `v' == 1 & !missing(`v')
+126.     }
+127.     egen byte n_miss_sec = rowmiss(s08aq04 s08aq05 s08aq06 s08aq07 s08aq08)
+128.     replace m_securite = . if n_miss_sec > 0
+129.     drop n_miss_sec
+130.     gen byte dim_nutri = (m_securite == 1)
+131. 
 .     /* ── [Dimension 5/7 : Sante] ────────────────────────────────────
 >        Indicateur unique - Combustible solide pour cuisiner (bois,
 >        charbon, dechets animaux). Acces a une structure de sante NON
@@ -1867,14 +1853,14 @@ file code/stata/temp/traitement_2021.dta saved
 >        de combustible manque, meme si une autre etablit deja la
 >        privation. */
 .     gen byte m_combust = 0
-142.     foreach v of varlist `comb_vars' {
-143.         replace m_combust = 1 if `v' >= 1 & !missing(`v')
-144.     }
-145.     egen byte n_miss_comb = rowmiss(`comb_vars')
-146.     replace m_combust = . if n_miss_comb > 0
-147.     drop n_miss_comb
-148.     gen byte dim_sante = (m_combust == 1)
-149. 
+132.     foreach v of varlist `comb_vars' {
+133.         replace m_combust = 1 if `v' >= 1 & !missing(`v')
+134.     }
+135.     egen byte n_miss_comb = rowmiss(`comb_vars')
+136.     replace m_combust = . if n_miss_comb > 0
+137.     drop n_miss_comb
+138.     gen byte dim_sante = (m_combust == 1)
+139. 
 .     /* ── [Dimension 6/7 : Protection de l'enfant] ────────────────────
 >        Indicateur 1 - Absence d'acte de naissance (non pertinent > 14 ans)
 >        Indicateur 2 - Travail des enfants (economique OU domestique
@@ -1886,23 +1872,23 @@ file code/stata/temp/traitement_2021.dta saved
 >        imputation de valeur manquante) : l'indicateur ne sert pas pour ce
 >        groupe d'age, quelle que soit l'info disponible. */
 .     gen byte m_acte_nais = (s01q05 == 2) if !missing(s01q05)
-150.     replace  m_acte_nais = 0 if age > 14
-151. 
+140.     replace  m_acte_nais = 0 if age > 14
+141. 
 .     gen byte m_trav_enf = (eco == 1 & !missing(eco)) | (h_dom >= 1 & !missing(h_dom)) ///
 >         if age >= 5 & age <= 14 & (!missing(eco) | !missing(h_dom))
-152.     replace  m_trav_enf = 0 if age < 5 | age > 14
-153. 
+142.     replace  m_trav_enf = 0 if age < 5 | age > 14
+143. 
 .     gen byte m_parents = (lien > 3) if !missing(lien)
-154. 
+144. 
 .     /* dim_protect manquante des qu'UN SEUL indicateur pertinent pour le
 >        groupe d'age de l'enfant lui manque (analyse en cas complets). */
 .     gen byte dim_protect = .
-155.     replace  dim_protect = (m_acte_nais == 1 | m_parents == 1) ///
+145.     replace  dim_protect = (m_acte_nais == 1 | m_parents == 1) ///
 >         if groupe_moda == 1 & !missing(m_acte_nais) & !missing(m_parents)
-156.     replace  dim_protect = (m_acte_nais == 1 | m_trav_enf == 1 | m_parents == 1) ///
+146.     replace  dim_protect = (m_acte_nais == 1 | m_trav_enf == 1 | m_parents == 1) ///
 >         if groupe_moda == 2 & !missing(m_acte_nais) & !missing(m_trav_enf) & !missing(m_parents)
-157.     replace  dim_protect = (m_parents == 1) if groupe_moda == 3 & !missing(m_parents)
-158. 
+147.     replace  dim_protect = (m_parents == 1) if groupe_moda == 3 & !missing(m_parents)
+148. 
 .     /* ── [Dimension 7/7 : Education] ──────────────────────────────
 >        Indicateur 1 - Illettrisme, ne sait ni lire ni ecrire (15-17 ans)
 >        Indicateur 2 - Non-scolarisation (5-14 ans)
@@ -1910,54 +1896,54 @@ file code/stata/temp/traitement_2021.dta saved
 >        Combinaison par groupe d'age : 5-14 ans = ind.2 seul ;
 >        15-17 ans = ind.1 OU ind.3. */
 .     gen byte m_scol = (scol == 0) if age >= 5 & age <= 14 & !missing(scol)
-159.     replace  m_scol = 0 if age < 5 | age > 14
-160. 
+149.     replace  m_scol = 0 if age < 5 | age > 14
+150. 
 .     gen byte m_alfab = .
-161.     if `annee' == 2018 {
-162.         replace m_alfab = (alfab == 0) if age >= 15 & !missing(alfab)
-163.     }
-164.     else {
-165.         capture confirm variable alfa
-166.         if !_rc replace m_alfab = (alfa == 0) if age >= 15 & !missing(alfa)
-167.     }
-168.     replace m_alfab = 0 if age < 15
-169. 
+151.     if `annee' == 2018 {
+152.         replace m_alfab = (alfab == 0) if age >= 15 & !missing(alfab)
+153.     }
+154.     else {
+155.         capture confirm variable alfa
+156.         if !_rc replace m_alfab = (alfa == 0) if age >= 15 & !missing(alfa)
+157.     }
+158.     replace m_alfab = 0 if age < 15
+159. 
 .     gen byte m_neet = (scol == 0 & activ7j != 1) ///
 >         if age >= 15 & !missing(scol) & !missing(activ7j)
-170.     replace  m_neet = 0 if age < 15
-171. 
+160.     replace  m_neet = 0 if age < 15
+161. 
 .     /* Non applicable aux 0-4 ans (groupe_moda==1) : dim_educ = 0 par
 >        defaut, pas de "sauvetage" pour les 5-14 et 15-17 ans. */
 .     gen byte dim_educ = 0
-172.     replace  dim_educ = m_scol if groupe_moda == 2
-173.     replace  dim_educ = (m_alfab == 1 | m_neet == 1) ///
+162.     replace  dim_educ = m_scol if groupe_moda == 2
+163.     replace  dim_educ = (m_alfab == 1 | m_neet == 1) ///
 >         if groupe_moda == 3 & !missing(m_alfab) & !missing(m_neet)
-174.     replace  dim_educ = . if groupe_moda == 3 & (missing(m_alfab) | missing(m_neet))
-175. 
+164.     replace  dim_educ = . if groupe_moda == 3 & (missing(m_alfab) | missing(m_neet))
+165. 
 .     /* ── Agregation N-MODA (union intra-dimension, seuil k=$K_MODA) ── */
 .     gen byte nb_dep = dim_assai + dim_eau + dim_logem + dim_nutri + ///
 >                       dim_sante + dim_protect + dim_educ
-176.     gen byte pauvre_MODA = (nb_dep >= $K_MODA) if !missing(nb_dep)
-177. 
+166.     gen byte pauvre_MODA = (nb_dep >= $K_MODA) if !missing(nb_dep)
+167. 
 .     /* Intensite moyenne N-MODA (Annexe II : A = part des 7 dimensions
 >        en privation, calculee sur les enfants pauvres pauvre_MODA==1) */
 .     gen float intensite_moda = nb_dep / 7
-178. 
+168. 
 .     /* ── Affichage ── */
 .     di _newline "=== N-MODA `annee' (k=$K_MODA, 7 dimensions) ==="
-179.     quietly summarize pauvre_MODA
-180.     di "  H = " %6.3f r(mean)*100 "%"
-181.     di "  Privation par dimension :"
-182.     foreach dim in assai eau logem nutri sante protect educ {
-183.         quietly summarize dim_`dim'
-184.         di "  `dim' : " %5.1f r(mean)*100 "%"
-185.     }
-186.     tabstat pauvre_MODA nb_dep, by(groupe_moda) stat(mean n) format(%6.3f)
-187. 
+169.     quietly summarize pauvre_MODA
+170.     di "  H = " %6.3f r(mean)*100 "%"
+171.     di "  Privation par dimension :"
+172.     foreach dim in assai eau logem nutri sante protect educ {
+173.         quietly summarize dim_`dim'
+174.         di "  `dim' : " %5.1f r(mean)*100 "%"
+175.     }
+176.     tabstat pauvre_MODA nb_dep, by(groupe_moda) stat(mean n) format(%6.3f)
+177. 
 .     /* C. Sauvegarde */
 .     save "$TEMP/enfants_dep_`annee'.dta", replace
-188.     di _newline ">>> Sauvegarde : enfants_dep_`annee'.dta (" _N " obs)"
-189. }
+178.     di _newline ">>> Sauvegarde : enfants_dep_`annee'.dta (" _N " obs)"
+179. }
 (32,276 observations deleted)
 
 >>> Enfants 2018 : 33844
@@ -2026,9 +2012,6 @@ file code/stata/temp/prepared/base_prep_2018.dta saved
 (33,844 missing values generated)
 (15,697 real changes made)
 (18,147 real changes made)
-  5,015
-  3,119
->>> [verif traitement eau 2018] adequat (1,2,4,5) : 5015 ; inadequat seul (3,6,7) classe non traite : 3119
 (10 missing values generated)
 (18,681 missing values generated)
 (18,900 missing values generated)
@@ -2072,10 +2055,10 @@ file code/stata/temp/prepared/base_prep_2018.dta saved
 (2,178 missing values generated)
 
 === N-MODA 2018 (k=4, 7 dimensions) ===
-  H = 63.737%
+  H = 63.080%
   Privation par dimension :
   assai :  56.1%
-  eau :  25.4%
+  eau :  24.5%
   logem :  72.6%
   nutri :  49.6%
   sante :  95.2%
@@ -2087,16 +2070,16 @@ Group variable: groupe_moda
 
 groupe_moda |  pauvre~A    nb_dep
 ------------+--------------------
-    0-4 ans |     0.583     3.726
+    0-4 ans |     0.572     3.707
             |  9569.000  9569.000
 ------------+--------------------
-   5-14 ans |     0.683     4.207
+   5-14 ans |     0.678     4.200
             |   1.8e+04   1.8e+04
 ------------+--------------------
-  15-17 ans |     0.568     3.695
+  15-17 ans |     0.566     3.698
             |  4211.000  4211.000
 ------------+--------------------
-      Total |     0.637     3.994
+      Total |     0.631     3.984
             |   3.2e+04   3.2e+04
 ---------------------------------
 file code/stata/temp/enfants_dep_2018.dta saved
@@ -2176,9 +2159,6 @@ file code/stata/temp/prepared/base_prep_2021.dta saved
 (31,033 missing values generated)
 (14,500 real changes made)
 (16,533 real changes made)
-  3,856
-  2,170
->>> [verif traitement eau 2021] adequat (1,2,4,5) : 3856 ; inadequat seul (3,6,7) classe non traite : 2170
 (22,066 missing values generated)
 (22,384 missing values generated)
 (8,967 real changes made)
@@ -2221,10 +2201,10 @@ file code/stata/temp/prepared/base_prep_2021.dta saved
 (4,379 missing values generated)
 
 === N-MODA 2021 (k=4, 7 dimensions) ===
-  H = 54.446%
+  H = 54.247%
   Privation par dimension :
   assai :  52.9%
-  eau :  17.6%
+  eau :  17.2%
   logem :  60.7%
   nutri :  43.0%
   sante :  94.4%
@@ -2236,16 +2216,16 @@ Group variable: groupe_moda
 
 groupe_moda |  pauvre~A    nb_dep
 ------------+--------------------
-    0-4 ans |     0.472     3.379
+    0-4 ans |     0.470     3.376
             |  6767.000  6767.000
 ------------+--------------------
-   5-14 ans |     0.597     3.906
+   5-14 ans |     0.595     3.901
             |   1.6e+04   1.6e+04
 ------------+--------------------
-  15-17 ans |     0.457     3.370
+  15-17 ans |     0.456     3.366
             |  3963.000  3963.000
 ------------+--------------------
-      Total |     0.544     3.692
+      Total |     0.542     3.688
             |   2.7e+04   2.7e+04
 ---------------------------------
 file code/stata/temp/enfants_dep_2021.dta saved
@@ -3277,13 +3257,13 @@ Group variable: D (Traitement entrant (1=transfert etranger recu en 2021, aucun 
 
        D |  pauvre~A    nb_dep     pcexp
 ---------+------------------------------
-       0 |     0.672     4.117   3.8e+05
+       0 |     0.668     4.109   3.8e+05
          |   3.4e+04   3.4e+04   3.8e+04
 ---------+------------------------------
-       1 |     0.572     3.743   4.5e+05
+       1 |     0.563     3.731   4.5e+05
          |  7464.000  7464.000  8237.000
 ---------+------------------------------
-   Total |     0.654     4.049   3.9e+05
+   Total |     0.649     4.040   3.9e+05
          |   4.1e+04   4.1e+04   4.6e+04
 ----------------------------------------
 
@@ -3309,21 +3289,21 @@ Group variable: D (Traitement entrant (1=transfert etranger recu en 2021, aucun 
 Linear regression                               Number of obs     =     41,298
                                                 F(3, 590)         =      41.35
                                                 Prob > F          =     0.0000
-                                                R-squared         =     0.0180
-                                                Root MSE          =      .4713
+                                                R-squared         =     0.0178
+                                                Root MSE          =     .47307
 
                                (Std. err. adjusted for 591 clusters in grappe)
 ------------------------------------------------------------------------------
              |               Robust
  pauvre_MODA | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
 -------------+----------------------------------------------------------------
-         1.t |   -.100167   .0110232    -9.09   0.000    -.1218166   -.0785175
-         1.D |  -.0948574   .0213048    -4.45   0.000       -.1367   -.0530149
+         1.t |  -.0981232    .010749    -9.13   0.000    -.1192341   -.0770123
+         1.D |  -.1016765    .021541    -4.72   0.000    -.1439829   -.0593701
              |
          t#D |
-        1 1  |  -.0098352   .0224359    -0.44   0.661    -.0538991    .0342286
+        1 1  |   -.004746   .0231358    -0.21   0.838    -.0501847    .0406926
              |
-       _cons |   .7178448   .0120017    59.81   0.000     .6942735    .7414161
+       _cons |   .7122784   .0120754    58.99   0.000     .6885624    .7359945
 ------------------------------------------------------------------------------
 
  ( 1)  1.t#1.D = 0
@@ -3331,9 +3311,9 @@ Linear regression                               Number of obs     =     41,298
 ------------------------------------------------------------------------------
  pauvre_MODA | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
 -------------+----------------------------------------------------------------
-         (1) |  -.0098352   .0224359    -0.44   0.661    -.0538991    .0342286
+         (1) |   -.004746   .0231358    -0.21   0.838    -.0501847    .0406926
 ------------------------------------------------------------------------------
-  ATT_DD  =  -0.0098  SE =   0.0224  p = 0.6613
+  ATT_DD  =  -0.0047  SE =   0.0231  p = 0.8375
 
 . 
 . /* ============================================================
@@ -3392,23 +3372,23 @@ Group variable: t
 (sum of wgt is 14,864)
 
 Linear regression                               Number of obs     =     25,180
-                                                F(3, 580)         =      18.15
+                                                F(3, 580)         =      16.52
                                                 Prob > F          =     0.0000
-                                                R-squared         =     0.0137
-                                                Root MSE          =      .4886
+                                                R-squared         =     0.0127
+                                                Root MSE          =     .48999
 
                                (Std. err. adjusted for 581 clusters in grappe)
 ------------------------------------------------------------------------------
              |               Robust
  pauvre_MODA | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
 -------------+----------------------------------------------------------------
-         1.t |  -.1104963   .0191176    -5.78   0.000    -.1480444   -.0729482
-         1.D |  -.0335478   .0232314    -1.44   0.149    -.0791758    .0120802
+         1.t |  -.1057511    .019008    -5.56   0.000    -.1430839   -.0684182
+         1.D |   -.039768   .0235911    -1.69   0.092    -.0861023    .0065663
              |
          t#D |
-        1 1  |    .000494   .0263995     0.02   0.985    -.0513562    .0523443
+        1 1  |   .0028819   .0270796     0.11   0.915    -.0503041    .0560678
              |
-       _cons |   .6565351   .0164999    39.79   0.000     .6241282    .6889421
+       _cons |   .6503699   .0167466    38.84   0.000     .6174785    .6832613
 ------------------------------------------------------------------------------
 
  ( 1)  1.t#1.D = 0
@@ -3416,9 +3396,9 @@ Linear regression                               Number of obs     =     25,180
 ------------------------------------------------------------------------------
  pauvre_MODA | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
 -------------+----------------------------------------------------------------
-         (1) |    .000494   .0263995     0.02   0.985    -.0513562    .0523443
+         (1) |   .0028819   .0270796     0.11   0.915    -.0503041    .0560678
 ------------------------------------------------------------------------------
-  ATT_PSM-DD =   0.0005  SE =   0.0264  p = 0.9851
+  ATT_PSM-DD =   0.0029  SE =   0.0271  p = 0.9153
 
 . 
 . save "$TEMP/panel_apparie.dta", replace
@@ -3559,23 +3539,23 @@ file code/stata/output/figures/fig_dd_trajectoires.pdf saved as PDF format
 (sum of wgt is 6,888)
 
 Linear regression                               Number of obs     =     10,937
-                                                F(3, 315)         =      12.89
+                                                F(3, 315)         =      11.80
                                                 Prob > F          =     0.0000
-                                                R-squared         =     0.0220
-                                                Root MSE          =     .48824
+                                                R-squared         =     0.0206
+                                                Root MSE          =      .4871
 
                                (Std. err. adjusted for 316 clusters in grappe)
 ------------------------------------------------------------------------------
              |               Robust
  pauvre_MODA | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
 -------------+----------------------------------------------------------------
-         1.t |  -.1485702   .0305003    -4.87   0.000    -.2085803     -.08856
-         1.D |  -.0637551   .0346149    -1.84   0.066    -.1318608    .0043506
+         1.t |  -.1366678   .0302343    -4.52   0.000    -.1961546   -.0771811
+         1.D |    -.06575   .0351589    -1.87   0.062     -.134926     .003426
              |
          t#D |
-        1 1  |   .0234968   .0384567     0.61   0.542    -.0521678    .0991613
+        1 1  |   .0150345   .0397429     0.38   0.705    -.0631606    .0932295
              |
-       _cons |   .5138613   .0253491    20.27   0.000     .4639864    .5637361
+       _cons |   .5025865   .0256981    19.56   0.000     .4520249    .5531482
 ------------------------------------------------------------------------------
 
  ( 1)  1.t#1.D = 0
@@ -3583,31 +3563,31 @@ Linear regression                               Number of obs     =     10,937
 ------------------------------------------------------------------------------
  pauvre_MODA | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
 -------------+----------------------------------------------------------------
-         (1) |   .0234968   .0384567     0.61   0.542    -.0521678    .0991613
+         (1) |   .0150345   .0397429     0.38   0.705    -.0631606    .0932295
 ------------------------------------------------------------------------------
-  ATT =   0.0235  p = 0.5416
+  ATT =   0.0150  p = 0.7055
 
 --- Rural — pauvre_MODA ---
 (sum of wgt is 7,976)
 
 Linear regression                               Number of obs     =     14,243
-                                                F(3, 264)         =       7.36
-                                                Prob > F          =     0.0001
-                                                R-squared         =     0.0119
-                                                Root MSE          =     .43843
+                                                F(3, 264)         =       6.67
+                                                Prob > F          =     0.0002
+                                                R-squared         =     0.0109
+                                                Root MSE          =     .44113
 
                                (Std. err. adjusted for 265 clusters in grappe)
 ------------------------------------------------------------------------------
              |               Robust
  pauvre_MODA | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
 -------------+----------------------------------------------------------------
-         1.t |  -.0700076   .0235388    -2.97   0.003    -.1163552     -.02366
-         1.D |  -.0061716   .0265655    -0.23   0.816    -.0584789    .0461357
+         1.t |  -.0715621   .0233668    -3.06   0.002    -.1175712   -.0255531
+         1.D |  -.0160554   .0268933    -0.60   0.551     -.069008    .0368973
              |
          t#D |
-        1 1  |  -.0403997   .0355887    -1.14   0.257    -.1104735    .0296741
+        1 1  |  -.0288116   .0359907    -0.80   0.424     -.099677    .0420537
              |
-       _cons |     .78044   .0189479    41.19   0.000     .7431319    .8177482
+       _cons |   .7787121   .0190839    40.80   0.000     .7411361    .8162882
 ------------------------------------------------------------------------------
 
  ( 1)  1.t#1.D = 0
@@ -3615,9 +3595,9 @@ Linear regression                               Number of obs     =     14,243
 ------------------------------------------------------------------------------
  pauvre_MODA | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
 -------------+----------------------------------------------------------------
-         (1) |  -.0403997   .0355887    -1.14   0.257    -.1104735    .0296741
+         (1) |  -.0288116   .0359907    -0.80   0.424     -.099677    .0420537
 ------------------------------------------------------------------------------
-  ATT =  -0.0404  p = 0.2573
+  ATT =  -0.0288  p = 0.4241
 
 . 
 . /* Test d'egalite urbain vs rural */
@@ -3635,34 +3615,34 @@ Test d'egalite (urbain vs rural) :
 (sum of wgt is 14,864)
 
 Linear regression                               Number of obs     =     25,180
-                                                F(7, 580)         =      36.34
+                                                F(7, 580)         =      36.45
                                                 Prob > F          =     0.0000
-                                                R-squared         =     0.1176
-                                                Root MSE          =     .46218
+                                                R-squared         =     0.1186
+                                                Root MSE          =       .463
 
                                (Std. err. adjusted for 581 clusters in grappe)
 ------------------------------------------------------------------------------
              |               Robust
  pauvre_MODA | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
 -------------+----------------------------------------------------------------
-         1.t |  -.0700076   .0235153    -2.98   0.003    -.1161932    -.023822
-         1.D |  -.0061716   .0265391    -0.23   0.816    -.0582961    .0459529
+         1.t |  -.0715621   .0233436    -3.07   0.002    -.1174104   -.0257139
+         1.D |  -.0160554   .0268666    -0.60   0.550     -.068823    .0367122
              |
          t#D |
-        1 1  |  -.0403997   .0355533    -1.14   0.256    -.1102286    .0294292
+        1 1  |  -.0288116   .0359549    -0.80   0.423    -.0994293     .041806
              |
-     1.urban |  -.2665788   .0316221    -8.43   0.000    -.3286865    -.204471
+     1.urban |  -.2761256    .031983    -8.63   0.000    -.3389422    -.213309
              |
      t#urban |
-        1 1  |  -.0785626   .0384955    -2.04   0.042    -.1541701   -.0029551
+        1 1  |  -.0651057   .0381801    -1.71   0.089    -.1400937    .0098824
              |
      D#urban |
-        1 1  |  -.0575835    .043598    -1.32   0.187    -.1432128    .0280458
+        1 1  |  -.0496947   .0442287    -1.12   0.262    -.1365626    .0371733
              |
    t#D#urban |
-      1 1 1  |   .0638965   .0523529     1.22   0.223    -.0389278    .1667209
+      1 1 1  |   .0438461   .0535721     0.82   0.413    -.0613729    .1490651
              |
-       _cons |     .78044    .018929    41.23   0.000     .7432623    .8176178
+       _cons |   .7787121   .0190649    40.85   0.000     .7412674    .8161569
 ------------------------------------------------------------------------------
 
  ( 1)  1.t#1.D#1.urban = 0
@@ -3670,9 +3650,9 @@ Linear regression                               Number of obs     =     25,180
 ------------------------------------------------------------------------------
  pauvre_MODA | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
 -------------+----------------------------------------------------------------
-         (1) |   .0638965   .0523529     1.22   0.223    -.0389278    .1667209
+         (1) |   .0438461   .0535721     0.82   0.413    -.0613729    .1490651
 ------------------------------------------------------------------------------
-  Diff ATT (urbain - rural) :   0.0639  p = 0.2228
+  Diff ATT (urbain - rural) :   0.0438  p = 0.4134
 
 . drop urban
 
@@ -3703,23 +3683,23 @@ Linear regression                               Number of obs     =     25,180
 (sum of wgt is 7,465)
 
 Linear regression                               Number of obs     =     12,642
-                                                F(3, 572)         =      12.86
+                                                F(3, 572)         =      11.71
                                                 Prob > F          =     0.0000
-                                                R-squared         =     0.0114
-                                                Root MSE          =     .49089
+                                                R-squared         =     0.0105
+                                                Root MSE          =       .492
 
                                (Std. err. adjusted for 573 clusters in grappe)
 ------------------------------------------------------------------------------
              |               Robust
  pauvre_MODA | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
 -------------+----------------------------------------------------------------
-         1.t |  -.1023773   .0209134    -4.90   0.000    -.1434538   -.0613008
-         1.D |   -.033552   .0255096    -1.32   0.189     -.083656     .016552
+         1.t |  -.0976331   .0208732    -4.68   0.000    -.1386306   -.0566357
+         1.D |  -.0387683   .0259335    -1.49   0.135    -.0897048    .0121682
              |
          t#D |
-        1 1  |   .0039159   .0302698     0.13   0.897    -.0555376    .0633693
+        1 1  |   .0060365   .0308535     0.20   0.845    -.0545635    .0666364
              |
-       _cons |   .6417479    .017657    36.35   0.000     .6070674    .6764284
+       _cons |   .6359697   .0179523    35.43   0.000     .6007091    .6712302
 ------------------------------------------------------------------------------
 
  ( 1)  1.t#1.D = 0
@@ -3727,30 +3707,30 @@ Linear regression                               Number of obs     =     12,642
 ------------------------------------------------------------------------------
  pauvre_MODA | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
 -------------+----------------------------------------------------------------
-         (1) |   .0039159   .0302698     0.13   0.897    -.0555376    .0633693
+         (1) |   .0060365   .0308535     0.20   0.845    -.0545635    .0666364
 ------------------------------------------------------------------------------
-  ATT =   0.0039  p = 0.8971
+  ATT =   0.0060  p = 0.8450
 --- Filles — pauvre_MODA ---
 (sum of wgt is 7,399)
 
 Linear regression                               Number of obs     =     12,538
-                                                F(3, 577)         =      18.49
+                                                F(3, 577)         =      17.08
                                                 Prob > F          =     0.0000
-                                                R-squared         =     0.0163
-                                                Root MSE          =     .48608
+                                                R-squared         =     0.0152
+                                                Root MSE          =     .48778
 
                                (Std. err. adjusted for 578 clusters in grappe)
 ------------------------------------------------------------------------------
              |               Robust
  pauvre_MODA | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
 -------------+----------------------------------------------------------------
-         1.t |  -.1191922   .0202279    -5.89   0.000    -.1589215   -.0794629
-         1.D |  -.0345341   .0252322    -1.37   0.172    -.0840923    .0150242
+         1.t |  -.1144359    .019996    -5.72   0.000    -.1537098    -.075162
+         1.D |  -.0417151   .0256407    -1.63   0.104    -.0920756    .0086455
              |
          t#D |
-        1 1  |  -.0021661   .0287376    -0.08   0.940    -.0586092    .0542771
+        1 1  |    .000479   .0292788     0.02   0.987    -.0570269     .057985
              |
-       _cons |   .6720586   .0171418    39.21   0.000     .6383907    .7057266
+       _cons |   .6654872   .0173359    38.39   0.000     .6314381    .6995363
 ------------------------------------------------------------------------------
 
  ( 1)  1.t#1.D = 0
@@ -3758,9 +3738,9 @@ Linear regression                               Number of obs     =     12,538
 ------------------------------------------------------------------------------
  pauvre_MODA | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
 -------------+----------------------------------------------------------------
-         (1) |  -.0021661   .0287376    -0.08   0.940    -.0586092    .0542771
+         (1) |    .000479   .0292788     0.02   0.987    -.0570269     .057985
 ------------------------------------------------------------------------------
-  ATT =  -0.0022  p = 0.9399
+  ATT =   0.0005  p = 0.9870
 . }
 
 . 
@@ -3785,23 +3765,23 @@ Linear regression                               Number of obs     =     12,538
 (sum of wgt is 4,147.25)
 
 Linear regression                               Number of obs     =      7,018
-                                                F(3, 557)         =      14.37
+                                                F(3, 557)         =      13.71
                                                 Prob > F          =     0.0000
-                                                R-squared         =     0.0205
-                                                Root MSE          =     .49418
+                                                R-squared         =     0.0194
+                                                Root MSE          =     .49486
 
                                (Std. err. adjusted for 558 clusters in grappe)
 ------------------------------------------------------------------------------
              |               Robust
  pauvre_MODA | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
 -------------+----------------------------------------------------------------
-         1.t |  -.1361057   .0282402    -4.82   0.000     -.191576   -.0806355
-         1.D |  -.0397784   .0313772    -1.27   0.205    -.1014106    .0218538
+         1.t |  -.1315433   .0281249    -4.68   0.000    -.1867873   -.0762994
+         1.D |  -.0451387   .0316449    -1.43   0.154    -.1072968    .0170193
              |
          t#D |
-        1 1  |  -.0031498   .0412676    -0.08   0.939    -.0842089    .0779093
+        1 1  |   -.001064   .0410302    -0.03   0.979    -.0816568    .0795288
              |
-       _cons |   .6058632   .0209486    28.92   0.000     .5647153     .647011
+       _cons |   .5979235   .0211523    28.27   0.000     .5563755    .6394714
 ------------------------------------------------------------------------------
 
  ( 1)  1.t#1.D = 0
@@ -3809,30 +3789,30 @@ Linear regression                               Number of obs     =      7,018
 ------------------------------------------------------------------------------
  pauvre_MODA | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
 -------------+----------------------------------------------------------------
-         (1) |  -.0031498   .0412676    -0.08   0.939    -.0842089    .0779093
+         (1) |   -.001064   .0410302    -0.03   0.979    -.0816568    .0795288
 ------------------------------------------------------------------------------
-  ATT =  -0.0031  p = 0.9392
+  ATT =  -0.0011  p = 0.9793
 --- Groupe 2 — pauvre_MODA ---
 (sum of wgt is 8,595.25)
 
 Linear regression                               Number of obs     =     14,638
-                                                F(3, 575)         =      13.76
+                                                F(3, 575)         =      12.56
                                                 Prob > F          =     0.0000
-                                                R-squared         =     0.0117
-                                                Root MSE          =      .4778
+                                                R-squared         =     0.0108
+                                                Root MSE          =     .47984
 
                                (Std. err. adjusted for 576 clusters in grappe)
 ------------------------------------------------------------------------------
              |               Robust
  pauvre_MODA | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
 -------------+----------------------------------------------------------------
-         1.t |  -.1029625   .0195448    -5.27   0.000    -.1413503   -.0645747
-         1.D |  -.0305912   .0237679    -1.29   0.199    -.0772737    .0160913
+         1.t |  -.0983312    .019506    -5.04   0.000    -.1366428   -.0600195
+         1.D |  -.0373148   .0241247    -1.55   0.122     -.084698    .0100684
              |
          t#D |
-        1 1  |   .0049629   .0281243     0.18   0.860    -.0502759    .0602017
+        1 1  |    .007462   .0288969     0.26   0.796    -.0492943    .0642184
              |
-       _cons |   .7005869   .0168741    41.52   0.000     .6674445    .7337292
+       _cons |   .6947182   .0170112    40.84   0.000     .6613066    .7281298
 ------------------------------------------------------------------------------
 
  ( 1)  1.t#1.D = 0
@@ -3840,30 +3820,30 @@ Linear regression                               Number of obs     =     14,638
 ------------------------------------------------------------------------------
  pauvre_MODA | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
 -------------+----------------------------------------------------------------
-         (1) |   .0049629   .0281243     0.18   0.860    -.0502759    .0602017
+         (1) |    .007462   .0288969     0.26   0.796    -.0492943    .0642184
 ------------------------------------------------------------------------------
-  ATT =   0.0050  p = 0.8600
+  ATT =   0.0075  p = 0.7963
 --- Groupe 3 — pauvre_MODA ---
 (sum of wgt is 2,121.5)
 
 Linear regression                               Number of obs     =      3,524
-                                                F(3, 546)         =      11.94
+                                                F(3, 546)         =      11.48
                                                 Prob > F          =     0.0000
-                                                R-squared         =     0.0164
-                                                Root MSE          =     .49604
+                                                R-squared         =     0.0153
+                                                Root MSE          =     .49637
 
                                (Std. err. adjusted for 547 clusters in grappe)
 ------------------------------------------------------------------------------
              |               Robust
  pauvre_MODA | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
 -------------+----------------------------------------------------------------
-         1.t |  -.1276304   .0256418    -4.98   0.000    -.1779991   -.0772617
-         1.D |  -.0431061   .0335239    -1.29   0.199    -.1089576    .0227455
+         1.t |  -.1231371   .0251072    -4.90   0.000    -.1724557   -.0738185
+         1.D |  -.0490089   .0335083    -1.46   0.144    -.1148299    .0168121
              |
          t#D |
-        1 1  |   .0120931   .0414444     0.29   0.771    -.0693169    .0935031
+        1 1  |   .0150591   .0412263     0.37   0.715    -.0659224    .0960406
              |
-       _cons |   .5911287   .0214143    27.60   0.000     .5490643    .6331931
+       _cons |   .5876153   .0215305    27.29   0.000     .5453225    .6299081
 ------------------------------------------------------------------------------
 
  ( 1)  1.t#1.D = 0
@@ -3871,9 +3851,9 @@ Linear regression                               Number of obs     =      3,524
 ------------------------------------------------------------------------------
  pauvre_MODA | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
 -------------+----------------------------------------------------------------
-         (1) |   .0120931   .0414444     0.29   0.771    -.0693169    .0935031
+         (1) |   .0150591   .0412263     0.37   0.715    -.0659224    .0960406
 ------------------------------------------------------------------------------
-  ATT =   0.0121  p = 0.7706
+  ATT =   0.0151  p = 0.7150
 
 . 
 . /* ============================================================
@@ -3917,23 +3897,23 @@ Linear regression                               Number of obs     =      3,524
 (sum of wgt is 14,864)
 
 Linear regression                               Number of obs     =     25,180
-                                                F(3, 580)         =      18.15
+                                                F(3, 580)         =      16.52
                                                 Prob > F          =     0.0000
-                                                R-squared         =     0.0137
-                                                Root MSE          =      .4886
+                                                R-squared         =     0.0127
+                                                Root MSE          =     .48999
 
                                (Std. err. adjusted for 581 clusters in grappe)
 ------------------------------------------------------------------------------
              |               Robust
  pauvre_MODA | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
 -------------+----------------------------------------------------------------
-         1.t |  -.1104963   .0191176    -5.78   0.000    -.1480444   -.0729482
-         1.D |  -.0335478   .0232314    -1.44   0.149    -.0791758    .0120802
+         1.t |  -.1057511    .019008    -5.56   0.000    -.1430839   -.0684182
+         1.D |   -.039768   .0235911    -1.69   0.092    -.0861023    .0065663
              |
          t#D |
-        1 1  |    .000494   .0263995     0.02   0.985    -.0513562    .0523443
+        1 1  |   .0028819   .0270796     0.11   0.915    -.0503041    .0560678
              |
-       _cons |   .6565351   .0164999    39.79   0.000     .6241282    .6889421
+       _cons |   .6503699   .0167466    38.84   0.000     .6174785    .6832613
 ------------------------------------------------------------------------------
 
  ( 1)  1.t#1.D = 0
@@ -3941,29 +3921,29 @@ Linear regression                               Number of obs     =     25,180
 ------------------------------------------------------------------------------
  pauvre_MODA | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
 -------------+----------------------------------------------------------------
-         (1) |    .000494   .0263995     0.02   0.985    -.0513562    .0523443
+         (1) |   .0028819   .0270796     0.11   0.915    -.0503041    .0560678
 ------------------------------------------------------------------------------
-  weight_knn — pauvre_MODA : ATT=  0.0005  p=0.9851
+  weight_knn — pauvre_MODA : ATT=  0.0029  p=0.9153
 (sum of wgt is 11,946.3077941004)
 
 Linear regression                               Number of obs     =     25,180
-                                                F(3, 580)         =      16.68
+                                                F(3, 580)         =      15.07
                                                 Prob > F          =     0.0000
-                                                R-squared         =     0.0116
-                                                Root MSE          =     .49154
+                                                R-squared         =     0.0104
+                                                Root MSE          =     .49281
 
                                (Std. err. adjusted for 581 clusters in grappe)
 ------------------------------------------------------------------------------
              |               Robust
  pauvre_MODA | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
 -------------+----------------------------------------------------------------
-         1.t |  -.1007413   .0179585    -5.61   0.000    -.1360129   -.0654696
-         1.D |  -.0014737   .0231568    -0.06   0.949    -.0469551    .0440077
+         1.t |  -.0965113   .0176818    -5.46   0.000    -.1312395   -.0617832
+         1.D |  -.0089782    .023442    -0.38   0.702    -.0550197    .0370634
              |
          t#D |
-        1 1  |   -.009261    .025704    -0.36   0.719    -.0597453    .0412233
+        1 1  |  -.0063579   .0263195    -0.24   0.809     -.058051    .0453352
              |
-       _cons |    .624461   .0168269    37.11   0.000     .5914119    .6575102
+       _cons |   .6195801   .0169618    36.53   0.000     .5862661    .6528941
 ------------------------------------------------------------------------------
 
  ( 1)  1.t#1.D = 0
@@ -3971,29 +3951,29 @@ Linear regression                               Number of obs     =     25,180
 ------------------------------------------------------------------------------
  pauvre_MODA | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
 -------------+----------------------------------------------------------------
-         (1) |   -.009261    .025704    -0.36   0.719    -.0597453    .0412233
+         (1) |  -.0063579   .0263195    -0.24   0.809     -.058051    .0453352
 ------------------------------------------------------------------------------
-  weight_kernel — pauvre_MODA : ATT= -0.0093  p=0.7188
+  weight_kernel — pauvre_MODA : ATT= -0.0064  p=0.8092
 (sum of wgt is 14,905)
 
 Linear regression                               Number of obs     =     14,905
-                                                F(3, 536)         =      15.35
+                                                F(3, 536)         =      14.02
                                                 Prob > F          =     0.0000
-                                                R-squared         =     0.0135
-                                                Root MSE          =      .4887
+                                                R-squared         =     0.0125
+                                                Root MSE          =     .49001
 
                                (Std. err. adjusted for 537 clusters in grappe)
 ------------------------------------------------------------------------------
              |               Robust
  pauvre_MODA | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
 -------------+----------------------------------------------------------------
-         1.t |  -.1095191    .023627    -4.64   0.000    -.1559319   -.0631063
-         1.D |  -.0328472    .025901    -1.27   0.205    -.0837271    .0180327
+         1.t |  -.1038569   .0227649    -4.56   0.000    -.1485762   -.0591375
+         1.D |  -.0395704   .0261916    -1.51   0.131    -.0910211    .0118803
              |
          t#D |
-        1 1  |  -.0004832   .0303883    -0.02   0.987    -.0601779    .0592116
+        1 1  |   .0009876   .0303534     0.03   0.974    -.0586385    .0606138
              |
-       _cons |   .6558346   .0199339    32.90   0.000     .6166765    .6949926
+       _cons |   .6501723   .0201887    32.20   0.000     .6105136     .689831
 ------------------------------------------------------------------------------
 
  ( 1)  1.t#1.D = 0
@@ -4001,9 +3981,9 @@ Linear regression                               Number of obs     =     14,905
 ------------------------------------------------------------------------------
  pauvre_MODA | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
 -------------+----------------------------------------------------------------
-         (1) |  -.0004832   .0303883    -0.02   0.987    -.0601779    .0592116
+         (1) |   .0009876   .0303534     0.03   0.974    -.0586385    .0606138
 ------------------------------------------------------------------------------
-  weight_caliper — pauvre_MODA : ATT= -0.0005  p=0.9873
+  weight_caliper — pauvre_MODA : ATT=  0.0010  p=0.9741
 
 . 
 . /* ============================================================
@@ -4153,23 +4133,23 @@ file C:\Users\Bmd\AppData\Local\Temp\ST_1d40_00000s.tmp saved as .dta format
 . regress pauvre_MODA i.t##i.D_stable_alt, vce(cluster grappe)
 
 Linear regression                               Number of obs     =     40,668
-                                                F(3, 594)         =      68.39
+                                                F(3, 594)         =      69.27
                                                 Prob > F          =     0.0000
-                                                R-squared         =     0.0488
-                                                Root MSE          =     .47104
+                                                R-squared         =     0.0469
+                                                Root MSE          =     .47254
 
                                  (Std. err. adjusted for 595 clusters in grappe)
 --------------------------------------------------------------------------------
                |               Robust
    pauvre_MODA | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
 ---------------+----------------------------------------------------------------
-           1.t |   -.100167   .0110232    -9.09   0.000    -.1218161   -.0785179
-1.D_stable_alt |  -.2740881    .026706   -10.26   0.000    -.3265377   -.2216385
+           1.t |  -.0981232   .0107489    -9.13   0.000    -.1192337   -.0770127
+1.D_stable_alt |  -.2712128   .0261177   -10.38   0.000    -.3225071   -.2199184
                |
 t#D_stable_alt |
-          1 1  |   .0399895   .0243804     1.64   0.101    -.0078927    .0878718
+          1 1  |   .0432025    .024824     1.74   0.082     -.005551     .091956
                |
-         _cons |   .7178448   .0120017    59.81   0.000     .6942739    .7414157
+         _cons |   .7122784   .0120754    58.99   0.000     .6885628     .735994
 --------------------------------------------------------------------------------
 
 . lincom 1.t#1.D_stable_alt
@@ -4179,12 +4159,12 @@ t#D_stable_alt |
 ------------------------------------------------------------------------------
  pauvre_MODA | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
 -------------+----------------------------------------------------------------
-         (1) |   .0399895   .0243804     1.64   0.101    -.0078927    .0878718
+         (1) |   .0432025    .024824     1.74   0.082     -.005551     .091956
 ------------------------------------------------------------------------------
 
 . di "  ATT_DD_stables = " %8.4f r(estimate) ///
 >    "  SE = " %8.4f r(se) "  p = " %6.4f r(p)
-  ATT_DD_stables =   0.0400  SE =   0.0244  p = 0.1015
+  ATT_DD_stables =   0.0432  SE =   0.0248  p = 0.0823
 
 . 
 . di _newline ">>> 05_psm_dd.do termine."
@@ -4691,13 +4671,13 @@ Group variable: milieu (Milieu residence)
 
 milieu |  pauvre~A    nb_dep
 -------+--------------------
-Urbain |     0.342     2.901
+Urbain |     0.339     2.895
        |   1.5e+04   1.5e+04
 -------+--------------------
- Rural |     0.768     4.465
+ Rural |     0.758     4.437
        |   1.7e+04   1.7e+04
 -------+--------------------
- Total |     0.591     3.816
+ Total |     0.584     3.796
        |   3.2e+04   3.2e+04
 ----------------------------
 
@@ -4706,16 +4686,16 @@ Group variable: groupe_moda
 
 groupe_moda |  pauvre~A    nb_dep
 ------------+--------------------
-    0-4 ans |     0.529     3.552
+    0-4 ans |     0.516     3.521
             |  9569.000  9569.000
 ------------+--------------------
-   5-14 ans |     0.644     4.033
+   5-14 ans |     0.638     4.017
             |   1.8e+04   1.8e+04
 ------------+--------------------
-  15-17 ans |     0.511     3.493
+  15-17 ans |     0.510     3.490
             |  4211.000  4211.000
 ------------+--------------------
-      Total |     0.591     3.816
+      Total |     0.584     3.796
             |   3.2e+04   3.2e+04
 ---------------------------------
 
@@ -4726,13 +4706,13 @@ Group variable: milieu (0.04. Milieu de résidence)
 
 milieu |  pauvre~A    nb_dep
 -------+--------------------
-Urbain |     0.269     2.707
+Urbain |     0.268     2.701
        |   1.2e+04   1.2e+04
 -------+--------------------
- Rural |     0.690     4.198
+ Rural |     0.686     4.191
        |   1.4e+04   1.4e+04
 -------+--------------------
- Total |     0.508     3.554
+ Total |     0.505     3.547
        |   2.7e+04   2.7e+04
 ----------------------------
 
@@ -4741,16 +4721,16 @@ Group variable: groupe_moda
 
 groupe_moda |  pauvre~A    nb_dep
 ------------+--------------------
-    0-4 ans |     0.426     3.230
+    0-4 ans |     0.422     3.222
             |  6767.000  6767.000
 ------------+--------------------
-   5-14 ans |     0.564     3.772
+   5-14 ans |     0.562     3.765
             |   1.6e+04   1.6e+04
 ------------+--------------------
-  15-17 ans |     0.423     3.239
+  15-17 ans |     0.421     3.235
             |  3963.000  3963.000
 ------------+--------------------
-      Total |     0.508     3.554
+      Total |     0.505     3.547
             |   2.7e+04   2.7e+04
 ---------------------------------
 
@@ -4787,12 +4767,12 @@ Number of observations (_N) was 0, now 6.
   9.         di "  `annee' / `lbl' : H=" %5.1f `hmoda' "% (n=`nobs')"
  10.     }
  11. }
-  2018 / 0-4 ans : H= 52.9% (n=9569)
-  2018 / 5-14 ans : H= 64.4% (n=17886)
-  2018 / 15-17 ans : H= 51.1% (n=4211)
-  2021 / 0-4 ans : H= 42.6% (n=6767)
-  2021 / 5-14 ans : H= 56.4% (n=15924)
-  2021 / 15-17 ans : H= 42.3% (n=3963)
+  2018 / 0-4 ans : H= 51.6% (n=9569)
+  2018 / 5-14 ans : H= 63.8% (n=17886)
+  2018 / 15-17 ans : H= 51.0% (n=4211)
+  2021 / 0-4 ans : H= 42.2% (n=6767)
+  2021 / 5-14 ans : H= 56.2% (n=15924)
+  2021 / 15-17 ans : H= 42.1% (n=3963)
 
 . 
 . /* ============================================================
@@ -4815,7 +4795,7 @@ Number of observations (_N) was 0, now 6.
 
 -- Dimensions 2018 --
   assai :  50.4%
-  eau :  23.1%
+  eau :  21.2%
   logem :  69.2%
   nutri :  45.8%
   sante :  92.2%
@@ -4824,7 +4804,7 @@ Number of observations (_N) was 0, now 6.
 
 -- Dimensions 2021 --
   assai :  49.0%
-  eau :  15.5%
+  eau :  14.8%
   logem :  58.3%
   nutri :  40.9%
   sante :  91.2%
@@ -5270,7 +5250,7 @@ file C:\Users\Bmd\AppData\Local\Temp\ST_1d40_00000x.tmp saved as .dta format
   8.     di "  dim_`dim' : ATT=" %8.4f r(estimate) "  SE=" %7.4f r(se) "  p=" %6.4f r(p)
   9. }
   dim_assai : ATT=  0.0139  SE= 0.0336  p=0.6789
-  dim_eau : ATT= -0.0535  SE= 0.0265  p=0.0437
+  dim_eau : ATT= -0.0415  SE= 0.0286  p=0.1466
   dim_logem : ATT= -0.0061  SE= 0.0339  p=0.8563
   dim_nutri : ATT= -0.0119  SE= 0.0334  p=0.7216
   dim_sante : ATT=  0.0204  SE= 0.0131  p=0.1195
@@ -5439,35 +5419,35 @@ file code/stata/output/figures/fig_effets_dim.pdf saved as PDF format
  15.     }
  16. }
 1 2 3 4 5 6 7 8 9 10 11 12 13 14
-Région 1 (dakar), 2018 : H= 23.5%
-Région 2 (ziguinchor), 2018 : H= 73.6%
-Région 3 (diourbel), 2018 : H= 66.7%
+Région 1 (dakar), 2018 : H= 23.4%
+Région 2 (ziguinchor), 2018 : H= 73.1%
+Région 3 (diourbel), 2018 : H= 62.2%
 Région 4 (SAINT-LOUIS), 2018 : H= 62.2%
-Région 5 (tambacounda), 2018 : H= 85.0%
-Région 6 (kaolack), 2018 : H= 58.0%
-Région 7 (thies), 2018 : H= 41.9%
+Région 5 (tambacounda), 2018 : H= 84.6%
+Région 6 (kaolack), 2018 : H= 57.6%
+Région 7 (thies), 2018 : H= 41.6%
 Région 8 (louga), 2018 : H= 68.6%
-Région 9 (fatick), 2018 : H= 70.5%
-Région 10 (kolda), 2018 : H= 91.1%
+Région 9 (fatick), 2018 : H= 68.2%
+Région 10 (kolda), 2018 : H= 91.3%
 Région 11 (matam), 2018 : H= 75.0%
 Région 12 (kaffrine), 2018 : H= 77.3%
-Région 13 (kedougou), 2018 : H= 89.5%
-Région 14 (sedhiou), 2018 : H= 90.6%
+Région 13 (kedougou), 2018 : H= 89.6%
+Région 14 (sedhiou), 2018 : H= 91.0%
 1 2 3 4 5 6 7 8 9 10 11 12 13 14
 Région 1 (dakar), 2021 : H= 16.8%
-Région 2 (ziguinchor), 2021 : H= 55.8%
-Région 3 (diourbel), 2021 : H= 48.5%
-Région 4 (SAINT-LOUIS), 2021 : H= 58.6%
-Région 5 (tambacounda), 2021 : H= 75.9%
-Région 6 (kaolack), 2021 : H= 61.8%
-Région 7 (thies), 2021 : H= 45.9%
+Région 2 (ziguinchor), 2021 : H= 56.5%
+Région 3 (diourbel), 2021 : H= 48.7%
+Région 4 (SAINT-LOUIS), 2021 : H= 58.4%
+Région 5 (tambacounda), 2021 : H= 75.4%
+Région 6 (kaolack), 2021 : H= 61.9%
+Région 7 (thies), 2021 : H= 45.1%
 Région 8 (louga), 2021 : H= 55.4%
-Région 9 (fatick), 2021 : H= 54.0%
-Région 10 (kolda), 2021 : H= 81.5%
+Région 9 (fatick), 2021 : H= 51.7%
+Région 10 (kolda), 2021 : H= 81.8%
 Région 11 (matam), 2021 : H= 63.3%
-Région 12 (kaffrine), 2021 : H= 64.6%
-Région 13 (kedougou), 2021 : H= 78.5%
-Région 14 (sedhiou), 2021 : H= 82.6%
+Région 12 (kaffrine), 2021 : H= 64.0%
+Région 13 (kedougou), 2021 : H= 77.8%
+Région 14 (sedhiou), 2021 : H= 83.3%
 
 . 
 . /* ── Fig carte : barres horizontales par région, deux vagues côte
@@ -6239,13 +6219,13 @@ file code/stata/output/figures/fig_carte_dim_educ.pdf saved as PDF format
     (seuil |      pauvre_MODA
 ANSD 2018) |         0          1 |     Total
 -----------+----------------------+----------
-         0 |     47.04      52.96 |    100.00 
-           |     87.13      55.81 |     67.17 
+         0 |     47.57      52.43 |    100.00 
+           |     86.55      55.82 |     67.17 
 -----------+----------------------+----------
-         1 |     14.22      85.78 |    100.00 
-           |     12.87      44.19 |     32.83 
+         1 |     15.13      84.87 |    100.00 
+           |     13.45      44.18 |     32.83 
 -----------+----------------------+----------
-     Total |     36.26      63.74 |    100.00 
+     Total |     36.92      63.08 |    100.00 
            |    100.00     100.00 |    100.00 
 
 . 
@@ -6263,16 +6243,16 @@ ANSD 2018) |         0          1 |     Total
 (33,844 missing values generated)
 
 . replace cat4 = 1 if pauvre_mon == 0 & pauvre_MODA == 0  /* non pauvres */
-(10,005 real changes made)
+(10,118 real changes made)
 
 . replace cat4 = 2 if pauvre_mon == 1 & pauvre_MODA == 0  /* pauvres monet. seuls */
-(1,478 real changes made)
+(1,573 real changes made)
 
 . replace cat4 = 3 if pauvre_mon == 0 & pauvre_MODA == 1  /* pauvres multidim. seuls */
-(11,264 real changes made)
+(11,151 real changes made)
 
 . replace cat4 = 4 if pauvre_mon == 1 & pauvre_MODA == 1  /* doublement pauvres */
-(8,919 real changes made)
+(8,824 real changes made)
 
 . label define cat4l 1 "Non pauvres" 2 "Pauvres monet. seuls" ///
 >                    3 "Pauvres MODA seuls" 4 "Doublement pauvres"
@@ -6287,10 +6267,10 @@ Group variable: cat4
 
             cat4 |         N
 -----------------+----------
-     Non pauvres |     10005
-Pauvres monet. s |      1478
-Pauvres MODA seu |     11264
-Doublement pauvr |      8919
+     Non pauvres |     10118
+Pauvres monet. s |      1573
+Pauvres MODA seu |     11151
+Doublement pauvr |      8824
 -----------------+----------
            Total |     31666
 ----------------------------
@@ -6310,7 +6290,7 @@ Doublement pauvr |      8919
 Pauvreté monétaire :  32.8%
 
 . di "Pauvreté N-MODA    : " %5.1f p_moda "%"
-Pauvreté N-MODA    :  63.7%
+Pauvreté N-MODA    :  63.1%
 
 . 
 . /* ── Fig Venn simplifié : diagramme à barres empilées ── */
@@ -6333,10 +6313,10 @@ Pauvreté N-MODA    :  63.7%
   3.         scalar p_`v' = r(mean)*100
   4.         di "`v' : " %5.1f r(mean)*100 "%"
   5.     }
-nn :  29.6%
-pm_only :   4.4%
-md_only :  33.3%
-both :  26.4%
+nn :  29.9%
+pm_only :   4.6%
+md_only :  32.9%
+both :  26.1%
 
 . 
 .     clear
@@ -6561,8 +6541,8 @@ Number of observations (_N) was 0, now 200.
   5.     di "  fraction |ATT|>0.05 : " %4.1f 100*r(N)/`n_rep' "%"
   6. }
 
-Placebo moda : moyenne=-0.0019  sd=0.0256
-  fraction |ATT|>0.05 :  6.0%
+Placebo moda : moyenne=-0.0016  sd=0.0259
+  fraction |ATT|>0.05 :  5.0%
 
 . 
 . /* ── Fig placebo : distribution des ATT placebo vs ATT reel ──
@@ -6584,7 +6564,7 @@ Placebo moda : moyenne=-0.0019  sd=0.0256
 >     xlabel(-0.06 "-0,06" -0.04 "-0,04" -0.02 "-0,02" 0 "0" ///
 >            0.02 "0,02" 0.04 "0,04" 0.06 "0,06" 0.08 "0,08" 0.10 "0,10", grid) ///
 >     graphregion(color(white)) plotregion(color(white))
-(bin=29, start=-,08429123, width=,005)
+(bin=31, start=-,07855204, width=,005)
 
 . set dp period
 
