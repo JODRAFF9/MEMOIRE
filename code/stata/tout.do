@@ -504,6 +504,8 @@ foreach annee in 2018 2021 {
         local v_src_ss "s11q27a"
         local v_src_sp "s11q27b"
         local v_treat  "s11q33"
+        local v_gate   "s11q32"   /* filtre traitement de l'eau : 1=oui, 2=non,
+                                     3=ne sait pas. Denominateur = repondants (1/2) */
     }
     else {
         local v_partag "s11q55"
@@ -519,6 +521,8 @@ foreach annee in 2018 2021 {
         local v_src_sp "s11q26b"
         local v_treat  "s11q32"   /* methode de traitement de l'eau EHCVM II
                                      (s11q31 = traite/non ; s11q32 = methode) */
+        local v_gate   "s11q31"   /* filtre traitement de l'eau : 1=oui, 2=non,
+                                     3=ne sait pas. Denominateur = repondants (1/2) */
     }
     /* Annexe I : combustible solide = bois ramasse(1), bois achete(2),
        charbon de bois(3), dechets animaux(7), autres(8). Exclut gaz(4),
@@ -539,11 +543,11 @@ foreach annee in 2018 2021 {
         use "`base'/s11_me_sen`annee'.dta", clear
         local v_opt "`v_treat'* `v_tps_ss_h' `v_tps_ss_m' `v_tps_sp_h' `v_tps_sp_m'"
         capture keep grappe menage s11q02 `v_partag' `v_type_toi' `v_tps_ss' `v_tps_sp' ///
-            `v_src_ss' `v_src_sp' `comb_vars' `v_opt'
+            `v_src_ss' `v_src_sp' `v_gate' `comb_vars' `v_opt'
         if _rc {
             di as error ">>> ATTENTION : variables eau optionnelles (traitement `v_treat'__* et/ou temps a la source `v_tps_ss_h'...) introuvables pour `annee' : verifier les noms."
             keep grappe menage s11q02 `v_partag' `v_type_toi' `v_tps_ss' `v_tps_sp' ///
-                `v_src_ss' `v_src_sp' `comb_vars'
+                `v_src_ss' `v_src_sp' `v_gate' `comb_vars'
         }
         rename s11q02 nb_pieces
         tempfile s11_temp
@@ -579,24 +583,31 @@ foreach annee in 2018 2021 {
         if `annee' == 2018 {
             use "`base'/s04_me_sen2018.dta", clear
             rename s01q00a numind
-            egen h_dom = rowtotal(s04q02 s04q04 s04q05)
+            /* Travail domestique = somme des cinq postes d'heures du module
+               (courses au marche q01, travaux domestiques q02, garde q03,
+               eau q04, bois q05). rownonmiss > 0 = a repondu au module. */
+            egen h_dom = rowtotal(s04q01 s04q02 s04q03 s04q04 s04q05)
+            egen byte nrep = rownonmiss(s04q01 s04q02 s04q03 s04q04 s04q05 ///
+                                        s04q06 s04q07 s04q08 s04q09)
             gen byte eco = inlist(1, s04q06, s04q07, s04q08, s04q09)
         }
         else {
             use "`base'/s04a_me_sen2021.dta", clear
             rename membres__id numind
-            collapse (max) s04q01 s04q02a s04q02b s04q02c s04q04 s04q05 ///
+            collapse (max) s04q01 s04q02a s04q02b s04q02c s04q03 s04q04 s04q05 ///
                            s04q06 s04q07 s04q08 s04q09, ///
                      by(grappe menage numind)
-            egen h_dom = rowtotal(s04q01 s04q02a s04q02b s04q02c s04q04 s04q05)
+            egen h_dom = rowtotal(s04q01 s04q02a s04q02b s04q02c s04q03 s04q04 s04q05)
+            egen byte nrep = rownonmiss(s04q01 s04q02a s04q02b s04q02c s04q03 ///
+                                        s04q04 s04q05 s04q06 s04q07 s04q08 s04q09)
             gen byte eco = inlist(1, s04q06, s04q07, s04q08, s04q09)
         }
-        keep grappe menage numind h_dom eco
+        keep grappe menage numind h_dom eco nrep
         tempfile s04_trav
         save `s04_trav'
     restore
     merge m:1 grappe menage numind using `s04_trav', ///
-        keepusing(h_dom eco) nogenerate keep(master match)
+        keepusing(h_dom eco nrep) nogenerate keep(master match)
 
     /* Les variables scol, activ7j, lien, alfab/alfa sont deja presentes
        dans ehcvm_individu (chargee en A1) : aucune fusion supplementaire
@@ -659,7 +670,12 @@ foreach annee in 2018 2021 {
        directement sur les methodes inadequates : filtrer a travers un linge
        (`v_treat'__3), laisser reposer (`v_treat'__6), autre (`v_treat'__7).
        On regarde si l'une de ces variables vaut 1 (trait_inad). 2018 s11q33,
-       2021 s11q32. */
+       2021 s11q32.
+       Denominateur ANSD : l'indicateur n'est defini que pour les menages qui
+       ont REPONDU (oui ou non) au filtre de traitement (v_gate : s11q32 en
+       2018, s11q31 en 2021 ; 1=oui, 2=non, 3=ne sait pas). Les "ne sait pas"
+       (code 3) et non-reponses sont exclus du denominateur, comme pour le
+       partage des toilettes. */
     capture confirm variable `v_treat'__3
     if _rc == 0 gen byte trait_inad = (`v_treat'__3 == 1 | `v_treat'__6 == 1 | ///
                                        `v_treat'__7 == 1)
@@ -667,7 +683,7 @@ foreach annee in 2018 2021 {
     gen byte src_ss = inlist(`v_src_ss', 5, 6, 12, 13, 16, 17)
     gen byte src_sp = inlist(`v_src_sp', 5, 6, 12, 13, 16, 17)
     gen byte m_eau_source = ((src_ss == 1 | src_sp == 1) & trait_inad == 1) ///
-        if !missing(`v_src_ss') & !missing(`v_src_sp')
+        if inlist(`v_gate', 1, 2) & !missing(`v_src_ss') & !missing(`v_src_sp')
     drop src_ss src_sp trait_inad
     /* Le temps d'acces (s11q29a/28a, s11q31a/30a) n'est demande que si le
        menage doit se deplacer pour s'approvisionner : le saut de question
@@ -753,8 +769,12 @@ foreach annee in 2018 2021 {
     gen byte m_acte_nais = (s01q05 == 2) if !missing(s01q05)
     replace  m_acte_nais = 0 if age > 14
 
-    gen byte m_trav_enf = (eco == 1 & !missing(eco)) | (h_dom >= 1 & !missing(h_dom)) ///
-        if age >= 5 & age <= 14 & (!missing(eco) | !missing(h_dom))
+    /* Denominateur = enfants 5-14 ayant repondu au module (nrep > 0). rowtotal
+       renvoie 0 meme si toutes les heures sont manquantes : sans le garde-fou
+       nrep, les enfants sans aucune reponse seraient comptes "ne travaille pas"
+       plutot qu'exclus. */
+    gen byte m_trav_enf = (eco == 1 | h_dom >= 1) ///
+        if age >= 5 & age <= 14 & nrep > 0 & !missing(nrep)
     replace  m_trav_enf = 0 if age < 5 | age > 14
 
     gen byte m_parents = (lien > 3) if !missing(lien)

@@ -46,9 +46,13 @@ save `base'
 use "$B18/s04_me_sen2018.dta", clear
 rename s01q00a numind
 gen byte trav_eco = inlist(1, s04q06, s04q07, s04q08, s04q09)
-egen h_dom = rowtotal(s04q02 s04q04 s04q05)
+* Travail domestique : cinq postes d'heures du module (courses q01, travaux
+* domestiques q02, garde q03, eau q04, bois q05).
+egen h_dom = rowtotal(s04q01 s04q02 s04q03 s04q04 s04q05)
+egen byte nrep = rownonmiss(s04q01 s04q02 s04q03 s04q04 s04q05 ///
+                            s04q06 s04q07 s04q08 s04q09)
 gen byte trav_dom = (h_dom >= 1)
-gen byte m_trav_enf = (trav_eco == 1 | trav_dom == 1)
+gen byte m_trav_enf = (trav_eco == 1 | trav_dom == 1) if nrep > 0
 keep grappe menage numind m_trav_enf
 tempfile trav
 save `trav'
@@ -58,13 +62,15 @@ save `trav'
    ============================================================ */
 use "$B18/s11_me_sen2018.dta", clear
 
-/* -- Source d'eau non amelioree (codes 5,6,12,13,16,17) aux DEUX
-      saisons ET traitement inadequat.  Cible 12,0/10,7/8,5 ;
-      reproduit ~14,2/13,0/11,3 -- */
+/* -- Source d'eau non amelioree (codes 5,6,12,13,16,17) en saison des
+      pluies OU seche, ET traitement inadequat (filtrer au linge s11q33__3,
+      laisser reposer __6, autre __7). Denominateur = menages ayant repondu
+      (oui/non) au filtre de traitement s11q32 (1=oui, 2=non, 3=ne sait pas).
+      Cible 12,0/10,7/8,5 ; reproduit ~9,6/9,8/8,7 -- */
 gen byte src_ss = inlist(s11q27a,5,6,12,13,16,17)
 gen byte src_sp = inlist(s11q27b,5,6,12,13,16,17)
-gen byte trait_adeq = (s11q33__1==1 | s11q33__2==1 | s11q33__4==1 | s11q33__5==1)
-gen byte m_eau_source = (src_ss==1 & src_sp==1 & trait_adeq==0)
+gen byte trait_inad = (s11q33__3==1 | s11q33__6==1 | s11q33__7==1)
+gen byte m_eau_source = ((src_ss==1 | src_sp==1) & trait_inad==1) if inlist(s11q32,1,2)
 
 /* -- Temps pour chercher l'eau > 30 min (aller + attente a la
       source), l'une ou l'autre saison.  Cible 17,7/16,4/13,9 ;
