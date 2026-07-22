@@ -17,4 +17,6 @@
 *.fdb_latexmk
 *.fls
 texput.log
-# Le PDF final Presentation/main.pdf reste suivi volontairement.
+# Le PDF est regenere en local : non versionne (evite les conflits binaires).
+*.pdf
+!figures/*.pdf
