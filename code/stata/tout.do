@@ -1665,13 +1665,28 @@ di ">>> fig_privations_dim.pdf sauvegardé"
 /* ── Fig 2b : Taux de privation par indicateur, par tranche d'age et par
    vague (ensemble 0-17, 0-4, 5-14, 15-17 ans), facon figure ANSD/UNICEF.
    Ces quatre figures (fig_privind_all/0_4/5_14/15_17) sont produites par
-   un script Python dedie, execute APRES tout.do :
-       python code/python/gen_fig_privind.py
+   un script Python dedie, appele ci-dessous.
    Motif : la mise en page ANSD (libelles de dimension centres a gauche,
    regroupant leurs indicateurs) n'est pas realisable proprement avec
    graph hbar — le double over(indicateur)#over(dimension) echoue sur un
    croisement non rectangulaire (r(198)). Le script lit les memes .dta et
-   applique les memes poids de sondage (hhweight). */
+   applique les memes poids de sondage (hhweight).
+
+   Prerequis : Python accessible en ligne de commande, avec les modules
+   pandas et matplotlib. Si Python est indisponible, l'appel echoue sans
+   interrompre le pipeline (capture) et les figures deja versionnees sont
+   conservees. On essaie "python" puis "python3". */
+capture shell python "code/python/gen_fig_privind.py"
+if _rc {
+    capture shell python3 "code/python/gen_fig_privind.py"
+}
+if _rc {
+    di as txt ">>> gen_fig_privind.py non execute (Python indisponible) : " ///
+              "figures fig_privind_* versionnees conservees."
+}
+else {
+    di as txt ">>> fig_privind_*.pdf (re)generees via gen_fig_privind.py"
+}
 
 /* ── Fig 3 : Pauvreté par milieu et groupe d'âge (EHCVM I et II) ──
    Barres groupées : les deux vagues côte à côte pour chaque groupe
