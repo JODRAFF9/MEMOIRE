@@ -7,6 +7,12 @@ REM  Double-cliquer sur ce fichier depuis le dossier latex\
 REM ============================================================
 cd /d "%~dp0"
 
+echo [0/4] figures fig_privind (Python, mise en page ANSD ponderee)...
+python "..\code\python\gen_fig_privind.py" 2>nul || python3 "..\code\python\gen_fig_privind.py" 2>nul
+if errorlevel 1 (
+    echo    Python indisponible ^(pandas/matplotlib^) : figures versionnees conservees.
+)
+
 echo [1/4] pdflatex (premiere passe)...
 pdflatex -interaction=nonstopmode main.tex >nul
 
