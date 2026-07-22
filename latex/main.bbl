@@ -1598,6 +1598,45 @@
       \verb 10.1086/261341
       \endverb
     \endentry
+    \entry{maimbo2005}{book}{}{}
+      \name{editor}{2}{}{%
+        {{un=0,uniquepart=base,hash=76d48b16ca2b66d29cb63c1967411e98}{%
+           family={Maimbo},
+           familyi={M\bibinitperiod},
+           given={Samuel\bibnamedelima Munzele},
+           giveni={S\bibinitperiod\bibinitdelim M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=3262f805999bc18c55c7fd9d34964cec}{%
+           family={Ratha},
+           familyi={R\bibinitperiod},
+           given={Dilip},
+           giveni={D\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{location}{1}{%
+        {Washington, D.C.}%
+      }
+      \list{publisher}{1}{%
+        {The World Bank}%
+      }
+      \strng{namehash}{62e26b59eb911a4b02098f5391dbe25d}
+      \strng{fullhash}{62e26b59eb911a4b02098f5391dbe25d}
+      \strng{fullhashraw}{62e26b59eb911a4b02098f5391dbe25d}
+      \strng{bibnamehash}{62e26b59eb911a4b02098f5391dbe25d}
+      \strng{editorbibnamehash}{62e26b59eb911a4b02098f5391dbe25d}
+      \strng{editornamehash}{62e26b59eb911a4b02098f5391dbe25d}
+      \strng{editorfullhash}{62e26b59eb911a4b02098f5391dbe25d}
+      \strng{editorfullhashraw}{62e26b59eb911a4b02098f5391dbe25d}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{editor}
+      \field{labeltitlesource}{title}
+      \field{title}{Remittances: Development impact and future prospects}
+      \field{year}{2005}
+    \endentry
     \entry{mansuri2006}{article}{}{}
       \name{author}{1}{}{%
         {{un=0,uniquepart=base,hash=6511cf3483e5ef65127c7da6f595a96d}{%
@@ -1909,6 +1948,49 @@
       \verb{doi}
       \verb 10.1016/S1574-0714(06)02017-3
       \endverb
+    \endentry
+    \entry{ratha2011}{article}{}{}
+      \name{author}{3}{}{%
+        {{un=0,uniquepart=base,hash=3262f805999bc18c55c7fd9d34964cec}{%
+           family={Ratha},
+           familyi={R\bibinitperiod},
+           given={Dilip},
+           giveni={D\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=3f1164cf256a2f76c44c2201f5fabbc2}{%
+           family={Mohapatra},
+           familyi={M\bibinitperiod},
+           given={Sanket},
+           giveni={S\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=486a8f9f26d79b977aa21b42d2c1dd4b}{%
+           family={Silwal},
+           familyi={S\bibinitperiod},
+           given={Ani},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{location}{1}{%
+        {Washington D.C.}%
+      }
+      \strng{namehash}{df6828e19778cdd9d5aaed9b81bfc7c5}
+      \strng{fullhash}{9ca4dd09723e7b98357af56eb5c029c4}
+      \strng{fullhashraw}{9ca4dd09723e7b98357af56eb5c029c4}
+      \strng{bibnamehash}{9ca4dd09723e7b98357af56eb5c029c4}
+      \strng{authorbibnamehash}{9ca4dd09723e7b98357af56eb5c029c4}
+      \strng{authornamehash}{df6828e19778cdd9d5aaed9b81bfc7c5}
+      \strng{authorfullhash}{9ca4dd09723e7b98357af56eb5c029c4}
+      \strng{authorfullhashraw}{9ca4dd09723e7b98357af56eb5c029c4}
+      \field{sortinit}{R}
+      \field{sortinithash}{5e1c39a9d46ffb6bebd8f801023a9486}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{World Bank}
+      \field{title}{The migration and remittances factbook 2011}
+      \field{year}{2011}
     \endentry
     \entry{roelen2008}{article}{}{}
       \name{author}{2}{}{%
@@ -3916,6 +3998,45 @@
       \verb 10.1086/261341
       \endverb
     \endentry
+    \entry{maimbo2005}{book}{}{}
+      \name{editor}{2}{}{%
+        {{un=0,uniquepart=base,hash=76d48b16ca2b66d29cb63c1967411e98}{%
+           family={Maimbo},
+           familyi={M\bibinitperiod},
+           given={Samuel\bibnamedelima Munzele},
+           giveni={S\bibinitperiod\bibinitdelim M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=3262f805999bc18c55c7fd9d34964cec}{%
+           family={Ratha},
+           familyi={R\bibinitperiod},
+           given={Dilip},
+           giveni={D\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{location}{1}{%
+        {Washington, D.C.}%
+      }
+      \list{publisher}{1}{%
+        {The World Bank}%
+      }
+      \strng{namehash}{62e26b59eb911a4b02098f5391dbe25d}
+      \strng{fullhash}{62e26b59eb911a4b02098f5391dbe25d}
+      \strng{fullhashraw}{62e26b59eb911a4b02098f5391dbe25d}
+      \strng{bibnamehash}{62e26b59eb911a4b02098f5391dbe25d}
+      \strng{editorbibnamehash}{62e26b59eb911a4b02098f5391dbe25d}
+      \strng{editornamehash}{62e26b59eb911a4b02098f5391dbe25d}
+      \strng{editorfullhash}{62e26b59eb911a4b02098f5391dbe25d}
+      \strng{editorfullhashraw}{62e26b59eb911a4b02098f5391dbe25d}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{editor}
+      \field{labeltitlesource}{title}
+      \field{title}{Remittances: Development impact and future prospects}
+      \field{year}{2005}
+    \endentry
     \entry{mansuri2006}{article}{}{}
       \name{author}{1}{}{%
         {{un=0,uniquepart=base,hash=6511cf3483e5ef65127c7da6f595a96d}{%
@@ -4227,6 +4348,49 @@
       \verb{doi}
       \verb 10.1016/S1574-0714(06)02017-3
       \endverb
+    \endentry
+    \entry{ratha2011}{article}{}{}
+      \name{author}{3}{}{%
+        {{un=0,uniquepart=base,hash=3262f805999bc18c55c7fd9d34964cec}{%
+           family={Ratha},
+           familyi={R\bibinitperiod},
+           given={Dilip},
+           giveni={D\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=3f1164cf256a2f76c44c2201f5fabbc2}{%
+           family={Mohapatra},
+           familyi={M\bibinitperiod},
+           given={Sanket},
+           giveni={S\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=486a8f9f26d79b977aa21b42d2c1dd4b}{%
+           family={Silwal},
+           familyi={S\bibinitperiod},
+           given={Ani},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{location}{1}{%
+        {Washington D.C.}%
+      }
+      \strng{namehash}{df6828e19778cdd9d5aaed9b81bfc7c5}
+      \strng{fullhash}{9ca4dd09723e7b98357af56eb5c029c4}
+      \strng{fullhashraw}{9ca4dd09723e7b98357af56eb5c029c4}
+      \strng{bibnamehash}{9ca4dd09723e7b98357af56eb5c029c4}
+      \strng{authorbibnamehash}{9ca4dd09723e7b98357af56eb5c029c4}
+      \strng{authornamehash}{df6828e19778cdd9d5aaed9b81bfc7c5}
+      \strng{authorfullhash}{9ca4dd09723e7b98357af56eb5c029c4}
+      \strng{authorfullhashraw}{9ca4dd09723e7b98357af56eb5c029c4}
+      \field{sortinit}{R}
+      \field{sortinithash}{5e1c39a9d46ffb6bebd8f801023a9486}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{World Bank}
+      \field{title}{The migration and remittances factbook 2011}
+      \field{year}{2011}
     \endentry
     \entry{roelen2008}{article}{}{}
       \name{author}{2}{}{%
