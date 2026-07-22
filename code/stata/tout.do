@@ -1009,7 +1009,7 @@ set dp comma
 twoway ///
     (kdensity pscore if D == 0, lcolor(gs9) lwidth(medthick)) ///
     (kdensity pscore if D == 1, lcolor(orange) lwidth(medthick)), ///
-    legend(order(1 "Jamais beneficiaires" 2 "Entrants (D=0 vers 1)")) ///
+    legend(order(1 "Jamais bénéficiaires" 2 "Entrants (D=0 vers 1)")) ///
     xtitle("Score de propension") ytitle("Densité") ///
     saving("$OUTPUT/overlap_panel.gph", replace)
 set dp period
@@ -1452,14 +1452,14 @@ restore
 preserve
     replace chef_f = chef_f * 100
     replace urbain = urbain * 100
-    label define statutD 0 "Non-beneficiaires" 1 "Beneficiaires", replace
+    label define statutD 0 "Non-bénéficiaires" 1 "Bénéficiaires", replace
     label values D statutD
     set dp comma
     graph bar (mean) chef_f urbain, over(D) ///
         bar(1, color(gs9)) bar(2, color(orange)) ///
         blabel(bar, position(center) color(white) format(%4,1f)) ///
-        legend(order(1 "Chef feminin (%)" 2 "Milieu urbain (%)") pos(6) rows(1)) ///
-        ytitle("Part des menages (%)") ylabel(0(20)100, grid) ///
+        legend(order(1 "Chef féminin (%)" 2 "Milieu urbain (%)") pos(6) rows(1)) ///
+        ytitle("Part des ménages (%)") ylabel(0(20)100, grid) ///
         graphregion(color(white)) plotregion(color(white))
     set dp period
     graph export "$OUTPUT/figures/fig_profil_statut.pdf", replace
@@ -2187,7 +2187,7 @@ tempfile xwalk_reg
 save `xwalk_reg'
 
 local dims    assai eau logem nutri sante protect educ
-local dimnoms `" "Assainissement" "Eau" "Logement" "Nutrition" "Sante" "Protection" "Education" "'
+local dimnoms `" "Assainissement" "Eau" "Logement" "Nutrition" "Santé" "Protection" "Éducation" "'
 local i = 0
 foreach d of local dims {
     local ++i
