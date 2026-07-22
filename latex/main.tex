@@ -166,10 +166,14 @@
 }
 
 % ── Listes & énumérations ───────────────────────────────────
-% Puces rondes au lieu du tiret long par défaut de babel-french
+% Puces rondes a tous les niveaux au lieu du tiret long de babel-french.
+% Fixe via enumitem (applique a la creation de la liste, donc prioritaire
+% sur le reglage de babel).
 \AtBeginDocument{\renewcommand{\labelitemi}{\textbullet}}
 \usepackage{enumitem}
-\setlist[itemize]{noitemsep, topsep=4pt}
+\setlist[itemize]{noitemsep, topsep=4pt, label=\textbullet}
+\setlist[itemize,2]{label=$\circ$}
+\setlist[itemize,3]{label=$\cdot$}
 \setlist[enumerate]{noitemsep, topsep=4pt}
 
 % ── Saut de page avant chaque \section ─────────────────────
