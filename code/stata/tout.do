@@ -1012,6 +1012,7 @@ twoway ///
     legend(order(1 "Jamais bénéficiaires" 2 "Entrants (D=0 vers 1)") ///
            pos(6) rows(1) region(color(white))) ///
     xtitle("Score de propension") ytitle("Densité") ///
+    xlabel(0(0.1)0.5, format(%3.1f)) ///
     graphregion(color(white)) plotregion(color(white)) ///
     saving("$OUTPUT/overlap_panel.gph", replace)
 set dp period
