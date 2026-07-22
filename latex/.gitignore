@@ -19,3 +19,7 @@ texput.log
 !main.bbl
 *.bcf
 !main.bcf
+# Le PDF est regenere en local (compile.bat) : non versionne pour eviter
+# les conflits binaires a chaque pull.
+*.pdf
+!figures/*.pdf
