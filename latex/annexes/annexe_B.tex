@@ -1,4 +1,4 @@
-\section{Code de mise en \oe{}uvre de l'estimateur par appariement et double différence}
+\section{Code de mise en \oe{}uvre de l'estimateur}
 \label{ann:B}
 
 Cette annexe présente les principales routines Stata utilisées pour l'estimation
@@ -37,7 +37,7 @@ probit D c.hhsize c.log_pcexp i.milieu i.region ///
 predict pscore, pr
 \end{verbatim}
 
-\subsection{Appariement par les plus proches voisins et équilibre}
+\subsection{Appariement et équilibre des covariables}
 
 \begin{verbatim}
 /* Appariement k plus proches voisins (k=4, avec remise) */
