@@ -94,19 +94,22 @@
 % ── Bordure de page ENSAE (double filet cyan) ────────────────
 \usepackage{tikz}
 \usetikzlibrary{positioning,shadows.blur,calc}
-\usepackage[pages=all]{background}
-\backgroundsetup{
-  scale=1, angle=0, opacity=1, color=black,
-  contents={%
-    \begin{tikzpicture}[remember picture, overlay]
+% Bordure de page (double filet cyan) dessinee au coin de la feuille via
+% eso-pic, SANS remember picture : robuste quel que soit le moteur
+% (pdflatex/xelatex) et le nombre de passes. L'ancien mecanisme
+% (background + current page) se decalait sous XeLaTeX.
+\usepackage{eso-pic}
+\AddToShipoutPictureBG{%
+  \put(0,0){%
+    \begin{tikzpicture}
       \draw[ensaecyan, line width=3.5pt]
-        ([xshift=10pt,  yshift=-10pt] current page.north west)
+        ([shift={( 10pt, 10pt)}]0,0)
         rectangle
-        ([xshift=-10pt, yshift= 10pt] current page.south east);
+        ([shift={(-10pt,-10pt)}]\paperwidth,\paperheight);
       \draw[ensaecyan, line width=0.8pt]
-        ([xshift=15pt,  yshift=-15pt] current page.north west)
+        ([shift={( 15pt, 15pt)}]0,0)
         rectangle
-        ([xshift=-15pt, yshift= 15pt] current page.south east);
+        ([shift={(-15pt,-15pt)}]\paperwidth,\paperheight);
     \end{tikzpicture}%
   }%
 }
