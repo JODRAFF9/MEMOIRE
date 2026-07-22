@@ -1,8 +1,9 @@
 @echo off
 REM ============================================================
 REM  compile.bat — Compilation complete du memoire (Windows)
+REM  Moteur : XeLaTeX (police systeme Times New Roman via fontspec).
 REM  Sequence obligatoire pour la bibliographie (biblatex+biber) :
-REM    pdflatex -> biber -> pdflatex -> pdflatex
+REM    xelatex -> biber -> xelatex -> xelatex
 REM  Double-cliquer sur ce fichier depuis le dossier latex\
 REM ============================================================
 cd /d "%~dp0"
@@ -13,8 +14,8 @@ if errorlevel 1 (
     echo    Python indisponible ^(pandas/matplotlib^) : figures versionnees conservees.
 )
 
-echo [1/4] pdflatex (premiere passe)...
-pdflatex -interaction=nonstopmode main.tex >nul
+echo [1/4] xelatex (premiere passe)...
+xelatex -interaction=nonstopmode main.tex >nul
 
 echo [2/4] biber (bibliographie)...
 biber main
@@ -27,11 +28,11 @@ if errorlevel 1 (
     exit /b 1
 )
 
-echo [3/4] pdflatex (references croisees)...
-pdflatex -interaction=nonstopmode main.tex >nul
+echo [3/4] xelatex (references croisees)...
+xelatex -interaction=nonstopmode main.tex >nul
 
-echo [4/4] pdflatex (passe finale)...
-pdflatex -interaction=nonstopmode main.tex >nul
+echo [4/4] xelatex (passe finale)...
+xelatex -interaction=nonstopmode main.tex >nul
 
 echo.
 echo Termine : main.pdf genere avec la bibliographie.
