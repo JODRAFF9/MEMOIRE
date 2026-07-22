@@ -618,15 +618,20 @@ foreach annee in 2018 2021 {
     gen byte m_toilet     = inlist(`v_type_toi', 7, 8, 9, 10, 11, 12) ///
         if !missing(`v_type_toi')
     /* Le partage des sanitaires n'est demande que si le menage dispose
-       d'une installation propre : verifie empiriquement, la question est
-       sautee a 100% quand le type de sanitaire (v_type_toi) est "Aucune
-       toilette" (code 11) ou "Toilettes publiques" (code 10). Dans ces
-       deux cas, la question ne s'applique pas (pas de sanitaire prive a
-       "partager"), et m_toilet suffit deja a etablir la privation. */
+       d'une installation propre : la question est sautee a 100% quand le
+       type de sanitaire (v_type_toi) est "Aucune toilette" (code 11) ou
+       "Toilettes publiques" (code 10). Denominateur ANSD : ces menages,
+       sans installation privee a partager, sont EXCLUS de l'indicateur
+       (m_partag_toi manquant) plutot que comptes comme "ne partage pas".
+       Ils restent captes comme prives par m_toilet. */
     gen byte m_partag_toi = (`v_partag' == 1) if !missing(`v_partag')
-    replace  m_partag_toi = 0 if missing(m_partag_toi) & inlist(`v_type_toi', 10, 11)
-    gen byte dim_assai    = (m_toilet == 1 | m_partag_toi == 1) ///
-        if !missing(m_toilet) & !missing(m_partag_toi)
+    /* Dimension : privee si type non ameliore OU partage. m_toilet==1
+       court-circuite le partage manquant des menages sans installation
+       privee, ce qui evite de les perdre du N-MODA (analyse en cas
+       complets). */
+    gen byte dim_assai = .
+    replace  dim_assai = 1            if m_toilet == 1
+    replace  dim_assai = m_partag_toi if m_toilet == 0
 
     /* ── [Dimension 2/7 : Eau] ─────────────────────────────────────
        Indicateur 1 - Source d'eau de boisson non amelioree
