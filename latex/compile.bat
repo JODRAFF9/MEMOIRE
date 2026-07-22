@@ -8,6 +8,10 @@ REM  Double-cliquer sur ce fichier depuis le dossier latex\
 REM ============================================================
 cd /d "%~dp0"
 
+REM Nettoyage des fichiers auxiliaires (evite les residus \IeC issus d'un
+REM ancien compilateur pdflatex, incompatibles avec XeLaTeX).
+del /q main.aux main.toc main.stoc main.out main.lof main.lot 2>nul
+
 echo [0/4] figures fig_privind (Python, mise en page ANSD ponderee)...
 python "..\code\python\gen_fig_privind.py" 2>nul || python3 "..\code\python\gen_fig_privind.py" 2>nul
 if errorlevel 1 (
