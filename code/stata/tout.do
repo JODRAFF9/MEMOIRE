@@ -1977,7 +1977,8 @@ preserve
         ylab(`ylab_str', angle(0) noticks labsize(small)) ///
         yscale(range(0.5 14.5)) ///
         xtitle("Incidence N-MODA H (%)") ytitle("") ///
-        xlabel(0(10)100, grid) ///
+        xlabel(0(10)100) ///
+        xline(0, lcolor(gs8) lwidth(thin)) ///
         xline(`xl_2018', lcolor(gs9) lpattern(dash) lwidth(medthin)) ///
         xline(`xl_2021', lcolor(orange) lpattern(dash) lwidth(medthin)) ///
         graphregion(color(white)) plotregion(color(white))
@@ -2336,7 +2337,8 @@ preserve
         ylab(`ylab_str', angle(0) noticks labsize(small)) ///
         yscale(range(0.5 4.5)) ysize(3.2) xsize(6.8) ///
         xtitle("Part des enfants 0-17 ans (%)") ytitle("") ///
-        xlabel(0(20)100, grid) ///
+        xlabel(0(20)100) ///
+        xline(0, lcolor(gs8) lwidth(thin)) ///
         legend(off) ///
         graphregion(color(white)) plotregion(color(white))
     set dp period
