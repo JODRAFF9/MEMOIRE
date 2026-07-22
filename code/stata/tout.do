@@ -654,35 +654,21 @@ foreach annee in 2018 2021 {
        Indicateur 1 - Source d'eau de boisson non amelioree
        Indicateur 2 - Temps d'acces a l'eau > 30 min (saison seche OU pluies) */
     /* Definition ANSD : source non amelioree (codes 5, 6, 12, 13, 16, 17)
-       aux DEUX saisons ET eau non traitee de maniere adequate. Traitement
-       adequat = bouillir, javel/chlore, filtre, desinfection solaire
-       (options 1, 2, 4, 5 de la methode `v_treat' ; 2018 s11q33, 2021
-       s11q32). Un menage a source non amelioree mais traitant son eau n'est
-       donc PAS prive. */
-    capture confirm variable `v_treat'__1
-    if _rc == 0 gen byte trait_adeq = (`v_treat'__1 == 1 | `v_treat'__2 == 1 | ///
-                                       `v_treat'__4 == 1 | `v_treat'__5 == 1)
-    else        gen byte trait_adeq = 0
-    /* Verification croisee avec les methodes INADEQUATES (linge __3,
-       laisser reposer __6, autre __7) : un menage traitant uniquement de
-       facon inadequate doit rester classe NON traite adequatement
-       (trait_adeq==0), donc prive s'il a une source non amelioree. */
+       en saison des pluies OU en saison seche, ET traitement NON adequat de
+       l'eau. Suivant le rapport ANSD, "traitement non adequat" est verifie
+       directement sur les methodes inadequates : filtrer a travers un linge
+       (`v_treat'__3), laisser reposer (`v_treat'__6), autre (`v_treat'__7).
+       On regarde si l'une de ces variables vaut 1 (trait_inad). 2018 s11q33,
+       2021 s11q32. */
     capture confirm variable `v_treat'__3
-    if _rc == 0 {
-        gen byte trait_inad = (`v_treat'__3 == 1 | `v_treat'__6 == 1 | `v_treat'__7 == 1)
-        count if trait_adeq == 1
-        local n_adeq = r(N)
-        count if trait_adeq == 0 & trait_inad == 1
-        local n_inad = r(N)
-        di as text ">>> [verif traitement eau `annee'] adequat (1,2,4,5) : `n_adeq'" ///
-            " ; inadequat seul (3,6,7) classe non traite : `n_inad'"
-        drop trait_inad
-    }
+    if _rc == 0 gen byte trait_inad = (`v_treat'__3 == 1 | `v_treat'__6 == 1 | ///
+                                       `v_treat'__7 == 1)
+    else        gen byte trait_inad = 0
     gen byte src_ss = inlist(`v_src_ss', 5, 6, 12, 13, 16, 17)
     gen byte src_sp = inlist(`v_src_sp', 5, 6, 12, 13, 16, 17)
-    gen byte m_eau_source = (src_ss == 1 & src_sp == 1 & trait_adeq == 0) ///
+    gen byte m_eau_source = ((src_ss == 1 | src_sp == 1) & trait_inad == 1) ///
         if !missing(`v_src_ss') & !missing(`v_src_sp')
-    drop src_ss src_sp trait_adeq
+    drop src_ss src_sp trait_inad
     /* Le temps d'acces (s11q29a/28a, s11q31a/30a) n'est demande que si le
        menage doit se deplacer pour s'approvisionner : le saut de question
        (verifie empiriquement, >94% de non-reponse) s'applique quand la
