@@ -100,8 +100,8 @@
 % (background + current page) se decalait sous XeLaTeX.
 \usepackage{eso-pic}
 \AddToShipoutPictureBG{%
-  \put(0,0){%
-    \begin{tikzpicture}
+  \AtPageLowerLeft{%
+    \begin{tikzpicture}[overlay]
       \draw[ensaecyan, line width=3.5pt]
         ([shift={( 10pt, 10pt)}]0,0)
         rectangle
