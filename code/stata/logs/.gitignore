@@ -3,3 +3,6 @@
 *.smcl
 # On garde ce fichier pour préserver le dossier logs/ dans le dépôt
 !.gitignore
+# On VERSIONNE le log principal : il est poussé à chaque run, ce qui permet
+# de relire toute la sortie Stata (ATT, tests, etc.) après un push.
+!tout.log

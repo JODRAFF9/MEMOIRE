@@ -2590,3 +2590,7 @@ capture copy "$OUTPUT/overlap_panel.pdf" "Presentation/figures/overlap.pdf", rep
 
 di _newline ">>> FIN DU PIPELINE COMPLET <<<"
 
+/* Ferme le log pour que code/stata/logs/tout.log soit complet et libere
+   (il est versionne : pousse-le pour que toute la sortie soit relisible). */
+capture log close _all
+
