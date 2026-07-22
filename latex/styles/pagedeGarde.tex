@@ -29,18 +29,23 @@
   {\scriptsize\bfseries Comité national - Initiative pour la transparence dans les industries extractives (CN-ITIE)\par}
 \end{minipage}\\[0.35cm]
 
-% ── Séparateur décoratif TikZ ────────────────────────────────
+% ── Séparateur décoratif TikZ (filet dégradé + losange central) ──
 \begin{tikzpicture}
-  \draw[ensaecyan, line width=1pt] (0,0) -- (0.42\textwidth,0);
-  \fill[ensaeblue]  (0.45\textwidth,0) circle (2.1pt);
-  \fill[ensaecyan] (0.45\textwidth,0) circle (1.1pt);
-  \draw[ensaecyan, line width=1pt] (0.48\textwidth,0) -- (0.9\textwidth,0);
+  \shade[left color=ensaecyan!0, right color=ensaecyan]
+    (0,-0.4pt) rectangle (0.42\textwidth,0.4pt);
+  \node[draw=ensaeblue, fill=white, line width=0.8pt, rotate=45,
+        inner sep=0pt, minimum size=5pt] at (0.45\textwidth,0) {};
+  \fill[ensaeorange] (0.45\textwidth,0) circle (1.1pt);
+  \shade[left color=ensaecyan, right color=ensaecyan!0]
+    (0.48\textwidth,-0.4pt) rectangle (0.9\textwidth,0.4pt);
 \end{tikzpicture}\\[0.2cm]
 
-% ── Badge « Mémoire de fin de formation » (TikZ) ─────────────
+% ── Badge « Mémoire de fin de formation » (TikZ, ombre douce) ─
 \begin{tikzpicture}
   \node[fill=ensaeblue, rounded corners=4pt, inner xsep=18pt, inner ysep=7pt,
-        text=white, font=\normalsize\bfseries]
+        text=white, font=\normalsize\bfseries,
+        blur shadow={shadow blur steps=5, shadow xshift=0.8pt,
+                     shadow yshift=-1.5pt, shadow opacity=35}]
     {Mémoire de fin de formation};
 \end{tikzpicture}\\[0.25cm]
 
@@ -84,8 +89,12 @@
 
 % ── Date (pastille TikZ) ─────────────────────────────────────
 \begin{tikzpicture}
-  \draw[ensaecyan, line width=1pt] (-0.45\textwidth,0.7) -- (0.45\textwidth,0.7);
-  \node[fill=ensaecyan!20, rounded corners=4pt, inner xsep=16pt, inner ysep=6pt,
+  \shade[left color=ensaecyan!0, right color=ensaecyan]
+    (-0.45\textwidth,0.7-0.4pt) rectangle (-0.02\textwidth,0.7+0.4pt);
+  \shade[left color=ensaecyan, right color=ensaecyan!0]
+    (0.02\textwidth,0.7-0.4pt) rectangle (0.45\textwidth,0.7+0.4pt);
+  \node[draw=ensaecyan, line width=0.9pt, fill=ensaecyan!12,
+        rounded corners=4pt, inner xsep=16pt, inner ysep=6pt,
         text=ensaeblue, font=\bfseries\normalsize] {Août 2026};
 \end{tikzpicture}
 

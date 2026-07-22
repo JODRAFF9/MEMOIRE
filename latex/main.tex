@@ -131,6 +131,11 @@
 \usepackage{mathtools}
 \usepackage{bm}
 
+% Source d'une figure placee en note de bas de page (au lieu d'une
+% ligne sous la figure). A utiliser via \protect\footnotemark dans le
+% \caption, suivi de \srcfoot apres \end{figure}.
+\newcommand{\srcfoot}{\footnotetext{\textit{Source :} Calcul de l'auteur, EHCVM.}}
+
 % ── Figures & tableaux ──────────────────────────────────────
 \usepackage{graphicx}
 \usepackage{float}
