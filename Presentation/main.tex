@@ -11,17 +11,17 @@
 \usetheme{Antibes}
 \useoutertheme{tree}
 
-% -- Palette ENSAE (identique au rapport) -------------------
-\definecolor{ensaeblue}{RGB}{31,78,121}     % bleu fonce ENSAE
-\definecolor{ensaecyan}{RGB}{0,174,239}     % cyan ENSAE
-\definecolor{ensaeorange}{RGB}{224,123,57}  % orange (accents)
-% Remappage des anciens noms vers la charte ENSAE : tout le diaporama
-% adopte ainsi les memes couleurs que le rapport.
-\colorlet{marron}{ensaeblue}
-\colorlet{marronmed}{ensaeblue!80}
-\colorlet{dore}{ensaeorange}
-\colorlet{dorepale}{ensaecyan!12}
-\colorlet{mybronze}{ensaeblue}
+% -- Palette vert / or (sans bleu) --------------------------
+\definecolor{presvert}{RGB}{27,94,60}    % vert fonce (couleur principale)
+\definecolor{presvertc}{RGB}{72,160,110} % vert clair
+\definecolor{presor}{RGB}{201,148,42}    % or / dore (accents)
+% Remappage des anciens noms vers la palette verte : tout le diaporama
+% adopte ainsi une charte verte et doree, sans bleu.
+\colorlet{marron}{presvert}
+\colorlet{marronmed}{presvert!80}
+\colorlet{dore}{presor}
+\colorlet{dorepale}{presvertc!12}
+\colorlet{mybronze}{presvert}
 
 \setbeamercolor{structure}{fg=mybronze}
 \setbeamercolor{palette primary}{bg=black, fg=white}
@@ -51,15 +51,15 @@
 \makeatletter
 \setbeamertemplate{title page}{%
   \begin{tikzpicture}[remember picture,overlay]
-    \fill[ensaeblue!6] (current page.south west) rectangle (current page.north east);
+    \fill[presvert!6] (current page.south west) rectangle (current page.north east);
     % bandeau superieur bleu ENSAE
-    \fill[ensaeblue] (current page.north west) rectangle ([yshift=-0.95cm]current page.north east);
+    \fill[presvert] (current page.north west) rectangle ([yshift=-0.95cm]current page.north east);
     \node[anchor=west,text=white,font=\scriptsize\bfseries]
       at ([xshift=0.55cm,yshift=-0.48cm]current page.north west) {Présentation du mémoire};
     \node[anchor=east,text=white,font=\scriptsize\bfseries]
       at ([xshift=-0.55cm,yshift=-0.48cm]current page.north east) {ENSAE Pierre Ndiaye};
     % cadre interieur cyan arrondi
-    \draw[ensaecyan,line width=1pt,rounded corners=12pt]
+    \draw[presvertc,line width=1pt,rounded corners=12pt]
       ([xshift=0.65cm,yshift=-1.22cm]current page.north west)
       rectangle ([xshift=-0.65cm,yshift=0.5cm]current page.south east);
   \end{tikzpicture}%
@@ -68,47 +68,39 @@
     \vspace{0.48cm}
     {\footnotesize\scshape République du Sénégal}\\[1pt]
     {\tiny Un Peuple - Un But - Une Foi}\\[5pt]
-    % -- rangee des quatre structures : logo + nom --
-    \begin{minipage}[b]{0.21\paperwidth}\centering
-      \includegraphics[height=1.05cm]{figures/armoiries_senegal.png}\\[2pt]
-      {\tiny\color{ensaeblue}République du Sénégal}
-    \end{minipage}\hfill
-    \begin{minipage}[b]{0.21\paperwidth}\centering
-      \includegraphics[height=0.95cm]{figures/logo_ansd.jpg}\\[2pt]
-      {\tiny\color{ensaeblue}ANSD}
-    \end{minipage}\hfill
-    \begin{minipage}[b]{0.21\paperwidth}\centering
-      \includegraphics[height=0.90cm]{figures/logo_ensae_new.png}\\[2pt]
-      {\tiny\color{ensaeblue}ENSAE Pierre Ndiaye}
-    \end{minipage}\hfill
-    \begin{minipage}[b]{0.21\paperwidth}\centering
-      \includegraphics[height=0.95cm]{figures/logo_itie.png}\\[2pt]
-      {\tiny\color{ensaeblue}CN-ITIE}
+    % -- structures d'accueil : ENSAE et CN-ITIE --
+    \begin{minipage}[b]{0.30\paperwidth}\centering
+      \includegraphics[height=1.15cm]{figures/logo_ensae_new.png}\\[3pt]
+      {\scriptsize\color{presvert}ENSAE Pierre Ndiaye}
+    \end{minipage}\hspace{0.10\paperwidth}%
+    \begin{minipage}[b]{0.30\paperwidth}\centering
+      \includegraphics[height=1.20cm]{figures/logo_itie.png}\\[3pt]
+      {\scriptsize\color{presvert}CN-ITIE}
     \end{minipage}\par
     \vspace{0.26cm}
     % -- encadre titre (bleu ENSAE, lisere cyan) --
     \begin{tikzpicture}
-      \node[fill=ensaeblue,draw=ensaecyan,line width=0.8pt,rounded corners=8pt,
+      \node[fill=presvert,draw=presvertc,line width=0.8pt,rounded corners=8pt,
             inner xsep=14pt,inner ysep=8pt,text width=0.80\paperwidth,align=center,
             text=white,font=\large\bfseries] {\inserttitle};
     \end{tikzpicture}\par
     \vspace{0.22cm}
     % -- auteur / encadreur --
     \begin{minipage}[t]{0.43\paperwidth}\centering
-      {\scriptsize\color{ensaeblue}\bfseries Présenté par :}\\[2pt]
+      {\scriptsize\color{presvert}\bfseries Présenté par :}\\[2pt]
       {\small Sié Rachid \textsc{Traoré}}\\[1pt]
       {\scriptsize\itshape Élève ingénieur statisticien économiste}
     \end{minipage}\hfill
     \begin{minipage}[t]{0.43\paperwidth}\centering
-      {\scriptsize\color{ensaeblue}\bfseries Sous la direction de :}\\[2pt]
+      {\scriptsize\color{presvert}\bfseries Sous la direction de :}\\[2pt]
       {\small Mamadou Abdoulaye \textsc{Diallo}}\\[1pt]
       {\scriptsize\itshape Chercheur postdoctoral en économie appliquée, ISE}
     \end{minipage}\par
     \vspace{0.22cm}
     % -- date (pastille) --
     \begin{tikzpicture}
-      \node[draw=ensaecyan,fill=ensaecyan!15,rounded corners=4pt,
-            inner xsep=12pt,inner ysep=4pt,text=ensaeblue,font=\small\bfseries]
+      \node[draw=presvertc,fill=presvertc!15,rounded corners=4pt,
+            inner xsep=12pt,inner ysep=4pt,text=presvert,font=\small\bfseries]
         {\insertdate};
     \end{tikzpicture}
   \end{center}%
