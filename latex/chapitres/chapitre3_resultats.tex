@@ -26,7 +26,7 @@ région de résidence.
 
 \begin{table}[H]
   \centering
-  \caption{Modèle probit pour l'estimation du score de propension (EHCVM I, 2018-2019)}
+  \caption[Modèle probit pour l'estimation du score de propension (EHCVM I, 2018-2019)]{Modèle probit pour l'estimation du score de propension (EHCVM I, 2018-2019)\protect\footnotemark}
   \label{tab:probit}
   \zebre
   \begin{tabular}{|l|c|c|}
@@ -54,13 +54,8 @@ région de résidence.
     Observations (ménages, panel vrai $t=0$)   & \multicolumn{2}{|c|}{$4\,424$} \\
     \hline
   \end{tabular}
-  \begin{tablenotes}
-    \small
-    \item \textit{Source :} Calcul de l'auteur, EHCVM.
-    $^{*}p<0{,}10$, $^{**}p<0{,}05$, $^{***}p<0{,}01$~; écarts-types
-    clusterisés par grappe entre parenthèses.
-  \end{tablenotes}
 \end{table}
+\footnotetext{\textit{Source :} Calcul de l'auteur, EHCVM. $^{*}p<0{,}10$, $^{**}p<0{,}05$, $^{***}p<0{,}01$~; écarts-types clusterisés par grappe entre parenthèses.}
 
 Le modèle présente un pseudo-$R^2$ de McFadden de 4,2\,\%, nettement plus
 faible que celui obtenu avec la définition alternative du traitement
@@ -114,7 +109,7 @@ significative au seuil de 5\,\%.
 
 \begin{table}[H]
   \centering
-  \caption{Diagnostic post-appariement de l'équilibrage des covariables (méthode k-NN, niveau ménage)}
+  \caption[Diagnostic post-appariement de l'équilibrage des covariables (méthode k-NN, niveau ménage)]{Diagnostic post-appariement de l'équilibrage des covariables (méthode k-NN, niveau ménage)\protect\footnotemark}
   \label{tab:balance}
   \zebre
   \small
@@ -131,13 +126,8 @@ significative au seuil de 5\,\%.
     \hline
   \end{tabular}%
   }
-  \begin{tablenotes}
-    \small
-    \item \textit{Note :} niveau ménage, $n = 4\,424$~; seuil
-    conventionnel~: SMD $< 10\,\%$.
-    \item \textit{Source :} Calcul de l'auteur, EHCVM.
-  \end{tablenotes}
 \end{table}
+\footnotetext{\textit{Note :} niveau ménage, $n = 4\,424$~; seuil conventionnel~: SMD $< 10\,\%$. \textit{Source :} Calcul de l'auteur, EHCVM.}
 
 \subsection{Impact des transferts sur la pauvreté multidimensionnelle}
 
@@ -155,7 +145,7 @@ pour confirmer le résultat sur des groupes rendus comparables.
 
 \begin{table}[H]
   \centering
-  \caption{Estimations par double différence (DD brute, sans appariement)}
+  \caption[Estimations par double différence (DD brute, sans appariement)]{Estimations par double différence (DD brute, sans appariement)\protect\footnotemark}
   \label{tab:dd_brut}
   \zebre
   \begin{tabular}{|l|c|c|c|}
@@ -165,13 +155,8 @@ pour confirmer le résultat sur des groupes rendus comparables.
     Pauvreté N-MODA ($\hat{H}_{\text{MODA}}$) & $0{,}001$ & $(0{,}022)$ & 0,976 \\
     \hline
   \end{tabular}
-  \begin{tablenotes}
-    \small
-    \item \textit{Note :} erreurs-types clusterisées par grappe~; $\delta$ de
-    $Y_{it} = \alpha + \beta t + \gamma D + \delta(t \times D) + \varepsilon_{it}$.
-    \item \textit{Source :} Calcul de l'auteur, EHCVM.
-  \end{tablenotes}
 \end{table}
+\footnotetext{\textit{Note :} erreurs-types clusterisées par grappe~; $\delta$ de $Y_{it} = \alpha + \beta t + \gamma D + \delta(t \times D) + \varepsilon_{it}$. \textit{Source :} Calcul de l'auteur, EHCVM.}
 
 \subsubsection{Estimateur par appariement et double différence}
 \label{subsec:psmdd}
@@ -183,7 +168,7 @@ sélection sur observables et les effets fixes inobservables constants dans le t
 
 \begin{table}[H]
   \centering
-  \caption{Impact des transferts sur la pauvreté multidimensionnelle : estimateur PSM-DD (ATT)}
+  \caption[Impact des transferts sur la pauvreté multidimensionnelle : estimateur PSM-DD (ATT)]{Impact des transferts sur la pauvreté multidimensionnelle : estimateur PSM-DD (ATT)\protect\footnotemark}
   \label{tab:psmdd_att}
   \zebre
   \begin{tabular}{|l|c|c|c|}
@@ -194,13 +179,8 @@ sélection sur observables et les effets fixes inobservables constants dans le t
     \quad Incidence $\hat{H}_{\text{MODA}}$         & $0{,}010$ & $(0{,}026)$ & 0,707 \\
     \hline
   \end{tabular}
-  \begin{tablenotes}
-    \small
-    \item \textit{Note :} appariement k-NN au niveau ménage, erreurs-types
-    clusterisées par grappe, $n = 25\,028$.
-    \item \textit{Source :} Calcul de l'auteur, EHCVM.
-  \end{tablenotes}
 \end{table}
+\footnotetext{\textit{Note :} appariement k-NN au niveau ménage, erreurs-types clusterisées par grappe, $n = 25\,028$. \textit{Source :} Calcul de l'auteur, EHCVM.}
 
 L'estimateur PSM-DD donne un ATT de $0{,}010$ ($p = 0{,}707$) sur la pauvreté
 N-MODA~: après appariement, aucune divergence de trajectoire n'est
@@ -247,7 +227,7 @@ au choix algorithmique.
 
 \begin{table}[H]
   \centering
-  \caption{Sensibilité de l'ATT PSM-DD au choix de la méthode d'appariement}
+  \caption[Sensibilité de l'ATT PSM-DD au choix de la méthode d'appariement]{Sensibilité de l'ATT PSM-DD au choix de la méthode d'appariement\protect\footnotemark}
   \label{tab:psm_methodes}
   \zebre
   \begin{tabular}{|l|c|c|}
@@ -260,12 +240,8 @@ au choix algorithmique.
     DD brute (sans appariement)           & $0{,}001$  & 0,976 \\
     \hline
   \end{tabular}
-  \begin{tablenotes}
-    \small
-    \item \textit{Note :} erreurs-types clusterisées par grappe.
-    \item \textit{Source :} Calcul de l'auteur, EHCVM.
-  \end{tablenotes}
 \end{table}
+\footnotetext{\textit{Note :} erreurs-types clusterisées par grappe. \textit{Source :} Calcul de l'auteur, EHCVM.}
 
 \subsubsection{Effets par dimension}
 
