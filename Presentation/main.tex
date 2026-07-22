@@ -1,9 +1,9 @@
-\pdfminorversion=6
+\ifdefined\pdfminorversion\pdfminorversion=6\fi % ignore sous XeLaTeX
 % ============================================================
 %  main.tex - Présentation ENSAE
 %  Impact des transferts de migrants sur la pauvreté
 %  multidimensionnelle des enfants au Sénégal
-%  Compilable avec : pdflatex main.tex  (deux passes)
+%  Compilable avec : xelatex main.tex  (deux passes)
 % ============================================================
 \documentclass[10pt,aspectratio=169]{beamer}
 
@@ -135,8 +135,9 @@
 \setbeamertemplate{itemize subitem}{\color{dore}$\triangleright$}
 
 % -- Packages -----------------------------------------------
-\usepackage[T1]{fontenc}
-\usepackage[utf8]{inputenc}
+% Compilation avec XeLaTeX : fontspec gere l'Unicode nativement
+% (ne pas charger inputenc/fontenc, incompatibles avec XeLaTeX).
+\usepackage{fontspec}
 \usepackage[french]{babel}
 \usepackage{amsmath,amssymb,amsfonts}
 \usepackage{booktabs}
