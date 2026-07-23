@@ -566,25 +566,26 @@ foreach annee in 2018 2021 {
        ordre que 2018 (exactement 26 lignes par grappe) ; l'identifiant est
        donc le rang de la ligne au sein de la grappe. s02q02 = mode d'acces
        principal (1=Pieds).
-       PRIVATION : parmi les structures de sante de la grappe (5 ou 6), la
-       grappe est privee (m_sante_acces=1) des qu'il EXISTE au moins une ligne
-       dont le mode d'acces est renseigne et different de "a pied"
-       (s02q02 dans 2..9). Les non-reponses (s02q02 manquant) ne comptent pas
-       comme "pas a pied". */
+       PRIVATION (contraposee de "peut acceder a pied a une structure") :
+       l'enfant PEUT acceder a pied a une structure (P) s'il EXISTE une ligne
+       sante (5 ou 6) avec s02q02==1. La definition ANSD est la negation ¬P :
+       l'enfant est prive (m_sante_acces=1) si AUCUNE structure de sante 5/6
+       n'est accessible a pied (s02q02==1), y compris une grappe ou aucune
+       structure n'est recensee. */
     preserve
         use "`base'/s02_co_sen`annee'.dta", clear
         gen long _ord = _n
         if `annee' == 2018 gen int svc_id = s02q00
         else               bysort grappe (_ord): gen int svc_id = _n
         keep if inlist(svc_id, 5, 6)
-        gen byte notfoot = (s02q02 != 1 & !missing(s02q02))
-        collapse (max) sante_notfoot = notfoot, by(grappe)
+        gen byte acc = (s02q02 == 1)
+        collapse (max) sante_acc_foot = acc, by(grappe)
         tempfile s02_temp
         save `s02_temp'
     restore
-    merge m:1 grappe using `s02_temp', keepusing(sante_notfoot) ///
+    merge m:1 grappe using `s02_temp', keepusing(sante_acc_foot) ///
         nogenerate keep(master match)
-    gen byte m_sante_acces = (sante_notfoot == 1)
+    gen byte m_sante_acces = (sante_acc_foot != 1)
 
     /* A5. Securite alimentaire (s08a_me), variables brutes (traitement Non-retenu en calcul) */
     preserve
