@@ -558,34 +558,43 @@ foreach annee in 2018 2021 {
     merge m:1 grappe menage using `s11_temp', nogenerate keep(master match)
 
     /* A4bis. Module communautaire (s02_co) : acces a pied a une structure
-       de sante. Definition ANSD (litterale) : enfant vivant dans une localite
-       d'ou il/elle ne peut acceder A PIED a une structure de sante, celle-ci
-       etant l'hopital (service 5) OU un autre centre de sante public
-       (service 6). 2018 : l'identifiant du service est dans s02q00. 2021 :
-       s02q00 est absent, mais le fichier liste les 26 services dans le meme
-       ordre que 2018 (exactement 26 lignes par grappe) ; l'identifiant est
-       donc le rang de la ligne au sein de la grappe. s02q02 = mode d'acces
-       principal (1=Pieds).
-       PRIVATION (contraposee de "peut acceder a pied a une structure") :
-       l'enfant PEUT acceder a pied a une structure (P) s'il EXISTE une ligne
-       sante (5 ou 6) avec s02q02==1. La definition ANSD est la negation ¬P :
-       l'enfant est prive (m_sante_acces=1) si AUCUNE structure de sante 5/6
-       n'est accessible a pied (s02q02==1), y compris une grappe ou aucune
-       structure n'est recensee. */
+       de sante (hopital, service 5 ; autre centre de sante public, service 6).
+       Structure du questionnaire : a la question 2.01 "Ce service existe-t-il
+       dans la localite ?", une reponse OUI saute directement a 2.04, SANS
+       poser le mode d'acces 2.02. Le mode (2.02, 1=Pieds) n'est donc renseigne
+       que pour les services ABSENTS localement (on decrit alors le trajet vers
+       le plus proche). Il faut par consequent lire l'acces a pied ainsi :
+       l'enfant PEUT acceder a pied a une structure de sante (P) si celle-ci
+       EXISTE dans sa localite (2.01=OUI, donc sur place) OU si, absente
+       localement, elle se rejoint a pied (s02q02==1). La definition ANSD est
+       la negation : prive (m_sante_acces=1) si AUCUNE structure 5/6 n'existe
+       sur place ni ne se rejoint a pied. 2018 : identifiant du service dans
+       s02q00, existence locale dans s02q01__k (k=service). 2021 : s02q00
+       absent (26 services listes dans le meme ordre, 26 lignes/grappe ->
+       identifiant = rang de la ligne), existence locale dans s02q01 (1=Oui). */
     preserve
         use "`base'/s02_co_sen`annee'.dta", clear
         gen long _ord = _n
-        if `annee' == 2018 gen int svc_id = s02q00
-        else               bysort grappe (_ord): gen int svc_id = _n
+        if `annee' == 2018 {
+            gen int svc_id = s02q00
+            gen byte exloc = .
+            replace exloc = (s02q01__5 == 1) if svc_id == 5
+            replace exloc = (s02q01__6 == 1) if svc_id == 6
+        }
+        else {
+            bysort grappe (_ord): gen int svc_id = _n
+            gen byte exloc = (s02q01 == 1)
+        }
         keep if inlist(svc_id, 5, 6)
-        gen byte acc = (s02q02 == 1)
-        collapse (max) sante_acc_foot = acc, by(grappe)
+        /* Acces a pied a cette structure : existe sur place OU rejointe a pied */
+        gen byte pfoot = (exloc == 1) | (s02q02 == 1)
+        collapse (max) sante_pfoot = pfoot, by(grappe)
         tempfile s02_temp
         save `s02_temp'
     restore
-    merge m:1 grappe using `s02_temp', keepusing(sante_acc_foot) ///
+    merge m:1 grappe using `s02_temp', keepusing(sante_pfoot) ///
         nogenerate keep(master match)
-    gen byte m_sante_acces = (sante_acc_foot != 1)
+    gen byte m_sante_acces = (sante_pfoot != 1)
 
     /* A5. Securite alimentaire (s08a_me), variables brutes (traitement Non-retenu en calcul) */
     preserve
