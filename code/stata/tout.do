@@ -843,6 +843,15 @@ foreach annee in 2018 2021 {
     }
     tabstat pauvre_MODA nb_dep, by(groupe_moda) stat(mean n) format(%6.3f)
 
+    /* Privation par dimension ET par tranche d'age, ponderee (hhweight),
+       pour comparaison directe avec le rapport ANSD "Pauvrete de l'enfant
+       au Senegal" (taux par dimension et groupe d'age 0-4/5-14/15-17). */
+    di _newline "  === Privation par dimension x tranche d'age (%, pondere hhweight) ==="
+    foreach dim in assai eau logem nutri sante protect educ {
+        di _newline "  -- dim_`dim' --"
+        tabstat dim_`dim' [aw=hhweight], by(groupe_moda) stat(mean n) format(%7.4f)
+    }
+
     /* C. Sauvegarde */
     save "$TEMP/enfants_dep_`annee'.dta", replace
     di _newline ">>> Sauvegarde : enfants_dep_`annee'.dta (" _N " obs)"
