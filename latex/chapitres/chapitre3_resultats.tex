@@ -140,7 +140,7 @@ significative au seuil de 5\,\%.
 À titre de référence, nous estimons d'abord un estimateur de double différence
 sans appariement (tableau~\ref{tab:dd_brut}). L'impact
 estimé est nul et loin de la significativité pour le N-MODA
-($0{,}1$ pp, $p = 0{,}976$)~: la pauvreté multidimensionnelle des enfants a
+(-$0{,}6$ pp, $p = 0{,}790$)~: la pauvreté multidimensionnelle des enfants a
 reculé au même rythme chez les entrants et chez les jamais bénéficiaires.
 Cette comparaison brute reste toutefois exposée aux différences initiales
 entre les deux groupes (les futurs entrants sont un peu plus aisés et
@@ -156,7 +156,7 @@ pour confirmer le résultat sur des groupes rendus comparables.
     \hline
 \entete Variable de résultat & ATT$_{\text{DD}}$ & Éc.-t. (cluster) & $p$-valeur \\
     \hline
-    Pauvreté N-MODA ($\hat{H}_{\text{MODA}}$) & $0{,}001$ & $(0{,}022)$ & 0,976 \\
+    Pauvreté N-MODA ($\hat{H}_{\text{MODA}}$) & -$0{,}006$ & $(0{,}022)$ & 0,790 \\
     \hline
   \end{tabular}
 
@@ -182,7 +182,7 @@ sélection sur observables et les effets fixes inobservables constants dans le t
 \entete Variable de résultat & ATT & Éc.-t. (cluster) & $p$-valeur \\
     \hline
     \multicolumn{4}{|c|}{\textit{Approche N-MODA (7 dimensions, $k=4$)}} \\ \hline
-    \quad Incidence $\hat{H}_{\text{MODA}}$         & $0{,}010$ & $(0{,}026)$ & 0,707 \\
+    \quad Incidence $\hat{H}_{\text{MODA}}$         & $0{,}008$ & $(0{,}026)$ & 0,772 \\
     \hline
   \end{tabular}
 
@@ -190,7 +190,7 @@ sélection sur observables et les effets fixes inobservables constants dans le t
 \end{table}
 \footnotetext{\textit{Note :} appariement k-NN au niveau ménage, erreurs-types clusterisées par grappe, $n = 25\,028$.}
 
-L'estimateur PSM-DD donne un ATT de $0{,}010$ ($p = 0{,}707$) sur la pauvreté
+L'estimateur PSM-DD donne un ATT de $0{,}008$ ($p = 0{,}772$) sur la pauvreté
 N-MODA~: après appariement, aucune divergence de trajectoire n'est
 détectable entre les enfants des ménages entrants et ceux des témoins
 comparables. La pauvreté multidimensionnelle recule dans les deux groupes
@@ -227,10 +227,10 @@ graphique de l'ATT proche de zéro.
 
 Le tableau~\ref{tab:psm_methodes} examine la stabilité des résultats selon
 la méthode d'appariement retenue. Les quatre spécifications concordent~:
-l'ATT reste compris entre $0{,}001$ et $0{,}010$ et loin de la
-significativité, du k-NN ($p = 0{,}707$) au noyau Epanechnikov
-($p = 0{,}822$), au caliper ($p = 0{,}744$) et à la double différence brute
-($p = 0{,}976$). L'absence d'effet détectable est donc robuste
+l'ATT reste compris entre -$0{,}006$ et $0{,}008$ et loin de la
+significativité, du k-NN ($p = 0{,}772$) au noyau Epanechnikov
+($p = 0{,}806$), au caliper ($p = 0{,}821$) et à la double différence brute
+($p = 0{,}790$). L'absence d'effet détectable est donc robuste
 au choix algorithmique.
 
 \begin{table}[H]
@@ -242,10 +242,10 @@ au choix algorithmique.
     \hline
 \entete Méthode d'appariement & ATT (N-MODA) & $p$-val. \\
     \hline
-    k-NN ($k=4$, avec remise)             & $0{,}010$ & 0,707 \\ \hline
-    Noyau Epanechnikov ($h=0{,}06$)       & $0{,}005$ & 0,822 \\ \hline
-    Caliper ($\varepsilon = 0{,}05$, sans remise) & $0{,}010$ & 0,744 \\ \hline
-    DD brute (sans appariement)           & $0{,}001$  & 0,976 \\
+    k-NN ($k=4$, avec remise)             & $0{,}008$ & 0,772 \\ \hline
+    Noyau Epanechnikov ($h=0{,}06$)       & -$0{,}006$ & 0,806 \\ \hline
+    Caliper ($\varepsilon = 0{,}05$, sans remise) & $0{,}007$ & 0,821 \\ \hline
+    DD brute (sans appariement)           & -$0{,}006$  & 0,790 \\
     \hline
   \end{tabular}
 
@@ -275,13 +275,13 @@ l'hypothèse d'un investissement prioritaire et rapide des transferts dans
 la scolarisation \parencite{cox2003,bucheli2018} - l'un des rares usages
 explicitement fléchés dans les motifs déclarés (chapitre~3). De l'autre,
 la dimension protection de l'enfant se dégrade relativement
-(ATT $= 0{,}029$, $p = 0{,}032$)~: cette dimension inclut mécaniquement le
+(ATT $= 0{,}029$, $p = 0{,}031$)~: cette dimension inclut mécaniquement le
 fait de ne pas vivre avec ses deux parents biologiques, consubstantiel au
 départ en migration qui précède l'entrée dans le statut de bénéficiaire,
 et rejoint les coûts psychosociaux de l'absence parentale documentés par
 la littérature \parencite{cortes2007,davis2016}. Les effets sur les cinq
-autres dimensions (assainissement~: $1{,}7$ pp~; santé~: $2{,}0$ pp~;
-eau~: -$1{,}6$ pp~; nutrition~: -$1{,}2$ pp~; logement~: -$0{,}6$ pp) ne
+autres dimensions (assainissement~: $1{,}4$ pp~; santé~: $2{,}0$ pp~;
+eau~: -$3{,}0$ pp~; nutrition~: -$1{,}2$ pp~; logement~: -$0{,}6$ pp) ne
 sont pas statistiquement significatifs au seuil de 10\,\%. Cette
 décomposition donne un contenu concret au mécanisme de compensation entre
 canaux avancé pour interpréter le résultat nul agrégé~: le bénéfice
