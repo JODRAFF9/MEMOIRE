@@ -557,6 +557,30 @@ foreach annee in 2018 2021 {
     restore
     merge m:1 grappe menage using `s11_temp', nogenerate keep(master match)
 
+    /* A4bis. Module communautaire (s02_co) : acces a pied a une structure
+       de sante. Definition ANSD : enfant vivant dans une localite d'ou il
+       ne peut acceder A PIED a une structure de sante (hopital public/prive
+       OU autre centre de sante public). 2018 : l'identifiant du service est
+       dans s02q00 (5=hopital, 6=autre centre de sante). 2021 : s02q00 est
+       absent, mais le fichier liste les 26 services dans le meme ordre que
+       2018 (exactement 26 lignes par grappe) ; l'identifiant est donc le
+       rang de la ligne au sein de la grappe. s02q02 = mode d'acces principal
+       (1=Pieds). Une grappe dispose d'une structure de sante accessible a
+       pied des qu'au moins une ligne "sante" a s02q02==1. */
+    preserve
+        use "`base'/s02_co_sen`annee'.dta", clear
+        gen long _ord = _n
+        if `annee' == 2018 gen int svc_id = s02q00
+        else               bysort grappe (_ord): gen int svc_id = _n
+        keep if inlist(svc_id, 5, 6)
+        gen byte acc = (s02q02 == 1)
+        collapse (max) sante_acc_foot = acc, by(grappe)
+        tempfile s02_temp
+        save `s02_temp'
+    restore
+    merge m:1 grappe using `s02_temp', keepusing(sante_acc_foot) ///
+        nogenerate keep(master match)
+
     /* A5. Securite alimentaire (s08a_me), variables brutes (traitement Non-retenu en calcul) */
     preserve
         use "`base'/s08a_me_sen`annee'.dta", clear
@@ -752,12 +776,17 @@ foreach annee in 2018 2021 {
     gen byte dim_nutri = (m_securite == 1)
 
     /* ── [Dimension 5/7 : Sante] ────────────────────────────────────
-       Indicateur unique - Combustible solide pour cuisiner (bois,
-       charbon, dechets animaux). Acces a une structure de sante NON
-       RETENU (module communautaire non comparable entre les vagues).
-       Analyse en cas complets : manquant des qu'UNE SEULE des options
-       de combustible manque, meme si une autre etablit deja la
-       privation. */
+       Indicateur 1 - Combustible solide pour cuisiner (bois, charbon,
+       dechets animaux).
+       Indicateur 2 - Absence d'acces a pied a une structure de sante
+       (m_sante_acces, construite en A4bis a partir du module
+       communautaire s02_co, disponible dans LES DEUX vagues).
+       Dimension privee si combustible solide OU pas d'acces sante a pied.
+       Analyse en cas complets : m_sante_acces n'est jamais manquant (0/1
+       au niveau de la grappe) ; la dimension n'est donc manquante que si
+       le combustible manque ET que l'acces sante n'etablit pas deja la
+       privation. m_combust manquant des qu'UNE SEULE des options de
+       combustible manque. */
     gen byte m_combust = 0
     foreach v of varlist `comb_vars' {
         replace m_combust = 1 if `v' >= 1 & !missing(`v')
@@ -765,7 +794,9 @@ foreach annee in 2018 2021 {
     egen byte n_miss_comb = rowmiss(`comb_vars')
     replace m_combust = . if n_miss_comb > 0
     drop n_miss_comb
-    gen byte dim_sante = (m_combust == 1)
+    gen byte dim_sante = .
+    replace  dim_sante = 1         if m_sante_acces == 1
+    replace  dim_sante = m_combust if m_sante_acces == 0
 
     /* ── [Dimension 6/7 : Protection de l'enfant] ────────────────────
        Indicateur 1 - Absence d'acte de naissance (non pertinent > 14 ans)
