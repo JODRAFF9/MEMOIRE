@@ -66,14 +66,14 @@ save `trav'
 use "$B18/s11_me_sen2018.dta", clear
 
 /* -- Source d'eau non amelioree (codes 5,6,12,13,16,17) en saison des
-      pluies OU seche, ET traitement inadequat (filtrer au linge s11q33__3,
-      laisser reposer __6, autre __7). Denominateur = menages ayant repondu
-      (oui/non) au filtre de traitement s11q32 (1=oui, 2=non, 3=ne sait pas).
-      Cible 12,0/10,7/8,5 ; reproduit ~9,6/9,8/8,7 -- */
+      pluies OU seche, ET eau non traitee de maniere adequate = (A) ne traite
+      pas du tout (s11q32==2) OU (B) traite avec methode inadequate (linge
+      s11q33__3, reposer __6, autre __7). Denominateur PLEIN (type de source
+      renseigne). Cible 12,0/10,7/8,5 ; reproduit ~20,7/19,2/16,1 -- */
 gen byte src_ss = inlist(s11q27a,5,6,12,13,16,17)
 gen byte src_sp = inlist(s11q27b,5,6,12,13,16,17)
 gen byte trait_inad = (s11q33__3==1 | s11q33__6==1 | s11q33__7==1)
-gen byte m_eau_source = ((src_ss==1 | src_sp==1) & trait_inad==1) if inlist(s11q32,1,2)
+gen byte m_eau_source = ((src_ss==1 | src_sp==1) & (s11q32==2 | trait_inad==1))
 
 /* -- Temps pour chercher l'eau > 30 min (aller + attente a la
       source), l'une ou l'autre saison.  Cible 17,7/16,4/13,9 ;
