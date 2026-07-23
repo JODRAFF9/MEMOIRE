@@ -596,17 +596,20 @@ foreach annee in 2018 2021 {
     restore
     merge m:1 grappe menage using `s08a_temp', nogenerate keep(master match)
 
-    /* A6. Acte de naissance (s01_me), cle individuelle */
+    /* A6. Acte de naissance + presence des parents biologiques (s01_me),
+       cle individuelle. s01q22 = "Le pere de [NOM] habite-t-il dans le
+       menage ?" ; s01q29 = "La mere de [NOM] habite-t-elle dans le menage ?"
+       (1=Oui, 2=Non, memes codes 2018/2021). */
     preserve
         use "`base'/s01_me_sen`annee'.dta", clear
         if `annee' == 2018 rename s01q00a numind
         else               rename membres__id numind
-        keep grappe menage numind s01q05
+        keep grappe menage numind s01q05 s01q22 s01q29
         tempfile s01_temp
         save `s01_temp'
     restore
     merge m:1 grappe menage numind using `s01_temp', ///
-        keepusing(s01q05) nogenerate keep(master match)
+        keepusing(s01q05 s01q22 s01q29) nogenerate keep(master match)
 
     /* A7. Travail des enfants (s04_me / s04a_me), heures de travail
        economique et domestique. 2018 : cle s01q00a. 2021 : s04a_me en
@@ -825,7 +828,17 @@ foreach annee in 2018 2021 {
         if age >= 5 & age <= 14 & nrep > 0 & !missing(nrep)
     replace  m_trav_enf = 0 if age < 5 | age > 14
 
-    gen byte m_parents = (lien > 3) if !missing(lien)
+    /* Separation parentale : enfant ne vivant pas avec ses DEUX parents
+       biologiques, identifie directement par les questions du roster
+       (s01q22 pere dans le menage, s01q29 mere dans le menage ; 1=Oui, 2=Non).
+       Prive (m_parents=1) des qu'au moins un parent ne vit pas dans le menage ;
+       non prive (0) seulement si pere ET mere y vivent. Manquant si l'une des
+       deux reponses manque (analyse en cas complets). Remplace l'ancien proxy
+       fonde sur le lien au chef de menage (lien > 3), qui classait mal les
+       enfants du chef dont un parent est absent. */
+    gen byte m_parents = .
+    replace  m_parents = 1 if s01q22 == 2 | s01q29 == 2
+    replace  m_parents = 0 if s01q22 == 1 & s01q29 == 1
 
     /* dim_protect manquante des qu'UN SEUL indicateur pertinent pour le
        groupe d'age de l'enfant lui manque (analyse en cas complets). */
