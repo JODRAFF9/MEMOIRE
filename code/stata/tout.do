@@ -558,29 +558,33 @@ foreach annee in 2018 2021 {
     merge m:1 grappe menage using `s11_temp', nogenerate keep(master match)
 
     /* A4bis. Module communautaire (s02_co) : acces a pied a une structure
-       de sante. Definition ANSD : enfant vivant dans une localite d'ou il
-       ne peut acceder A PIED a une structure de sante. Une structure de sante
-       regroupe les services 5 (hopital public/prive), 6 (autre centre de
-       sante public), 7 (cabinet medical/clinique privee) et 8 (pharmacie ou
-       depot de medicaments). 2018 : l'identifiant du service est dans s02q00.
-       2021 : s02q00 est absent, mais le fichier liste les 26 services dans le
-       meme ordre que 2018 (exactement 26 lignes par grappe) ; l'identifiant
-       est donc le rang de la ligne au sein de la grappe. s02q02 = mode d'acces
-       principal (1=Pieds). Une grappe dispose d'une structure de sante
-       accessible a pied des qu'au moins une de ces lignes a s02q02==1. */
+       de sante. Une structure de sante regroupe les services 5 (hopital
+       public/prive), 6 (autre centre de sante public), 7 (cabinet medical/
+       clinique privee) et 8 (pharmacie ou depot de medicaments). 2018 :
+       l'identifiant du service est dans s02q00. 2021 : s02q00 est absent, mais
+       le fichier liste les 26 services dans le meme ordre que 2018 (exactement
+       26 lignes par grappe) ; l'identifiant est donc le rang de la ligne au
+       sein de la grappe. s02q02 = mode d'acces principal (1=Pieds).
+       PRIVATION : la grappe est privee (m_sante_acces=1) des qu'il EXISTE au
+       moins une ligne de structure de sante dont le mode d'acces est renseigne
+       et different de "a pied" (s02q02 dans 2..9). Les non-reponses (s02q02
+       manquant) ne comptent pas comme "pas a pied". Une grappe sans aucune
+       ligne sante renseignee non-pietonne n'est pas privee au titre de cet
+       indicateur. */
     preserve
         use "`base'/s02_co_sen`annee'.dta", clear
         gen long _ord = _n
         if `annee' == 2018 gen int svc_id = s02q00
         else               bysort grappe (_ord): gen int svc_id = _n
         keep if inlist(svc_id, 5, 6, 7, 8)
-        gen byte acc = (s02q02 == 1)
-        collapse (max) sante_acc_foot = acc, by(grappe)
+        gen byte notfoot = (s02q02 != 1 & !missing(s02q02))
+        collapse (max) sante_notfoot = notfoot, by(grappe)
         tempfile s02_temp
         save `s02_temp'
     restore
-    merge m:1 grappe using `s02_temp', keepusing(sante_acc_foot) ///
+    merge m:1 grappe using `s02_temp', keepusing(sante_notfoot) ///
         nogenerate keep(master match)
+    gen byte m_sante_acces = (sante_notfoot == 1)
 
     /* A5. Securite alimentaire (s08a_me), variables brutes (traitement Non-retenu en calcul) */
     preserve
