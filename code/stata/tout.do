@@ -1194,7 +1194,57 @@ foreach outcome in pauvre_MODA {
     global ATT_REEL = r(estimate)   /* reutilise par le test placebo */
 }
 
+/* ── PSM seul (transversal, sans double difference) ─────────────
+   Decompose le PSM-DD en ses deux composantes transversales : l'ecart
+   de niveau apparie a t=0 (avant traitement) et a t=1 (apres), ponderes
+   par les poids d'appariement k-NN. Par construction,
+   ATT_PSM-DD = ecart(t=1) - ecart(t=0). Alimente le tableau "PSM seul
+   vs PSM-DD" de l'annexe A. */
+di _newline "=== PSM seul (transversal, sans DD) — decomposition du PSM-DD ==="
+di _newline "--- PSM seul, t=0 (niveau initial apparie) ---"
+regress pauvre_MODA D [aw=weight_knn] if t == 0, vce(cluster grappe)
+di "  ATT PSM (t=0) = " %8.4f _b[D] "  SE = " %8.4f _se[D] ///
+   "  p = " %6.4f (2*ttail(e(df_r), abs(_b[D]/_se[D])))
+di _newline "--- PSM seul, t=1 (EHCVM II, sans DD) ---"
+regress pauvre_MODA D [aw=weight_knn] if t == 1, vce(cluster grappe)
+di "  ATT PSM (t=1) = " %8.4f _b[D] "  SE = " %8.4f _se[D] ///
+   "  p = " %6.4f (2*ttail(e(df_r), abs(_b[D]/_se[D])))
+di _newline "  Rappel : ATT_PSM-DD = ATT_PSM(t=1) - ATT_PSM(t=0), par construction."
+
 save "$TEMP/panel_apparie.dta", replace
+
+/* ── Robustesse : panel d'enfants (memes enfants suivis entre vagues) ──
+   Verifie que le resultat nul n'est pas un artefact de recomposition de
+   l'echantillon par age. Les enfants presents dans les deux vagues (meme
+   grappe+menage+numind, vieillissement plausible de 2 a 4 ans) sont suivis
+   individuellement ; leur statut N-MODA est recalcule a chaque vague, en
+   tenant compte de leur changement eventuel de groupe d'age (et donc de
+   dimensions applicables). Double difference sur ce panel d'enfants, design
+   entrants (D_stable). */
+preserve
+    use "$TEMP/enfants_dep_2018.dta", clear
+    keep grappe menage numind age pauvre_MODA
+    rename (age pauvre_MODA) (age18 pm18)
+    tempfile enf18
+    save `enf18'
+    use "$TEMP/enfants_dep_2021.dta", clear
+    keep grappe menage numind age pauvre_MODA
+    rename (age pauvre_MODA) (age21 pm21)
+    merge 1:1 grappe menage numind using `enf18', keep(match) nogenerate
+    keep if inrange(age21 - age18, 2, 4)   /* meme individu, vieilli de ~3 ans */
+    merge m:1 grappe menage using "$TEMP/traitement_stable.dta", ///
+        keepusing(D_stable) keep(master match) nogenerate
+    drop if missing(D_stable) | missing(pm18) | missing(pm21)
+    gen long enfid = _n
+    reshape long pm age, i(enfid) j(periode)
+    gen byte t = (periode == 21)
+    di _newline "=== Robustesse : panel d'enfants (DD, design entrants) ==="
+    di "  Enfants suivis apparies entre vagues : " %9.0f `=_N/2'
+    regress pm i.t##i.D_stable, vce(cluster grappe)
+    lincom 1.t#1.D_stable
+    di "  ATT panel d'enfants = " %8.4f r(estimate) ///
+       "  SE = " %8.4f r(se) "  p = " %6.4f r(p)
+restore
 
 /* ── Fig DD : trajectoires beneficiaires vs temoins + contrefactuel ──
    Illustre visuellement la double difference et permet d'apprecier
