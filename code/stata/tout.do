@@ -506,6 +506,7 @@ foreach annee in 2018 2021 {
         local v_treat  "s11q33"
         local v_gate   "s11q32"   /* filtre traitement de l'eau : 1=oui, 2=non,
                                      3=ne sait pas. Denominateur = repondants (1/2) */
+        local v_ordure "s11q54"   /* mode de debarras des ordures menageres */
     }
     else {
         local v_partag "s11q55"
@@ -523,6 +524,7 @@ foreach annee in 2018 2021 {
                                      (s11q31 = traite/non ; s11q32 = methode) */
         local v_gate   "s11q31"   /* filtre traitement de l'eau : 1=oui, 2=non,
                                      3=ne sait pas. Denominateur = repondants (1/2) */
+        local v_ordure "s11q53"   /* mode de debarras des ordures menageres */
     }
     /* Annexe I : combustible solide = bois ramasse(1), bois achete(2),
        charbon de bois(3), dechets animaux(7), autres(8). Exclut gaz(4),
@@ -543,11 +545,11 @@ foreach annee in 2018 2021 {
         use "`base'/s11_me_sen`annee'.dta", clear
         local v_opt "`v_treat'* `v_tps_ss_h' `v_tps_ss_m' `v_tps_sp_h' `v_tps_sp_m'"
         capture keep grappe menage s11q02 `v_partag' `v_type_toi' `v_tps_ss' `v_tps_sp' ///
-            `v_src_ss' `v_src_sp' `v_gate' `comb_vars' `v_opt'
+            `v_src_ss' `v_src_sp' `v_gate' `v_ordure' `comb_vars' `v_opt'
         if _rc {
             di as error ">>> ATTENTION : variables eau optionnelles (traitement `v_treat'__* et/ou temps a la source `v_tps_ss_h'...) introuvables pour `annee' : verifier les noms."
             keep grappe menage s11q02 `v_partag' `v_type_toi' `v_tps_ss' `v_tps_sp' ///
-                `v_src_ss' `v_src_sp' `v_gate' `comb_vars'
+                `v_src_ss' `v_src_sp' `v_gate' `v_ordure' `comb_vars'
         }
         rename s11q02 nb_pieces
         tempfile s11_temp
@@ -721,7 +723,12 @@ foreach annee in 2018 2021 {
     /* ── [Dimension 3/7 : Logement] ────────────────────────────────
        Indicateur 1 - Debarras des ordures menageres inadequat
        Indicateur 2 - Surpeuplement (> 3 personnes par piece) */
-    gen byte m_ordures = (ordure == 0) if !missing(ordure)
+    /* Debarras des ordures inadequat (definition ANSD, codes bruts de
+       v_ordure : s11q54 en 2018, s11q53 en 2021) : 3 brulees par le menage,
+       5 depotoir sauvage, 6 autre. La variable pre-codee "ordure" du fichier
+       menage donnait ~1 point de plus ; les codes bruts reproduisent l'ANSD
+       exactement (59,3 / 58,2 / 53,0 en 2018). */
+    gen byte m_ordures = inlist(`v_ordure', 3, 5, 6) if !missing(`v_ordure')
     gen byte m_surpeup = (hhsize / nb_pieces > 3) ///
         if !missing(nb_pieces) & nb_pieces > 0 & !missing(hhsize)
     gen byte dim_logem = (m_ordures == 1 | m_surpeup == 1) ///
