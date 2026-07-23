@@ -36,10 +36,10 @@ artefact de la structure d'âge de l'échantillon.
 
 Le tableau~\ref{tab:psm_methodes} (section~\ref{subsec:psmdd}) documente la
 sensibilité de l'ATT à la méthode d'appariement. Les quatre spécifications
-concordent sur l'absence d'effet détectable~: k-NN ($0{,}010$,
-$p=0{,}707$), noyau Epanechnikov ($0{,}005$, $p=0{,}822$), caliper
-($0{,}010$, $p=0{,}744$) et double différence brute ($0{,}001$,
-$p=0{,}976$). La conclusion est donc robuste au choix
+concordent sur l'absence d'effet détectable~: k-NN ($0{,}008$,
+$p=0{,}772$), noyau Epanechnikov (-$0{,}006$, $p=0{,}806$), caliper
+($0{,}007$, $p=0{,}821$) et double différence brute (-$0{,}006$,
+$p=0{,}790$). La conclusion est donc robuste au choix
 algorithmique.
 
 \subsubsection{Attrition et biais de sélection}
@@ -78,18 +78,18 @@ Le tableau~\ref{tab:heterogeneite} rapporte les ATT PSM-DD pour chaque sous-grou
 \entete Sous-groupe & ATT (N-MODA) & $p$-val. \\
     \hline
     \multicolumn{3}{|c|}{\textit{Par milieu de résidence}} \\ \hline
-    \quad Milieu urbain & $0{,}007$  & 0,856 \\ \hline
-    \quad Milieu rural  & -$0{,}010$ & 0,780 \\ \hline
-    \quad Test d'égalité ($p$-val.) & \multicolumn{2}{|c|}{0,746} \\
+    \quad Milieu urbain & $0{,}016$  & 0,666 \\ \hline
+    \quad Milieu rural  & -$0{,}022$ & 0,541 \\ \hline
+    \quad Test d'égalité ($p$-val.) & \multicolumn{2}{|c|}{0,462} \\
     \hline
     \multicolumn{3}{|c|}{\textit{Par sexe de l'enfant}} \\ \hline
-    \quad Garçons & $0{,}025$  & 0,405 \\ \hline
-    \quad Filles  & -$0{,}005$ & 0,873 \\
+    \quad Garçons & $0{,}015$  & 0,626 \\ \hline
+    \quad Filles  & $0{,}001$ & 0,962 \\
     \hline
     \multicolumn{3}{|c|}{\textit{Par groupe d'âge}} \\ \hline
-    \quad 0-4 ans   & $0{,}017$ & 0,683 \\ \hline
-    \quad 5-14 ans  & $0{,}010$ & 0,709 \\ \hline
-    \quad 15-17 ans & $0{,}014$ & 0,733 \\
+    \quad 0-4 ans   & $0{,}016$ & 0,693 \\ \hline
+    \quad 5-14 ans  & $0{,}008$ & 0,773 \\ \hline
+    \quad 15-17 ans & $0{,}012$ & 0,775 \\
     \hline
   \end{tabular}
 
@@ -98,17 +98,17 @@ Le tableau~\ref{tab:heterogeneite} rapporte les ATT PSM-DD pour chaque sous-grou
 \footnotetext{\textit{Note :} erreurs-types clusterisées par grappe, poids d'appariement k-NN.}
 
 L'analyse par milieu ne détecte aucune dynamique différenciée~: l'ATT est
-proche de zéro et non significatif en zone urbaine ($0{,}007$,
-$p = 0{,}856$) comme en zone rurale (-$0{,}010$, $p = 0{,}780$), et le
+proche de zéro et non significatif en zone urbaine ($0{,}016$,
+$p = 0{,}666$) comme en zone rurale (-$0{,}022$, $p = 0{,}541$), et le
 test d'égalité entre milieux ne rejette pas l'homogénéité
-($p = 0{,}746$). L'absence d'effet global ne masque donc pas des
+($p = 0{,}462$). L'absence d'effet global ne masque donc pas des
 dynamiques urbaine et rurale opposées.
 
 \subsubsection{Selon le sexe de l'enfant}
 
 La décomposition par sexe ne révèle pas d'arbitrage intra-ménage
-différencié~: l'ATT est non significatif pour les garçons ($0{,}025$,
-$p = 0{,}405$) comme pour les filles (-$0{,}005$, $p = 0{,}873$), et la
+différencié~: l'ATT est non significatif pour les garçons ($0{,}015$,
+$p = 0{,}626$) comme pour les filles ($0{,}001$, $p = 0{,}962$), et la
 proximité des intervalles de confiance interdit d'y voir un écart entre
 sexes.
 
@@ -120,8 +120,8 @@ sensible aux variations de court terme des ressources du ménage et donc la
 plus susceptible de réagir à une exposition récente aux transferts
 \parencite{davis2016,fontenla2022}. Aucun groupe ne se distingue pourtant~:
 l'ATT reste proche de zéro et non significatif pour les 0-4 ans
-($0{,}017$, $p = 0{,}683$), les 5-14 ans ($0{,}010$, $p = 0{,}709$) et les
-15-17 ans ($0{,}014$, $p = 0{,}733$), ce qui conforte la lecture d'un
+($0{,}016$, $p = 0{,}693$), les 5-14 ans ($0{,}008$, $p = 0{,}773$) et les
+15-17 ans ($0{,}012$, $p = 0{,}775$), ce qui conforte la lecture d'un
 délai de matérialisation commun à tous les âges plutôt que d'un effet
 concentré sur une tranche d'âge.
 
@@ -131,7 +131,7 @@ Nos résultats ne détectent, sur la période 2018-2021, aucune divergence de
 trajectoire de pauvreté multidimensionnelle entre les enfants des ménages
 devenus bénéficiaires de transferts et ceux des ménages jamais
 bénéficiaires comparables. L'ATT PSM-DD est proche de zéro et loin de
-la significativité ($0{,}010$, $p = 0{,}707$ pour le N-MODA), en
+la significativité ($0{,}008$, $p = 0{,}772$ pour le N-MODA), en
 cohérence avec la double différence brute. Il faut d'abord écarter une
 lecture erronée~: ce résultat ne signifie pas que les transferts sont sans
 valeur pour les ménages receveurs, mais que le fait de commencer à en
@@ -154,7 +154,7 @@ dimension fournit une preuve directe (figure~\ref{fig:effets_dim})~: la
 privation éducative recule significativement chez les enfants des
 entrants (-$3{,}2$~pp, $p = 0{,}017$) tandis que la dimension protection,
 qui capte notamment la séparation d'avec les parents, se dégrade
-en sens inverse ($2{,}9$~pp, $p = 0{,}032$). Les transferts internationaux
+en sens inverse ($2{,}9$~pp, $p = 0{,}031$). Les transferts internationaux
 étant indissociables de l'émigration d'un membre du ménage, souvent un
 parent, survenue ici entre les deux vagues, l'apport monétaire investi
 dans la scolarisation est contrebalancé par les coûts psychosociaux et
