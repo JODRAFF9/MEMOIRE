@@ -26,9 +26,9 @@ entrants et témoins appariés (poids $k$-NN) est estimé séparément à $t=0$
     \hline
 \entete Spécification & Coefficient & Écart-type & $p$-val. \\
     \hline
-    PSM seul, $t=0$ (écart initial)  & -$0{,}021$ & $0{,}023$ & $0{,}371$ \\ \hline
-    PSM seul, $t=1$ (écart final)    & -$0{,}032$ & $0{,}027$ & $0{,}242$ \\ \hline
-    PSM-DD (référence, tableau~\ref{tab:psmdd_att}) & -$0{,}011$ & $0{,}025$ & $0{,}668$ \\
+    PSM seul, $t=0$ (écart initial)  & -$0{,}021$ & $0{,}023$ & $0{,}376$ \\ \hline
+    PSM seul, $t=1$ (écart final)    & -$0{,}031$ & $0{,}027$ & $0{,}257$ \\ \hline
+    PSM-DD (référence, tableau~\ref{tab:psmdd_att}) & -$0{,}010$ & $0{,}025$ & $0{,}684$ \\
     \hline
   \end{tabular}
 
@@ -37,13 +37,13 @@ entrants et témoins appariés (poids $k$-NN) est estimé séparément à $t=0$
 
 À la période de base, avant le début du traitement, les futurs entrants ne
 se distinguent pas significativement des témoins appariés (écart de
-2,1~points, $p=0{,}371$)~: l'appariement sur les caractéristiques
+2,1~points, $p=0{,}376$)~: l'appariement sur les caractéristiques
 observables suffit ici à équilibrer les deux groupes, ce qui est cohérent
 avec le fait qu'aucun des deux groupes n'est encore exposé aux transferts
-en 2018. À $t=1$, l'écart reste faible et non significatif (3,2~points,
-$p=0{,}242$), et la double différence, qui retranche l'écart initial de
+en 2018. À $t=1$, l'écart reste faible et non significatif (3,1~points,
+$p=0{,}257$), et la double différence, qui retranche l'écart initial de
 l'écart final, est proche de zéro
-($-0{,}011 = -0{,}032 - (-0{,}021)$, aux arrondis près). La cohérence entre
+($-0{,}010 = -0{,}031 - (-0{,}021)$, aux arrondis près). La cohérence entre
 les lectures transversale et différenciée renforce la crédibilité du
 résultat central~: l'absence d'effet détectable ne provient pas d'un
 artefact de spécification, chaque étape de l'estimateur racontant la même
@@ -67,10 +67,10 @@ suivante.
     \hline
     ATT placebo moyen            & -$0{,}002$ \\ \hline
     Écart-type                   & $0{,}024$ \\ \hline
-    Fraction $|$ATT$|$ $>$ 0,05 & 3,5\,\% \\
+    Fraction $|$ATT$|$ $>$ 0,05 & 3,0\,\% \\
     \hline
-    ATT réel (tableau~\ref{tab:psmdd_att}) & -$0{,}011$ \\ \hline
-    Rang dans la distribution placebo      & 39\textsuperscript{e} centile \\
+    ATT réel (tableau~\ref{tab:psmdd_att}) & -$0{,}010$ \\ \hline
+    Rang dans la distribution placebo      & 40\textsuperscript{e} centile \\
     \hline
   \end{tabular}
 
@@ -87,8 +87,8 @@ suivante.
 \end{figure}
 
 La distribution placebo, centrée sur zéro (écart-type 0,024), fournit la
-référence sous absence d'effet~: l'ATT réel (-$0{,}011$) se situe au
-39\textsuperscript{e} centile, en plein c\oe ur de la distribution,
+référence sous absence d'effet~: l'ATT réel (-$0{,}010$) se situe au
+40\textsuperscript{e} centile, en plein c\oe ur de la distribution,
 c'est-à-dire qu'il est indiscernable d'une assignation aléatoire du
 traitement - lecture pleinement cohérente avec le résultat nul.
 
@@ -119,9 +119,9 @@ justifierait un autre seuil.
 \subsection{Résultats de l'appariement avec différentes méthodes}
 
 Le tableau~\ref{tab:psm_methodes} (section~\ref{subsec:psmdd}) confronte
-les méthodes d'appariement~: le k-NN ($p=0{,}668$), le noyau Epanechnikov
-($p=0{,}548$), le caliper ($p=0{,}677$) et la double différence brute
-($p=0{,}662$) concordent tous sur l'absence d'effet détectable. La
+les méthodes d'appariement~: le k-NN ($p=0{,}684$), le noyau Epanechnikov
+($p=0{,}578$), le caliper ($p=0{,}694$) et la double différence brute
+($p=0{,}666$) concordent tous sur l'absence d'effet détectable. La
 stabilité de la conclusion entre méthodes reste l'enseignement principal.
 
 \subsection{Traitement défini par les bénéficiaires stables}
@@ -131,7 +131,7 @@ en section~\ref{sec:methodo}), l'ATT est également estimé en comparant les
 ménages bénéficiaires stables ($D=1$ aux deux vagues) aux ménages jamais
 bénéficiaires, sur le même panel de ménages. Le PSM-DD appliqué à cette
 définition donne un ATT positif, quoique non
-significatif ($0{,}040$, écart-type $0{,}024$, $p=0{,}104$)~: la pauvreté
+significatif ($0{,}040$, écart-type $0{,}024$, $p=0{,}102$)~: la pauvreté
 multidimensionnelle des enfants des ménages durablement bénéficiaires
 recule moins vite que celle des enfants des témoins appariés. Ce contraste avec l'absence d'effet du design
 principal doit toutefois être interprété avec prudence~: dans le design
