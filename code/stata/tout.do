@@ -1741,6 +1741,14 @@ foreach annee in 2018 2021 {
         by(milieu) stat(mean n) format(%6.3f)
     tabstat pauvre_MODA nb_dep [aw=hhweight], ///
         by(groupe_moda) stat(mean n) format(%6.3f)
+    /* Incidence ajustee : H (part de pauvres), A (intensite moyenne parmi les
+       pauvres = nb_dep/7), M0 = H x A, ponderes par hhweight. */
+    quietly summarize pauvre_MODA [aw=hhweight]
+    local H = r(mean)
+    quietly summarize intensite_moda [aw=hhweight] if pauvre_MODA == 1
+    local A = r(mean)
+    di "  Incidence ajustee `annee' : H=" %5.1f 100*`H' "%  A=" %5.1f 100*`A' ///
+       "%  M0=" %5.3f `H'*`A'
 }
 
 /* Export tab_moda_age : H par groupe d'âge et vague */
@@ -2639,6 +2647,11 @@ foreach y in moda {
     di _newline "Placebo `y' : moyenne=" %7.4f r(mean) "  sd=" %6.4f r(sd)
     quietly count if abs(att_`y') > 0.05
     di "  fraction |ATT|>0.05 : " %4.1f 100*r(N)/`n_rep' "%"
+    /* Centile de l'ATT reel dans la distribution placebo (rang percentile) */
+    quietly count if !missing(att_`y')
+    local ntot = r(N)
+    quietly count if att_`y' < $ATT_REEL
+    di "  ATT reel (" %6.4f $ATT_REEL ") : rang = " %4.1f 100*r(N)/`ntot' "e centile"
 }
 
 /* ── Fig placebo : distribution des ATT placebo vs ATT reel ──
