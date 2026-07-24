@@ -5184,7 +5184,15 @@ Appui/ démarrage d'une entreprise non a |         33        1.19       80.29
 >         by(milieu) stat(mean n) format(%6.3f)
   5.     tabstat pauvre_MODA nb_dep [aw=hhweight], ///
 >         by(groupe_moda) stat(mean n) format(%6.3f)
-  6. }
+  6.     /* Incidence ajustee : H (part de pauvres), A (intensite moyenne parmi les
+>        pauvres = nb_dep/7), M0 = H x A, ponderes par hhweight. */
+.     quietly summarize pauvre_MODA [aw=hhweight]
+  7.     local H = r(mean)
+  8.     quietly summarize intensite_moda [aw=hhweight] if pauvre_MODA == 1
+  9.     local A = r(mean)
+ 10.     di "  Incidence ajustee `annee' : H=" %5.1f 100*`H' "%  A=" %5.1f 100*`A' ///
+>        "%  M0=" %5.3f `H'*`A'
+ 11. }
 
 -- N-MODA 2018 (pondéré hhweight) --
 
@@ -5220,6 +5228,7 @@ groupe_moda |  pauvre~A    nb_dep
       Total |     0.589     3.851
             |   3.2e+04   3.2e+04
 ---------------------------------
+  Incidence ajustee 2018 : H= 58.9%  A= 70.4%  M0=0.415
 
 -- N-MODA 2021 (pondéré hhweight) --
 
@@ -5255,6 +5264,7 @@ groupe_moda |  pauvre~A    nb_dep
       Total |     0.504     3.557
             |   2.7e+04   2.7e+04
 ---------------------------------
+  Incidence ajustee 2021 : H= 50.4%  A= 68.9%  M0=0.347
 
 . 
 . /* Export tab_moda_age : H par groupe d'âge et vague */
@@ -5581,77 +5591,114 @@ xij variables:
 
 . set dp period
 
-. graph export "$OUTPUT/figures/fig_pauvrete_milieu_age.pdf", replace
-file code/stata/output/figures/fig_pauvrete_milieu_age.pdf saved as PDF format
+. graph export "$OUTPUT/figures/fig_pauv
+> rete_milieu_age.pdf", replace
+file
+    code/stata/output/figures/fig_pauv
+    > rete_milieu_age.pdf saved as PDF
+    format
 
-. di ">>> fig_pauvrete_milieu_age.pdf sauvegardé"
->>> fig_pauvrete_milieu_age.pdf sauvegardé
+. di ">>> fig_pauvrete_milieu_age.pdf sa
+> uvegardé"
+>>> fig_pauvrete_milieu_age.pdf sauvegar
+> dé
 
 . 
-. /* ── Fig 4 : Distribution nb_dep par statut de traitement ── */
+. /* ── Fig 4 : Distribution nb_dep par 
+> statut de traitement ── */
 . use "$TEMP/vague_2018.dta", clear
 
-. merge m:1 grappe menage using "$TEMP/traitement_2018.dta", ///
->     keepusing(D) nogenerate keep(master match)
+. merge m:1 grappe menage using "$TEMP/t
+> raitement_2018.dta", ///
+>     keepusing(D) nogenerate keep(maste
+> r match)
 
-    Result                      Number of obs
-    -----------------------------------------
-    Not matched                             0
-    Matched                            33,844  
-    -----------------------------------------
+    Result                      Number o
+> f obs
+    ------------------------------------
+> -----
+    Not matched                         
+>     0
+    Matched                            3
+> 3,844  
+    ------------------------------------
+> -----
 
 . replace D = 0 if missing(D)
 (0 real changes made)
 
-. label define dl 0 "Non-bénéficiaires" 1 "Bénéficiaires", replace
+. label define dl 0 "Non-bénéficiaires" 
+> 1 "Bénéficiaires", replace
 
 . label values D dl
 
 . 
 . set dp comma
 
-. histogram nb_dep, by(D, cols(1) note("")) ///
+. histogram nb_dep, by(D, cols(1) note("
+> ")) ///
 >     fraction width(1) gap(10) ///
 >     color(gs9) lcolor(white) ///
->     xtitle("Nombre de dimensions en privation (sur 7)") ///
->     ytitle("Fraction") ylabel(, format(%4.2f) grid) ///
->     graphregion(color(white)) plotregion(color(white))
+>     xtitle("Nombre de dimensions en pr
+> ivation (sur 7)") ///
+>     ytitle("Fraction") ylabel(, format
+> (%4.2f) grid) ///
+>     graphregion(color(white)) plotregi
+> on(color(white))
 
 . set dp period
 
-. graph export "$OUTPUT/figures/fig_distrib_nbdep.pdf", replace
-file code/stata/output/figures/fig_distrib_nbdep.pdf saved as PDF format
+. graph export "$OUTPUT/figures/fig_dist
+> rib_nbdep.pdf", replace
+file
+    code/stata/output/figures/fig_dist
+    > rib_nbdep.pdf saved as PDF
+    format
 
-. di ">>> fig_distrib_nbdep.pdf sauvegardé"
+. di ">>> fig_distrib_nbdep.pdf sauvegar
+> dé"
 >>> fig_distrib_nbdep.pdf sauvegardé
 
 . 
-. /* ── Fig 5 : Distribution du nombre de dimensions en privation ──
->    Abscisse : nombre exact de dimensions en privation (0 a 7).
->    Ordonnee  : part des enfants (%), a l'image du rapport ANSD/UNICEF
->    N-MODA. Ligne verticale entre 3 et 4 marquant le seuil k=4 retenu. */
+. /* ── Fig 5 : Distribution du nombre d
+> e dimensions en privation ──
+>    Abscisse : nombre exact de dimensio
+> ns en privation (0 a 7).
+>    Ordonnee  : part des enfants (%), a
+>  l'image du rapport ANSD/UNICEF
+>    N-MODA. Ligne verticale entre 3 et 
+> 4 marquant le seuil k=4 retenu. */
 . tempname distrib
 
 . matrix `distrib' = J(8, 3, .)
 
 . foreach annee in 2018 2021 {
-  2.     use "$TEMP/vague_`annee'.dta", clear
-  3.     local col = cond(`annee' == 2018, 2, 3)
-  4.     quietly count if !missing(nb_dep)
+  2.     use "$TEMP/vague_`annee'.dta", 
+> clear
+  3.     local col = cond(`annee' == 201
+> 8, 2, 3)
+  4.     quietly count if !missing(nb_de
+> p)
   5.     local n_tot = r(N)
   6.     forvalues d = 0/7 {
-  7.         quietly count if nb_dep == `d' & !missing(nb_dep)
-  8.         matrix `distrib'[`d' + 1, 1] = `d'
-  9.         matrix `distrib'[`d' + 1, `col'] = r(N) / `n_tot' * 100
+  7.         quietly count if nb_dep == 
+> `d' & !missing(nb_dep)
+  8.         matrix `distrib'[`d' + 1, 1
+> ] = `d'
+  9.         matrix `distrib'[`d' + 1, `
+> col'] = r(N) / `n_tot' * 100
  10.     }
  11. }
 
 . clear
 
 . svmat `distrib', names(col)
-number of observations will be reset to 8
-Press any key to continue, or Break to abort
-Number of observations (_N) was 0, now 8.
+number of observations will be reset to 
+> 8
+Press any key to continue, or Break to a
+> bort
+Number of observations (_N) was 0, now
+8.
 
 . rename c1 nb_dim
 
@@ -5659,9 +5706,11 @@ Number of observations (_N) was 0, now 8.
 
 . rename c3 pct_2021
 
-. gen str8 lbl_18 = subinstr(string(pct_2018, "%3.1f"), ".", ",", 1)
+. gen str8 lbl_18 = subinstr(string(pct_
+> 2018, "%3.1f"), ".", ",", 1)
 
-. gen str8 lbl_21 = subinstr(string(pct_2021, "%3.1f"), ".", ",", 1)
+. gen str8 lbl_21 = subinstr(string(pct_
+> 2021, "%3.1f"), ".", ",", 1)
 
 . gen x_2018 = nb_dim - 0.19
 
@@ -5671,42 +5720,70 @@ Number of observations (_N) was 0, now 8.
 . set dp comma
 
 . graph twoway ///
->     (bar pct_2018 x_2018, barwidth(0.35) color(gs9)) ///
->     (bar pct_2021 x_2021, barwidth(0.35) color(orange)) ///
->     (scatter pct_2018 x_2018, msymbol(none) mlabel(lbl_18) ///
->      mlabpos(12) mlabcolor(black) mlabsize(vsmall)) ///
->     (scatter pct_2021 x_2021, msymbol(none) mlabel(lbl_21) ///
->      mlabpos(12) mlabcolor(black) mlabsize(vsmall)) ///
->     , xline(3.5, lcolor(red) lpattern(dash) lwidth(medthick)) ///
->     xlabel(0(1)7) xtitle("Nombre de dimensions en privation (sur 7)") ///
->     ylabel(0(5)30, grid) ytitle("Part des enfants (%)") ///
->     legend(order(1 "EHCVM I (2018-19)" 2 "EHCVM II (2021-22)") pos(6) rows(1)) ///
->     graphregion(color(white)) plotregion(color(white))
+>     (bar pct_2018 x_2018, barwidth(0.3
+> 5) color(gs9)) ///
+>     (bar pct_2021 x_2021, barwidth(0.3
+> 5) color(orange)) ///
+>     (scatter pct_2018 x_2018, msymbol(
+> none) mlabel(lbl_18) ///
+>      mlabpos(12) mlabcolor(black) mlab
+> size(vsmall)) ///
+>     (scatter pct_2021 x_2021, msymbol(
+> none) mlabel(lbl_21) ///
+>      mlabpos(12) mlabcolor(black) mlab
+> size(vsmall)) ///
+>     , xline(3.5, lcolor(red) lpattern(
+> dash) lwidth(medthick)) ///
+>     xlabel(0(1)7) xtitle("Nombre de di
+> mensions en privation (sur 7)") ///
+>     ylabel(0(5)30, grid) ytitle("Part 
+> des enfants (%)") ///
+>     legend(order(1 "EHCVM I (2018-19)"
+>  2 "EHCVM II (2021-22)") pos(6) rows(1
+> )) ///
+>     graphregion(color(white)) plotregi
+> on(color(white))
 
 . set dp period
 
-. graph export "$OUTPUT/figures/fig_distrib_dimensions.pdf", replace
-file code/stata/output/figures/fig_distrib_dimensions.pdf saved as PDF format
+. graph export "$OUTPUT/figures/fig_dist
+> rib_dimensions.pdf", replace
+file
+    code/stata/output/figures/fig_dist
+    > rib_dimensions.pdf saved as PDF
+    format
 
-. di ">>> fig_distrib_dimensions.pdf sauvegardé"
->>> fig_distrib_dimensions.pdf sauvegardé
+. di ">>> fig_distrib_dimensions.pdf sau
+> vegardé"
+>>> fig_distrib_dimensions.pdf sauvegard
+> é
 
 . 
-. di _newline ">>> 06_stats_desc.do terminé."
+. di _newline ">>> 06_stats_desc.do term
+> iné."
 
 >>> 06_stats_desc.do terminé.
 
-. di ">>> Sorties dans : $OUTPUT/tables/ et $OUTPUT/figures/"
->>> Sorties dans : code/stata/output/tables/ et code/stata/output/figures/
+. di ">>> Sorties dans : $OUTPUT/tables/
+>  et $OUTPUT/figures/"
+>>> Sorties dans : code/stata/output/tab
+> les/ et code/stata/output/figures/
 
 . 
-. /* ============================================================
->    SECTION : 07_EFFETS_DIM — ATT PSM-DD par dimension N-MODA
->    ============================================================ */
-. /* ============================================================
->    07_effets_dim.do — ATT PSM-DD par dimension N-MODA
->    Génère output/figures/fig_effets_dim.pdf
->    ============================================================ */
+. /* ===================================
+> =========================
+>    SECTION : 07_EFFETS_DIM — ATT PSM-D
+> D par dimension N-MODA
+>    ===================================
+> ========================= */
+. /* ===================================
+> =========================
+>    07_effets_dim.do — ATT PSM-DD par d
+> imension N-MODA
+>    Génère output/figures/fig_effets_di
+> m.pdf
+>    ===================================
+> ========================= */
 . 
 . 
 . /* Joindre poids k-NN au panel vrai */
@@ -5726,29 +5803,43 @@ Duplicates in terms of grappe menage
 . tempfile poids_knn
 
 . save `poids_knn'
-file C:\Users\Bmd\AppData\Local\Temp\ST_3754_000015.tmp saved as .dta format
+file
+    C:\Users\Bmd\AppData\Local\Temp\ST
+    > _3754_000015.tmp saved as .dta
+    format
 
 . 
 . use "$TEMP/panel_vrai.dta", clear
 
-. merge m:1 grappe menage using `poids_knn', keepusing(weight_knn) nogenerate
+. merge m:1 grappe menage using `poids_k
+> nn', keepusing(weight_knn) nogenerate
 
-    Result                      Number of obs
-    -----------------------------------------
-    Not matched                        17,823
-        from master                    17,823  
-        from using                          0  
+    Result                      Number o
+> f obs
+    ------------------------------------
+> -----
+    Not matched                        1
+> 7,823
+        from master                    1
+> 7,823  
+        from using                      
+>     0  
 
-    Matched                            28,009  
-    -----------------------------------------
+    Matched                            2
+> 8,009  
+    ------------------------------------
+> -----
 
 . keep if !missing(weight_knn)
 (17,823 observations deleted)
 
 . 
-. /* ATT PSM-DD pour chaque dimension (poids d'appariement PSM uniquement,
->    pas de poids d'enquete ; erreurs-types clusterisees au niveau grappe) */
-. local dims    assai eau logem nutri sante protect educ
+. /* ATT PSM-DD pour chaque dimension (p
+> oids d'appariement PSM uniquement,
+>    pas de poids d'enquete ; erreurs-ty
+> pes clusterisees au niveau grappe) */
+. local dims    assai eau logem nutri sa
+> nte protect educ
 
 . local n_dims  7
 
@@ -5764,27 +5855,42 @@ file C:\Users\Bmd\AppData\Local\Temp\ST_3754_000015.tmp saved as .dta format
 
 . foreach dim of local dims {
   2.     local ++i
-  3.     quietly regress dim_`dim' i.t##i.D [aw=weight_knn], vce(cluster grappe)
+  3.     quietly regress dim_`dim' i.t##
+> i.D [aw=weight_knn], vce(cluster grapp
+> e)
   4.     quietly lincom 1.t#1.D
   5.     matrix ATT[`i',1] = r(estimate)
-  6.     matrix LB[`i',1]  = r(estimate) - 1.96*r(se)
-  7.     matrix UB[`i',1]  = r(estimate) + 1.96*r(se)
-  8.     di "  dim_`dim' : ATT=" %8.4f r(estimate) "  SE=" %7.4f r(se) "  p=" %6.4f r(p)
+  6.     matrix LB[`i',1]  = r(estimate)
+>  - 1.96*r(se)
+  7.     matrix UB[`i',1]  = r(estimate)
+>  + 1.96*r(se)
+  8.     di "  dim_`dim' : ATT=" %8.4f r
+> (estimate) "  SE=" %7.4f r(se) "  p=" 
+> %6.4f r(p)
   9. }
-  dim_assai : ATT=  0.0139  SE= 0.0336  p=0.6789
-  dim_eau : ATT= -0.0300  SE= 0.0280  p=0.2851
-  dim_logem : ATT= -0.0003  SE= 0.0349  p=0.9926
-  dim_nutri : ATT= -0.0119  SE= 0.0334  p=0.7216
-  dim_sante : ATT=  0.0144  SE= 0.0116  p=0.2142
-  dim_protect : ATT=  0.0509  SE= 0.0167  p=0.0025
-  dim_educ : ATT= -0.0323  SE= 0.0135  p=0.0168
+  dim_assai : ATT=  0.0139  SE= 0.0336  
+> p=0.6789
+  dim_eau : ATT= -0.0300  SE= 0.0280  p=
+> 0.2851
+  dim_logem : ATT= -0.0003  SE= 0.0349  
+> p=0.9926
+  dim_nutri : ATT= -0.0119  SE= 0.0334  
+> p=0.7216
+  dim_sante : ATT=  0.0144  SE= 0.0116  
+> p=0.2142
+  dim_protect : ATT=  0.0509  SE= 0.0167
+>   p=0.0025
+  dim_educ : ATT= -0.0323  SE= 0.0135  p
+> =0.0168
 
 . 
-. /* Construire dataset pour le graphique */
+. /* Construire dataset pour le graphiqu
+> e */
 . clear
 
 . set obs `n_dims'
-Number of observations (_N) was 0, now 7.
+Number of observations (_N) was 0, now
+7.
 
 . gen ordre = _n
 
@@ -5823,9 +5929,12 @@ variable dim was str12 now str14
 (7 missing values generated)
 
 . forvalues i = 1/`n_dims' {
-  2.     replace att = ATT[`i',1]*100 in `i'
-  3.     replace lb  = LB[`i',1]*100  in `i'
-  4.     replace ub  = UB[`i',1]*100  in `i'
+  2.     replace att = ATT[`i',1]*100 in
+>  `i'
+  3.     replace lb  = LB[`i',1]*100  in
+>  `i'
+  4.     replace ub  = UB[`i',1]*100  in
+>  `i'
   5. }
 (1 real change made)
 (1 real change made)
@@ -5850,24 +5959,29 @@ variable dim was str12 now str14
 (1 real change made)
 
 . 
-. /* Trier par ATT croissant et réaffecter le rang */
+. /* Trier par ATT croissant et réaffect
+> er le rang */
 . sort att
 
 . replace ordre = _n
 (6 real changes made)
 
 . 
-. /* Construire les labels ylabel à partir des valeurs de dim triées */
+. /* Construire les labels ylabel à part
+> ir des valeurs de dim triées */
 . local ylab_str ""
 
 . forvalues i = 1/`n_dims' {
   2.     local lbl = dim[`i']
-  3.     local ylab_str `"`ylab_str' `i' "`lbl'""'
+  3.     local ylab_str `"`ylab_str' `i'
+>  "`lbl'""'
   4. }
 
 . 
-. /* Etiquettes de valeur (virgule decimale), placees au-dela des IC */
-. gen str8 lbl_att = subinstr(string(att, "%4.1f"), ".", ",", 1)
+. /* Etiquettes de valeur (virgule decim
+> ale), placees au-dela des IC */
+. gen str8 lbl_att = subinstr(string(att
+> , "%4.1f"), ".", ",", 1)
 
 . gen xlbl = ub + 1.2 if att >= 0
 (4 missing values generated)
@@ -5876,68 +5990,105 @@ variable dim was str12 now str14
 (4 real changes made)
 
 . 
-. /* Graphique à barres horizontales avec IC 95 % */
+. /* Graphique à barres horizontales ave
+> c IC 95 % */
 . set dp comma
 
 . twoway ///
->     (bar att ordre, horizontal barwidth(0.6) color(gs9)) ///
->     (rcap lb ub ordre, horizontal lcolor(orange) lwidth(medthick) msize(medium)) ///
->     (scatter ordre xlbl, msymbol(none) mlabel(lbl_att) ///
->      mlabpos(0) mlabcolor(black) mlabsize(small)), ///
->     ylab(`ylab_str', angle(0) noticks) ///
+>     (bar att ordre, horizontal barwidt
+> h(0.6) color(gs9)) ///
+>     (rcap lb ub ordre, horizontal lcol
+> or(orange) lwidth(medthick) msize(medi
+> um)) ///
+>     (scatter ordre xlbl, msymbol(none)
+>  mlabel(lbl_att) ///
+>      mlabpos(0) mlabcolor(black) mlabs
+> ize(small)), ///
+>     ylab(`ylab_str', angle(0) noticks)
+>  ///
 >     yscale(range(0.5 7.5)) ///
->     ytitle("") xtitle("ATT (points de pourcentage)") ///
->     xline(0, lcolor(black) lpattern(dash)) ///
+>     ytitle("") xtitle("ATT (points de 
+> pourcentage)") ///
+>     xline(0, lcolor(black) lpattern(da
+> sh)) ///
 >     legend(off) ///
->     graphregion(color(white)) plotregion(color(white))
+>     graphregion(color(white)) plotregi
+> on(color(white))
 
 . 
 . set dp period
 
-. graph export "$OUTPUT/figures/fig_effets_dim.pdf", replace
-file code/stata/output/figures/fig_effets_dim.pdf saved as PDF format
+. graph export "$OUTPUT/figures/fig_effe
+> ts_dim.pdf", replace
+file
+    code/stata/output/figures/fig_effe
+    > ts_dim.pdf saved as PDF format
 
-. di ">>> fig_effets_dim.pdf sauvegardé dans $OUTPUT/figures/"
->>> fig_effets_dim.pdf sauvegardé dans code/stata/output/figures/
+. di ">>> fig_effets_dim.pdf sauvegardé 
+> dans $OUTPUT/figures/"
+>>> fig_effets_dim.pdf sauvegardé dans c
+> ode/stata/output/figures/
 
 . di ">>> 07_effets_dim.do terminé."
 >>> 07_effets_dim.do terminé.
 
 . 
-. /* ============================================================
->    SECTION : 08_CARTE_REGION — Carte régionale N-MODA + pauvreté monétaire
->    ============================================================ */
-. /* ============================================================
->    08_carte_region.do — Carte régionale N-MODA + pauvreté monétaire
->    et diagramme de Venn monétaire/multidimensionnel
+. /* ===================================
+> =========================
+>    SECTION : 08_CARTE_REGION — Carte r
+> égionale N-MODA + pauvreté monétaire
+>    ===================================
+> ========================= */
+. /* ===================================
+> =========================
+>    08_carte_region.do — Carte régional
+> e N-MODA + pauvreté monétaire
+>    et diagramme de Venn monétaire/mult
+> idimensionnel
 > 
 >    Sorties :
->      output/figures/fig_carte_nmoda.pdf      — carte H par région
->      output/figures/fig_croisement_pauvrete.pdf — Venn monétaire/MODA
->    ============================================================ */
+>      output/figures/fig_carte_nmoda.pd
+> f      — carte H par région
+>      output/figures/fig_croisement_pau
+> vrete.pdf — Venn monétaire/MODA
+>    ===================================
+> ========================= */
 . 
 . 
-. /* ============================================================
->    1. Incidence N-MODA par région (EHCVM I et II)
->    ============================================================ */
+. /* ===================================
+> =========================
+>    1. Incidence N-MODA par région (EHC
+> VM I et II)
+>    ===================================
+> ========================= */
 . 
-. /* Moyenne pondérée (poids de sondage) par région, pour chacune des deux vagues */
+. /* Moyenne pondérée (poids de sondage)
+>  par région, pour chacune des deux vag
+> ues */
 . matrix H_reg = J(14, 3, .)
 
 . foreach annee in 2018 2021 {
-  2.     use "$TEMP/vague_`annee'.dta", clear
-  3.     local col = cond(`annee' == 2018, 2, 3)
-  4.     quietly summarize pauvre_MODA [aw=hhweight]
-  5.     scalar H_nat_`annee' = r(mean)*100
+  2.     use "$TEMP/vague_`annee'.dta", 
+> clear
+  3.     local col = cond(`annee' == 201
+> 8, 2, 3)
+  4.     quietly summarize pauvre_MODA [
+> aw=hhweight]
+  5.     scalar H_nat_`annee' = r(mean)*
+> 100
   6.     levelsof region, local(regs)
   7.     local i = 0
   8.     foreach r of local regs {
   9.         local ++i
- 10.         quietly summarize pauvre_MODA [aw=hhweight] if region == `r'
+ 10.         quietly summarize pauvre_MO
+> DA [aw=hhweight] if region == `r'
  11.         matrix H_reg[`i', 1] = `r'
- 12.         matrix H_reg[`i', `col'] = r(mean)*100
- 13.         local lbl : label (region) `r'
- 14.         di "Région `r' (`lbl'), `annee' : H=" %5.1f r(mean)*100 "%"
+ 12.         matrix H_reg[`i', `col'] = 
+> r(mean)*100
+ 13.         local lbl : label (region) 
+> `r'
+ 14.         di "Région `r' (`lbl'), `an
+> nee' : H=" %5.1f r(mean)*100 "%"
  15.     }
  16. }
 1 2 3 4 5 6 7 8 9 10 11 12 13 14
@@ -5972,16 +6123,21 @@ Région 13 (kedougou), 2021 : H= 77.6%
 Région 14 (sedhiou), 2021 : H= 83.0%
 
 . 
-. /* ── Fig carte : barres horizontales par région, deux vagues côte
->    à côte (gris = EHCVM I, orange = EHCVM II) ── */
+. /* ── Fig carte : barres horizontales 
+> par région, deux vagues côte
+>    à côte (gris = EHCVM I, orange = EH
+> CVM II) ── */
 . preserve
 
 .     clear
 
 .     svmat H_reg, names(col)
-number of observations will be reset to 14
-Press any key to continue, or Break to abort
-Number of observations (_N) was 0, now 14.
+number of observations will be reset to 
+> 14
+Press any key to continue, or Break to a
+> bort
+Number of observations (_N) was 0, now
+14.
 
 .     rename c1 cod_reg
 
@@ -5996,69 +6152,90 @@ Number of observations (_N) was 0, now 14.
 .     gen str30 nom_reg = ""
 (14 missing values generated)
 
-.     /* Correspondance codes vers noms régions Sénégal */
-.     replace nom_reg = "Dakar"        if cod_reg == 1
+.     /* Correspondance codes vers noms 
+> régions Sénégal */
+.     replace nom_reg = "Dakar"        i
+> f cod_reg == 1
 (1 real change made)
 
-.     replace nom_reg = "Ziguinchor"   if cod_reg == 2
+.     replace nom_reg = "Ziguinchor"   i
+> f cod_reg == 2
 (1 real change made)
 
-.     replace nom_reg = "Diourbel"     if cod_reg == 3
+.     replace nom_reg = "Diourbel"     i
+> f cod_reg == 3
 (1 real change made)
 
-.     replace nom_reg = "Saint-Louis"  if cod_reg == 4
+.     replace nom_reg = "Saint-Louis"  i
+> f cod_reg == 4
 (1 real change made)
 
-.     replace nom_reg = "Tambacounda"  if cod_reg == 5
+.     replace nom_reg = "Tambacounda"  i
+> f cod_reg == 5
 (1 real change made)
 
-.     replace nom_reg = "Kaolack"      if cod_reg == 6
+.     replace nom_reg = "Kaolack"      i
+> f cod_reg == 6
 (1 real change made)
 
-.     replace nom_reg = "Thiès"        if cod_reg == 7
+.     replace nom_reg = "Thiès"        i
+> f cod_reg == 7
 (1 real change made)
 
-.     replace nom_reg = "Louga"        if cod_reg == 8
+.     replace nom_reg = "Louga"        i
+> f cod_reg == 8
 (1 real change made)
 
-.     replace nom_reg = "Fatick"       if cod_reg == 9
+.     replace nom_reg = "Fatick"       i
+> f cod_reg == 9
 (1 real change made)
 
-.     replace nom_reg = "Kolda"        if cod_reg == 10
+.     replace nom_reg = "Kolda"        i
+> f cod_reg == 10
 (1 real change made)
 
-.     replace nom_reg = "Matam"        if cod_reg == 11
+.     replace nom_reg = "Matam"        i
+> f cod_reg == 11
 (1 real change made)
 
-.     replace nom_reg = "Kaffrine"     if cod_reg == 12
+.     replace nom_reg = "Kaffrine"     i
+> f cod_reg == 12
 (1 real change made)
 
-.     replace nom_reg = "Kédougou"     if cod_reg == 13
+.     replace nom_reg = "Kédougou"     i
+> f cod_reg == 13
 (1 real change made)
 
-.     replace nom_reg = "Sédhiou"      if cod_reg == 14
+.     replace nom_reg = "Sédhiou"      i
+> f cod_reg == 14
 (1 real change made)
 
 . 
-.     /* Labels y-axis depuis la variable */
+.     /* Labels y-axis depuis la variabl
+> e */
 .     local ylab_str ""
 
 .     forvalues i = 1/14 {
   2.         local lbl = nom_reg[`i']
-  3.         local ylab_str `"`ylab_str' `i' "`lbl'""'
+  3.         local ylab_str `"`ylab_str'
+>  `i' "`lbl'""'
   4.     }
 
 . 
-.     /* Lignes de reference nationales : valeurs figees en local AVANT
->        set dp comma (l'expansion `=...' sous dp comma produirait une
->        virgule qui casserait la syntaxe de xline) */
+.     /* Lignes de reference nationales 
+> : valeurs figees en local AVANT
+>        set dp comma (l'expansion `=...
+> ' sous dp comma produirait une
+>        virgule qui casserait la syntax
+> e de xline) */
 .     local xl_2018 = scalar(H_nat_2018)
 
 .     local xl_2021 = scalar(H_nat_2021)
 
 .     set dp comma
 
-.     /* Positions decalees : EHCVM I au-dessus, EHCVM II en dessous */
+.     /* Positions decalees : EHCVM I au
+> -dessus, EHCVM II en dessous */
 .     gen y_2018 = ordre + 0.19
 
 .     gen y_2021 = ordre - 0.19
@@ -6068,93 +6245,138 @@ Number of observations (_N) was 0, now 14.
 .     gen mid_2021 = H_2021/2
 
 . 
-.     twoway (bar H_2018 y_2018, horizontal barwidth(0.35) ///
->             color(gs9) lcolor(white)) ///
->            (bar H_2021 y_2021, horizontal barwidth(0.35) ///
->             color(orange) lcolor(white)) ///
->            (scatter y_2018 mid_2018, msymbol(none) ///
->             mlabel(H_2018) mlabformat(%4,1f) mlabcolor(white) mlabpos(0) mlabsize(tiny)) ///
->            (scatter y_2021 mid_2021, msymbol(none) ///
->             mlabel(H_2021) mlabformat(%4,1f) mlabcolor(white) mlabpos(0) mlabsize(tiny)), ///
->         legend(order(1 "EHCVM I (2018-19)" 2 "EHCVM II (2021-22)") pos(6) rows(1)) ///
->         ylab(`ylab_str', angle(0) noticks labsize(small)) ///
+.     twoway (bar H_2018 y_2018, horizon
+> tal barwidth(0.35) ///
+>             color(gs9) lcolor(white)) 
+> ///
+>            (bar H_2021 y_2021, horizon
+> tal barwidth(0.35) ///
+>             color(orange) lcolor(white
+> )) ///
+>            (scatter y_2018 mid_2018, m
+> symbol(none) ///
+>             mlabel(H_2018) mlabformat(
+> %4,1f) mlabcolor(white) mlabpos(0) mla
+> bsize(tiny)) ///
+>            (scatter y_2021 mid_2021, m
+> symbol(none) ///
+>             mlabel(H_2021) mlabformat(
+> %4,1f) mlabcolor(white) mlabpos(0) mla
+> bsize(tiny)), ///
+>         legend(order(1 "EHCVM I (2018-
+> 19)" 2 "EHCVM II (2021-22)") pos(6) ro
+> ws(1)) ///
+>         ylab(`ylab_str', angle(0) noti
+> cks labsize(small)) ///
 >         yscale(range(0.5 14.5)) ///
->         xtitle("Incidence N-MODA H (%)") ytitle("") ///
+>         xtitle("Incidence N-MODA H (%)
+> ") ytitle("") ///
 >         xlabel(0(10)100) ///
->         xline(0, lcolor(gs8) lwidth(thin)) ///
->         xline(`xl_2018', lcolor(gs9) lpattern(dash) lwidth(medthin)) ///
->         xline(`xl_2021', lcolor(orange) lpattern(dash) lwidth(medthin)) ///
->         graphregion(color(white)) plotregion(color(white))
+>         xline(0, lcolor(gs8) lwidth(th
+> in)) ///
+>         xline(`xl_2018', lcolor(gs9) l
+> pattern(dash) lwidth(medthin)) ///
+>         xline(`xl_2021', lcolor(orange
+> ) lpattern(dash) lwidth(medthin)) ///
+>         graphregion(color(white)) plot
+> region(color(white))
 
 .     set dp period
 
-.     graph export "$OUTPUT/figures/fig_carte_nmoda_barres.pdf", replace
-file code/stata/output/figures/fig_carte_nmoda_barres.pdf saved as PDF format
+.     graph export "$OUTPUT/figures/fig_
+> carte_nmoda_barres.pdf", replace
+file
+    code/stata/output/figures/fig_cart
+    > e_nmoda_barres.pdf saved as PDF
+    format
 
-.     di ">>> fig_carte_nmoda_barres.pdf sauvegardé (variante en barres)"
->>> fig_carte_nmoda_barres.pdf sauvegardé (variante en barres)
+.     di ">>> fig_carte_nmoda_barres.pdf
+>  sauvegardé (variante en barres)"
+>>> fig_carte_nmoda_barres.pdf sauvegard
+> é (variante en barres)
 
 . 
-.     /* ── Table H par région, cle = nom en majuscules (NOMREG du
->        shapefile) pour la fusion avec le fond de carte ── */
+.     /* ── Table H par région, cle = no
+> m en majuscules (NOMREG du
+>        shapefile) pour la fusion avec 
+> le fond de carte ── */
 .     gen str30 NOMREG = ""
 (14 missing values generated)
 
-.     replace NOMREG = "DAKAR"       if cod_reg == 1
+.     replace NOMREG = "DAKAR"       if 
+> cod_reg == 1
 (1 real change made)
 
-.     replace NOMREG = "ZIGUINCHOR"  if cod_reg == 2
+.     replace NOMREG = "ZIGUINCHOR"  if 
+> cod_reg == 2
 (1 real change made)
 
-.     replace NOMREG = "DIOURBEL"    if cod_reg == 3
+.     replace NOMREG = "DIOURBEL"    if 
+> cod_reg == 3
 (1 real change made)
 
-.     replace NOMREG = "SAINT LOUIS" if cod_reg == 4
+.     replace NOMREG = "SAINT LOUIS" if 
+> cod_reg == 4
 (1 real change made)
 
-.     replace NOMREG = "TAMBACOUNDA" if cod_reg == 5
+.     replace NOMREG = "TAMBACOUNDA" if 
+> cod_reg == 5
 (1 real change made)
 
-.     replace NOMREG = "KAOLACK"     if cod_reg == 6
+.     replace NOMREG = "KAOLACK"     if 
+> cod_reg == 6
 (1 real change made)
 
-.     replace NOMREG = "THIES"       if cod_reg == 7
+.     replace NOMREG = "THIES"       if 
+> cod_reg == 7
 (1 real change made)
 
-.     replace NOMREG = "LOUGA"       if cod_reg == 8
+.     replace NOMREG = "LOUGA"       if 
+> cod_reg == 8
 (1 real change made)
 
-.     replace NOMREG = "FATICK"      if cod_reg == 9
+.     replace NOMREG = "FATICK"      if 
+> cod_reg == 9
 (1 real change made)
 
-.     replace NOMREG = "KOLDA"       if cod_reg == 10
+.     replace NOMREG = "KOLDA"       if 
+> cod_reg == 10
 (1 real change made)
 
-.     replace NOMREG = "MATAM"       if cod_reg == 11
+.     replace NOMREG = "MATAM"       if 
+> cod_reg == 11
 (1 real change made)
 
-.     replace NOMREG = "KAFFRINE"    if cod_reg == 12
+.     replace NOMREG = "KAFFRINE"    if 
+> cod_reg == 12
 (1 real change made)
 
-.     replace NOMREG = "KEDOUGOU"    if cod_reg == 13
+.     replace NOMREG = "KEDOUGOU"    if 
+> cod_reg == 13
 (1 real change made)
 
-.     replace NOMREG = "SEDHIOU"     if cod_reg == 14
+.     replace NOMREG = "SEDHIOU"     if 
+> cod_reg == 14
 (1 real change made)
 
 .     keep NOMREG nom_reg H_2018 H_2021
 
 .     save "$TEMP/h_region.dta", replace
-file code/stata/temp/h_region.dta saved
+file code/stata/temp/h_region.dta
+    saved
 
 . restore
 
 . 
-. /* ============================================================
->    1bis. Carte choropleth N-MODA par région (spmap)
->    ============================================================ */
+. /* ===================================
+> =========================
+>    1bis. Carte choropleth N-MODA par r
+> égion (spmap)
+>    ===================================
+> ========================= */
 . 
-. /* Packages requis (installes une seule fois si absents) */
+. /* Packages requis (installes une seul
+> e fois si absents) */
 . capture which shp2dta
 
 . if _rc ssc install shp2dta, replace
@@ -6164,27 +6386,39 @@ file code/stata/temp/h_region.dta saved
 . if _rc ssc install spmap, replace
 
 . 
-. /* Conversion du shapefile des régions en format Stata */
-. shp2dta using "Vecteurs_Sénégal/Limite_Région", ///
->     database("$TEMP/sen_reg_db") coordinates("$TEMP/sen_reg_xy") ///
+. /* Conversion du shapefile des régions
+>  en format Stata */
+. shp2dta using "Vecteurs_Sénégal/Limite
+> _Région", ///
+>     database("$TEMP/sen_reg_db") coord
+> inates("$TEMP/sen_reg_xy") ///
 >     genid(id) replace
 type: 5
 
 . 
-. /* Fusion des incidences N-MODA sur le nom de région (NOMREG) */
+. /* Fusion des incidences N-MODA sur le
+>  nom de région (NOMREG) */
 . use "$TEMP/sen_reg_db", clear
 
 . replace NOMREG = trim(upper(NOMREG))
 (0 real changes made)
 
-. merge 1:1 NOMREG using "$TEMP/h_region.dta"
-(variable NOMREG was str11, now str30 to accommodate using data's values)
+. merge 1:1 NOMREG using "$TEMP/h_region
+> .dta"
+(variable NOMREG was str11, now str30
+       to accommodate using data's
+       values)
 
-    Result                      Number of obs
-    -----------------------------------------
-    Not matched                             0
-    Matched                                14  (_merge==3)
-    -----------------------------------------
+    Result                      Number o
+> f obs
+    ------------------------------------
+> -----
+    Not matched                         
+>     0
+    Matched                             
+>    14  (_merge==3)
+    ------------------------------------
+> -----
 
 . drop if _merge == 2
 (0 observations deleted)
@@ -6192,11 +6426,14 @@ type: 5
 . drop _merge
 
 . save "$TEMP/sen_reg_db.dta", replace
-file code/stata/temp/sen_reg_db.dta saved
+file code/stata/temp/sen_reg_db.dta
+    saved
 
 . 
-. /* Etendue du fond de carte (coordonnees UTM zone 28N en metres) pour
->    positionner la rose des vents (coin superieur gauche) et la barre
+. /* Etendue du fond de carte (coordonne
+> es UTM zone 28N en metres) pour
+>    positionner la rose des vents (coin
+>  superieur gauche) et la barre
 >    d'echelle (bas-centre). */
 . use "$TEMP/sen_reg_xy", clear
 
@@ -6213,29 +6450,40 @@ file code/stata/temp/sen_reg_db.dta saved
 . scalar yrng_ = r(max) - r(min)
 
 . 
-. /* Rose des vents (indique le nord) : cercle + etoile a 4 branches +
->    lettre "N", en gris, dans le coin superieur gauche. */
-. global XC   = xmin_ + 0.07*xrng_                 /* centre x            */
+. /* Rose des vents (indique le nord) : 
+> cercle + etoile a 4 branches +
+>    lettre "N", en gris, dans le coin s
+> uperieur gauche. */
+. global XC   = xmin_ + 0.07*xrng_      
+>            /* centre x            */
 
-. global YC   = ymin_ + 0.83*yrng_                 /* centre y            */
+. global YC   = ymin_ + 0.83*yrng_      
+>            /* centre y            */
 
-. global RAD  = 0.045*xrng_                        /* rayon des branches  */
+. global RAD  = 0.045*xrng_             
+>            /* rayon des branches  */
 
-. global RIN  = 0.0135*xrng_                       /* rayon interne etoile*/
+. global RIN  = 0.0135*xrng_            
+>            /* rayon interne etoile*/
 
-. global YNL  = ymin_ + 0.83*yrng_ + 0.075*xrng_   /* "N" au-dessus       */
+. global YNL  = ymin_ + 0.83*yrng_ + 0.0
+> 75*xrng_   /* "N" au-dessus       */
 
 . 
-. /* Cercle de la rose : format polyline spmap (1re ligne = coords
->    manquantes, puis 37 noeuds fermant le cercle). */
+. /* Cercle de la rose : format polyline
+>  spmap (1re ligne = coords
+>    manquantes, puis 37 noeuds fermant 
+> le cercle). */
 . clear
 
 . set obs 38
-Number of observations (_N) was 0, now 38.
+Number of observations (_N) was 0, now
+38.
 
 . gen _ID = 1
 
-. gen double th = (_n - 2) * 2 * _pi / 36
+. gen double th = (_n - 2) * 2 * _pi / 3
+> 6
 
 . gen double _X = $XC + $RAD * cos(th)
 
@@ -6250,16 +6498,21 @@ Number of observations (_N) was 0, now 38.
 . drop th
 
 . save "$TEMP/sen_rose_c.dta", replace
-file code/stata/temp/sen_rose_c.dta saved
+file code/stata/temp/sen_rose_c.dta
+    saved
 
 . 
-. /* Etoile a 4 branches (N, E, S, O + pointes internes). Format polyline
->    spmap : 1re ligne = coords manquantes, puis le contour ferme.
->    _ID = 2 : deuxieme polyline du meme fichier que le cercle. */
+. /* Etoile a 4 branches (N, E, S, O + p
+> ointes internes). Format polyline
+>    spmap : 1re ligne = coords manquant
+> es, puis le contour ferme.
+>    _ID = 2 : deuxieme polyline du meme
+>  fichier que le cercle. */
 . clear
 
 . set obs 10
-Number of observations (_N) was 0, now 10.
+Number of observations (_N) was 0, now
+10.
 
 . gen _ID = 2
 
@@ -6324,11 +6577,14 @@ Number of observations (_N) was 0, now 10.
 (1 real change made)
 
 . save "$TEMP/sen_rose_s.dta", replace
-file code/stata/temp/sen_rose_s.dta saved
+file code/stata/temp/sen_rose_s.dta
+    saved
 
 . 
-. /* Un seul fichier de polylines (cercle _ID=1 + etoile _ID=2) : spmap
->    n'accepte l'option line() qu'une seule fois. */
+. /* Un seul fichier de polylines (cercl
+> e _ID=1 + etoile _ID=2) : spmap
+>    n'accepte l'option line() qu'une se
+> ule fois. */
 . use "$TEMP/sen_rose_c.dta", clear
 
 . append using "$TEMP/sen_rose_s.dta"
@@ -6336,21 +6592,30 @@ file code/stata/temp/sen_rose_s.dta saved
 . sort _ID
 
 . save "$TEMP/sen_rose.dta", replace
-file code/stata/temp/sen_rose.dta saved
+file code/stata/temp/sen_rose.dta
+    saved
 
 . 
-. /* La barre d'echelle est dessinee par l'option native scalebar() de spmap
->    (voir les appels ci-dessous) : pas de dataset a construire. */
+. /* La barre d'echelle est dessinee par
+>  l'option native scalebar() de spmap
+>    (voir les appels ci-dessous) : pas 
+> de dataset a construire. */
 . 
-. /* Points d'ancrage des noms de region : un point garanti a l'interieur de
->    chaque polygone (representative_point), plus fiable que la moyenne des
->    sommets qui, pour les formes concaves, peut tomber hors de la region
->    (Dakar, Fatick). Coordonnees UTM zone 28N, figees comme constantes. */
+. /* Points d'ancrage des noms de region
+>  : un point garanti a l'interieur de
+>    chaque polygone (representative_poi
+> nt), plus fiable que la moyenne des
+>    sommets qui, pour les formes concav
+> es, peut tomber hors de la region
+>    (Dakar, Fatick). Coordonnees UTM zo
+> ne 28N, figees comme constantes. */
 . clear
 
-. input str14 nom_reg double x_c double y_c
+. input str14 nom_reg double x_c double 
+> y_c
 
-            nom_reg         x_c         y_c
+            nom_reg         x_c         
+> y_c
   1. "Dakar"        262000 1630241
   2. "Diourbel"     389356 1634520
   3. "Fatick"       330648 1566850
@@ -6368,66 +6633,106 @@ file code/stata/temp/sen_rose.dta saved
  15. end
 
 . save "$TEMP/sen_reg_lbl.dta", replace
-file code/stata/temp/sen_reg_lbl.dta saved
+file code/stata/temp/sen_reg_lbl.dta
+    saved
 
 . 
-. /* Recharger la base attributaire (avec H_2018/H_2021) : spmap lit la
->    variable thematique dans le dataset en memoire, pas dans le fichier
->    d'etiquettes qui vient d'etre construit. */
+. /* Recharger la base attributaire (ave
+> c H_2018/H_2021) : spmap lit la
+>    variable thematique dans le dataset
+>  en memoire, pas dans le fichier
+>    d'etiquettes qui vient d'etre const
+> ruit. */
 . use "$TEMP/sen_reg_db.dta", clear
 
 . 
-. /* Bornes de classes communes aux deux vagues pour une échelle de
->    couleur partagée (memes clbreaks sur les deux cartes) */
+. /* Bornes de classes communes aux deux
+>  vagues pour une échelle de
+>    couleur partagée (memes clbreaks su
+> r les deux cartes) */
 . set dp comma
 
-. /* Carte EHCVM I : nom de region au centre, fleche du nord en haut a
->    gauche ; legende masquee (partagee, affichee sur la seconde carte).
->    Aucun titre general : la legende du rapport le fournit. */
-. spmap H_2018 using "$TEMP/sen_reg_xy", id(id) ///
->     clmethod(custom) clbreaks(0 20 40 60 80 100) ///
->     fcolor(YlOrRd) ocolor(white ..) osize(0.15 ..) ///
+. /* Carte EHCVM I : nom de region au ce
+> ntre, fleche du nord en haut a
+>    gauche ; legende masquee (partagee,
+>  affichee sur la seconde carte).
+>    Aucun titre general : la legende du
+>  rapport le fournit. */
+. spmap H_2018 using "$TEMP/sen_reg_xy",
+>  id(id) ///
+>     clmethod(custom) clbreaks(0 20 40 
+> 60 80 100) ///
+>     fcolor(YlOrRd) ocolor(white ..) os
+> ize(0.15 ..) ///
 >     ndfcolor(gs12) legend(off) ///
->     label(data("$TEMP/sen_reg_lbl.dta") xcoord(x_c) ycoord(y_c) ///
->           label(nom_reg) size(*0.55) color(black)) ///
->     subtitle("EHCVM I (2018-2019)", size(medsmall)) ///
->     line(data("$TEMP/sen_rose.dta") color(gs7) size(medthin)) ///
->     text($YNL $XC "N", size(medium) color(gs7)) ///
->     scalebar(units(150) scale(1/1000) label("km") ///
->              xpos(-70) ypos(-108) size(0.9) tsize(*0.75)) ///
+>     label(data("$TEMP/sen_reg_lbl.dta"
+> ) xcoord(x_c) ycoord(y_c) ///
+>           label(nom_reg) size(*0.55) c
+> olor(black)) ///
+>     subtitle("EHCVM I (2018-2019)", si
+> ze(medsmall)) ///
+>     line(data("$TEMP/sen_rose.dta") co
+> lor(gs7) size(medthin)) ///
+>     text($YNL $XC "N", size(medium) co
+> lor(gs7)) ///
+>     scalebar(units(150) scale(1/1000) 
+> label("km") ///
+>              xpos(-70) ypos(-108) size
+> (0.9) tsize(*0.75)) ///
 >     name(carte18, replace)
 
-. spmap H_2021 using "$TEMP/sen_reg_xy", id(id) ///
->     clmethod(custom) clbreaks(0 20 40 60 80 100) ///
->     fcolor(YlOrRd) ocolor(white ..) osize(0.15 ..) ///
+. spmap H_2021 using "$TEMP/sen_reg_xy",
+>  id(id) ///
+>     clmethod(custom) clbreaks(0 20 40 
+> 60 80 100) ///
+>     fcolor(YlOrRd) ocolor(white ..) os
+> ize(0.15 ..) ///
 >     ndfcolor(gs12) legorder(lohi) ///
->     legend(position(6) ring(1) size(vsmall) rows(1) ///
->         label(2 "[0;20]") label(3 "[20;40]") label(4 "[40;60]") ///
->         label(5 "[60;80]") label(6 "[80;100]")) ///
->     label(data("$TEMP/sen_reg_lbl.dta") xcoord(x_c) ycoord(y_c) ///
->           label(nom_reg) size(*0.55) color(black)) ///
->     subtitle("EHCVM II (2021-2022)", size(medsmall)) ///
+>     legend(position(6) ring(1) size(vs
+> mall) rows(1) ///
+>         label(2 "[0;20]") label(3 "[20
+> ;40]") label(4 "[40;60]") ///
+>         label(5 "[60;80]") label(6 "[8
+> 0;100]")) ///
+>     label(data("$TEMP/sen_reg_lbl.dta"
+> ) xcoord(x_c) ycoord(y_c) ///
+>           label(nom_reg) size(*0.55) c
+> olor(black)) ///
+>     subtitle("EHCVM II (2021-2022)", s
+> ize(medsmall)) ///
 >     name(carte21, replace)
 
-. graph combine carte18 carte21, cols(2) ///
+. graph combine carte18 carte21, cols(2)
+>  ///
 >     graphregion(color(white))
 
 . set dp period
 
-. graph export "$OUTPUT/figures/fig_carte_nmoda.pdf", replace
-file code/stata/output/figures/fig_carte_nmoda.pdf saved as PDF format
+. graph export "$OUTPUT/figures/fig_cart
+> e_nmoda.pdf", replace
+file
+    code/stata/output/figures/fig_cart
+    > e_nmoda.pdf saved as PDF format
 
-. di ">>> fig_carte_nmoda.pdf (carte choropleth) sauvegardé"
->>> fig_carte_nmoda.pdf (carte choropleth) sauvegardé
+. di ">>> fig_carte_nmoda.pdf (carte cho
+> ropleth) sauvegardé"
+>>> fig_carte_nmoda.pdf (carte choroplet
+> h) sauvegardé
 
 . 
-. /* ============================================================
->    1ter. Cartes du taux de privation par dimension et par vague
->          (annexe) : une figure a deux panneaux (EHCVM I / II) par
->          dimension, meme fond de carte et meme echelle 0-100.
->    ============================================================ */
+. /* ===================================
+> =========================
+>    1ter. Cartes du taux de privation p
+> ar dimension et par vague
+>          (annexe) : une figure a deux 
+> panneaux (EHCVM I / II) par
+>          dimension, meme fond de carte
+>  et meme echelle 0-100.
+>    ===================================
+> ========================= */
 . 
-. /* Correspondance code region (EHCVM) -> NOMREG (shapefile) */
+. /* Correspondance code region (EHCVM) 
+> -> NOMREG (shapefile) */
 . clear
 
 . input int cod_reg str12 NOMREG
@@ -6452,282 +6757,527 @@ file code/stata/output/figures/fig_carte_nmoda.pdf saved as PDF format
 . tempfile xwalk_reg
 
 . save `xwalk_reg'
-file C:\Users\Bmd\AppData\Local\Temp\ST_3754_000017.tmp saved as .dta format
+file
+    C:\Users\Bmd\AppData\Local\Temp\ST
+    > _3754_000017.tmp saved as .dta
+    format
 
 . 
-. local dims    assai eau logem nutri sante protect educ
+. local dims    assai eau logem nutri sa
+> nte protect educ
 
-. local dimnoms `" "Assainissement" "Eau" "Logement" "Nutrition" "Santé" "Protection" "Éducation" "'
+. local dimnoms `" "Assainissement" "Eau
+> " "Logement" "Nutrition" "Santé" "Prot
+> ection" "Éducation" "'
 
 . local i = 0
 
 . foreach d of local dims {
   2.     local ++i
-  3.     local dnom : word `i' of `dimnoms'
+  3.     local dnom : word `i' of `dimno
+> ms'
   4. 
-.     /* Taux de privation regional (%) de la dimension, chaque vague */
+.     /* Taux de privation regional (%) 
+> de la dimension, chaque vague */
 .     foreach annee in 2018 2021 {
-  5.         use "$TEMP/vague_`annee'.dta", clear
-  6.         collapse (mean) dim_`d' [aw=hhweight], by(region)
-  7.         replace dim_`d' = dim_`d' * 100
+  5.         use "$TEMP/vague_`annee'.dt
+> a", clear
+  6.         collapse (mean) dim_`d' [aw
+> =hhweight], by(region)
+  7.         replace dim_`d' = dim_`d' *
+>  100
   8.         rename region cod_reg
   9.         rename dim_`d' D`annee'
  10.         tempfile dm`annee'
  11.         save `dm`annee''
  12.     }
  13.     use `dm2018', clear
- 14.     merge 1:1 cod_reg using `dm2021', nogenerate
- 15.     merge 1:1 cod_reg using `xwalk_reg', nogenerate
- 16.     merge 1:1 NOMREG using "$TEMP/sen_reg_db.dta", keepusing(id) nogenerate
- 17.     save "$TEMP/dimmap.dta", replace
+ 14.     merge 1:1 cod_reg using `dm2021
+> ', nogenerate
+ 15.     merge 1:1 cod_reg using `xwalk_
+> reg', nogenerate
+ 16.     merge 1:1 NOMREG using "$TEMP/s
+> en_reg_db.dta", keepusing(id) nogenera
+> te
+ 17.     save "$TEMP/dimmap.dta", replac
+> e
  18. 
 .     set dp comma
- 19.     spmap D2018 using "$TEMP/sen_reg_xy", id(id) ///
->         clmethod(custom) clbreaks(0 20 40 60 80 100) ///
->         fcolor(YlOrRd) ocolor(white ..) osize(0.15 ..) ///
+ 19.     spmap D2018 using "$TEMP/sen_re
+> g_xy", id(id) ///
+>         clmethod(custom) clbreaks(0 20
+>  40 60 80 100) ///
+>         fcolor(YlOrRd) ocolor(white ..
+> ) osize(0.15 ..) ///
 >         ndfcolor(gs12) legend(off) ///
->         label(data("$TEMP/sen_reg_lbl.dta") xcoord(x_c) ycoord(y_c) ///
->               label(nom_reg) size(*0.5) color(black)) ///
->         subtitle("EHCVM I (2018-2019)", size(medsmall)) ///
->         line(data("$TEMP/sen_rose.dta") color(gs7) size(medthin)) ///
->         text($YNL $XC "N", size(medium) color(gs7)) ///
->         scalebar(units(150) scale(1/1000) label("km") ///
->                  xpos(-70) ypos(-108) size(0.9) tsize(*0.75)) ///
+>         label(data("$TEMP/sen_reg_lbl.
+> dta") xcoord(x_c) ycoord(y_c) ///
+>               label(nom_reg) size(*0.5
+> ) color(black)) ///
+>         subtitle("EHCVM I (2018-2019)"
+> , size(medsmall)) ///
+>         line(data("$TEMP/sen_rose.dta"
+> ) color(gs7) size(medthin)) ///
+>         text($YNL $XC "N", size(medium
+> ) color(gs7)) ///
+>         scalebar(units(150) scale(1/10
+> 00) label("km") ///
+>                  xpos(-70) ypos(-108) 
+> size(0.9) tsize(*0.75)) ///
 >         name(cdim18, replace)
- 20.     spmap D2021 using "$TEMP/sen_reg_xy", id(id) ///
->         clmethod(custom) clbreaks(0 20 40 60 80 100) ///
->         fcolor(YlOrRd) ocolor(white ..) osize(0.15 ..) ///
->         ndfcolor(gs12) legorder(lohi) ///
->         legend(position(6) ring(1) size(vsmall) rows(1) ///
->             label(2 "[0;20]") label(3 "[20;40]") label(4 "[40;60]") ///
->             label(5 "[60;80]") label(6 "[80;100]")) ///
->         label(data("$TEMP/sen_reg_lbl.dta") xcoord(x_c) ycoord(y_c) ///
->               label(nom_reg) size(*0.5) color(black)) ///
->         subtitle("EHCVM II (2021-2022)", size(medsmall)) ///
+ 20.     spmap D2021 using "$TEMP/sen_re
+> g_xy", id(id) ///
+>         clmethod(custom) clbreaks(0 20
+>  40 60 80 100) ///
+>         fcolor(YlOrRd) ocolor(white ..
+> ) osize(0.15 ..) ///
+>         ndfcolor(gs12) legorder(lohi) 
+> ///
+>         legend(position(6) ring(1) siz
+> e(vsmall) rows(1) ///
+>             label(2 "[0;20]") label(3 
+> "[20;40]") label(4 "[40;60]") ///
+>             label(5 "[60;80]") label(6
+>  "[80;100]")) ///
+>         label(data("$TEMP/sen_reg_lbl.
+> dta") xcoord(x_c) ycoord(y_c) ///
+>               label(nom_reg) size(*0.5
+> ) color(black)) ///
+>         subtitle("EHCVM II (2021-2022)
+> ", size(medsmall)) ///
 >         name(cdim21, replace)
- 21.     graph combine cdim18 cdim21, cols(2) ///
+ 21.     graph combine cdim18 cdim21, co
+> ls(2) ///
 >         graphregion(color(white))
  22.     set dp period
- 23.     graph export "$OUTPUT/figures/fig_carte_dim_`d'.pdf", replace
- 24.     di ">>> fig_carte_dim_`d'.pdf sauvegardé"
+ 23.     graph export "$OUTPUT/figures/f
+> ig_carte_dim_`d'.pdf", replace
+ 24.     di ">>> fig_carte_dim_`d'.pdf s
+> auvegardé"
  25. }
 (14 real changes made)
-file C:\Users\Bmd\AppData\Local\Temp\ST_3754_000018.tmp saved as .dta format
+file
+    C:\Users\Bmd\AppData\Local\Temp\ST
+    > _3754_000018.tmp saved as .dta
+    format
 (14 real changes made)
-file C:\Users\Bmd\AppData\Local\Temp\ST_3754_000019.tmp saved as .dta format
+file
+    C:\Users\Bmd\AppData\Local\Temp\ST
+    > _3754_000019.tmp saved as .dta
+    format
 (label s00q01 already defined)
 
-    Result                      Number of obs
-    -----------------------------------------
-    Not matched                             0
-    Matched                                14  
-    -----------------------------------------
-(variable cod_reg was byte, now int to accommodate using data's values)
+    Result                      Number o
+> f obs
+    ------------------------------------
+> -----
+    Not matched                         
+>     0
+    Matched                             
+>    14  
+    ------------------------------------
+> -----
+(variable cod_reg was byte, now int to
+       accommodate using data's
+       values)
 
-    Result                      Number of obs
-    -----------------------------------------
-    Not matched                             0
-    Matched                                14  
-    -----------------------------------------
-(variable NOMREG was str12, now str30 to accommodate using data's values)
+    Result                      Number o
+> f obs
+    ------------------------------------
+> -----
+    Not matched                         
+>     0
+    Matched                             
+>    14  
+    ------------------------------------
+> -----
+(variable NOMREG was str12, now str30
+       to accommodate using data's
+       values)
 
-    Result                      Number of obs
-    -----------------------------------------
-    Not matched                             0
-    Matched                                14  
-    -----------------------------------------
+    Result                      Number o
+> f obs
+    ------------------------------------
+> -----
+    Not matched                         
+>     0
+    Matched                             
+>    14  
+    ------------------------------------
+> -----
 file code/stata/temp/dimmap.dta saved
-file code/stata/output/figures/fig_carte_dim_assai.pdf saved as PDF format
+file
+    code/stata/output/figures/fig_cart
+    > e_dim_assai.pdf saved as PDF
+    format
 >>> fig_carte_dim_assai.pdf sauvegardé
 (14 real changes made)
-file C:\Users\Bmd\AppData\Local\Temp\ST_3754_00001a.tmp saved as .dta format
+file
+    C:\Users\Bmd\AppData\Local\Temp\ST
+    > _3754_00001a.tmp saved as .dta
+    format
 (14 real changes made)
-file C:\Users\Bmd\AppData\Local\Temp\ST_3754_00001b.tmp saved as .dta format
+file
+    C:\Users\Bmd\AppData\Local\Temp\ST
+    > _3754_00001b.tmp saved as .dta
+    format
 (label s00q01 already defined)
 
-    Result                      Number of obs
-    -----------------------------------------
-    Not matched                             0
-    Matched                                14  
-    -----------------------------------------
-(variable cod_reg was byte, now int to accommodate using data's values)
+    Result                      Number o
+> f obs
+    ------------------------------------
+> -----
+    Not matched                         
+>     0
+    Matched                             
+>    14  
+    ------------------------------------
+> -----
+(variable cod_reg was byte, now int to
+       accommodate using data's
+       values)
 
-    Result                      Number of obs
-    -----------------------------------------
-    Not matched                             0
-    Matched                                14  
-    -----------------------------------------
-(variable NOMREG was str12, now str30 to accommodate using data's values)
+    Result                      Number o
+> f obs
+    ------------------------------------
+> -----
+    Not matched                         
+>     0
+    Matched                             
+>    14  
+    ------------------------------------
+> -----
+(variable NOMREG was str12, now str30
+       to accommodate using data's
+       values)
 
-    Result                      Number of obs
-    -----------------------------------------
-    Not matched                             0
-    Matched                                14  
-    -----------------------------------------
+    Result                      Number o
+> f obs
+    ------------------------------------
+> -----
+    Not matched                         
+>     0
+    Matched                             
+>    14  
+    ------------------------------------
+> -----
 file code/stata/temp/dimmap.dta saved
-file code/stata/output/figures/fig_carte_dim_eau.pdf saved as PDF format
+file
+    code/stata/output/figures/fig_cart
+    > e_dim_eau.pdf saved as PDF
+    format
 >>> fig_carte_dim_eau.pdf sauvegardé
 (14 real changes made)
-file C:\Users\Bmd\AppData\Local\Temp\ST_3754_00001c.tmp saved as .dta format
+file
+    C:\Users\Bmd\AppData\Local\Temp\ST
+    > _3754_00001c.tmp saved as .dta
+    format
 (14 real changes made)
-file C:\Users\Bmd\AppData\Local\Temp\ST_3754_00001d.tmp saved as .dta format
+file
+    C:\Users\Bmd\AppData\Local\Temp\ST
+    > _3754_00001d.tmp saved as .dta
+    format
 (label s00q01 already defined)
 
-    Result                      Number of obs
-    -----------------------------------------
-    Not matched                             0
-    Matched                                14  
-    -----------------------------------------
-(variable cod_reg was byte, now int to accommodate using data's values)
+    Result                      Number o
+> f obs
+    ------------------------------------
+> -----
+    Not matched                         
+>     0
+    Matched                             
+>    14  
+    ------------------------------------
+> -----
+(variable cod_reg was byte, now int to
+       accommodate using data's
+       values)
 
-    Result                      Number of obs
-    -----------------------------------------
-    Not matched                             0
-    Matched                                14  
-    -----------------------------------------
-(variable NOMREG was str12, now str30 to accommodate using data's values)
+    Result                      Number o
+> f obs
+    ------------------------------------
+> -----
+    Not matched                         
+>     0
+    Matched                             
+>    14  
+    ------------------------------------
+> -----
+(variable NOMREG was str12, now str30
+       to accommodate using data's
+       values)
 
-    Result                      Number of obs
-    -----------------------------------------
-    Not matched                             0
-    Matched                                14  
-    -----------------------------------------
+    Result                      Number o
+> f obs
+    ------------------------------------
+> -----
+    Not matched                         
+>     0
+    Matched                             
+>    14  
+    ------------------------------------
+> -----
 file code/stata/temp/dimmap.dta saved
-file code/stata/output/figures/fig_carte_dim_logem.pdf saved as PDF format
+file
+    code/stata/output/figures/fig_cart
+    > e_dim_logem.pdf saved as PDF
+    format
 >>> fig_carte_dim_logem.pdf sauvegardé
 (14 real changes made)
-file C:\Users\Bmd\AppData\Local\Temp\ST_3754_00001e.tmp saved as .dta format
+file
+    C:\Users\Bmd\AppData\Local\Temp\ST
+    > _3754_00001e.tmp saved as .dta
+    format
 (14 real changes made)
-file C:\Users\Bmd\AppData\Local\Temp\ST_3754_00001f.tmp saved as .dta format
+file
+    C:\Users\Bmd\AppData\Local\Temp\ST
+    > _3754_00001f.tmp saved as .dta
+    format
 (label s00q01 already defined)
 
-    Result                      Number of obs
-    -----------------------------------------
-    Not matched                             0
-    Matched                                14  
-    -----------------------------------------
-(variable cod_reg was byte, now int to accommodate using data's values)
+    Result                      Number o
+> f obs
+    ------------------------------------
+> -----
+    Not matched                         
+>     0
+    Matched                             
+>    14  
+    ------------------------------------
+> -----
+(variable cod_reg was byte, now int to
+       accommodate using data's
+       values)
 
-    Result                      Number of obs
-    -----------------------------------------
-    Not matched                             0
-    Matched                                14  
-    -----------------------------------------
-(variable NOMREG was str12, now str30 to accommodate using data's values)
+    Result                      Number o
+> f obs
+    ------------------------------------
+> -----
+    Not matched                         
+>     0
+    Matched                             
+>    14  
+    ------------------------------------
+> -----
+(variable NOMREG was str12, now str30
+       to accommodate using data's
+       values)
 
-    Result                      Number of obs
-    -----------------------------------------
-    Not matched                             0
-    Matched                                14  
-    -----------------------------------------
+    Result                      Number o
+> f obs
+    ------------------------------------
+> -----
+    Not matched                         
+>     0
+    Matched                             
+>    14  
+    ------------------------------------
+> -----
 file code/stata/temp/dimmap.dta saved
-file code/stata/output/figures/fig_carte_dim_nutri.pdf saved as PDF format
+file
+    code/stata/output/figures/fig_cart
+    > e_dim_nutri.pdf saved as PDF
+    format
 >>> fig_carte_dim_nutri.pdf sauvegardé
 (14 real changes made)
-file C:\Users\Bmd\AppData\Local\Temp\ST_3754_00001g.tmp saved as .dta format
+file
+    C:\Users\Bmd\AppData\Local\Temp\ST
+    > _3754_00001g.tmp saved as .dta
+    format
 (14 real changes made)
-file C:\Users\Bmd\AppData\Local\Temp\ST_3754_00001h.tmp saved as .dta format
+file
+    C:\Users\Bmd\AppData\Local\Temp\ST
+    > _3754_00001h.tmp saved as .dta
+    format
 (label s00q01 already defined)
 
-    Result                      Number of obs
-    -----------------------------------------
-    Not matched                             0
-    Matched                                14  
-    -----------------------------------------
-(variable cod_reg was byte, now int to accommodate using data's values)
+    Result                      Number o
+> f obs
+    ------------------------------------
+> -----
+    Not matched                         
+>     0
+    Matched                             
+>    14  
+    ------------------------------------
+> -----
+(variable cod_reg was byte, now int to
+       accommodate using data's
+       values)
 
-    Result                      Number of obs
-    -----------------------------------------
-    Not matched                             0
-    Matched                                14  
-    -----------------------------------------
-(variable NOMREG was str12, now str30 to accommodate using data's values)
+    Result                      Number o
+> f obs
+    ------------------------------------
+> -----
+    Not matched                         
+>     0
+    Matched                             
+>    14  
+    ------------------------------------
+> -----
+(variable NOMREG was str12, now str30
+       to accommodate using data's
+       values)
 
-    Result                      Number of obs
-    -----------------------------------------
-    Not matched                             0
-    Matched                                14  
-    -----------------------------------------
+    Result                      Number o
+> f obs
+    ------------------------------------
+> -----
+    Not matched                         
+>     0
+    Matched                             
+>    14  
+    ------------------------------------
+> -----
 file code/stata/temp/dimmap.dta saved
-file code/stata/output/figures/fig_carte_dim_sante.pdf saved as PDF format
+file
+    code/stata/output/figures/fig_cart
+    > e_dim_sante.pdf saved as PDF
+    format
 >>> fig_carte_dim_sante.pdf sauvegardé
 (14 real changes made)
-file C:\Users\Bmd\AppData\Local\Temp\ST_3754_00001i.tmp saved as .dta format
+file
+    C:\Users\Bmd\AppData\Local\Temp\ST
+    > _3754_00001i.tmp saved as .dta
+    format
 (14 real changes made)
-file C:\Users\Bmd\AppData\Local\Temp\ST_3754_00001j.tmp saved as .dta format
+file
+    C:\Users\Bmd\AppData\Local\Temp\ST
+    > _3754_00001j.tmp saved as .dta
+    format
 (label s00q01 already defined)
 
-    Result                      Number of obs
-    -----------------------------------------
-    Not matched                             0
-    Matched                                14  
-    -----------------------------------------
-(variable cod_reg was byte, now int to accommodate using data's values)
+    Result                      Number o
+> f obs
+    ------------------------------------
+> -----
+    Not matched                         
+>     0
+    Matched                             
+>    14  
+    ------------------------------------
+> -----
+(variable cod_reg was byte, now int to
+       accommodate using data's
+       values)
 
-    Result                      Number of obs
-    -----------------------------------------
-    Not matched                             0
-    Matched                                14  
-    -----------------------------------------
-(variable NOMREG was str12, now str30 to accommodate using data's values)
+    Result                      Number o
+> f obs
+    ------------------------------------
+> -----
+    Not matched                         
+>     0
+    Matched                             
+>    14  
+    ------------------------------------
+> -----
+(variable NOMREG was str12, now str30
+       to accommodate using data's
+       values)
 
-    Result                      Number of obs
-    -----------------------------------------
-    Not matched                             0
-    Matched                                14  
-    -----------------------------------------
+    Result                      Number o
+> f obs
+    ------------------------------------
+> -----
+    Not matched                         
+>     0
+    Matched                             
+>    14  
+    ------------------------------------
+> -----
 file code/stata/temp/dimmap.dta saved
-file code/stata/output/figures/fig_carte_dim_protect.pdf saved as PDF format
+file
+    code/stata/output/figures/fig_cart
+    > e_dim_protect.pdf saved as PDF
+    format
 >>> fig_carte_dim_protect.pdf sauvegardé
 (14 real changes made)
-file C:\Users\Bmd\AppData\Local\Temp\ST_3754_00001k.tmp saved as .dta format
+file
+    C:\Users\Bmd\AppData\Local\Temp\ST
+    > _3754_00001k.tmp saved as .dta
+    format
 (14 real changes made)
-file C:\Users\Bmd\AppData\Local\Temp\ST_3754_00001l.tmp saved as .dta format
+file
+    C:\Users\Bmd\AppData\Local\Temp\ST
+    > _3754_00001l.tmp saved as .dta
+    format
 (label s00q01 already defined)
 
-    Result                      Number of obs
-    -----------------------------------------
-    Not matched                             0
-    Matched                                14  
-    -----------------------------------------
-(variable cod_reg was byte, now int to accommodate using data's values)
+    Result                      Number o
+> f obs
+    ------------------------------------
+> -----
+    Not matched                         
+>     0
+    Matched                             
+>    14  
+    ------------------------------------
+> -----
+(variable cod_reg was byte, now int to
+       accommodate using data's
+       values)
 
-    Result                      Number of obs
-    -----------------------------------------
-    Not matched                             0
-    Matched                                14  
-    -----------------------------------------
-(variable NOMREG was str12, now str30 to accommodate using data's values)
+    Result                      Number o
+> f obs
+    ------------------------------------
+> -----
+    Not matched                         
+>     0
+    Matched                             
+>    14  
+    ------------------------------------
+> -----
+(variable NOMREG was str12, now str30
+       to accommodate using data's
+       values)
 
-    Result                      Number of obs
-    -----------------------------------------
-    Not matched                             0
-    Matched                                14  
-    -----------------------------------------
+    Result                      Number o
+> f obs
+    ------------------------------------
+> -----
+    Not matched                         
+>     0
+    Matched                             
+>    14  
+    ------------------------------------
+> -----
 file code/stata/temp/dimmap.dta saved
-file code/stata/output/figures/fig_carte_dim_educ.pdf saved as PDF format
+file
+    code/stata/output/figures/fig_cart
+    > e_dim_educ.pdf saved as PDF
+    format
 >>> fig_carte_dim_educ.pdf sauvegardé
 
 . 
-. /* ============================================================
->    2. Croisement pauvreté monétaire / N-MODA (EHCVM I)
->    ============================================================ */
+. /* ===================================
+> =========================
+>    2. Croisement pauvreté monétaire / 
+> N-MODA (EHCVM I)
+>    ===================================
+> ========================= */
 . 
 . use "$TEMP/vague_2018.dta", clear
 
 . 
-. /* Seuil monétaire officiel ANSD 2018 : 276 305 FCFA/an */
-. gen byte pauvre_mon = (pcexp < 276305) if !missing(pcexp)
+. /* Seuil monétaire officiel ANSD 2018 
+> : 276 305 FCFA/an */
+. gen byte pauvre_mon = (pcexp < 276305)
+>  if !missing(pcexp)
 
-. label var pauvre_mon "Pauvre monétaire (seuil ANSD 2018)"
+. label var pauvre_mon "Pauvre monétaire
+>  (seuil ANSD 2018)"
 
 . 
-. /* Tableau croisé brut (sans ponderation) */
-. di _newline "=== Croisement pauvreté monétaire / N-MODA ==="
+. /* Tableau croisé brut (sans ponderati
+> on) */
+. di _newline "=== Croisement pauvreté m
+> onétaire / N-MODA ==="
 
-=== Croisement pauvreté monétaire / N-MODA ===
+=== Croisement pauvreté monétaire / N-MO
+> DA ===
 
-. tab pauvre_mon pauvre_MODA, row col nofreq
+. tab pauvre_mon pauvre_MODA, row col no
+> freq
 
 +-------------------+
 | Key               |
@@ -6737,24 +7287,40 @@ file code/stata/output/figures/fig_carte_dim_educ.pdf saved as PDF format
 +-------------------+
 
     Pauvre |
- monétaire |
-    (seuil |      pauvre_MODA
-ANSD 2018) |         0          1 |     Total
------------+----------------------+----------
-         0 |     46.98      53.02 |    100.00 
-           |     85.50      56.44 |     67.17 
------------+----------------------+----------
-         1 |     16.29      83.71 |    100.00 
-           |     14.50      43.56 |     32.83 
------------+----------------------+----------
-     Total |     36.90      63.10 |    100.00 
-           |    100.00     100.00 |    100.00 
+ monétaire | pauvre_MOD
+    (seuil |     A
+ANSD 2018) |         0 |     Total
+-----------+-----------+----------
+         0 |     46.98 |    100.00 
+           |     85.50 |     67.17 
+-----------+-----------+----------
+         1 |     16.29 |    100.00 
+           |     14.50 |     32.83 
+-----------+-----------+----------
+     Total |     36.90 |    100.00 
+           |    100.00 |    100.00 
+
+
+    Pauvre |
+ monétaire | pauvre_MOD
+    (seuil |     A
+ANSD 2018) |         1 |     Total
+-----------+-----------+----------
+         0 |     53.02 |    100.00 
+           |     56.44 |     67.17 
+-----------+-----------+----------
+         1 |     83.71 |    100.00 
+           |     43.56 |     32.83 
+-----------+-----------+----------
+     Total |     63.10 |    100.00 
+           |    100.00 |    100.00 
 
 . 
 . /* Calcul des quatre cellules */
 . foreach pm in 0 1 {
   2.     foreach md in 0 1 {
-  3.         quietly count if pauvre_mon == `pm' & pauvre_MODA == `md'
+  3.         quietly count if pauvre_mon
+>  == `pm' & pauvre_MODA == `md'
   4.         local n`pm'`md' = r(N)
   5.     }
   6. }
@@ -6764,25 +7330,35 @@ ANSD 2018) |         0          1 |     Total
 . gen byte cat4 = .
 (33,844 missing values generated)
 
-. replace cat4 = 1 if pauvre_mon == 0 & pauvre_MODA == 0  /* non pauvres */
+. replace cat4 = 1 if pauvre_mon == 0 & 
+> pauvre_MODA == 0  /* non pauvres */
 (9,991 real changes made)
 
-. replace cat4 = 2 if pauvre_mon == 1 & pauvre_MODA == 0  /* pauvres monet. seuls */
+. replace cat4 = 2 if pauvre_mon == 1 & 
+> pauvre_MODA == 0  /* pauvres monet. se
+> uls */
 (1,694 real changes made)
 
-. replace cat4 = 3 if pauvre_mon == 0 & pauvre_MODA == 1  /* pauvres multidim. seuls */
+. replace cat4 = 3 if pauvre_mon == 0 & 
+> pauvre_MODA == 1  /* pauvres multidim.
+>  seuls */
 (11,277 real changes made)
 
-. replace cat4 = 4 if pauvre_mon == 1 & pauvre_MODA == 1  /* doublement pauvres */
+. replace cat4 = 4 if pauvre_mon == 1 & 
+> pauvre_MODA == 1  /* doublement pauvre
+> s */
 (8,702 real changes made)
 
-. label define cat4l 1 "Non pauvres" 2 "Pauvres monet. seuls" ///
->                    3 "Pauvres MODA seuls" 4 "Doublement pauvres"
+. label define cat4l 1 "Non pauvres" 2 "
+> Pauvres monet. seuls" ///
+>                    3 "Pauvres MODA seu
+> ls" 4 "Doublement pauvres"
 
 . label values cat4 cat4l
 
 . 
-. tabstat cat4, by(cat4) stat(count) format(%9.0f)
+. tabstat cat4, by(cat4) stat(count) for
+> mat(%9.0f)
 
 Summary for variables: cat4
 Group variable: cat4 
@@ -6807,33 +7383,44 @@ Doublement pauvr |      8702
 . scalar p_moda = r(mean)*100
 
 . 
-. di _newline "Pauvreté monétaire : " %5.1f p_mon "%"
+. di _newline "Pauvreté monétaire : " %5
+> .1f p_mon "%"
 
 Pauvreté monétaire :  32.8%
 
-. di "Pauvreté N-MODA    : " %5.1f p_moda "%"
+. di "Pauvreté N-MODA    : " %5.1f p_mod
+> a "%"
 Pauvreté N-MODA    :  63.1%
 
 . 
-. /* ── Fig Venn simplifié : diagramme à barres empilées ── */
-. /* Proportions par catégorie calculées sans collapse pour éviter
->    la perte des variables de stratification */
+. /* ── Fig Venn simplifié : diagramme à
+>  barres empilées ── */
+. /* Proportions par catégorie calculées
+>  sans collapse pour éviter
+>    la perte des variables de stratific
+> ation */
 . preserve
 
 .     /* 4 catégories pour graphique */
-.     gen byte nn  = (pauvre_mon == 0 & pauvre_MODA == 0)  /* 1 */
+.     gen byte nn  = (pauvre_mon == 0 & 
+> pauvre_MODA == 0)  /* 1 */
 
-.     gen byte pm_only = (pauvre_mon == 1 & pauvre_MODA == 0)  /* 2 */
+.     gen byte pm_only = (pauvre_mon == 
+> 1 & pauvre_MODA == 0)  /* 2 */
 
-.     gen byte md_only = (pauvre_mon == 0 & pauvre_MODA == 1)  /* 3 */
+.     gen byte md_only = (pauvre_mon == 
+> 0 & pauvre_MODA == 1)  /* 3 */
 
-.     gen byte both    = (pauvre_mon == 1 & pauvre_MODA == 1)  /* 4 */
+.     gen byte both    = (pauvre_mon == 
+> 1 & pauvre_MODA == 1)  /* 4 */
 
 . 
-.     foreach v in nn pm_only md_only both {
+.     foreach v in nn pm_only md_only bo
+> th {
   2.         quietly summarize `v'
   3.         scalar p_`v' = r(mean)*100
-  4.         di "`v' : " %5.1f r(mean)*100 "%"
+  4.         di "`v' : " %5.1f r(mean)*1
+> 00 "%"
   5.     }
 nn :  29.5%
 pm_only :   5.0%
@@ -6844,21 +7431,26 @@ both :  25.7%
 .     clear
 
 .     set obs 4
-Number of observations (_N) was 0, now 4.
+Number of observations (_N) was 0, now
+4.
 
 .     gen str30 cat = ""
 (4 missing values generated)
 
-.     replace cat = "Non pauvres (deux approches)" in 1
+.     replace cat = "Non pauvres (deux a
+> pproches)" in 1
 (1 real change made)
 
-.     replace cat = "Pauvres monétaires uniquement" in 2
+.     replace cat = "Pauvres monétaires 
+> uniquement" in 2
 (1 real change made)
 
-.     replace cat = "Pauvres N-MODA uniquement"     in 3
+.     replace cat = "Pauvres N-MODA uniq
+> uement"     in 3
 (1 real change made)
 
-.     replace cat = "Doublement pauvres"             in 4
+.     replace cat = "Doublement pauvres"
+>              in 4
 (1 real change made)
 
 .     gen pct = .
@@ -6885,83 +7477,125 @@ Number of observations (_N) was 0, now 4.
 
 .     forvalues i = 1/4 {
   2.         local lbl = cat[`i']
-  3.         local ylab_str `"`ylab_str' `i' "`lbl'""'
+  3.         local ylab_str `"`ylab_str'
+>  `i' "`lbl'""'
   4.     }
 
 . 
-.     /* Etiquette au centre (blanc) pour les barres longues, a droite
->        (noir) pour les barres trop courtes */
+.     /* Etiquette au centre (blanc) pou
+> r les barres longues, a droite
+>        (noir) pour les barres trop cou
+> rtes */
 .     gen mid_lbl = pct/2 if pct >= 10
 (1 missing value generated)
 
-.     gen out_lbl = pct + 2.5 if pct < 10
+.     gen out_lbl = pct + 2.5 if pct < 1
+> 0
 (3 missing values generated)
 
 .     set dp comma
 
-.     twoway (bar pct ordre, horizontal barwidth(0.45) ///
->             color(gs9) lcolor(white)) ///
->            (scatter ordre mid_lbl, msymbol(none) ///
->             mlabel(pct) mlabformat(%4,1f) mlabcolor(white) mlabpos(0) mlabsize(small)) ///
->            (scatter ordre out_lbl, msymbol(none) ///
->             mlabel(pct) mlabformat(%4,1f) mlabcolor(black) mlabpos(0) mlabsize(small)), ///
->         ylab(`ylab_str', angle(0) noticks labsize(small)) ///
->         yscale(range(0.5 4.5)) ysize(3.2) xsize(6.8) ///
->         xtitle("Part des enfants 0-17 ans (%)") ytitle("") ///
+.     twoway (bar pct ordre, horizontal 
+> barwidth(0.45) ///
+>             color(gs9) lcolor(white)) 
+> ///
+>            (scatter ordre mid_lbl, msy
+> mbol(none) ///
+>             mlabel(pct) mlabformat(%4,
+> 1f) mlabcolor(white) mlabpos(0) mlabsi
+> ze(small)) ///
+>            (scatter ordre out_lbl, msy
+> mbol(none) ///
+>             mlabel(pct) mlabformat(%4,
+> 1f) mlabcolor(black) mlabpos(0) mlabsi
+> ze(small)), ///
+>         ylab(`ylab_str', angle(0) noti
+> cks labsize(small)) ///
+>         yscale(range(0.5 4.5)) ysize(3
+> .2) xsize(6.8) ///
+>         xtitle("Part des enfants 0-17 
+> ans (%)") ytitle("") ///
 >         xlabel(0(20)100) ///
->         xline(0, lcolor(gs8) lwidth(thin)) ///
+>         xline(0, lcolor(gs8) lwidth(th
+> in)) ///
 >         legend(off) ///
->         graphregion(color(white)) plotregion(color(white))
+>         graphregion(color(white)) plot
+> region(color(white))
 
 .     set dp period
 
-.     graph export "$OUTPUT/figures/fig_croisement_pauvrete.pdf", replace
-file code/stata/output/figures/fig_croisement_pauvrete.pdf saved as PDF format
+.     graph export "$OUTPUT/figures/fig_
+> croisement_pauvrete.pdf", replace
+file
+    code/stata/output/figures/fig_croi
+    > sement_pauvrete.pdf saved as PDF
+    format
 
-.     di ">>> fig_croisement_pauvrete.pdf sauvegardé"
->>> fig_croisement_pauvrete.pdf sauvegardé
+.     di ">>> fig_croisement_pauvrete.pd
+> f sauvegardé"
+>>> fig_croisement_pauvrete.pdf sauvegar
+> dé
 
 . restore
 
 . 
-. di _newline ">>> 08_carte_region.do terminé."
+. di _newline ">>> 08_carte_region.do te
+> rminé."
 
 >>> 08_carte_region.do terminé.
 
 . 
-. /* ============================================================
->    SECTION : 09_PLACEBO_ATTRITION — Tests de validite (annexe A)
->    ============================================================ */
+. /* ===================================
+> =========================
+>    SECTION : 09_PLACEBO_ATTRITION — Te
+> sts de validite (annexe A)
+>    ===================================
+> ========================= */
 . 
-. /* ============================================================
->    09_placebo_attrition.do — Tests de validite (annexe A)
+. /* ===================================
+> =========================
+>    09_placebo_attrition.do — Tests de 
+> validite (annexe A)
 > 
->    1. Test placebo : 200 assignations aleatoires d'un faux
->       traitement parmi les menages jamais traites ; la
->       distribution des ATT placebo doit etre centree sur zero
->       si l'hypothese de tendances paralleles est plausible.
->    2. Test d'attrition : comparaison des menages de l'EHCVM I
->       retrouves vs perdus en 2021 sur les covariables de base.
+>    1. Test placebo : 200 assignations 
+> aleatoires d'un faux
+>       traitement parmi les menages jam
+> ais traites ; la
+>       distribution des ATT placebo doi
+> t etre centree sur zero
+>       si l'hypothese de tendances para
+> lleles est plausible.
+>    2. Test d'attrition : comparaison d
+> es menages de l'EHCVM I
+>       retrouves vs perdus en 2021 sur 
+> les covariables de base.
 > 
->    Aucune ponderation par poids d'enquete.
->    ============================================================ */
+>    Aucune ponderation par poids d'enqu
+> ete.
+>    ===================================
+> ========================= */
 . 
 . 
-. /* ============================================================
+. /* ===================================
+> =========================
 >    1. Test placebo (200 replications)
->    ============================================================ */
+>    ===================================
+> ========================= */
 . 
-. di _newline "=== Test placebo (200 replications) ==="
+. di _newline "=== Test placebo (200 rep
+> lications) ==="
 
 === Test placebo (200 replications) ===
 
 . 
 . local n_rep 200
 
-. matrix PLA = J(`n_rep', 1, .)   /* col 1 = MODA */
+. matrix PLA = J(`n_rep', 1, .)   /* col
+>  1 = MODA */
 
 . 
-. /* Echantillon : menages jamais traites uniquement */
+. /* Echantillon : menages jamais traite
+> s uniquement */
 . use "$TEMP/panel_vrai.dta", clear
 
 . keep if D == 0
@@ -6970,10 +7604,14 @@ file code/stata/output/figures/fig_croisement_pauvrete.pdf saved as PDF format
 . tempfile never
 
 . save `never'
-file C:\Users\Bmd\AppData\Local\Temp\ST_3754_00001n.tmp saved as .dta format
+file
+    C:\Users\Bmd\AppData\Local\Temp\ST
+    > _3754_00001n.tmp saved as .dta
+    format
 
 . 
-. /* Liste des menages (une ligne par menage) */
+. /* Liste des menages (une ligne par me
+> nage) */
 . bysort grappe menage: keep if _n == 1
 (33,952 observations deleted)
 
@@ -6982,14 +7620,19 @@ file C:\Users\Bmd\AppData\Local\Temp\ST_3754_00001n.tmp saved as .dta format
 . tempfile liste_men
 
 . save `liste_men'
-file C:\Users\Bmd\AppData\Local\Temp\ST_3754_00001o.tmp saved as .dta format
+file
+    C:\Users\Bmd\AppData\Local\Temp\ST
+    > _3754_00001o.tmp saved as .dta
+    format
 
 . quietly count
 
 . local n_men = r(N)
 
-. /* part de faux traites = part observee de traites (entrants) parmi les
->    menages du panel d'analyse, calculee dynamiquement */
+. /* part de faux traites = part observe
+> e de traites (entrants) parmi les
+>    menages du panel d'analyse, calcule
+> e dynamiquement */
 . preserve
 
 .     use "$TEMP/panel_vrai.dta", clear
@@ -6997,7 +7640,8 @@ file C:\Users\Bmd\AppData\Local\Temp\ST_3754_00001o.tmp saved as .dta format
 .     keep if t == 0
 (21,809 observations deleted)
 
-.     bysort grappe menage: keep if _n == 1
+.     bysort grappe menage: keep if _n =
+> = 1
 (19,596 observations deleted)
 
 .     quietly summarize D
@@ -7006,8 +7650,10 @@ file C:\Users\Bmd\AppData\Local\Temp\ST_3754_00001o.tmp saved as .dta format
 
 . restore
 
-. di "  Part de faux traites appliquee : " %6.4f `part_fake'
-  Part de faux traites appliquee : 0.1771
+. di "  Part de faux traites appliquee :
+>  " %6.4f `part_fake'
+  Part de faux traites appliquee : 0.177
+> 1
 
 . 
 . forvalues r = 1/`n_rep' {
@@ -7016,29 +7662,39 @@ file C:\Users\Bmd\AppData\Local\Temp\ST_3754_00001o.tmp saved as .dta format
   4.         set seed `=1000+`r''
   5.         gen u = runiform()
   6.         sort u
-  7.         gen byte fakeD = (_n <= `part_fake'*`n_men')
+  7.         gen byte fakeD = (_n <= `pa
+> rt_fake'*`n_men')
   8.         keep grappe menage fakeD
   9.         tempfile fake
  10.         save `fake'
  11. 
 .         use `never', clear
- 12.         merge m:1 grappe menage using `fake', keep(match) nogenerate
+ 12.         merge m:1 grappe menage usi
+> ng `fake', keep(match) nogenerate
  13. 
-.         /* DD placebo (moyennes des 4 cellules) */
+.         /* DD placebo (moyennes des 4 
+> cellules) */
 .         foreach y in pauvre_MODA {
- 14.             summarize `y' if t==1 & fakeD==1
+ 14.             summarize `y' if t==1 &
+>  fakeD==1
  15.             local m11 = r(mean)
- 16.             summarize `y' if t==0 & fakeD==1
+ 16.             summarize `y' if t==0 &
+>  fakeD==1
  17.             local m01 = r(mean)
- 18.             summarize `y' if t==1 & fakeD==0
+ 18.             summarize `y' if t==1 &
+>  fakeD==0
  19.             local m10 = r(mean)
- 20.             summarize `y' if t==0 & fakeD==0
+ 20.             summarize `y' if t==0 &
+>  fakeD==0
  21.             local m00 = r(mean)
- 22.             local att = (`m11'-`m01') - (`m10'-`m00')
- 23.             matrix PLA[`r',1] = `att'
+ 22.             local att = (`m11'-`m01
+> ') - (`m10'-`m00')
+ 23.             matrix PLA[`r',1] = `at
+> t'
  24.         }
  25.     }
- 26.     if mod(`r', 50) == 0 di "  replication `r'/`n_rep'"
+ 26.     if mod(`r', 50) == 0 di "  repl
+> ication `r'/`n_rep'"
  27. }
   replication 50/200
   replication 100/200
@@ -7046,67 +7702,113 @@ file C:\Users\Bmd\AppData\Local\Temp\ST_3754_00001o.tmp saved as .dta format
   replication 200/200
 
 . 
-. /* Statistiques de la distribution placebo */
+. /* Statistiques de la distribution pla
+> cebo */
 . clear
 
 . svmat PLA, names(col)
-number of observations will be reset to 200
-Press any key to continue, or Break to abort
-Number of observations (_N) was 0, now 200.
+number of observations will be reset to 
+> 200
+Press any key to continue, or Break to a
+> bort
+Number of observations (_N) was 0, now
+200.
 
 . rename c1 att_moda
 
 . foreach y in moda {
   2.     quietly summarize att_`y'
-  3.     di _newline "Placebo `y' : moyenne=" %7.4f r(mean) "  sd=" %6.4f r(sd)
-  4.     quietly count if abs(att_`y') > 0.05
-  5.     di "  fraction |ATT|>0.05 : " %4.1f 100*r(N)/`n_rep' "%"
-  6. }
+  3.     di _newline "Placebo `y' : moye
+> nne=" %7.4f r(mean) "  sd=" %6.4f r(sd
+> )
+  4.     quietly count if abs(att_`y') >
+>  0.05
+  5.     di "  fraction |ATT|>0.05 : " %
+> 4.1f 100*r(N)/`n_rep' "%"
+  6.     /* Centile de l'ATT reel dans l
+> a distribution placebo (rang percentil
+> e) */
+.     quietly count if att_`y' < $ATT_RE
+> EL
+  7.     quietly count if !missing(att_`
+> y')
+  8.     local ntot = r(N)
+  9.     quietly count if att_`y' < $ATT
+> _REEL
+ 10.     di "  ATT reel (" %6.4f $ATT_RE
+> EL ") : rang = " %4.1f 100*r(N)/`ntot'
+>  "e centile"
+ 11. }
 
-Placebo moda : moyenne=-0.0023  sd=0.0237
+Placebo moda : moyenne=-0.0023  sd=0.023
+> 7
   fraction |ATT|>0.05 :  3.5%
+  ATT reel (-0.0106) : rang = 39.0e cent
+> ile
 
 . 
-. /* ── Fig placebo : distribution des ATT placebo vs ATT reel ──
->    Verifie la plausibilite des tendances paralleles : la distribution
->    placebo doit etre centree sur zero et l'ATT reel doit se situer dans
+. /* ── Fig placebo : distribution des A
+> TT placebo vs ATT reel ──
+>    Verifie la plausibilite des tendanc
+> es paralleles : la distribution
+>    placebo doit etre centree sur zero 
+> et l'ATT reel doit se situer dans
 >    sa queue. */
-. scalar att_reel = $ATT_REEL   /* ATT PSM-DD principal, sauvegarde en section 5 */
+. scalar att_reel = $ATT_REEL   /* ATT P
+> SM-DD principal, sauvegarde en section
+>  5 */
 
 . local xl_att = scalar(att_reel)
 
 . set dp comma
 
-. histogram att_moda, width(0.005) frequency ///
+. histogram att_moda, width(0.005) frequ
+> ency ///
 >     color(gs9) lcolor(white) ///
->     xline(0, lcolor(black) lpattern(solid)) ///
->     xline(`xl_att', lcolor(orange) lpattern(dash) lwidth(medthick)) ///
->     xtitle("ATT placebo (faux traitement aléatoire)") ///
->     ytitle("Nombre de réplications") ///
->     xlabel(-0.06 "-0,06" -0.04 "-0,04" -0.02 "-0,02" 0 "0" ///
->            0.02 "0,02" 0.04 "0,04" 0.06 "0,06" 0.08 "0,08" 0.10 "0,10", grid) ///
->     graphregion(color(white)) plotregion(color(white))
+>     xline(0, lcolor(black) lpattern(so
+> lid)) ///
+>     xline(`xl_att', lcolor(orange) lpa
+> ttern(dash) lwidth(medthick)) ///
+>     xtitle("ATT placebo (faux traiteme
+> nt aléatoire)") ///
+>     ytitle("Nombre de réplications") /
+> //
+>     xlabel(-0.06 "-0,06" -0.04 "-0,04"
+>  -0.02 "-0,02" 0 "0" ///
+>            0.02 "0,02" 0.04 "0,04" 0.0
+> 6 "0,06" 0.08 "0,08" 0.10 "0,10", grid
+> ) ///
+>     graphregion(color(white)) plotregi
+> on(color(white))
 (bin=28, start=-,07962116, width=,005)
 
 . set dp period
 
-. graph export "$OUTPUT/figures/fig_placebo_dd.pdf", replace
-file code/stata/output/figures/fig_placebo_dd.pdf saved as PDF format
+. graph export "$OUTPUT/figures/fig_plac
+> ebo_dd.pdf", replace
+file
+    code/stata/output/figures/fig_plac
+    > ebo_dd.pdf saved as PDF format
 
 . di ">>> fig_placebo_dd.pdf sauvegardé"
 >>> fig_placebo_dd.pdf sauvegardé
 
 . 
-. /* ============================================================
+. /* ===================================
+> =========================
 >    2. Test d'attrition
->    ============================================================ */
+>    ===================================
+> ========================= */
 . 
-. di _newline "=== Test d'attrition (menages avec enfants, EHCVM I) ==="
+. di _newline "=== Test d'attrition (men
+> ages avec enfants, EHCVM I) ==="
 
-=== Test d'attrition (menages avec enfants, EHCVM I) ===
+=== Test d'attrition (menages avec enfan
+> ts, EHCVM I) ===
 
 . 
-. /* Menages 2018 (une ligne par menage) */
+. /* Menages 2018 (une ligne par menage)
+>  */
 . use "$TEMP/vague_2018.dta", clear
 
 . bysort grappe menage: keep if _n == 1
@@ -7119,13 +7821,21 @@ file code/stata/output/figures/fig_placebo_dd.pdf saved as PDF format
 . tempfile men18
 
 . save `men18'
-file C:\Users\Bmd\AppData\Local\Temp\ST_3754_00007m.tmp saved as .dta format
+file
+    C:\Users\Bmd\AppData\Local\Temp\ST
+    > _3754_00007m.tmp saved as .dta
+    format
 
 . 
-. /* Menages retrouves en 2021 : variable officielle PanelHH (et non la
->    presence dans panel_vrai.dta, qui exclut aussi les menages deja beneficiaires en 2018 et
->    confondrait attrition et exclusion de l'echantillon d'analyse) */
-. use "$BASE_2021/s00_me_sen2021.dta", clear
+. /* Menages retrouves en 2021 : variabl
+> e officielle PanelHH (et non la
+>    presence dans panel_vrai.dta, qui e
+> xclut aussi les menages deja beneficia
+> ires en 2018 et
+>    confondrait attrition et exclusion 
+> de l'echantillon d'analyse) */
+. use "$BASE_2021/s00_me_sen2021.dta", c
+> lear
 
 . keep if PanelHH == 1
 (993 observations deleted)
@@ -7137,52 +7847,91 @@ file C:\Users\Bmd\AppData\Local\Temp\ST_3754_00007m.tmp saved as .dta format
 
 . gen byte suivi = 1
 
-. merge 1:1 grappe menage using `men18', keepusing(hhsize hage chef_f ///
->     urbain log_pcexp D) keep(match using) nogenerate
+. merge 1:1 grappe menage using `men18',
+>  keepusing(hhsize hage chef_f ///
+>     urbain log_pcexp D) keep(match usi
+> ng) nogenerate
 (label s00q04 already defined)
 (label s00q02 already defined)
 (label s00q01 already defined)
 
-    Result                      Number of obs
-    -----------------------------------------
-    Not matched                           784
-        from master                         0  
-        from using                        784  
+    Result                      Number o
+> f obs
+    ------------------------------------
+> -----
+    Not matched                         
+>   784
+        from master                     
+>     0  
+        from using                      
+>   784  
 
-    Matched                             5,643  
-    -----------------------------------------
+    Matched                             
+> 5,643  
+    ------------------------------------
+> -----
 
 . replace suivi = 0 if missing(suivi)
 (784 real changes made)
 
 . 
-. di _newline "Menages suivis vs perdus :"
+. di _newline "Menages suivis vs perdus 
+> :"
 
 Menages suivis vs perdus :
 
-. tabstat hhsize hage chef_f urbain log_pcexp D, by(suivi) ///
+. tabstat hhsize hage chef_f urbain log_
+> pcexp D, by(suivi) ///
 >     stat(mean n) format(%7.3f)
 
 Summary statistics: Mean, N
 Group variable: suivi 
 
-   suivi |    hhsize      hage    chef_f    urbain  log_pc~p         D
----------+------------------------------------------------------------
-       0 |     8.152    49.599     0.399     0.717    13.235     0.269
-         |   784.000   784.000   784.000   784.000   784.000   784.000
----------+------------------------------------------------------------
-       1 |    10.269    51.926     0.242     0.498    12.923     0.219
-         |  5643.000  5643.000  5643.000  5643.000  5643.000  5643.000
----------+------------------------------------------------------------
-   Total |    10.011    51.642     0.261     0.525    12.961     0.225
-         |  6427.000  6427.000  6427.000  6427.000  6427.000  6427.000
-----------------------------------------------------------------------
+   suivi |    hhsize      hage
+---------+--------------------
+       0 |     8.152    49.599
+         |   784.000   784.000
+---------+--------------------
+       1 |    10.269    51.926
+         |  5643.000  5643.000
+---------+--------------------
+   Total |    10.011    51.642
+         |  6427.000  6427.000
+------------------------------
+
+   suivi |    chef_f    urbain
+---------+--------------------
+       0 |     0.399     0.717
+         |   784.000   784.000
+---------+--------------------
+       1 |     0.242     0.498
+         |  5643.000  5643.000
+---------+--------------------
+   Total |     0.261     0.525
+         |  6427.000  6427.000
+------------------------------
+
+   suivi |  log_pc~p         D
+---------+--------------------
+       0 |    13.235     0.269
+         |   784.000   784.000
+---------+--------------------
+       1 |    12.923     0.219
+         |  5643.000  5643.000
+---------+--------------------
+   Total |    12.961     0.225
+         |  6427.000  6427.000
+------------------------------
 
 . 
-. foreach v in log_pcexp hhsize chef_f urbain hage D {
-  2.     quietly regress `v' suivi, vce(cluster grappe)
-  3.     di "  `v' : diff=" %8.3f _b[suivi] "  p=" %6.4f ///
->        (2*ttail(e(df_r), abs(_b[suivi]/_se[suivi])))
+. foreach v in log_pcexp hhsize chef_f u
+> rbain hage D {
+  2.     quietly regress `v' suivi, vce(
+> cluster grappe)
+  3.     di "  `v' : diff=" %8.3f _b[sui
+> vi] "  p=" %6.4f ///
+>        (2*ttail(e(df_r), abs(_b[suivi]
+> /_se[suivi])))
   4. }
   log_pcexp : diff=  -0.313  p=0.0000
   hhsize : diff=   2.117  p=0.0000
@@ -7192,32 +7941,50 @@ Group variable: suivi
   D : diff=  -0.050  p=0.0046
 
 . 
-. di _newline ">>> 09_placebo_attrition.do termine."
+. di _newline ">>> 09_placebo_attrition.
+> do termine."
 
 >>> 09_placebo_attrition.do termine.
 
 . 
-. /* ============================================================
->    SECTION FINALE : copie des figures vers le rapport LaTeX
->    ------------------------------------------------------------
->    Recopie automatiquement les PDF generes dans output/figures
->    vers latex/figures, pour que le memoire compile toujours les
->    dernieres versions sans manipulation manuelle.
->    ============================================================ */
+. /* ===================================
+> =========================
+>    SECTION FINALE : copie des figures 
+> vers le rapport LaTeX
+>    -----------------------------------
+> -------------------------
+>    Recopie automatiquement les PDF gen
+> eres dans output/figures
+>    vers latex/figures, pour que le mem
+> oire compile toujours les
+>    dernieres versions sans manipulatio
+> n manuelle.
+>    ===================================
+> ========================= */
 . 
-. di _newline ">>> Copie des figures vers latex/figures et Presentation/figures ..."
+. di _newline ">>> Copie des figures ver
+> s latex/figures et Presentation/figure
+> s ..."
 
->>> Copie des figures vers latex/figures et Presentation/figures ...
+>>> Copie des figures vers latex/figures
+>  et Presentation/figures ...
 
-. /* Copie dynamique de tous les PDF generes (inclut automatiquement les
->    cartes par dimension fig_carte_dim_*.pdf et toute figure future) vers
->    le rapport ET la presentation Beamer, pour les garder synchronises. */
-. local figs : dir "$OUTPUT/figures" files "*.pdf"
+. /* Copie dynamique de tous les PDF gen
+> eres (inclut automatiquement les
+>    cartes par dimension fig_carte_dim_
+> *.pdf et toute figure future) vers
+>    le rapport ET la presentation Beame
+> r, pour les garder synchronises. */
+. local figs : dir "$OUTPUT/figures" fil
+> es "*.pdf"
 
 . foreach f of local figs {
-  2.     foreach dest in "latex/figures" "Presentation/figures" {
-  3.         capture copy "$OUTPUT/figures/`f'" "`dest'/`f'", replace
-  4.         if _rc di "    !! echec copie `f' vers `dest' (rc=" _rc ")"
+  2.     foreach dest in "latex/figures"
+>  "Presentation/figures" {
+  3.         capture copy "$OUTPUT/figur
+> es/`f'" "`dest'/`f'", replace
+  4.         if _rc di "    !! echec cop
+> ie `f' vers `dest' (rc=" _rc ")"
   5.     }
   6.     di "    ok `f'"
   7. }
@@ -7245,17 +8012,26 @@ Group variable: suivi
     ok fig_privind_all.pdf
     ok fig_profil_statut.pdf
 
-. /* Graphique de support commun (a la racine de output) */
-. capture copy "$OUTPUT/overlap_panel.pdf" "latex/figures/overlap_panel.pdf", replace
+. /* Graphique de support commun (a la r
+> acine de output) */
+. capture copy "$OUTPUT/overlap_panel.pd
+> f" "latex/figures/overlap_panel.pdf", 
+> replace
 
-. capture copy "$OUTPUT/overlap_panel.pdf" "Presentation/figures/overlap.pdf", replace
+. capture copy "$OUTPUT/overlap_panel.pd
+> f" "Presentation/figures/overlap.pdf",
+>  replace
 
 . 
-. di _newline ">>> FIN DU PIPELINE COMPLET <<<"
+. di _newline ">>> FIN DU PIPELINE COMPL
+> ET <<<"
 
 >>> FIN DU PIPELINE COMPLET <<<
 
 . 
-. /* Ferme le log pour que code/stata/logs/tout.log soit complet et libere
->    (il est versionne : pousse-le pour que toute la sortie soit relisible). */
+. /* Ferme le log pour que code/stata/lo
+> gs/tout.log soit complet et libere
+>    (il est versionne : pousse-le pour 
+> que toute la sortie soit relisible). *
+> /
 . capture log close _all
