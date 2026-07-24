@@ -861,9 +861,13 @@ foreach annee in 2018 2021 {
     /* ── [Dimension 7/7 : Education] ──────────────────────────────
        Indicateur 1 - Illettrisme, ne sait ni lire ni ecrire (15-17 ans)
        Indicateur 2 - Non-scolarisation (5-14 ans)
-       Indicateur 3 - NEET, ni scolarise ni employe (15-17 ans)
        Combinaison par groupe d'age : 5-14 ans = ind.2 seul ;
-       15-17 ans = ind.1 OU ind.3. */
+       15-17 ans = ind.1 seul.
+       NEET (ni scolarise ni employe) NON RETENU dans l'agregat : la valeur
+       ANSD publiee (85,7 %) est incoherente (un NEET est necessairement non
+       scolarise, or seuls ~46 % des 15-17 le sont) et non reproductible ; on
+       n'inclut donc que les indicateurs validables sur l'ANSD. m_neet reste
+       calcule a titre descriptif mais n'alimente plus dim_educ. */
     gen byte m_scol = (scol == 0) if age >= 5 & age <= 14 & !missing(scol)
     replace  m_scol = 0 if age < 5 | age > 14
 
@@ -877,17 +881,17 @@ foreach annee in 2018 2021 {
     }
     replace m_alfab = 0 if age < 15
 
+    /* NEET : conserve pour la statistique descriptive (annexe), hors agregat. */
     gen byte m_neet = (scol == 0 & activ7j != 1) ///
         if age >= 15 & !missing(scol) & !missing(activ7j)
     replace  m_neet = 0 if age < 15
 
     /* Non applicable aux 0-4 ans (groupe_moda==1) : dim_educ = 0 par
-       defaut, pas de "sauvetage" pour les 5-14 et 15-17 ans. */
+       defaut. 15-17 ans : illettrisme seul (NEET retire). */
     gen byte dim_educ = 0
-    replace  dim_educ = m_scol if groupe_moda == 2
-    replace  dim_educ = (m_alfab == 1 | m_neet == 1) ///
-        if groupe_moda == 3 & !missing(m_alfab) & !missing(m_neet)
-    replace  dim_educ = . if groupe_moda == 3 & (missing(m_alfab) | missing(m_neet))
+    replace  dim_educ = m_scol  if groupe_moda == 2
+    replace  dim_educ = m_alfab if groupe_moda == 3 & !missing(m_alfab)
+    replace  dim_educ = .        if groupe_moda == 3 & missing(m_alfab)
 
     /* ── Agregation N-MODA (union intra-dimension, seuil k=$K_MODA) ── */
     gen byte nb_dep = dim_assai + dim_eau + dim_logem + dim_nutri + ///
