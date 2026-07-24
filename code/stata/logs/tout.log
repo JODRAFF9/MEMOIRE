@@ -5184,7 +5184,15 @@ Appui/ démarrage d'une entreprise non a |         33        1.19       80.29
 >         by(milieu) stat(mean n) format(%6.3f)
   5.     tabstat pauvre_MODA nb_dep [aw=hhweight], ///
 >         by(groupe_moda) stat(mean n) format(%6.3f)
-  6. }
+  6.     /* Incidence ajustee : H (part de pauvres), A (intensite moyenne parmi les
+>        pauvres = nb_dep/7), M0 = H x A, ponderes par hhweight. */
+.     quietly summarize pauvre_MODA [aw=hhweight]
+  7.     local H = r(mean)
+  8.     quietly summarize intensite_moda [aw=hhweight] if pauvre_MODA == 1
+  9.     local A = r(mean)
+ 10.     di "  Incidence ajustee `annee' : H=" %5.1f 100*`H' "%  A=" %5.1f 100*`A' ///
+>        "%  M0=" %5.3f `H'*`A'
+ 11. }
 
 -- N-MODA 2018 (pondéré hhweight) --
 
@@ -5220,6 +5228,7 @@ groupe_moda |  pauvre~A    nb_dep
       Total |     0.590     3.856
             |   3.2e+04   3.2e+04
 ---------------------------------
+  Incidence ajustee 2018 : H= 59.0%  A= 70.5%  M0=0.416
 
 -- N-MODA 2021 (pondéré hhweight) --
 
@@ -5255,6 +5264,7 @@ groupe_moda |  pauvre~A    nb_dep
       Total |     0.506     3.561
             |   2.7e+04   2.7e+04
 ---------------------------------
+  Incidence ajustee 2021 : H= 50.6%  A= 68.9%  M0=0.348
 
 . 
 . /* Export tab_moda_age : H par groupe d'âge et vague */
@@ -7061,10 +7071,16 @@ Number of observations (_N) was 0, now 200.
   3.     di _newline "Placebo `y' : moyenne=" %7.4f r(mean) "  sd=" %6.4f r(sd)
   4.     quietly count if abs(att_`y') > 0.05
   5.     di "  fraction |ATT|>0.05 : " %4.1f 100*r(N)/`n_rep' "%"
-  6. }
+  6.     /* Centile de l'ATT reel dans la distribution placebo (rang percentile) */
+.     quietly count if !missing(att_`y')
+  7.     local ntot = r(N)
+  8.     quietly count if att_`y' < $ATT_REEL
+  9.     di "  ATT reel (" %6.4f $ATT_REEL ") : rang = " %4.1f 100*r(N)/`ntot' "e centile"
+ 10. }
 
 Placebo moda : moyenne=-0.0022  sd=0.0240
   fraction |ATT|>0.05 :  3.0%
+  ATT reel (-0.0100) : rang = 39.5e centile
 
 . 
 . /* ── Fig placebo : distribution des ATT placebo vs ATT reel ──
