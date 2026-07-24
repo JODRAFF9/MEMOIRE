@@ -140,7 +140,7 @@ significative au seuil de 5\,\%.
 À titre de référence, nous estimons d'abord un estimateur de double différence
 sans appariement (tableau~\ref{tab:dd_brut}). L'impact
 estimé est nul et loin de la significativité pour le N-MODA
-(-$0{,}9$ pp, $p = 0{,}662$)~: la pauvreté multidimensionnelle des enfants a
+(-$0{,}9$ pp, $p = 0{,}666$)~: la pauvreté multidimensionnelle des enfants a
 reculé au même rythme chez les entrants et chez les jamais bénéficiaires.
 Cette comparaison brute reste toutefois exposée aux différences initiales
 entre les deux groupes (les futurs entrants sont un peu plus aisés et
@@ -156,7 +156,7 @@ pour confirmer le résultat sur des groupes rendus comparables.
     \hline
 \entete Variable de résultat & ATT$_{\text{DD}}$ & Éc.-t. (cluster) & $p$-valeur \\
     \hline
-    Pauvreté N-MODA ($\hat{H}_{\text{MODA}}$) & -$0{,}009$ & $(0{,}022)$ & 0,662 \\
+    Pauvreté N-MODA ($\hat{H}_{\text{MODA}}$) & -$0{,}009$ & $(0{,}022)$ & 0,666 \\
     \hline
   \end{tabular}
 
@@ -182,7 +182,7 @@ sélection sur observables et les effets fixes inobservables constants dans le t
 \entete Variable de résultat & ATT & Éc.-t. (cluster) & $p$-valeur \\
     \hline
     \multicolumn{4}{|c|}{\textit{Approche N-MODA (7 dimensions, $k=4$)}} \\ \hline
-    \quad Incidence $\hat{H}_{\text{MODA}}$         & -$0{,}011$ & $(0{,}025)$ & 0,668 \\
+    \quad Incidence $\hat{H}_{\text{MODA}}$         & -$0{,}010$ & $(0{,}025)$ & 0,684 \\
     \hline
   \end{tabular}
 
@@ -190,7 +190,7 @@ sélection sur observables et les effets fixes inobservables constants dans le t
 \end{table}
 \footnotetext{\textit{Note :} appariement k-NN au niveau ménage, erreurs-types clusterisées par grappe, $n = 25\,028$.}
 
-L'estimateur PSM-DD donne un ATT de -$0{,}011$ ($p = 0{,}668$) sur la pauvreté
+L'estimateur PSM-DD donne un ATT de -$0{,}010$ ($p = 0{,}684$) sur la pauvreté
 N-MODA~: après appariement, aucune divergence de trajectoire n'est
 détectable entre les enfants des ménages entrants et ceux des témoins
 comparables. La pauvreté multidimensionnelle recule dans les deux groupes
@@ -227,10 +227,10 @@ graphique de l'ATT proche de zéro.
 
 Le tableau~\ref{tab:psm_methodes} examine la stabilité des résultats selon
 la méthode d'appariement retenue. Les quatre spécifications concordent~:
-l'ATT reste compris entre -$0{,}015$ et -$0{,}009$ et loin de la
-significativité, du k-NN ($p = 0{,}668$) au noyau Epanechnikov
-($p = 0{,}548$), au caliper ($p = 0{,}677$) et à la double différence brute
-($p = 0{,}662$). L'absence d'effet détectable est donc robuste
+l'ATT reste compris entre -$0{,}014$ et -$0{,}009$ et loin de la
+significativité, du k-NN ($p = 0{,}684$) au noyau Epanechnikov
+($p = 0{,}578$), au caliper ($p = 0{,}694$) et à la double différence brute
+($p = 0{,}666$). L'absence d'effet détectable est donc robuste
 au choix algorithmique.
 
 \begin{table}[H]
@@ -242,10 +242,10 @@ au choix algorithmique.
     \hline
 \entete Méthode d'appariement & ATT (N-MODA) & $p$-val. \\
     \hline
-    k-NN ($k=4$, avec remise)             & -$0{,}011$ & 0,668 \\ \hline
-    Noyau Epanechnikov ($h=0{,}06$)       & -$0{,}015$ & 0,548 \\ \hline
-    Caliper ($\varepsilon = 0{,}05$, sans remise) & -$0{,}012$ & 0,677 \\ \hline
-    DD brute (sans appariement)           & -$0{,}009$  & 0,662 \\
+    k-NN ($k=4$, avec remise)             & -$0{,}010$ & 0,684 \\ \hline
+    Noyau Epanechnikov ($h=0{,}06$)       & -$0{,}014$ & 0,578 \\ \hline
+    Caliper ($\varepsilon = 0{,}05$, sans remise) & -$0{,}011$ & 0,694 \\ \hline
+    DD brute (sans appariement)           & -$0{,}009$  & 0,666 \\
     \hline
   \end{tabular}
 
@@ -281,7 +281,7 @@ départ en migration qui précède l'entrée dans le statut de bénéficiaire,
 et rejoint les coûts psychosociaux de l'absence parentale documentés par
 la littérature \parencite{cortes2007,davis2016}. Les effets sur les cinq
 autres dimensions (assainissement~: $1{,}4$ pp~; santé~: $1{,}4$ pp~;
-eau~: -$3{,}0$ pp~; nutrition~: -$1{,}2$ pp~; logement~: $0{,}0$ pp) ne
+eau~: -$2{,}8$ pp~; nutrition~: -$1{,}2$ pp~; logement~: $0{,}0$ pp) ne
 sont pas statistiquement significatifs au seuil de 10\,\%. Cette
 décomposition donne un contenu concret au mécanisme de compensation entre
 canaux avancé pour interpréter le résultat nul agrégé~: le bénéfice
