@@ -26,9 +26,9 @@ entrants et témoins appariés (poids $k$-NN) est estimé séparément à $t=0$
     \hline
 \entete Spécification & Coefficient & Écart-type & $p$-val. \\
     \hline
-    PSM seul, $t=0$ (écart initial)  & -$0{,}037$ & $0{,}023$ & $0{,}116$ \\ \hline
-    PSM seul, $t=1$ (écart final)    & -$0{,}032$ & $0{,}028$ & $0{,}252$ \\ \hline
-    PSM-DD (référence, tableau~\ref{tab:psmdd_att}) & $0{,}005$ & $0{,}026$ & $0{,}852$ \\
+    PSM seul, $t=0$ (écart initial)  & -$0{,}021$ & $0{,}023$ & $0{,}371$ \\ \hline
+    PSM seul, $t=1$ (écart final)    & -$0{,}032$ & $0{,}027$ & $0{,}242$ \\ \hline
+    PSM-DD (référence, tableau~\ref{tab:psmdd_att}) & -$0{,}011$ & $0{,}025$ & $0{,}668$ \\
     \hline
   \end{tabular}
 
@@ -37,13 +37,13 @@ entrants et témoins appariés (poids $k$-NN) est estimé séparément à $t=0$
 
 À la période de base, avant le début du traitement, les futurs entrants ne
 se distinguent pas significativement des témoins appariés (écart de
-3,7~points, $p=0{,}116$)~: l'appariement sur les caractéristiques
+2,1~points, $p=0{,}371$)~: l'appariement sur les caractéristiques
 observables suffit ici à équilibrer les deux groupes, ce qui est cohérent
 avec le fait qu'aucun des deux groupes n'est encore exposé aux transferts
 en 2018. À $t=1$, l'écart reste faible et non significatif (3,2~points,
-$p=0{,}252$), et la double différence, qui retranche l'écart initial de
+$p=0{,}242$), et la double différence, qui retranche l'écart initial de
 l'écart final, est proche de zéro
-($0{,}005 = -0{,}032 - (-0{,}037)$, aux arrondis près). La cohérence entre
+($-0{,}011 = -0{,}032 - (-0{,}021)$, aux arrondis près). La cohérence entre
 les lectures transversale et différenciée renforce la crédibilité du
 résultat central~: l'absence d'effet détectable ne provient pas d'un
 artefact de spécification, chaque étape de l'estimateur racontant la même
@@ -66,11 +66,11 @@ suivante.
 \entete Statistique & Pauvreté N-MODA \\
     \hline
     ATT placebo moyen            & -$0{,}002$ \\ \hline
-    Écart-type                   & $0{,}025$ \\ \hline
-    Fraction $|$ATT$|$ $>$ 0,05 & 1,0\,\% \\
+    Écart-type                   & $0{,}024$ \\ \hline
+    Fraction $|$ATT$|$ $>$ 0,05 & 3,5\,\% \\
     \hline
-    ATT réel (tableau~\ref{tab:psmdd_att}) & $0{,}005$ \\ \hline
-    Rang dans la distribution placebo      & 61\textsuperscript{e} centile \\
+    ATT réel (tableau~\ref{tab:psmdd_att}) & -$0{,}011$ \\ \hline
+    Rang dans la distribution placebo      & 39\textsuperscript{e} centile \\
     \hline
   \end{tabular}
 
@@ -86,9 +86,9 @@ suivante.
   {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM.}
 \end{figure}
 
-La distribution placebo, centrée sur zéro (écart-type 0,025), fournit la
-référence sous absence d'effet~: l'ATT réel ($0{,}005$) se situe au
-61\textsuperscript{e} centile, en plein c\oe ur de la distribution,
+La distribution placebo, centrée sur zéro (écart-type 0,024), fournit la
+référence sous absence d'effet~: l'ATT réel (-$0{,}011$) se situe au
+39\textsuperscript{e} centile, en plein c\oe ur de la distribution,
 c'est-à-dire qu'il est indiscernable d'une assignation aléatoire du
 traitement - lecture pleinement cohérente avec le résultat nul.
 
@@ -119,9 +119,9 @@ justifierait un autre seuil.
 \subsection{Résultats de l'appariement avec différentes méthodes}
 
 Le tableau~\ref{tab:psm_methodes} (section~\ref{subsec:psmdd}) confronte
-les méthodes d'appariement~: le k-NN ($p=0{,}852$), le noyau Epanechnikov
-($p=0{,}789$), le caliper ($p=0{,}858$) et la double différence brute
-($p=0{,}784$) concordent tous sur l'absence d'effet détectable. La
+les méthodes d'appariement~: le k-NN ($p=0{,}668$), le noyau Epanechnikov
+($p=0{,}548$), le caliper ($p=0{,}677$) et la double différence brute
+($p=0{,}662$) concordent tous sur l'absence d'effet détectable. La
 stabilité de la conclusion entre méthodes reste l'enseignement principal.
 
 \subsection{Traitement défini par les bénéficiaires stables}
@@ -130,14 +130,14 @@ En complément du design entrants retenu comme design principal (justifié
 en section~\ref{sec:methodo}), l'ATT est également estimé en comparant les
 ménages bénéficiaires stables ($D=1$ aux deux vagues) aux ménages jamais
 bénéficiaires, sur le même panel de ménages. Le PSM-DD appliqué à cette
-définition donne un ATT positif, quoique seulement marginalement
-significatif ($0{,}043$, écart-type $0{,}024$, $p=0{,}082$)~: la pauvreté
+définition donne un ATT positif, quoique non
+significatif ($0{,}040$, écart-type $0{,}024$, $p=0{,}104$)~: la pauvreté
 multidimensionnelle des enfants des ménages durablement bénéficiaires
 recule moins vite que celle des enfants des témoins appariés. Ce contraste avec l'absence d'effet du design
 principal doit toutefois être interprété avec prudence~: dans le design
 stable, le traitement est déjà en cours à la période de base (les
 bénéficiaires stables affichent dès 2018 une pauvreté inférieure de
-15~points à celle de leurs témoins appariés, écart antérieur à la période
+26~points à celle de leurs témoins appariés, écart antérieur à la période
 d'observation), si bien que la première vague ne mesure pas un niveau
 pré-traitement et que la dynamique estimée peut refléter un rattrapage des
 témoins autant qu'un effet des transferts. Il suggère néanmoins que
