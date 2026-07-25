@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8">
+<style>
+  @page { size: A4; margin: 16mm 14mm; }
+  * { box-sizing: border-box; }
+  body { font-family: "Helvetica Neue", Arial, sans-serif; color:#1a1a1a; font-size:10.5px; line-height:1.45; }
+  h1 { color:#1f497d; font-size:19px; text-align:center; margin:0 0 2px; }
+  .sub { text-align:center; color:#444; font-size:11px; margin:0 0 2px; }
+  .subt { text-align:center; color:#666; font-size:10px; font-style:italic; margin:0 0 10px; }
+  .principe { background:#f4f8fc; border-left:3px solid #1f497d; padding:8px 12px; margin:10px 0 14px; font-size:10px; }
+  h2 { color:#1f497d; font-size:13.5px; margin:14px 0 4px; border-bottom:1px solid #cdd9e8; padding-bottom:2px; }
+  h2 .note { font-weight:normal; font-size:10px; color:#666; }
+  table { width:100%; border-collapse:collapse; margin-bottom:4px; page-break-inside:avoid; }
+  th { background:#1f497d; color:#fff; text-align:left; padding:5px 7px; font-size:10px; }
+  td { padding:5px 7px; vertical-align:top; border-bottom:1px solid #e3e9f0; }
+  tr:nth-child(even) td { background:#eaf0f8; }
+  .c1 { width:20%; font-weight:600; color:#1f497d; }
+  .c3 { width:24%; }
+  code { background:#eef2f7; padding:0 2px; border-radius:2px; font-family:"SF Mono",Consolas,monospace; font-size:9.5px; color:#0b3d66; }
+  .foot { font-size:9px; font-style:italic; color:#555; margin-top:10px; border-top:1px solid #cdd9e8; padding-top:6px; }
+  em { color:#8a4b00; font-style:italic; }
+</style></head><body>
+
+<h1>Construction des indicateurs de pauvreté multidimensionnelle de l'enfant (N-MODA)</h1>
+<p class="sub">Sié Rachid TRAORÉ — ENSAE Pierre Ndiaye</p>
+<p class="subt">Impact des transferts de migrants sur la pauvreté multidimensionnelle des enfants au Sénégal — EHCVM 2018/19 &amp; 2021/22</p>
+
+<div class="principe">
+<b>Principe.</b> Approche N-MODA (ANSD/UNICEF) : sept dimensions du bien-être, déclinées en indicateurs binaires (privé / non&nbsp;privé). Un enfant est <b>privé dans une dimension</b> s'il l'est dans <em>au moins un</em> de ses indicateurs (union intra-dimension). Il est <b>pauvre (N-MODA)</b> s'il est privé dans <b>au moins k&nbsp;=&nbsp;4 dimensions sur 7</b>. Unité d'analyse : l'enfant ; trois groupes d'âge (<b>0-4</b>, <b>5-14</b>, <b>15-17</b> ans) déterminent les indicateurs applicables. Statistiques descriptives pondérées par le poids de sondage (<code>hhweight</code>) ; effets causals pondérés par les poids d'appariement du PSM.
+</div>
+
+<h2>1. Assainissement</h2>
+<table><tr><th class="c1">Indicateur</th><th>Définition (privé si…)</th><th class="c3">Variables (2018 / 2021)</th></tr>
+<tr><td class="c1">Type de sanitaire non amélioré</td><td>le ménage utilise des toilettes non améliorées : latrines SANPLAT, latrines dallées simples, fosse rudimentaire, toilettes publiques, aucune toilette, autre (codes 7 à 12).</td><td class="c3"><code>s11q55</code> / <code>s11q54</code></td></tr>
+<tr><td class="c1">Partage des toilettes</td><td>le ménage partage ses toilettes avec d'autres ménages (dénominateur : ménages à installation privée).</td><td class="c3"><code>s11q56</code> / <code>s11q55</code></td></tr>
+</table>
+
+<h2>2. Eau</h2>
+<table><tr><th class="c1">Indicateur</th><th>Définition (privé si…)</th><th class="c3">Variables (2018 / 2021)</th></tr>
+<tr><td class="c1">Source d'eau non améliorée</td><td>la source de boisson est non améliorée — puits ouvert cour/concession (5), puits ouvert ailleurs (6), source non aménagée (12), fleuve/rivière/lac (13), vendeur ambulant (16), autre (17), à l'une ou l'autre saison — <em>et</em> le ménage ne traite pas son eau (filtre de traitement ≠ « oui »).</td><td class="c3">Source : <code>s11q27a</code>, <code>s11q27b</code> / <code>s11q26a</code>, <code>s11q26b</code>.<br>Filtre traitement : <code>s11q32</code> / <code>s11q31</code></td></tr>
+<tr><td class="c1">Temps d'accès à l'eau</td><td>le temps de collecte (aller + attente à la source) dépasse 30&nbsp;min à l'une ou l'autre saison.</td><td class="c3"><code>s11q29a</code>, <code>s11q31a</code> (+ h/min) / <code>s11q28a</code>, <code>s11q30a</code></td></tr>
+</table>
+
+<h2>3. Logement</h2>
+<table><tr><th class="c1">Indicateur</th><th>Définition (privé si…)</th><th class="c3">Variables (2018 / 2021)</th></tr>
+<tr><td class="c1">Débarras des ordures</td><td>le ménage évacue ses ordures de façon inadéquate : brûlées (3), dépotoir sauvage (5), autre (6).</td><td class="c3"><code>s11q54</code> / <code>s11q53</code></td></tr>
+<tr><td class="c1">Surpeuplement</td><td><b>au moins 4 personnes par pièce</b> (ratio taille/pièces ≥ 4 ; lecture ANSD de « plus de 3 personnes par pièce »).</td><td class="c3"><code>hhsize</code> (roster) / <code>s11q02</code> (pièces)</td></tr>
+</table>
+
+<h2>4. Nutrition</h2>
+<table><tr><th class="c1">Indicateur</th><th>Définition (privé si…)</th><th class="c3">Variables (2018 / 2021)</th></tr>
+<tr><td class="c1">Insécurité alimentaire (FIES)</td><td>un membre du ménage a, faute de ressources, sauté un repas, mangé moins que nécessaire, manqué de nourriture, eu faim sans manger, ou passé une journée sans manger. <em>La diversité des repas n'est pas retenue (module non comparable entre vagues).</em></td><td class="c3"><code>s08aq04</code> à <code>s08aq08</code></td></tr>
+</table>
+
+<h2>5. Santé <span class="note">(dimension = union des deux indicateurs)</span></h2>
+<table><tr><th class="c1">Indicateur</th><th>Définition (privé si…)</th><th class="c3">Variables (2018 / 2021)</th></tr>
+<tr><td class="c1">Combustible solide pour cuisiner</td><td>le ménage cuisine avec un combustible solide : bois (ramassé/acheté), charbon de bois, déchets animaux, autres.</td><td class="c3"><code>s11q53__1,2,3,7,8</code> / <code>s11q52</code></td></tr>
+<tr><td class="c1">Accès à une structure de santé</td><td>l'enfant ne peut accéder <b>à pied</b> à une structure de santé publique (hôpital, service 5 ; autre centre de santé public, service 6) : le mode habituel pour rejoindre la plus proche n'est pas la marche.</td><td class="c3">Module communautaire <code>s02_co</code> : <code>s02q00</code>, <code>s02q01__5/__6</code>, <code>s02q02</code></td></tr>
+</table>
+
+<h2>6. Protection de l'enfant</h2>
+<table><tr><th class="c1">Indicateur</th><th>Définition (privé si…)</th><th class="c3">Variables (2018 / 2021)</th></tr>
+<tr><td class="c1">Absence d'acte de naissance</td><td>l'enfant (<b>&lt; 15 ans</b>) ne dispose pas d'un acte de naissance.</td><td class="c3"><code>s01q05</code></td></tr>
+<tr><td class="c1">Travail des enfants</td><td>l'enfant (<b>5-14 ans</b>) effectue un travail économique <em>ou</em> domestique d'au moins 1&nbsp;heure. Domestique : heures de courses, travaux domestiques, garde, corvées d'eau et de bois. Économique : travail rémunéré ou pour propre compte.</td><td class="c3">Domestique : <code>s04q01</code>–<code>s04q05</code>.<br>Économique : <code>s04q06</code>–<code>s04q09</code></td></tr>
+<tr><td class="c1">Séparation parentale</td><td>l'enfant ne vit pas avec ses <b>deux</b> parents biologiques (au moins un parent n'habite pas le ménage).</td><td class="c3"><code>s01q22</code> (père) et <code>s01q29</code> (mère)</td></tr>
+</table>
+
+<h2>7. Éducation</h2>
+<table><tr><th class="c1">Indicateur</th><th>Définition (privé si…)</th><th class="c3">Variables (2018 / 2021)</th></tr>
+<tr><td class="c1">Non-scolarisation</td><td>l'enfant (<b>5-14 ans</b>) n'est pas scolarisé.</td><td class="c3"><code>scol</code> (base individus)</td></tr>
+<tr><td class="c1">Illettrisme</td><td>l'enfant (<b>15-17 ans</b>) ne sait ni lire ni écrire.</td><td class="c3"><code>alfab</code> / <code>alfa</code> (base individus)</td></tr>
+<tr><td class="c1">NEET</td><td><em>Indicateur écarté.</em> La valeur ANSD (85,7 %) correspond à la seule absence d'emploi, sans la condition de non-scolarisation, et compte donc les élèves comme privés : inutilisable comme privation éducative.</td><td class="c3">(<code>scol</code>, <code>activ7j</code>)</td></tr>
+</table>
+
+<p class="foot">Note : les variables 2021 sont précisées après le « / » lorsqu'elles diffèrent de 2018. Les âges en gras restreignent l'indicateur au groupe concerné ; ailleurs l'indicateur, mesuré au niveau du ménage ou de la localité, s'applique à tous les groupes d'âge.</p>
+
+</body></html>

@@ -13,12 +13,15 @@
    Equivalent Stata de code/python/validation_indicateurs_ansd.py.
    Chaque bloc rappelle la cible ANSD et la valeur reproduite.
 
-   Lancement depuis la racine :  do "code/stata/validation_ansd.do"
+   Se lance de n'importe ou (bases lues via GitHub) :  do "validation_ansd.do"
    ============================================================ */
 
 clear all
 set more off
-global B18 "Base/2018-2019/SEN_2018_EHCVM_v02_M_Stata"
+/* Bases lues directement depuis le depot GitHub (comme tout.do) : le script
+   se lance de n'importe ou, sans fichiers locaux ni cd prealable. Pour lire
+   des copies locales a la place, remplacer l'URL par le chemin du dossier. */
+global B18 "https://raw.githubusercontent.com/JODRAFF9/MEMOIRE/main/Base/2018-2019/SEN_2018_EHCVM_v02_M_Stata"
 
 /* ── Base enfants : age, education, activite, poids, taille menage ─── */
 use "$B18/ehcvm_individu_sen2018.dta", clear
