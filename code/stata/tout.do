@@ -1585,7 +1585,7 @@ foreach annee in 2018 2021 {
         gen byte chef_f = (hgender == 2)
         gen byte urbain = (milieu == 1)
         foreach v in hhsize hage pcexp chef_f urbain D {
-            summarize `v'
+            summarize `v' [aw=hhweight]   /* caracteristiques ponderees (representativite nationale) */
             if "`v'" == "hhsize" scalar m_hhsize_`annee' = r(mean)
             if "`v'" == "hage"   scalar m_hage_`annee'   = r(mean)
             if "`v'" == "pcexp"  scalar m_pcexp_`annee'  = r(mean)
