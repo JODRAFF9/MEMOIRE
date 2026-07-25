@@ -4750,7 +4750,7 @@ t#D_stable_alt |
   7.         gen byte chef_f = (hgender == 2)
   8.         gen byte urbain = (milieu == 1)
   9.         foreach v in hhsize hage pcexp chef_f urbain D {
- 10.             summarize `v'
+ 10.             summarize `v' [aw=hhweight]   /* caracteristiques ponderees (representativite nationale) */
  11.             if "`v'" == "hhsize" scalar m_hhsize_`annee' = r(mean)
  12.             if "`v'" == "hage"   scalar m_hage_`annee'   = r(mean)
  13.             if "`v'" == "pcexp"  scalar m_pcexp_`annee'  = r(mean)
@@ -4777,11 +4777,11 @@ t#D_stable_alt |
     -----------------------------------------
 (0 real changes made)
 2018 : 6427 ménages
-  Taille moy : 10.01
-  PCE moy    :       510802 FCFA/an
-  Chef féminin  :  26.1%
-  Milieu urbain :  52.5%
-  Transferts    :  22.5%
+  Taille moy :  9.75
+  PCE moy    :       555879 FCFA/an
+  Chef féminin  :  27.4%
+  Milieu urbain :  49.8%
+  Transferts    :  24.4%
 (24,575 observations deleted)
 
     Result                      Number of obs
@@ -4791,11 +4791,11 @@ t#D_stable_alt |
     -----------------------------------------
 (0 real changes made)
 2021 : 6458 ménages
-  Taille moy :  9.38
-  PCE moy    :       536072 FCFA/an
-  Chef féminin  :  27.8%
-  Milieu urbain :  52.8%
-  Transferts    :  25.1%
+  Taille moy :  9.03
+  PCE moy    :       597804 FCFA/an
+  Chef féminin  :  29.1%
+  Milieu urbain :  50.9%
+  Transferts    :  26.8%
 
 . 
 . /* Export CSV tableau ménages */
