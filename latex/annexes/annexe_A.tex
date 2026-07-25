@@ -26,9 +26,9 @@ entrants et témoins appariés (poids $k$-NN) est estimé séparément à $t=0$
     \hline
 \entete Spécification & Coefficient & Écart-type & $p$-val. \\
     \hline
-    PSM seul, $t=0$ (écart initial)  & -$0{,}025$ & $0{,}024$ & $0{,}291$ \\ \hline
-    PSM seul, $t=1$ (écart final)    & -$0{,}027$ & $0{,}026$ & $0{,}316$ \\ \hline
-    PSM-DD (référence, tableau~\ref{tab:psmdd_att}) & -$0{,}001$ & $0{,}025$ & $0{,}959$ \\
+    PSM seul, $t=0$ (écart initial)  & -$0{,}024$ & $0{,}024$ & $0{,}308$ \\ \hline
+    PSM seul, $t=1$ (écart final)    & -$0{,}026$ & $0{,}026$ & $0{,}333$ \\ \hline
+    PSM-DD (référence, tableau~\ref{tab:psmdd_att}) & -$0{,}001$ & $0{,}025$ & $0{,}961$ \\
     \hline
   \end{tabular}
 
@@ -37,13 +37,13 @@ entrants et témoins appariés (poids $k$-NN) est estimé séparément à $t=0$
 
 À la période de base, avant le début du traitement, les futurs entrants ne
 se distinguent pas significativement des témoins appariés (écart de
-2,5~points, $p=0{,}291$)~: l'appariement sur les caractéristiques
+2,4~points, $p=0{,}308$)~: l'appariement sur les caractéristiques
 observables suffit ici à équilibrer les deux groupes, ce qui est cohérent
 avec le fait qu'aucun des deux groupes n'est encore exposé aux transferts
-en 2018. À $t=1$, l'écart reste faible et non significatif (2,7~points,
-$p=0{,}316$), et la double différence, qui retranche l'écart initial de
+en 2018. À $t=1$, l'écart reste faible et non significatif (2,6~points,
+$p=0{,}333$), et la double différence, qui retranche l'écart initial de
 l'écart final, est proche de zéro
-($-0{,}001 = -0{,}027 - (-0{,}025)$, aux arrondis près). La cohérence entre
+($-0{,}001 = -0{,}026 - (-0{,}024)$, aux arrondis près). La cohérence entre
 les lectures transversale et différenciée renforce la crédibilité du
 résultat central~: l'absence d'effet détectable ne provient pas d'un
 artefact de spécification, chaque étape de l'estimateur racontant la même
@@ -119,9 +119,9 @@ justifierait un autre seuil.
 \subsection{Résultats de l'appariement avec différentes méthodes}
 
 Le tableau~\ref{tab:psm_methodes} (section~\ref{subsec:psmdd}) confronte
-les méthodes d'appariement~: le k-NN ($p=0{,}959$), le noyau Epanechnikov
-($p=0{,}967$), le caliper ($p=0{,}798$) et la double différence brute
-($p=0{,}834$) concordent tous sur l'absence d'effet détectable. La
+les méthodes d'appariement~: le k-NN ($p=0{,}961$), le noyau Epanechnikov
+($p=0{,}968$), le caliper ($p=0{,}808$) et la double différence brute
+($p=0{,}835$) concordent tous sur l'absence d'effet détectable. La
 stabilité de la conclusion entre méthodes reste l'enseignement principal.
 
 \subsection{Traitement défini par les bénéficiaires stables}
@@ -131,7 +131,7 @@ en section~\ref{sec:methodo}), l'ATT est également estimé en comparant les
 ménages bénéficiaires stables ($D=1$ aux deux vagues) aux ménages jamais
 bénéficiaires, sur le même panel de ménages. Le PSM-DD appliqué à cette
 définition donne un ATT positif, quoique non
-significatif ($0{,}041$, écart-type $0{,}025$, $p=0{,}104$)~: la pauvreté
+significatif ($0{,}038$, écart-type $0{,}025$, $p=0{,}126$)~: la pauvreté
 multidimensionnelle des enfants des ménages durablement bénéficiaires
 recule moins vite que celle des enfants des témoins appariés. Ce contraste avec l'absence d'effet du design
 principal doit toutefois être interprété avec prudence~: dans le design
