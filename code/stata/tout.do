@@ -769,7 +769,14 @@ foreach annee in 2018 2021 {
        menage donnait ~1 point de plus ; les codes bruts reproduisent l'ANSD
        exactement (59,3 / 58,2 / 53,0 en 2018). */
     gen byte m_ordures = inlist(`v_ordure', 3, 5, 6) if !missing(`v_ordure')
-    gen byte m_surpeup = (hhsize / nb_pieces > 3) ///
+    /* Surpeuplement ANSD : « plus de 3 personnes par piece » operationnalise
+       comme AU MOINS 4 personnes par piece (ratio >= 4), et non ratio > 3 (qui
+       compterait a tort 3,5 pers./piece comme surpeuple). Reproduit exactement
+       les taux ANSD 2018 : 13,3 / 12,7 / 11,4 par groupe d'age. Le nombre de
+       pieces est le total occupe (s11q02) ; l'EHCVM ne distingue pas les
+       « pieces pour dormir » retenues par la definition-type ANSD, mais le
+       resultat coincide avec cette derniere. */
+    gen byte m_surpeup = (hhsize / nb_pieces >= 4) ///
         if !missing(nb_pieces) & nb_pieces > 0 & !missing(hhsize)
     gen byte dim_logem = (m_ordures == 1 | m_surpeup == 1) ///
         if !missing(m_ordures) & !missing(m_surpeup)
