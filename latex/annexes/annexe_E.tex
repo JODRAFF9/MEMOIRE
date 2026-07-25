@@ -39,65 +39,38 @@ l'opérationnalisation retenue dans ce mémoire.
   {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM~; ANSD/UNICEF (MODA 2024) pour la colonne de comparaison.}
 \end{table}
 
-Une fois les estimations pondérées par les poids de sondage de l'EHCVM
-(comme dans le calcul officiel), la plupart des indicateurs reproduisent les
-taux de l'ANSD de façon très étroite~: plusieurs coïncident au dixième de
-point (insécurité alimentaire, combustible solide, illettrisme, type de
-toilettes, partage des toilettes, débarras des ordures, surpeuplement et
-acte de naissance), les écarts résiduels restant inférieurs à 1,5 point. Le partage des toilettes suit ici la convention de
-dénominateur de l'ANSD~: il n'est calculé que sur les ménages disposant
-d'une installation privée, ceux à toilettes publiques ou sans toilette
-étant exclus de cet indicateur, tout en restant privés au titre du type de
-toilettes. La source d'eau non améliorée suit la définition ANSD à la lettre
-(« traitement de l'eau de sources non adéquates »)~: est privé l'enfant vivant
-dans un ménage dont la source de boisson est non améliorée (puits ouvert dans
-la cour/concession, puits ouvert ailleurs, source non aménagée,
-fleuve/rivière/lac, vendeur ambulant, autre~; à l'une ou l'autre saison) et
-qui ne traite pas son eau (réponse différente de « oui » au filtre de
-traitement, les « ne sait pas » et non-réponses étant comptés comme
-non-traitement). Le dénominateur est plein (tous les ménages dont le type de
-source est renseigné). Cette opérationnalisation reproduit étroitement les
-taux ANSD (11,9~/~10,0~/~7,9 contre 12,0~/~10,7~/~8,5), l'écart résiduel
-inférieur au point relevant du même calage démographique que les autres
-indicateurs. Le travail des enfants ne retient que les activités posant clairement le
-seuil d'au moins une heure~: du côté domestique, les cinq postes d'heures du
-module emploi (courses au marché, travaux domestiques, garde d'enfants ou de
-personnes âgées, corvée d'eau, corvée de bois)~; du côté économique, le
-travail rémunéré ou pour propre compte (questions formulées « au moins une
-heure »). L'accès à une structure de santé (module communautaire) suit la
-définition ANSD à la lettre~: est privé l'enfant vivant dans une localité où
-il ne peut accéder \emph{à pied} à un hôpital ou un centre de santé public,
-c'est-à-dire dont le mode de transport habituel pour rejoindre la structure la
-plus proche (question 2.02) n'est pas la marche. L'existence d'une structure
-« sur place » n'est \emph{pas} assimilée à un accès à pied~: dans une grande
-commune, un hôpital « existe dans la ville » mais s'y rejoint en voiture~; une
-lecture par « OU inclusif » (existe \emph{ou} à pied) introduirait la condition
-implicite « existe~$\Rightarrow$~à pied » et abaisserait artificiellement le
-taux à 47,6\,\%. La lecture stricte donne 71,0~/~69,8~/~65,4, proche de l'ANSD
-(79,3~/~78,5~/~75,2)~; l'écart résiduel tient aux localités disposant d'une
-structure sur place, pour lesquelles le mode d'accès n'est pas renseigné (saut
-de la question 2.02), surtout en milieu rural où l'accès à pied y est probable. Le surpeuplement suit la
-définition ANSD (« plus de trois personnes par pièce ») opérationnalisée comme
-au moins quatre personnes par pièce (ratio $\geq 4$), et non un ratio
-strictement supérieur à 3 qui compterait à tort 3,5~pers./pièce comme
-surpeuplé~; bien que l'EHCVM ne distingue pas les « pièces pour dormir » de la
-définition-type (nombre total de pièces occupées), cette lecture reproduit
-exactement les taux ANSD (13,3~/~12,7~/~11,4). Le NEET des 15-17 ans est,
-lui, \emph{écarté} de l'agrégat. Sa valeur ANSD (85,7\,\%) se reproduit
-exactement, mais elle correspond à la seule \emph{absence d'emploi}
-(variable d'activité des 7 derniers jours différente de « occupé »), sans la
-condition de non-scolarisation pourtant inscrite dans sa définition (« ne
-poursuivant pas d'études ni de formation »)~: elle compte donc comme privés
-les élèves — la quasi-totalité des 15-17 ans n'étant pas en emploi —, ce qui
-la rend inutilisable comme indicateur de privation éducative. Un NEET
-correctement défini (sans emploi \emph{et} non scolarisé) vaut 33,7\,\%, mais
-n'est pas publié par l'ANSD~; conformément au principe de ne retenir que les
-indicateurs validables, la dimension Éducation des 15-17 ans repose sur le seul
-illettrisme (notre NEET correct, 33,7\,\%, reste rapporté à titre descriptif).
-La séparation parentale (« enfant ne vivant pas avec ses deux parents
-biologiques »), troisième indicateur de la dimension Protection, reproduit
-étroitement les taux publiés par l'ANSD~: 36,5~/~43,0~/~52,8 contre
-36,5~/~41,8~/~52,8, les groupes 0-4 et 15-17 coïncidant exactement.
+Pondérés par les poids de sondage, la plupart des indicateurs reproduisent
+l'ANSD au dixième de point (insécurité alimentaire, combustible, illettrisme,
+type et partage des toilettes, ordures, surpeuplement, acte de naissance~;
+écarts $<1{,}5$ pt). Les conventions notables~:
+
+\begin{itemize}\setlength\itemsep{2pt}
+  \item \textbf{Partage des toilettes}~: calculé sur les seuls ménages à
+    installation privée (convention de dénominateur ANSD)~; ceux sans toilette
+    ou à toilettes publiques restent privés au titre du \emph{type}.
+  \item \textbf{Source d'eau non améliorée}~: source non améliorée (une saison
+    ou l'autre) \emph{et} ménage ne traitant pas son eau (filtre $\neq$ « oui »),
+    dénominateur plein. Reproduit 11,9~/~10,0~/~7,9 (ANSD 12,0~/~10,7~/~8,5).
+  \item \textbf{Travail des enfants}~: activités posant le seuil « au moins 1h »
+    (cinq postes domestiques~; travail rémunéré ou pour propre compte).
+  \item \textbf{Accès santé}~: privé si le mode habituel pour rejoindre une
+    structure publique (hôpital/centre) n'est \emph{pas} la marche. L'existence
+    sur place n'est pas assimilée à un accès à pied (une lecture « existe
+    \emph{ou} à pied » ramènerait à tort le taux à 47,6\,\%). Lecture stricte~:
+    71,0~/~69,8~/~65,4 (ANSD 79,3~/~78,5~/~75,2)~; résidu = localités à structure
+    sur place, mode non renseigné.
+  \item \textbf{Surpeuplement}~: « plus de 3 pers./pièce » lu comme $\geq 4$
+    (ratio $\geq 4$), non ratio $>3$ qui compterait 3,5 pers./pièce~;
+    reproduit 13,3~/~12,7~/~11,4.
+  \item \textbf{NEET} (\emph{écarté})~: la valeur ANSD (85,7\,\%) = simple
+    absence d'emploi, sans la condition de non-scolarisation de sa définition,
+    ce qui compte les élèves comme privés~; inutilisable. Un NEET correct
+    (sans emploi \emph{et} non scolarisé) vaut 33,7\,\%~; la dimension Éducation
+    des 15-17 ans repose donc sur le seul illettrisme.
+  \item \textbf{Séparation parentale}~: ne vit pas avec ses deux parents
+    (\texttt{s01q22}/\texttt{s01q29})~; 36,5~/~43,0~/~52,8 contre ANSD
+    36,5~/~41,8~/~52,8 (0-4 et 15-17 exacts).
+\end{itemize}
 
 Au-delà de la comparaison indicateur par indicateur, le tableau~\ref{tab:validation_globale}
 confronte l'incidence N-MODA globale (nationale) obtenue dans ce mémoire à
@@ -121,17 +94,11 @@ celle publiée par l'ANSD.
   {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM~; ANSD/UNICEF (MODA 2024) pour la colonne de comparaison.}
 \end{table}
 
-L'écart d'incidence (56,6\,\% contre 50,7\,\%) s'explique par deux facteurs.
-D'une part, la nutrition est opérationnalisée de façon plus étroite que la
-définition officielle~: elle ne repose ici que sur la sécurité alimentaire
-(module FIES), sans le volet diversité des repas retenu par l'ANSD. D'autre
-part, la dimension Santé est ici opérationnalisée de façon plus large que
-dans l'agrégat de l'ANSD~: nous retenons l'union de ses deux indicateurs
-officiels (combustible solide OU absence d'accès à pied à une structure de
-santé), là où l'ANSD écarte le combustible de son agrégat multidimensionnel
-pour manque de variance (92\,\% de privation, sans pouvoir discriminant), si
-bien que sa dimension Santé se réduit à l'accès aux soins. Conserver le
-combustible dans l'union élève mécaniquement la prévalence de la dimension et,
-partant, l'incidence globale. Le solde de l'écart tient à des différences de
-traitement statistique de l'échantillon par rapport au calcul officiel.
-L'intensité, elle, reste proche de la valeur officielle.
+L'écart d'incidence (56,6\,\% contre 50,7\,\%) tient à deux facteurs~:
+(i) une nutrition plus étroite (sécurité alimentaire FIES seule, sans la
+diversité des repas)~; (ii) une dimension Santé plus large (union combustible
+\emph{ou} absence d'accès aux soins), là où l'ANSD écarte le combustible pour
+manque de variance (92\,\% de privation, sans pouvoir discriminant). Conserver
+le combustible élève mécaniquement l'incidence globale~; le solde relève de
+différences de traitement de l'échantillon. L'intensité, elle, reste proche de
+la valeur officielle.

@@ -35,19 +35,14 @@ entrants et témoins appariés (poids $k$-NN) est estimé séparément à $t=0$
   {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM.}
 \end{table}
 
-À la période de base, avant le début du traitement, les futurs entrants ne
-se distinguent pas significativement des témoins appariés (écart de
-2,4~points, $p=0{,}308$)~: l'appariement sur les caractéristiques
-observables suffit ici à équilibrer les deux groupes, ce qui est cohérent
-avec le fait qu'aucun des deux groupes n'est encore exposé aux transferts
-en 2018. À $t=1$, l'écart reste faible et non significatif (2,6~points,
-$p=0{,}333$), et la double différence, qui retranche l'écart initial de
-l'écart final, est proche de zéro
-($-0{,}001 = -0{,}026 - (-0{,}024)$, aux arrondis près). La cohérence entre
-les lectures transversale et différenciée renforce la crédibilité du
-résultat central~: l'absence d'effet détectable ne provient pas d'un
-artefact de spécification, chaque étape de l'estimateur racontant la même
-histoire, conformément au cadre de \textcite{heckman1997,heckman1998}.
+À la période de base, les futurs entrants ne se distinguent pas des témoins
+appariés (2,4~points, $p=0{,}308$)~: l'appariement suffit à équilibrer les
+groupes, cohérent avec le fait qu'aucun n'est encore traité en 2018. À $t=1$,
+l'écart reste faible (2,6~points, $p=0{,}333$), et la double différence est
+proche de zéro ($-0{,}001 = -0{,}026 - (-0{,}024)$, aux arrondis près). La
+cohérence des lectures transversale et différenciée renforce le résultat
+central~: l'absence d'effet ne provient pas d'un artefact de spécification,
+chaque étape racontant la même histoire \parencite{heckman1997,heckman1998}.
 
 \subsection{Test placebo}
 
@@ -126,25 +121,16 @@ stabilité de la conclusion entre méthodes reste l'enseignement principal.
 
 \subsection{Traitement défini par les bénéficiaires stables}
 
-En complément du design entrants retenu comme design principal (justifié
-en section~\ref{sec:methodo}), l'ATT est également estimé en comparant les
-ménages bénéficiaires stables ($D=1$ aux deux vagues) aux ménages jamais
-bénéficiaires, sur le même panel de ménages. Le PSM-DD appliqué à cette
-définition donne un ATT positif, quoique non
-significatif ($0{,}038$, écart-type $0{,}025$, $p=0{,}126$)~: la pauvreté
-multidimensionnelle des enfants des ménages durablement bénéficiaires
-recule moins vite que celle des enfants des témoins appariés. Ce contraste avec l'absence d'effet du design
-principal doit toutefois être interprété avec prudence~: dans le design
-stable, le traitement est déjà en cours à la période de base (les
-bénéficiaires stables affichent dès 2018 une pauvreté inférieure de
-26~points à celle de leurs témoins appariés, écart antérieur à la période
-d'observation), si bien que la première vague ne mesure pas un niveau
-pré-traitement et que la dynamique estimée peut refléter un rattrapage des
-témoins autant qu'un effet des transferts. Il suggère néanmoins que
-l'exposition durable aux transferts et l'exposition récente ne produisent
-pas la même dynamique de conditions de vie, l'effet de court terme des
-entrants pouvant encore être masqué par la réorganisation du ménage qui
-suit le départ du migrant.
+En complément du design entrants, l'ATT est estimé en comparant les
+bénéficiaires stables ($D=1$ aux deux vagues) aux jamais bénéficiaires. Le
+PSM-DD donne un ATT positif non significatif ($0{,}038$, $p=0{,}126$)~: la
+pauvreté des enfants durablement bénéficiaires recule moins vite que celle des
+témoins. À interpréter avec prudence~: le traitement y est déjà en cours à la
+période de base (pauvreté inférieure de 26~points dès 2018), si bien que la
+première vague ne mesure pas un niveau pré-traitement et que la dynamique peut
+refléter un rattrapage des témoins autant qu'un effet des transferts. Il
+suggère néanmoins qu'exposition durable et exposition récente ne produisent pas
+la même dynamique.
 
 \subsection{Analyse de l'attrition différentielle}
 
