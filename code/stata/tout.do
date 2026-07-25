@@ -41,9 +41,6 @@ di "$(date)"
 /* ============================================================
    SECTION 0 : CONFIG
    ============================================================ */
-/* ============================================================
-   config.do — Chemins, constantes et options globales
-   ============================================================ */
 
 /* Donnees brutes : telechargement direct depuis le depot GitHub (public).
    Stata lit les fichiers .dta via https avec use/merge, sans copie locale
@@ -86,9 +83,6 @@ foreach d in "$OUTPUT" "$TEMP" "$PREP" "$LOGS" {
 
 /* ============================================================
    SECTION : 01_VISITATION — Exploration des deux bases EHCVM
-   ============================================================ */
-/* ============================================================
-   01_visitation.do — Exploration des deux bases EHCVM
    ============================================================ */
 
 
@@ -191,9 +185,6 @@ tabulate s13q19, missing
 
 /* ============================================================
    SECTION : 02_TRAITEMENT — Variable de traitement + identifiant panel
-   ============================================================ */
-/* ============================================================
-   02_traitement.do — Variable de traitement + identifiant panel
 
    D = 1 si le menage a recu un transfert de l'etranger
    panel_id = identifiant unique grappe-menage pour le panel vrai
@@ -318,9 +309,6 @@ save "$TEMP/traitement_2021.dta", replace
 
 /* ============================================================
    SECTION : 03_DEPRIVATION — Indicateurs de pauvrete multidimensionnelle
-   ============================================================ */
-/* ============================================================
-   03_deprivation.do — Indicateurs de pauvrete multidimensionnelle
 
    Approche : N-MODA Senegal (7 dimensions, k=4)
 
@@ -328,120 +316,36 @@ save "$TEMP/traitement_2021.dta", replace
    ============================================================ */
 
 
-/*Annexe I : Sélection des paramètres pour l'analyse de
-la pauvreté multidimensionnelle de l'enfant en
-utilisant l'EHCVM 2018/19
+/* --------------------------------------------------------------------------
+   N-MODA — 7 dimensions, seuil k=4, unite = enfant. Definitions RETENUES
+   (telles qu'implementees ci-dessous ; variables 2018 / 2021) :
 
-Tableau 1. Liste des paramètres (dimensions, indicateurs et groupe d'âge)
-de l'analyse de la pauvreté multidimensionnelle de l'enfant
-Groupe d'âge
-0-4
-5-14
-15-17
-Dimensions Indicateurs Définition
-
-1/Assainissement :
-	Type de sanitaire (2018: s11q55;2021 :)
-		Enfant vivant dans un ménage utilisant des toilettes
-		non améliorées :
-		7. Latrines SANPLAT;
-		8. Latrines dallées simples;
-		9. Fosse rudimentaire;
-		10. Toilettes publiques;
-		11. Aucune toilette;
-		12. Autre
-
-	Partage des toilettes (2018: s11q56;2021: )
-		Enfant vivant dans un ménage partageant les toilettes
-		avec d'autres ménages
-
-2/Eau :
-	Source d'eau pour boire (2018: s11q27a et s11q27b; )
-		Enfant vivant dans un ménage utilisant une source
-		d'eau non adéquate en saison des pluies et ne la
-		traitant pas de manière adéquate:
-		- 5 Puits ouvert dans la cour/Concession;
-		- 6 Puits ouvert ailleurs;
-		- 12 Source non aménagée;
-		- 13 Fleuve/Rivière/Lac/Barrage;
-		- 16 Vendeur am-bulant;
-		- 17 Autre (à préciser)
-		OU en saison sèche:
-		- 5 Puits ouvert dans la cour/Concession;
-		- 6 Puits ouvert ailleurs;
-		- 12 Source non aménagée;
-		- 13 Fleuve/Rivière/Lac/Barrage;
-		- 16 Vendeur ambulant;
-		- 17 Autre (à préciser)
-		Traitement non adéquat de l'eau:filtrer à travers linge;
-		laisser reposer ;
-		autre
-
-	Temps pour aller chercher l'eau (2018: s11q31a ou s11q29a supérieur à 30; ):
-		Enfant vivant dans un ménage ou le temps pour aller
-		chercher l'eau excède 30mins en saison des pluies OU
-		en saison sèche
-
-
-3/Logement:
-	Débarras des ordures ménagères (2018:s11q54; )
-		Enfant vivant dans un ménage utilisant un mode inadéquat de débarras des ordures menagères:
-			3 brulées ;
-			5 dépotoir sauvage;
-			6 autre
-
-	Surpeuplement (hhsize/s11q02 supérieur à 3)
-		Enfant vivant dans un ménage ou dorment plus de 3
-		personnes par pièces
-
-4/Nutrition :
-	Diversité des repas
-		Enfant vivant dans un ménage n'ayant pas consommé
-		d'aliments des 4 groupes alimentaires (carbohydrates,
-		protéines, fruits/légumes, graisses) une fois par jour
-		sur la dernière semaine
-
-	Sécurité alimentaire/ Non-accès à la nourri-ture pour se nourrir à sa faim
-		Enfant vivant dans un ménage qui n'avait plus de nourriture, OU
-		- avec un des membres ayant
-		- dû sauter un repas,
-		- mangé moins que ce qu'il pensait nécessaire,
-		- eu faim mais sans avoir mangé
-		- passé toute une journée sans manger
-		- au moins une fois du-rant les 12 derniers mois par manque d'ar-gent ou d'autres ressources
-
-5/Santé:
-	Type de combustibles utilisés pour cuisiner
-		Enfant vivant dans un ménage ou utilisant du combus-
-		tible solide pour cuisiner : bois ramassé, bois acheté,
-		charbon de bois, déchets animaux, autres
-
-	Accès à une structure de santé: l'hôpital ou autre centre de santé
-		Enfant vivant dans une localité d'où il/elle ne peut ac-
-		céder à pied à une structure de santé
-
-6/Protection de l'enfant:
-	Disponibilité de l'acte de naissance
-		Enfant n'ayant pas d'acte de naissance
-
-	Travail des enfants (économique et domestique)
-		Enfant effectuant travail économique ou do-mestique
-		pendant au moins 1h
-
-	Enfant vivant avec ses deux parents
-		Enfant ne vivant pas avec ses deux parents biologique
-
-7/Éducation:
-	Capacité de lecture et d'écriture
-		Enfant en capacité de lire et d'écrire
-
-	Fréquentation scolaire
-		Enfant n'étant pas à l'école
-
-	Jeunes sans emploi ne poursuivant pas d'études et ne suivant pas de formation (NEET)
-		Enfant sans emploi ne poursuivant pas d'études et ne
-		suivant pas de formation (NEET)
-*/
+   1. ASSAINISSEMENT
+      - Type de sanitaire non ameliore : s11q55/54 in {7..12}
+      - Partage des toilettes : s11q56/55==1 (denominateur = installations privees)
+   2. EAU
+      - Source non amelioree {5,6,12,13,16,17} (saison seche OU pluies) ET ne
+        traite pas son eau (filtre s11q32/31 != « oui »)
+      - Temps de collecte >= 30 min (aller + attente, une saison ou l'autre)
+   3. LOGEMENT
+      - Debarras des ordures inadequat : s11q54/53 in {3,5,6}
+      - Surpeuplement : hhsize / nb_pieces >= 4 (>= 4 pers./piece)
+   4. NUTRITION
+      - Insecurite alimentaire (FIES, s08a). Diversite des repas NON retenue
+        (module non comparable entre les deux vagues)
+   5. SANTE  (dimension = union des deux)
+      - Combustible solide pour cuisiner : s11q53/52 (bois, charbon, dechets…)
+      - Acces sante : ne peut acceder A PIED (mode s02q02==1) a une structure
+        publique 5/6 (module communautaire s02_co)
+   6. PROTECTION DE L'ENFANT
+      - Absence d'acte de naissance (s01q05==2, < 15 ans)
+      - Travail des enfants : economique OU domestique >= 1h (5-14 ans)
+      - Separation parentale : ne vit pas avec ses 2 parents (s01q22/s01q29)
+   7. EDUCATION
+      - Non-scolarisation (scol==0, 5-14 ans)
+      - Illettrisme (alfab==0, 15-17 ans)
+      - NEET ECARTE (valeur ANSD = simple non-emploi, incoherente ; cf. annexe E)
+   -------------------------------------------------------------------------- */
 
 /* ============================================================
    Sous-programme : indicateurs menage (niveau logement)
@@ -582,20 +486,11 @@ foreach annee in 2018 2021 {
     preserve
         use "`base'/s02_co_sen`annee'.dta", clear
         gen long _ord = _n
-        if `annee' == 2018 {
-            gen int svc_id = s02q00
-            gen byte exloc = .
-            replace exloc = (s02q01__5 == 1) if svc_id == 5
-            replace exloc = (s02q01__6 == 1) if svc_id == 6
-        }
-        else {
-            bysort grappe (_ord): gen int svc_id = _n
-            gen byte exloc = (s02q01 == 1)
-        }
+        if `annee' == 2018  gen int svc_id = s02q00
+        else                bysort grappe (_ord): gen int svc_id = _n
         keep if inlist(svc_id, 5, 6)
-        /* Acces a pied STRICT : le mode habituel vers la structure est la
-           marche (s02q02==1). L'existence locale (exloc) n'implique pas l'acces
-           a pied et n'est donc pas retenue comme critere. */
+        /* Acces a pied STRICT : mode habituel = marche (s02q02==1).
+           L'existence locale n'implique pas l'acces a pied -> non retenue. */
         gen byte pfoot = (s02q02 == 1)
         collapse (max) sante_pfoot = pfoot, by(grappe)
         tempfile s02_temp
@@ -943,9 +838,6 @@ foreach annee in 2018 2021 {
 
 /* ============================================================
    SECTION : 04_PANEL — Construction du panel vrai (PanelHH=1)
-   ============================================================ */
-/* ============================================================
-   04_panel.do — Construction du panel vrai (PanelHH=1)
 
    Exploite le suivi effectif des menages entre les deux vagues.
    Produit : $TEMP/panel_vrai.dta
@@ -1117,10 +1009,6 @@ save "$TEMP/panel_complet.dta", replace
 
 /* ============================================================
    SECTION : 05_PSM_DD — Estimation PSM-DD sur panel vrai
-   ============================================================ */
-
-/* ============================================================
-   05_psm_dd.do — Estimation PSM-DD sur panel vrai
 
    Strategie :
      1. Probit au NIVEAU MENAGE sur t=0 -> score de propension
@@ -1539,9 +1427,6 @@ di _newline ">>> 05_psm_dd.do termine."
 
 /* ============================================================
    SECTION : 06_STATS_DESC — Statistiques descriptives
-   ============================================================ */
-/* ============================================================
-   06_stats_desc.do — Statistiques descriptives
    Chapitre 3 : profil ménages, pauvreté, privations, comparaison D=0/1
 
    Les statistiques de pauvrete/privation (incidence N-MODA, par dimension,
@@ -2014,9 +1899,6 @@ di ">>> Sorties dans : $OUTPUT/tables/ et $OUTPUT/figures/"
 
 /* ============================================================
    SECTION : 07_EFFETS_DIM — ATT PSM-DD par dimension N-MODA
-   ============================================================ */
-/* ============================================================
-   07_effets_dim.do — ATT PSM-DD par dimension N-MODA
    Génère output/figures/fig_effets_dim.pdf
    ============================================================ */
 
@@ -2111,9 +1993,6 @@ di ">>> 07_effets_dim.do terminé."
 
 /* ============================================================
    SECTION : 08_CARTE_REGION — Carte régionale N-MODA + pauvreté monétaire
-   ============================================================ */
-/* ============================================================
-   08_carte_region.do — Carte régionale N-MODA + pauvreté monétaire
    et diagramme de Venn monétaire/multidimensionnel
 
    Sorties :
@@ -2576,10 +2455,6 @@ di _newline ">>> 08_carte_region.do terminé."
 
 /* ============================================================
    SECTION : 09_PLACEBO_ATTRITION — Tests de validite (annexe A)
-   ============================================================ */
-
-/* ============================================================
-   09_placebo_attrition.do — Tests de validite (annexe A)
 
    1. Test placebo : 200 assignations aleatoires d'un faux
       traitement parmi les menages jamais traites ; la
