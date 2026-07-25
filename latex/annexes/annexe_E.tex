@@ -18,31 +18,22 @@ l'opérationnalisation retenue dans ce mémoire.
 \entete Indicateur & \multicolumn{3}{|c|}{Ce mémoire} & \multicolumn{3}{|c|}{ANSD (MODA 2024)} \\ \hline
 \entete & 0-4 & 5-14 & 15-17 & 0-4 & 5-14 & 15-17 \\
     \hline
-    Type de toilettes                & 40,3 & 39,1 & 34,1 & 40,3 & 39,8 & 34,1 \\ \hline
+    Type de toilettes                & 40,3 & 39,1 & 34,1 & 40,3 & 39,1 & 34,1 \\ \hline
     Partage des toilettes            & 20,4 & 19,4 & 18,6 & 20,4 & 19,4 & 18,6 \\ \hline
     Source d'eau non améliorée       & 11,9 & 10,0 & 7,9  & 12,0 & 10,7 & 8,5  \\ \hline
     Temps d'accès à l'eau $\geq 30$ min & 17,8 & 16,8 & 13,6 & 17,7 & 16,4 & 13,9 \\ \hline
     Débarras des ordures             & 59,3 & 58,2 & 53,0 & 59,3 & 58,2 & 53,0 \\ \hline
-    Surpeuplement\tnote{a}           & 26,5 & 25,6 & 23,5 & n.d. & n.d. & 11,4 \\ \hline
+    Surpeuplement                    & 13,3 & 12,7 & 11,4 & 13,3 & 12,7 & 11,4 \\ \hline
     Insécurité alimentaire           & 45,0 & 46,5 & 44,9 & 45,0 & 46,5 & 44,9 \\ \hline
     Combustible solide               & 92,3 & 92,3 & 91,5 & 92,3 & 92,3 & 91,5 \\ \hline
     Accès santé (pas à pied)         & 48,0 & 47,2 & 44,0 & 79,3 & 78,5 & 75,2 \\ \hline
     Acte de naissance                & 31,8 & 30,0 & -    & 31,8 & 30,1 & -    \\ \hline
     Travail des enfants              & -    & 41,8 & -    & -    & 43,0 & -    \\ \hline
-    Séparation parentale\tnote{b}    & 36,5 & 43,0 & 52,8 & n.d. & n.d. & n.d. \\ \hline
+    Séparation parentale             & 36,5 & 43,0 & 52,8 & 36,5 & 41,8 & 52,8 \\ \hline
     Non-scolarisation                & -    & 45,3 & -    & -    & 45,3 & -    \\ \hline
     Illettrisme                      & -    & -    & 28,1 & -    & -    & 28,1 \\
     \hline
   \end{tabular}
-  \begin{tablenotes}
-    \footnotesize
-    \item[a] Surpeuplement~: calculé sur le nombre total de pièces (la variable
-    « pièces pour dormir » de l'ANSD est absente de l'EHCVM), d'où un proxy
-    non directement comparable à la valeur ANSD.
-    \item[b] Séparation parentale (ne vit pas avec ses deux parents
-    biologiques)~: retenu dans la dimension Protection~; l'ANSD ne publie pas
-    de taux par groupe d'âge pour cet indicateur.
-  \end{tablenotes}
   \end{threeparttable}
 
   {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM~; ANSD/UNICEF (MODA 2024) pour la colonne de comparaison.}
@@ -52,8 +43,8 @@ Une fois les estimations pondérées par les poids de sondage de l'EHCVM
 (comme dans le calcul officiel), la plupart des indicateurs reproduisent les
 taux de l'ANSD de façon très étroite~: plusieurs coïncident au dixième de
 point (insécurité alimentaire, combustible solide, illettrisme, type de
-toilettes et partage des toilettes), les écarts résiduels restant
-inférieurs à 3 points. Le partage des toilettes suit ici la convention de
+toilettes, partage des toilettes, débarras des ordures, surpeuplement et
+acte de naissance), les écarts résiduels restant inférieurs à 1,5 point. Le partage des toilettes suit ici la convention de
 dénominateur de l'ANSD~: il n'est calculé que sur les ménages disposant
 d'une installation privée, ceux à toilettes publiques ou sans toilette
 étant exclus de cet indicateur, tout en restant privés au titre du type de
@@ -81,18 +72,23 @@ peut ainsi accéder à pied à une structure de santé si un hôpital ou un cent
 de santé public existe dans sa localité (sur place) ou, à défaut, s'y rejoint à
 pied~; il en est privé dans le cas contraire. L'écart avec l'ANSD tient à la
 convention de dénominateur de cette dernière, qui rapporte l'indicateur aux
-seules localités dépourvues de structure sur place. Le surpeuplement est
-retenu dans l'agrégat mais échappe à une comparaison directe avec l'ANSD,
-faute de la variable « pièces pour dormir » (calculé ici sur le nombre total de
-pièces, d'où un proxy plus élevé que la valeur ANSD). Le NEET des 15-17 ans est,
+seules localités dépourvues de structure sur place. Le surpeuplement suit la
+définition ANSD (« plus de trois personnes par pièce ») opérationnalisée comme
+au moins quatre personnes par pièce (ratio $\geq 4$), et non un ratio
+strictement supérieur à 3 qui compterait à tort 3,5~pers./pièce comme
+surpeuplé~; bien que l'EHCVM ne distingue pas les « pièces pour dormir » de la
+définition-type (nombre total de pièces occupées), cette lecture reproduit
+exactement les taux ANSD (13,3~/~12,7~/~11,4). Le NEET des 15-17 ans est,
 lui, \emph{écarté} de l'agrégat~: sa valeur ANSD (85,7\,\%) est incohérente avec
 le taux de scolarisation observé (un enfant NEET étant nécessairement non
 scolarisé, alors que seuls 45,7\,\% des 15-17 ans le sont) et donc non
 reproductible~; conformément au principe de ne retenir que les indicateurs
 validables sur l'ANSD, la dimension Éducation des 15-17 ans repose sur le seul
 illettrisme (notre NEET, estimé à 33,7\,\%, reste rapporté à titre descriptif).
-La séparation parentale, troisième indicateur de la dimension Protection, est
-retenue~; l'ANSD ne publie pas de taux par groupe d'âge pour cet indicateur.
+La séparation parentale (« enfant ne vivant pas avec ses deux parents
+biologiques »), troisième indicateur de la dimension Protection, reproduit
+étroitement les taux publiés par l'ANSD~: 36,5~/~43,0~/~52,8 contre
+36,5~/~41,8~/~52,8, les groupes 0-4 et 15-17 coïncidant exactement.
 
 Au-delà de la comparaison indicateur par indicateur, le tableau~\ref{tab:validation_globale}
 confronte l'incidence N-MODA globale (nationale) obtenue dans ce mémoire à
