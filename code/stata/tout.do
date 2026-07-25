@@ -562,16 +562,23 @@ foreach annee in 2018 2021 {
        Structure du questionnaire : a la question 2.01 "Ce service existe-t-il
        dans la localite ?", une reponse OUI saute directement a 2.04, SANS
        poser le mode d'acces 2.02. Le mode (2.02, 1=Pieds) n'est donc renseigne
-       que pour les services ABSENTS localement (on decrit alors le trajet vers
-       le plus proche). Il faut par consequent lire l'acces a pied ainsi :
-       l'enfant PEUT acceder a pied a une structure de sante (P) si celle-ci
-       EXISTE dans sa localite (2.01=OUI, donc sur place) OU si, absente
-       localement, elle se rejoint a pied (s02q02==1). La definition ANSD est
-       la negation : prive (m_sante_acces=1) si AUCUNE structure 5/6 n'existe
-       sur place ni ne se rejoint a pied. 2018 : identifiant du service dans
-       s02q00, existence locale dans s02q01__k (k=service). 2021 : s02q00
-       absent (26 services listes dans le meme ordre, 26 lignes/grappe ->
-       identifiant = rang de la ligne), existence locale dans s02q01 (1=Oui). */
+       que pour les services ABSENTS localement (trajet vers le plus proche).
+
+       Definition ANSD a la lettre : "Enfant vivant dans une localite ou il/elle
+       ne peut acceder A PIED a une structure de sante". Le seul critere est
+       donc le MODE habituel = a pied (s02q02==1). On NE suppose PAS que
+       l'existence locale garantit l'acces a pied : dans une grande commune, un
+       hopital "existe dans la ville" mais s'y rejoint en voiture. Un OU inclusif
+       "existe OU a pied" introduirait la condition non ecrite existe=>a-pied et
+       ferait chuter le taux (47,6 % au lieu de 71,0 %). On retient donc l'acces
+       a pied AU SENS STRICT : PEUT acceder a pied (P) si le mode habituel pour
+       rejoindre une structure 5/6 est la marche (s02q02==1) ; prive
+       (m_sante_acces=1) sinon. Cette lecture reproduit un taux de 71,0/69,8/65,4
+       (contre ANSD 79,3/78,5/75,2 ; le residu tient aux localites disposant
+       d'une structure sur place, pour lesquelles le mode d'acces n'est pas
+       renseigne, surtout en milieu rural). 2018 : identifiant du service dans
+       s02q00. 2021 : s02q00 absent (26 services, meme ordre, 26 lignes/grappe
+       -> identifiant = rang de la ligne). */
     preserve
         use "`base'/s02_co_sen`annee'.dta", clear
         gen long _ord = _n
@@ -586,8 +593,10 @@ foreach annee in 2018 2021 {
             gen byte exloc = (s02q01 == 1)
         }
         keep if inlist(svc_id, 5, 6)
-        /* Acces a pied a cette structure : existe sur place OU rejointe a pied */
-        gen byte pfoot = (exloc == 1) | (s02q02 == 1)
+        /* Acces a pied STRICT : le mode habituel vers la structure est la
+           marche (s02q02==1). L'existence locale (exloc) n'implique pas l'acces
+           a pied et n'est donc pas retenue comme critere. */
+        gen byte pfoot = (s02q02 == 1)
         collapse (max) sante_pfoot = pfoot, by(grappe)
         tempfile s02_temp
         save `s02_temp'
