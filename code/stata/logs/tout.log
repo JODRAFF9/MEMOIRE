@@ -18,9 +18,6 @@ $(date)
 . /* ============================================================
 >    SECTION 0 : CONFIG
 >    ============================================================ */
-. /* ============================================================
->    config.do — Chemins, constantes et options globales
->    ============================================================ */
 . 
 . /* Donnees brutes : telechargement direct depuis le depot GitHub (public).
 >    Stata lit les fichiers .dta via https avec use/merge, sans copie locale
@@ -80,9 +77,6 @@ $(date)
 . 
 . /* ============================================================
 >    SECTION : 01_VISITATION — Exploration des deux bases EHCVM
->    ============================================================ */
-. /* ============================================================
->    01_visitation.do — Exploration des deux bases EHCVM
 >    ============================================================ */
 . 
 . 
@@ -1060,7 +1054,7 @@ Nouveau Ménage |        993       13.95       13.95
 .     tempfile id_2021
 
 .     save `id_2021'
-file C:\Users\Bmd\AppData\Local\Temp\ST_1ec0_000002.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_6290_000002.tmp saved as .dta format
 
 . restore
 
@@ -1167,9 +1161,6 @@ Autre pays hors Afrique |        227        2.13       69.75
 . 
 . /* ============================================================
 >    SECTION : 02_TRAITEMENT — Variable de traitement + identifiant panel
->    ============================================================ */
-. /* ============================================================
->    02_traitement.do — Variable de traitement + identifiant panel
 > 
 >    D = 1 si le menage a recu un transfert de l'etranger
 >    panel_id = identifiant unique grappe-menage pour le panel vrai
@@ -1226,7 +1217,7 @@ Autre pays hors Afrique |        227        2.13       69.75
 .     tempfile etrangers
 
 .     save `etrangers'
-file C:\Users\Bmd\AppData\Local\Temp\ST_1ec0_000003.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_6290_000003.tmp saved as .dta format
 
 . 
 .     /* Fusionner sur la liste exhaustive des menages */
@@ -1304,7 +1295,7 @@ file code/stata/temp/traitement_2018.dta saved
 .     tempfile etrangers
 
 .     save `etrangers'
-file C:\Users\Bmd\AppData\Local\Temp\ST_1ec0_000004.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_6290_000004.tmp saved as .dta format
 
 . 
 .     /* Fusionner sur la liste exhaustive des menages */
@@ -1422,9 +1413,6 @@ file code/stata/temp/traitement_2021.dta saved
 . 
 . /* ============================================================
 >    SECTION : 03_DEPRIVATION — Indicateurs de pauvrete multidimensionnelle
->    ============================================================ */
-. /* ============================================================
->    03_deprivation.do — Indicateurs de pauvrete multidimensionnelle
 > 
 >    Approche : N-MODA Senegal (7 dimensions, k=4)
 > 
@@ -1432,120 +1420,36 @@ file code/stata/temp/traitement_2021.dta saved
 >    ============================================================ */
 . 
 . 
-. /*Annexe I : Sélection des paramètres pour l'analyse de
-> la pauvreté multidimensionnelle de l'enfant en
-> utilisant l'EHCVM 2018/19
+. /* --------------------------------------------------------------------------
+>    N-MODA — 7 dimensions, seuil k=4, unite = enfant. Definitions RETENUES
+>    (telles qu'implementees ci-dessous ; variables 2018 / 2021) :
 > 
-> Tableau 1. Liste des paramètres (dimensions, indicateurs et groupe d'âge)
-> de l'analyse de la pauvreté multidimensionnelle de l'enfant
-> Groupe d'âge
-> 0-4
-> 5-14
-> 15-17
-> Dimensions Indicateurs Définition
-> 
-> 1/Assainissement :
->         Type de sanitaire (2018: s11q55;2021 :)
->                 Enfant vivant dans un ménage utilisant des toilettes
->                 non améliorées :
->                 7. Latrines SANPLAT;
->                 8. Latrines dallées simples;
->                 9. Fosse rudimentaire;
->                 10. Toilettes publiques;
->                 11. Aucune toilette;
->                 12. Autre
-> 
->         Partage des toilettes (2018: s11q56;2021: )
->                 Enfant vivant dans un ménage partageant les toilettes
->                 avec d'autres ménages
-> 
-> 2/Eau :
->         Source d'eau pour boire (2018: s11q27a et s11q27b; )
->                 Enfant vivant dans un ménage utilisant une source
->                 d'eau non adéquate en saison des pluies et ne la
->                 traitant pas de manière adéquate:
->                 - 5 Puits ouvert dans la cour/Concession;
->                 - 6 Puits ouvert ailleurs;
->                 - 12 Source non aménagée;
->                 - 13 Fleuve/Rivière/Lac/Barrage;
->                 - 16 Vendeur am-bulant;
->                 - 17 Autre (à préciser)
->                 OU en saison sèche:
->                 - 5 Puits ouvert dans la cour/Concession;
->                 - 6 Puits ouvert ailleurs;
->                 - 12 Source non aménagée;
->                 - 13 Fleuve/Rivière/Lac/Barrage;
->                 - 16 Vendeur ambulant;
->                 - 17 Autre (à préciser)
->                 Traitement non adéquat de l'eau:filtrer à travers linge;
->                 laisser reposer ;
->                 autre
-> 
->         Temps pour aller chercher l'eau (2018: s11q31a ou s11q29a supérieur à 30; ):
->                 Enfant vivant dans un ménage ou le temps pour aller
->                 chercher l'eau excède 30mins en saison des pluies OU
->                 en saison sèche
-> 
-> 
-> 3/Logement:
->         Débarras des ordures ménagères (2018:s11q54; )
->                 Enfant vivant dans un ménage utilisant un mode inadéquat de débarras des ordures menagères:
->                         3 brulées ;
->                         5 dépotoir sauvage;
->                         6 autre
-> 
->         Surpeuplement (hhsize/s11q02 supérieur à 3)
->                 Enfant vivant dans un ménage ou dorment plus de 3
->                 personnes par pièces
-> 
-> 4/Nutrition :
->         Diversité des repas
->                 Enfant vivant dans un ménage n'ayant pas consommé
->                 d'aliments des 4 groupes alimentaires (carbohydrates,
->                 protéines, fruits/légumes, graisses) une fois par jour
->                 sur la dernière semaine
-> 
->         Sécurité alimentaire/ Non-accès à la nourri-ture pour se nourrir à sa faim
->                 Enfant vivant dans un ménage qui n'avait plus de nourriture, OU
->                 - avec un des membres ayant
->                 - dû sauter un repas,
->                 - mangé moins que ce qu'il pensait nécessaire,
->                 - eu faim mais sans avoir mangé
->                 - passé toute une journée sans manger
->                 - au moins une fois du-rant les 12 derniers mois par manque d'ar-gent ou d'autres ressources
-> 
-> 5/Santé:
->         Type de combustibles utilisés pour cuisiner
->                 Enfant vivant dans un ménage ou utilisant du combus-
->                 tible solide pour cuisiner : bois ramassé, bois acheté,
->                 charbon de bois, déchets animaux, autres
-> 
->         Accès à une structure de santé: l'hôpital ou autre centre de santé
->                 Enfant vivant dans une localité d'où il/elle ne peut ac-
->                 céder à pied à une structure de santé
-> 
-> 6/Protection de l'enfant:
->         Disponibilité de l'acte de naissance
->                 Enfant n'ayant pas d'acte de naissance
-> 
->         Travail des enfants (économique et domestique)
->                 Enfant effectuant travail économique ou do-mestique
->                 pendant au moins 1h
-> 
->         Enfant vivant avec ses deux parents
->                 Enfant ne vivant pas avec ses deux parents biologique
-> 
-> 7/Éducation:
->         Capacité de lecture et d'écriture
->                 Enfant en capacité de lire et d'écrire
-> 
->         Fréquentation scolaire
->                 Enfant n'étant pas à l'école
-> 
->         Jeunes sans emploi ne poursuivant pas d'études et ne suivant pas de formation (NEET)
->                 Enfant sans emploi ne poursuivant pas d'études et ne
->                 suivant pas de formation (NEET)
-> */
+>    1. ASSAINISSEMENT
+>       - Type de sanitaire non ameliore : s11q55/54 in {7..12}
+>       - Partage des toilettes : s11q56/55==1 (denominateur = installations privees)
+>    2. EAU
+>       - Source non amelioree {5,6,12,13,16,17} (saison seche OU pluies) ET ne
+>         traite pas son eau (filtre s11q32/31 != « oui »)
+>       - Temps de collecte >= 30 min (aller + attente, une saison ou l'autre)
+>    3. LOGEMENT
+>       - Debarras des ordures inadequat : s11q54/53 in {3,5,6}
+>       - Surpeuplement : hhsize / nb_pieces >= 4 (>= 4 pers./piece)
+>    4. NUTRITION
+>       - Insecurite alimentaire (FIES, s08a). Diversite des repas NON retenue
+>         (module non comparable entre les deux vagues)
+>    5. SANTE  (dimension = union des deux)
+>       - Combustible solide pour cuisiner : s11q53/52 (bois, charbon, dechets…)
+>       - Acces sante : ne peut acceder A PIED (mode s02q02==1) a une structure
+>         publique 5/6 (module communautaire s02_co)
+>    6. PROTECTION DE L'ENFANT
+>       - Absence d'acte de naissance (s01q05==2, < 15 ans)
+>       - Travail des enfants : economique OU domestique >= 1h (5-14 ans)
+>       - Separation parentale : ne vit pas avec ses 2 parents (s01q22/s01q29)
+>    7. EDUCATION
+>       - Non-scolarisation (scol==0, 5-14 ans)
+>       - Illettrisme (alfab==0, 15-17 ans)
+>       - NEET ECARTE (valeur ANSD = simple non-emploi, incoherente ; cf. annexe E)
+>    -------------------------------------------------------------------------- */
 . 
 . /* ============================================================
 >    Sous-programme : indicateurs menage (niveau logement)
@@ -1687,91 +1591,82 @@ file code/stata/temp/traitement_2021.dta saved
 .     preserve
  60.         use "`base'/s02_co_sen`annee'.dta", clear
  61.         gen long _ord = _n
- 62.         if `annee' == 2018 {
- 63.             gen int svc_id = s02q00
- 64.             gen byte exloc = .
- 65.             replace exloc = (s02q01__5 == 1) if svc_id == 5
- 66.             replace exloc = (s02q01__6 == 1) if svc_id == 6
- 67.         }
- 68.         else {
- 69.             bysort grappe (_ord): gen int svc_id = _n
- 70.             gen byte exloc = (s02q01 == 1)
- 71.         }
- 72.         keep if inlist(svc_id, 5, 6)
- 73.         /* Acces a pied STRICT : le mode habituel vers la structure est la
->            marche (s02q02==1). L'existence locale (exloc) n'implique pas l'acces
->            a pied et n'est donc pas retenue comme critere. */
+ 62.         if `annee' == 2018  gen int svc_id = s02q00
+ 63.         else                bysort grappe (_ord): gen int svc_id = _n
+ 64.         keep if inlist(svc_id, 5, 6)
+ 65.         /* Acces a pied STRICT : mode habituel = marche (s02q02==1).
+>            L'existence locale n'implique pas l'acces a pied -> non retenue. */
 .         gen byte pfoot = (s02q02 == 1)
- 74.         collapse (max) sante_pfoot = pfoot, by(grappe)
- 75.         tempfile s02_temp
- 76.         save `s02_temp'
- 77.     restore
- 78.     merge m:1 grappe using `s02_temp', keepusing(sante_pfoot) ///
+ 66.         collapse (max) sante_pfoot = pfoot, by(grappe)
+ 67.         tempfile s02_temp
+ 68.         save `s02_temp'
+ 69.     restore
+ 70.     merge m:1 grappe using `s02_temp', keepusing(sante_pfoot) ///
 >         nogenerate keep(master match)
- 79.     gen byte m_sante_acces = (sante_pfoot != 1)
- 80. 
+ 71.     gen byte m_sante_acces = (sante_pfoot != 1)
+ 72. 
 .     /* A5. Securite alimentaire (s08a_me), variables brutes (traitement Non-retenu en calcul) */
 .     preserve
- 81.         use "`base'/s08a_me_sen`annee'.dta", clear
- 82.         keep grappe menage s08aq04 s08aq05 s08aq06 s08aq07 s08aq08
- 83.         tempfile s08a_temp
- 84.         save `s08a_temp'
- 85.     restore
- 86.     merge m:1 grappe menage using `s08a_temp', nogenerate keep(master match)
- 87. 
+ 73.         use "`base'/s08a_me_sen`annee'.dta", clear
+ 74.         keep grappe menage s08aq04 s08aq05 s08aq06 s08aq07 s08aq08
+ 75.         tempfile s08a_temp
+ 76.         save `s08a_temp'
+ 77.     restore
+ 78.     merge m:1 grappe menage using `s08a_temp', nogenerate keep(master match)
+ 79. 
 .     /* A6. Acte de naissance + presence des parents biologiques (s01_me),
 >        cle individuelle. s01q22 = "Le pere de [NOM] habite-t-il dans le
 >        menage ?" ; s01q29 = "La mere de [NOM] habite-t-elle dans le menage ?"
 >        (1=Oui, 2=Non, memes codes 2018/2021). */
 .     preserve
- 88.         use "`base'/s01_me_sen`annee'.dta", clear
- 89.         if `annee' == 2018 rename s01q00a numind
- 90.         else               rename membres__id numind
- 91.         keep grappe menage numind s01q05 s01q22 s01q29
- 92.         tempfile s01_temp
- 93.         save `s01_temp'
- 94.     restore
- 95.     merge m:1 grappe menage numind using `s01_temp', ///
+ 80.         use "`base'/s01_me_sen`annee'.dta", clear
+ 81.         if `annee' == 2018 rename s01q00a numind
+ 82.         else               rename membres__id numind
+ 83.         keep grappe menage numind s01q05 s01q22 s01q29
+ 84.         tempfile s01_temp
+ 85.         save `s01_temp'
+ 86.     restore
+ 87.     merge m:1 grappe menage numind using `s01_temp', ///
 >         keepusing(s01q05 s01q22 s01q29) nogenerate keep(master match)
- 96. 
+ 88. 
 .     /* A7. Travail des enfants (s04_me / s04a_me), heures de travail
 >        economique et domestique. 2018 : cle s01q00a. 2021 : s04a_me en
 >        format long (membres__id), collapse au niveau personne. */
 .     preserve
- 97.         if `annee' == 2018 {
- 98.             use "`base'/s04_me_sen2018.dta", clear
- 99.             rename s01q00a numind
-100.             /* Travail domestique = somme des cinq postes d'heures du module
+ 89.         if `annee' == 2018 {
+ 90.             use "`base'/s04_me_sen2018.dta", clear
+ 91.             rename s01q00a numind
+ 92.             /* Travail domestique = somme des cinq postes d'heures du module
 >                (courses au marche q01, travaux domestiques q02, garde q03,
 >                eau q04, bois q05). rownonmiss > 0 = a repondu au module. */
 .             egen h_dom = rowtotal(s04q01 s04q02 s04q03 s04q04 s04q05)
-101.             egen byte nrep = rownonmiss(s04q01 s04q02 s04q03 s04q04 s04q05 ///
+ 93.             egen byte nrep = rownonmiss(s04q01 s04q02 s04q03 s04q04 s04q05 ///
 >                                         s04q06 s04q07 s04q08 s04q09)
-102.             /* Travail economique : uniquement les questions posant clairement
+ 94.             /* Travail economique : uniquement les questions posant clairement
 >                le seuil "au moins une heure" (q06 champ propre compte, q07
 >                commerce remunere, q08 entreprise/Etat, q09 apprenti). q13/q14
 >                (travail familial non remunere) sont ecartes : leur formulation
 >                ne fixe aucun seuil horaire. */
 .             gen byte eco = inlist(1, s04q06, s04q07, s04q08, s04q09)
-103.         }
-104.         else {
-105.             use "`base'/s04a_me_sen2021.dta", clear
-106.             rename membres__id numind
-107.             collapse (max) s04q01 s04q02a s04q02b s04q02c s04q03 s04q04 s04q05 ///
+ 95.         }
+ 96.         else {
+ 97.             use "`base'/s04a_me_sen2021.dta", clear
+ 98.             rename membres__id numind
+ 99.             collapse (max) s04q01 s04q02a s04q02b s04q02c s04q03 s04q04 s04q05 ///
 >                            s04q06 s04q07 s04q08 s04q09, ///
 >                      by(grappe menage numind)
-108.             egen h_dom = rowtotal(s04q01 s04q02a s04q02b s04q02c s04q03 s04q04 s04q05)
-109.             egen byte nrep = rownonmiss(s04q01 s04q02a s04q02b s04q02c s04q03 ///
+100.             egen h_dom = rowtotal(s04q01 s04q02a s04q02b s04q02c s04q03 s04q04 s04q05)
+101.             egen byte nrep = rownonmiss(s04q01 s04q02a s04q02b s04q02c s04q03 ///
 >                                         s04q04 s04q05 s04q06 s04q07 s04q08 s04q09)
-110.             gen byte eco = inlist(1, s04q06, s04q07, s04q08, s04q09)
-111.         }
-112.         keep grappe menage numind h_dom eco nrep
-113.         tempfile s04_trav
-114.         save `s04_trav'
-115.     restore
-116.     merge m:1 grappe menage numind using `s04_trav', ///
+102.             gen byte eco = inlist(1, s04q06, s04q07, s04q08, s04q09)
+103.         }
+104.         keep grappe menage numind h_dom eco nrep
+105.         tempfile s04_trav
+106.         save `s04_trav'
+107.     restore
+108.     merge m:1 grappe menage numind using `s04_trav', ///
 >         keepusing(h_dom eco nrep) nogenerate keep(master match)
-117. 
+109. 
 .     /* Les variables scol, activ7j, lien, alfab/alfa sont deja presentes
 >        dans ehcvm_individu (chargee en A1) : aucune fusion supplementaire
 >        n'est necessaire pour la dimension Education. */
@@ -1779,8 +1674,8 @@ file code/stata/temp/traitement_2021.dta saved
 .     /* A8. Sauvegarde de la base preparee (fusionnee, avant calcul),
 >        dans un dossier separe des bases finales avec indicateurs. */
 .     save "$PREP/base_prep_`annee'.dta", replace
-118.     di ">>> Base preparee sauvegardee : $PREP/base_prep_`annee'.dta (" _N " obs)"
-119. 
+110.     di ">>> Base preparee sauvegardee : $PREP/base_prep_`annee'.dta (" _N " obs)"
+111. 
 .     /* ============================================================
 >        B. CALCUL DES INDICATEURS ET DES DIMENSIONS N-MODA, par
 >           dimension. Toutes les donnees sources sont deja fusionnees
@@ -1789,12 +1684,12 @@ file code/stata/temp/traitement_2021.dta saved
 . 
 .     /* Groupes d'age N-MODA (utilises par plusieurs dimensions ci-dessous) */
 .     gen byte groupe_moda = .
-120.     replace  groupe_moda = 1 if age <= 4
-121.     replace  groupe_moda = 2 if age >= 5  & age <= 14
-122.     replace  groupe_moda = 3 if age >= 15 & age <= 17
-123.     label define grp 1 "0-4 ans" 2 "5-14 ans" 3 "15-17 ans", replace
-124.     label values groupe_moda grp
-125. 
+112.     replace  groupe_moda = 1 if age <= 4
+113.     replace  groupe_moda = 2 if age >= 5  & age <= 14
+114.     replace  groupe_moda = 3 if age >= 15 & age <= 17
+115.     label define grp 1 "0-4 ans" 2 "5-14 ans" 3 "15-17 ans", replace
+116.     label values groupe_moda grp
+117. 
 .     /* ── [Dimension 1/7 : Assainissement] ────────────────────────
 >        Indicateur 1 - Type de sanitaire non ameliore
 >        Indicateur 2 - Partage des toilettes avec un autre menage
@@ -1808,7 +1703,7 @@ file code/stata/temp/traitement_2021.dta saved
 >        11. Aucune toilette ; 12. Autre. */
 .     gen byte m_toilet     = inlist(`v_type_toi', 7, 8, 9, 10, 11, 12) ///
 >         if !missing(`v_type_toi')
-126.     /* Le partage des sanitaires n'est demande que si le menage dispose
+118.     /* Le partage des sanitaires n'est demande que si le menage dispose
 >        d'une installation propre : la question est sautee a 100% quand le
 >        type de sanitaire (v_type_toi) est "Aucune toilette" (code 11) ou
 >        "Toilettes publiques" (code 10). Denominateur ANSD : ces menages,
@@ -1816,14 +1711,14 @@ file code/stata/temp/traitement_2021.dta saved
 >        (m_partag_toi manquant) plutot que comptes comme "ne partage pas".
 >        Ils restent captes comme prives par m_toilet. */
 .     gen byte m_partag_toi = (`v_partag' == 1) if !missing(`v_partag')
-127.     /* Dimension : privee si type non ameliore OU partage. m_toilet==1
+119.     /* Dimension : privee si type non ameliore OU partage. m_toilet==1
 >        court-circuite le partage manquant des menages sans installation
 >        privee, ce qui evite de les perdre du N-MODA (analyse en cas
 >        complets). */
 .     gen byte dim_assai = .
-128.     replace  dim_assai = 1            if m_toilet == 1
-129.     replace  dim_assai = m_partag_toi if m_toilet == 0
-130. 
+120.     replace  dim_assai = 1            if m_toilet == 1
+121.     replace  dim_assai = m_partag_toi if m_toilet == 0
+122. 
 .     /* ── [Dimension 2/7 : Eau] ─────────────────────────────────────
 >        Indicateur 1 - Source d'eau de boisson non amelioree
 >        Indicateur 2 - Temps d'acces a l'eau > 30 min (saison seche OU pluies) */
@@ -1841,11 +1736,11 @@ file code/stata/temp/traitement_2021.dta saved
 >        d'age ; ici 11,9 / 10,0 / 7,9, l'ecart residuel etant le meme calage
 >        demographique que sur les autres indicateurs). */
 .     gen byte src_ss = inlist(`v_src_ss', 5, 6, 12, 13, 16, 17)
-131.     gen byte src_sp = inlist(`v_src_sp', 5, 6, 12, 13, 16, 17)
-132.     gen byte m_eau_source = ((src_ss == 1 | src_sp == 1) & (`v_gate' != 1)) ///
+123.     gen byte src_sp = inlist(`v_src_sp', 5, 6, 12, 13, 16, 17)
+124.     gen byte m_eau_source = ((src_ss == 1 | src_sp == 1) & (`v_gate' != 1)) ///
 >         if !missing(`v_src_ss') | !missing(`v_src_sp')
-133.     drop src_ss src_sp
-134.     /* Le temps d'acces (s11q29a/28a, s11q31a/30a) n'est demande que si le
+125.     drop src_ss src_sp
+126.     /* Le temps d'acces (s11q29a/28a, s11q31a/30a) n'est demande que si le
 >        menage doit se deplacer pour s'approvisionner : le saut de question
 >        (verifie empiriquement, >94% de non-reponse) s'applique quand la
 >        source est un robinet dans le logement (code 1) ou dans la cour/
@@ -1858,22 +1753,22 @@ file code/stata/temp/traitement_2021.dta saved
 >        menages a eau sur place (robinet logement/cour, codes 1-2) gardent un
 >        temps nul : non prives (0), conserves au denominateur. */
 .     gen double t_ss = `v_tps_ss'
-135.     gen double t_sp = `v_tps_sp'
-136.     capture confirm variable `v_tps_ss_h'
-137.     if _rc == 0 replace t_ss = t_ss + `v_tps_ss_h'*60 + `v_tps_ss_m' ///
+127.     gen double t_sp = `v_tps_sp'
+128.     capture confirm variable `v_tps_ss_h'
+129.     if _rc == 0 replace t_ss = t_ss + `v_tps_ss_h'*60 + `v_tps_ss_m' ///
 >         if !missing(t_ss) & !missing(`v_tps_ss_h')
-138.     capture confirm variable `v_tps_sp_h'
-139.     if _rc == 0 replace t_sp = t_sp + `v_tps_sp_h'*60 + `v_tps_sp_m' ///
+130.     capture confirm variable `v_tps_sp_h'
+131.     if _rc == 0 replace t_sp = t_sp + `v_tps_sp_h'*60 + `v_tps_sp_m' ///
 >         if !missing(t_sp) & !missing(`v_tps_sp_h')
-140.     gen byte m_eau_temps  = (t_ss >= 30 & !missing(t_ss)) | ///
+132.     gen byte m_eau_temps  = (t_ss >= 30 & !missing(t_ss)) | ///
 >                              (t_sp >= 30 & !missing(t_sp)) ///
 >         if !missing(t_ss) | !missing(t_sp)
-141.     replace  m_eau_temps  = 0 if missing(m_eau_temps) & ///
+133.     replace  m_eau_temps  = 0 if missing(m_eau_temps) & ///
 >         inlist(`v_src_ss', 1, 2) & inlist(`v_src_sp', 1, 2)
-142.     drop t_ss t_sp
-143.     gen byte dim_eau      = (m_eau_source == 1 | m_eau_temps == 1) ///
+134.     drop t_ss t_sp
+135.     gen byte dim_eau      = (m_eau_source == 1 | m_eau_temps == 1) ///
 >         if !missing(m_eau_source) & !missing(m_eau_temps)
-144. 
+136. 
 .     /* ── [Dimension 3/7 : Logement] ────────────────────────────────
 >        Indicateur 1 - Debarras des ordures menageres inadequat
 >        Indicateur 2 - Surpeuplement (> 3 personnes par piece) */
@@ -1883,7 +1778,7 @@ file code/stata/temp/traitement_2021.dta saved
 >        menage donnait ~1 point de plus ; les codes bruts reproduisent l'ANSD
 >        exactement (59,3 / 58,2 / 53,0 en 2018). */
 .     gen byte m_ordures = inlist(`v_ordure', 3, 5, 6) if !missing(`v_ordure')
-145.     /* Surpeuplement ANSD : « plus de 3 personnes par piece » operationnalise
+137.     /* Surpeuplement ANSD : « plus de 3 personnes par piece » operationnalise
 >        comme AU MOINS 4 personnes par piece (ratio >= 4), et non ratio > 3 (qui
 >        compterait a tort 3,5 pers./piece comme surpeuple). Reproduit exactement
 >        les taux ANSD 2018 : 13,3 / 12,7 / 11,4 par groupe d'age. Le nombre de
@@ -1892,9 +1787,9 @@ file code/stata/temp/traitement_2021.dta saved
 >        resultat coincide avec cette derniere. */
 .     gen byte m_surpeup = (hhsize / nb_pieces >= 4) ///
 >         if !missing(nb_pieces) & nb_pieces > 0 & !missing(hhsize)
-146.     gen byte dim_logem = (m_ordures == 1 | m_surpeup == 1) ///
+138.     gen byte dim_logem = (m_ordures == 1 | m_surpeup == 1) ///
 >         if !missing(m_ordures) & !missing(m_surpeup)
-147. 
+139. 
 .     /* ── [Dimension 4/7 : Nutrition] ───────────────────────────────
 >        Indicateur unique - Insecurite alimentaire (FIES) : membre ayant
 >        saute un repas, mange moins que necessaire, manque de nourriture,
@@ -1904,14 +1799,14 @@ file code/stata/temp/traitement_2021.dta saved
 >        complets : manquant des qu'UNE SEULE des 5 questions du module
 >        manque, meme si une autre question etablit deja la privation. */
 .     gen byte m_securite = 0
-148.     foreach v in s08aq04 s08aq05 s08aq06 s08aq07 s08aq08 {
-149.         replace m_securite = 1 if `v' == 1 & !missing(`v')
-150.     }
-151.     egen byte n_miss_sec = rowmiss(s08aq04 s08aq05 s08aq06 s08aq07 s08aq08)
-152.     replace m_securite = . if n_miss_sec > 0
-153.     drop n_miss_sec
-154.     gen byte dim_nutri = (m_securite == 1)
-155. 
+140.     foreach v in s08aq04 s08aq05 s08aq06 s08aq07 s08aq08 {
+141.         replace m_securite = 1 if `v' == 1 & !missing(`v')
+142.     }
+143.     egen byte n_miss_sec = rowmiss(s08aq04 s08aq05 s08aq06 s08aq07 s08aq08)
+144.     replace m_securite = . if n_miss_sec > 0
+145.     drop n_miss_sec
+146.     gen byte dim_nutri = (m_securite == 1)
+147. 
 .     /* ── [Dimension 5/7 : Sante] ────────────────────────────────────
 >        Indicateur 1 - Combustible solide pour cuisiner (bois, charbon,
 >        dechets animaux).
@@ -1925,16 +1820,16 @@ file code/stata/temp/traitement_2021.dta saved
 >        privation. m_combust manquant des qu'UNE SEULE des options de
 >        combustible manque. */
 .     gen byte m_combust = 0
-156.     foreach v of varlist `comb_vars' {
-157.         replace m_combust = 1 if `v' >= 1 & !missing(`v')
-158.     }
-159.     egen byte n_miss_comb = rowmiss(`comb_vars')
-160.     replace m_combust = . if n_miss_comb > 0
-161.     drop n_miss_comb
-162.     gen byte dim_sante = .
-163.     replace  dim_sante = 1         if m_sante_acces == 1
-164.     replace  dim_sante = m_combust if m_sante_acces == 0
-165. 
+148.     foreach v of varlist `comb_vars' {
+149.         replace m_combust = 1 if `v' >= 1 & !missing(`v')
+150.     }
+151.     egen byte n_miss_comb = rowmiss(`comb_vars')
+152.     replace m_combust = . if n_miss_comb > 0
+153.     drop n_miss_comb
+154.     gen byte dim_sante = .
+155.     replace  dim_sante = 1         if m_sante_acces == 1
+156.     replace  dim_sante = m_combust if m_sante_acces == 0
+157. 
 .     /* ── [Dimension 6/7 : Protection de l'enfant] ────────────────────
 >        Indicateur 1 - Absence d'acte de naissance (non pertinent > 14 ans)
 >        Indicateur 2 - Travail des enfants (economique OU domestique
@@ -1946,16 +1841,16 @@ file code/stata/temp/traitement_2021.dta saved
 >        imputation de valeur manquante) : l'indicateur ne sert pas pour ce
 >        groupe d'age, quelle que soit l'info disponible. */
 .     gen byte m_acte_nais = (s01q05 == 2) if !missing(s01q05)
-166.     replace  m_acte_nais = 0 if age > 14
-167. 
+158.     replace  m_acte_nais = 0 if age > 14
+159. 
 .     /* Denominateur = enfants 5-14 ayant repondu au module (nrep > 0). rowtotal
 >        renvoie 0 meme si toutes les heures sont manquantes : sans le garde-fou
 >        nrep, les enfants sans aucune reponse seraient comptes "ne travaille pas"
 >        plutot qu'exclus. */
 .     gen byte m_trav_enf = (eco == 1 | h_dom >= 1) ///
 >         if age >= 5 & age <= 14 & nrep > 0 & !missing(nrep)
-168.     replace  m_trav_enf = 0 if age < 5 | age > 14
-169. 
+160.     replace  m_trav_enf = 0 if age < 5 | age > 14
+161. 
 .     /* Separation parentale : enfant ne vivant pas avec ses DEUX parents
 >        biologiques, identifie directement par les questions du roster
 >        (s01q22 pere dans le menage, s01q29 mere dans le menage ; 1=Oui, 2=Non).
@@ -1965,18 +1860,18 @@ file code/stata/temp/traitement_2021.dta saved
 >        fonde sur le lien au chef de menage (lien > 3), qui classait mal les
 >        enfants du chef dont un parent est absent. */
 .     gen byte m_parents = .
-170.     replace  m_parents = 1 if s01q22 == 2 | s01q29 == 2
-171.     replace  m_parents = 0 if s01q22 == 1 & s01q29 == 1
-172. 
+162.     replace  m_parents = 1 if s01q22 == 2 | s01q29 == 2
+163.     replace  m_parents = 0 if s01q22 == 1 & s01q29 == 1
+164. 
 .     /* dim_protect manquante des qu'UN SEUL indicateur pertinent pour le
 >        groupe d'age de l'enfant lui manque (analyse en cas complets). */
 .     gen byte dim_protect = .
-173.     replace  dim_protect = (m_acte_nais == 1 | m_parents == 1) ///
+165.     replace  dim_protect = (m_acte_nais == 1 | m_parents == 1) ///
 >         if groupe_moda == 1 & !missing(m_acte_nais) & !missing(m_parents)
-174.     replace  dim_protect = (m_acte_nais == 1 | m_trav_enf == 1 | m_parents == 1) ///
+166.     replace  dim_protect = (m_acte_nais == 1 | m_trav_enf == 1 | m_parents == 1) ///
 >         if groupe_moda == 2 & !missing(m_acte_nais) & !missing(m_trav_enf) & !missing(m_parents)
-175.     replace  dim_protect = (m_parents == 1) if groupe_moda == 3 & !missing(m_parents)
-176. 
+167.     replace  dim_protect = (m_parents == 1) if groupe_moda == 3 & !missing(m_parents)
+168. 
 .     /* ── [Dimension 7/7 : Education] ──────────────────────────────
 >        Indicateur 1 - Illettrisme, ne sait ni lire ni ecrire (15-17 ans)
 >        Indicateur 2 - Non-scolarisation (5-14 ans)
@@ -1988,63 +1883,63 @@ file code/stata/temp/traitement_2021.dta saved
 >        n'inclut donc que les indicateurs validables sur l'ANSD. m_neet reste
 >        calcule a titre descriptif mais n'alimente plus dim_educ. */
 .     gen byte m_scol = (scol == 0) if age >= 5 & age <= 14 & !missing(scol)
-177.     replace  m_scol = 0 if age < 5 | age > 14
-178. 
+169.     replace  m_scol = 0 if age < 5 | age > 14
+170. 
 .     gen byte m_alfab = .
-179.     if `annee' == 2018 {
-180.         replace m_alfab = (alfab == 0) if age >= 15 & !missing(alfab)
-181.     }
-182.     else {
-183.         capture confirm variable alfa
-184.         if !_rc replace m_alfab = (alfa == 0) if age >= 15 & !missing(alfa)
-185.     }
-186.     replace m_alfab = 0 if age < 15
-187. 
+171.     if `annee' == 2018 {
+172.         replace m_alfab = (alfab == 0) if age >= 15 & !missing(alfab)
+173.     }
+174.     else {
+175.         capture confirm variable alfa
+176.         if !_rc replace m_alfab = (alfa == 0) if age >= 15 & !missing(alfa)
+177.     }
+178.     replace m_alfab = 0 if age < 15
+179. 
 .     /* NEET : conserve pour la statistique descriptive (annexe), hors agregat. */
 .     gen byte m_neet = (scol == 0 & activ7j != 1) ///
 >         if age >= 15 & !missing(scol) & !missing(activ7j)
-188.     replace  m_neet = 0 if age < 15
-189. 
+180.     replace  m_neet = 0 if age < 15
+181. 
 .     /* Non applicable aux 0-4 ans (groupe_moda==1) : dim_educ = 0 par
 >        defaut. 15-17 ans : illettrisme seul (NEET retire). */
 .     gen byte dim_educ = 0
-190.     replace  dim_educ = m_scol  if groupe_moda == 2
-191.     replace  dim_educ = m_alfab if groupe_moda == 3 & !missing(m_alfab)
-192.     replace  dim_educ = .        if groupe_moda == 3 & missing(m_alfab)
-193. 
+182.     replace  dim_educ = m_scol  if groupe_moda == 2
+183.     replace  dim_educ = m_alfab if groupe_moda == 3 & !missing(m_alfab)
+184.     replace  dim_educ = .        if groupe_moda == 3 & missing(m_alfab)
+185. 
 .     /* ── Agregation N-MODA (union intra-dimension, seuil k=$K_MODA) ── */
 .     gen byte nb_dep = dim_assai + dim_eau + dim_logem + dim_nutri + ///
 >                       dim_sante + dim_protect + dim_educ
-194.     gen byte pauvre_MODA = (nb_dep >= $K_MODA) if !missing(nb_dep)
-195. 
+186.     gen byte pauvre_MODA = (nb_dep >= $K_MODA) if !missing(nb_dep)
+187. 
 .     /* Intensite moyenne N-MODA (Annexe II : A = part des 7 dimensions
 >        en privation, calculee sur les enfants pauvres pauvre_MODA==1) */
 .     gen float intensite_moda = nb_dep / 7
-196. 
+188. 
 .     /* ── Affichage ── */
 .     di _newline "=== N-MODA `annee' (k=$K_MODA, 7 dimensions) ==="
-197.     quietly summarize pauvre_MODA
-198.     di "  H = " %6.3f r(mean)*100 "%"
-199.     di "  Privation par dimension :"
-200.     foreach dim in assai eau logem nutri sante protect educ {
-201.         quietly summarize dim_`dim'
-202.         di "  `dim' : " %5.1f r(mean)*100 "%"
-203.     }
-204.     tabstat pauvre_MODA nb_dep, by(groupe_moda) stat(mean n) format(%6.3f)
-205. 
+189.     quietly summarize pauvre_MODA
+190.     di "  H = " %6.3f r(mean)*100 "%"
+191.     di "  Privation par dimension :"
+192.     foreach dim in assai eau logem nutri sante protect educ {
+193.         quietly summarize dim_`dim'
+194.         di "  `dim' : " %5.1f r(mean)*100 "%"
+195.     }
+196.     tabstat pauvre_MODA nb_dep, by(groupe_moda) stat(mean n) format(%6.3f)
+197. 
 .     /* Privation par dimension ET par tranche d'age, ponderee (hhweight),
 >        pour comparaison directe avec le rapport ANSD "Pauvrete de l'enfant
 >        au Senegal" (taux par dimension et groupe d'age 0-4/5-14/15-17). */
 .     di _newline "  === Privation par dimension x tranche d'age (%, pondere hhweight) ==="
-206.     foreach dim in assai eau logem nutri sante protect educ {
-207.         di _newline "  -- dim_`dim' --"
-208.         tabstat dim_`dim' [aw=hhweight], by(groupe_moda) stat(mean n) format(%7.4f)
-209.     }
-210. 
+198.     foreach dim in assai eau logem nutri sante protect educ {
+199.         di _newline "  -- dim_`dim' --"
+200.         tabstat dim_`dim' [aw=hhweight], by(groupe_moda) stat(mean n) format(%7.4f)
+201.     }
+202. 
 .     /* C. Sauvegarde */
 .     save "$TEMP/enfants_dep_`annee'.dta", replace
-211.     di _newline ">>> Sauvegarde : enfants_dep_`annee'.dta (" _N " obs)"
-212. }
+203.     di _newline ">>> Sauvegarde : enfants_dep_`annee'.dta (" _N " obs)"
+204. }
 (32,276 observations deleted)
 
 >>> Enfants 2018 : 33844
@@ -2075,7 +1970,7 @@ file code/stata/temp/traitement_2021.dta saved
     Not matched                             0
     Matched                            33,844  
     -----------------------------------------
-file C:\Users\Bmd\AppData\Local\Temp\ST_1ec0_000006.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_6290_000006.tmp saved as .dta format
 
     Result                      Number of obs
     -----------------------------------------
@@ -2083,11 +1978,8 @@ file C:\Users\Bmd\AppData\Local\Temp\ST_1ec0_000006.tmp saved as .dta format
     Matched                            33,844  
     -----------------------------------------
 (4 missing values generated)
-(9,820 missing values generated)
-(325 real changes made)
-(436 real changes made)
 (9,059 observations deleted)
-file C:\Users\Bmd\AppData\Local\Temp\ST_1ec0_000008.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_6290_000008.tmp saved as .dta format
 
     Result                      Number of obs
     -----------------------------------------
@@ -2097,21 +1989,21 @@ file C:\Users\Bmd\AppData\Local\Temp\ST_1ec0_000008.tmp saved as .dta format
 
     Matched                            24,955  
     -----------------------------------------
-file C:\Users\Bmd\AppData\Local\Temp\ST_1ec0_00000a.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_6290_00000a.tmp saved as .dta format
 
     Result                      Number of obs
     -----------------------------------------
     Not matched                             0
     Matched                            33,844  
     -----------------------------------------
-file C:\Users\Bmd\AppData\Local\Temp\ST_1ec0_00000c.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_6290_00000c.tmp saved as .dta format
 
     Result                      Number of obs
     -----------------------------------------
     Not matched                             0
     Matched                            33,844  
     -----------------------------------------
-file C:\Users\Bmd\AppData\Local\Temp\ST_1ec0_00000e.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_6290_00000e.tmp saved as .dta format
 
     Result                      Number of obs
     -----------------------------------------
@@ -2339,7 +2231,7 @@ file code/stata/temp/enfants_dep_2018.dta saved
     Not matched                             0
     Matched                            31,033  
     -----------------------------------------
-file C:\Users\Bmd\AppData\Local\Temp\ST_1ec0_00000g.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_6290_00000g.tmp saved as .dta format
 
     Result                      Number of obs
     -----------------------------------------
@@ -2347,28 +2239,28 @@ file C:\Users\Bmd\AppData\Local\Temp\ST_1ec0_00000g.tmp saved as .dta format
     Matched                            31,033  
     -----------------------------------------
 (14,304 observations deleted)
-file C:\Users\Bmd\AppData\Local\Temp\ST_1ec0_00000i.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_6290_00000i.tmp saved as .dta format
 
     Result                      Number of obs
     -----------------------------------------
     Not matched                             0
     Matched                            31,033  
     -----------------------------------------
-file C:\Users\Bmd\AppData\Local\Temp\ST_1ec0_00000k.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_6290_00000k.tmp saved as .dta format
 
     Result                      Number of obs
     -----------------------------------------
     Not matched                             0
     Matched                            31,033  
     -----------------------------------------
-file C:\Users\Bmd\AppData\Local\Temp\ST_1ec0_00000m.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_6290_00000m.tmp saved as .dta format
 
     Result                      Number of obs
     -----------------------------------------
     Not matched                             0
     Matched                            31,033  
     -----------------------------------------
-file C:\Users\Bmd\AppData\Local\Temp\ST_1ec0_00000o.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_6290_00000o.tmp saved as .dta format
 
     Result                      Number of obs
     -----------------------------------------
@@ -2570,9 +2462,6 @@ file code/stata/temp/enfants_dep_2021.dta saved
 . 
 . /* ============================================================
 >    SECTION : 04_PANEL — Construction du panel vrai (PanelHH=1)
->    ============================================================ */
-. /* ============================================================
->    04_panel.do — Construction du panel vrai (PanelHH=1)
 > 
 >    Exploite le suivi effectif des menages entre les deux vagues.
 >    Produit : $TEMP/panel_vrai.dta
@@ -2746,7 +2635,7 @@ Duplicates in terms of grappe menage
 . tempfile id2018
 
 . save `id2018'
-file C:\Users\Bmd\AppData\Local\Temp\ST_1ec0_00000p.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_6290_00000p.tmp saved as .dta format
 
 . 
 . use "$TEMP/vague_2021.dta", clear
@@ -2783,7 +2672,7 @@ Duplicates in terms of grappe menage
 . tempfile ids_panel
 
 . save `ids_panel'
-file C:\Users\Bmd\AppData\Local\Temp\ST_1ec0_00000q.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_6290_00000q.tmp saved as .dta format
 
 . save "$TEMP/ids_panel.dta", replace   /* liste complete de tous les menages
 >     suivis, reutilisee par l'analyse de robustesse "beneficiaires stables" */
@@ -2811,7 +2700,7 @@ Menages vraiment suivis (presences dans les 2 vagues) : 5691
 . tempfile panel_t0
 
 . save `panel_t0'
-file C:\Users\Bmd\AppData\Local\Temp\ST_1ec0_00000r.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_6290_00000r.tmp saved as .dta format
 
 . 
 . use "$TEMP/vague_2021.dta", clear
@@ -2827,7 +2716,7 @@ file C:\Users\Bmd\AppData\Local\Temp\ST_1ec0_00000r.tmp saved as .dta format
 . tempfile panel_t1
 
 . save `panel_t1'
-file C:\Users\Bmd\AppData\Local\Temp\ST_1ec0_00000s.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_6290_00000s.tmp saved as .dta format
 
 . 
 . use `panel_t0', clear
@@ -3007,10 +2896,6 @@ file code/stata/temp/panel_complet.dta saved
 . 
 . /* ============================================================
 >    SECTION : 05_PSM_DD — Estimation PSM-DD sur panel vrai
->    ============================================================ */
-. 
-. /* ============================================================
->    05_psm_dd.do — Estimation PSM-DD sur panel vrai
 > 
 >    Strategie :
 >      1. Probit au NIVEAU MENAGE sur t=0 -> score de propension
@@ -3832,7 +3717,7 @@ file code/stata/temp/panel_apparie.dta saved
 .     tempfile enf18
 
 .     save `enf18'
-file C:\Users\Bmd\AppData\Local\Temp\ST_1ec0_00000u.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_6290_00000u.tmp saved as .dta format
 
 .     use "$TEMP/enfants_dep_2021.dta", clear
 
@@ -4527,7 +4412,7 @@ Linear regression                               Number of obs     =     14,880
 . tempfile menages_panel
 
 . save `menages_panel'
-file C:\Users\Bmd\AppData\Local\Temp\ST_1ec0_00000w.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_6290_00000w.tmp saved as .dta format
 
 . 
 . use "$TEMP/vague_2018.dta", clear
@@ -4552,7 +4437,7 @@ file C:\Users\Bmd\AppData\Local\Temp\ST_1ec0_00000w.tmp saved as .dta format
 . tempfile alt_t0
 
 . save `alt_t0'
-file C:\Users\Bmd\AppData\Local\Temp\ST_1ec0_00000x.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_6290_00000x.tmp saved as .dta format
 
 . 
 . use "$TEMP/vague_2021.dta", clear
@@ -4577,7 +4462,7 @@ file C:\Users\Bmd\AppData\Local\Temp\ST_1ec0_00000x.tmp saved as .dta format
 . tempfile alt_t1
 
 . save `alt_t1'
-file C:\Users\Bmd\AppData\Local\Temp\ST_1ec0_000010.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_6290_000010.tmp saved as .dta format
 
 . 
 . use `alt_t0', clear
@@ -4698,9 +4583,6 @@ t#D_stable_alt |
 . 
 . /* ============================================================
 >    SECTION : 06_STATS_DESC — Statistiques descriptives
->    ============================================================ */
-. /* ============================================================
->    06_stats_desc.do — Statistiques descriptives
 >    Chapitre 3 : profil ménages, pauvreté, privations, comparaison D=0/1
 > 
 >    Les statistiques de pauvrete/privation (incidence N-MODA, par dimension,
@@ -5362,7 +5244,7 @@ Number of observations (_N) was 0, now 6.
  12.         di ">>> tab_prevalence_dim.csv sauvegardé"
  13.     }
  14. }
-file C:\Users\Bmd\AppData\Local\Temp\ST_1ec0_000013.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_6290_000013.tmp saved as .dta format
 file code/stata/output/tables/tab_prevalence_dim.csv saved
 >>> tab_prevalence_dim.csv sauvegardé
 
@@ -5550,7 +5432,7 @@ file code/stata/output/figures/fig_privations_dim.pdf saved as PDF format
 . tempfile mag_w1
 
 . save `mag_w1'
-file C:\Users\Bmd\AppData\Local\Temp\ST_1ec0_000014.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_6290_000014.tmp saved as .dta format
 
 . 
 . use "$TEMP/vague_2021.dta", clear
@@ -5714,9 +5596,6 @@ file code/stata/output/figures/fig_distrib_dimensions.pdf saved as PDF format
 . 
 . /* ============================================================
 >    SECTION : 07_EFFETS_DIM — ATT PSM-DD par dimension N-MODA
->    ============================================================ */
-. /* ============================================================
->    07_effets_dim.do — ATT PSM-DD par dimension N-MODA
 >    Génère output/figures/fig_effets_dim.pdf
 >    ============================================================ */
 . 
@@ -5738,7 +5617,7 @@ Duplicates in terms of grappe menage
 . tempfile poids_knn
 
 . save `poids_knn'
-file C:\Users\Bmd\AppData\Local\Temp\ST_1ec0_000015.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_6290_000015.tmp saved as .dta format
 
 . 
 . use "$TEMP/panel_vrai.dta", clear
@@ -5918,9 +5797,6 @@ file code/stata/output/figures/fig_effets_dim.pdf saved as PDF format
 . 
 . /* ============================================================
 >    SECTION : 08_CARTE_REGION — Carte régionale N-MODA + pauvreté monétaire
->    ============================================================ */
-. /* ============================================================
->    08_carte_region.do — Carte régionale N-MODA + pauvreté monétaire
 >    et diagramme de Venn monétaire/multidimensionnel
 > 
 >    Sorties :
@@ -6464,7 +6340,7 @@ file code/stata/output/figures/fig_carte_nmoda.pdf saved as PDF format
 . tempfile xwalk_reg
 
 . save `xwalk_reg'
-file C:\Users\Bmd\AppData\Local\Temp\ST_1ec0_000017.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_6290_000017.tmp saved as .dta format
 
 . 
 . local dims    assai eau logem nutri sante protect educ
@@ -6524,9 +6400,9 @@ file C:\Users\Bmd\AppData\Local\Temp\ST_1ec0_000017.tmp saved as .dta format
  24.     di ">>> fig_carte_dim_`d'.pdf sauvegardé"
  25. }
 (14 real changes made)
-file C:\Users\Bmd\AppData\Local\Temp\ST_1ec0_000018.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_6290_000018.tmp saved as .dta format
 (14 real changes made)
-file C:\Users\Bmd\AppData\Local\Temp\ST_1ec0_000019.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_6290_000019.tmp saved as .dta format
 (label s00q01 already defined)
 
     Result                      Number of obs
@@ -6552,9 +6428,9 @@ file code/stata/temp/dimmap.dta saved
 file code/stata/output/figures/fig_carte_dim_assai.pdf saved as PDF format
 >>> fig_carte_dim_assai.pdf sauvegardé
 (14 real changes made)
-file C:\Users\Bmd\AppData\Local\Temp\ST_1ec0_00001a.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_6290_00001a.tmp saved as .dta format
 (14 real changes made)
-file C:\Users\Bmd\AppData\Local\Temp\ST_1ec0_00001b.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_6290_00001b.tmp saved as .dta format
 (label s00q01 already defined)
 
     Result                      Number of obs
@@ -6580,9 +6456,9 @@ file code/stata/temp/dimmap.dta saved
 file code/stata/output/figures/fig_carte_dim_eau.pdf saved as PDF format
 >>> fig_carte_dim_eau.pdf sauvegardé
 (14 real changes made)
-file C:\Users\Bmd\AppData\Local\Temp\ST_1ec0_00001c.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_6290_00001c.tmp saved as .dta format
 (14 real changes made)
-file C:\Users\Bmd\AppData\Local\Temp\ST_1ec0_00001d.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_6290_00001d.tmp saved as .dta format
 (label s00q01 already defined)
 
     Result                      Number of obs
@@ -6608,9 +6484,9 @@ file code/stata/temp/dimmap.dta saved
 file code/stata/output/figures/fig_carte_dim_logem.pdf saved as PDF format
 >>> fig_carte_dim_logem.pdf sauvegardé
 (14 real changes made)
-file C:\Users\Bmd\AppData\Local\Temp\ST_1ec0_00001e.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_6290_00001e.tmp saved as .dta format
 (14 real changes made)
-file C:\Users\Bmd\AppData\Local\Temp\ST_1ec0_00001f.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_6290_00001f.tmp saved as .dta format
 (label s00q01 already defined)
 
     Result                      Number of obs
@@ -6636,9 +6512,9 @@ file code/stata/temp/dimmap.dta saved
 file code/stata/output/figures/fig_carte_dim_nutri.pdf saved as PDF format
 >>> fig_carte_dim_nutri.pdf sauvegardé
 (14 real changes made)
-file C:\Users\Bmd\AppData\Local\Temp\ST_1ec0_00001g.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_6290_00001g.tmp saved as .dta format
 (14 real changes made)
-file C:\Users\Bmd\AppData\Local\Temp\ST_1ec0_00001h.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_6290_00001h.tmp saved as .dta format
 (label s00q01 already defined)
 
     Result                      Number of obs
@@ -6664,9 +6540,9 @@ file code/stata/temp/dimmap.dta saved
 file code/stata/output/figures/fig_carte_dim_sante.pdf saved as PDF format
 >>> fig_carte_dim_sante.pdf sauvegardé
 (14 real changes made)
-file C:\Users\Bmd\AppData\Local\Temp\ST_1ec0_00001i.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_6290_00001i.tmp saved as .dta format
 (14 real changes made)
-file C:\Users\Bmd\AppData\Local\Temp\ST_1ec0_00001j.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_6290_00001j.tmp saved as .dta format
 (label s00q01 already defined)
 
     Result                      Number of obs
@@ -6692,9 +6568,9 @@ file code/stata/temp/dimmap.dta saved
 file code/stata/output/figures/fig_carte_dim_protect.pdf saved as PDF format
 >>> fig_carte_dim_protect.pdf sauvegardé
 (14 real changes made)
-file C:\Users\Bmd\AppData\Local\Temp\ST_1ec0_00001k.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_6290_00001k.tmp saved as .dta format
 (14 real changes made)
-file C:\Users\Bmd\AppData\Local\Temp\ST_1ec0_00001l.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_6290_00001l.tmp saved as .dta format
 (label s00q01 already defined)
 
     Result                      Number of obs
@@ -6943,10 +6819,6 @@ file code/stata/output/figures/fig_croisement_pauvrete.pdf saved as PDF format
 . 
 . /* ============================================================
 >    SECTION : 09_PLACEBO_ATTRITION — Tests de validite (annexe A)
->    ============================================================ */
-. 
-. /* ============================================================
->    09_placebo_attrition.do — Tests de validite (annexe A)
 > 
 >    1. Test placebo : 200 assignations aleatoires d'un faux
 >       traitement parmi les menages jamais traites ; la
@@ -6982,7 +6854,7 @@ file code/stata/output/figures/fig_croisement_pauvrete.pdf saved as PDF format
 . tempfile never
 
 . save `never'
-file C:\Users\Bmd\AppData\Local\Temp\ST_1ec0_00001n.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_6290_00001n.tmp saved as .dta format
 
 . 
 . /* Liste des menages (une ligne par menage) */
@@ -6994,7 +6866,7 @@ file C:\Users\Bmd\AppData\Local\Temp\ST_1ec0_00001n.tmp saved as .dta format
 . tempfile liste_men
 
 . save `liste_men'
-file C:\Users\Bmd\AppData\Local\Temp\ST_1ec0_00001o.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_6290_00001o.tmp saved as .dta format
 
 . quietly count
 
@@ -7137,7 +7009,7 @@ file code/stata/output/figures/fig_placebo_dd.pdf saved as PDF format
 . tempfile men18
 
 . save `men18'
-file C:\Users\Bmd\AppData\Local\Temp\ST_1ec0_00007m.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_6290_00007m.tmp saved as .dta format
 
 . 
 . /* Menages retrouves en 2021 : variable officielle PanelHH (et non la
