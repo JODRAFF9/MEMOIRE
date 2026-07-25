@@ -77,20 +77,25 @@ s04['nrep']=s04[allv].notna().sum(axis=1)
 s04['eco']=(s04[['s04q06','s04q07','s04q08','s04q09']]==1).any(axis=1).astype(int)
 W=s04[KI+['h_dom','nrep','eco']]
 
-# ---- community health (faithful: exists local OR mode a pied) ----
+# ---- community health (acces a pied STRICT : mode habituel == a pied) ----
 co=rd('s02_co_sen2018.dta')
 def svc(k):
     s=co[co.s02q00==k][['grappe','s02q01__%d'%k,'s02q02']].copy(); s.columns=['grappe','ex','mo']
     return s.groupby('grappe').agg({'ex':'max','mo':'min'}).reset_index()
 h5=svc(5).rename(columns={'ex':'ex5','mo':'mo5'}); h6=svc(6).rename(columns={'ex':'ex6','mo':'mo6'})
 CO=h5.merge(h6,on='grappe',how='outer')
-CO['pfoot']=((CO.ex5==1)|(CO.mo5==1)|(CO.ex6==1)|(CO.mo6==1)).astype(int)
+# Acces a pied STRICT : mode habituel == a pied (l'existence locale n'implique
+# pas l'acces a pied ; on ne retient donc pas ex5/ex6 comme critere)
+CO['pfoot']=((CO.mo5==1)|(CO.mo6==1)).astype(int)
 CO['m_sante_acces']=(CO.pfoot!=1).astype(float)
 CO=CO[['grappe','m_sante_acces']]
 
 # ---- merge everything to children ----
 d=ch.merge(H,on=K,how='left').merge(F,on=K,how='left').merge(R,on=KI,how='left')\
     .merge(W,on=KI,how='left').merge(CO,on='grappe',how='left')
+# Grappes absentes du module communautaire = prives (comme tout.do : en Stata
+# m_sante_acces = (. != 1) vaut 1). On aligne donc la valeur manquante sur 1.
+d['m_sante_acces']=d['m_sante_acces'].fillna(1.0)
 
 # education indicators
 d['m_scol']=np.where((d.age>=5)&(d.age<=14)&d.scol.notna(),(d.scol==0).astype(float),np.nan)

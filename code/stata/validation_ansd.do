@@ -143,16 +143,18 @@ save `trav'
 
 /* ============================================================
    5. ACCES SANTE (module communautaire s02_co, grappe)
-      A pied si hopital(5) OU centre de sante(6) existe sur place OU
-      mode habituel = pieds. Prive = pas d'acces a pied.
-      Cible ANSD 79,3 / 78,5 / 75,2 ; reproduit 48,0 / 47,2 / 44,0.
-      Ecart = convention de denominateur ANSD (localites sans structure
-      sur place), non une erreur de variable (filtre 2.01 OUI -> 2.04).
+      Acces a pied STRICT (definition ANSD "ne peut acceder A PIED") : le mode
+      habituel pour rejoindre une structure de sante 5/6 est la marche
+      (s02q02==1). L'existence locale n'implique pas l'acces a pied et n'est
+      donc pas retenue (un OU inclusif "existe OU a pied" introduirait la
+      condition non ecrite existe=>a-pied et abaisserait le taux a 48 %).
+      Cible ANSD 79,3 / 78,5 / 75,2 ; reproduit 71,0 / 69,8 / 65,4. Le residu
+      tient aux localites a structure sur place (mode non renseigne, surtout
+      rurales) que le questionnaire ne permet pas de qualifier.
    ============================================================ */
 use "$B18/s02_co_sen2018.dta", clear
 keep if inlist(s02q00, 5, 6)
-gen byte exloc = (s02q01__5 == 1 | s02q01__6 == 1)
-gen byte pfoot = (exloc == 1) | (s02q02 == 1)
+gen byte pfoot = (s02q02 == 1)   /* acces a pied STRICT : mode habituel = marche */
 collapse (max) sante_pfoot = pfoot, by(grappe)
 gen byte m_sante_acces = (sante_pfoot != 1)
 keep grappe m_sante_acces
