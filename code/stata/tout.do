@@ -713,26 +713,24 @@ foreach annee in 2018 2021 {
     /* ── [Dimension 2/7 : Eau] ─────────────────────────────────────
        Indicateur 1 - Source d'eau de boisson non amelioree
        Indicateur 2 - Temps d'acces a l'eau > 30 min (saison seche OU pluies) */
-    /* Source non amelioree (codes 5, 6, 12, 13, 16, 17) en saison des pluies
-       OU en saison seche, ET eau non traitee de maniere adequate. "Non traitee
-       de maniere adequate" reunit DEUX cas : (A) le menage ne traite pas du
-       tout son eau (v_gate == 2, "Non" au filtre de traitement) ; (B) le
-       menage traite mais avec une methode inadequate -- filtrer a travers un
-       linge (`v_treat'__3), laisser reposer (`v_treat'__6), autre (`v_treat'__7).
+    /* Definition ANSD (« Traitement de l'eau de sources non adequates ») :
+       est prive l'enfant vivant dans un menage dont la source de boisson est
+       NON AMELIOREE (codes 5, 6, 12, 13, 16, 17 -- puits ouvert cour/ailleurs,
+       source non amenagee, fleuve/riviere/lac, vendeur ambulant, autre), a
+       l'une ou l'autre saison (seche `v_src_ss' OU pluies `v_src_sp'), ET
+       qui ne traite PAS son eau. « Ne traite pas » = filtre de traitement
+       different de « Oui » (v_gate != 1) : cela reunit le « Non » (v_gate==2)
+       et les « ne sait pas »/non-reponse, comptes comme non-traitement.
        v_gate : s11q32 en 2018, s11q31 en 2021 (1=oui, 2=non, 3=ne sait pas).
        Denominateur PLEIN : tous les enfants dont le type de source est
-       renseigne (aucune exclusion par le filtre de traitement). Les "ne sait
-       pas" (v_gate == 3) figurent au denominateur mais pas au numerateur. */
-    capture confirm variable `v_treat'__3
-    if _rc == 0 gen byte trait_inad = (`v_treat'__3 == 1 | `v_treat'__6 == 1 | ///
-                                       `v_treat'__7 == 1)
-    else        gen byte trait_inad = 0
+       renseigne. Reproduit les taux ANSD 2018 (12,0 / 10,7 / 8,5 par groupe
+       d'age ; ici 11,9 / 10,0 / 7,9, l'ecart residuel etant le meme calage
+       demographique que sur les autres indicateurs). */
     gen byte src_ss = inlist(`v_src_ss', 5, 6, 12, 13, 16, 17)
     gen byte src_sp = inlist(`v_src_sp', 5, 6, 12, 13, 16, 17)
-    gen byte m_eau_source = ((src_ss == 1 | src_sp == 1) & ///
-                             (`v_gate' == 2 | trait_inad == 1)) ///
-        if !missing(`v_src_ss') | !missing(`v_src_sp') | !missing(`v_gate')
-    drop src_ss src_sp trait_inad
+    gen byte m_eau_source = ((src_ss == 1 | src_sp == 1) & (`v_gate' != 1)) ///
+        if !missing(`v_src_ss') | !missing(`v_src_sp')
+    drop src_ss src_sp
     /* Le temps d'acces (s11q29a/28a, s11q31a/30a) n'est demande que si le
        menage doit se deplacer pour s'approvisionner : le saut de question
        (verifie empiriquement, >94% de non-reponse) s'applique quand la
