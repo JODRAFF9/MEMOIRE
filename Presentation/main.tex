@@ -198,7 +198,7 @@
   \end{block}
   \begin{alertblock}{Pauvreté infantile : un défi persistant}
     \begin{itemize}
-      \item Près de \textbf{64\,\%} des enfants souffrent de privations multiples (N-MODA, EHCVM I).
+      \item Plus de \textbf{56\,\%} des enfants souffrent de privations multiples (N-MODA, EHCVM I).
       \item Privations cumulées : éducation, santé, eau, assainissement, logement, nutrition, protection.
       \item La pauvreté monétaire ne suffit pas à capturer toutes ces dimensions.
     \end{itemize}
@@ -421,10 +421,10 @@
           \toprule
           Vague & $H$ & $A$ & $M_0$ \\
           \midrule
-          2018-2019 & 59,8\,\% & 69,9\,\% & 0,418 \\
-          2021-2022 & 51,0\,\% & 68,6\,\% & 0,349 \\
+          2018-2019 & 56,4\,\% & 69,5\,\% & 0,392 \\
+          2021-2022 & 48,3\,\% & 68,2\,\% & 0,330 \\
           \midrule
-          $\Delta$ & $-8{,}8$ pp & $-1{,}3$ pp & $-0{,}069$ \\
+          $\Delta$ & $-8{,}1$ pp & $-1{,}3$ pp & $-0{,}062$ \\
           \bottomrule
         \end{tabular}
       \end{block}
@@ -454,7 +454,7 @@
     \end{column}
   \end{columns}
   \begin{alertblock}{Amélioration entre 2018 et 2022}
-    Baisse de 8,8 pp de l'incidence N-MODA ;
+    Baisse de 8,1 pp de l'incidence N-MODA ;
     plus d'un enfant sur deux reste privé dans au moins 4 dimensions.
   \end{alertblock}
   \begin{center}
@@ -499,10 +499,10 @@
       \toprule
       Spécification & ATT & Éc.-t. & $p$-valeur \\
       \midrule
-      DD brute (sans appariement)      & $0{,}001$ & (0,022) & 0,976 \\
-      \textbf{PSM-DD, k-NN ($k=4$)}   & $\mathbf{0{,}010}$ & (0,026) & \textbf{0,707} \\
-      PSM-DD, noyau Epanechnikov       & $0{,}005$ & (0,023) & 0,822 \\
-      PSM-DD, caliper                  & $0{,}010$ & (0,030) & 0,744 \\
+      DD brute (sans appariement)      & $-0{,}005$ & (0,022) & 0,834 \\
+      \textbf{PSM-DD, k-NN ($k=4$)}   & $\mathbf{-0{,}001}$ & (0,025) & \textbf{0,959} \\
+      PSM-DD, noyau Epanechnikov       & $-0{,}001$ & (0,025) & 0,967 \\
+      PSM-DD, caliper                  & $-0{,}007$ & (0,028) & 0,798 \\
       \bottomrule
     \end{tabular}
   \end{table}
@@ -528,10 +528,10 @@
     \begin{column}{0.43\textwidth}
       \begin{alertblock}{Deux canaux opposés qui se compensent}
         \begin{itemize}
-          \item \textbf{Éducation} : $-3{,}2$ pp ($p=0{,}017$),
+          \item \textbf{Éducation} : $-3{,}9$ pp ($p=0{,}005$),
                 seule dimension en amélioration significative.
-          \item \textbf{Protection de l'enfant} : $+2{,}9$ pp
-                ($p=0{,}032$), dégradation liée à la séparation
+          \item \textbf{Protection de l'enfant} : $+5{,}1$ pp
+                ($p=0{,}003$), dégradation liée à la séparation
                 parentale qui accompagne le départ du migrant.
           \item Les cinq autres dimensions : aucun effet significatif.
         \end{itemize}
@@ -558,16 +558,16 @@
       \item Méthodes d'appariement (k-NN, noyau, caliper) et DD brute :
             conclusion nulle identique dans les quatre cas.
       \item Panel d'enfants (mêmes enfants suivis entre les vagues) :
-            ATT $= 0{,}015$ ($p=0{,}576$), pas d'artefact de composition par âge.
+            ATT $= -0{,}015$ ($p=0{,}521$), pas d'artefact de composition par âge.
       \item Test placebo (200 assignations aléatoires) : l'ATT réel se situe au
-            63\textsuperscript{e} centile de la distribution placebo,
+            50\textsuperscript{e} centile de la distribution placebo,
             indiscernable du hasard.
     \end{itemize}
   \end{block}
   \begin{alertblock}{Définition alternative : les bénéficiaires durables}
     Chez les ménages bénéficiaires aux deux vagues (traitement antérieur à la
-    base), la dynamique relative est défavorable et significative
-    ($0{,}089$, $p=0{,}018$) : les effets des transferts, dans un sens comme
+    base), la dynamique relative est défavorable, quoique non significative
+    ($0{,}041$, $p=0{,}104$) : les effets des transferts, dans un sens comme
     dans l'autre, se matérialisent au-delà de l'horizon de trois ans.
   \end{alertblock}
 \end{frame}
@@ -581,7 +581,7 @@
       \toprule
       Hyp. & Énoncé & Résultat & Décision \\
       \midrule
-      H1 & Réduction de la pauvreté & ATT N-MODA $= 0{,}010$ ($p=0{,}707$) : pas d'effet à court terme & Non rejet de $H_0$ \\[4pt]
+      H1 & Réduction de la pauvreté & ATT N-MODA $= -0{,}001$ ($p=0{,}959$) : pas d'effet à court terme & Non rejet de $H_0$ \\[4pt]
       H2 & Hétérogénéité des effets  & Éducation favorable vs protection dégradée ; rien par milieu, sexe ou âge & Partiellement \\[4pt]
       H3 & PSM-DD contrôle les biais & Support commun total ; biais moyen 1,4\,\% après appariement & Confirmée \\
       \bottomrule
@@ -601,7 +601,7 @@
       \item Mesure de la pauvreté multidimensionnelle des enfants sur deux
             vagues EHCVM selon l'approche N-MODA (7 dimensions, $k=4$).
       \pause
-      \item L'incidence N-MODA recule de 59,8\,\% (2018) à 51,0\,\% (2021) :
+      \item L'incidence N-MODA recule de 56,4\,\% (2018) à 48,3\,\% (2021) :
             amélioration réelle mais la pauvreté reste massive.
       \pause
       \item Devenir bénéficiaire de transferts ne modifie pas, à trois ans,
