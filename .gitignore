@@ -11,3 +11,6 @@
 
 # Journaux Stata / logs d'analyse a la racine
 analyse.log
+
+# Fichiers temporaires Word/Excel
+~$*
