@@ -187,7 +187,12 @@
   sorting=nyt,
   maxcitenames=4,   % « et al. » seulement a partir de 5 auteurs (norme DOSSIER)
   mincitenames=1,
-  maxbibnames=99
+  maxbibnames=99,
+  % Deux auteurs cites portent le nom Ndiaye. APA leve l'ambiguite en
+  % ajoutant l'initiale du prenom, mais « M. Ndiaye » se lit « Monsieur »
+  % en francais : on affiche donc le prenom en entier (Mouhamed Ndiaye,
+  % Ameth Saloum Ndiaye). L'option n'agit que sur les homonymes.
+  uniquename=full
 ]{biblatex}
 \addbibresource{references.bib}
 
