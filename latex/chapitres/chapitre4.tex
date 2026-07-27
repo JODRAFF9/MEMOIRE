@@ -85,23 +85,23 @@ rapporte les ATT PSM-DD pour chacun de ces sous-groupes.
   \caption[Hétérogénéité des effets par milieu de résidence, sexe et âge (PSM-DD)]{Hétérogénéité des effets par milieu de résidence, sexe et âge (PSM-DD)\protect\footnotemark}
   \label{tab:heterogeneite}
   \zebre
-  \begin{tabular}{|l|c|c|}
+  \begin{tabular}{|l|c|}
     \hline
-\entete Sous-groupe & ATT (MODA) & $p$-valeur \\
+\entete Sous-groupe & ATT (MODA) \\
     \hline
-    \multicolumn{3}{|c|}{Par milieu de résidence} \\ \hline
-    \quad Milieu urbain & $0{,}084^{**}$ & 0,034 \\ \hline
-    \quad Milieu rural  & $0{,}027$      & 0,542 \\ \hline
-    \quad Test d'égalité ($p$-valeur) & \multicolumn{2}{|c|}{0,336} \\
+    \multicolumn{2}{|c|}{Par milieu de résidence} \\ \hline
+    \quad Milieu urbain & $0{,}084^{**}$ \\ \hline
+    \quad Milieu rural  & $0{,}027$      \\ \hline
+    \quad Test d'égalité ($p$-valeur) & 0,336 \\
     \hline
-    \multicolumn{3}{|c|}{Par sexe de l'enfant} \\ \hline
-    \quad Garçons & $0{,}052$      & 0,141 \\ \hline
-    \quad Filles  & $0{,}064^{**}$ & 0,048 \\
+    \multicolumn{2}{|c|}{Par sexe de l'enfant} \\ \hline
+    \quad Garçons & $0{,}052$      \\ \hline
+    \quad Filles  & $0{,}064^{**}$ \\
     \hline
-    \multicolumn{3}{|c|}{Par groupe d'âge} \\ \hline
-    \quad 0-4 ans   & $0{,}096^{*}$ & 0,055 \\ \hline
-    \quad 5-14 ans  & $0{,}048$     & 0,132 \\ \hline
-    \quad 15-17 ans & -$0{,}081$    & 0,378 \\
+    \multicolumn{2}{|c|}{Par groupe d'âge} \\ \hline
+    \quad 0-4 ans   & $0{,}096^{*}$ \\ \hline
+    \quad 5-14 ans  & $0{,}048$     \\ \hline
+    \quad 15-17 ans & -$0{,}081$    \\
     \hline
   \end{tabular}
 
@@ -179,24 +179,24 @@ seuls enfants traités.
   \caption[Hétérogénéité de l'effet selon le montant annuel des transferts]{Hétérogénéité de l'effet selon le montant annuel des transferts\protect\footnotemark}
   \label{tab:hetero_montant}
   \zebre
-  \begin{tabular}{|l|c|c|}
+  \begin{tabular}{|l|c|}
     \hline
-\entete Quintile de montant & ATT & $p$-valeur \\
+\entete Quintile de montant & ATT \\
     \hline
-    Q1 (jusqu'à 100~000 FCFA)  & \makecell{$(0{,}052)$\\$0{,}122^{**}$} & 0,018 \\ \hline
-    Q2 (110~000 à 360~000)     & \makecell{$(0{,}042)$\\$0{,}093^{**}$} & 0,028 \\ \hline
-    Q3 (380~000 à 900~000)     & \makecell{$(0{,}047)$\\$0{,}014$}      & 0,765 \\ \hline
-    Q4 (920~000 à 1~800~000)   & \makecell{$(0{,}061)$\\$0{,}078$}      & 0,202 \\ \hline
-    Q5 (au-delà de 1~824~000)  & \makecell{$(0{,}053)$\\-$0{,}014$}     & 0,790 \\
+    Q1 (jusqu'à 100~000 FCFA)  & \makecell{$0{,}122^{**}$\\$(0{,}052)$} \\ \hline
+    Q2 (110~000 à 360~000)     & \makecell{$0{,}093^{**}$\\$(0{,}042)$} \\ \hline
+    Q3 (380~000 à 900~000)     & \makecell{$0{,}014$\\$(0{,}047)$}      \\ \hline
+    Q4 (920~000 à 1~800~000)   & \makecell{$0{,}078$\\$(0{,}061)$}      \\ \hline
+    Q5 (au-delà de 1~824~000)  & \makecell{-$0{,}014$\\$(0{,}053)$}     \\
     \hline
     \hline
-    Pente dose-réponse (log du montant) & \makecell{$(0{,}014)$\\-$0{,}025^{*}$} & 0,082 \\
+    Pente dose-réponse (log du montant) & \makecell{-$0{,}025^{*}$\\$(0{,}014)$} \\
     \hline
   \end{tabular}
 
   {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM. $^{*}p<0{,}10$, $^{**}p<0{,}05$.}
 \end{table}
-\footnotetext{\textit{Note :} appariement k-NN au niveau enfant, erreurs-types clusterisées par grappe, entre parenthèses au-dessus du coefficient. Les quintiles sont définis sur le montant annuel des transferts parmi les ménages bénéficiaires~; chaque quintile est comparé à l'ensemble des témoins appariés. La pente dose-réponse est le coefficient de l'interaction entre la vague et le logarithme du montant, estimé sur les enfants traités.}
+\footnotetext{\textit{Note :} appariement k-NN au niveau enfant, erreurs-types clusterisées par grappe, entre parenthèses sous le coefficient. Les quintiles sont définis sur le montant annuel des transferts parmi les ménages bénéficiaires~; chaque quintile est comparé à l'ensemble des témoins appariés. La pente dose-réponse est le coefficient de l'interaction entre la vague et le logarithme du montant, estimé sur les enfants traités.}
 
 Le résultat est net. L'effet défavorable se concentre sur les petits
 montants~: $12{,}2$ points de pourcentage dans le premier quintile, jusqu'à
