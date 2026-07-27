@@ -157,7 +157,7 @@ confirmer le résultat sur des groupes rendus comparables.
     \hline
 \entete Variable de résultat & ATT$_{\text{DD}}$ & Éc.-t. (cluster) & $p$-valeur \\
     \hline
-    Pauvreté N-MODA ($\hat{H}_{\text{MODA}}$) & $0{,}032$ & $(0{,}023)$ & 0,167 \\
+    Pauvreté MODA ($\hat{H}_{\text{MODA}}$) & $0{,}032$ & $(0{,}023)$ & 0,167 \\
     \hline
   \end{tabular}
 
@@ -182,7 +182,7 @@ sélection sur observables et les effets fixes inobservables constants dans le t
     \hline
 \entete Variable de résultat & ATT & Éc.-t. (cluster) & $p$-valeur \\
     \hline
-    \multicolumn{4}{|c|}{\textit{Approche N-MODA (7 dimensions, $k=4$)}} \\ \hline
+    \multicolumn{4}{|c|}{\textit{Approche MODA (7 dimensions, $k=4$)}} \\ \hline
     \quad Incidence $\hat{H}_{\text{MODA}}$         & $0{,}043$ & $(0{,}027)$ & 0,119 \\
     \hline
   \end{tabular}
@@ -192,7 +192,7 @@ sélection sur observables et les effets fixes inobservables constants dans le t
 \footnotetext{\textit{Note :} appariement k-NN au niveau ménage, erreurs-types clusterisées par grappe (577 grappes), $n = 25\,160$ observations-enfants.}
 
 L'estimateur PSM-DD donne un ATT de $0{,}043$ ($p = 0{,}119$) sur
-l'incidence N-MODA~: après appariement, aucune divergence de trajectoire
+l'incidence MODA~: après appariement, aucune divergence de trajectoire
 statistiquement significative n'est détectable entre les enfants des
 ménages bénéficiaires et ceux des témoins comparables. La pauvreté
 multidimensionnelle recule dans les deux groupes -- de 10,3 points chez les
@@ -208,7 +208,7 @@ modérée. L'interprétation de ce résultat est développée dans la
 section~\ref{sec:discussion}.
 
 La figure~\ref{fig:dd_trajectoires} illustre le mécanisme de la double
-différence. Elle représente l'incidence N-MODA des bénéficiaires et des témoins
+différence. Elle représente l'incidence MODA des bénéficiaires et des témoins
 appariés aux deux vagues, ainsi que le contrefactuel obtenu en appliquant
 la tendance des témoins au niveau initial des bénéficiaires. Les deux
 trajectoires observées sont proches du parallélisme, l'écart entre la
@@ -218,7 +218,7 @@ l'ATT estimé.
 \begin{figure}[H]
   \centering
   \caption{Illustration de la double différence : trajectoires des bénéficiaires,
- 	des témoins appariés et contrefactuel (incidence N-MODA)}
+ 	des témoins appariés et contrefactuel (incidence MODA)}
   \includegraphics[width=0.85\linewidth]{figures/fig_dd_trajectoires.pdf}
   \label{fig:dd_trajectoires}
 
@@ -244,7 +244,7 @@ L'absence d'effet significatif est donc robuste au choix algorithmique.
   \zebre
   \begin{tabular}{|l|c|c|}
     \hline
-\entete Méthode d'appariement & ATT (N-MODA) & $p$-val. \\
+\entete Méthode d'appariement & ATT (MODA) & $p$-val. \\
     \hline
     k-NN ($k=4$, avec remise)             & $0{,}043$ & 0,119 \\ \hline
     Noyau Epanechnikov ($h=0{,}06$)       & $0{,}056$ & 0,057 \\ \hline
@@ -294,7 +294,7 @@ multidimensionnelle.
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.85\linewidth]{figures/fig_effets_dim.pdf}
-  \caption{Impact des transferts de migrants par dimension N-MODA (ATT PSM-DD, IC 95\,\%)}
+  \caption{Impact des transferts de migrants par dimension MODA (ATT PSM-DD, IC 95\,\%)}
   \label{fig:effets_dim}
 
   {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM.}
@@ -302,7 +302,7 @@ multidimensionnelle.
 
 L'analyse par dimension (figure~\ref{fig:effets_dim} et
 tableau~\ref{tab:effets_dim}) décompose l'ATT global sur les sept
-dimensions N-MODA. Aucun effet n'y est statistiquement significatif au
+dimensions MODA. Aucun effet n'y est statistiquement significatif au
 seuil de 10\,\%~: la $p$-valeur la plus faible est de 0,329
 (assainissement). L'éducation est la seule dimension dont le coefficient
 est négatif, c'est-à-dire orienté dans le sens d'une réduction de la
@@ -322,7 +322,7 @@ section~\ref{sec:discussion}.
 
 \begin{table}[H]
   \centering
-  \caption[Impact des transferts par dimension N-MODA (ATT PSM-DD)]{Impact des transferts par dimension N-MODA (ATT PSM-DD)\protect\footnotemark}
+  \caption[Impact des transferts par dimension MODA (ATT PSM-DD)]{Impact des transferts par dimension MODA (ATT PSM-DD)\protect\footnotemark}
   \label{tab:effets_dim}
   \zebre
   \begin{tabular}{|l|c|c|c|}

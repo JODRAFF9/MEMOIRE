@@ -2,7 +2,7 @@
 \label{sec:methodo}
 
 Cette section présente les données et la méthodologie de la recherche. La
-pauvreté multidimensionnelle des enfants est mesurée par l'approche N-MODA de
+pauvreté multidimensionnelle des enfants est mesurée par l'approche MODA de
 l'UNICEF, qui sert de variable de résultat.
 L'impact causal des transferts est estimé sur les deux vagues de l'EHCVM par la
 combinaison du score de propension (PSM) et de la double différence (DD).
@@ -93,7 +93,7 @@ en 2021-2022 selon leur statut de suivi et le milieu de résidence.
 Après nettoyage (exclusion des observations avec plus de deux indicateurs de
 privation manquants et des ménages sans information sur les transferts),
 l'échantillon retenu comprend les enfants âgés de 0 à 17 ans pour lesquels
-l'intégralité des indicateurs N-MODA ainsi que la variable de traitement
+l'intégralité des indicateurs MODA ainsi que la variable de traitement
 sont disponibles dans les deux vagues. L'échantillon complet incluant les
 993 nouveaux ménages de 2021 est utilisé dans
 les analyses de robustesse. La limite principale de cette construction est
@@ -188,7 +188,7 @@ instruments internationaux relatifs aux droits de l'enfant, au premier rang
 desquels la Convention internationale des droits de l'enfant \parencite{onu1989}
 et la Charte africaine des droits et du bien-être de l'enfant
 \parencite{oua1990}~: chaque
-dimension du N-MODA correspond à un droit fondamental garanti par ces
+dimension du MODA correspond à un droit fondamental garanti par ces
 textes~: selon l'article 24 de la CIDE et l'article 14 de la Charte
 africaine, la santé et la nutrition relèvent du droit à la survie et au
 meilleur état de santé possible~; selon les articles 28 et 29 de la CIDE et
@@ -222,7 +222,7 @@ d'âge, de sorte que l'ensemble des dimensions qui lui sont applicables se
 modifie d'une vague à l'autre.
 
 
-Suivant \textcite{deneubourg2012} et l'adaptation nationale N-MODA développée
+Suivant \textcite{deneubourg2012} et l'adaptation nationale MODA développée
 pour le Sénégal lors d'un atelier participatif rassemblant l'ANSD et les
 ministères sectoriels \parencite{ansd2024}, nous distinguons trois groupes
 d'âge avec des indicateurs adaptés aux droits spécifiques de chaque phase de
@@ -261,7 +261,7 @@ d'enfants privés dans au moins $k$ dimensions simultanément :
   H = \frac{1}{n} \sum_{i=1}^{n} \mathbf{1}\left[s_i \geq k\right].
   \label{eq:pk}
 \end{equation}
-Conformément à la méthodologie N-MODA Sénégal \parencite{ansd2024}, nous
+Conformément à la méthodologie MODA Sénégal \parencite{ansd2024}, nous
 retenons qu'un enfant est considéré multidimensionnellement pauvre s'il
 est privé dans au moins 4 des 7 dimensions simultanément ($k = 4$).
 
@@ -273,7 +273,7 @@ L'intensité moyenne des privations parmi les enfants pauvres est :
 où $q$ est le nombre d'enfants pauvres. L'indice synthétique $M_0 = H \times A$
 mesure la pauvreté multidimensionnelle ajustée pour l'intensité.
 
-L'approche N-MODA fournit ainsi la variable d'impact : l'indicateur
+L'approche MODA fournit ainsi la variable d'impact : l'indicateur
 binaire identifiant le statut de pauvreté multidimensionnelle de l'enfant (privé dans au moins $k=4$ dimensions sur 7). Les
 taux de privation par dimension $H_j$ et l'indice ajusté $M_0 = H \times A$
 servent de mesures secondaires, décomposables par milieu, région et groupe
@@ -283,7 +283,7 @@ Le traitement des valeurs manquantes suit une analyse en cas complets~:
 une dimension n'est calculée que si tous les indicateurs qui la composent
 sont renseignés pour l'enfant concerné, sans imputation. Un enfant pour
 lequel un seul indicateur manque sur une dimension est exclu du calcul de
-cette dimension, et donc de l'indicateur N-MODA global, plutôt que de se
+cette dimension, et donc de l'indicateur MODA global, plutôt que de se
 voir attribuer une hypothèse arbitraire sur la valeur manquante. Cette
 règle est distincte des cas de non-applicabilité par groupe d'âge (par
 exemple l'acte de naissance, non pertinent après 14 ans, ou le travail des
@@ -305,7 +305,7 @@ traitée comme telle.
 \subsubsection{Cadre des résultats potentiels}
 
 Pour chaque enfant $i$, on définit deux résultats potentiels : $Y_i(1)$ la
-mesure de pauvreté N-MODA si le ménage reçoit des transferts, et
+mesure de pauvreté MODA si le ménage reçoit des transferts, et
 $Y_i(0)$ si le ménage n'en reçoit pas. On observe seulement $Y_i = D_i \cdot
 Y_i(1) + (1 - D_i) \cdot Y_i(0)$. Le paramètre d'intérêt est l'effet moyen
 du traitement sur les traités (ATT) :
@@ -511,7 +511,7 @@ le temps (DD) :
   \label{eq:psm-dd}
 \end{equation}
 où $\Delta Y_i = Y_{i,t=2} - Y_{i,t=1}$ est la variation intra-ménage
-de la variable de résultat N-MODA, calculée directement sur les
+de la variable de résultat MODA, calculée directement sur les
 ménages suivis entre les deux vagues. Le panel vrai dont nous disposons
 rend cette différence directement observable sans agrégation par cellule,
 ce qui renforce la validité de l'hypothèse de tendances parallèles. Les
@@ -526,7 +526,7 @@ dimension de privation. La robustesse est vérifiée par la comparaison entre le
 trois algorithmes d'appariement, un test placebo et l'analyse de l'attrition.
 
 La principale vérification de robustesse repose sur une approche par
-panel d'enfants. La mesure N-MODA attribue à chaque enfant un jeu de
+panel d'enfants. La mesure MODA attribue à chaque enfant un jeu de
 dimensions dépendant de son groupe d'âge (0-4, 5-14, 15-17 ans). Or un enfant
 suivi entre 2018 et 2021 vieillit d'environ trois ans et peut donc changer de
 groupe d'âge~: un enfant de 3 ans en 2018 (groupe 0-4) relève du groupe 5-14 en
@@ -534,7 +534,7 @@ groupe d'âge~: un enfant de 3 ans en 2018 (groupe 0-4) relève du groupe 5-14 e
 et indicateurs qui lui sont applicables se modifient alors d'une vague à
 l'autre. Plutôt que de comparer des enfants distincts d'une même tranche d'âge
 à chaque vague, l'approche par panel d'enfants suit les mêmes enfants et
-recalcule leur statut de privation N-MODA en tenant compte de cette transition
+recalcule leur statut de privation MODA en tenant compte de cette transition
 d'âge. Elle constitue une alternative au panel de ménages~: elle vérifie que
 l'impact estimé des transferts sur la pauvreté multidimensionnelle n'est pas un
 artefact de la composition par âge de l'échantillon, mais reflète bien une
