@@ -1865,32 +1865,7 @@ set dp period
 graph export "$OUTPUT/figures/fig_evolution_ipm.pdf", replace
 di ">>> fig_evolution_ipm.pdf sauvegardé"
 
-/* ── Fig 2 : Pauvreté par groupe d'âge, beneficiaires vs non-beneficiaires
-   aux deux vagues. Panneaux = groupe d'age ; barres = statut x vague. */
-use "$TEMP/panel_vrai.dta", clear
-keep pauvre_MODA groupe_moda D t hhweight
-collapse (mean) pauvre_MODA [aw=hhweight], by(t D groupe_moda)
-replace pauvre_MODA = pauvre_MODA * 100
-gen byte serie = 1 + D + 2*t   /* 1 = nonbenef 2018, 2 = benef 2018,
-                                  3 = nonbenef 2021, 4 = benef 2021 */
-drop D t
-reshape wide pauvre_MODA, i(groupe_moda) j(serie)
-
-set dp comma   /* etiquettes decimales avec virgule */
-graph bar pauvre_MODA1 pauvre_MODA2 pauvre_MODA3 pauvre_MODA4, ///
-    over(groupe_moda) ///
-    bar(1, color(gs11)) bar(2, color(gs7)) ///
-    bar(3, color(orange*0.5)) bar(4, color(orange)) ///
-    blabel(bar, position(outside) format(%4,0f) size(vsmall)) ///
-    legend(order(1 "Non-bénéf. 2018" 2 "Bénéf. 2018" ///
-                 3 "Non-bénéf. 2021" 4 "Bénéf. 2021") pos(6) rows(2) size(small)) ///
-    ytitle("Incidence MODA (H, %)") ylabel(0(20)100, grid) ///
-    graphregion(color(white)) plotregion(color(white))
-set dp period
-graph export "$OUTPUT/figures/fig_pauvrete_milieu_age.pdf", replace
-di ">>> fig_pauvrete_milieu_age.pdf sauvegardé"
-
-/* ── Fig 3 : Distribution du nombre de dimensions en privation ──
+/* ── Fig 2 : Distribution du nombre de dimensions en privation ──
    Abscisse : nombre exact de dimensions en privation (0 a 7).
    Ordonnee  : part des enfants (%), a l'image du rapport ANSD/UNICEF
    MODA. Ligne verticale entre 3 et 4 marquant le seuil k=4 retenu. */
