@@ -2020,6 +2020,42 @@ foreach v in dim_assai dim_eau dim_logem dim_nutri dim_sante dim_protect ///
     di "  " %-18s "`v'" "  2018 : p=" %6.4f `p0' "   2021 : p=" %6.4f `p1'
 }
 
+/* Meme comparaison declinee par groupe d'age : chaque sous-section du
+   rapport confronte les dimensions et le statut de beneficiaire au sein
+   d'une tranche d'age. dim_educ n'est pas applicable aux 0-4 ans. */
+forvalues g = 1/3 {
+    if `g' == 1 local lbl "0-4 ans"
+    if `g' == 2 local lbl "5-14 ans"
+    if `g' == 3 local lbl "15-17 ans"
+    di _newline(2) "=== Privations par dimension et statut — `lbl' ==="
+    di "  Indicateur          D=0 2018  D=1 2018   Ecart |  D=0 2021  D=1 2021   Ecart |     DD    p18    p21"
+    foreach v in dim_assai dim_eau dim_logem dim_nutri dim_sante dim_protect ///
+                 dim_educ pauvre_MODA {
+        quietly summarize `v' [aw=hhweight] if t == 0 & D == 0 & groupe_moda == `g'
+        local a0 = r(mean)*100
+        quietly summarize `v' [aw=hhweight] if t == 0 & D == 1 & groupe_moda == `g'
+        local a1 = r(mean)*100
+        quietly summarize `v' [aw=hhweight] if t == 1 & D == 0 & groupe_moda == `g'
+        local b0 = r(mean)*100
+        quietly summarize `v' [aw=hhweight] if t == 1 & D == 1 & groupe_moda == `g'
+        local b1 = r(mean)*100
+        local g0 = `a1' - `a0'
+        local g1 = `b1' - `b0'
+        local dd = `g1' - `g0'
+        quietly regress `v' D if t == 0 & groupe_moda == `g', vce(cluster grappe)
+        local p0 = 2*ttail(e(df_r), abs(_b[D]/_se[D]))
+        quietly regress `v' D if t == 1 & groupe_moda == `g', vce(cluster grappe)
+        local p1 = 2*ttail(e(df_r), abs(_b[D]/_se[D]))
+        di "  " %-18s "`v'" %9.1f `a0' %10.1f `a1' %8.1f `g0' " |" ///
+           %9.1f `b0' %10.1f `b1' %8.1f `g1' " |" %7.1f `dd' ///
+           %7.3f `p0' %7.3f `p1'
+    }
+    quietly count if groupe_moda == `g' & t == 0
+    local n18 = r(N)
+    quietly count if groupe_moda == `g' & t == 1
+    di "  Effectifs : `n18' enfants en 2018, " r(N) " en 2021"
+}
+
 di _newline ">>> 06_stats_desc.do terminé."
 di ">>> Sorties dans : $OUTPUT/tables/ et $OUTPUT/figures/"
 
