@@ -1865,55 +1865,7 @@ set dp period
 graph export "$OUTPUT/figures/fig_evolution_ipm.pdf", replace
 di ">>> fig_evolution_ipm.pdf sauvegardé"
 
-/* ── Fig 2 : Taux de privation par dimension, beneficiaires vs
-   non-beneficiaires a chaque vague (quatre barres par dimension). Permet de
-   lire, dimension par dimension, l'ecart entre groupes et son evolution. ── */
-use "$TEMP/panel_vrai.dta", clear
-foreach dim in assai eau logem nutri sante protect educ {
-    forvalues d = 0/1 {
-        foreach tt in 0 1 {
-            quietly summarize dim_`dim' [aw=hhweight] if D == `d' & t == `tt'
-            scalar x_`dim'_`d'`tt' = r(mean)*100
-        }
-    }
-}
-clear
-set obs 7
-gen str12 dim = ""
-replace dim = "Assainis."  in 1
-replace dim = "Eau"        in 2
-replace dim = "Logement"   in 3
-replace dim = "Nutrition"  in 4
-replace dim = "Santé"      in 5
-replace dim = "Protection" in 6
-replace dim = "Éducation"  in 7
-gen ordre = _n
-gen nb18 = .
-gen b18  = .
-gen nb21 = .
-gen b21  = .
-local dims assai eau logem nutri sante protect educ
-forvalues i = 1/7 {
-    local d : word `i' of `dims'
-    replace nb18 = x_`d'_00 in `i'
-    replace b18  = x_`d'_10 in `i'
-    replace nb21 = x_`d'_01 in `i'
-    replace b21  = x_`d'_11 in `i'
-}
-set dp comma
-graph bar nb18 b18 nb21 b21, over(dim, sort(ordre) label(angle(30) labsize(small))) ///
-    bar(1, color(gs11)) bar(2, color(gs7)) ///
-    bar(3, color(orange*0.5)) bar(4, color(orange)) ///
-    blabel(bar, position(outside) format(%4,0f) size(tiny)) ///
-    legend(order(1 "Non-bénéf. 2018" 2 "Bénéf. 2018" ///
-                 3 "Non-bénéf. 2021" 4 "Bénéf. 2021") pos(6) rows(2) size(small)) ///
-    ytitle("Taux de privation (%)") ylabel(0(20)100, grid) ///
-    graphregion(color(white)) plotregion(color(white))
-set dp period
-graph export "$OUTPUT/figures/fig_privations_dim.pdf", replace
-di ">>> fig_privations_dim.pdf sauvegardé"
-
-/* ── Fig 3 : Pauvreté par groupe d'âge, beneficiaires vs non-beneficiaires
+/* ── Fig 2 : Pauvreté par groupe d'âge, beneficiaires vs non-beneficiaires
    aux deux vagues. Panneaux = groupe d'age ; barres = statut x vague. */
 use "$TEMP/panel_vrai.dta", clear
 keep pauvre_MODA groupe_moda D t hhweight
@@ -1938,7 +1890,7 @@ set dp period
 graph export "$OUTPUT/figures/fig_pauvrete_milieu_age.pdf", replace
 di ">>> fig_pauvrete_milieu_age.pdf sauvegardé"
 
-/* ── Fig 5 : Distribution du nombre de dimensions en privation ──
+/* ── Fig 3 : Distribution du nombre de dimensions en privation ──
    Abscisse : nombre exact de dimensions en privation (0 a 7).
    Ordonnee  : part des enfants (%), a l'image du rapport ANSD/UNICEF
    MODA. Ligne verticale entre 3 et 4 marquant le seuil k=4 retenu. */
