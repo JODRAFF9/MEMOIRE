@@ -1990,6 +1990,43 @@ forvalues g = 1/3 {
     di "  Effectifs : `n18' enfants en 2018, " r(N) " en 2021"
 }
 
+/* Croisement sexe de l'enfant x statut de beneficiaire x vague, pour
+   l'ensemble des enfants puis pour chaque tranche d'age. Alimente le
+   tableau par sexe de chaque sous-section descriptive. */
+forvalues g = 0/3 {
+    if `g' == 0 local lbl "Ensemble 0-17 ans"
+    if `g' == 1 local lbl "0-4 ans"
+    if `g' == 2 local lbl "5-14 ans"
+    if `g' == 3 local lbl "15-17 ans"
+    di _newline(2) "=== Incidence MODA par sexe et statut — `lbl' ==="
+    di "  Sexe        D=0 2018  D=1 2018   Ecart |  D=0 2021  D=1 2021   Ecart |     DD    p18    p21      n18      n21"
+    forvalues sx = 1/2 {
+        local slbl = cond(`sx' == 1, "Garcons", "Filles")
+        if `g' == 0 local cond "sexe == `sx'"
+        else        local cond "sexe == `sx' & groupe_moda == `g'"
+        quietly summarize pauvre_MODA [aw=hhweight] if t == 0 & D == 0 & `cond'
+        local a0 = r(mean)*100
+        quietly summarize pauvre_MODA [aw=hhweight] if t == 0 & D == 1 & `cond'
+        local a1 = r(mean)*100
+        quietly summarize pauvre_MODA [aw=hhweight] if t == 1 & D == 0 & `cond'
+        local b0 = r(mean)*100
+        quietly summarize pauvre_MODA [aw=hhweight] if t == 1 & D == 1 & `cond'
+        local b1 = r(mean)*100
+        local e0 = `a1' - `a0'
+        local e1 = `b1' - `b0'
+        quietly regress pauvre_MODA D if t == 0 & `cond', vce(cluster grappe)
+        local p0 = 2*ttail(e(df_r), abs(_b[D]/_se[D]))
+        quietly regress pauvre_MODA D if t == 1 & `cond', vce(cluster grappe)
+        local p1 = 2*ttail(e(df_r), abs(_b[D]/_se[D]))
+        quietly count if t == 0 & `cond'
+        local n0 = r(N)
+        quietly count if t == 1 & `cond'
+        di "  " %-10s "`slbl'" %9.1f `a0' %10.1f `a1' %8.1f `e0' " |" ///
+           %9.1f `b0' %10.1f `b1' %8.1f `e1' " |" %7.1f `e1'-`e0' ///
+           %7.3f `p0' %7.3f `p1' %9.0f `n0' %9.0f r(N)
+    }
+}
+
 di _newline ">>> 06_stats_desc.do terminé."
 di ">>> Sorties dans : $OUTPUT/tables/ et $OUTPUT/figures/"
 
