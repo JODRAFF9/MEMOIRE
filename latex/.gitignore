@@ -13,12 +13,11 @@
 *.fls
 *.stoc
 texput.log
-# Le .bbl et le .bcf de main sont VERSIONNÉS volontairement :
-# ils permettent d'afficher la bibliographie même si biber n'est pas lancé.
+# .bbl et .bcf ne sont PAS versionnés : biber les regénère à chaque
+# compilation, et une version périmée récupérée par un pull fait citer des
+# clés qui n'existent plus dans references.bib.
 *.bbl
-!main.bbl
 *.bcf
-!main.bcf
 # Le PDF est regenere en local (compile.bat) : non versionne pour eviter
 # les conflits binaires a chaque pull.
 *.pdf

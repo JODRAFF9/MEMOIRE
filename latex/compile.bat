@@ -4,24 +4,28 @@ REM  compile.bat — Compilation complete du memoire (Windows)
 REM  Moteur : LuaLaTeX (police systeme Times New Roman via fontspec).
 REM  Sequence obligatoire pour la bibliographie (biblatex+biber) :
 REM    lualatex -> biber -> lualatex -> lualatex
+REM  Prerequis : biber (MiKTeX Console > Packages).
 REM  Double-cliquer sur ce fichier depuis le dossier latex\
 REM ============================================================
 cd /d "%~dp0"
 
 REM Nettoyage des fichiers auxiliaires (evite les residus \IeC issus d'un
 REM ancien compilateur pdflatex, incompatibles avec LuaLaTeX).
-del /q main.aux main.toc main.stoc main.out main.lof main.lot 2>nul
+REM main.bcf et main.bbl sont regeneres : les supprimer evite que biber
+REM lise une version perimee citant des cles qui n'existent plus.
+del /q main.aux main.toc main.stoc main.out main.lof main.lot main.bcf main.bbl 2>nul
 
-echo [0/4] figures fig_privind (Python, mise en page ANSD ponderee)...
-python "..\code\python\gen_fig_privind.py" 2>nul || python3 "..\code\python\gen_fig_privind.py" 2>nul
-if errorlevel 1 (
-    echo    Python indisponible ^(pandas/matplotlib^) : figures versionnees conservees.
+echo [1/3] lualatex (premiere passe)...
+lualatex -interaction=nonstopmode main.tex >nul
+if not exist main.bcf (
+    echo.
+    echo ERREUR : la premiere passe a echoue, main.bcf n'a pas ete produit.
+    echo Relancez sans masquer la sortie :  lualatex main.tex
+    pause
+    exit /b 1
 )
 
-echo [1/4] lualatex (premiere passe)...
-lualatex -interaction=nonstopmode main.tex >nul
-
-echo [2/4] biber (bibliographie)...
+echo [2/3] biber (bibliographie)...
 biber main
 if errorlevel 1 (
     echo.
@@ -32,10 +36,8 @@ if errorlevel 1 (
     exit /b 1
 )
 
-echo [3/4] lualatex (references croisees)...
+echo [3/3] lualatex (deux passes finales)...
 lualatex -interaction=nonstopmode main.tex >nul
-
-echo [4/4] lualatex (passe finale)...
 lualatex -interaction=nonstopmode main.tex >nul
 
 echo.
