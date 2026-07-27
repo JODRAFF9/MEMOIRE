@@ -60,14 +60,14 @@ Toutes sont mesurées avant l'observation des résultats.
 
 Le modèle présente un pseudo-$R^2$ de McFadden de 14,3\,\%. Les déterminants
 sont conformes à la littérature : la probabilité qu'un enfant vive dans un
-ménage bénéficiaire croît fortement avec la dépense par tête ($0{,}58$), la
-présence d'une femme à la tête du ménage ($0{,}58$), la taille du ménage
-($0{,}05$) et l'âge du chef. Le coefficient de la dépense par tête signale une
-sélection positive : ce sont les ménages les moins contraints qui ont pu
-financer un départ à l'étranger. Celui du chef féminin reflète la
-configuration migratoire typique où l'époux émigré laisse la gestion du ménage
-à son épouse, configuration au c\oe{}ur du canal \og absence parentale \fg{}
-discuté en section~\ref{sec:discussion}.
+ménage bénéficiaire croît avec la dépense par tête ($0{,}58$), la présence
+d'une femme à la tête du ménage ($0{,}58$), la taille du ménage ($0{,}05$) et
+l'âge du chef. Le coefficient de la dépense par tête signale une sélection
+positive : ce sont les ménages les moins contraints qui ont pu financer un
+départ à l'étranger. Celui du chef féminin reflète la configuration migratoire
+typique où l'époux émigré laisse la gestion du ménage à son épouse,
+configuration au c\oe{}ur du canal \og absence parentale \fg{} discuté en
+section~\ref{sec:discussion}.
 
 Les deux covariables individuelles ne sont en revanche pas significatives : ni
 le sexe de l'enfant ($0{,}018$~; $p = 0{,}458$) ni son âge ($0{,}003$~;
@@ -79,12 +79,11 @@ même âge, donc évalués sur les mêmes dimensions MODA.
 
 \subsubsection{Vérification de la qualité de l'appariement}
 
-Le support commun est excellent : sur 2\,638 enfants traités, 2 seulement se
-situent au-delà du score maximal observé chez les non-traités, et 99,1\,\% des
-enfants témoins ont un score supérieur au minimum des traités. La condition de
-chevauchement, indispensable à l'identification, est donc pleinement
-satisfaite et la restriction au support commun ne sacrifie aucune observation
-en pratique.
+Sur 2\,638 enfants traités, 2 se situent au-delà du score maximal observé chez
+les non-traités, et 99,1\,\% des enfants témoins ont un score supérieur au
+minimum des traités. La condition de chevauchement, indispensable à
+l'identification, est donc satisfaite, et la restriction au support commun
+écarte 2 observations.
 
 La figure~\ref{fig:support} représente les distributions du score de propension
 des enfants bénéficiaires ($D=1$) et non bénéficiaires ($D=0$). Les deux
@@ -102,13 +101,13 @@ remise), pour un panel apparié de 15\,916 observations-enfants.
   {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM.}
 \end{figure}
 
-Avant appariement, les déséquilibres sont considérables : la différence
-standardisée moyenne atteint 12,7\,\%, avec des écarts de 49,8\,\% sur la
-taille du ménage, 36,5\,\% sur la région de Matam, 29,3\,\% sur le log de la
-dépense par tête et 27,5\,\% sur le sexe du chef de ménage. Le
-tableau~\ref{tab:balance} présente le diagnostic d'équilibrage obtenu une fois
-l'appariement k-NN effectué, et le tableau~\ref{tab:balance_global} résume la
-qualité de l'appariement pour les trois algorithmes.
+Avant appariement, la différence standardisée moyenne atteint 12,7\,\%, avec
+des écarts de 49,8\,\% sur la taille du ménage, 36,5\,\% sur la région de
+Matam, 29,3\,\% sur le log de la dépense par tête et 27,5\,\% sur le sexe du
+chef de ménage. Le tableau~\ref{tab:balance} présente le diagnostic
+d'équilibrage obtenu une fois l'appariement k-NN effectué, et le
+tableau~\ref{tab:balance_global} résume la qualité de l'appariement pour les
+trois algorithmes.
 
 \begin{table}[H]
   \centering
@@ -183,7 +182,7 @@ d'équilibrage des trois algorithmes, selon les critères de
 
 Les trois algorithmes satisfont les critères usuels : la différence
 standardisée moyenne tombe sous 3\,\%, le pseudo-$R^2$ s'effondre de 0,143 à
-0,006 ou moins, $B$ reste bien en deçà de 25\,\% et $R$ dans l'intervalle
+0,006 ou moins, $B$ reste sous 25\,\% et $R$ dans l'intervalle
 $[0{,}5~;~2]$. L'appariement retire donc l'essentiel de la sélection sur
 observables.
 
@@ -191,7 +190,7 @@ La comparaison fait toutefois ressortir un point que la seule lecture du k-NN
 masquerait : c'est la spécification de référence qui s'équilibre le moins
 bien. Le noyau et le caliper affichent une différence standardisée moyenne
 plus faible (2,0\,\% contre 2,9\,\%), un $B$ plus bas, et surtout un test
-joint largement non significatif ($p = 0{,}924$ et $p = 0{,}797$), là où le
+joint non significatif ($p = 0{,}924$ et $p = 0{,}797$), là où le
 k-NN reste à la limite ($p = 0{,}071$). En n'utilisant que quatre voisins par
 enfant traité, le k-NN mobilise moins d'information que le noyau, qui pondère
 l'ensemble des témoins du support commun ; sur un échantillon où les enfants
@@ -199,7 +198,7 @@ traités se concentrent dans un nombre limité de ménages, cette parcimonie se
 paie en équilibrage.
 
 Ce constat ne remet pas en cause les résultats, pour deux raisons. D'abord, les
-trois méthodes donnent des estimations très proches
+trois méthodes donnent des estimations proches
 (tableau~\ref{tab:psm_methodes}) : l'ATT vaut $0{,}053$ en k-NN, $0{,}060$ en
 noyau et $0{,}050$ en caliper, tous significatifs au seuil de 10\,\%. Que les
 deux spécifications les mieux équilibrées encadrent l'estimation de référence
