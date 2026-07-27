@@ -96,9 +96,25 @@
 \usetikzlibrary{positioning,shadows.blur,calc}
 % Bordure de page dessinee au coin de la feuille via eso-pic, SANS
 % remember picture : robuste quel que soit le moteur (pdflatex/xelatex).
-% Double filet a coins arrondis (bleu ENSAE + cyan) avec petits accents
-% orange aux quatre angles.
+% Double filet a coins arrondis (bleu ENSAE + cyan) dont le canal est rempli
+% d'orange dans la seule portion courbe des quatre angles.
 \usepackage{eso-pic}
+% Etendue du remplissage orange depuis l'angle. Calee sur le rayon du filet
+% exterieur (9pt) : seule la portion courbe du canal est remplie, le
+% remplissage s'arretant la ou les bords redeviennent droits.
+\newlength\ensaecoin
+\setlength\ensaecoin{10pt}
+% Remplit le canal compris entre les deux filets, restreint par #1 a l'angle.
+% La regle even-odd evide le rectangle interieur ; le remplissage epouse donc
+% la courbure du coin au lieu de former une equerre a angle droit.
+\newcommand*\ensaecoinorange[1]{%
+  \begin{scope}
+    \clip #1;
+    \fill[ensaeorange, even odd rule, rounded corners=9pt]
+      (SW) rectangle (NE)
+      [rounded corners=6pt] (sw) rectangle (ne);
+  \end{scope}%
+}
 \AddToShipoutPictureBG{%
   \AtPageLowerLeft{%
     \begin{tikzpicture}[overlay, line cap=round, line join=round]
@@ -108,20 +124,15 @@
       \coordinate (ne) at ($(\paperwidth,\paperheight)-(20pt,20pt)$);
       \coordinate (SE) at (NE|-SW);
       \coordinate (NW) at (SW|-NE);
+      % Accent orange dans les quatre angles (cf. \ensaecoinorange)
+      \ensaecoinorange{($(SW)+(-3pt,-3pt)$) rectangle ($(SW)+(\ensaecoin,\ensaecoin)$)}
+      \ensaecoinorange{($(SE)+(3pt,-3pt)$)  rectangle ($(SE)+(-\ensaecoin,\ensaecoin)$)}
+      \ensaecoinorange{($(NW)+(-3pt,3pt)$)  rectangle ($(NW)+(\ensaecoin,-\ensaecoin)$)}
+      \ensaecoinorange{($(NE)+(3pt,3pt)$)   rectangle ($(NE)+(-\ensaecoin,-\ensaecoin)$)}
       % filet bleu exterieur (coins arrondis)
       \draw[ensaeblue, line width=1.7pt, rounded corners=9pt] (SW) rectangle (NE);
       % filet cyan interieur, plus fin
       \draw[ensaecyan, line width=0.6pt, rounded corners=6pt] (sw) rectangle (ne);
-      % equerres orange dans les quatre angles (accent discret)
-      \def\L{16pt}
-      \draw[ensaeorange, line width=1.4pt, rounded corners=5pt]
-        ($(SW)+(0,\L)$) -- ($(SW)+(0,6pt)$) arc (180:270:6pt) -- ($(SW)+(\L,0)$);
-      \draw[ensaeorange, line width=1.4pt, rounded corners=5pt]
-        ($(SE)+(0,\L)$) -- ($(SE)+(0,6pt)$) arc (0:-90:6pt) -- ($(SE)+(-\L,0)$);
-      \draw[ensaeorange, line width=1.4pt, rounded corners=5pt]
-        ($(NW)+(0,-\L)$) -- ($(NW)+(0,-6pt)$) arc (180:90:6pt) -- ($(NW)+(\L,0)$);
-      \draw[ensaeorange, line width=1.4pt, rounded corners=5pt]
-        ($(NE)+(0,-\L)$) -- ($(NE)+(0,-6pt)$) arc (0:90:6pt) -- ($(NE)+(-\L,0)$);
     \end{tikzpicture}%
   }%
 }
