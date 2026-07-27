@@ -665,8 +665,16 @@ foreach annee in 2018 2021 {
        renseigne. Reproduit les taux ANSD 2018 (12,0 / 10,7 / 8,5 par groupe
        d'age ; ici 11,9 / 10,0 / 7,9, l'ecart residuel etant le meme calage
        demographique que sur les autres indicateurs). */
+    /* ATTENTION : en 2021, la variable de saison des PLUIES (s11q26b) utilise
+       un jeu de modalites decale par rapport a celui de la saison seche. Elle
+       intercale "Eau en sachet" en 16, si bien que vendeur ambulant passe de
+       16 a 17 et "Autre" de 17 a 18. Appliquer la meme liste aux deux saisons
+       compterait l'eau en sachet comme non amelioree et laisserait echapper la
+       modalite "Autre". Les codes de la saison des pluies sont donc definis
+       separement (2018 : codage identique aux deux saisons). */
     gen byte src_ss = inlist(`v_src_ss', 5, 6, 12, 13, 16, 17)
-    gen byte src_sp = inlist(`v_src_sp', 5, 6, 12, 13, 16, 17)
+    if `annee' == 2021 gen byte src_sp = inlist(`v_src_sp', 5, 6, 12, 13, 17, 18)
+    else               gen byte src_sp = inlist(`v_src_sp', 5, 6, 12, 13, 16, 17)
     gen byte m_eau_source = ((src_ss == 1 | src_sp == 1) & (`v_gate' != 1)) ///
         if !missing(`v_src_ss') | !missing(`v_src_sp')
     drop src_ss src_sp
