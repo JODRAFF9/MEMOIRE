@@ -11,7 +11,7 @@ d'âge.
 \subsubsection{Caractéristiques générales}
 
 La source, le plan de sondage et la construction de l'échantillon (panel vrai,
-enfants de 0 à 17 ans) sont détaillés à la section~\ref{sec:methodo} et ne sont
+enfants de 0 à 17 ans) sont détaillés au chapitre~\ref{sec:methodo} et ne sont
 pas repris ici. Le tableau~\ref{tab:stats_menages} en résume les principales
 caractéristiques socio-démographiques, préalable descriptif à l'analyse des
 privations.
@@ -51,7 +51,7 @@ de 7,5\,\% en termes nominaux, masquant des disparités selon le statut de bén�
 
 Le tableau~\ref{tab:comparaison_statut} compare les ménages selon leur statut de
 bénéficiaire à la période de base (EHCVM I). Les ménages bénéficiaires affichent
-une taille légèrement plus grande (11,03 vs. 9,71 personnes) et une dépense de consommation par tête (PCE) nettement
+une taille légèrement plus grande (11,03 vs. 9,71 personnes) et une dépense de consommation par tête (PCE)PCE nettement
 plus élevée (636~592 vs. 474~219 FCFA/an), ce qui suggère un profil socio-économique
 globalement meilleur. La proportion de chefs féminins est plus élevée
 dans les ménages bénéficiaires (37,0\,\% vs. 22,9\,\%), et ces derniers sont
@@ -59,9 +59,9 @@ davantage localisés en milieu urbain (66,6\,\% vs. 48,4\,\%).
 Cette sélection positive justifie le recours à l'appariement par score de propension~:
 une comparaison naïve des trajectoires de pauvreté entre les deux groupes confondrait
 l'impact causal des transferts avec ces différences initiales. Sur l'échantillon
-d'analyse causale (bénéficiaires vs non-bénéficiaires), les déséquilibres avant
+d'analyse causale (entrants vs jamais bénéficiaires), les déséquilibres avant
 appariement sont plus modérés, aucun des deux groupes n'étant encore traité à
-la période de base~: la différence standardisée (SMD) atteint au maximum 27\,\% (log-dépense
+la période de base~: le biais standardisé atteint au maximum 27\,\% (log-dépense
 par tête), au-delà du seuil conventionnel de 10\,\%
 (voir tableau~\ref{tab:balance}, section~\ref{sec:resultats}).
 
@@ -352,14 +352,86 @@ restant élevé et large (43,9 puis 42,0 points de pourcentage). Le
 classement par groupe d'âge (5-14 ans les plus touchés) se retrouve dans les
 deux milieux et les deux vagues.
 
-\subsubsection{Spécificités par groupe d'âge}
+\subsubsection{Enfants de 0-4 ans}
 
-Les indicateurs propres à chaque tranche complètent ce tableau d'ensemble.
-Chez les 0-4 ans, la privation tient surtout au combustible solide et à la
-gestion des ordures, tandis que l'absence d'acte de naissance recule nettement
-(31,8\,\% à 22,0\,\%). Les 5-14 ans, tranche la plus touchée, cumulent le
-travail des enfants (40,4\,\% puis 42,6\,\%) et une non-scolarisation élevée
-et stable (45,3\,\% puis 44,8\,\%). Chez les 15-17 ans, l'illettrisme recule
-(28,1\,\% puis 25,0\,\%)~; le NEET n'est pas retenu dans l'agrégat, la valeur
-ANSD de référence (85,7\,\%) correspondant en réalité à la seule absence
-d'emploi, sans la condition de non-scolarisation (annexe~\ref{ann:E}).
+Chez les tout-petits (0-4 ans), la privation est dominée par le combustible
+solide (92,3\,\% puis 91,9\,\%) et la gestion des ordures (60,3\,\% puis
+50,0\,\%). La séparation parentale concerne 36,5\,\% des tout-petits en 2018
+et se maintient à un niveau voisin, tandis que l'absence d'acte de naissance
+recule nettement (31,8\,\% à 22,0\,\%). Les indicateurs de logement, d'eau et
+d'assainissement s'améliorent tous entre les deux vagues.
+
+\begin{figure}[H]
+  \centering
+  \caption{Taux de privation par indicateur et par dimension : enfants âgés de 0-4 ans}
+  \includegraphics[width=0.98\linewidth]{figures/fig_privind_0_4.pdf}
+  \label{fig:privind_0_4}
+
+  {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM.}
+\end{figure}
+
+\subsubsection{Enfants de 5-14 ans}
+
+Pour les 5-14 ans, la tranche la plus nombreuse et la plus touchée, deux
+indicateurs propres à l'âge s'ajoutent~: le travail des enfants, en hausse
+(40,4\,\% à 42,6\,\%), et la non-scolarisation, quasi stable et élevée
+(45,3\,\% puis 44,8\,\%). Comme pour les autres tranches, le combustible
+solide reste quasi universel et les privations de logement, d'eau et
+d'assainissement reculent sensiblement.
+
+\begin{figure}[H]
+  \centering
+  \caption{Taux de privation par indicateur et par dimension : enfants âgés de 5-14 ans}
+  \includegraphics[width=0.98\linewidth]{figures/fig_privind_5_14.pdf}
+  \label{fig:privind_5_14}
+
+  {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM.}
+\end{figure}
+
+\subsubsection{Enfants de 15-17 ans}
+
+Chez les adolescents (15-17 ans), l'indicateur éducatif retenu est
+l'illettrisme (28,1\,\% puis 25,0\,\%). La situation NEET (ni scolarisé ni en
+emploi), quoique quasi stable (33,7\,\% puis 34,0\,\%), n'est \emph{pas} retenue
+dans l'agrégat~: la valeur ANSD de référence (85,7\,\%) correspond en réalité à
+la seule \emph{absence d'emploi}, sans la condition de non-scolarisation, et
+compte donc les élèves comme privés, ce qui la rend inutilisable comme
+indicateur éducatif (annexe~\ref{ann:E}).
+Les privations d'habitat et de nutrition suivent la même tendance
+baissière que dans les autres tranches, à un niveau un peu inférieur.
+
+\begin{figure}[H]
+  \centering
+  \caption{Taux de privation par indicateur et par dimension : enfants âgés de 15-17 ans}
+  \includegraphics[width=0.98\linewidth]{figures/fig_privind_15_17.pdf}
+  \label{fig:privind_15_17}
+
+  {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM.}
+\end{figure}
+
+\subsubsection{Selon les régions}
+
+La figure~\ref{fig:carte_nmoda} décompose l'incidence N-MODA par région de
+résidence pour les deux vagues. Les disparités sont considérables~: les régions
+du sud et de l'est (Kédougou, Kolda, Sédhiou, Tambacounda) affichent les
+incidences les plus élevées, dépassant 80\,\% en 2018, tandis que Dakar
+présente l'incidence la plus faible (environ 23\,\%). Cette hétérogénéité
+régionale, dont la structure persiste entre les deux vagues, souligne que la
+pauvreté multidimensionnelle des enfants est avant tout un phénomène
+géographiquement concentré, lié à la fois aux inégalités d'accès aux
+infrastructures et aux spécificités des économies locales.
+
+\begin{figure}[H]
+  \centering
+  \caption{Incidence N-MODA par région : Sénégal, EHCVM I et II}
+  \includegraphics[width=0.85\linewidth]{figures/fig_carte_nmoda.pdf}
+  \label{fig:carte_nmoda}
+
+  {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM.}
+\end{figure}
+
+Ces disparités justifient que les politiques de réduction de la pauvreté
+multidimensionnelle des enfants soient différenciées géographiquement. Les régions
+du Bassin arachidier (Kaolack, Kaffrine, Fatick) et du sud du pays concentrent
+les niveaux de privation les plus élevés et devraient bénéficier d'investissements
+prioritaires dans l'eau, l'assainissement et l'éducation.
