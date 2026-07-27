@@ -8,7 +8,7 @@ des enfants non bénéficiaires statistiquement indiscernables des enfants
 bénéficiaires à $t=0$, sur les caractéristiques de leur ménage comme sur leur
 propre sexe et leur propre âge. Après appariement par les $k$ plus proches
 voisins ($k=4$, avec remise), la différence standardisée moyenne passe de
-12,7\,\% à 2,9\,\% (tableau~\ref{tab:balance}).
+11,4\,\% à 2,5\,\% (tableau~\ref{tab:balance}).
 
 \subsection{Appariement seul, sans double différence}
 \label{subsec:psm_sans_dd}
@@ -27,9 +27,9 @@ bénéficiaires et témoins appariés (poids $k$-NN) est estimé séparément à
     \hline
 \entete Spécification & Coefficient & Écart-type & $p$-val. \\
     \hline
-    PSM seul, $t=0$ (écart initial)  & -$0{,}079$ & $0{,}031$ & $0{,}011$ \\ \hline
-    PSM seul, $t=1$ (écart final)    & -$0{,}026$ & $0{,}030$ & $0{,}399$ \\ \hline
-    PSM-DD (référence, tableau~\ref{tab:psmdd_att}) & $0{,}053$ & $0{,}031$ & $0{,}086$ \\
+    PSM seul, $t=0$ (écart initial)  & -$0{,}077$ & $0{,}031$ & $0{,}013$ \\ \hline
+    PSM seul, $t=1$ (écart final)    & -$0{,}019$ & $0{,}031$ & $0{,}538$ \\ \hline
+    PSM-DD (référence, tableau~\ref{tab:psmdd_att}) & $0{,}058$ & $0{,}030$ & $0{,}052$ \\
     \hline
   \end{tabular}
 
@@ -38,13 +38,13 @@ bénéficiaires et témoins appariés (poids $k$-NN) est estimé séparément à
 
 Cette décomposition montre pourquoi la double différence est indispensable. À
 la période de base, les enfants de ménages bénéficiaires sont significativement
-moins pauvres que ceux de leurs témoins appariés (-$7{,}9$~points,
-$p=0{,}011$)~: l'appariement sur les caractéristiques observables ne suffit pas
+moins pauvres que ceux de leurs témoins appariés (-$7{,}7$~points,
+$p=0{,}013$)~: l'appariement sur les caractéristiques observables ne suffit pas
 à annuler l'écart de niveau. Un chercheur s'arrêtant à l'appariement
-transversal en 2021 conclurait encore à un avantage de 2,6~points en faveur des
+transversal en 2021 conclurait encore à un avantage de 1,9~point en faveur des
 bénéficiaires. Or cet écart résiduel préexiste au traitement~: il ne peut pas
 lui être imputé. La double différence l'élimine en ne retenant que la variation
-de l'écart ($0{,}053 = -0{,}026 - (-0{,}079)$), et renverse le signe apparent
+de l'écart ($0{,}058 = -0{,}019 - (-0{,}077)$), et renverse le signe apparent
 de la conclusion \parencite{heckman1997,heckman1998}. L'hypothèse H3, selon
 laquelle l'estimateur PSM-DD produit des estimations moins biaisées que les
 approches naïves, est ainsi vérifiée sur nos données.
@@ -69,8 +69,8 @@ distribution suivante.
     Écart-type                   & $0{,}022$ \\ \hline
     Fraction $|$ATT$|$ $>$ 0,05 & 2,5\,\% \\
     \hline
-    ATT réel (tableau~\ref{tab:psmdd_att}) & $0{,}053$ \\ \hline
-    Rang dans la distribution placebo      & 98,5\textsuperscript{e} centile \\
+    ATT réel (tableau~\ref{tab:psmdd_att}) & $0{,}058$ \\ \hline
+    Rang dans la distribution placebo      & 99,0\textsuperscript{e} centile \\
     \hline
   \end{tabular}
 
@@ -91,9 +91,9 @@ centrée sur zéro (moyenne $0{,}001$, écart-type $0{,}022$), ce qui confirme q
 la procédure d'estimation ne fabrique pas d'effet là où il n'y en a pas, et
 conforte la plausibilité de l'hypothèse de tendances parallèles.
 
-L'ATT réel se situe au 98,5\textsuperscript{e} centile de cette distribution~:
+L'ATT réel se situe au 99,0\textsuperscript{e} centile de cette distribution~:
 le point estimé est plus grand que ce que produit presque toute réassignation
-aléatoire du traitement. Cette lecture et la $p$-valeur de $0{,}086$ du test
+aléatoire du traitement. Cette lecture et la $p$-valeur de $0{,}052$ du test
 principal ne sont pas contradictoires, elles répondent à deux questions
 différentes. Le placebo ignore la structure de corrélation intra-grappe, alors
 que le test principal en tient compte par des erreurs-types clusterisées~;
@@ -133,16 +133,17 @@ ré-estimé à chaque seuil possible, de $k=1$ à $k=7$ dimensions sur sept.
 Abaisser le seuil élargit mécaniquement la population considérée comme pauvre,
 tandis que l'élever la restreint aux enfants cumulant le plus de privations~:
 faire varier $k$ revient donc à déplacer le curseur de la sévérité. L'effet
-garde le même signe sur toute la plage, mais son ampleur et sa significativité
-décroissent avec la sévérité~: il se joue à la marge de la pauvreté
-multidimensionnelle, non dans son noyau.
+garde le même signe sur toute la plage, mais son ampleur suit une courbe en
+cloche, maximale au seuil retenu et retombant de part et d'autre~: il se joue
+au milieu de la distribution, ni chez les enfants faiblement privés ni dans le
+noyau des plus démunis.
 
 \subsection{Résultats de l'appariement avec différentes méthodes}
 
 Le tableau~\ref{tab:psm_methodes} (section~\ref{subsec:psmdd}) confronte
-les méthodes d'appariement~: les $k$ plus proches voisins ($0{,}053$~;
-$p=0{,}086$), le noyau Epanechnikov ($0{,}060$~; $p=0{,}074$) et le caliper
-($0{,}050$~; $p=0{,}057$) donnent des effets d'ampleur voisine, tous
+les méthodes d'appariement~: les $k$ plus proches voisins ($0{,}058$~;
+$p=0{,}052$), le noyau Epanechnikov ($0{,}055$~; $p=0{,}079$) et le caliper
+($0{,}047$~; $p=0{,}083$) donnent des effets d'ampleur voisine, tous
 significatifs à 10\,\% et aucun à 5\,\%. La double différence brute, qui ne
 corrige pas la sélection, donne une valeur plus faible et non significative
 ($0{,}032$~; $p=0{,}167$).
