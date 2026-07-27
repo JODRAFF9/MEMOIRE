@@ -536,6 +536,26 @@ foreach annee in 2018 2021 {
         tempfile s01_temp
         save `s01_temp'
     restore
+
+    /* A6bis. Table de correspondance individuelle entre les deux vagues.
+       En 2021, le questionnaire precharge les membres du menage panel avec
+       leur identifiant de 2018 (s01qpreload_pid, accompagne du sexe, de
+       l'age et du lien de parente precharges). Cette variable, et non le
+       rang dans le roster 2021 (membres__id), est la cle qui relie un
+       individu a lui-meme d'une vague a l'autre. Elle permet de constituer
+       un veritable panel d'ENFANTS, et non seulement de menages.
+       Validation : sexe identique dans 98,5 % des cas et ecart d'age
+       median de 3 ans, conforme a l'intervalle entre les deux passages. */
+    if `annee' == 2021 {
+        preserve
+            use "`base'/s01_me_sen2021.dta", clear
+            keep grappe menage membres__id s01qpreload_pid
+            rename membres__id numind
+            rename s01qpreload_pid numind_2018
+            keep if !missing(numind_2018)
+            save "$TEMP/lien_individus.dta", replace
+        restore
+    }
     merge m:1 grappe menage numind using `s01_temp', ///
         keepusing(s01q05 s01q22 s01q29) nogenerate keep(master match)
 
@@ -1219,31 +1239,37 @@ di _newline "  Rappel : ATT_PSM-DD = ATT_PSM(t=1) - ATT_PSM(t=0), par constructi
 save "$TEMP/panel_apparie.dta", replace
 
 /* ── Robustesse : panel d'enfants (memes enfants suivis entre vagues) ──
-   Verifie que le resultat nul n'est pas un artefact de recomposition de
-   l'echantillon par age. Les enfants presents dans les deux vagues (meme
-   grappe+menage+numind, vieillissement plausible de 2 a 4 ans) sont suivis
-   individuellement ; leur statut N-MODA est recalcule a chaque vague, en
-   tenant compte de leur changement eventuel de groupe d'age (et donc de
-   dimensions applicables). Double difference sur ce panel d'enfants, design
-   entrants (D_stable). */
+   Verifie que le resultat n'est pas un artefact de recomposition de
+   l'echantillon par age. Les enfants presents dans les deux vagues sont
+   apparies par leur identifiant individuel (numind_2018, precharge en 2021),
+   et non par leur rang dans le roster ; leur statut N-MODA est recalcule a
+   chaque vague, en tenant compte de leur changement eventuel de groupe d'age
+   (et donc de dimensions applicables). Double difference sur ce panel
+   d'enfants. */
 preserve
     use "$TEMP/enfants_dep_2018.dta", clear
     keep grappe menage numind age pauvre_MODA
     rename (age pauvre_MODA) (age18 pm18)
+    rename numind numind_2018
     tempfile enf18
     save `enf18'
     use "$TEMP/enfants_dep_2021.dta", clear
     keep grappe menage numind age pauvre_MODA
     rename (age pauvre_MODA) (age21 pm21)
-    merge 1:1 grappe menage numind using `enf18', keep(match) nogenerate
-    keep if inrange(age21 - age18, 2, 4)   /* meme individu, vieilli de ~3 ans */
+    /* Cle individuelle entre vagues : identifiant 2018 precharge en 2021
+       (s01qpreload_pid). Le rang dans le roster 2021 (numind) ne designe pas
+       le meme individu qu'en 2018 : c'est bien numind_2018 qui apparie une
+       personne a elle-meme. */
+    merge m:1 grappe menage numind using "$TEMP/lien_individus.dta", ///
+        keepusing(numind_2018) keep(match) nogenerate
+    merge 1:1 grappe menage numind_2018 using `enf18', keep(match) nogenerate
     merge m:1 grappe menage using "$TEMP/traitement_stable.dta", ///
         keepusing(D_stable) keep(master match) nogenerate
     drop if missing(D_stable) | missing(pm18) | missing(pm21)
     gen long enfid = _n
     reshape long pm age, i(enfid) j(periode)
     gen byte t = (periode == 21)
-    di _newline "=== Robustesse : panel d'enfants (DD, design entrants) ==="
+    di _newline "=== Robustesse : panel d'ENFANTS (memes individus, cle preload) ==="
     di "  Enfants suivis apparies entre vagues : " %9.0f `=_N/2'
     regress pm i.t##i.D_stable, vce(cluster grappe)
     lincom 1.t#1.D_stable
@@ -1727,63 +1753,86 @@ foreach annee in 2018 2021 {
 
 di _newline "=== 5. Graphiques ==="
 
-/* ── Fig 1 : Évolution H N-MODA par vague ── */
-foreach annee in 2018 2021 {
-    use "$TEMP/vague_`annee'.dta", clear
-    quietly summarize pauvre_MODA [aw=hhweight]
-    scalar H_moda_`annee' = r(mean)*100
+/* ── Fig 1 : Évolution de l'incidence N-MODA, beneficiaires vs
+   non-beneficiaires. Les deux trajectoires rendent visible la logique de
+   double difference : c'est l'ECART entre les groupes, et son evolution
+   entre les deux vagues, qui porte l'information sur l'impact. ── */
+use "$TEMP/panel_vrai.dta", clear
+forvalues d = 0/1 {
+    foreach tt in 0 1 {
+        quietly summarize pauvre_MODA [aw=hhweight] if D == `d' & t == `tt'
+        scalar H_d`d'_t`tt' = r(mean)*100
+    }
 }
 clear
 set obs 2
-gen annee  = 2018 in 1
-replace annee  = 2021 in 2
-gen H_MODA = H_moda_2018 in 1
-replace H_MODA = H_moda_2021 in 2
-gen str12 lbl_H = subinstr(string(H_MODA, "%3.1f"), ".", ",", 1) + " %"
+gen annee = 2018 in 1
+replace annee = 2021 in 2
+gen H_benef    = H_d1_t0 in 1
+replace H_benef = H_d1_t1 in 2
+gen H_nonbenef = H_d0_t0 in 1
+replace H_nonbenef = H_d0_t1 in 2
+gen str12 lbl_b  = subinstr(string(H_benef,    "%3.1f"), ".", ",", 1) + " %"
+gen str12 lbl_nb = subinstr(string(H_nonbenef, "%3.1f"), ".", ",", 1) + " %"
 
 set dp comma
-twoway (connected H_MODA annee, lcolor(orange) mcolor(orange) msymbol(circle)  lwidth(medthick) ///
-        mlabel(lbl_H) mlabcolor(black) mlabpos(12) mlabgap(2) mlabsize(medium)), ///
-    xlabel(2018 2021) xscale(range(2017.7 2021.3)) xtitle("Vague EHCVM") ytitle("Incidence H (%)") ///
+twoway (connected H_nonbenef annee, lcolor(gs9) mcolor(gs9) msymbol(square) ///
+        lwidth(medthick) mlabel(lbl_nb) mlabcolor(black) mlabpos(6) ///
+        mlabgap(2) mlabsize(small)) ///
+       (connected H_benef annee, lcolor(orange) mcolor(orange) msymbol(circle) ///
+        lwidth(medthick) mlabel(lbl_b) mlabcolor(black) mlabpos(12) ///
+        mlabgap(2) mlabsize(small)), ///
+    xlabel(2018 2021) xscale(range(2017.7 2021.3)) xtitle("Vague EHCVM") ///
+    ytitle("Incidence N-MODA H (%)") ///
     ylabel(0(20)100, grid) yscale(range(0 108)) ///
-    legend(order(1 "N-MODA (k=4, 7 dim.)") pos(6) rows(1)) ///
+    legend(order(1 "Non-bénéficiaires" 2 "Bénéficiaires") pos(6) rows(1)) ///
     graphregion(color(white)) plotregion(color(white))
 set dp period
 graph export "$OUTPUT/figures/fig_evolution_ipm.pdf", replace
 di ">>> fig_evolution_ipm.pdf sauvegardé"
 
-/* ── Fig 2 : Taux de privation par dimension (barres groupées) ── */
-foreach annee in 2018 2021 {
-    use "$TEMP/vague_`annee'.dta", clear
-    foreach dim in assai eau logem nutri sante protect educ {
-        quietly summarize dim_`dim' [aw=hhweight]
-        scalar d_`dim'_`annee' = r(mean)*100
+/* ── Fig 2 : Taux de privation par dimension, beneficiaires vs
+   non-beneficiaires a chaque vague (quatre barres par dimension). Permet de
+   lire, dimension par dimension, l'ecart entre groupes et son evolution. ── */
+use "$TEMP/panel_vrai.dta", clear
+foreach dim in assai eau logem nutri sante protect educ {
+    forvalues d = 0/1 {
+        foreach tt in 0 1 {
+            quietly summarize dim_`dim' [aw=hhweight] if D == `d' & t == `tt'
+            scalar x_`dim'_`d'`tt' = r(mean)*100
+        }
     }
 }
 clear
 set obs 7
-gen str10 dim = ""
-replace dim = "Assainis." in 1
-replace dim = "Eau"       in 2
-replace dim = "Logement"  in 3
-replace dim = "Nutrition" in 4
-replace dim = "Santé"     in 5
+gen str12 dim = ""
+replace dim = "Assainis."  in 1
+replace dim = "Eau"        in 2
+replace dim = "Logement"   in 3
+replace dim = "Nutrition"  in 4
+replace dim = "Santé"      in 5
 replace dim = "Protection" in 6
 replace dim = "Éducation"  in 7
 gen ordre = _n
-gen v2018 = .
-gen v2021 = .
+gen nb18 = .
+gen b18  = .
+gen nb21 = .
+gen b21  = .
 local dims assai eau logem nutri sante protect educ
 forvalues i = 1/7 {
     local d : word `i' of `dims'
-    replace v2018 = d_`d'_2018 in `i'
-    replace v2021 = d_`d'_2021 in `i'
+    replace nb18 = x_`d'_00 in `i'
+    replace b18  = x_`d'_10 in `i'
+    replace nb21 = x_`d'_01 in `i'
+    replace b21  = x_`d'_11 in `i'
 }
 set dp comma
-graph bar v2018 v2021, over(dim, sort(ordre) label(angle(30))) ///
-    bar(1, color(gs9)) bar(2, color(orange)) ///
-    blabel(bar, position(center) color(white) format(%4,1f) size(vsmall)) ///
-    legend(order(1 "EHCVM I (2018-19)" 2 "EHCVM II (2021-22)") pos(6) rows(1)) ///
+graph bar nb18 b18 nb21 b21, over(dim, sort(ordre) label(angle(30) labsize(small))) ///
+    bar(1, color(gs11)) bar(2, color(gs7)) ///
+    bar(3, color(orange*0.5)) bar(4, color(orange)) ///
+    blabel(bar, position(outside) format(%4,0f) size(tiny)) ///
+    legend(order(1 "Non-bénéf. 2018" 2 "Bénéf. 2018" ///
+                 3 "Non-bénéf. 2021" 4 "Bénéf. 2021") pos(6) rows(2) size(small)) ///
     ytitle("Taux de privation (%)") ylabel(0(20)100, grid) ///
     graphregion(color(white)) plotregion(color(white))
 set dp period
@@ -1816,29 +1865,25 @@ else {
     di as txt ">>> fig_privind_*.pdf (re)generees via gen_fig_privind.py"
 }
 
-/* ── Fig 3 : Pauvreté par milieu et groupe d'âge (EHCVM I et II) ──
-   Barres groupées : les deux vagues côte à côte pour chaque groupe
-   d'âge, panneaux urbain/rural. */
-use "$TEMP/vague_2018.dta", clear
-keep pauvre_MODA groupe_moda milieu hhweight
-gen byte vague = 1
-tempfile mag_w1
-save `mag_w1'
-
-use "$TEMP/vague_2021.dta", clear
-keep pauvre_MODA groupe_moda milieu hhweight
-gen byte vague = 2
-append using `mag_w1'
-
-collapse (mean) pauvre_MODA [aw=hhweight], by(vague groupe_moda milieu)
+/* ── Fig 3 : Pauvreté par groupe d'âge, beneficiaires vs non-beneficiaires
+   aux deux vagues. Panneaux = groupe d'age ; barres = statut x vague. */
+use "$TEMP/panel_vrai.dta", clear
+keep pauvre_MODA groupe_moda D t hhweight
+collapse (mean) pauvre_MODA [aw=hhweight], by(t D groupe_moda)
 replace pauvre_MODA = pauvre_MODA * 100
-reshape wide pauvre_MODA, i(groupe_moda milieu) j(vague)
+gen byte serie = 1 + D + 2*t   /* 1 = nonbenef 2018, 2 = benef 2018,
+                                  3 = nonbenef 2021, 4 = benef 2021 */
+drop D t
+reshape wide pauvre_MODA, i(groupe_moda) j(serie)
 
 set dp comma   /* etiquettes decimales avec virgule */
-graph bar pauvre_MODA1 pauvre_MODA2, over(groupe_moda) over(milieu) ///
-    bar(1, color(gs9)) bar(2, color(orange)) ///
-    blabel(bar, position(center) color(white) format(%4,1f) size(vsmall)) ///
-    legend(order(1 "EHCVM I (2018-19)" 2 "EHCVM II (2021-22)") pos(6) rows(1)) ///
+graph bar pauvre_MODA1 pauvre_MODA2 pauvre_MODA3 pauvre_MODA4, ///
+    over(groupe_moda) ///
+    bar(1, color(gs11)) bar(2, color(gs7)) ///
+    bar(3, color(orange*0.5)) bar(4, color(orange)) ///
+    blabel(bar, position(outside) format(%4,0f) size(vsmall)) ///
+    legend(order(1 "Non-bénéf. 2018" 2 "Bénéf. 2018" ///
+                 3 "Non-bénéf. 2021" 4 "Bénéf. 2021") pos(6) rows(2) size(small)) ///
     ytitle("Incidence N-MODA (H, %)") ylabel(0(20)100, grid) ///
     graphregion(color(white)) plotregion(color(white))
 set dp period
