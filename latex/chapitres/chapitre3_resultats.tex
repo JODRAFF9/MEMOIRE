@@ -95,16 +95,16 @@ témoins distincts (appariement $k$-NN avec remise).
 \end{figure}
 
 
-Avant appariement, les déséquilibres sont modérés (biais standardisé moyen
+Avant appariement, les déséquilibres sont modérés (différence standardisée moyenne (SMD)
 de 7,7\,\%, avec un maximum de 27,1\,\% sur le log de la dépense par tête),
 bien plus faibles que sous la définition alternative du traitement, ce qui
 reflète là encore le fait qu'aucun des deux groupes n'est traité à la
 période de base. Le tableau~\ref{tab:balance} présente le diagnostic
 d'équilibrage \emph{après} appariement k-plus-proches-voisins ($k=4$, avec
 remise, au niveau ménage)~: pour chaque covariable, la moyenne chez les
-entrants (traités) et chez leurs témoins appariés, le biais standardisé
+entrants (traités) et chez leurs témoins appariés, la différence standardisée (SMD)
 (SMD, en \%) et le test de Student associé. L'appariement élimine
-pratiquement les déséquilibres~: le biais standardisé moyen après
+pratiquement les déséquilibres~: la différence standardisée moyenne (SMD) après
 appariement tombe à 1,4\,\%, largement sous le seuil conventionnel de
 10\,\% \parencite{austin2009}, et aucune différence résiduelle n'est
 significative au seuil de 5\,\%.
@@ -118,7 +118,7 @@ significative au seuil de 5\,\%.
   \resizebox{\linewidth}{!}{%
   \begin{tabular}{|l|c|c|c|c|c|}
     \hline
-\entete Variable & Moyenne traités & Moyenne témoins & Biais standardisé (\%) & T-stat & $P>|t|$ \\
+\entete Variable & Moyenne traités & Moyenne témoins & SMD (\%) & T-stat & $P>|t|$ \\
     \hline
     Taille du ménage           & 10,504 & 10,513 & -0,2 & -0,03 & 0,976 \\ \hline
     Log dépense par tête       & 12,982 & 12,981 & 0,1  & 0,03  & 0,977 \\ \hline
@@ -273,7 +273,7 @@ probabilité de privation éducative y recule de 3,9 points de pourcentage
 de plus que chez les témoins appariés, ce qui est cohérent avec
 l'hypothèse d'un investissement prioritaire et rapide des transferts dans
 la scolarisation \parencite{cox2003,bucheli2018} - l'un des rares usages
-explicitement fléchés dans les motifs déclarés (chapitre~3). De l'autre,
+explicitement fléchés dans les motifs déclarés (section~\ref{sec:stats}). De l'autre,
 la dimension protection de l'enfant se dégrade relativement
 (ATT $= 0{,}051$, $p = 0{,}003$)~: cette dimension inclut mécaniquement le
 fait de ne pas vivre avec ses deux parents biologiques, consubstantiel au

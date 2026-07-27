@@ -202,6 +202,7 @@ tabulate s13q19, missing
 di _newline ">>> Prevalence des transferts de migrants :"
 local annee 2018
 local var_lieu s13aq14
+local var_exmbr s13aq12
 local fich_det s13a_2
 local fich_list s13a_1
     /*
@@ -218,7 +219,13 @@ local fich_list s13a_1
 
     /* Identifier les menages avec au moins un transfert etranger */
     use "`base'/`fich_det'_me_sen`annee'.dta", clear
-    keep if `var_lieu' >= $CODE_ETRANGER_MIN & !missing(`var_lieu')
+    /* Transfert etranger ET expediteur ancien membre du menage (var_exmbr==1,
+       s13aq12 en 2018 / s13q17 en 2021) : seuls ces transferts relevent de la
+       migration d'un membre du menage (theorie des reseaux migratoires). Les
+       transferts d'un expediteur n'ayant jamais vecu dans le menage sont
+       ecartes du traitement. */
+    keep if `var_lieu' >= $CODE_ETRANGER_MIN & !missing(`var_lieu') ///
+        & `var_exmbr' == 1
     bysort grappe menage: keep if _n == 1
     gen transfert_migrant = 1
     keep grappe menage transfert_migrant
@@ -241,6 +248,7 @@ local fich_list s13a_1
 
 local annee 2021
 local var_lieu s13q19
+local var_exmbr s13q17
 local fich_det s13_2
 local fich_list s13_1
     /*
@@ -257,7 +265,13 @@ local fich_list s13_1
 
     /* Identifier les menages avec au moins un transfert etranger */
     use "`base'/`fich_det'_me_sen`annee'.dta", clear
-    keep if `var_lieu' >= $CODE_ETRANGER_MIN & !missing(`var_lieu')
+    /* Transfert etranger ET expediteur ancien membre du menage (var_exmbr==1,
+       s13aq12 en 2018 / s13q17 en 2021) : seuls ces transferts relevent de la
+       migration d'un membre du menage (theorie des reseaux migratoires). Les
+       transferts d'un expediteur n'ayant jamais vecu dans le menage sont
+       ecartes du traitement. */
+    keep if `var_lieu' >= $CODE_ETRANGER_MIN & !missing(`var_lieu') ///
+        & `var_exmbr' == 1
     bysort grappe menage: keep if _n == 1
     gen transfert_migrant = 1
     keep grappe menage transfert_migrant
@@ -503,7 +517,8 @@ foreach annee in 2018 2021 {
     /* A5. Securite alimentaire (s08a_me), variables brutes (traitement Non-retenu en calcul) */
     preserve
         use "`base'/s08a_me_sen`annee'.dta", clear
-        keep grappe menage s08aq04 s08aq05 s08aq06 s08aq07 s08aq08
+        keep grappe menage s08aq01 s08aq02 s08aq03 s08aq04 s08aq05 ///
+                           s08aq06 s08aq07 s08aq08
         tempfile s08a_temp
         save `s08a_temp'
     restore
@@ -686,21 +701,27 @@ foreach annee in 2018 2021 {
         if !missing(m_ordures) & !missing(m_surpeup)
 
     /* ── [Dimension 4/7 : Nutrition] ───────────────────────────────
-       Indicateur unique - Insecurite alimentaire (FIES) : membre ayant
-       saute un repas, mange moins que necessaire, manque de nourriture,
-       eu faim ou passe une journee sans manger (1=Oui ; 98/99 traites Non).
-       Diversite alimentaire (module s08b1, 2018 uniquement) NON RETENUE
-       pour rester comparable entre les deux vagues. Analyse en cas
-       complets : manquant des qu'UNE SEULE des 5 questions du module
-       manque, meme si une autre question etablit deja la privation. */
-    gen byte m_securite = 0
-    foreach v in s08aq04 s08aq05 s08aq06 s08aq07 s08aq08 {
-        replace m_securite = 1 if `v' == 1 & !missing(`v')
-    }
-    egen byte n_miss_sec = rowmiss(s08aq04 s08aq05 s08aq06 s08aq07 s08aq08)
-    replace m_securite = . if n_miss_sec > 0
-    drop n_miss_sec
-    gen byte dim_nutri = (m_securite == 1)
+       Indicateur unique - Insecurite alimentaire, echelle FIES COMPLETE
+       (8 questions du module 8A, presentes dans LES DEUX vagues) :
+         q01 inquietude de manquer de nourriture
+         q02 impossibilite de manger sainement
+         q03 alimentation peu variee
+         q04 saut d'un repas
+         q05 avoir mange moins que necessaire
+         q06 plus de nourriture dans le menage
+         q07 avoir eu faim sans manger
+         q08 journee entiere sans manger
+       Score FIES = somme des reponses "oui" (0 a 8) ; l'enfant est prive
+       si le score est >= 1 (au moins une experience d'insecurite).
+       Valeurs manquantes et 98/99 (NSP/refus) traitees comme "non" : le
+       menage est suppose ne pas avoir manque de cette ressource (aucune
+       observation n'est perdue).
+       Diversite alimentaire NON RETENUE : le module correspondant n'a pas
+       ete collecte en 2021, donc aucun comparateur entre vagues. */
+    egen byte fies_score = anycount(s08aq01 s08aq02 s08aq03 s08aq04 ///
+        s08aq05 s08aq06 s08aq07 s08aq08), values(1)
+    gen byte m_securite = (fies_score >= 1)
+    gen byte dim_nutri  = (m_securite == 1)
 
     /* ── [Dimension 5/7 : Sante] ────────────────────────────────────
        Indicateur 1 - Combustible solide pour cuisiner (bois, charbon,
@@ -888,18 +909,18 @@ foreach annee in 2018 2021 {
 }
 
 /* ============================================================
-   2. Statut de traitement : design "entrants" (DD classique)
+   2. Statut de traitement : defini a la periode de BASE (2018)
 
-   Design principal : ne conserve que les menages SANS transfert
-   etranger a la periode de base (D_2018=0). On definit :
-     - traites (D_stable=1) : entrants — aucun transfert en 2018,
-       transfert etranger recu en 2021 (D=0 -> D=1)
-     - temoins (D_stable=0) : jamais beneficiaires aux deux vagues
-     - exclus  (D_stable=.) : menages deja beneficiaires en 2018
-       (beneficiaires stables et sortants), dont le traitement est
-       anterieur a la periode d'observation
-   Le traitement debute donc ENTRE les deux vagues, conformement au
-   design DD canonique (periode pre-traitement observee a t=0).
+   Design principal : le statut de traitement est fixe par la situation
+   de 2018, qui sert de reference avant l'observation des resultats
+   ulterieurs. On definit :
+     - traites (D_stable=1) : menage recevant en 2018 un transfert
+       etranger d'un expediteur ayant deja vecu dans le menage
+       (migration d'un membre du menage)
+     - temoins (D_stable=0) : menage ne recevant aucun transfert
+       etranger de ce type en 2018
+   Le statut etant fige a la periode de base, il ne peut pas etre
+   affecte par l'evolution des privations entre les deux vagues.
    ============================================================ */
 
 use "$TEMP/traitement_2018.dta", clear
@@ -907,19 +928,15 @@ rename D D_2018
 merge 1:1 grappe menage using "$TEMP/traitement_2021.dta", ///
     keepusing(D) keep(match) nogenerate
 rename D D_2021
-gen byte D_stable = .
-replace D_stable = 1 if D_2018 == 0 & D_2021 == 1
-replace D_stable = 0 if D_2018 == 0 & D_2021 == 0
-label var D_stable "Traitement entrant (1=D 0->1, 0=jamais, .=deja beneficiaire en 2018)"
+gen byte D_stable = D_2018
+label var D_stable "Traitement (1=beneficiaire migrant en 2018, 0=non beneficiaire)"
 
 di _newline ">>> Cellules de traitement (menages presents aux 2 vagues) :"
 tab D_2018 D_2021
 quietly count if D_stable == 1
-di "  Entrants (D=0->1)          : " r(N)
+di "  Beneficiaires 2018 (migrant) : " r(N)
 quietly count if D_stable == 0
-di "  Jamais beneficiaires       : " r(N)
-quietly count if missing(D_stable)
-di "  Exclus (benef. en 2018)    : " r(N)
+di "  Non beneficiaires 2018       : " r(N)
 
 keep grappe menage D_stable D_2018 D_2021
 save "$TEMP/traitement_stable.dta", replace
