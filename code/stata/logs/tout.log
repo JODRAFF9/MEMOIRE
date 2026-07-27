@@ -90,14 +90,14 @@ Observations : 66120
 
 . describe
 
-Contains data from https://raw.githubusercontent.com/JODRAFF9/MEMOIRE/main/Base/2018-2019/SEN_2018_EHCVM_
-> v02_M_Stata/ehcvm_individu_sen2018.dta
+Contains data from https://raw.githubusercontent.com/JODRAFF9/MEMOIRE/main/Base/2018-2019/SEN_2018_EHCVM_v02_M_Stata/ehcvm_individu
+> _sen2018.dta
  Observations:        66,120                  
     Variables:            51                  
----------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------
 Variable      Storage   Display    Value
     name         type    format    label      Variable label
----------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------
 country         str3    %3s                   Pays
 year            int     %8.0g                 Annee enquete
 vague           byte    %8.0g                 Vague
@@ -149,13 +149,13 @@ csp_sec         byte    %8.0g      s04q57     CSP emploi sec.
 volhor_sec      float   %9.0g                 Horaire an. travail emploi sec.
 salaire_sec     long    %12.0g                Salaire an. emploi sec.
 bank            byte    %8.0g      ouinon     compte banque ou autre
----------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------
 Sorted by: 
 
 . codebook, compact
 
 Variable       Obs Unique      Mean       Min       Max  Label
----------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------
 country      66120      1         .         .         .  Pays
 year         66120      1      2018      2018      2018  Annee enquete
 vague        66120      2  1.497701         1         2  Vague
@@ -207,7 +207,7 @@ csp_sec       3005     10  8.237271         1        10  CSP emploi sec.
 volhor_sec    2998    265  697.1513         1      5760  Horaire an. travail emploi sec.
 salaire_sec    334    114  647064.1         0   7200000  Salaire an. emploi sec.
 bank         66120      2  .1068966         0         1  compte banque ou autre
----------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------
 
 . 
 . use "$BASE_2018/ehcvm_menage_sen2018.dta", clear
@@ -221,14 +221,14 @@ Observations : 7156
 
 . describe
 
-Contains data from https://raw.githubusercontent.com/JODRAFF9/MEMOIRE/main/Base/2018-2019/SEN_2018_EHCVM_
-> v02_M_Stata/ehcvm_menage_sen2018.dta
+Contains data from https://raw.githubusercontent.com/JODRAFF9/MEMOIRE/main/Base/2018-2019/SEN_2018_EHCVM_v02_M_Stata/ehcvm_menage_s
+> en2018.dta
  Observations:         7,156                  
     Variables:            34                  
----------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------
 Variable      Storage   Display    Value
     name         type    format    label      Variable label
----------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------
 country         str3    %3s                   
 hhid            long    %12.0g                Identifiant menage
 logem           byte    %8.0g      logeml     Occupation logement
@@ -263,13 +263,13 @@ sh_co_eco       byte    %8.0g      ouinon     Choc covariant économique
 sh_id_eco       byte    %8.0g      ouinon     Choc idio économique
 sh_co_vio       byte    %8.0g      ouinon     Choc covariant violence
 sh_co_oth       byte    %8.0g      ouinon     Autres Chocs
----------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------
 Sorted by: 
 
 . codebook, compact
 
 Variable     Obs Unique      Mean   Min       Max  Label
----------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------
 country     7156      1         .     .         .  
 hhid        7156   7156  299933.7  1001    598012  Identifiant menage
 logem       7156      4  1.948016     1         4  Occupation logement
@@ -304,7 +304,7 @@ sh_co_eco   7156      2  .1401621     0         1  Choc covariant économique
 sh_id_eco   7156      2  .1387647     0         1  Choc idio économique
 sh_co_vio   7156      2  .0143935     0         1  Choc covariant violence
 sh_co_oth   7156      2  .0145333     0         1  Autres Chocs
----------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------
 
 . 
 . use "$BASE_2018/ehcvm_welfare_sen2018.dta", clear
@@ -318,14 +318,14 @@ Observations : 7156
 
 . describe
 
-Contains data from https://raw.githubusercontent.com/JODRAFF9/MEMOIRE/main/Base/2018-2019/SEN_2018_EHCVM_
-> v02_M_Stata/ehcvm_welfare_sen2018.dta
+Contains data from https://raw.githubusercontent.com/JODRAFF9/MEMOIRE/main/Base/2018-2019/SEN_2018_EHCVM_v02_M_Stata/ehcvm_welfare_
+> sen2018.dta
  Observations:         7,156                  
     Variables:            35                  
----------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------
 Variable      Storage   Display    Value
     name         type    format    label      Variable label
----------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------
 country         str3    %3s                   Pays
 year            int     %8.0g                 Annee enquete
 hhid            long    %12.0g                Idenfiant menage
@@ -361,13 +361,13 @@ zzae            double  %12.0g
 zref            double  %12.0g                Seuil pauvrete national
 def_spa         float   %9.0g                 Deflateur spatial
 def_temp        float   %9.0g                 Deflateur temporel
----------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------
 Sorted by: 
 
 . codebook, compact
 
 Variable    Obs Unique      Mean       Min       Max  Label
----------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------
 country    7156      1         .         .         .  Pays
 year       7156      1      2018      2018      2018  Annee enquete
 hhid       7156   7156  299933.7      1001    598012  Idenfiant menage
@@ -403,7 +403,7 @@ zzae       7156     11  332243.8    296311  391340.3
 zref       7156      1  333440.5  333440.5  333440.5  Seuil pauvrete national
 def_spa    7156     11  .9964109  .8886472  1.173644  Deflateur spatial
 def_temp   7156      6  1.001531  .9916467  1.014664  Deflateur temporel
----------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------
 
 . 
 . use "$BASE_2018/s13a_1_me_sen2018.dta", clear
@@ -417,40 +417,36 @@ Observations : 7156
 
 . describe
 
-Contains data from https://raw.githubusercontent.com/JODRAFF9/MEMOIRE/main/Base/2018-2019/SEN_2018_EHCVM_
-> v02_M_Stata/s13a_1_me_sen2018.dta
+Contains data from https://raw.githubusercontent.com/JODRAFF9/MEMOIRE/main/Base/2018-2019/SEN_2018_EHCVM_v02_M_Stata/s13a_1_me_sen2
+> 018.dta
  Observations:         7,156                  
     Variables:             7                  
----------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------
 Variable      Storage   Display    Value
     name         type    format    label      Variable label
----------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------
 vague           byte    %8.0g                 Vague
 grappe          int     %8.0g                 grappe
 menage          byte    %8.0g                 Identifiant du ménage
-s13aq01         byte    %8.0g      s13Aq01    13A.01.12 drniers mois, MEN/mbres recu argent PERS
-                                                FAMILL…habitant pas MEN
-s13aq02         byte    %8.0g      s13Aq02    13A.02.12 drnrs mois, MEN/Mbre reçu argent autre pers
-                                                non-mbre du MEN?
-s13aq03         byte    %8.0g      s13Aq03    13A.03.12 drnrs mois, MEN/Mbre néamoins recu argent cash
-                                                voyage mobil money etc
-s13aq04         byte    %8.0g      Oui1Non0   13A.04. Réponse à une des questions (13.01), (13.02),
-                                                (13.03) est positive ?
----------------------------------------------------------------------------------------------------------
+s13aq01         byte    %8.0g      s13Aq01    13A.01.12 drniers mois, MEN/mbres recu argent PERS FAMILL…habitant pas MEN
+s13aq02         byte    %8.0g      s13Aq02    13A.02.12 drnrs mois, MEN/Mbre reçu argent autre pers non-mbre du MEN?
+s13aq03         byte    %8.0g      s13Aq03    13A.03.12 drnrs mois, MEN/Mbre néamoins recu argent cash voyage mobil money etc
+s13aq04         byte    %8.0g      Oui1Non0   13A.04. Réponse à une des questions (13.01), (13.02), (13.03) est positive ?
+-----------------------------------------------------------------------------------------------------------------------------------
 Sorted by: 
 
 . codebook, compact
 
 Variable    Obs Unique      Mean  Min  Max  Label
----------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------
 vague      7156      2  1.501397    1    2  Vague
 grappe     7156    598  299.9272    1  598  grappe
 menage     7156     12  6.491196    1   12  Identifiant du ménage
-s13aq01    7154      2  1.498882    1    2  13A.01.12 drniers mois, MEN/mbres recu argent PERS FAMILL…...
-s13aq02    7154      2  1.773553    1    2  13A.02.12 drnrs mois, MEN/Mbre reçu argent autre pers non-...
-s13aq03    7154      2  1.749651    1    2  13A.03.12 drnrs mois, MEN/Mbre néamoins recu argent cash v...
-s13aq04    7154      2  .5943528    0    1  13A.04. Réponse à une des questions (13.01), (13.02), (13....
----------------------------------------------------------------------------------------------------------
+s13aq01    7154      2  1.498882    1    2  13A.01.12 drniers mois, MEN/mbres recu argent PERS FAMILL…habitant pas MEN
+s13aq02    7154      2  1.773553    1    2  13A.02.12 drnrs mois, MEN/Mbre reçu argent autre pers non-mbre du MEN?
+s13aq03    7154      2  1.749651    1    2  13A.03.12 drnrs mois, MEN/Mbre néamoins recu argent cash voyage mobil money etc
+s13aq04    7154      2  .5943528    0    1  13A.04. Réponse à une des questions (13.01), (13.02), (13.03) est positive ?
+-----------------------------------------------------------------------------------------------------------------------------------
 
 . 
 . use "$BASE_2018/s13a_2_me_sen2018.dta", clear
@@ -464,14 +460,14 @@ Observations : 8403
 
 . describe
 
-Contains data from https://raw.githubusercontent.com/JODRAFF9/MEMOIRE/main/Base/2018-2019/SEN_2018_EHCVM_
-> v02_M_Stata/s13a_2_me_sen2018.dta
+Contains data from https://raw.githubusercontent.com/JODRAFF9/MEMOIRE/main/Base/2018-2019/SEN_2018_EHCVM_v02_M_Stata/s13a_2_me_sen2
+> 018.dta
  Observations:         8,403                  
     Variables:            18                  
----------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------
 Variable      Storage   Display    Value
     name         type    format    label      Variable label
----------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------
 vague           byte    %8.0g                 Vague
 grappe          int     %8.0g                 grappe
 menage          byte    %8.0g                 Identifiant du ménage
@@ -483,23 +479,20 @@ s13aq08         byte    %8.0g      s13Aq08    13A.08. Quel est le sexe de l'expé
 s13aq09         int     %8.0g                 13A.09. Quel est l'âge de l'expéditeur? ?
 s13aq10         byte    %8.0g      s13Aq10    13A.10. Quel est le niveau d'instruction de l'expéditeur ?
 s13aq11         byte    %8.0g      s13Aq11    13A.11. Quel est le statut professionnel de l'expéditeur ?
-s13aq12         byte    %8.0g      s13Aq12    13A.12. Est-ce que l'expéditeur a déjà vécu dans ce ménage
-                                                ?
-s13aq13         byte    %8.0g                 13A.13. Depuis combien d'années (en années révolues) est-il
-                                                parti du ménage?
+s13aq12         byte    %8.0g      s13Aq12    13A.12. Est-ce que l'expéditeur a déjà vécu dans ce ménage ?
+s13aq13         byte    %8.0g                 13A.13. Depuis combien d'années (en années révolues) est-il parti du ménage?
 s13aq14         byte    %8.0g      s13Aq14    13A.14 Quel est le lieu de résidence de l'expéditeur ?
 s13aq15         byte    %8.0g      s13Aq15    13A.15. Quel est le principal motif du transfert?
 s13aq16         byte    %8.0g      s13Aq16    13A.16. Quel est le principal mode de transfert?
 s13aq17a        long    %12.0g                13A.17a. Quel est le montant envoyé à chaque fois (CFA)
-s13aq17b        byte    %8.0g      s13Aq17b   13A.17b. Quelle est la fréquence des transferts envoyés à
-                                                chaque fois?
----------------------------------------------------------------------------------------------------------
+s13aq17b        byte    %8.0g      s13Aq17b   13A.17b. Quelle est la fréquence des transferts envoyés à chaque fois?
+-----------------------------------------------------------------------------------------------------------------------------------
 Sorted by: 
 
 . codebook, compact
 
 Variable    Obs Unique      Mean  Min      Max  Label
----------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------
 vague      8403      2  1.519576    1        2  Vague
 grappe     8403    586  272.0037    2      598  grappe
 menage     8403     12  6.464477    1       12  Identifiant du ménage
@@ -509,16 +502,16 @@ s13aq06    8403     41  3.711175    1       53  13A.06.Sélectionner le bénéficia
 s13aq07    8403      6  3.207664    1        6  13A.07. Qui a envoyé/donné l'argent à [NOM] ?
 s13aq08    8403      2  1.167202    1        2  13A.08. Quel est le sexe de l'expéditeur ?
 s13aq09    7895     72  639.6052   12     9999  13A.09. Quel est l'âge de l'expéditeur? ?
-s13aq10    8403      6  2.627871    1        6  13A.10. Quel est le niveau d'instruction de l'expédite...
-s13aq11    8403      8  3.675473    1        8  13A.11. Quel est le statut professionnel de l'expédite...
-s13aq12    8403      2  1.508985    1        2  13A.12. Est-ce que l'expéditeur a déjà vécu dans ce mé...
-s13aq13    4119     48  7.157805    0       58  13A.13. Depuis combien d'années (en années révolues) e...
+s13aq10    8403      6  2.627871    1        6  13A.10. Quel est le niveau d'instruction de l'expéditeur ?
+s13aq11    8403      8  3.675473    1        8  13A.11. Quel est le statut professionnel de l'expéditeur ?
+s13aq12    8403      2  1.508985    1        2  13A.12. Est-ce que l'expéditeur a déjà vécu dans ce ménage ?
+s13aq13    4119     48  7.157805    0       58  13A.13. Depuis combien d'années (en années révolues) est-il parti du ménage?
 s13aq14    8403     13  5.543377    1       14  13A.14 Quel est le lieu de résidence de l'expéditeur ?
 s13aq15    8403      9  3.983458    1        9  13A.15. Quel est le principal motif du transfert?
 s13aq16    8403      9  2.947162    1        9  13A.16. Quel est le principal mode de transfert?
 s13aq17a   8374    241  75834.51  200  7000000  13A.17a. Quel est le montant envoyé à chaque fois (CFA)
-s13aq17b   8402      5  3.245299    1        5  13A.17b. Quelle est la fréquence des transferts envoyé...
----------------------------------------------------------------------------------------------------------
+s13aq17b   8402      5  3.245299    1        5  13A.17b. Quelle est la fréquence des transferts envoyés à chaque fois?
+-----------------------------------------------------------------------------------------------------------------------------------
 
 . 
 . 
@@ -535,14 +528,14 @@ Observations : 63530
 
 . describe
 
-Contains data from https://raw.githubusercontent.com/JODRAFF9/MEMOIRE/main/Base/2021-2022/SEN_2021_EHCVM-
-> 2_v01_M_STATA14/ehcvm_individu_sen2021.dta
+Contains data from https://raw.githubusercontent.com/JODRAFF9/MEMOIRE/main/Base/2021-2022/SEN_2021_EHCVM-2_v01_M_STATA14/ehcvm_indi
+> vidu_sen2021.dta
  Observations:        63,530                  
     Variables:            56                  02 AUG 2024 11:39
----------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------
 Variable      Storage   Display    Value
     name         type    format    label      Variable label
----------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------
 country         str3    %3s                   Pays
 year            int     %8.0g                 Annee enquete
 vague           byte    %8.0g                 Vague
@@ -601,13 +594,13 @@ serviceconsult  byte    %8.0g      serviceconsult
                                               Service de santÃ© consultÃ©
 persconsult     byte    %8.0g      persconsult
                                               Personnel de santÃ© consultÃ©
----------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------
 Sorted by: 
 
 . codebook, compact
 
 Variable        Obs Unique      Mean       Min       Max  Label
----------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------
 country       63530      1         .         .         .  Pays
 year          63530      1      2021      2021      2021  Annee enquete
 vague         63530      2  1.496301         1         2  Vague
@@ -664,7 +657,7 @@ salaire_sec     284     92  669563.4         0   4800000  Salaire an. emploi sec
 bank          63530      2  .3463561         0         1  compte banque ou autre
 servicecon~t  13012      4  2.726868         1         4  Service de santÃ© consultÃ©  
 persconsult   13012      4  2.634338         1         4  Personnel de santÃ© consultÃ©  
----------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------
 
 . 
 . use "$BASE_2021/ehcvm_menage_sen2021.dta", clear
@@ -678,14 +671,14 @@ Observations : 7120
 
 . describe
 
-Contains data from https://raw.githubusercontent.com/JODRAFF9/MEMOIRE/main/Base/2021-2022/SEN_2021_EHCVM-
-> 2_v01_M_STATA14/ehcvm_menage_sen2021.dta
+Contains data from https://raw.githubusercontent.com/JODRAFF9/MEMOIRE/main/Base/2021-2022/SEN_2021_EHCVM-2_v01_M_STATA14/ehcvm_mena
+> ge_sen2021.dta
  Observations:         7,120                  
     Variables:            38                  02 AUG 2024 11:39
----------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------
 Variable      Storage   Display    Value
     name         type    format    label      Variable label
----------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------
 country         str3    %3s                   
 hhid            long    %12.0g                Identifiant menage
 year            int     %8.0g                 
@@ -724,13 +717,13 @@ sh_co_eco       byte    %8.0g      ouinon     Choc covariant Ã©conomique
 sh_id_eco       byte    %8.0g      ouinon     Choc idio Ã©conomique
 sh_co_vio       byte    %8.0g      ouinon     Choc covariant violence
 sh_co_oth       byte    %8.0g      ouinon     Autres Chocs
----------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------
 Sorted by: 
 
 . codebook, compact
 
 Variable     Obs Unique      Mean   Min       Max  Label
----------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------
 country     7120      1         .     .         .  
 hhid        7120   7120  30081.54   201     59812  Identifiant menage
 year        7120      1      2021  2021      2021  
@@ -769,7 +762,7 @@ sh_co_eco   7120      2  .4021067     0         1  Choc covariant Ã©conomique
 sh_id_eco   7120      2  .1353933     0         1  Choc idio Ã©conomique 
 sh_co_vio   7120      2  .0148876     0         1  Choc covariant violence
 sh_co_oth   7120      2  .0108146     0         1  Autres Chocs
----------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------
 
 . 
 . use "$BASE_2021/ehcvm_welfare_sen2021.dta", clear
@@ -783,14 +776,14 @@ Observations : 7120
 
 . describe
 
-Contains data from https://raw.githubusercontent.com/JODRAFF9/MEMOIRE/main/Base/2021-2022/SEN_2021_EHCVM-
-> 2_v01_M_STATA14/ehcvm_welfare_sen2021.dta
+Contains data from https://raw.githubusercontent.com/JODRAFF9/MEMOIRE/main/Base/2021-2022/SEN_2021_EHCVM-2_v01_M_STATA14/ehcvm_welf
+> are_sen2021.dta
  Observations:         7,120                  
     Variables:            47                  02 AUG 2024 11:39
----------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------
 Variable      Storage   Display    Value
     name         type    format    label      Variable label
----------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------
 grappe          int     %8.0g                 grappe
 menage          byte    %8.0g                 Identifiant du mÃ©nage
 country         str3    %3s                   Pays
@@ -829,26 +822,22 @@ zzae            double  %12.0g
 zref            double  %12.0g                Seuil pauvrete national
 def_spa         float   %9.0g                 Deflateur spatial
 def_temp        float   %9.0g                 Deflateur temporel
-def_temp_pri~11 float   %9.0g                 temporal deflator for international poverty, 1 = 2021m11
-                                                prices
-def_temp_cpi    float   %9.0g                 alternative temporal deflator based on official CPI,
-                                                2018/19 style
-def_temp_adj    float   %9.0g                 temporal deflator adjusted for difference between hh and
-                                                market survey periods
+def_temp_pri~11 float   %9.0g                 temporal deflator for international poverty, 1 = 2021m11 prices
+def_temp_cpi    float   %9.0g                 alternative temporal deflator based on official CPI, 2018/19 style
+def_temp_adj    float   %9.0g                 temporal deflator adjusted for difference between hh and market survey periods
 zali0           double  %12.0g                (sum) conso_pc_val_up
 dtet            double  %12.0g                
 monthly_cpi     double  %12.0g                Monthly CPI value
 cpi2017         float   %9.0g                 
 icp2017         double  %12.0g                
-dollars         float   %9.0g                 welfare in 2017 PPP USD per capita per day (not spatially
-                                                deflated)
----------------------------------------------------------------------------------------------------------
+dollars         float   %9.0g                 welfare in 2017 PPP USD per capita per day (not spatially deflated)
+-----------------------------------------------------------------------------------------------------------------------------------
 Sorted by: 
 
 . codebook, compact
 
 Variable       Obs Unique      Mean       Min       Max  Label
----------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------
 grappe        7120    596  300.7435         2       598  grappe
 menage        7120     19  7.186517         1        19  Identifiant du mÃ©nage 
 country       7120      1         .         .         .  Pays
@@ -887,16 +876,16 @@ zzae          7120     11  371487.2  331924.6  424179.3
 zref          7120      1  369665.5  369665.5  369665.5  Seuil pauvrete national
 def_spa       7120     11  1.004928  .8979052  1.147468  Deflateur spatial
 def_temp      7120     59  .9980761  .9454877  1.059017  Deflateur temporel
-def_temp_~11  7120      7  1.019655         1  1.086645  temporal deflator for international poverty, ...
-def_temp_cpi  7120      7   .993477  .9743264  1.058747  alternative temporal deflator based on offici...
-def_temp_adj  7120     59  1.014037  .9606072  1.075952  temporal deflator adjusted for difference bet...
+def_temp_~11  7120      7  1.019655         1  1.086645  temporal deflator for international poverty, 1 = 2021m11 prices
+def_temp_cpi  7120      7   .993477  .9743264  1.058747  alternative temporal deflator based on official CPI, 2018/19 style
+def_temp_adj  7120     59  1.014037  .9606072  1.075952  temporal deflator adjusted for difference between hh and market survey ...
 zali0         7120      1  196233.1  196233.1  196233.1  (sum) conso_pc_val_up
 dtet          7120   7120  641537.9  50712.48  1.04e+07  
 monthly_cpi   7120      7  119.5515   117.247  127.4059  Monthly CPI value
 cpi2017       7120      1  1.097094  1.097094  1.097094  
 icp2017       7120      1  238.5777  238.5777  238.5777  
-dollars       7120   7119  6.552606  .5376188  102.5809  welfare in 2017 PPP USD per capita per day (n...
----------------------------------------------------------------------------------------------------------
+dollars       7120   7119  6.552606  .5376188  102.5809  welfare in 2017 PPP USD per capita per day (not spatially deflated)
+-----------------------------------------------------------------------------------------------------------------------------------
 
 . 
 . use "$BASE_2021/s13_1_me_sen2021.dta", clear
@@ -910,58 +899,49 @@ Observations : 7120
 
 . describe
 
-Contains data from https://raw.githubusercontent.com/JODRAFF9/MEMOIRE/main/Base/2021-2022/SEN_2021_EHCVM-
-> 2_v01_M_STATA14/s13_1_me_sen2021.dta
+Contains data from https://raw.githubusercontent.com/JODRAFF9/MEMOIRE/main/Base/2021-2022/SEN_2021_EHCVM-2_v01_M_STATA14/s13_1_me_s
+> en2021.dta
  Observations:         7,120                  
     Variables:            13                  02 AUG 2024 11:39
----------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------
 Variable      Storage   Display    Value
     name         type    format    label      Variable label
----------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------
 grappe          int     %8.0g                 grappe
 menage          byte    %8.0g                 Identifiant du mÃ©nage
 vague           byte    %8.0g                 Vague
 s13q00          byte    %8.0g                 13.00. Qui est le rÃ©pondant de cette section?
-s13q01          byte    %8.0g      s13q01     13.01. 12 drniers mois, mbres MEN a un parent proche qui
-                                                vit Ã  l'Ã©tranger?
-s13q02          byte    %8.0g      s13q02     13.02. 12 drniers mois, ces parents proches ont envoyÃ©
-                                                l'argent au MEN?
-s13q03          byte    %8.0g      s13q03     13.03. 12 drniers mois, mbres MEN a d'autes parents qui vit
-                                                Ã  l'Ã©tranger?
-s13q04          byte    %8.0g      s13q04     13.04. 12 drniers mois, ces autres parents ont envoyÃ©
-                                                l'argent au MEN?
-s13q05          byte    %8.0g      s13q05   * 13.05. 12 drniers mois, le MEN a reÃ§u l'argent dâ€™un
-                                                non-membre vit Ã  Ã©tranger ?
-s13q06          byte    %8.0g      s13q06   * 13.06. 12 drniers mois, le MEN a reÃ§u argent de famille vit
-                                                au pays non mbre MEN
-s13q07          byte    %8.0g      s13q07   * 13.07. 12 drniers mois, le MEN a reÃ§u argent autre pers vit
-                                                au pays non mbre MEN
-s13q08          byte    %8.0g      s13q08     13.08. 12 drniers mois, le MEN a reÃ§u l'argent dâ€™un
-                                                non-membre vit au pays ?
-s13q09          byte    %8.0g      nonoui     13.09. A-t-on au moins un reponse positive de 13.01 Ã 
-                                                13.08?
+s13q01          byte    %8.0g      s13q01     13.01. 12 drniers mois, mbres MEN a un parent proche qui vit Ã  l'Ã©tranger?
+s13q02          byte    %8.0g      s13q02     13.02. 12 drniers mois, ces parents proches ont envoyÃ© l'argent au MEN?
+s13q03          byte    %8.0g      s13q03     13.03. 12 drniers mois, mbres MEN a d'autes parents qui vit Ã  l'Ã©tranger?
+s13q04          byte    %8.0g      s13q04     13.04. 12 drniers mois, ces autres parents ont envoyÃ© l'argent au MEN?
+s13q05          byte    %8.0g      s13q05   * 13.05. 12 drniers mois, le MEN a reÃ§u l'argent dâ€™un non-membre vit Ã  Ã©tranger ?
+s13q06          byte    %8.0g      s13q06   * 13.06. 12 drniers mois, le MEN a reÃ§u argent de famille vit au pays non mbre MEN
+s13q07          byte    %8.0g      s13q07   * 13.07. 12 drniers mois, le MEN a reÃ§u argent autre pers vit au pays non mbre MEN
+s13q08          byte    %8.0g      s13q08     13.08. 12 drniers mois, le MEN a reÃ§u l'argent dâ€™un non-membre vit au pays ?
+s13q09          byte    %8.0g      nonoui     13.09. A-t-on au moins un reponse positive de 13.01 Ã  13.08?
                                             * indicated variables have notes
----------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------
 Sorted by: 
 
 . codebook, compact
 
 Variable    Obs Unique      Mean  Min  Max  Label
----------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------
 grappe     7120    596  300.7435    2  598  grappe
 menage     7120     19  7.186517    1   19  Identifiant du mÃ©nage 
 vague      7120      2   1.50323    1    2  Vague
 s13q00     7117     39  2.550232    1   51  13.00. Qui est le rÃ©pondant de cette section? 
-s13q01     7117      2  1.762681    1    2  13.01. 12 drniers mois, mbres MEN a un parent proche qui v...
-s13q02     1689      2  1.356424    1    2  13.02. 12 drniers mois, ces parents  proches ont envoyÃ© l'...
-s13q03     7117      2  1.843473    1    2  13.03. 12 drniers mois, mbres MEN a d'autes parents qui vi...
-s13q04     1114      2  1.608618    1    2  13.04. 12 drniers mois, ces autres parents  ont envoyÃ© l'a...
-s13q05     7117      2  1.871294    1    2  13.05. 12 drniers mois, le MEN a reÃ§u l'argent dâ€™un non-me...
-s13q06     7118      2  1.658612    1    2  13.06. 12 drniers mois, le MEN a reÃ§u argent de famille vi...
-s13q07     7118      2  1.826215    1    2  13.07. 12 drniers mois, le MEN a reÃ§u argent autre pers vi...
-s13q08     7118      2  1.869205    1    2  13.08. 12 drniers mois, le MEN a reÃ§u l'argent dâ€™un non-me...
+s13q01     7117      2  1.762681    1    2  13.01. 12 drniers mois, mbres MEN a un parent proche qui vit Ã  l'Ã©tranger?  
+s13q02     1689      2  1.356424    1    2  13.02. 12 drniers mois, ces parents  proches ont envoyÃ© l'argent au MEN? 
+s13q03     7117      2  1.843473    1    2  13.03. 12 drniers mois, mbres MEN a d'autes parents qui vit Ã  l'Ã©tranger?  
+s13q04     1114      2  1.608618    1    2  13.04. 12 drniers mois, ces autres parents  ont envoyÃ© l'argent au MEN? 
+s13q05     7117      2  1.871294    1    2  13.05. 12 drniers mois, le MEN a reÃ§u l'argent dâ€™un non-membre  vit Ã  Ã©tranger ?     
+s13q06     7118      2  1.658612    1    2  13.06. 12 drniers mois, le MEN a reÃ§u argent de famille vit au pays non mbre MEN 
+s13q07     7118      2  1.826215    1    2  13.07. 12 drniers mois, le MEN a reÃ§u argent autre pers vit au pays non mbre MEN 
+s13q08     7118      2  1.869205    1    2  13.08. 12 drniers mois, le MEN a reÃ§u l'argent dâ€™un non-membre  vit au pays ?   
 s13q09     7120      2  .5470506    0    1  13.09. A-t-on au moins un reponse positive de 13.01 Ã  13.08? 
----------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------
 
 . 
 . use "$BASE_2021/s13_2_me_sen2021.dta", clear
@@ -975,14 +955,14 @@ Observations : 10665
 
 . describe
 
-Contains data from https://raw.githubusercontent.com/JODRAFF9/MEMOIRE/main/Base/2021-2022/SEN_2021_EHCVM-
-> 2_v01_M_STATA14/s13_2_me_sen2021.dta
+Contains data from https://raw.githubusercontent.com/JODRAFF9/MEMOIRE/main/Base/2021-2022/SEN_2021_EHCVM-2_v01_M_STATA14/s13_2_me_s
+> en2021.dta
  Observations:        10,665                  
     Variables:            24                  02 AUG 2024 11:39
----------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------
 Variable      Storage   Display    Value
     name         type    format    label      Variable label
----------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------
 grappe          int     %8.0g                 grappe
 menage          byte    %8.0g                 Identifiant du mÃ©nage
 vague           byte    %8.0g                 Vague
@@ -994,12 +974,10 @@ s13q12_autre    strL    %74s                  13.12.autre. PrÃ©cisez
 s13q13          byte    %8.0g      s13q13     13.13. Quel est le sexe de l'expÃ©diteur ?
 s13q14          int     %8.0g                 13.14. Quel est l'Ã¢ge de l'expÃ©diteur? ?
 s13q15          byte    %8.0g      s13q15     13.15. Quel est le niveau d'instruction de l'expÃ©diteur ?
-s13q16          int     %8.0g      s13q16     13.16.11. Quel est le statut professionnel de l'expÃ©diteur
-                                                ?
+s13q16          int     %8.0g      s13q16     13.16.11. Quel est le statut professionnel de l'expÃ©diteur ?
 s13q16_autre    strL    %44s                  13.16.autre. PrÃ©cisez
 s13q17          byte    %8.0g      s13q17     13.17. Est-ce que l'expÃ©diteur a dÃ©jÃ  vÃ©cu dans ce mÃ©nage ?
-s13q18          int     %8.0g                 13.18. Depuis combien d'annÃ©es (en annÃ©es rÃ©volues) est-il
-                                                parti du mÃ©nage?
+s13q18          int     %8.0g                 13.18. Depuis combien d'annÃ©es (en annÃ©es rÃ©volues) est-il parti du mÃ©nage?
 s13q19          byte    %8.0g      s13q19     13.19. Quel est le lieu de rÃ©sidence de l'expÃ©diteur ?
 s13q19_autre    strL    %32s                  13.19.autre. PrÃ©cisez
 s13q20          byte    %8.0g      s13q20     13.20. Quel est le principal motif du transfert?
@@ -1007,17 +985,15 @@ s13q20_autre    strL    %82s                  13.20.autre. PrÃ©cisez
 s13q21          byte    %8.0g      s13q21     13.21. Quel est le principal mode de transfert?
 s13q21_autre    strL    %74s                  13.21.autre. PrÃ©cisez
 s13q22a         long    %12.0g                13.22a. Quelle est le montant envoyÃ© Ã  chaque fois?
-s13q22b         byte    %8.0g      s13q22b    13.22b. Quelle est la frÃ©quence des transferts envoyÃ©s Ã 
-                                                chaque fois?
-s13q23          byte    %8.0g                 13.23. Qui contrÃ´le principalement le revenu de ces
-                                                transferts ?
----------------------------------------------------------------------------------------------------------
+s13q22b         byte    %8.0g      s13q22b    13.22b. Quelle est la frÃ©quence des transferts envoyÃ©s Ã  chaque fois?
+s13q23          byte    %8.0g                 13.23. Qui contrÃ´le principalement le revenu de ces transferts ?
+-----------------------------------------------------------------------------------------------------------------------------------
 Sorted by: 
 
 . codebook, compact
 
 Variable        Obs Unique      Mean   Min       Max  Label
----------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------
 grappe        10665    596  288.6606     2       598  grappe
 menage        10665     19  7.155931     1        19  Identifiant du mÃ©nage 
 vague         10665      2  1.503985     1         2  Vague
@@ -1028,21 +1004,21 @@ s13q12         7439      6  3.091545     1         6  13.12. Qui a envoyÃ©/donnÃ
 s13q12_autre    843    209         .     .         .  13.12.autre. PrÃ©cisez 
 s13q13         7439      2  1.173948     1         2  13.13. Quel est le sexe de l'expÃ©diteur ? 
 s13q14         7439     67  2060.758    15      9999  13.14. Quel est l'Ã¢ge de l'expÃ©diteur? ?  
-s13q15         7439      6  2.788144     1         6  13.15. Quel est le niveau d'instruction de l'exp...
-s13q16         7439     14  1502.968     1      9999  13.16.11. Quel est le statut professionnel de l'...
+s13q15         7439      6  2.788144     1         6  13.15. Quel est le niveau d'instruction de l'expÃ©diteur ? 
+s13q16         7439     14  1502.968     1      9999  13.16.11. Quel est le statut professionnel de l'expÃ©diteur ? 
 s13q16_autre     52     40         .     .         .  13.16.autre. PrÃ©cisez 
-s13q17         7439      2  1.452346     1         2  13.17. Est-ce que l'expÃ©diteur a dÃ©jÃ  vÃ©cu dans ...
-s13q18         4074     54  57.35542     0      9999  13.18. Depuis combien d'annÃ©es (en annÃ©es rÃ©volu...
-s13q19         7439     23  8.829681     1        24  13.19. Quel est le lieu de rÃ©sidence de l'expÃ©di...
+s13q17         7439      2  1.452346     1         2  13.17. Est-ce que l'expÃ©diteur a dÃ©jÃ  vÃ©cu dans ce mÃ©nage ?     
+s13q18         4074     54  57.35542     0      9999  13.18. Depuis combien d'annÃ©es (en annÃ©es rÃ©volues) est-il parti du mÃ©nage...
+s13q19         7439     23  8.829681     1        24  13.19. Quel est le lieu de rÃ©sidence de l'expÃ©diteur ?  
 s13q19_autre    454    125         .     .         .  13.19.autre. PrÃ©cisez 
 s13q20         7439     10  3.798629     1        10  13.20. Quel est le principal motif du transfert?
 s13q20_autre    653    396         .     .         .  13.20.autre. PrÃ©cisez 
 s13q21         7439     10  3.553972     1        10  13.21. Quel est le principal mode de transfert?
 s13q21_autre     32     23         .     .         .  13.21.autre. PrÃ©cisez 
-s13q22a        7439    201  89981.59  1000  6.18e+07  13.22a. Quelle est le montant envoyÃ© Ã  chaque fo...
-s13q22b        7439      5  3.184568     1         5  13.22b. Quelle est la frÃ©quence des transferts e...
-s13q23         7439     46  4.066676     1        53  13.23. Qui contrÃ´le principalement le revenu de ...
----------------------------------------------------------------------------------------------------------
+s13q22a        7439    201  89981.59  1000  6.18e+07  13.22a. Quelle est le montant envoyÃ© Ã  chaque fois?  
+s13q22b        7439      5  3.184568     1         5  13.22b. Quelle est la frÃ©quence des transferts envoyÃ©s Ã  chaque fois?   
+s13q23         7439     46  4.066676     1        53  13.23. Qui contrÃ´le principalement le revenu de ces transferts ? 
+-----------------------------------------------------------------------------------------------------------------------------------
 
 . 
 . 
@@ -1649,8 +1625,8 @@ file code/stata/temp/traitement_2021.dta saved
  65.         capture keep grappe menage s11q02 `v_partag' `v_type_toi' `v_tps_ss' `v_tps_sp' ///
 >             `v_src_ss' `v_src_sp' `v_gate' `v_ordure' `comb_vars' `v_opt'
  66.         if _rc {
- 67.             di as error ">>> ATTENTION : variables eau optionnelles (traitement `v_treat'__* et/ou t
-> emps a la source `v_tps_ss_h'...) introuvables pour `annee' : verifier les noms."
+ 67.             di as error ">>> ATTENTION : variables eau optionnelles (traitement `v_treat'__* et/ou temps a la source `v_tps_ss
+> _h'...) introuvables pour `annee' : verifier les noms."
  68.             keep grappe menage s11q02 `v_partag' `v_type_toi' `v_tps_ss' `v_tps_sp' ///
 >                 `v_src_ss' `v_src_sp' `v_gate' `v_ordure' `comb_vars'
  69.         }
