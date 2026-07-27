@@ -101,6 +101,52 @@ l'attrition différentielle : si les ménages perdus entre les deux vagues
 diffèrent systématiquement des ménages retenus, les estimations PSM-DD
 peuvent être biaisées, ce point est discuté dans la section~\ref{sec:discussion}.
 
+\subsubsection{Identification des enfants suivis d'une vague à l'autre}
+\label{subsec:panel_enfants}
+
+Le suivi des ménages ne suffit pas : l'unité d'analyse étant l'enfant, et le
+score de propension comme l'appariement étant estimés à ce niveau, il faut
+pouvoir relier chaque enfant de 2021 à lui-même en 2018. Le rang de l'individu
+dans la liste des membres du ménage ne le permet pas : cette numérotation est
+reconstruite à chaque passage et un même rang désigne, d'une vague à l'autre,
+des personnes différentes.
+
+Le questionnaire de l'EHCVM~II résout cette difficulté par un mécanisme de
+\emph{préchargement}. Pour chaque ménage panel, la première section du
+questionnaire 2021 affiche à l'enquêteur la liste des membres relevés en 2018,
+avec leur identifiant d'origine, leur sexe, leur âge et leur lien de parenté
+avec le chef. L'enquêteur confirme la présence de chaque personne, signale les
+départs et enregistre les nouveaux arrivants. La variable
+\texttt{s01qpreload\_pid} conserve ainsi, pour chaque membre de 2021 déjà
+présent en 2018, son identifiant de 2018. C'est cette variable, et non le rang
+dans la liste, qui apparie une personne à elle-même.
+
+La table de correspondance ainsi construite couvre 62\,239 individus répartis
+dans 7\,049 ménages. Le triplet identifiant est biunivoque dans les deux
+sens~: à chaque individu de 2021 correspond au plus un individu de 2018, et
+réciproquement. Restreinte aux enfants de 0 à 17 ans présents aux deux vagues
+et disposant de l'ensemble des indicateurs, elle fournit le panel de
+17\,786 enfants sur lequel reposent l'estimation du score de propension et
+l'appariement.
+
+Cette clé n'étant pas documentée dans la documentation officielle de
+l'enquête, sa validité est établie empiriquement par deux vérifications que
+seul un appariement correct peut satisfaire. Le sexe déclaré coïncide entre
+les deux vagues pour 97,6\,\% des enfants appariés, alors qu'un appariement
+arbitraire donnerait une concordance voisine de 50\,\%. L'écart d'âge entre
+les deux passages a une médiane de 3,0 ans et une moyenne de 2,96 ans,
+conformes à l'intervalle effectif entre les deux collectes, et 78,3\,\% des
+enfants présentent un écart compris entre 2 et 4 ans.
+
+Ces vérifications signalent aussi les limites de l'exercice. La discordance de
+sexe résiduelle (2,4\,\%) et la part d'enfants dont l'âge déclaré diminue
+entre les deux vagues (3,5\,\%) traduisent des erreurs de saisie ou de
+déclaration, l'âge étant fréquemment approximé en l'absence d'acte de
+naissance -- privation qui touche par ailleurs plus d'un enfant sur quatre
+dans notre échantillon. Ces observations sont conservées, leur exclusion
+reviendrait à sélectionner l'échantillon sur la qualité de la déclaration
+d'âge, elle-même corrélée aux conditions de vie du ménage.
+
 \subsection{Construction de la variable de traitement}
 
 La variable de traitement $D_i \in \{0, 1\}$ est définie à la \emph{période
