@@ -78,9 +78,6 @@ foreach d in "$OUTPUT" "$TEMP" "$PREP" "$LOGS" {
 }
 
 
-/* Aucun sous-programme : chaque etape est ecrite en ligne, en sequence. */
-
-
 /* ============================================================
    SECTION : 01_VISITATION — Exploration des deux bases EHCVM
    ============================================================ */
@@ -194,9 +191,6 @@ tabulate s13q19, missing
    ============================================================ */
 
 
-/* ── Sous-programme : construire D pour une annee ─────────── */
-
-
 /* ── Construction pour chaque vague ──────────────────────── */
 
 di _newline ">>> Prevalence des transferts de migrants :"
@@ -205,13 +199,6 @@ local var_lieu s13aq14
 local var_exmbr s13aq12
 local fich_det s13a_2
 local fich_list s13a_1
-    /*
-       args : annee  var_lieu  fichier_detail  fichier_liste
-              annee      = 2018 ou 2021
-              var_lieu   = nom de la variable lieu expediteur
-              fichier_detail = s13a_2 (2018) ou s13_2 (2021)
-              fichier_liste  = s13a_1 (2018) ou s13_1 (2021)
-    */
 
     /* Resoudre le chemin de base selon l'annee (evite l'ambiguite $BASE_`annee') */
     if `annee' == 2018 local base "$BASE_2018"
@@ -251,13 +238,6 @@ local var_lieu s13q19
 local var_exmbr s13q17
 local fich_det s13_2
 local fich_list s13_1
-    /*
-       args : annee  var_lieu  fichier_detail  fichier_liste
-              annee      = 2018 ou 2021
-              var_lieu   = nom de la variable lieu expediteur
-              fichier_detail = s13a_2 (2018) ou s13_2 (2021)
-              fichier_liste  = s13a_1 (2018) ou s13_1 (2021)
-    */
 
     /* Resoudre le chemin de base selon l'annee (evite l'ambiguite $BASE_`annee') */
     if `annee' == 2018 local base "$BASE_2018"
@@ -360,25 +340,6 @@ save "$TEMP/traitement_2021.dta", replace
       - Illettrisme (alfab==0, 15-17 ans)
       - NEET ECARTE (valeur ANSD = simple non-emploi, incoherente ; cf. annexe E)
    -------------------------------------------------------------------------- */
-
-/* ============================================================
-   Sous-programme : indicateurs menage (niveau logement)
-   Entree : base individus deja chargee (merge m:1 sur grappe menage)
-   ============================================================ */
-
-
-/* ============================================================
-   Sous-programme : acte de naissance (s01_me)
-
-   [Dim 6/7 : Protection de l'enfant] Indicateur 1 — Disponibilite
-   de l'acte de naissance (s01q05, identique 2018/2021)
-   ============================================================ */
-
-
-/* ============================================================
-   Sous-programme : agregation N-MODA
-   ============================================================ */
-
 
 /* ============================================================
    Boucle principale sur les deux annees
@@ -695,9 +656,9 @@ foreach annee in 2018 2021 {
     /* Definition ANSD : temps de collecte = temps pour aller a la source
        (`v_tps_ss'/`v_tps_sp', min) PLUS le temps passe une fois a la source
        (`v_tps_*_h' heures + `v_tps_*_m' minutes), l'une ou l'autre saison,
-       > 30 min. L'ancien calcul n'utilisait que l'aller (d'ou ~2 %). Les
-       menages a eau sur place (robinet logement/cour, codes 1-2) gardent un
-       temps nul : non prives (0), conserves au denominateur. */
+       > 30 min. Les menages a eau sur place (robinet
+       logement/cour, codes 1-2) gardent un temps nul : non prives (0),
+       conserves au denominateur. */
     gen double t_ss = `v_tps_ss'
     gen double t_sp = `v_tps_sp'
     capture confirm variable `v_tps_ss_h'
@@ -1065,14 +1026,7 @@ save "$TEMP/panel_complet.dta", replace
 
    Strategie :
      1. Panel d'enfants suivis entre les deux vagues (cle preload)
-        puis probit au NIVEAU ENFANT sur t=0 -> score de propension.
-        L'unite d'analyse du memoire est l'enfant : c'est donc sur les
-        enfants qu'on apparie. Les covariables melangent les
-        caracteristiques du menage a la periode de base (taille,
-        depense par tete, milieu, region, sexe/age/education/statut
-        matrimonial du chef) et celles de l'enfant (sexe, age) : deux
-        enfants d'un meme menage n'ont ni le meme sexe, ni le meme age,
-        ni donc les memes dimensions MODA applicables.
+        puis probit au NIVEAU ENFANT sur t=0 -> score de propension
      2. Verification equilibre (SMD) sur les covariables menage ET enfant
      3. Appariement PSM (k-NN, kernel, caliper) au niveau enfant
      4. DD brute (sans appariement, reference)
@@ -1083,25 +1037,6 @@ save "$TEMP/panel_complet.dta", replace
    Traitement : defini a la periode de base (2018), transfert d'un
    expediteur residant hors du Senegal et ayant deja vecu dans le
    menage.
-   ============================================================ */
-
-/* ============================================================
-   1. Score de propension (probit ENFANT sur t=0, panel d'enfants)
-
-   L'unite d'analyse du memoire est l'ENFANT : le score de propension et
-   l'appariement sont donc estimes au niveau individuel, et non au niveau
-   du menage. Le traitement est certes recu par le menage, mais c'est la
-   privation de l'enfant qui est la variable de resultat, et deux enfants
-   d'un meme menage n'ont ni le meme sexe, ni le meme age, ni donc les
-   memes dimensions MODA applicables.
-
-   Echantillon : enfants presents aux DEUX vagues, apparies par leur
-   identifiant individuel precharge (s01qpreload_pid). C'est la seule
-   construction ou le poids d'appariement calcule a t=0 se rapporte au
-   MEME individu a t=1, condition d'une double difference individuelle.
-
-   Covariables : caracteristiques du menage a la periode de base + sexe et
-   age de l'enfant.
    ============================================================ */
 
 /* ── 1a. Construction du panel d'enfants suivis ──────────────
@@ -1252,7 +1187,6 @@ rename _weight weight_knn
 keep enfid grappe menage numind_2018 D pscore weight_knn _support
 save "$TEMP/pscore_knn.dta", replace
 
-/* -- 2b. Kernel Epanechnikov --------------------------------- */
 di _newline "=== Appariement Kernel (Epanechnikov, h=0.06), niveau enfant ==="
 use "$TEMP/pscore_t0.dta", clear
 psmatch2 D, pscore(pscore) kernel kerneltype(epan) bwidth(0.06) common
@@ -1264,7 +1198,6 @@ rename _weight weight_kernel
 keep enfid weight_kernel
 save "$TEMP/poids_kernel.dta", replace
 
-/* -- 2c. Caliper -------------------------------------------- */
 di _newline "=== Appariement Caliper (eps=$CALIPER, sans remise), niveau enfant ==="
 use "$TEMP/pscore_t0.dta", clear
 psmatch2 D, pscore(pscore) caliper($CALIPER) noreplacement common
@@ -1457,7 +1390,6 @@ restore
    6. Heterogeneite
    ============================================================ */
 
-/* -- 6a. Par milieu de residence ---------------------------- */
 di _newline "=== Heterogeneite par milieu ==="
 foreach mil in 1 2 {
     if `mil' == 1 local lab_mil "Urbain"
@@ -1475,7 +1407,6 @@ foreach mil in 1 2 {
     }
 }
 
-/* Test d'egalite urbain vs rural */
 di _newline "Test d'egalite (urbain vs rural) :"
 gen byte urban = (milieu == 1)
 foreach outcome in pauvre_MODA {
@@ -1485,7 +1416,6 @@ foreach outcome in pauvre_MODA {
 }
 drop urban
 
-/* -- 6b. Par sexe de l'enfant ------------------------------- */
 di _newline "=== Heterogeneite par sexe ==="
 capture confirm variable sexe
 if _rc == 0 {
@@ -1505,7 +1435,6 @@ if _rc == 0 {
     }
 }
 
-/* -- 6c. Par groupe d'age ----------------------------------- */
 di _newline "=== Heterogeneite par groupe d'age ==="
 foreach g in 1 2 3 {
     foreach outcome in pauvre_MODA {
@@ -1524,7 +1453,6 @@ foreach g in 1 2 3 {
    7. Robustesse
    ============================================================ */
 
-/* -- 7. Robustesse aux trois methodes d'appariement -------- */
 di _newline "=== Comparaison des trois methodes d'appariement ==="
 /* Les trois poids sont deja portes par panel_enfants_psm.dta (niveau enfant) */
 foreach poids_var in weight_knn weight_kernel weight_caliper {
