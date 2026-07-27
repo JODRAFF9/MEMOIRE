@@ -16,7 +16,7 @@
      (chargement direct des bases, sans sous-programmes)
      01_visitation  — exploration des bases brutes
      02_traitement  — variable D + identification panel
-     03_deprivation — indicateurs N-MODA
+     03_deprivation — indicateurs MODA
      04_panel       — panel vrai + traitement entrants
      05_psm_dd      — estimation PSM-DD (matching niveau enfant)
      06_stats_desc  — statistiques descriptives
@@ -57,7 +57,7 @@ global LOGS      "code/stata/logs"
 
 /* Parametres methodologiques */
 global SEED              123
-global K_MODA            4        /* seuil N-MODA : >= 4 dimensions sur 7      */
+global K_MODA            4        /* seuil MODA : >= 4 dimensions sur 7      */
 global N_BOOT            1000
 global CODE_ETRANGER_MIN 4        /* s13aq14 / s13q19 >= 4 = expediteur etranger */
 global CALIPER           0.05
@@ -334,14 +334,14 @@ save "$TEMP/traitement_2021.dta", replace
 /* ============================================================
    SECTION : 03_DEPRIVATION — Indicateurs de pauvrete multidimensionnelle
 
-   Approche : N-MODA Senegal (7 dimensions, k=4)
+   Approche : MODA Senegal (7 dimensions, k=4)
 
    Produit : $TEMP/enfants_dep_ANNEE.dta pour annee in {2018, 2021}
    ============================================================ */
 
 
 /* --------------------------------------------------------------------------
-   N-MODA — 7 dimensions, seuil k=4, unite = enfant. Definitions RETENUES
+   MODA — 7 dimensions, seuil k=4, unite = enfant. Definitions RETENUES
    (telles qu'implementees ci-dessous ; variables 2018 / 2021) :
 
    1. ASSAINISSEMENT   m_toilet (s11q55/54) ; m_partag_toi (s11q56/55)
@@ -585,12 +585,12 @@ foreach annee in 2018 2021 {
     di ">>> Base preparee sauvegardee : $PREP/base_prep_`annee'.dta (" _N " obs)"
 
     /* ============================================================
-       B. CALCUL DES INDICATEURS ET DES DIMENSIONS N-MODA, par
+       B. CALCUL DES INDICATEURS ET DES DIMENSIONS MODA, par
           dimension. Toutes les donnees sources sont deja fusionnees
           (etape A) : cette section ne contient plus aucun merge.
        ============================================================ */
 
-    /* Groupes d'age N-MODA (utilises par plusieurs dimensions ci-dessous) */
+    /* Groupes d'age MODA (utilises par plusieurs dimensions ci-dessous) */
     gen byte groupe_moda = .
     replace  groupe_moda = 1 if age <= 4
     replace  groupe_moda = 2 if age >= 5  & age <= 14
@@ -621,7 +621,7 @@ foreach annee in 2018 2021 {
     gen byte m_partag_toi = (`v_partag' == 1) if !missing(`v_partag')
     /* Dimension : privee si type non ameliore OU partage. m_toilet==1
        court-circuite le partage manquant des menages sans installation
-       privee, ce qui evite de les perdre du N-MODA (analyse en cas
+       privee, ce qui evite de les perdre du MODA (analyse en cas
        complets). */
     gen byte dim_assai = .
     replace  dim_assai = 1            if m_toilet == 1
@@ -822,17 +822,17 @@ foreach annee in 2018 2021 {
     replace  dim_educ = m_alfab if groupe_moda == 3 & !missing(m_alfab)
     replace  dim_educ = .        if groupe_moda == 3 & missing(m_alfab)
 
-    /* ── Agregation N-MODA (union intra-dimension, seuil k=$K_MODA) ── */
+    /* ── Agregation MODA (union intra-dimension, seuil k=$K_MODA) ── */
     gen byte nb_dep = dim_assai + dim_eau + dim_logem + dim_nutri + ///
                       dim_sante + dim_protect + dim_educ
     gen byte pauvre_MODA = (nb_dep >= $K_MODA) if !missing(nb_dep)
 
-    /* Intensite moyenne N-MODA (Annexe II : A = part des 7 dimensions
+    /* Intensite moyenne MODA (Annexe II : A = part des 7 dimensions
        en privation, calculee sur les enfants pauvres pauvre_MODA==1) */
     gen float intensite_moda = nb_dep / 7
 
     /* ── Affichage ── */
-    di _newline "=== N-MODA `annee' (k=$K_MODA, 7 dimensions) ==="
+    di _newline "=== MODA `annee' (k=$K_MODA, 7 dimensions) ==="
     quietly summarize pauvre_MODA
     di "  H = " %6.3f r(mean)*100 "%"
     di "  Privation par dimension :"
@@ -1161,6 +1161,7 @@ twoway ///
     legend(order(1 "Enfants non bénéficiaires" 2 "Enfants bénéficiaires") ///
            pos(6) rows(1) region(color(white))) ///
     xtitle("Score de propension") ytitle("Densité") ///
+    xlabel(, format(%3.1f)) ///
     graphregion(color(white)) plotregion(color(white)) ///
     saving("$OUTPUT/overlap_panel.gph", replace)
 set dp period
@@ -1383,7 +1384,7 @@ twoway (connected temoin annee, lcolor(gs7) mcolor(gs7) msymbol(square) lwidth(m
             mcolor(orange) lwidth(medthick) ///
             mlabel(lb_c) mlabcolor(black) mlabpos(6) mlabgap(4.5) mlabsize(small)), ///
     xlabel(2018 2021) xscale(range(2017.7 2021.8)) ///
-    xtitle("Vague EHCVM") ytitle("Incidence N-MODA (H, %)") ///
+    xtitle("Vague EHCVM") ytitle("Incidence MODA (H, %)") ///
     ylabel(0(20)100, grid) ///
     legend(order(2 "Entrants" 1 "Témoins appariés" ///
                  3 "Contrefactuel (tendances parallèles)") pos(6) rows(2)) ///
@@ -1595,7 +1596,7 @@ di _newline ">>> 05_psm_dd.do termine."
    SECTION : 06_STATS_DESC — Statistiques descriptives
    Chapitre 3 : profil ménages, pauvreté, privations, comparaison D=0/1
 
-   Les statistiques de pauvrete/privation (incidence N-MODA, par dimension,
+   Les statistiques de pauvrete/privation (incidence MODA, par dimension,
    par age, par milieu, par region) sont PONDEREES par les poids de sondage
    (hhweight) pour assurer la representativite nationale et la comparabilite
    avec les chiffres officiels de l'ANSD (cf. annexe E). Le profil des menages
@@ -1605,7 +1606,7 @@ di _newline ">>> 05_psm_dd.do termine."
      output/tab_menages.csv          — caractéristiques ménages (tab 5)
      output/tab_balance.csv          — balance traités/non-traités (tab 6)
      output/tab_prevalence_dim.csv   — privations par dimension (tab 7)
-     output/tab_moda_age.csv         — N-MODA par groupe d'âge (tab 8)
+     output/tab_moda_age.csv         — MODA par groupe d'âge (tab 8)
      output/fig_evolution_ipm.pdf    — évolution H, A, M0 (fig 1)
      output/fig_privations_dim.pdf   — radar/barres privations (fig 2)
      output/fig_overlap.pdf          — overlap scores propension (fig 3)
@@ -1746,7 +1747,7 @@ foreach annee in 2018 2021 {
 }
 
 /* ============================================================
-   3. Incidence N-MODA par vague, milieu, groupe d'âge
+   3. Incidence MODA par vague, milieu, groupe d'âge
    ============================================================ */
 
 di _newline "=== 3. Incidence pauvreté multidimensionnelle ==="
@@ -1754,7 +1755,7 @@ di _newline "=== 3. Incidence pauvreté multidimensionnelle ==="
 foreach annee in 2018 2021 {
     use "$TEMP/vague_`annee'.dta", clear
 
-    di _newline "-- N-MODA `annee' (pondéré hhweight) --"
+    di _newline "-- MODA `annee' (pondéré hhweight) --"
     tabstat pauvre_MODA nb_dep [aw=hhweight], ///
         by(milieu) stat(mean n) format(%6.3f)
     tabstat pauvre_MODA nb_dep [aw=hhweight], ///
@@ -1784,7 +1785,7 @@ foreach annee in 2018 2021 {
         local ++r
         quietly summarize pauvre_MODA [aw=hhweight] if groupe_moda == `g'
         local hmoda = r(mean)*100
-        /* n_calc = enfants avec un statut N-MODA calcule ; n_tot = effectif
+        /* n_calc = enfants avec un statut MODA calcule ; n_tot = effectif
            total de la tranche (colonne "Obs." du tableau du rapport) */
         local nobs  = r(N)
         quietly count if groupe_moda == `g'
@@ -1816,7 +1817,7 @@ foreach annee in 2018 2021 {
 
 di _newline "=== 5. Graphiques ==="
 
-/* ── Fig 1 : Évolution de l'incidence N-MODA, beneficiaires vs
+/* ── Fig 1 : Évolution de l'incidence MODA, beneficiaires vs
    non-beneficiaires. Les deux trajectoires rendent visible la logique de
    double difference : c'est l'ECART entre les groupes, et son evolution
    entre les deux vagues, qui porte l'information sur l'impact. ── */
@@ -1846,7 +1847,7 @@ twoway (connected H_nonbenef annee, lcolor(gs9) mcolor(gs9) msymbol(square) ///
         lwidth(medthick) mlabel(lbl_b) mlabcolor(black) mlabpos(12) ///
         mlabgap(2) mlabsize(small)), ///
     xlabel(2018 2021) xscale(range(2017.7 2021.3)) xtitle("Vague EHCVM") ///
-    ytitle("Incidence N-MODA H (%)") ///
+    ytitle("Incidence MODA H (%)") ///
     ylabel(0(20)100, grid) yscale(range(0 108)) ///
     legend(order(1 "Non-bénéficiaires" 2 "Bénéficiaires") pos(6) rows(1)) ///
     graphregion(color(white)) plotregion(color(white))
@@ -1921,7 +1922,7 @@ graph bar pauvre_MODA1 pauvre_MODA2 pauvre_MODA3 pauvre_MODA4, ///
     blabel(bar, position(outside) format(%4,0f) size(vsmall)) ///
     legend(order(1 "Non-bénéf. 2018" 2 "Bénéf. 2018" ///
                  3 "Non-bénéf. 2021" 4 "Bénéf. 2021") pos(6) rows(2) size(small)) ///
-    ytitle("Incidence N-MODA (H, %)") ylabel(0(20)100, grid) ///
+    ytitle("Incidence MODA (H, %)") ylabel(0(20)100, grid) ///
     graphregion(color(white)) plotregion(color(white))
 set dp period
 graph export "$OUTPUT/figures/fig_pauvrete_milieu_age.pdf", replace
@@ -1930,7 +1931,7 @@ di ">>> fig_pauvrete_milieu_age.pdf sauvegardé"
 /* ── Fig 5 : Distribution du nombre de dimensions en privation ──
    Abscisse : nombre exact de dimensions en privation (0 a 7).
    Ordonnee  : part des enfants (%), a l'image du rapport ANSD/UNICEF
-   N-MODA. Ligne verticale entre 3 et 4 marquant le seuil k=4 retenu. */
+   MODA. Ligne verticale entre 3 et 4 marquant le seuil k=4 retenu. */
 tempname distrib
 matrix `distrib' = J(8, 3, .)
 foreach annee in 2018 2021 {
@@ -1974,7 +1975,7 @@ di ">>> fig_distrib_dimensions.pdf sauvegardé"
 /* ============================================================
    COMPARAISON BENEFICIAIRES / NON-BENEFICIAIRES x 2018-2021
 
-   Coeur descriptif de la section : pour chaque dimension N-MODA et pour
+   Coeur descriptif de la section : pour chaque dimension MODA et pour
    l'incidence globale, taux de privation des enfants selon le statut de
    traitement du menage (D=1 beneficiaire migrant en 2018 ; D=0 non
    beneficiaire) a chaque vague, ecart entre groupes a chaque date, et
@@ -2020,7 +2021,7 @@ di _newline ">>> 06_stats_desc.do terminé."
 di ">>> Sorties dans : $OUTPUT/tables/ et $OUTPUT/figures/"
 
 /* ============================================================
-   SECTION : 07_EFFETS_DIM — ATT PSM-DD par dimension N-MODA
+   SECTION : 07_EFFETS_DIM — ATT PSM-DD par dimension MODA
    Génère output/figures/fig_effets_dim.pdf
    ============================================================ */
 
@@ -2096,6 +2097,7 @@ twoway ///
     ylab(`ylab_str', angle(0) noticks) ///
     yscale(range(0.5 7.5)) ///
     ytitle("") xtitle("ATT (points de pourcentage)") ///
+    xlabel(, format(%4.1f)) ///
     xline(0, lcolor(black) lpattern(dash)) ///
     legend(off) ///
     graphregion(color(white)) plotregion(color(white))
