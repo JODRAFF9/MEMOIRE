@@ -446,7 +446,7 @@
   \end{columns}
 \end{frame}
 
-\begin{frame}[label=privations-dim]{Privations par groupe d'âge et statut du ménage}
+\begin{frame}[label=privations-dim]{Incidence MODA par groupe d'âge, par sexe et statut du ménage}
   \scriptsize
   \begin{table}
     \centering
@@ -454,24 +454,29 @@
     \begin{tabular}{lccccc}
       \toprule
       & \multicolumn{2}{c}{EHCVM I (2018-19)} & \multicolumn{2}{c}{EHCVM II (2021-22)} & \\
-      Groupe d'âge & Non-bénéf. & Bénéf. & Non-bénéf. & Bénéf. & DD \\
+      Sous-groupe & Non-bénéf. & Bénéf. & Non-bénéf. & Bénéf. & DD \\
       \midrule
       0-4 ans   & 61,5 & 40,2 & 51,4 & 38,0 & $+8{,}0$ \\
       5-14 ans  & 72,9 & 54,5 & 65,7 & 46,4 & $-0{,}9$ \\
       15-17 ans & 58,3 & 41,2 & 50,3 & 37,9 & $+4{,}8$ \\
+      \midrule
+      Garçons   & 66,2 & 50,5 & 59,7 & 43,5 & $-0{,}5$ \\
+      Filles    & 68,9 & 46,5 & 60,0 & 42,7 & $+5{,}0$ \\
       \bottomrule
     \end{tabular}
   \end{table}
-  \begin{alertblock}{Incidence MODA (\%) : l'écart se referme surtout chez les tout-petits}
-    Chez les 0-4 ans, l'avantage des bénéficiaires passe de 21,4 à 13,4 points~;
-    chez les 5-14 ans il ne bouge pas. La double différence descriptive annonce
-    déjà le résultat causal : c'est la petite enfance qui porte l'effet.
+  \begin{alertblock}{L'écart se referme chez les tout-petits et chez les filles}
+    Chez les 0-4 ans, l'avantage des bénéficiaires passe de 21,4 à
+    13,4 points ; chez les 5-14 ans il ne bouge pas. Le même contraste
+    s'observe selon le sexe : $+5{,}0$ points chez les filles contre
+    $-0{,}5$ chez les garçons. Le descriptif annonce le résultat causal.
   \end{alertblock}
   \begin{block}{Lecture}
-    La protection joue en sens inverse à tout âge, et d'autant plus que
-    l'enfant est grand ($+17{,}4$ points chez les 15-17 ans) : à cet âge
-    l'indicateur ne mesure que la séparation parentale, donc le départ
-    du migrant lui-même.
+    Les deux clivages se cumulent : chez les filles de 0 à 4 ans la double
+    différence atteint $+12{,}5$ points, contre $+3{,}9$ chez les garçons du
+    même âge. La protection joue par ailleurs en sens inverse à tout âge, et
+    d'autant plus que l'enfant est grand ($+17{,}4$ points chez les
+    15-17 ans) : à cet âge l'indicateur ne mesure que la séparation parentale.
   \end{block}
   \begin{center}
     \hyperlink{distrib-dimensions}{\beamergotobutton{Distribution selon le seuil}}
@@ -558,10 +563,12 @@
     \end{column}
   \end{columns}
   \begin{block}{Lecture}
-    Pas de différence significative entre milieux ($p=0{,}336$) ni selon le
-    sexe de l'enfant. En revanche, trajectoire défavorable chez les 0-4 ans
-    ($+9{,}6$ pp, $p=0{,}055$), les plus dépendants du temps de soin : effet
-    par âge et effet nutrition se répondent.
+    Pas de différence significative entre milieux ($p=0{,}336$). Trajectoire
+    défavorable chez les 0-4 ans ($+9{,}6$ pp, $p=0{,}055$), les plus
+    dépendants du temps de soin : effet par âge et effet nutrition se
+    répondent. Chez les filles, l'ATT est plus élevé que chez les garçons
+    ($0{,}064$ contre $0{,}052$) sans que l'écart soit tranchable, mais le
+    descriptif va dans le même sens.
   \end{block}
 \end{frame}
 
@@ -638,7 +645,7 @@
       Hyp. & Énoncé & Résultat & Décision \\
       \midrule
       H1 & Réduction de la pauvreté & ATT MODA $= 0{,}058$ ($p=0{,}052$), de signe défavorable : pas de réduction & Rejetée \\[4pt]
-      H2 & Hétérogénéité des effets  & Rien par milieu ($p=0{,}336$) ni par sexe ; mais nutrition ($p=0{,}042$), 0-4 ans ($p=0{,}055$) et montant reçu & Partiellement \\[4pt]
+      H2 & Hétérogénéité des effets  & Rien par milieu ($p=0{,}336$) ; nutrition ($p=0{,}042$), 0-4 ans ($p=0{,}055$) et montant reçu ; sexe non tranché mais convergent & Partiellement \\[4pt]
       H3 & PSM-DD contrôle les biais & PSM seul : $-7{,}7$ pp à $t=0$ ($p=0{,}013$) ; la DD élimine cet écart pré-traitement et inverse le signe & Confirmée \\
       \bottomrule
     \end{tabular}
