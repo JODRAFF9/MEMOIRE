@@ -376,6 +376,34 @@ foreach annee in 2018 2021 {
     gen annee = `annee'
     di _newline ">>> Enfants `annee' : " _N
 
+    /* A1bis. Categorie socioprofessionnelle du chef de menage.
+       Le fichier welfare ne la porte pas : elle est extraite du fichier
+       individus, sur la ligne du chef (lien == 1). La variable csp n'est
+       definie que pour les personnes en emploi ; les chefs sans emploi ou
+       non renseignes (environ un quart) recoivent une modalite propre
+       plutot que d'etre exclus de l'estimation. */
+    preserve
+        use "`base'/ehcvm_individu_sen`annee'.dta", clear
+        keep if lien == 1
+        bysort grappe menage: keep if _n == 1
+        gen byte hcsp = csp
+        replace  hcsp = 0 if missing(csp)
+        label define csp_lbl 0 "Sans emploi ou non renseigne" ///
+            1 "Cadre superieur" 2 "Cadre moyen" 3 "Ouvrier qualifie" ///
+            4 "Ouvrier non qualifie" 5 "Manoeuvre, aide menagere" ///
+            6 "Apprenti remunere" 7 "Apprenti non remunere" ///
+            8 "Travailleur familial" 9 "Compte propre" 10 "Patron", replace
+        label values hcsp csp_lbl
+        label var hcsp "Categorie socioprofessionnelle du chef de menage"
+        keep grappe menage hcsp
+        tempfile csp_chef
+        save `csp_chef'
+        di "  CSP du chef `annee' :"
+        tab hcsp
+    restore
+    merge m:1 grappe menage using `csp_chef', keepusing(hcsp) ///
+        nogenerate keep(master match)
+
     /* A2. Welfare : hhsize, pcexp, covariables PSM */
     merge m:1 grappe menage using ///
         "`base'/ehcvm_welfare_sen`annee'.dta", ///
@@ -1048,7 +1076,7 @@ save "$TEMP/panel_complet.dta", replace
 use "$TEMP/enfants_dep_2018.dta", clear
 keep grappe menage numind sexe age pauvre_MODA nb_dep groupe_moda ///
      dim_assai dim_eau dim_logem dim_nutri dim_sante dim_protect dim_educ ///
-     hhweight hhsize pcexp region milieu hgender hage heduc hmstat
+     hhweight hhsize pcexp region milieu hgender hage heduc hmstat hcsp
 rename numind numind_2018
 foreach v in sexe age pauvre_MODA nb_dep groupe_moda ///
              dim_assai dim_eau dim_logem dim_nutri dim_sante dim_protect dim_educ {
@@ -1092,8 +1120,8 @@ egen long enfid = group(grappe menage numind_2018)
 label var enfid "Identifiant individuel de l'enfant (panel)"
 
 drop if missing(D) | missing(log_pcexp) | missing(hhsize) ///
-       | missing(sexe18) | missing(age18) | missing(pauvre_MODA18) ///
-       | missing(pauvre_MODA21)
+       | missing(hcsp) | missing(sexe18) | missing(age18) ///
+       | missing(pauvre_MODA18) | missing(pauvre_MODA21)
 
 /* ── Validation empirique de l'appariement individuel ─────────
    La cle s01qpreload_pid n'est pas documentee dans la documentation
@@ -1119,7 +1147,7 @@ di "Enfants suivis aux deux vagues : " _N
    clusterisees au niveau de la grappe (le traitement varie au niveau
    menage : la correlation intra-grappe couvre aussi l'intra-menage). */
 probit D c.hhsize c.log_pcexp i.milieu i.region ///
-         c.hgender c.hage i.heduc i.hmstat ///
+         c.hgender c.hage i.heduc i.hmstat i.hcsp ///
          i.sexe18 c.age18, vce(cluster grappe) nolog
 
 di "Pseudo-R2 McFadden : " %6.3f 1 - e(ll)/e(ll_0)
@@ -1182,7 +1210,7 @@ save "$TEMP/pscore_t0.dta", replace
    ============================================================ */
 
 local covbal hhsize log_pcexp i.milieu i.region hgender hage ///
-             i.heduc i.hmstat i.sexe18 age18
+             i.heduc i.hmstat i.hcsp i.sexe18 age18
 
 /* -- 2a. k-NN ------------------------------------------------ */
 di _newline "=== Appariement k-NN (k=$K_VOISINS, avec remise), niveau enfant ==="
