@@ -1,7 +1,3 @@
-% Cellules en attente de la prochaine execution de tout.do (quintiles de
-% montant). A supprimer une fois les valeurs saisies.
-\providecommand{\ATTENTE}{\textbf{\textit{à compléter}}}
-
 \section{Discussion}
 \label{sec:discussion}
 
@@ -34,15 +30,13 @@ cet avantage initial atténue mécaniquement l'écart de trajectoire mesuré.
 \subsubsection{Sensibilité au traitement et à la méthode d'appariement}
 
 Le tableau~\ref{tab:psm_methodes} (section~\ref{subsec:psmdd}) documente la
-sensibilité de l'ATT à la méthode d'appariement : k-NN ($0{,}053$,
-$p = 0{,}086$), noyau Epanechnikov ($0{,}060$, $p = 0{,}074$) et caliper
-($0{,}050$, $p = 0{,}057$). Les trois algorithmes donnent des effets d'ampleur
+sensibilité de l'ATT à la méthode d'appariement : k-NN ($0{,}058$,
+$p = 0{,}052$), noyau Epanechnikov ($0{,}055$, $p = 0{,}079$) et caliper
+($0{,}047$, $p = 0{,}083$). Les trois algorithmes donnent des effets d'ampleur
 voisine, tous significatifs au seuil de 10\,\% et aucun à 5\,\% : la
-conclusion est robuste au choix algorithmique. Cette concordance est d'autant
-plus utile que les trois méthodes n'atteignent pas la même qualité
-d'équilibrage (tableau~\ref{tab:balance_global})~: le noyau et le caliper,
-mieux équilibrés que le k-NN sur le test joint, encadrent l'estimation de
-référence plutôt qu'ils ne la contredisent.
+conclusion est robuste au choix algorithmique, et les trois méthodes
+atteignent une qualité d'équilibrage comparable
+(tableau~\ref{tab:balance_global}).
 
 Elle l'est moins à la définition du traitement. En restreignant la comparaison
 aux bénéficiaires durables -- recevant un transfert aux deux vagues,
@@ -55,10 +49,11 @@ cours à $t=0$ : la première vague n'y mesure pas un niveau pré-traitement.
 
 Enfin, le seuil inter-dimensionnel $k$, que le tableau~\ref{tab:sensib_k}
 (section~\ref{subsec:sensib_k}) fait varier sur toute son étendue, module
-l'intensité de l'effet sans en changer le signe : significatif pour les
-définitions les plus inclusives, marginalement au seuil de référence, non
-significatif au-delà. L'effet se joue à la marge de la pauvreté, non dans son
-noyau.
+l'intensité de l'effet sans en changer le signe : l'ampleur suit une courbe en
+cloche, maximale à $k=4$ et retombant de part et d'autre, et la
+significativité n'est atteinte qu'à $k=3$ et $k=4$. L'effet se joue au milieu
+de la distribution, ni chez les enfants faiblement privés ni dans le noyau des
+plus démunis.
 
 \subsubsection{Attrition et biais de sélection}
 
@@ -96,73 +91,63 @@ Le tableau~\ref{tab:heterogeneite} rapporte les ATT PSM-DD pour chaque sous-grou
 \entete Sous-groupe & ATT (MODA) & $p$-val. \\
     \hline
     \multicolumn{3}{|c|}{\textit{Par milieu de résidence}} \\ \hline
-    \quad Milieu urbain & $0{,}067$ & 0,127 \\ \hline
-    \quad Milieu rural  & $0{,}037$ & 0,383 \\ \hline
-    \quad Test d'égalité ($p$-val.) & \multicolumn{2}{|c|}{0,629} \\
+    \quad Milieu urbain & $0{,}084^{**}$ & 0,034 \\ \hline
+    \quad Milieu rural  & $0{,}027$      & 0,542 \\ \hline
+    \quad Test d'égalité ($p$-val.) & \multicolumn{2}{|c|}{0,336} \\
     \hline
     \multicolumn{3}{|c|}{\textit{Par sexe de l'enfant}} \\ \hline
-    \quad Garçons & $0{,}082^{**}$ & 0,030 \\ \hline
-    \quad Filles  & $0{,}025$      & 0,419 \\
+    \quad Garçons & $0{,}052$      & 0,141 \\ \hline
+    \quad Filles  & $0{,}064^{**}$ & 0,048 \\
     \hline
     \multicolumn{3}{|c|}{\textit{Par groupe d'âge}} \\ \hline
-    \quad 0-4 ans   & $0{,}142^{***}$ & 0,007 \\ \hline
-    \quad 5-14 ans  & $0{,}037$       & 0,249 \\ \hline
-    \quad 15-17 ans & -$0{,}114$      & 0,257 \\
+    \quad 0-4 ans   & $0{,}096^{*}$ & 0,055 \\ \hline
+    \quad 5-14 ans  & $0{,}048$     & 0,132 \\ \hline
+    \quad 15-17 ans & -$0{,}081$    & 0,378 \\
     \hline
   \end{tabular}
 
   {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM.}
 \end{table}
-\footnotetext{\textit{Note :} erreurs-types clusterisées par grappe, poids d'appariement k-NN au niveau enfant. $^{**}p<0{,}05$, $^{***}p<0{,}01$.}
+\footnotetext{\textit{Note :} erreurs-types clusterisées par grappe, poids d'appariement k-NN au niveau enfant. $^{*}p<0{,}10$, $^{**}p<0{,}05$.}
 
-L'analyse par milieu ne conclut à aucune différence entre zones~: l'ATT est
-positif et non significatif en milieu urbain ($0{,}067$, $p = 0{,}127$)
-comme en milieu rural ($0{,}037$, $p = 0{,}383$), et le test d'égalité ne
-rejette pas l'homogénéité ($p = 0{,}629$). Le milieu de résidence ne
-conditionne donc pas l'effet des transferts, ce qui infirme le volet
-géographique de l'hypothèse H2.
+L'ATT est significatif en milieu urbain ($0{,}084$, $p = 0{,}034$) et ne l'est
+pas en milieu rural ($0{,}027$, $p = 0{,}542$). Le test d'égalité entre les
+deux ne rejette toutefois pas l'homogénéité ($p = 0{,}336$)~: l'écart entre
+les deux coefficients n'est pas lui-même significatif, et l'on ne peut pas
+conclure que l'effet diffère selon le milieu. Le volet géographique de
+l'hypothèse H2 n'est donc pas validé, même si la lecture des deux
+sous-groupes pris isolément invite à surveiller le milieu urbain.
 
 \subsubsection{Selon le sexe de l'enfant}
 
-La décomposition par sexe fait apparaître un écart net, et c'est l'un des deux
-volets de l'hypothèse H2 que les données valident~: l'ATT est significatif et
-défavorable pour les garçons ($0{,}082$, $p = 0{,}030$) alors qu'il est nul
-pour les filles ($0{,}025$, $p = 0{,}419$). La privation multidimensionnelle
-des garçons de ménages bénéficiaires recule 8,2 points plus lentement que
-celle de garçons témoins comparables, écart que l'on n'observe pas chez les
-filles.
+L'ATT est significatif chez les filles ($0{,}064$, $p = 0{,}048$) et ne l'est
+pas chez les garçons ($0{,}052$, $p = 0{,}141$). L'écart entre les deux
+coefficients est cependant faible, de l'ordre d'un point de pourcentage, très
+inférieur aux erreurs-types de chacun~: la différence de significativité tient
+davantage à la précision d'estimation qu'à une différence d'ampleur. Il serait
+imprudent d'en conclure que les transferts affectent les filles et épargnent
+les garçons.
 
-Le sexe de l'enfant entre dans le score de propension : chaque garçon traité
-est comparé à des garçons témoins de même âge et de profil de ménage identique.
-L'écart ne peut donc pas provenir d'une composition différente des groupes.
-
-Deux mécanismes peuvent l'expliquer. Le premier tient à la substitution du
-travail au sein du ménage : le départ d'un adulte masculin, configuration
-majoritaire de la migration sénégalaise, laisse vacantes des tâches
-productives -- travaux agricoles, activités marchandes, corvées lourdes --
-traditionnellement dévolues aux hommes, et que les garçons du ménage sont
-appelés à reprendre, au détriment de leur scolarisation et de leur temps
-disponible. Le second relève de la trajectoire migratoire elle-même~: dans un
-contexte où l'émigration est fortement masculine, les garçons d'une famille
-déjà engagée dans un réseau migratoire peuvent être orientés plus tôt vers une
-préparation au départ que vers la poursuite d'un parcours scolaire. Une
-réserve s'impose néanmoins~: ce test est l'un des huit sous-groupes examinés,
-et sa significativité ne survivrait pas nécessairement à une correction pour
-tests multiples.
+Ce sous-groupe illustre la fragilité des décompositions à cet échantillon.
+Selon la spécification retenue pour l'appariement, c'est tantôt le coefficient
+des filles, tantôt celui des garçons qui franchit le seuil de 5\,\%, alors que
+les deux restent proches. Avec environ 2\,600 enfants traités répartis en huit
+sous-groupes, la puissance disponible ne permet pas de trancher un écart de
+cette taille. Le volet de H2 relatif au sexe n'est donc pas établi.
 
 \subsubsection{Selon les groupes d'âge}
 
 La décomposition par âge livre le coefficient de plus grande ampleur de
-l'analyse. Chez les enfants de 0 à 4 ans, l'ATT atteint $0{,}142$ et est
-significatif au seuil de 1\,\% ($p = 0{,}007$)~: la privation
-multidimensionnelle des tout-petits de ménages bénéficiaires recule plus de 14
-points plus lentement que celle de leurs témoins appariés. L'effet est trois à
-quatre fois supérieur à l'ATT d'ensemble, et il concerne la tranche d'âge sur
+l'analyse. Chez les enfants de 0 à 4 ans, l'ATT atteint $0{,}096$ et est
+significatif au seuil de 10\,\% ($p = 0{,}055$)~: la privation
+multidimensionnelle des tout-petits de ménages bénéficiaires recule près de
+10 points plus lentement que celle de leurs témoins appariés. L'effet est
+supérieur de moitié à l'ATT d'ensemble, et il concerne la tranche d'âge sur
 laquelle les privations pèsent le plus lourdement dans la trajectoire
-ultérieure de l'enfant. Les 5-14 ans ne se distinguent pas ($0{,}037$, $p =
-0{,}249$), et les 15-17 ans présentent un coefficient négatif mais imprécis
-(-$0{,}114$, $p = 0{,}257$), la faible taille de ce sous-groupe dans le panel
-apparié interdisant toute conclusion.
+ultérieure de l'enfant. Les 5-14 ans ne se distinguent pas ($0{,}048$,
+$p = 0{,}132$), et les 15-17 ans présentent un coefficient négatif mais
+imprécis (-$0{,}081$, $p = 0{,}378$), la faible taille de ce sous-groupe dans
+le panel apparié interdisant toute conclusion.
 
 Cette concentration sur la petite enfance est cohérente avec l'effet observé
 sur la nutrition, seule dimension significative de la décomposition
@@ -170,9 +155,9 @@ sur la nutrition, seule dimension significative de la décomposition
 reposent largement sur l'alimentation, la santé et la présence parentale,
 trois registres directement affectés par le départ d'un adulte du ménage. Les
 tout-petits sont aussi les plus dépendants du temps de soin quotidien, que
-l'apport monétaire ne remplace pas. La même réserve sur la multiplicité des
-tests s'applique, mais la convergence entre le résultat par âge et le résultat
-par dimension rend la lecture plus solide qu'un test isolé.
+l'apport monétaire ne remplace pas. La convergence entre le résultat par âge
+et le résultat par dimension rend cette lecture plus solide que celle des
+autres sous-groupes.
 
 \subsubsection{Selon le montant des transferts reçus}
 \label{subsec:hetero_montant}
@@ -188,17 +173,10 @@ dernier volet de l'hypothèse H2 examine donc la relation dose-réponse.
 Les quintiles sont construits sur la distribution du montant annuel parmi les
 ménages bénéficiaires, au niveau du ménage afin que le découpage ne soit pas
 déformé par le nombre d'enfants, puis chaque quintile d'enfants traités est
-comparé à l'ensemble des enfants témoins appariés. Le choix des quintiles
-plutôt que des déciles est dicté par la précision~: avec environ
-2\,600 enfants traités, un découpage en dix laisserait des sous-groupes dont
-les intervalles de confiance interdiraient toute lecture.
-
-Le tableau~\ref{tab:hetero_montant} rapporte l'ATT par quintile ainsi qu'un
-test continu, qui estime la pente de l'effet en fonction du logarithme du
-montant sur les seuls enfants traités. Ce second test est plus puissant que la
-comparaison par quintiles, qui découpe l'information~; il constitue la mesure
-de référence de la relation dose-réponse, les quintiles en donnant la lecture
-détaillée.
+comparé à l'ensemble des enfants témoins appariés. Le tableau
+\ref{tab:hetero_montant} rapporte l'ATT par quintile ainsi qu'un test continu,
+qui estime la pente de l'effet en fonction du logarithme du montant sur les
+seuls enfants traités.
 
 \begin{table}[H]
   \centering
@@ -209,39 +187,63 @@ détaillée.
     \hline
 \entete Quintile de montant & ATT & Éc.-t. (cluster) & $p$-valeur \\
     \hline
-    Q1 (montants les plus faibles) & \ATTENTE & \ATTENTE & \ATTENTE \\ \hline
-    Q2 & \ATTENTE & \ATTENTE & \ATTENTE \\ \hline
-    Q3 & \ATTENTE & \ATTENTE & \ATTENTE \\ \hline
-    Q4 & \ATTENTE & \ATTENTE & \ATTENTE \\ \hline
-    Q5 (montants les plus élevés) & \ATTENTE & \ATTENTE & \ATTENTE \\
+    Q1 (jusqu'à 100~000 FCFA)  & $0{,}122^{**}$ & $(0{,}052)$ & 0,018 \\ \hline
+    Q2 (110~000 à 360~000)     & $0{,}093^{**}$ & $(0{,}042)$ & 0,028 \\ \hline
+    Q3 (380~000 à 900~000)     & $0{,}014$      & $(0{,}047)$ & 0,765 \\ \hline
+    Q4 (920~000 à 1~800~000)   & $0{,}078$      & $(0{,}061)$ & 0,202 \\ \hline
+    Q5 (au-delà de 1~824~000)  & -$0{,}014$     & $(0{,}053)$ & 0,790 \\
     \hline
     \hline
-    Pente dose-réponse (log du montant) & \ATTENTE & \ATTENTE & \ATTENTE \\
+    Pente dose-réponse (log du montant) & -$0{,}025^{*}$ & $(0{,}014)$ & 0,082 \\
     \hline
   \end{tabular}
 
-  {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM.}
+  {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM. $^{*}p<0{,}10$, $^{**}p<0{,}05$.}
 \end{table}
 \footnotetext{\textit{Note :} appariement k-NN au niveau enfant, erreurs-types clusterisées par grappe. Les quintiles sont définis sur le montant annuel des transferts parmi les ménages bénéficiaires~; chaque quintile est comparé à l'ensemble des témoins appariés. La pente dose-réponse est le coefficient de l'interaction entre la vague et le logarithme du montant, estimé sur les enfants traités.}
+
+Le résultat est net. L'effet défavorable se concentre sur les petits
+montants~: $12{,}2$ points de pourcentage dans le premier quintile, jusqu'à
+100~000 FCFA par an, et $9{,}3$ points dans le deuxième, tous deux
+significatifs à 5\,\%. Il disparaît ensuite~: les troisième et quatrième
+quintiles ne se distinguent pas, et le cinquième, au-delà de 1,8 million de
+FCFA par an, présente un coefficient négatif et nul en pratique
+(-$0{,}014$~; $p = 0{,}790$).
+
+Le test continu confirme cette structure~: la pente de l'effet en fonction du
+logarithme du montant vaut -$0{,}025$ ($p = 0{,}082$). Plus le montant est
+élevé, plus l'écart de trajectoire défavorable se réduit, jusqu'à s'annuler
+pour les transferts les plus importants. Le volet de H2 relatif au montant est
+donc validé, et c'est celui pour lequel l'hétérogénéité est la mieux établie.
+
+Cette lecture éclaire l'ATT d'ensemble. L'effet moyen défavorable n'est pas
+uniforme~: il est porté par les ménages recevant les montants les plus
+faibles, pour lesquels l'apport monétaire ne compense pas le coût du départ
+d'un adulte. Au-delà d'un certain seuil, l'apport devient suffisant pour
+équilibrer ce coût. Un transfert de 47~000 FCFA par an, montant médian du
+premier quintile, représente environ un dixième de la dépense annuelle par
+tête d'un ménage bénéficiaire~; un transfert de 3,3 millions, médiane du
+dernier quintile, en représente plusieurs fois le montant.
 
 Deux réserves encadrent la lecture de ce tableau. La première tient à la
 mesure du montant, déclaré par le ménage et reconstitué en annualisant le
 montant par envoi selon la fréquence rapportée~: l'erreur de mesure y est
 vraisemblablement plus forte que sur le statut binaire de bénéficiaire, et
-elle atténue mécaniquement toute relation dose-réponse. La seconde tient à
-l'identification~: le montant n'est pas assigné aléatoirement parmi les
-bénéficiaires, il dépend des ressources du migrant et des besoins du ménage.
-La comparaison entre quintiles ne repose donc pas sur la même stratégie
-d'identification que l'estimation principale et s'interprète comme une
-association conditionnelle, non comme un effet causal du montant.
+elle atténue mécaniquement toute relation dose-réponse. Que celle-ci
+apparaisse malgré cette atténuation en renforce plutôt la crédibilité. La
+seconde tient à l'identification~: le montant n'est pas assigné aléatoirement
+parmi les bénéficiaires, il dépend des ressources du migrant et des besoins du
+ménage. La comparaison entre quintiles ne repose donc pas sur la même
+stratégie d'identification que l'estimation principale et s'interprète comme
+une association conditionnelle, non comme un effet causal du montant.
 
 \subsection{Interprétation des résultats}
 
 Sur la période 2018-2021, les transferts de migrants ne réduisent pas la
 pauvreté multidimensionnelle des enfants sénégalais. L'ATT PSM-DD s'établit à
-$0{,}053$ ($p = 0{,}086$)~: la trajectoire des enfants de ménages
+$0{,}058$ ($p = 0{,}052$)~: la trajectoire des enfants de ménages
 bénéficiaires est même légèrement moins favorable que celle d'enfants témoins
-comparables, à hauteur de 5 points de pourcentage. Le résultat est
+comparables, à hauteur de près de 6 points de pourcentage. Le résultat est
 significatif au seuil de 10\,\% et non à 5\,\%~; il faut donc le formuler avec
 la prudence qui convient. Ce que les données établissent, c'est que
 l'hypothèse d'une réduction de la pauvreté infantile par les transferts est
@@ -252,9 +254,9 @@ Trois éléments donnent à cette présomption une consistance qu'un simple
 coefficient marginalement significatif n'aurait pas. D'abord sa stabilité~:
 les trois algorithmes d'appariement donnent des valeurs voisines, toutes
 significatives à 10\,\%. Ensuite sa localisation~: l'effet n'est pas diffus,
-il se concentre sur la nutrition ($p = 0{,}043$) et sur les enfants de 0 à
-4 ans ($p = 0{,}007$), deux résultats qui se répondent. Enfin sa position dans
-la distribution placebo, au 98,5\textsuperscript{e} centile
+il se concentre sur la nutrition ($p = 0{,}042$) et sur les enfants de 0 à
+4 ans ($p = 0{,}055$), deux résultats qui se répondent. Enfin sa position dans
+la distribution placebo, au 99,0\textsuperscript{e} centile
 (annexe~\ref{ann:A})~: le point estimé est plus grand que ce que produit
 presque toute réassignation aléatoire du traitement.
 
@@ -270,8 +272,7 @@ Le premier est le coût de l'absence. Les transferts internationaux ne se
 produisent pas sans qu'un adulte ait quitté le ménage, souvent un parent. Le
 ménage perd une force de travail, une capacité de soin et, pour l'enfant, une
 présence quotidienne. La concentration de l'effet sur les 0-4 ans, âge où la
-dépendance au temps de soin est maximale, et sur les garçons, appelés à
-reprendre les tâches productives laissées vacantes, converge vers cette
+dépendance au temps de soin est maximale, converge vers cette
 lecture \parencite{cortes2007,davis2016}. L'argent compense la perte de
 revenu~; il ne remplace pas l'adulte parti.
 

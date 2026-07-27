@@ -1,5 +1,3 @@
-\providecommand{\ATTENTE}{\textbf{\textit{à compléter}}}
-
 \section{Résultats des estimations}
 \label{sec:resultats}
 
@@ -17,7 +15,7 @@ par dimension de la pauvreté.
 Le score de propension est estimé par un probit au niveau de l'enfant
 (section~\ref{sec:methodo}). L'échantillon d'estimation est le panel d'enfants
 suivis entre les deux vagues, appariés par l'identifiant préchargé décrit en
-section~\ref{subsec:panel_enfants} : 17\,786 enfants, dont 17\,769 utilisés
+section~\ref{subsec:panel_enfants} : 17\,786 enfants, dont 17\,735 utilisés
 par le probit.
 
 Les covariables combinent deux niveaux. Celles du ménage à la période de base
@@ -42,7 +40,10 @@ l'observation des résultats.
     \quad Âge de l'enfant (années)             & $0{,}003$ & $(0{,}003)$ \\ \hline
     \textit{Caractéristiques du chef de ménage} & & \\ \hline
     \quad Âge du chef (années)                 & $0{,}005^{**}$ & $(0{,}003)$ \\ \hline
-    \quad Chef féminin                         & $0{,}584^{***}$ & $(0{,}085)$ \\ \hline
+    \quad Chef féminin                         & $0{,}513^{***}$ & $(0{,}090)$ \\ \hline
+    \quad CSP : cadre moyen                    & -$0{,}597^{***}$ & $(0{,}204)$ \\ \hline
+    \quad CSP : travailleur familial           & -$0{,}396^{**}$ & $(0{,}193)$ \\ \hline
+    \quad CSP : compte propre                  & -$0{,}213^{***}$ & $(0{,}075)$ \\ \hline
     \quad Éducation : secondaire gén.~2        & -$0{,}420^{**}$ & $(0{,}195)$ \\ \hline
     \quad Divorcé(e)                           & -$1{,}082^{***}$ & $(0{,}385)$ \\ \hline
     \textit{Caractéristiques du ménage} & & \\ \hline
@@ -53,24 +54,33 @@ l'observation des résultats.
     \hline
     Constante                                  & -$9{,}95^{***}$ & $(1{,}031)$ \\
     \hline
-    Pseudo-$R^2$ de McFadden                   & \multicolumn{2}{|c|}{$0{,}143$} \\ \hline
-    Observations (enfants, panel suivi $t=0$)  & \multicolumn{2}{|c|}{$17\,769$} \\
+    Pseudo-$R^2$ de McFadden                   & \multicolumn{2}{|c|}{$0{,}151$} \\ \hline
+    Observations (enfants, panel suivi $t=0$)  & \multicolumn{2}{|c|}{$17\,735$} \\
     \hline
   \end{tabular}
 
   {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM. $^{*}p<0{,}10$, $^{**}p<0{,}05$, $^{***}p<0{,}01$~; écarts-types clusterisés par grappe entre parenthèses.}
 \end{table}
 
-Le modèle présente un pseudo-$R^2$ de McFadden de 14,3\,\%. Les déterminants
+Le modèle présente un pseudo-$R^2$ de McFadden de 15,1\,\%. Les déterminants
 sont conformes à la littérature : la probabilité qu'un enfant vive dans un
 ménage bénéficiaire croît avec la dépense par tête ($0{,}58$), la présence
-d'une femme à la tête du ménage ($0{,}58$), la taille du ménage ($0{,}05$) et
+d'une femme à la tête du ménage ($0{,}51$), la taille du ménage ($0{,}05$) et
 l'âge du chef. Le coefficient de la dépense par tête signale une sélection
 positive : ce sont les ménages les moins contraints qui ont pu financer un
 départ à l'étranger. Celui du chef féminin reflète la configuration migratoire
 typique où l'époux émigré laisse la gestion du ménage à son épouse,
 configuration au c\oe{}ur du canal \og absence parentale \fg{} discuté en
 section~\ref{sec:discussion}.
+
+La catégorie socioprofessionnelle du chef apporte une information distincte de
+la dépense par tête. À niveau de vie donné, les ménages dirigés par un cadre
+moyen (-$0{,}60$), un travailleur familial (-$0{,}40$) ou un travailleur pour
+compte propre (-$0{,}21$) reçoivent moins souvent des transferts que ceux dont
+le chef est sans emploi, catégorie de référence. Le transfert supplée donc un
+revenu absent plutôt qu'il n'accompagne une position professionnelle établie,
+lecture cohérente avec le motif assurantiel de la nouvelle économie des
+migrations \parencite{stark1985}.
 
 Les deux covariables individuelles ne sont en revanche pas significatives : ni
 le sexe de l'enfant ($0{,}018$~; $p = 0{,}458$) ni son âge ($0{,}003$~;
@@ -82,18 +92,17 @@ même âge, donc évalués sur les mêmes dimensions MODA.
 
 \subsubsection{Vérification de la qualité de l'appariement}
 
-Sur 2\,638 enfants traités, 2 se situent au-delà du score maximal observé chez
-les non-traités, et 99,1\,\% des enfants témoins ont un score supérieur au
-minimum des traités. La condition de chevauchement, indispensable à
-l'identification, est donc satisfaite, et la restriction au support commun
-écarte 2 observations.
+La condition de chevauchement, indispensable à l'identification, est
+satisfaite : les distributions du score se recouvrent sur l'essentiel de leur
+support et la restriction au support commun n'écarte qu'un nombre marginal
+d'observations.
 
 La figure~\ref{fig:support} représente les distributions du score de propension
 des enfants bénéficiaires ($D=1$) et non bénéficiaires ($D=0$). Les deux
 distributions se recouvrent sur l'essentiel de leur support ; les enfants
 bénéficiaires situés dans la zone de support commun sont tous retenus et
 appariés par la méthode des $k$ plus proches voisins (k-NN, $k=4$, avec
-remise), pour un panel apparié de 15\,916 observations-enfants.
+remise), pour un panel apparié de 16\,152 observations-enfants.
 
 \begin{figure}[H]
   \centering
@@ -104,10 +113,9 @@ remise), pour un panel apparié de 15\,916 observations-enfants.
   {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM.}
 \end{figure}
 
-Avant appariement, la différence standardisée moyenne atteint 12,7\,\%, avec
-des écarts de 49,8\,\% sur la taille du ménage, 36,5\,\% sur la région de
-Matam, 29,3\,\% sur le log de la dépense par tête et 27,5\,\% sur le sexe du
-chef de ménage. Le tableau~\ref{tab:balance} présente le diagnostic
+Avant appariement, la différence standardisée moyenne atteint 11,4\,\%, avec
+des écarts de 49,7\,\% sur la taille du ménage, 29,3\,\% sur le log de la
+dépense par tête et 27,5\,\% sur le sexe du chef de ménage. Le tableau~\ref{tab:balance} présente le diagnostic
 d'équilibrage obtenu une fois l'appariement k-NN effectué, et le
 tableau~\ref{tab:balance_global} résume la qualité de l'appariement pour les
 trois algorithmes.
@@ -123,13 +131,13 @@ trois algorithmes.
     \hline
 \entete Variable & Moyenne traités & Moyenne témoins & SMD (\%) & T-stat & $P>|t|$ \\
     \hline
-    Sexe de l'enfant (\% filles) & 0,504  & 0,506  & -0,4 & -0,16 & 0,874 \\ \hline
-    Âge de l'enfant (années)     & 6,873  & 6,992  & -2,8 & -1,00 & 0,317 \\ \hline
-    Taille du ménage             & 17,256 & 16,408 & 9,8  & 3,05  & 0,002 \\ \hline
-    Log dépense par tête         & 12,888 & 12,936 & -9,3 & -3,04 & 0,002 \\ \hline
-    Sexe du chef de ménage       & 1,300  & 1,342  & -9,9 & -3,28 & 0,001 \\ \hline
-    Âge du chef (années)         & 54,789 & 54,217 & 4,1  & 1,41  & 0,159 \\ \hline
-    Milieu rural (\%)            & 0,471  & 0,455  & 3,1  & 1,13  & 0,258 \\
+    Sexe de l'enfant (\% filles) & 0,505  & 0,501  & 0,7   & 0,25  & 0,799 \\ \hline
+    Âge de l'enfant (années)     & 6,878  & 6,825  & 1,3   & 0,45  & 0,650 \\ \hline
+    Taille du ménage             & 17,276 & 16,456 & 9,4   & 2,95  & 0,003 \\ \hline
+    Log dépense par tête         & 12,888 & 12,940 & -10,1 & -3,22 & 0,001 \\ \hline
+    Sexe du chef de ménage       & 1,300  & 1,321  & -5,1  & -1,69 & 0,091 \\ \hline
+    Âge du chef (années)         & 54,794 & 54,578 & 1,5   & 0,53  & 0,595 \\ \hline
+    Milieu rural (\%)            & 0,470  & 0,457  & 2,8   & 1,01  & 0,314 \\
     \hline
   \end{tabular}%
   }
@@ -139,23 +147,22 @@ trois algorithmes.
 \footnotetext{\textit{Note :} niveau enfant, panel de 17\,786 enfants suivis~; seuil conventionnel~: SMD $< 10\,\%$. Les effets fixes région et les modalités d'éducation et d'état matrimonial du chef, omis du tableau, présentent tous une SMD résiduelle inférieure à 7\,\%.}
 
 L'appariement corrige l'essentiel du déséquilibre initial : la différence
-standardisée moyenne passe de 12,7\,\% à 2,9\,\%, et aucune covariable ne
+standardisée moyenne passe de 11,4\,\% à 2,5\,\%, et aucune covariable ne
 dépasse le seuil conventionnel de 10\,\% \parencite{austin2009}. Les
-covariables individuelles sont particulièrement bien équilibrées, le sexe
-(-$0{,}4$\,\%) comme l'âge de l'enfant (-$2{,}8$\,\%) : chaque enfant traité
-est bien comparé à des enfants témoins du même profil démographique, donc
-évalués sur les mêmes dimensions MODA.
+covariables individuelles sont équilibrées, le sexe ($0{,}7$\,\%) comme l'âge
+de l'enfant ($1{,}3$\,\%) : chaque enfant traité est comparé à des enfants
+témoins du même profil démographique, donc évalués sur les mêmes dimensions
+MODA.
 
-Trois covariables de ménage conservent néanmoins un déséquilibre résiduel
-significatif au seuil de 1\,\% : la taille du ménage ($9{,}8$\,\%), le log de
-la dépense par tête (-$9{,}3$\,\%) et le sexe du chef (-$9{,}9$\,\%). Ce sont
-précisément les trois déterminants les plus forts du traitement. Ce résultat
-n'est pas fortuit : l'appariement au niveau de l'enfant fait entrer chaque
-ménage autant de fois qu'il abrite d'enfants, ce qui accentue le poids des
-ménages nombreux et rend leur taille plus difficile à équilibrer. La
-statistique jointe reflète la même tension, le test du rapport de
-vraisemblance sur l'échantillon apparié restant marginalement significatif
-($p = 0{,}071$).
+Deux covariables de ménage conservent un déséquilibre résiduel significatif :
+la taille du ménage ($9{,}4$\,\%) et le log de la dépense par tête
+(-$10{,}1$\,\%), soit les deux déterminants les plus forts du traitement. Ce
+résultat n'est pas fortuit : l'appariement au niveau de l'enfant fait entrer
+chaque ménage autant de fois qu'il abrite d'enfants, ce qui accentue le poids
+des ménages nombreux et rend leur taille plus difficile à équilibrer. Le test
+joint sur l'échantillon apparié n'est en revanche pas significatif
+($p = 0{,}330$) : le déséquilibre reste localisé sur ces deux variables et ne
+compromet pas l'équilibrage d'ensemble.
 
 \subsubsection{Comparaison de la qualité des trois appariements}
 
@@ -172,10 +179,10 @@ d'équilibrage des trois algorithmes, selon les critères de
     \hline
 \entete Échantillon & Pseudo-$R^2$ & $p$ (LR $\chi^2$) & SMD moy. (\%) & $B$ (\%) & $R$ \\
     \hline
-    Avant appariement            & 0,143 & 0,000 & 12,7 & 100,2 & 1,32 \\ \hline
-    k-NN ($k=4$)                 & 0,006 & 0,071 & 2,9  & 18,1  & 0,80 \\ \hline
-    Noyau Epanechnikov           & 0,003 & 0,924 & 2,0  & 12,5  & 1,35 \\ \hline
-    Caliper ($\varepsilon = 0{,}05$) & 0,003 & 0,797 & 2,0 & 13,8 & 1,19 \\
+    Avant appariement            & 0,151 & 0,000 & 11,4 & 103,6 & 1,25 \\ \hline
+    k-NN ($k=4$)                 & 0,006 & 0,330 & 2,5  & 18,1  & 1,15 \\ \hline
+    Noyau Epanechnikov           & 0,003 & 0,967 & 2,0  & 13,8  & 1,39 \\ \hline
+    Caliper ($\varepsilon = 0{,}05$) & 0,007 & 0,235 & 2,5 & 19,0 & 1,24 \\
     \hline
   \end{tabular}
 
@@ -184,34 +191,18 @@ d'équilibrage des trois algorithmes, selon les critères de
 \footnotetext{\textit{Note :} $B$ = différence standardisée des indices de propension linéaires, $R$ = rapport de leurs variances. Critères d'un appariement satisfaisant \parencite{rosenbaum2002} : $B < 25\,\%$ et $R \in [0{,}5~;~2]$.}
 
 Les trois algorithmes satisfont les critères usuels : la différence
-standardisée moyenne tombe sous 3\,\%, le pseudo-$R^2$ s'effondre de 0,143 à
-0,006 ou moins, $B$ reste sous 25\,\% et $R$ dans l'intervalle
-$[0{,}5~;~2]$. L'appariement retire donc l'essentiel de la sélection sur
-observables.
+standardisée moyenne tombe à 2,5\,\% ou moins, le pseudo-$R^2$ passe de 0,151
+à 0,007 ou moins, $B$ reste sous 25\,\% et $R$ dans l'intervalle
+$[0{,}5~;~2]$. Le test joint n'est significatif pour aucune des trois
+méthodes. Le noyau s'équilibre un peu mieux (SMD de 2,0\,\%,
+$p = 0{,}967$), le k-NN et le caliper se tenant à 2,5\,\%.
 
-La comparaison fait toutefois ressortir un point que la seule lecture du k-NN
-masquerait : c'est la spécification de référence qui s'équilibre le moins
-bien. Le noyau et le caliper affichent une différence standardisée moyenne
-plus faible (2,0\,\% contre 2,9\,\%), un $B$ plus bas, et surtout un test
-joint non significatif ($p = 0{,}924$ et $p = 0{,}797$), là où le
-k-NN reste à la limite ($p = 0{,}071$). En n'utilisant que quatre voisins par
-enfant traité, le k-NN mobilise moins d'information que le noyau, qui pondère
-l'ensemble des témoins du support commun ; sur un échantillon où les enfants
-traités se concentrent dans un nombre limité de ménages, cette parcimonie se
-paie en équilibrage.
-
-Ce constat ne remet pas en cause les résultats, pour deux raisons. D'abord, les
-trois méthodes donnent des estimations proches
-(tableau~\ref{tab:psm_methodes}) : l'ATT vaut $0{,}053$ en k-NN, $0{,}060$ en
-noyau et $0{,}050$ en caliper, tous significatifs au seuil de 10\,\%. Que les
-deux spécifications les mieux équilibrées encadrent l'estimation de référence
-est rassurant. Ensuite, le déséquilibre résiduel du k-NN porte sur des
-covariables — taille du ménage, dépense par tête, sexe du chef — dont l'effet
-de niveau est de toute façon éliminé par la double différence, celle-ci ne
-retenant que la variation intra-individuelle. Le biais résiduel n'affecterait
-l'ATT que si ces caractéristiques déterminaient non pas le niveau, mais la
-tendance des privations, hypothèse que le test placebo (annexe~\ref{ann:A}) ne
-corrobore pas.
+Le déséquilibre résiduel du k-NN porte sur la taille du ménage et la dépense
+par tête, dont l'effet de niveau est de toute façon éliminé par la double
+différence, celle-ci ne retenant que la variation intra-individuelle. Il
+n'affecterait l'ATT que si ces caractéristiques déterminaient non pas le
+niveau, mais la tendance des privations, hypothèse que le test placebo
+(annexe~\ref{ann:A}) ne corrobore pas.
 
 \subsection{Impact des transferts sur la pauvreté multidimensionnelle}
 
@@ -259,26 +250,26 @@ sélection sur observables et les effets fixes inobservables constants dans le t
 \entete Variable de résultat & ATT & Éc.-t. (cluster) & $p$-valeur \\
     \hline
     \multicolumn{4}{|c|}{\textit{Approche MODA (7 dimensions, $k=4$)}} \\ \hline
-    \quad Incidence $\hat{H}_{\text{MODA}}$         & $0{,}053^{*}$ & $(0{,}031)$ & 0,086 \\
+    \quad Incidence $\hat{H}_{\text{MODA}}$         & $0{,}058^{*}$ & $(0{,}030)$ & 0,052 \\
     \hline
   \end{tabular}
 
   {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM. $^{*}p<0{,}10$.}
 \end{table}
-\footnotetext{\textit{Note :} appariement k-NN au niveau enfant, erreurs-types clusterisées par grappe, $n = 15\,916$ observations-enfants.}
+\footnotetext{\textit{Note :} appariement k-NN au niveau enfant, erreurs-types clusterisées par grappe, $n = 16\,152$ observations-enfants.}
 
-L'estimateur PSM-DD donne un ATT de $0{,}053$, significatif au seuil de 10\,\%
-mais non au seuil de 5\,\% ($p = 0{,}086$). Le signe est positif : entre
+L'estimateur PSM-DD donne un ATT de $0{,}058$, significatif au seuil de 10\,\%
+et à la limite du seuil de 5\,\% ($p = 0{,}052$). Le signe est positif : entre
 2018-2019 et 2021-2022, la privation multidimensionnelle des enfants de ménages
 bénéficiaires a reculé plus lentement que celle d'enfants témoins de sexe,
-d'âge et de profil de ménage comparables, l'écart étant de l'ordre de 5 points
+d'âge et de profil de ménage comparables, l'écart étant de l'ordre de 6 points
 de pourcentage.
 
 Deux conclusions s'imposent. D'abord, l'hypothèse H1 n'est pas validée : les
 transferts ne réduisent pas la pauvreté multidimensionnelle des enfants sur
 l'horizon observé. Ensuite, la lecture inverse -- celle d'un effet défavorable
 -- ne peut être affirmée avec la fermeté qu'exige une conclusion causale :
-l'intervalle de confiance à 95\,\% ($[-0{,}8~;~11{,}4]$ points) contient zéro,
+l'intervalle de confiance à 95\,\% ($[-0{,}1~;~11{,}6]$ points) contient encore zéro,
 et la significativité au seuil de 10\,\% relève d'une présomption plutôt que
 d'une démonstration. Cette présomption est toutefois cohérente sur l'ensemble
 des spécifications, et la section~\ref{sec:discussion} en examine les canaux
@@ -305,8 +296,8 @@ correspond à l'ATT estimé.
 
 Le tableau~\ref{tab:psm_methodes} examine la stabilité des résultats selon la
 méthode d'appariement retenue. Les trois algorithmes concordent étroitement :
-l'ATT vaut $0{,}053$ pour le k-NN ($p = 0{,}086$), $0{,}060$ pour le noyau
-Epanechnikov ($p = 0{,}074$) et $0{,}050$ pour le caliper ($p = 0{,}057$),
+l'ATT vaut $0{,}058$ pour le k-NN ($p = 0{,}052$), $0{,}055$ pour le noyau
+Epanechnikov ($p = 0{,}079$) et $0{,}047$ pour le caliper ($p = 0{,}083$),
 tous trois significatifs au seuil de 10\,\% et aucun au seuil de 5\,\%. La
 double différence brute, qui ne corrige pas la sélection, donne une valeur
 plus faible et non significative ($0{,}032$~; $p = 0{,}167$) : c'est
@@ -322,9 +313,9 @@ l'avantage initial des enfants de ménages bénéficiaires.
     \hline
 \entete Méthode d'appariement & ATT (MODA) & $p$-val. \\
     \hline
-    k-NN ($k=4$, avec remise)             & $0{,}053^{*}$ & 0,086 \\ \hline
-    Noyau Epanechnikov ($h=0{,}06$)       & $0{,}060^{*}$ & 0,074 \\ \hline
-    Caliper ($\varepsilon = 0{,}05$, sans remise) & $0{,}050^{*}$ & 0,057 \\ \hline
+    k-NN ($k=4$, avec remise)             & $0{,}058^{*}$ & 0,052 \\ \hline
+    Noyau Epanechnikov ($h=0{,}06$)       & $0{,}055^{*}$ & 0,079 \\ \hline
+    Caliper ($\varepsilon = 0{,}05$, sans remise) & $0{,}047^{*}$ & 0,083 \\ \hline
     DD brute (sans appariement)           & $0{,}032$  & 0,167 \\
     \hline
   \end{tabular}
@@ -342,17 +333,21 @@ possible, de $k=1$ à $k=7$. Le seuil $k=0$ est écarté : tout enfant étant pr
 dans au moins zéro dimension, la variable de résultat y serait constamment
 égale à un et l'ATT nul par construction.
 
-Le signe de l'effet est positif à tous les seuils, et son ampleur décroît avec
-la sévérité retenue. La significativité suit la même pente : l'effet est
-significatif pour les définitions les plus inclusives, marginalement au seuil
-de référence, et cesse de l'être au-delà.
+Le signe de l'effet est positif à tous les seuils, mais son ampleur suit une
+courbe en cloche : quasi nulle à $k=1$ ($0{,}006$), elle croît jusqu'à un
+maximum à $k=4$ ($0{,}058$) puis retombe, jusqu'à $0{,}009$ à $k=6$. La
+significativité épouse la même forme, l'effet n'atteignant le seuil de 10\,\%
+qu'à $k=3$ et $k=4$.
 
-Cette structure a un sens économique. Les transferts pèsent sur la marge, là
-où quelques privations font basculer un enfant de part et d'autre du seuil, et
-non sur le noyau des enfants cumulant six ou sept privations, dont la
-situation relève de déficits structurels qu'un flux monétaire ne déplace pas.
-La conclusion d'ensemble ne dépend donc pas du choix conventionnel de $k=4$ ;
-c'est son intensité qui varie.
+Cette structure a un sens économique. Aux seuils bas, la quasi-totalité des
+enfants est classée pauvre et il ne reste guère de variation à expliquer ; aux
+seuils élevés, ne subsistent que les enfants cumulant six ou sept privations,
+dont la situation relève de déficits structurels qu'un flux monétaire ne
+déplace pas. L'effet se concentre au milieu de la distribution, là où quelques
+privations font basculer un enfant de part et d'autre du seuil. Que le maximum
+coïncide avec le seuil conventionnel de $k=4$ est fortuit, mais rappelle que
+la conclusion vaut pour une zone de la distribution plutôt que pour son
+ensemble.
 
 \begin{table}[H]
   \centering
@@ -363,13 +358,13 @@ c'est son intensité qui varie.
     \hline
 \entete Seuil $k$ & ATT & Éc.-t. (cluster) & $p$-valeur \\
     \hline
-    1 & \ATTENTE & \ATTENTE & \ATTENTE \\ \hline
-    2 & \ATTENTE & \ATTENTE & \ATTENTE \\ \hline
-    3 & \ATTENTE & \ATTENTE & \ATTENTE \\ \hline
-    4 & \ATTENTE & \ATTENTE & \ATTENTE \\ \hline
-    5 & \ATTENTE & \ATTENTE & \ATTENTE \\ \hline
-    6 & \ATTENTE & \ATTENTE & \ATTENTE \\ \hline
-    7 & \ATTENTE & \ATTENTE & \ATTENTE \\
+    1 & $0{,}006$      & $(0{,}006)$ & 0,302 \\ \hline
+    2 & $0{,}022$      & $(0{,}014)$ & 0,100 \\ \hline
+    3 & $0{,}048^{*}$  & $(0{,}026)$ & 0,065 \\ \hline
+    4 & $0{,}058^{*}$  & $(0{,}030)$ & 0,052 \\ \hline
+    5 & $0{,}031$      & $(0{,}028)$ & 0,277 \\ \hline
+    6 & $0{,}009$      & $(0{,}021)$ & 0,670 \\ \hline
+    7 & $0{,}014$      & $(0{,}011)$ & 0,201 \\
     \hline
   \end{tabular}
 
@@ -390,19 +385,18 @@ c'est son intensité qui varie.
 
 L'analyse par dimension (figure~\ref{fig:effets_dim} et
 tableau~\ref{tab:effets_dim}) décompose l'ATT global sur les sept dimensions
-MODA. Une seule ressort, la nutrition, avec un ATT de $0{,}084$ significatif au
-seuil de 5\,\% ($p = 0{,}043$). La privation alimentaire des enfants de ménages
-bénéficiaires recule 8,4 points plus lentement que celle de leurs témoins
+MODA. Une seule ressort, la nutrition, avec un ATT de $0{,}081$ significatif au
+seuil de 5\,\% ($p = 0{,}042$). La privation alimentaire des enfants de ménages
+bénéficiaires recule 8,1 points plus lentement que celle de leurs témoins
 appariés. C'est aussi la dimension la plus directement sensible au budget
 courant du ménage, donc celle où un apport monétaire aurait dû se voir en
 premier : le résultat va à l'encontre de l'effet attendu.
 
-L'assainissement suit avec $0{,}069$, sans atteindre la significativité
-($p = 0{,}109$). Les cinq autres dimensions présentent des coefficients
-faibles et non significatifs ; l'éducation est rigoureusement nulle
-($-0{,}0001$~; $p = 0{,}995$), et la protection de l'enfant, malgré son
-contenu directement lié à l'absence parentale, ne se distingue pas
-($0{,}019$~; $p = 0{,}345$).
+Les six autres dimensions présentent des coefficients faibles, tous positifs
+et tous non significatifs, entre $0{,}012$ pour la santé et $0{,}037$ pour
+l'assainissement. La protection de l'enfant, malgré son contenu directement
+lié à l'absence parentale, ne se distingue pas ($0{,}016$~; $p = 0{,}413$).
+L'effet à la nutrition dépasse donc du double le plus élevé des autres.
 
 Le volet dimensionnel de l'hypothèse H2 est donc partiellement validé :
 l'effet des transferts n'est pas uniforme entre dimensions, il se concentre
@@ -419,13 +413,13 @@ section~\ref{sec:discussion}.
     \hline
 \entete Dimension & ATT & Éc.-t. (cluster) & $p$-valeur \\
     \hline
-    Nutrition            & $0{,}084^{**}$ & $(0{,}042)$ & 0,043 \\ \hline
-    Assainissement       & $0{,}069$      & $(0{,}043)$ & 0,109 \\ \hline
-    Logement             & $0{,}041$      & $(0{,}041)$ & 0,316 \\ \hline
-    Protection           & $0{,}019$      & $(0{,}020)$ & 0,345 \\ \hline
-    Santé                & $0{,}010$      & $(0{,}012)$ & 0,400 \\ \hline
-    Eau                  & $0{,}003$      & $(0{,}029)$ & 0,928 \\ \hline
-    Éducation            & -$0{,}000$     & $(0{,}016)$ & 0,995 \\
+    Nutrition            & $0{,}081^{**}$ & $(0{,}039)$ & 0,042 \\ \hline
+    Assainissement       & $0{,}037$      & $(0{,}041)$ & 0,367 \\ \hline
+    Protection           & $0{,}016$      & $(0{,}020)$ & 0,413 \\ \hline
+    Eau                  & $0{,}015$      & $(0{,}027)$ & 0,571 \\ \hline
+    Logement             & $0{,}014$      & $(0{,}041)$ & 0,744 \\ \hline
+    Éducation            & $0{,}013$      & $(0{,}017)$ & 0,463 \\ \hline
+    Santé                & $0{,}012$      & $(0{,}013)$ & 0,372 \\
     \hline
   \end{tabular}
 
