@@ -2005,7 +2005,7 @@ file code/stata/temp/traitement_2021.dta saved
 >        Combinaison par groupe d'age : 5-14 ans = ind.2 seul ;
 >        15-17 ans = ind.1 seul.
 >        NEET (ni scolarise ni employe) hors agregat : m_neet est calcule a
->        titre descriptif mais n'alimente pas dim_educ (cf. annexe E). */
+>        titre descriptif mais n'alimente pas dim_educ. */
 .     gen byte m_scol = (scol == 0) if age >= 5 & age <= 14 & !missing(scol)
 197.     replace  m_scol = 0 if age < 5 | age > 14
 198. 
@@ -2051,19 +2051,10 @@ file code/stata/temp/traitement_2021.dta saved
 223.     }
 224.     tabstat pauvre_MODA nb_dep, by(groupe_moda) stat(mean n) format(%6.3f)
 225. 
-.     /* Privation par dimension ET par tranche d'age, ponderee (hhweight),
->        pour comparaison directe avec le rapport ANSD "Pauvrete de l'enfant
->        au Senegal" (taux par dimension et groupe d'age 0-4/5-14/15-17). */
-.     di _newline "  === Privation par dimension x tranche d'age (%, pondere hhweight) ==="
-226.     foreach dim in assai eau logem nutri sante protect educ {
-227.         di _newline "  -- dim_`dim' --"
-228.         tabstat dim_`dim' [aw=hhweight], by(groupe_moda) stat(mean n) format(%7.4f)
-229.     }
-230. 
 .     /* C. Sauvegarde */
 .     save "$TEMP/enfants_dep_`annee'.dta", replace
-231.     di _newline ">>> Sauvegarde : enfants_dep_`annee'.dta (" _N " obs)"
-232. }
+226.     di _newline ">>> Sauvegarde : enfants_dep_`annee'.dta (" _N " obs)"
+227. }
 (32,276 observations deleted)
 
 >>> Enfants 2018 : 33844
@@ -2242,106 +2233,6 @@ groupe_moda |  pauvre~A    nb_dep
 ------------+--------------------
       Total |     0.666     4.115
             |   3.2e+04   3.2e+04
----------------------------------
-
-  === Privation par dimension x tranche d'age (%, pondere hhweight) ===
-
-  -- dim_assai --
-
-Summary for variables: dim_assai
-Group variable: groupe_moda 
-
-groupe_moda |      Mean         N
-------------+--------------------
-    0-4 ans |    0.5222   1.0e+04
-   5-14 ans |    0.5044   1.9e+04
-  15-17 ans |    0.4584   4.5e+03
-------------+--------------------
-      Total |    0.5038   3.4e+04
----------------------------------
-
-  -- dim_eau --
-
-Summary for variables: dim_eau
-Group variable: groupe_moda 
-
-groupe_moda |      Mean         N
-------------+--------------------
-    0-4 ans |    0.2556   9.6e+03
-   5-14 ans |    0.2311   1.8e+04
-  15-17 ans |    0.1871   4.2e+03
-------------+--------------------
-      Total |    0.2328   3.2e+04
----------------------------------
-
-  -- dim_logem --
-
-Summary for variables: dim_logem
-Group variable: groupe_moda 
-
-groupe_moda |      Mean         N
-------------+--------------------
-    0-4 ans |    0.6502   1.0e+04
-   5-14 ans |    0.6365   1.9e+04
-  15-17 ans |    0.5861   4.5e+03
-------------+--------------------
-      Total |    0.6341   3.4e+04
----------------------------------
-
-  -- dim_nutri --
-
-Summary for variables: dim_nutri
-Group variable: groupe_moda 
-
-groupe_moda |      Mean         N
-------------+--------------------
-    0-4 ans |    0.6798   1.0e+04
-   5-14 ans |    0.6826   1.9e+04
-  15-17 ans |    0.6731   4.5e+03
-------------+--------------------
-      Total |    0.6805   3.4e+04
----------------------------------
-
-  -- dim_sante --
-
-Summary for variables: dim_sante
-Group variable: groupe_moda 
-
-groupe_moda |      Mean         N
-------------+--------------------
-    0-4 ans |    0.9689   1.0e+04
-   5-14 ans |    0.9720   1.9e+04
-  15-17 ans |    0.9604   4.5e+03
-------------+--------------------
-      Total |    0.9695   3.4e+04
----------------------------------
-
-  -- dim_protect --
-
-Summary for variables: dim_protect
-Group variable: groupe_moda 
-
-groupe_moda |      Mean         N
-------------+--------------------
-    0-4 ans |    0.5690   1.0e+04
-   5-14 ans |    0.7623   1.9e+04
-  15-17 ans |    0.5278   4.5e+03
-------------+--------------------
-      Total |    0.6724   3.4e+04
----------------------------------
-
-  -- dim_educ --
-
-Summary for variables: dim_educ
-Group variable: groupe_moda 
-
-groupe_moda |      Mean         N
-------------+--------------------
-    0-4 ans |    0.0000   1.0e+04
-   5-14 ans |    0.4526   1.9e+04
-  15-17 ans |    0.2814   4.5e+03
-------------+--------------------
-      Total |    0.2927   3.4e+04
 ---------------------------------
 file code/stata/temp/enfants_dep_2018.dta saved
 
@@ -2533,106 +2424,6 @@ groupe_moda |  pauvre~A    nb_dep
 ------------+--------------------
       Total |     0.583     3.827
             |   2.7e+04   2.7e+04
----------------------------------
-
-  === Privation par dimension x tranche d'age (%, pondere hhweight) ===
-
-  -- dim_assai --
-
-Summary for variables: dim_assai
-Group variable: groupe_moda 
-
-groupe_moda |      Mean         N
-------------+--------------------
-    0-4 ans |    0.4946   7.8e+03
-   5-14 ans |    0.4959   1.9e+04
-  15-17 ans |    0.4615   4.6e+03
-------------+--------------------
-      Total |    0.4905   3.1e+04
----------------------------------
-
-  -- dim_eau --
-
-Summary for variables: dim_eau
-Group variable: groupe_moda 
-
-groupe_moda |      Mean         N
-------------+--------------------
-    0-4 ans |    0.1641   6.8e+03
-   5-14 ans |    0.1664   1.6e+04
-  15-17 ans |    0.1429   4.0e+03
-------------+--------------------
-      Total |    0.1624   2.7e+04
----------------------------------
-
-  -- dim_logem --
-
-Summary for variables: dim_logem
-Group variable: groupe_moda 
-
-groupe_moda |      Mean         N
-------------+--------------------
-    0-4 ans |    0.5435   7.8e+03
-   5-14 ans |    0.5367   1.9e+04
-  15-17 ans |    0.4867   4.6e+03
-------------+--------------------
-      Total |    0.5311   3.1e+04
----------------------------------
-
-  -- dim_nutri --
-
-Summary for variables: dim_nutri
-Group variable: groupe_moda 
-
-groupe_moda |      Mean         N
-------------+--------------------
-    0-4 ans |    0.6211   7.8e+03
-   5-14 ans |    0.6318   1.9e+04
-  15-17 ans |    0.6111   4.6e+03
-------------+--------------------
-      Total |    0.6260   3.1e+04
----------------------------------
-
-  -- dim_sante --
-
-Summary for variables: dim_sante
-Group variable: groupe_moda 
-
-groupe_moda |      Mean         N
-------------+--------------------
-    0-4 ans |    0.9760   7.8e+03
-   5-14 ans |    0.9673   1.9e+04
-  15-17 ans |    0.9618   4.6e+03
-------------+--------------------
-      Total |    0.9687   3.1e+04
----------------------------------
-
-  -- dim_protect --
-
-Summary for variables: dim_protect
-Group variable: groupe_moda 
-
-groupe_moda |      Mean         N
-------------+--------------------
-    0-4 ans |    0.5288   7.7e+03
-   5-14 ans |    0.7493   1.8e+04
-  15-17 ans |    0.5046   4.5e+03
-------------+--------------------
-      Total |    0.6572   3.1e+04
----------------------------------
-
-  -- dim_educ --
-
-Summary for variables: dim_educ
-Group variable: groupe_moda 
-
-groupe_moda |      Mean         N
-------------+--------------------
-    0-4 ans |    0.0000   7.8e+03
-   5-14 ans |    0.4475   1.9e+04
-  15-17 ans |    0.2497   4.6e+03
-------------+--------------------
-      Total |    0.3046   3.1e+04
 ---------------------------------
 file code/stata/temp/enfants_dep_2021.dta saved
 
@@ -5329,20 +5120,14 @@ t#D_stable_alt |
 >    SECTION : 06_STATS_DESC — Statistiques descriptives
 >    Chapitre 3 : profil ménages, pauvreté, privations, comparaison D=0/1
 > 
+>    Toutes les statistiques de cette section portent sur le panel vrai, le
+>    meme echantillon que l'estimation d'impact, afin que les effectifs et les
+>    niveaux coincident d'un tableau a l'autre du rapport.
+> 
 >    Les statistiques de pauvrete/privation (incidence MODA, par dimension,
 >    par age, par milieu, par region) sont PONDEREES par les poids de sondage
->    (hhweight) pour assurer la representativite nationale et la comparabilite
->    avec les chiffres officiels de l'ANSD (cf. annexe E). Le profil des menages
->    et la balance traites/non-traites restent sur effectifs bruts.
-> 
->    Sorties :
->      output/tab_menages.csv          — caractéristiques ménages (tab 5)
->      output/tab_balance.csv          — balance traités/non-traités (tab 6)
->      output/tab_prevalence_dim.csv   — privations par dimension (tab 7)
->      output/tab_moda_age.csv         — MODA par groupe d'âge (tab 8)
->      output/fig_evolution_ipm.pdf    — évolution H, A, M0 (fig 1)
->      output/fig_privations_dim.pdf   — radar/barres privations (fig 2)
->      output/fig_overlap.pdf          — overlap scores propension (fig 3)
+>    (hhweight). Le profil des menages et la balance traites/non-traites
+>    restent sur effectifs bruts.
 >    ============================================================ */
 . 
 . 
@@ -5364,65 +5149,70 @@ t#D_stable_alt |
 
 . 
 . foreach annee in 2018 2021 {
-  2.     use "$TEMP/vague_`annee'.dta", clear
-  3.     bysort grappe menage: keep if _n == 1   /* un ménage = une ligne */
-  4. 
-.     merge m:1 grappe menage using "$TEMP/traitement_`annee'.dta", ///
->         keepusing(D) nogenerate keep(master match)
-  5.     replace D = 0 if missing(D)
+  2.     local tt = cond(`annee' == 2018, 0, 1)
+  3.     use "$TEMP/panel_vrai.dta", clear
+  4.     keep if t == `tt'
+  5.     bysort grappe menage: keep if _n == 1   /* un ménage = une ligne */
   6. 
+.     drop D
+  7.     merge m:1 grappe menage using "$TEMP/traitement_`annee'.dta", ///
+>         keepusing(D) nogenerate keep(master match)
+  8.     replace D = 0 if missing(D)
+  9. 
 .     /* Taille ménage, âge CM, milieu, transferts */
 .     quietly {
-  7.         gen byte chef_f = (hgender == 2)
-  8.         gen byte urbain = (milieu == 1)
-  9.         foreach v in hhsize hage pcexp chef_f urbain D {
- 10.             summarize `v' [aw=hhweight]   /* caracteristiques ponderees (representativite nationale)
+ 10.         gen byte chef_f = (hgender == 2)
+ 11.         gen byte urbain = (milieu == 1)
+ 12.         foreach v in hhsize hage pcexp chef_f urbain D {
+ 13.             summarize `v' [aw=hhweight]   /* caracteristiques ponderees (representativite nationale)
 >  */
- 11.             if "`v'" == "hhsize" scalar m_hhsize_`annee' = r(mean)
- 12.             if "`v'" == "hage"   scalar m_hage_`annee'   = r(mean)
- 13.             if "`v'" == "pcexp"  scalar m_pcexp_`annee'  = r(mean)
- 14.             if "`v'" == "chef_f" scalar p_chef_f_`annee' = r(mean)*100
- 15.             if "`v'" == "urbain" scalar p_urbain_`annee' = r(mean)*100
- 16.             if "`v'" == "D"      scalar p_D_`annee'      = r(mean)*100
- 17.         }
- 18.         count
- 19.         scalar n_men_`annee' = r(N)
- 20.     }
- 21.     di "`annee' : " n_men_`annee' " ménages"
- 22.     di "  Taille moy : " %5.2f m_hhsize_`annee'
- 23.     di "  PCE moy    : " %12.0f m_pcexp_`annee' " FCFA/an"
- 24.     di "  Chef féminin  : " %5.1f p_chef_f_`annee' "%"
- 25.     di "  Milieu urbain : " %5.1f p_urbain_`annee' "%"
- 26.     di "  Transferts    : " %5.1f p_D_`annee'      "%"
- 27. }
-(27,417 observations deleted)
+ 14.             if "`v'" == "hhsize" scalar m_hhsize_`annee' = r(mean)
+ 15.             if "`v'" == "hage"   scalar m_hage_`annee'   = r(mean)
+ 16.             if "`v'" == "pcexp"  scalar m_pcexp_`annee'  = r(mean)
+ 17.             if "`v'" == "chef_f" scalar p_chef_f_`annee' = r(mean)*100
+ 18.             if "`v'" == "urbain" scalar p_urbain_`annee' = r(mean)*100
+ 19.             if "`v'" == "D"      scalar p_D_`annee'      = r(mean)*100
+ 20.         }
+ 21.         count
+ 22.         scalar n_men_`annee' = r(N)
+ 23.     }
+ 24.     di "`annee' : " n_men_`annee' " ménages"
+ 25.     di "  Taille moy : " %5.2f m_hhsize_`annee'
+ 26.     di "  PCE moy    : " %12.0f m_pcexp_`annee' " FCFA/an"
+ 27.     di "  Chef féminin  : " %5.1f p_chef_f_`annee' "%"
+ 28.     di "  Milieu urbain : " %5.1f p_urbain_`annee' "%"
+ 29.     di "  Transferts    : " %5.1f p_D_`annee'      "%"
+ 30. }
+(28,341 observations deleted)
+(25,691 observations deleted)
 
     Result                      Number of obs
     -----------------------------------------
     Not matched                             0
-    Matched                             6,427  
+    Matched                             5,691  
     -----------------------------------------
 (0 real changes made)
-2018 : 6427 ménages
-  Taille moy :  9.75
-  PCE moy    :       555879 FCFA/an
-  Chef féminin  :  27.4%
-  Milieu urbain :  49.8%
-  Transferts    :  14.2%
-(24,575 observations deleted)
+2018 : 5691 ménages
+  Taille moy : 10.16
+  PCE moy    :       515217 FCFA/an
+  Chef féminin  :  26.2%
+  Milieu urbain :  45.9%
+  Transferts    :  13.9%
+(31,382 observations deleted)
+(22,650 observations deleted)
 
     Result                      Number of obs
     -----------------------------------------
     Not matched                             0
-    Matched                             6,458  
+    Matched                             5,691  
     -----------------------------------------
 (0 real changes made)
-2021 : 6458 ménages
-  Taille moy :  9.03
-  PCE moy    :       597804 FCFA/an
-  Chef féminin  :  29.1%
-  Milieu urbain :  50.9%
-  Transferts    :  16.2%
+2021 : 5691 ménages
+  Taille moy :  9.38
+  PCE moy    :       565226 FCFA/an
+  Chef féminin  :  28.7%
+  Milieu urbain :  45.9%
+  Transferts    :  16.5%
 
 . 
 . 
@@ -5437,19 +5227,10 @@ t#D_stable_alt |
 . 
 . /* Alimente le tableau de selection de la section 2 : qui recoit des
 >    transferts ? L'unite est l'enfant, comme dans tout le memoire. */
-. use "$TEMP/vague_2018.dta", clear
+. use "$TEMP/panel_vrai.dta", clear
 
-. merge m:1 grappe menage using "$TEMP/traitement_2018.dta", ///
->     keepusing(D) nogenerate keep(master match)
-
-    Result                      Number of obs
-    -----------------------------------------
-    Not matched                             0
-    Matched                            33,844  
-    -----------------------------------------
-
-. replace D = 0 if missing(D)
-(0 real changes made)
+. keep if t == 0
+(28,341 observations deleted)
 
 . 
 . gen byte chef_f = (hgender == 2)
@@ -5468,23 +5249,23 @@ t#D_stable_alt |
   7.     di "  " %-8s "`v'" " : D=1 " %10.2f `m1' "  D=0 " %10.2f `m0' ///
 >        "  p=" %6.4f (2*ttail(e(df_r), abs(_b[D]/_se[D])))
   8. }
-  fille    : D=1       0.52  D=0       0.50  p=0.1624
-  age      : D=1       8.14  D=0       7.86  p=0.0334
-  hhsize   : D=1      16.02  D=0      12.69  p=0.0000
-  hage     : D=1      54.31  D=0      52.06  p=0.0000
-  pcexp    : D=1  512178.90  D=0  429789.79  p=0.0000
-  chef_f   : D=1       0.38  D=0       0.20  p=0.0000
-  urbain   : D=1       0.52  D=0       0.39  p=0.0001
+  fille    : D=1       0.51  D=0       0.50  p=0.2722
+  age      : D=1       8.03  D=0       7.87  p=0.1901
+  hhsize   : D=1      16.49  D=0      13.01  p=0.0000
+  hage     : D=1      54.05  D=0      52.33  p=0.0000
+  pcexp    : D=1  479365.80  D=0  411377.36  p=0.0000
+  chef_f   : D=1       0.36  D=0       0.19  p=0.0000
+  urbain   : D=1       0.49  D=0       0.37  p=0.0004
 
 . quietly count if D == 1
 
 . di "  Enfants traites : " r(N)
-  Enfants traites : 5189
+  Enfants traites : 4806
 
 . quietly count if D == 0
 
 . di "  Enfants temoins : " r(N)
-  Enfants temoins : 28655
+  Enfants temoins : 26576
 
 . 
 . /* ============================================================
@@ -5643,22 +5424,25 @@ Appui/ démarrage d'une entreprise non a |         33        1.19       80.29
 
 . 
 . foreach annee in 2018 2021 {
-  2.     use "$TEMP/vague_`annee'.dta", clear
-  3. 
+  2.     local tt = cond(`annee' == 2018, 0, 1)
+  3.     use "$TEMP/panel_vrai.dta", clear
+  4.     keep if t == `tt'
+  5. 
 .     di _newline "-- MODA `annee' (pondéré hhweight) --"
-  4.     tabstat pauvre_MODA nb_dep [aw=hhweight], ///
+  6.     tabstat pauvre_MODA nb_dep [aw=hhweight], ///
 >         by(milieu) stat(mean n) format(%6.3f)
-  5.     tabstat pauvre_MODA nb_dep [aw=hhweight], ///
+  7.     tabstat pauvre_MODA nb_dep [aw=hhweight], ///
 >         by(groupe_moda) stat(mean n) format(%6.3f)
-  6.     /* Incidence ajustee : H (part de pauvres), A (intensite moyenne parmi les
+  8.     /* Incidence ajustee : H (part de pauvres), A (intensite moyenne parmi les
 >        pauvres = nb_dep/7), M0 = H x A, ponderes par hhweight. */
 .     quietly summarize pauvre_MODA [aw=hhweight]
-  7.     local H = r(mean)
-  8.     quietly summarize intensite_moda [aw=hhweight] if pauvre_MODA == 1
-  9.     local A = r(mean)
- 10.     di "  Incidence ajustee `annee' : H=" %5.1f 100*`H' "%  A=" %5.1f 100*`A' ///
+  9.     local H = r(mean)
+ 10.     quietly summarize intensite_moda [aw=hhweight] if pauvre_MODA == 1
+ 11.     local A = r(mean)
+ 12.     di "  Incidence ajustee `annee' : H=" %5.1f 100*`H' "%  A=" %5.1f 100*`A' ///
 >        "%  M0=" %5.3f `H'*`A'
- 11. }
+ 13. }
+(28,341 observations deleted)
 
 -- MODA 2018 (pondéré hhweight) --
 
@@ -5667,14 +5451,14 @@ Group variable: milieu (Milieu residence)
 
 milieu |  pauvre~A    nb_dep
 -------+--------------------
-Urbain |     0.362     3.045
-       |   1.5e+04   1.5e+04
+Urbain |     0.376     3.088
+       |   1.3e+04   1.3e+04
 -------+--------------------
- Rural |     0.817     4.627
-       |   1.7e+04   1.7e+04
+ Rural |     0.818     4.625
+       |   1.6e+04   1.6e+04
 -------+--------------------
- Total |     0.628     3.969
-       |   3.2e+04   3.2e+04
+ Total |     0.646     4.026
+       |   2.9e+04   2.9e+04
 ----------------------------
 
 Summary statistics: Mean, N
@@ -5682,35 +5466,36 @@ Group variable: groupe_moda
 
 groupe_moda |  pauvre~A    nb_dep
 ------------+--------------------
-    0-4 ans |     0.565     3.635
-            |  9569.000  9569.000
+    0-4 ans |     0.583     3.689
+            |  8861.000  8861.000
 ------------+--------------------
-   5-14 ans |     0.682     4.223
-            |   1.8e+04   1.8e+04
+   5-14 ans |     0.700     4.278
+            |   1.7e+04   1.7e+04
 ------------+--------------------
-  15-17 ans |     0.539     3.659
-            |  4211.000  4211.000
+  15-17 ans |     0.555     3.712
+            |  3840.000  3840.000
 ------------+--------------------
-      Total |     0.628     3.969
-            |   3.2e+04   3.2e+04
+      Total |     0.646     4.026
+            |   2.9e+04   2.9e+04
 ---------------------------------
-  Incidence ajustee 2018 : H= 62.8%  A= 70.6%  M0=0.443
+  Incidence ajustee 2018 : H= 64.6%  A= 70.6%  M0=0.456
+(31,382 observations deleted)
 
 -- MODA 2021 (pondéré hhweight) --
 
 Summary statistics: Mean, N
-Group variable: milieu (0.04. Milieu de résidence)
+Group variable: milieu (Milieu residence)
 
 milieu |  pauvre~A    nb_dep
 -------+--------------------
-Urbain |     0.298     2.846
-       |   1.2e+04   1.2e+04
+Urbain |     0.297     2.860
+       |   1.1e+04   1.1e+04
 -------+--------------------
- Rural |     0.747     4.375
+ Rural |     0.750     4.385
        |   1.4e+04   1.4e+04
 -------+--------------------
- Total |     0.553     3.715
-       |   2.7e+04   2.7e+04
+ Total |     0.573     3.790
+       |   2.4e+04   2.4e+04
 ----------------------------
 
 Summary statistics: Mean, N
@@ -5718,19 +5503,19 @@ Group variable: groupe_moda
 
 groupe_moda |  pauvre~A    nb_dep
 ------------+--------------------
-    0-4 ans |     0.470     3.325
-            |  6703.000  6703.000
+    0-4 ans |     0.494     3.420
+            |  6005.000  6005.000
 ------------+--------------------
-   5-14 ans |     0.609     3.963
-            |   1.6e+04   1.6e+04
+   5-14 ans |     0.628     4.027
+            |   1.5e+04   1.5e+04
 ------------+--------------------
-  15-17 ans |     0.469     3.382
-            |  3911.000  3911.000
+  15-17 ans |     0.483     3.438
+            |  3583.000  3583.000
 ------------+--------------------
-      Total |     0.553     3.715
-            |   2.7e+04   2.7e+04
+      Total |     0.573     3.790
+            |   2.4e+04   2.4e+04
 ---------------------------------
-  Incidence ajustee 2021 : H= 55.3%  A= 69.2%  M0=0.383
+  Incidence ajustee 2021 : H= 57.3%  A= 69.5%  M0=0.398
 
 . 
 . /* Export tab_moda_age : H par groupe d'âge et vague */
@@ -5755,26 +5540,30 @@ Number of observations (_N) was 0, now 6.
 . local r = 0
 
 . foreach annee in 2018 2021 {
-  2.     use "$TEMP/vague_`annee'.dta", clear
-  3.     foreach g in 1 2 3 {
-  4.         local ++r
-  5.         quietly summarize pauvre_MODA [aw=hhweight] if groupe_moda == `g'
-  6.         local hmoda = r(mean)*100
-  7.         /* n_calc = enfants avec un statut MODA calcule ; n_tot = effectif
+  2.     local tt = cond(`annee' == 2018, 0, 1)
+  3.     use "$TEMP/panel_vrai.dta", clear
+  4.     keep if t == `tt'
+  5.     foreach g in 1 2 3 {
+  6.         local ++r
+  7.         quietly summarize pauvre_MODA [aw=hhweight] if groupe_moda == `g'
+  8.         local hmoda = r(mean)*100
+  9.         /* n_calc = enfants avec un statut MODA calcule ; n_tot = effectif
 >            total de la tranche (colonne "Obs." du tableau du rapport) */
 .         local nobs  = r(N)
-  8.         quietly count if groupe_moda == `g'
-  9.         local ntot  = r(N)
- 10.         local lbl   = cond(`g'==1,"0-4 ans",cond(`g'==2,"5-14 ans","15-17 ans"))
- 11.         di "  `annee' / `lbl' : H=" %5.1f `hmoda' "% (n_calc=`nobs', n_tot=`ntot')"
- 12.     }
- 13. }
-  2018 / 0-4 ans : H= 56.5% (n_calc=9569, n_tot=10160)
-  2018 / 5-14 ans : H= 68.2% (n_calc=17884, n_tot=19207)
-  2018 / 15-17 ans : H= 53.9% (n_calc=4211, n_tot=4477)
-  2021 / 0-4 ans : H= 47.0% (n_calc=6703, n_tot=7795)
-  2021 / 5-14 ans : H= 60.9% (n_calc=15924, n_tot=18636)
-  2021 / 15-17 ans : H= 46.9% (n_calc=3911, n_tot=4602)
+ 10.         quietly count if groupe_moda == `g'
+ 11.         local ntot  = r(N)
+ 12.         local lbl   = cond(`g'==1,"0-4 ans",cond(`g'==2,"5-14 ans","15-17 ans"))
+ 13.         di "  `annee' / `lbl' : H=" %5.1f `hmoda' "% (n_calc=`nobs', n_tot=`ntot')"
+ 14.     }
+ 15. }
+(28,341 observations deleted)
+  2018 / 0-4 ans : H= 58.3% (n_calc=8861, n_tot=9403)
+  2018 / 5-14 ans : H= 70.0% (n_calc=16693, n_tot=17904)
+  2018 / 15-17 ans : H= 55.5% (n_calc=3840, n_tot=4075)
+(31,382 observations deleted)
+  2021 / 0-4 ans : H= 49.4% (n_calc=6005, n_tot=6982)
+  2021 / 5-14 ans : H= 62.8% (n_calc=14697, n_tot=17157)
+  2021 / 15-17 ans : H= 48.3% (n_calc=3583, n_tot=4202)
 
 . 
 . /* ============================================================
@@ -5787,31 +5576,98 @@ Number of observations (_N) was 0, now 6.
 
 . 
 . foreach annee in 2018 2021 {
-  2.     use "$TEMP/vague_`annee'.dta", clear
-  3.     di _newline "-- Dimensions `annee' --"
-  4.     foreach dim in assai eau logem nutri sante protect educ {
-  5.         quietly summarize dim_`dim' [aw=hhweight]
-  6.         di "  `dim' : " %5.1f r(mean)*100 "%"
-  7.     }
-  8. }
+  2.     local tt = cond(`annee' == 2018, 0, 1)
+  3.     use "$TEMP/panel_vrai.dta", clear
+  4.     keep if t == `tt'
+  5.     di _newline "-- Dimensions `annee' --"
+  6.     foreach dim in assai eau logem nutri sante protect educ {
+  7.         quietly summarize dim_`dim' [aw=hhweight]
+  8.         di "  `dim' : " %5.1f r(mean)*100 "%"
+  9.     }
+ 10.     di _newline "  -- Dimensions `annee' par tranche d'age --"
+ 11.     foreach dim in assai eau logem nutri sante protect educ {
+ 12.         quietly tabstat dim_`dim' [aw=hhweight], by(groupe_moda) ///
+>             stat(mean n) format(%7.4f) save
+ 13.         forvalues g = 1/3 {
+ 14.             matrix M = r(Stat`g')
+ 15.             local lbl = cond(`g'==1,"0-4 ans",cond(`g'==2,"5-14 ans","15-17 ans"))
+ 16.             di "  `dim' / `lbl' : " %5.1f M[1,1]*100 "%   n=" %7.0f M[2,1]
+ 17.         }
+ 18.     }
+ 19.     quietly summarize intensite_moda [aw=hhweight] if pauvre_MODA == 1
+ 20.     local A = r(mean)
+ 21.     quietly summarize pauvre_MODA [aw=hhweight]
+ 22.     di "  Indice ajuste `annee' : H=" %5.1f 100*r(mean) "%  A=" %5.1f 100*`A' ///
+>        "%  M0=" %5.3f r(mean)*`A'
+ 23. }
+(28,341 observations deleted)
 
 -- Dimensions 2018 --
-  assai :  50.4%
-  eau :  23.3%
-  logem :  63.4%
-  nutri :  68.1%
-  sante :  97.0%
-  protect :  67.2%
-  educ :  29.3%
+  assai :  51.3%
+  eau :  23.9%
+  logem :  65.0%
+  nutri :  69.3%
+  sante :  97.4%
+  protect :  67.3%
+  educ :  29.9%
+
+  -- Dimensions 2018 par tranche d'age --
+  assai / 0-4 ans :  53.0%   n=   9403
+  assai / 5-14 ans :  51.3%   n=  17904
+  assai / 15-17 ans :  46.9%   n=   4075
+  eau / 0-4 ans :  26.2%   n=   8861
+  eau / 5-14 ans :  23.7%   n=  16886
+  eau / 15-17 ans :  19.4%   n=   3840
+  logem / 0-4 ans :  66.5%   n=   9403
+  logem / 5-14 ans :  65.2%   n=  17904
+  logem / 15-17 ans :  60.7%   n=   4075
+  nutri / 0-4 ans :  69.3%   n=   9403
+  nutri / 5-14 ans :  69.5%   n=  17904
+  nutri / 15-17 ans :  68.6%   n=   4075
+  sante / 0-4 ans :  97.3%   n=   9403
+  sante / 5-14 ans :  97.6%   n=  17904
+  sante / 15-17 ans :  96.6%   n=   4075
+  protect / 0-4 ans :  57.4%   n=   9403
+  protect / 5-14 ans :  76.2%   n=  17689
+  protect / 15-17 ans :  51.5%   n=   4075
+  educ / 0-4 ans :   0.0%   n=   9403
+  educ / 5-14 ans :  46.0%   n=  17904
+  educ / 15-17 ans :  28.9%   n=   4075
+  Indice ajuste 2018 : H= 64.6%  A= 70.6%  M0=0.456
+(31,382 observations deleted)
 
 -- Dimensions 2021 --
-  assai :  49.0%
-  eau :  16.2%
-  logem :  53.1%
-  nutri :  62.6%
-  sante :  96.9%
-  protect :  65.7%
-  educ :  30.5%
+  assai :  49.5%
+  eau :  17.0%
+  logem :  55.2%
+  nutri :  63.0%
+  sante :  97.4%
+  protect :  67.0%
+  educ :  31.5%
+
+  -- Dimensions 2021 par tranche d'age --
+  assai / 0-4 ans :  50.6%   n=   6982
+  assai / 5-14 ans :  49.8%   n=  17157
+  assai / 15-17 ans :  46.4%   n=   4202
+  eau / 0-4 ans :  17.5%   n=   6080
+  eau / 5-14 ans :  17.2%   n=  14910
+  eau / 15-17 ans :  15.0%   n=   3628
+  logem / 0-4 ans :  56.8%   n=   6982
+  logem / 5-14 ans :  55.6%   n=  17157
+  logem / 15-17 ans :  50.7%   n=   4202
+  nutri / 0-4 ans :  63.5%   n=   6982
+  nutri / 5-14 ans :  63.3%   n=  17157
+  nutri / 15-17 ans :  61.0%   n=   4202
+  sante / 0-4 ans :  98.4%   n=   6982
+  sante / 5-14 ans :  97.0%   n=  17157
+  sante / 15-17 ans :  97.0%   n=   4202
+  protect / 0-4 ans :  54.7%   n=   6897
+  protect / 5-14 ans :  75.9%   n=  16907
+  protect / 15-17 ans :  50.9%   n=   4149
+  educ / 0-4 ans :   0.0%   n=   6982
+  educ / 5-14 ans :  45.8%   n=  17157
+  educ / 15-17 ans :  25.8%   n=   4202
+  Indice ajuste 2021 : H= 57.3%  A= 69.5%  M0=0.398
 
 . 
 . 
