@@ -99,15 +99,15 @@ rapporte les ATT PSM-DD pour chacun de ces sous-groupes.
     \quad Filles  & $0{,}064^{**}$ \\
     \hline
     \multicolumn{2}{|c|}{Par groupe d'âge} \\ \hline
-    \quad 0-4 ans   & $0{,}096^{*}$ \\ \hline
-    \quad 5-14 ans  & $0{,}048$     \\ \hline
-    \quad 15-17 ans & -$0{,}081$    \\
+    \quad 0-4 ans   & $0{,}079^{**}$ \\ \hline
+    \quad 5-14 ans  & $0{,}051$      \\ \hline
+    \quad 15-17 ans & -$0{,}044$     \\
     \hline
   \end{tabular}
 
   {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM.}
 \end{table}
-\footnotetext{\textit{Note :} erreurs-types clusterisées par grappe, poids d'appariement k-NN au niveau enfant. $^{*}p<0{,}10$, $^{**}p<0{,}05$.}
+\footnotetext{\textit{Note :} erreurs-types clusterisées par grappe, poids d'appariement k-NN au niveau enfant. Les groupes d'âge sont ceux de la période de base, l'enfant conservant son groupe aux deux vagues. $^{*}p<0{,}10$, $^{**}p<0{,}05$.}
 
 L'ATT est significatif en milieu urbain ($0{,}084$, $p = 0{,}034$) et ne l'est
 pas en milieu rural ($0{,}027$, $p = 0{,}542$). Le test d'égalité entre les
@@ -145,17 +145,30 @@ devrait porter en priorité.
 
 \subsubsection{Selon les groupes d'âge}
 
-La décomposition par âge livre le coefficient de plus grande ampleur de
-l'analyse. Chez les enfants de 0 à 4 ans, l'ATT atteint $0{,}096$ et est
-significatif au seuil de 10\,\% ($p = 0{,}055$)~: la privation
-multidimensionnelle des tout-petits de ménages bénéficiaires recule près de
-10 points plus lentement que celle de leurs témoins appariés. L'effet est
-supérieur de moitié à l'ATT d'ensemble, et il concerne la tranche d'âge sur
-laquelle les privations pèsent le plus lourdement dans la trajectoire
-ultérieure de l'enfant. Les 5-14 ans ne se distinguent pas ($0{,}048$,
-$p = 0{,}132$), et les 15-17 ans présentent un coefficient négatif mais
-imprécis (-$0{,}081$, $p = 0{,}378$), la faible taille de ce sous-groupe dans
-le panel apparié interdisant toute conclusion. Cette concentration sur la
+Les groupes d'âge sont ceux de la période de base et suivent l'enfant aux
+deux vagues. Un enfant de 3 ans en 2018 en a 6 en 2021~: recalculer son groupe
+à chaque vague le ferait changer de sous-groupe en cours de panel, et la
+double différence ne comparerait plus le même enfant à lui-même. Un tiers des
+observations du groupe des 0-4 ans sont dans ce cas. \og 0-4 ans \fg{} se lit
+donc \og âgé de 0 à 4 ans en 2018 \fg{}, ce qui est la lecture pertinente
+puisque c'est l'âge à l'exposition qui importe.
+
+La décomposition livre le coefficient de plus grande ampleur de l'analyse.
+Chez les enfants de 0 à 4 ans, l'ATT atteint $0{,}079$ et est significatif au
+seuil de 5\,\% ($p = 0{,}045$)~: la privation multidimensionnelle des
+tout-petits de ménages bénéficiaires recule près de 8 points plus lentement
+que celle de leurs témoins appariés. L'effet dépasse d'un tiers l'ATT
+d'ensemble, et il concerne la tranche d'âge sur laquelle les privations pèsent
+le plus lourdement dans la trajectoire ultérieure de l'enfant. C'est le seul
+sous-groupe d'âge qui atteint le seuil de 5\,\%. Les 5-14 ans ne se
+distinguent pas ($0{,}051$, $p = 0{,}110$).
+
+Les 15-17 ans échappent en revanche à l'analyse. Un enfant de 15 à 17 ans en
+2018 en a 18 à 20 en 2021 et sort du champ de l'étude~: il ne reste que
+232 enfants dans ce sous-groupe, contre 2\,686 chez les 0-4 ans et
+5\,158 chez les 5-14 ans. Le coefficient obtenu (-$0{,}044$, $p = 0{,}686$)
+ne repose sur rien d'exploitable. C'est une limite intrinsèque du suivi
+individuel sur trois ans, non un résultat. Cette concentration sur la
 petite enfance est cohérente avec l'effet observé
 sur la nutrition, seule dimension significative de la décomposition
 (section~\ref{sec:resultats})~: les dimensions applicables aux 0-4 ans
@@ -256,7 +269,7 @@ coefficient marginalement significatif n'aurait pas. D'abord sa stabilité~:
 les trois algorithmes d'appariement donnent des valeurs voisines, toutes
 significatives à 10\,\%. Ensuite sa localisation~: l'effet n'est pas diffus,
 il se concentre sur la nutrition ($p = 0{,}042$) et sur les enfants de 0 à
-4 ans ($p = 0{,}055$), deux résultats qui se répondent. Enfin sa position dans
+4 ans ($p = 0{,}045$), deux résultats qui se répondent. Enfin sa position dans
 la distribution placebo, au 99,0\textsuperscript{e} centile
 (annexe~\ref{ann:A})~: le point estimé est plus grand que ce que produit
 presque toute réassignation aléatoire du traitement. Il faut en revanche
