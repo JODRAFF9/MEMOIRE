@@ -1585,25 +1585,6 @@ preserve
     di ">>> tab_balance.csv sauvegardé"
 restore
 
-/* ── Fig profil : ménages bénéficiaires vs non-bénéficiaires ──
-   Comparaison visuelle du profil socio-demographique selon le statut de
-   transfert (EHCVM I), en complement du tableau de balance (tab_balance). */
-preserve
-    replace chef_f = chef_f * 100
-    replace urbain = urbain * 100
-    label define statutD 0 "Non-bénéficiaires" 1 "Bénéficiaires", replace
-    label values D statutD
-    set dp comma
-    graph bar (mean) chef_f urbain, over(D) ///
-        bar(1, color(gs9)) bar(2, color(orange)) ///
-        blabel(bar, position(center) color(white) format(%4,1f)) ///
-        legend(order(1 "Chef féminin (%)" 2 "Milieu urbain (%)") pos(6) rows(1)) ///
-        ytitle("Part des ménages (%)") ylabel(0(20)100, grid) ///
-        graphregion(color(white)) plotregion(color(white))
-    set dp period
-    graph export "$OUTPUT/figures/fig_profil_statut.pdf", replace
-    di ">>> fig_profil_statut.pdf sauvegardé"
-restore
 
 /* ============================================================
    2bis. Caracteristiques des transferts etrangers recus :
@@ -1864,25 +1845,6 @@ set dp period
 graph export "$OUTPUT/figures/fig_pauvrete_milieu_age.pdf", replace
 di ">>> fig_pauvrete_milieu_age.pdf sauvegardé"
 
-/* ── Fig 4 : Distribution nb_dep par statut de traitement ── */
-use "$TEMP/vague_2018.dta", clear
-merge m:1 grappe menage using "$TEMP/traitement_2018.dta", ///
-    keepusing(D) nogenerate keep(master match)
-replace D = 0 if missing(D)
-label define dl 0 "Non-bénéficiaires" 1 "Bénéficiaires", replace
-label values D dl
-
-set dp comma
-histogram nb_dep, by(D, cols(1) note("")) ///
-    fraction width(1) gap(10) ///
-    color(gs9) lcolor(white) ///
-    xtitle("Nombre de dimensions en privation (sur 7)") ///
-    ytitle("Fraction") ylabel(, format(%4.2f) grid) ///
-    graphregion(color(white)) plotregion(color(white))
-set dp period
-graph export "$OUTPUT/figures/fig_distrib_nbdep.pdf", replace
-di ">>> fig_distrib_nbdep.pdf sauvegardé"
-
 /* ── Fig 5 : Distribution du nombre de dimensions en privation ──
    Abscisse : nombre exact de dimensions en privation (0 a 7).
    Ordonnee  : part des enfants (%), a l'image du rapport ANSD/UNICEF
@@ -2070,12 +2032,11 @@ di ">>> fig_effets_dim.pdf sauvegardé dans $OUTPUT/figures/"
 di ">>> 07_effets_dim.do terminé."
 
 /* ============================================================
-   SECTION : 08_CARTE_REGION — Carte régionale N-MODA + pauvreté monétaire
-   et diagramme de Venn monétaire/multidimensionnel
+   SECTION : 08_CARTE_REGION — Cartes régionales
 
    Sorties :
-     output/figures/fig_carte_nmoda.pdf      — carte H par région
-     output/figures/fig_croisement_pauvrete.pdf — Venn monétaire/MODA
+     output/figures/fig_carte_nmoda.pdf   — carte H par région (présentation)
+     output/figures/fig_carte_dim_*.pdf   — cartes par dimension (annexe F)
    ============================================================ */
 
 
@@ -2102,8 +2063,7 @@ foreach annee in 2018 2021 {
     }
 }
 
-/* ── Fig carte : barres horizontales par région, deux vagues côte
-   à côte (gris = EHCVM I, orange = EHCVM II) ── */
+/* ── Table des incidences regionales (alimente les cartes) ── */
 preserve
     clear
     svmat H_reg, names(col)
@@ -2136,38 +2096,6 @@ preserve
         local ylab_str `"`ylab_str' `i' "`lbl'""'
     }
 
-    /* Lignes de reference nationales : valeurs figees en local AVANT
-       set dp comma (l'expansion `=...' sous dp comma produirait une
-       virgule qui casserait la syntaxe de xline) */
-    local xl_2018 = scalar(H_nat_2018)
-    local xl_2021 = scalar(H_nat_2021)
-    set dp comma
-    /* Positions decalees : EHCVM I au-dessus, EHCVM II en dessous */
-    gen y_2018 = ordre + 0.19
-    gen y_2021 = ordre - 0.19
-    gen mid_2018 = H_2018/2
-    gen mid_2021 = H_2021/2
-
-    twoway (bar H_2018 y_2018, horizontal barwidth(0.35) ///
-            color(gs9) lcolor(white)) ///
-           (bar H_2021 y_2021, horizontal barwidth(0.35) ///
-            color(orange) lcolor(white)) ///
-           (scatter y_2018 mid_2018, msymbol(none) ///
-            mlabel(H_2018) mlabformat(%4,1f) mlabcolor(white) mlabpos(0) mlabsize(tiny)) ///
-           (scatter y_2021 mid_2021, msymbol(none) ///
-            mlabel(H_2021) mlabformat(%4,1f) mlabcolor(white) mlabpos(0) mlabsize(tiny)), ///
-        legend(order(1 "EHCVM I (2018-19)" 2 "EHCVM II (2021-22)") pos(6) rows(1)) ///
-        ylab(`ylab_str', angle(0) noticks labsize(small)) ///
-        yscale(range(0.5 14.5)) ///
-        xtitle("Incidence N-MODA H (%)") ytitle("") ///
-        xlabel(0(10)100) ///
-        xline(0, lcolor(gs8) lwidth(thin)) ///
-        xline(`xl_2018', lcolor(gs9) lpattern(dash) lwidth(medthin)) ///
-        xline(`xl_2021', lcolor(orange) lpattern(dash) lwidth(medthin)) ///
-        graphregion(color(white)) plotregion(color(white))
-    set dp period
-    graph export "$OUTPUT/figures/fig_carte_nmoda_barres.pdf", replace
-    di ">>> fig_carte_nmoda_barres.pdf sauvegardé (variante en barres)"
 
     /* ── Table H par région, cle = nom en majuscules (NOMREG du
        shapefile) pour la fusion avec le fond de carte ── */
@@ -2427,107 +2355,6 @@ foreach d of local dims {
     di ">>> fig_carte_dim_`d'.pdf sauvegardé"
 }
 
-/* ============================================================
-   2. Croisement pauvreté monétaire / N-MODA (EHCVM I)
-   ============================================================ */
-
-use "$TEMP/vague_2018.dta", clear
-
-/* Seuil monétaire officiel ANSD 2018 : 276 305 FCFA/an */
-gen byte pauvre_mon = (pcexp < 276305) if !missing(pcexp)
-label var pauvre_mon "Pauvre monétaire (seuil ANSD 2018)"
-
-/* Tableau croisé brut (sans ponderation) */
-di _newline "=== Croisement pauvreté monétaire / N-MODA ==="
-tab pauvre_mon pauvre_MODA, row col nofreq
-
-/* Calcul des quatre cellules */
-foreach pm in 0 1 {
-    foreach md in 0 1 {
-        quietly count if pauvre_mon == `pm' & pauvre_MODA == `md'
-        local n`pm'`md' = r(N)
-    }
-}
-
-/* Proportions brutes */
-gen byte cat4 = .
-replace cat4 = 1 if pauvre_mon == 0 & pauvre_MODA == 0  /* non pauvres */
-replace cat4 = 2 if pauvre_mon == 1 & pauvre_MODA == 0  /* pauvres monet. seuls */
-replace cat4 = 3 if pauvre_mon == 0 & pauvre_MODA == 1  /* pauvres multidim. seuls */
-replace cat4 = 4 if pauvre_mon == 1 & pauvre_MODA == 1  /* doublement pauvres */
-label define cat4l 1 "Non pauvres" 2 "Pauvres monet. seuls" ///
-                   3 "Pauvres MODA seuls" 4 "Doublement pauvres"
-label values cat4 cat4l
-
-tabstat cat4, by(cat4) stat(count) format(%9.0f)
-
-quietly summarize pauvre_mon
-scalar p_mon = r(mean)*100
-quietly summarize pauvre_MODA
-scalar p_moda = r(mean)*100
-
-di _newline "Pauvreté monétaire : " %5.1f p_mon "%"
-di "Pauvreté N-MODA    : " %5.1f p_moda "%"
-
-/* ── Fig Venn simplifié : diagramme à barres empilées ── */
-/* Proportions par catégorie calculées sans collapse pour éviter
-   la perte des variables de stratification */
-preserve
-    /* 4 catégories pour graphique */
-    gen byte nn  = (pauvre_mon == 0 & pauvre_MODA == 0)  /* 1 */
-    gen byte pm_only = (pauvre_mon == 1 & pauvre_MODA == 0)  /* 2 */
-    gen byte md_only = (pauvre_mon == 0 & pauvre_MODA == 1)  /* 3 */
-    gen byte both    = (pauvre_mon == 1 & pauvre_MODA == 1)  /* 4 */
-
-    foreach v in nn pm_only md_only both {
-        quietly summarize `v'
-        scalar p_`v' = r(mean)*100
-        di "`v' : " %5.1f r(mean)*100 "%"
-    }
-
-    clear
-    set obs 4
-    gen str30 cat = ""
-    replace cat = "Non pauvres (deux approches)" in 1
-    replace cat = "Pauvres monétaires uniquement" in 2
-    replace cat = "Pauvres N-MODA uniquement"     in 3
-    replace cat = "Doublement pauvres"             in 4
-    gen pct = .
-    replace pct = p_nn      in 1
-    replace pct = p_pm_only in 2
-    replace pct = p_md_only in 3
-    replace pct = p_both    in 4
-    gen ordre = 4 - _n + 1
-    sort ordre
-
-    local ylab_str ""
-    forvalues i = 1/4 {
-        local lbl = cat[`i']
-        local ylab_str `"`ylab_str' `i' "`lbl'""'
-    }
-
-    /* Etiquette au centre (blanc) pour les barres longues, a droite
-       (noir) pour les barres trop courtes */
-    gen mid_lbl = pct/2 if pct >= 10
-    gen out_lbl = pct + 2.5 if pct < 10
-    set dp comma
-    twoway (bar pct ordre, horizontal barwidth(0.45) ///
-            color(gs9) lcolor(white)) ///
-           (scatter ordre mid_lbl, msymbol(none) ///
-            mlabel(pct) mlabformat(%4,1f) mlabcolor(white) mlabpos(0) mlabsize(small)) ///
-           (scatter ordre out_lbl, msymbol(none) ///
-            mlabel(pct) mlabformat(%4,1f) mlabcolor(black) mlabpos(0) mlabsize(small)), ///
-        ylab(`ylab_str', angle(0) noticks labsize(small)) ///
-        yscale(range(0.5 4.5)) ysize(3.2) xsize(6.8) ///
-        xtitle("Part des enfants 0-17 ans (%)") ytitle("") ///
-        xlabel(0(20)100) ///
-        xline(0, lcolor(gs8) lwidth(thin)) ///
-        legend(off) ///
-        graphregion(color(white)) plotregion(color(white))
-    set dp period
-    graph export "$OUTPUT/figures/fig_croisement_pauvrete.pdf", replace
-    di ">>> fig_croisement_pauvrete.pdf sauvegardé"
-restore
 
 di _newline ">>> 08_carte_region.do terminé."
 
