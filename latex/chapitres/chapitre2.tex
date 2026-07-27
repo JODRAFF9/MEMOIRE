@@ -3,8 +3,7 @@
 
 Cette section présente les données et la méthodologie de la recherche. La
 pauvreté multidimensionnelle des enfants est mesurée par l'approche MODA de
-l'UNICEF, qui sert de variable de résultat.
-L'impact causal des transferts est estimé sur les deux vagues de l'EHCVM par la
+l'UNICEF, qui sert de variable de résultat. L'impact causal des transferts est estimé sur les deux vagues de l'EHCVM par la
 combinaison du score de propension (PSM) et de la double différence (DD).
 
 % ─────────────────────────────────────────────────────────────────────────────
@@ -33,11 +32,11 @@ reposent sur un plan de sondage aléatoire stratifié à deux degrés :
 \subsubsection{Construction de l'échantillon}
 
 Notre population cible est l'ensemble des enfants âgés de 0 à 17 ans résidant
-dans les ménages enquêtés dans les deux vagues. L'EHCVM I couvre 7\,156 ménages et l'EHCVM II 7\,120 ménages selon le même plan de sondage avec un
-sous-échantillon panel identifié dans les données par un indicateur de statut
-de suivi \parencite{ansd2019, ansd2022}.
-
-L'échantillon analytique repose sur le panel vrai constitué des
+dans les ménages enquêtés dans les deux vagues. L'EHCVM I couvre
+7\,156 ménages et l'EHCVM II 7\,120 ménages selon le même plan de sondage,
+avec un sous-échantillon panel identifié dans les données par un indicateur de
+statut de suivi \parencite{ansd2019, ansd2022}. L'échantillon analytique
+repose sur le panel vrai constitué des
 6\,127 ménages panel, c'est-à-dire les
 ménages enquêtés lors des deux vagues et retrouvés dans leur logement d'origine
 (5\,643 ménages dans le même logement ; 290 ménages
@@ -58,10 +57,9 @@ retrouvés, les ménages de remplacement ne servant qu'à compléter les grappes
 déficitaires. La fusion $1$:$1$ sur le couple (grappe, menage) est ainsi
 vérifiée pour la totalité des 6\,127 ménages panel, dont la région, le
 département et la commune coïncident entre les deux vagues, ce qui confirme
-l'identité des unités appariées.
-
-Le tableau~\ref{tab:panelhh} présente la répartition des ménages enquêtés
-en 2021-2022 selon leur statut de suivi et le milieu de résidence.
+l'identité des unités appariées. Le tableau~\ref{tab:panelhh} présente la
+répartition des ménages enquêtés en 2021-2022 selon leur statut de suivi et le
+milieu de résidence.
 
 \begin{table}[H]
   \centering
@@ -164,25 +162,15 @@ d'une autre nature et ne justifient pas la même lecture causale~; ils sont
 donc écartés du traitement.
 
 La construction de cette variable repose sur la section 13 de transferts des
-deux vagues EHCVM.
-
-Un ménage est classé comme traité ($D_i=1$) s'il satisfait les
-deux conditions suivantes :
-
-
-(i) il a reçu en 2018 au moins un transfert dont l'expéditeur réside hors du
-Sénégal ;
-
-(ii) cet expéditeur a déjà vécu dans le ménage (ancien membre parti en
-migration).
-
-Le groupe témoin ($D_i = 0$) est composé des ménages ne recevant, en 2018,
-aucun transfert international de ce type.
-
-Le statut est mesuré sur les ménages du panel vrai, présents aux deux
-vagues. Les transferts internes sont exclus car ils relèvent d'une logique
-de redistribution domestique distincte des envois de la diaspora
-internationale \parencite{ndiaye2009}.
+deux vagues EHCVM. Un ménage est classé comme traité ($D_i=1$) s'il satisfait
+deux conditions~: il a reçu en 2018 au moins un transfert dont l'expéditeur
+réside hors du Sénégal, et cet expéditeur a déjà vécu dans le ménage, en tant
+qu'ancien membre parti en migration. Le groupe témoin ($D_i = 0$) est composé
+des ménages ne recevant, en 2018, aucun transfert international de ce type. Le
+statut est mesuré sur les ménages du panel vrai, présents aux deux vagues, et
+les transferts internes sont exclus car ils relèvent d'une logique de
+redistribution domestique distincte des envois de la diaspora internationale
+\parencite{ndiaye2009}.
 
 Ce choix appelle une mise en garde d'interprétation. Le statut étant observé
 dès la période de base, les deux vagues ne se situent pas de part et d'autre
@@ -214,7 +202,7 @@ conclusion ne tient pas à la seule définition retenue à la période de base.
 \label{subsec:selection}
 
 Le statut de bénéficiaire n'est pas distribué au hasard, et c'est de là que
-naît le problème d'identification. Le tableau~\ref{tab:selection} compare les
+naît le problème d'identification~: le tableau~\ref{tab:selection} compare les
 enfants selon le statut de leur ménage à la période de base.
 
 \begin{table}[H]
