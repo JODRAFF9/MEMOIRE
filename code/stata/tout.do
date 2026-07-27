@@ -2241,7 +2241,7 @@ histogram att_moda, width(0.005) frequency ///
     color(gs9) lcolor(white) ///
     xline(0, lcolor(black) lpattern(solid)) ///
     xline(`xl_att', lcolor(orange) lpattern(dash) lwidth(medthick)) ///
-    xtitle("ATT placebo (faux traitement aléatoire)") ///
+    xtitle("ATT placebo") ///
     ytitle("Nombre de réplications") ///
     xlabel(-0.06 "-0,06" -0.04 "-0,04" -0.02 "-0,02" 0 "0" ///
            0.02 "0,02" 0.04 "0,04" 0.06 "0,06" 0.08 "0,08" 0.10 "0,10", grid) ///
