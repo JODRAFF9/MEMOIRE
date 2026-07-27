@@ -824,7 +824,7 @@ foreach annee in 2018 2021 {
        Combinaison par groupe d'age : 5-14 ans = ind.2 seul ;
        15-17 ans = ind.1 seul.
        NEET (ni scolarise ni employe) hors agregat : m_neet est calcule a
-       titre descriptif mais n'alimente pas dim_educ (cf. annexe E). */
+       titre descriptif mais n'alimente pas dim_educ. */
     gen byte m_scol = (scol == 0) if age >= 5 & age <= 14 & !missing(scol)
     replace  m_scol = 0 if age < 5 | age > 14
 
@@ -869,15 +869,6 @@ foreach annee in 2018 2021 {
         di "  `dim' : " %5.1f r(mean)*100 "%"
     }
     tabstat pauvre_MODA nb_dep, by(groupe_moda) stat(mean n) format(%6.3f)
-
-    /* Privation par dimension ET par tranche d'age, ponderee (hhweight),
-       pour comparaison directe avec le rapport ANSD "Pauvrete de l'enfant
-       au Senegal" (taux par dimension et groupe d'age 0-4/5-14/15-17). */
-    di _newline "  === Privation par dimension x tranche d'age (%, pondere hhweight) ==="
-    foreach dim in assai eau logem nutri sante protect educ {
-        di _newline "  -- dim_`dim' --"
-        tabstat dim_`dim' [aw=hhweight], by(groupe_moda) stat(mean n) format(%7.4f)
-    }
 
     /* C. Sauvegarde */
     save "$TEMP/enfants_dep_`annee'.dta", replace
@@ -1599,20 +1590,14 @@ di _newline ">>> 05_psm_dd.do termine."
    SECTION : 06_STATS_DESC — Statistiques descriptives
    Chapitre 3 : profil ménages, pauvreté, privations, comparaison D=0/1
 
+   Toutes les statistiques de cette section portent sur le panel vrai, le
+   meme echantillon que l'estimation d'impact, afin que les effectifs et les
+   niveaux coincident d'un tableau a l'autre du rapport.
+
    Les statistiques de pauvrete/privation (incidence MODA, par dimension,
    par age, par milieu, par region) sont PONDEREES par les poids de sondage
-   (hhweight) pour assurer la representativite nationale et la comparabilite
-   avec les chiffres officiels de l'ANSD (cf. annexe E). Le profil des menages
-   et la balance traites/non-traites restent sur effectifs bruts.
-
-   Sorties :
-     output/tab_menages.csv          — caractéristiques ménages (tab 5)
-     output/tab_balance.csv          — balance traités/non-traités (tab 6)
-     output/tab_prevalence_dim.csv   — privations par dimension (tab 7)
-     output/tab_moda_age.csv         — MODA par groupe d'âge (tab 8)
-     output/fig_evolution_ipm.pdf    — évolution H, A, M0 (fig 1)
-     output/fig_privations_dim.pdf   — radar/barres privations (fig 2)
-     output/fig_overlap.pdf          — overlap scores propension (fig 3)
+   (hhweight). Le profil des menages et la balance traites/non-traites
+   restent sur effectifs bruts.
    ============================================================ */
 
 
@@ -1628,9 +1613,12 @@ capture mkdir "$OUTPUT/tables"
 di _newline "=== 1. Profil des ménages ==="
 
 foreach annee in 2018 2021 {
-    use "$TEMP/vague_`annee'.dta", clear
+    local tt = cond(`annee' == 2018, 0, 1)
+    use "$TEMP/panel_vrai.dta", clear
+    keep if t == `tt'
     bysort grappe menage: keep if _n == 1   /* un ménage = une ligne */
 
+    drop D
     merge m:1 grappe menage using "$TEMP/traitement_`annee'.dta", ///
         keepusing(D) nogenerate keep(master match)
     replace D = 0 if missing(D)
@@ -1668,10 +1656,8 @@ di _newline "=== 2. Balance traites / non-traites (niveau ENFANT) ==="
 
 /* Alimente le tableau de selection de la section 2 : qui recoit des
    transferts ? L'unite est l'enfant, comme dans tout le memoire. */
-use "$TEMP/vague_2018.dta", clear
-merge m:1 grappe menage using "$TEMP/traitement_2018.dta", ///
-    keepusing(D) nogenerate keep(master match)
-replace D = 0 if missing(D)
+use "$TEMP/panel_vrai.dta", clear
+keep if t == 0
 
 gen byte chef_f = (hgender == 2)
 gen byte urbain = (milieu  == 1)
@@ -1756,7 +1742,9 @@ foreach annee in 2018 2021 {
 di _newline "=== 3. Incidence pauvreté multidimensionnelle ==="
 
 foreach annee in 2018 2021 {
-    use "$TEMP/vague_`annee'.dta", clear
+    local tt = cond(`annee' == 2018, 0, 1)
+    use "$TEMP/panel_vrai.dta", clear
+    keep if t == `tt'
 
     di _newline "-- MODA `annee' (pondéré hhweight) --"
     tabstat pauvre_MODA nb_dep [aw=hhweight], ///
@@ -1783,7 +1771,9 @@ gen n_obs            = .
 
 local r = 0
 foreach annee in 2018 2021 {
-    use "$TEMP/vague_`annee'.dta", clear
+    local tt = cond(`annee' == 2018, 0, 1)
+    use "$TEMP/panel_vrai.dta", clear
+    keep if t == `tt'
     foreach g in 1 2 3 {
         local ++r
         quietly summarize pauvre_MODA [aw=hhweight] if groupe_moda == `g'
@@ -1805,12 +1795,29 @@ foreach annee in 2018 2021 {
 di _newline "=== 4. Privation par dimension ==="
 
 foreach annee in 2018 2021 {
-    use "$TEMP/vague_`annee'.dta", clear
+    local tt = cond(`annee' == 2018, 0, 1)
+    use "$TEMP/panel_vrai.dta", clear
+    keep if t == `tt'
     di _newline "-- Dimensions `annee' --"
     foreach dim in assai eau logem nutri sante protect educ {
         quietly summarize dim_`dim' [aw=hhweight]
         di "  `dim' : " %5.1f r(mean)*100 "%"
     }
+    di _newline "  -- Dimensions `annee' par tranche d'age --"
+    foreach dim in assai eau logem nutri sante protect educ {
+        quietly tabstat dim_`dim' [aw=hhweight], by(groupe_moda) ///
+            stat(mean n) format(%7.4f) save
+        forvalues g = 1/3 {
+            matrix M = r(Stat`g')
+            local lbl = cond(`g'==1,"0-4 ans",cond(`g'==2,"5-14 ans","15-17 ans"))
+            di "  `dim' / `lbl' : " %5.1f M[1,1]*100 "%   n=" %7.0f M[2,1]
+        }
+    }
+    quietly summarize intensite_moda [aw=hhweight] if pauvre_MODA == 1
+    local A = r(mean)
+    quietly summarize pauvre_MODA [aw=hhweight]
+    di "  Indice ajuste `annee' : H=" %5.1f 100*r(mean) "%  A=" %5.1f 100*`A' ///
+       "%  M0=" %5.3f r(mean)*`A'
 }
 
 
