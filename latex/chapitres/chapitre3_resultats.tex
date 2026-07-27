@@ -87,7 +87,72 @@ présence dans le modèle ne vise pas à améliorer la prédiction mais à garan
 que chaque enfant traité soit comparé à des enfants témoins de même sexe et de
 même âge, donc évalués sur les mêmes dimensions MODA.
 
+\subsubsection{Qualité d'ajustement du modèle probit}
+
+Un score de propension n'a pas vocation à prédire le traitement au mieux : il
+résume la sélection sur observables en une statistique unidimensionnelle, et
+c'est l'équilibrage qu'il permet d'atteindre qui le valide, non son pouvoir
+prédictif \parencite{caliendo2008}. Trois propriétés méritent néanmoins
+d'être vérifiées, car un score mal ajusté produirait des appariements
+arbitraires.
+
+Le modèle est globalement significatif (test de Wald : $\chi^2(31) = 259{,}4$,
+$p < 0{,}001$) et son pouvoir discriminant est satisfaisant : l'aire sous la
+courbe ROC atteint $0{,}765$, valeur conventionnellement jugée acceptable
+\parencite{hosmer2013}. Au seuil naturel correspondant à la part d'enfants
+traités (14,8\,\%), le modèle classe correctement 69,2\,\% des observations,
+avec une sensibilité (69,6\,\%) et une spécificité (69,1\,\%) équilibrées :
+il ne réussit pas en se contentant de prédire la modalité majoritaire.
+
+La calibration est le point le plus important pour un score de propension,
+puisque l'appariement compare des probabilités prédites. Le
+tableau~\ref{tab:calibration} confronte, par décile de score, la probabilité
+moyenne prédite à la fréquence effectivement observée d'enfants de ménages
+bénéficiaires. Les deux séries se suivent étroitement sur toute la
+distribution, du premier décile ($2{,}0\,\%$ prédit contre $2{,}3\,\%$
+observé) au dernier ($45{,}2\,\%$ contre $46{,}9\,\%$), sans biais
+systématique dans un sens ou dans l'autre. Le score peut donc être lu comme
+une probabilité, et non seulement comme un indice de classement.
+
+\begin{table}[H]
+  \centering
+  \caption[Calibration du score de propension : probabilité prédite et fréquence observée par décile]{Calibration du score de propension : probabilité prédite et fréquence observée par décile\protect\footnotemark}
+  \label{tab:calibration}
+  \zebre
+  \begin{tabular}{|c|c|c|c|}
+    \hline
+\entete Décile de score & Probabilité prédite & Fréquence observée & $n$ \\
+    \hline
+    1  & 0,020 & 0,023 & 1~777 \\ \hline
+    2  & 0,040 & 0,043 & 1~777 \\ \hline
+    3  & 0,057 & 0,040 & 1~777 \\ \hline
+    4  & 0,076 & 0,075 & 1~777 \\ \hline
+    5  & 0,097 & 0,089 & 1~777 \\ \hline
+    6  & 0,123 & 0,138 & 1~776 \\ \hline
+    7  & 0,155 & 0,157 & 1~777 \\ \hline
+    8  & 0,198 & 0,177 & 1~777 \\ \hline
+    9  & 0,264 & 0,272 & 1~778 \\ \hline
+    10 & 0,452 & 0,469 & 1~776 \\
+    \hline
+  \end{tabular}
+
+  {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM.}
+\end{table}
+\footnotetext{\textit{Note :} déciles construits sur le score de propension estimé, panel d'enfants suivis à la période de base.}
+
+Trois modalités (une d'éducation, deux d'état matrimonial du chef) prédisent
+parfaitement le non-traitement et sont écartées par l'estimation, ce qui
+retire 17 observations sur 17\,786. Cette perte est négligeable et n'affecte
+pas l'échantillon d'analyse.
+
 \subsubsection{Vérification de la qualité de l'appariement}
+
+Le support commun est excellent : sur 2\,638 enfants traités, 2 seulement se
+situent au-delà du score maximal observé chez les non-traités, et 99,1\,\% des
+enfants témoins ont un score supérieur au minimum des traités. La condition de
+chevauchement, indispensable à l'identification, est donc pleinement
+satisfaite et la restriction au support commun ne sacrifie aucune observation
+en pratique.
 
 La figure~\ref{fig:support} représente les distributions du score de propension
 des enfants bénéficiaires ($D=1$) et non bénéficiaires ($D=0$). Les deux
@@ -105,20 +170,13 @@ remise), pour un panel apparié de 15\,916 observations-enfants.
   {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM.}
 \end{figure}
 
-Avant appariement, les déséquilibres sont marqués : la différence standardisée
-moyenne atteint 12,7\,\%, avec des écarts allant jusqu'à 38\,\% sur le sexe du
-chef de ménage et 36\,\% sur la taille du ménage. Le
+Avant appariement, les déséquilibres sont considérables : la différence
+standardisée moyenne atteint 12,7\,\%, avec des écarts de 49,8\,\% sur la
+taille du ménage, 36,5\,\% sur la région de Matam, 29,3\,\% sur le log de la
+dépense par tête et 27,5\,\% sur le sexe du chef de ménage. Le
 tableau~\ref{tab:balance} présente le diagnostic d'équilibrage obtenu une fois
-l'appariement k-NN effectué : pour chaque covariable, la moyenne chez les
-enfants bénéficiaires et chez leurs témoins appariés, la différence
-standardisée et le test de Student associé. L'appariement corrige l'essentiel
-des déséquilibres : la différence standardisée moyenne tombe à 2,9\,\%
-(médiane 2,2\,\%), sous le seuil conventionnel de 10\,\%
-\parencite{austin2009}, le pseudo-$R^2$ du probit réestimé sur l'échantillon
-apparié passe de 0,143 à 0,006, et aucune différence résiduelle n'est
-significative au seuil de 5\,\%. L'équilibrage porte aussi sur les covariables
-individuelles, le sexe (SMD résiduelle de -$0{,}4$\,\%) et l'âge
-(-$2{,}8$\,\%) de l'enfant.
+l'appariement k-NN effectué, et le tableau~\ref{tab:balance_global} résume la
+qualité de l'appariement pour les trois algorithmes.
 
 \begin{table}[H]
   \centering
@@ -131,18 +189,95 @@ individuelles, le sexe (SMD résiduelle de -$0{,}4$\,\%) et l'âge
     \hline
 \entete Variable & Moyenne traités & Moyenne témoins & SMD (\%) & T-stat & $P>|t|$ \\
     \hline
-    Sexe de l'enfant (\% filles) & 0,504 & 0,506 & -0,4 & -0,16 & 0,874 \\ \hline
-    Âge de l'enfant (années)     & 6,873 & 6,992 & -2,8 & -1,00 & 0,317 \\ \hline
-    Taille du ménage             & 12,45 & 12,25 & 2,7  & 0,46  & 0,644 \\ \hline
-    Log dépense par tête         & 13,08 & 13,07 & 1,2  & 0,22  & 0,825 \\ \hline
-    Milieu rural (\%)            & 0,391 & 0,392 & -0,2 & -0,04 & 0,970 \\
+    Sexe de l'enfant (\% filles) & 0,504  & 0,506  & -0,4 & -0,16 & 0,874 \\ \hline
+    Âge de l'enfant (années)     & 6,873  & 6,992  & -2,8 & -1,00 & 0,317 \\ \hline
+    Taille du ménage             & 17,256 & 16,408 & 9,8  & 3,05  & 0,002 \\ \hline
+    Log dépense par tête         & 12,888 & 12,936 & -9,3 & -3,04 & 0,002 \\ \hline
+    Sexe du chef de ménage       & 1,300  & 1,342  & -9,9 & -3,28 & 0,001 \\ \hline
+    Âge du chef (années)         & 54,789 & 54,217 & 4,1  & 1,41  & 0,159 \\ \hline
+    Milieu rural (\%)            & 0,471  & 0,455  & 3,1  & 1,13  & 0,258 \\
     \hline
   \end{tabular}%
   }
 
   {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM.}
 \end{table}
-\footnotetext{\textit{Note :} niveau enfant, panel de 17\,786 enfants suivis~; seuil conventionnel~: SMD $< 10\,\%$. Différence standardisée moyenne sur l'ensemble des covariables~: 12,7\,\% avant appariement, 2,9\,\% après.}
+\footnotetext{\textit{Note :} niveau enfant, panel de 17\,786 enfants suivis~; seuil conventionnel~: SMD $< 10\,\%$. Les effets fixes région et les modalités d'éducation et d'état matrimonial du chef, omis du tableau, présentent tous une SMD résiduelle inférieure à 7\,\%.}
+
+L'appariement corrige l'essentiel du déséquilibre initial : la différence
+standardisée moyenne passe de 12,7\,\% à 2,9\,\%, et aucune covariable ne
+dépasse le seuil conventionnel de 10\,\% \parencite{austin2009}. Les
+covariables individuelles sont particulièrement bien équilibrées, le sexe
+(-$0{,}4$\,\%) comme l'âge de l'enfant (-$2{,}8$\,\%) : chaque enfant traité
+est bien comparé à des enfants témoins du même profil démographique, donc
+évalués sur les mêmes dimensions MODA.
+
+Trois covariables de ménage conservent néanmoins un déséquilibre résiduel
+significatif au seuil de 1\,\% : la taille du ménage ($9{,}8$\,\%), le log de
+la dépense par tête (-$9{,}3$\,\%) et le sexe du chef (-$9{,}9$\,\%). Ce sont
+précisément les trois déterminants les plus forts du traitement. Ce résultat
+n'est pas fortuit : l'appariement au niveau de l'enfant fait entrer chaque
+ménage autant de fois qu'il abrite d'enfants, ce qui accentue le poids des
+ménages nombreux et rend leur taille plus difficile à équilibrer. La
+statistique jointe reflète la même tension, le test du rapport de
+vraisemblance sur l'échantillon apparié restant marginalement significatif
+($p = 0{,}071$).
+
+\subsubsection{Comparaison de la qualité des trois appariements}
+
+Le tableau~\ref{tab:balance_global} confronte les indicateurs synthétiques
+d'équilibrage des trois algorithmes, selon les critères de
+\textcite{rosenbaum2002} repris par \textcite{caliendo2008}.
+
+\begin{table}[H]
+  \centering
+  \caption[Qualité de l'appariement : comparaison des trois algorithmes]{Qualité de l'appariement : comparaison des trois algorithmes\protect\footnotemark}
+  \label{tab:balance_global}
+  \zebre
+  \begin{tabular}{|l|c|c|c|c|c|}
+    \hline
+\entete Échantillon & Pseudo-$R^2$ & $p$ (LR $\chi^2$) & SMD moy. (\%) & $B$ (\%) & $R$ \\
+    \hline
+    Avant appariement            & 0,143 & 0,000 & 12,7 & 100,2 & 1,32 \\ \hline
+    k-NN ($k=4$)                 & 0,006 & 0,071 & 2,9  & 18,1  & 0,80 \\ \hline
+    Noyau Epanechnikov           & 0,003 & 0,924 & 2,0  & 12,5  & 1,35 \\ \hline
+    Caliper ($\varepsilon = 0{,}05$) & 0,003 & 0,797 & 2,0 & 13,8 & 1,19 \\
+    \hline
+  \end{tabular}
+
+  {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM.}
+\end{table}
+\footnotetext{\textit{Note :} $B$ = différence standardisée des indices de propension linéaires, $R$ = rapport de leurs variances. Critères d'un appariement satisfaisant \parencite{rosenbaum2002} : $B < 25\,\%$ et $R \in [0{,}5~;~2]$.}
+
+Les trois algorithmes satisfont les critères usuels : la différence
+standardisée moyenne tombe sous 3\,\%, le pseudo-$R^2$ s'effondre de 0,143 à
+0,006 ou moins, $B$ reste bien en deçà de 25\,\% et $R$ dans l'intervalle
+$[0{,}5~;~2]$. L'appariement retire donc l'essentiel de la sélection sur
+observables.
+
+La comparaison fait toutefois ressortir un point que la seule lecture du k-NN
+masquerait : c'est la spécification de référence qui s'équilibre le moins
+bien. Le noyau et le caliper affichent une différence standardisée moyenne
+plus faible (2,0\,\% contre 2,9\,\%), un $B$ plus bas, et surtout un test
+joint largement non significatif ($p = 0{,}924$ et $p = 0{,}797$), là où le
+k-NN reste à la limite ($p = 0{,}071$). En n'utilisant que quatre voisins par
+enfant traité, le k-NN mobilise moins d'information que le noyau, qui pondère
+l'ensemble des témoins du support commun ; sur un échantillon où les enfants
+traités se concentrent dans un nombre limité de ménages, cette parcimonie se
+paie en équilibrage.
+
+Ce constat ne remet pas en cause les résultats, pour deux raisons. D'abord,
+les trois méthodes donnent des estimations très proches
+(tableau~\ref{tab:psm_methodes}) : l'ATT vaut $0{,}053$ en k-NN, $0{,}060$ en
+noyau et $0{,}050$ en caliper, tous significatifs au seuil de 10\,\%. Que les
+deux spécifications les mieux équilibrées encadrent l'estimation de référence
+est rassurant. Ensuite, le déséquilibre résiduel du k-NN porte sur des
+covariables — taille du ménage, dépense par tête, sexe du chef — dont l'effet
+de niveau est de toute façon éliminé par la double différence, celle-ci ne
+retenant que la variation intra-individuelle. Le biais résiduel n'affecterait
+l'ATT que si ces caractéristiques déterminaient non pas le niveau, mais la
+\emph{tendance} des privations, hypothèse que le test placebo
+(annexe~\ref{ann:A}) ne corrobore pas.
 
 \subsection{Impact des transferts sur la pauvreté multidimensionnelle}
 

@@ -1158,8 +1158,34 @@ probit D c.hhsize c.log_pcexp i.milieu i.region ///
 
 di "Pseudo-R2 McFadden : " %6.3f 1 - e(ll)/e(ll_0)
 
+/* ── 1b-bis. Qualite d'ajustement du probit ──────────────────
+   Le score de propension n'a pas vocation a predire le traitement, mais a
+   resumer la selection sur observables. On en verifie neanmoins trois
+   proprietes : le pouvoir discriminant (aire sous la courbe ROC), le taux
+   de bon classement, et la calibration (probabilite predite vs frequence
+   observee par decile de score). */
+di _newline "--- Qualite d'ajustement du probit ---"
+
+lroc, nograph
+di "  Aire sous la courbe ROC : " %5.3f r(area)
+
+estat classification, cutoff(0.1484)   /* seuil = part de traites */
+
 predict pscore, pr
 label var pscore "Score de propension (enfant)"
+
+/* Calibration : score moyen predit vs part observee de traites, par decile */
+di _newline "  Calibration par decile de score :"
+di "  Decile   Predit   Observe   n"
+xtile dec_ps = pscore, nquantiles(10)
+forvalues d = 1/10 {
+    quietly summarize pscore if dec_ps == `d'
+    local pred = r(mean)
+    local n    = r(N)
+    quietly summarize D if dec_ps == `d'
+    di "  " %4.0f `d' %10.3f `pred' %9.3f r(mean) %7.0f `n'
+}
+drop dec_ps
 
 /* Graphique de densite (support commun) */
 set dp comma
