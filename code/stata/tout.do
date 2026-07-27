@@ -314,31 +314,16 @@ save "$TEMP/traitement_2021.dta", replace
    N-MODA — 7 dimensions, seuil k=4, unite = enfant. Definitions RETENUES
    (telles qu'implementees ci-dessous ; variables 2018 / 2021) :
 
-   1. ASSAINISSEMENT
-      - Type de sanitaire non ameliore : s11q55/54 in {7..12}
-      - Partage des toilettes : s11q56/55==1 (denominateur = installations privees)
-   2. EAU
-      - Source non amelioree {5,6,12,13,16,17} (saison seche OU pluies) ET ne
-        traite pas son eau (filtre s11q32/31 != « oui »)
-      - Temps de collecte >= 30 min (aller + attente, une saison ou l'autre)
-   3. LOGEMENT
-      - Debarras des ordures inadequat : s11q54/53 in {3,5,6}
-      - Surpeuplement : hhsize / nb_pieces >= 4 (>= 4 pers./piece)
-   4. NUTRITION
-      - Insecurite alimentaire (FIES, s08a). Diversite des repas NON retenue
-        (module non comparable entre les deux vagues)
-   5. SANTE  (dimension = union des deux)
-      - Combustible solide pour cuisiner : s11q53/52 (bois, charbon, dechets…)
-      - Acces sante : ne peut acceder A PIED (mode s02q02==1) a une structure
-        publique 5/6 (module communautaire s02_co)
-   6. PROTECTION DE L'ENFANT
-      - Absence d'acte de naissance (s01q05==2, < 15 ans)
-      - Travail des enfants : economique OU domestique >= 1h (5-14 ans)
-      - Separation parentale : ne vit pas avec ses 2 parents (s01q22/s01q29)
-   7. EDUCATION
-      - Non-scolarisation (scol==0, 5-14 ans)
-      - Illettrisme (alfab==0, 15-17 ans)
-      - NEET ECARTE (valeur ANSD = simple non-emploi, incoherente ; cf. annexe E)
+   1. ASSAINISSEMENT   m_toilet (s11q55/54) ; m_partag_toi (s11q56/55)
+   2. EAU             m_eau_source (s11q26a/b, filtre s11q32/31)
+                      m_eau_temps  (s11q29a/28a, s11q31a/30a)
+   3. LOGEMENT        m_ordures (s11q54/53) ; m_surpeup (hhsize / s11q02)
+   4. NUTRITION       m_securite (s08a, 8 questions FIES)
+   5. SANTE           m_combust (s11q53/52) ; m_sante_acces (s02_co, s02q02)
+   6. PROTECTION      m_acte_nais (s01q05) ; m_trav_enf (s04) ;
+                      m_parents (s01q22/s01q29)
+   7. EDUCATION       m_scol (scol) ; m_alfab (alfab)
+                      m_neet calcule a titre descriptif, hors agregat
    -------------------------------------------------------------------------- */
 
 /* ============================================================
@@ -443,19 +428,13 @@ foreach annee in 2018 2021 {
        poser le mode d'acces 2.02. Le mode (2.02, 1=Pieds) n'est donc renseigne
        que pour les services ABSENTS localement (trajet vers le plus proche).
 
-       Definition ANSD a la lettre : "Enfant vivant dans une localite ou il/elle
-       ne peut acceder A PIED a une structure de sante". Le seul critere est
-       donc le MODE habituel = a pied (s02q02==1). On NE suppose PAS que
-       l'existence locale garantit l'acces a pied : dans une grande commune, un
-       hopital "existe dans la ville" mais s'y rejoint en voiture. Un OU inclusif
-       "existe OU a pied" introduirait la condition non ecrite existe=>a-pied et
-       ferait chuter le taux (47,6 % au lieu de 71,0 %). On retient donc l'acces
-       a pied AU SENS STRICT : PEUT acceder a pied (P) si le mode habituel pour
-       rejoindre une structure 5/6 est la marche (s02q02==1) ; prive
-       (m_sante_acces=1) sinon. Cette lecture reproduit un taux de 71,0/69,8/65,4
-       (contre ANSD 79,3/78,5/75,2 ; le residu tient aux localites disposant
-       d'une structure sur place, pour lesquelles le mode d'acces n'est pas
-       renseigne, surtout en milieu rural). 2018 : identifiant du service dans
+       Est prive l'enfant dont le MODE habituel pour rejoindre une
+       structure publique (services 5/6) n'est pas la marche (s02q02==1).
+       L'existence d'une structure sur place n'est pas assimilee a un acces
+       a pied. Agregation par grappe en OU : collapse (max) sur pfoot.
+       Le residu par rapport a l'ANSD tient aux localites disposant d'une
+       structure sur place, pour lesquelles le mode d'acces n'est pas
+       renseigne. 2018 : identifiant du service dans
        s02q00. 2021 : s02q00 absent (26 services, meme ordre, 26 lignes/grappe
        -> identifiant = rang de la ligne). */
     preserve
@@ -631,9 +610,7 @@ foreach annee in 2018 2021 {
        et les « ne sait pas »/non-reponse, comptes comme non-traitement.
        v_gate : s11q32 en 2018, s11q31 en 2021 (1=oui, 2=non, 3=ne sait pas).
        Denominateur PLEIN : tous les enfants dont le type de source est
-       renseigne. Reproduit les taux ANSD 2018 (12,0 / 10,7 / 8,5 par groupe
-       d'age ; ici 11,9 / 10,0 / 7,9, l'ecart residuel etant le meme calage
-       demographique que sur les autres indicateurs). */
+       renseigne. */
     /* ATTENTION : en 2021, la variable de saison des PLUIES (s11q26b) utilise
        un jeu de modalites decale par rapport a celui de la saison seche. Elle
        intercale "Eau en sachet" en 16, si bien que vendeur ambulant passe de
@@ -681,17 +658,15 @@ foreach annee in 2018 2021 {
        Indicateur 2 - Surpeuplement (> 3 personnes par piece) */
     /* Debarras des ordures inadequat (definition ANSD, codes bruts de
        v_ordure : s11q54 en 2018, s11q53 en 2021) : 3 brulees par le menage,
-       5 depotoir sauvage, 6 autre. La variable pre-codee "ordure" du fichier
-       menage donnait ~1 point de plus ; les codes bruts reproduisent l'ANSD
-       exactement (59,3 / 58,2 / 53,0 en 2018). */
+       5 depotoir sauvage, 6 autre. Les codes bruts sont retenus plutot que
+       la variable pre-codee "ordure" du fichier menage, qui agrege
+       differemment. */
     gen byte m_ordures = inlist(`v_ordure', 3, 5, 6) if !missing(`v_ordure')
     /* Surpeuplement ANSD : « plus de 3 personnes par piece » operationnalise
        comme AU MOINS 4 personnes par piece (ratio >= 4), et non ratio > 3 (qui
-       compterait a tort 3,5 pers./piece comme surpeuple). Reproduit exactement
-       les taux ANSD 2018 : 13,3 / 12,7 / 11,4 par groupe d'age. Le nombre de
-       pieces est le total occupe (s11q02) ; l'EHCVM ne distingue pas les
-       « pieces pour dormir » retenues par la definition-type ANSD, mais le
-       resultat coincide avec cette derniere. */
+       compterait a tort 3,5 pers./piece comme surpeuple). Le nombre de pieces
+       est le total occupe (s11q02), l'EHCVM ne distinguant pas les pieces
+       reservees au sommeil. */
     gen byte m_surpeup = (hhsize / nb_pieces >= 4) ///
         if !missing(nb_pieces) & nb_pieces > 0 & !missing(hhsize)
     gen byte dim_logem = (m_ordures == 1 | m_surpeup == 1) ///
@@ -790,11 +765,8 @@ foreach annee in 2018 2021 {
        Indicateur 2 - Non-scolarisation (5-14 ans)
        Combinaison par groupe d'age : 5-14 ans = ind.2 seul ;
        15-17 ans = ind.1 seul.
-       NEET (ni scolarise ni employe) NON RETENU dans l'agregat : la valeur
-       ANSD publiee (85,7 %) est incoherente (un NEET est necessairement non
-       scolarise, or seuls ~46 % des 15-17 le sont) et non reproductible ; on
-       n'inclut donc que les indicateurs validables sur l'ANSD. m_neet reste
-       calcule a titre descriptif mais n'alimente plus dim_educ. */
+       NEET (ni scolarise ni employe) hors agregat : m_neet est calcule a
+       titre descriptif mais n'alimente pas dim_educ (cf. annexe E). */
     gen byte m_scol = (scol == 0) if age >= 5 & age <= 14 & !missing(scol)
     replace  m_scol = 0 if age < 5 | age > 14
 
