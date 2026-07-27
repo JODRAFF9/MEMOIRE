@@ -77,64 +77,6 @@ présence dans le modèle ne vise pas à améliorer la prédiction mais à garan
 que chaque enfant traité soit comparé à des enfants témoins de même sexe et de
 même âge, donc évalués sur les mêmes dimensions MODA.
 
-\subsubsection{Qualité d'ajustement du modèle probit}
-
-Un score de propension n'a pas vocation à prédire le traitement au mieux : il
-résume la sélection sur observables en une statistique unidimensionnelle, et
-c'est l'équilibrage qu'il permet d'atteindre qui le valide, non son pouvoir
-prédictif \parencite{caliendo2008}. Trois propriétés méritent néanmoins
-d'être vérifiées, car un score mal ajusté produirait des appariements
-arbitraires.
-
-Le modèle est globalement significatif (test de Wald : $\chi^2(31) = 259{,}4$,
-$p < 0{,}001$) et son pouvoir discriminant est satisfaisant : l'aire sous la
-courbe ROC atteint $0{,}765$, valeur conventionnellement jugée acceptable
-\parencite{hosmer2013}. Au seuil naturel correspondant à la part d'enfants
-traités (14,8\,\%), le modèle classe correctement 69,2\,\% des observations,
-avec une sensibilité (69,6\,\%) et une spécificité (69,1\,\%) équilibrées :
-il ne réussit pas en se contentant de prédire la modalité majoritaire.
-
-La calibration est le point le plus important pour un score de propension,
-puisque l'appariement compare des probabilités prédites. Le
-tableau~\ref{tab:calibration} confronte, par décile de score, la probabilité
-moyenne prédite à la fréquence effectivement observée d'enfants de ménages
-bénéficiaires. Les deux séries se suivent étroitement sur toute la
-distribution, du premier décile ($2{,}0\,\%$ prédit contre $2{,}3\,\%$
-observé) au dernier ($45{,}2\,\%$ contre $46{,}9\,\%$), sans biais
-systématique dans un sens ou dans l'autre. Le score peut donc être lu comme
-une probabilité, et non seulement comme un indice de classement.
-
-\begin{table}[H]
-  \centering
-  \caption[Calibration du score de propension : probabilité prédite et fréquence observée par décile]{Calibration du score de propension : probabilité prédite et fréquence observée par décile\protect\footnotemark}
-  \label{tab:calibration}
-  \zebre
-  \begin{tabular}{|c|c|c|c|}
-    \hline
-\entete Décile de score & Probabilité prédite & Fréquence observée & $n$ \\
-    \hline
-    1  & 0,020 & 0,023 & 1~777 \\ \hline
-    2  & 0,040 & 0,043 & 1~777 \\ \hline
-    3  & 0,057 & 0,040 & 1~777 \\ \hline
-    4  & 0,076 & 0,075 & 1~777 \\ \hline
-    5  & 0,097 & 0,089 & 1~777 \\ \hline
-    6  & 0,123 & 0,138 & 1~776 \\ \hline
-    7  & 0,155 & 0,157 & 1~777 \\ \hline
-    8  & 0,198 & 0,177 & 1~777 \\ \hline
-    9  & 0,264 & 0,272 & 1~778 \\ \hline
-    10 & 0,452 & 0,469 & 1~776 \\
-    \hline
-  \end{tabular}
-
-  {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM.}
-\end{table}
-\footnotetext{\textit{Note :} déciles construits sur le score de propension estimé, panel d'enfants suivis à la période de base.}
-
-Trois modalités (une d'éducation, deux d'état matrimonial du chef) prédisent
-parfaitement le non-traitement et sont écartées par l'estimation, ce qui
-retire 17 observations sur 17\,786. Cette perte est négligeable et n'affecte
-pas l'échantillon d'analyse.
-
 \subsubsection{Vérification de la qualité de l'appariement}
 
 Le support commun est excellent : sur 2\,638 enfants traités, 2 seulement se
