@@ -554,6 +554,14 @@ foreach annee in 2018 2021 {
             rename s01qpreload_pid numind_2018
             keep if !missing(numind_2018)
             save "$TEMP/lien_individus.dta", replace
+
+            /* Verification de la cle : biunivocite dans les deux sens */
+            di _newline "--- Table de correspondance individuelle 2018-2021 ---"
+            di "  Individus relies : " _N
+            quietly duplicates report grappe menage numind
+            di "  Cle 2021 unique  : " cond(r(unique_value) == _N, "oui", "NON")
+            quietly duplicates report grappe menage numind_2018
+            di "  Cle 2018 unique  : " cond(r(unique_value) == _N, "oui", "NON")
         restore
     }
     merge m:1 grappe menage numind using `s01_temp', ///
@@ -1144,6 +1152,22 @@ label var enfid "Identifiant individuel de l'enfant (panel)"
 drop if missing(D) | missing(log_pcexp) | missing(hhsize) ///
        | missing(sexe18) | missing(age18) | missing(pauvre_MODA18) ///
        | missing(pauvre_MODA21)
+
+/* ── Validation empirique de l'appariement individuel ─────────
+   La cle s01qpreload_pid n'est pas documentee dans la documentation
+   officielle de l'enquete : sa validite est etablie par deux verifications
+   qu'un appariement arbitraire ne pourrait pas satisfaire. */
+di _newline "--- Validation de l'appariement individuel ---"
+quietly count if sexe18 == sexe21
+di "  Concordance du sexe entre vagues : " %5.1f 100*r(N)/_N "%"
+quietly gen int ecart_age = age21 - age18
+quietly summarize ecart_age, detail
+di "  Ecart d'age : mediane " %4.1f r(p50) "  moyenne " %5.2f r(mean)
+quietly count if inrange(ecart_age, 2, 4)
+di "  Part avec ecart d'age dans [2 ; 4] ans : " %5.1f 100*r(N)/_N "%"
+quietly count if ecart_age < 0
+di "  Part avec ecart d'age negatif (erreur de declaration) : " %5.1f 100*r(N)/_N "%"
+quietly drop ecart_age
 
 di _newline "=== Probit ENFANT — score de propension (EHCVM I, panel d'enfants) ==="
 di "Enfants suivis aux deux vagues : " _N
