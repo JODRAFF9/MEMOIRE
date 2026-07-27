@@ -10,52 +10,46 @@ les implications pour les politiques publiques.
 
 \subsection{Tests de robustesse}
 
-\subsubsection{Robustesse par panel d'enfants}
+\subsubsection{Robustesse au choix de l'unité d'appariement}
 
-L'estimation principale repose sur le panel de ménages~: elle compare, à chaque
-vague, les enfants de 0 à 17 ans des ménages suivis, sans garantir qu'il
-s'agisse exactement des mêmes enfants d'une année à l'autre. Or la mesure
-MODA attribue à chaque enfant un jeu de dimensions dépendant de son groupe
-d'âge (0-4, 5-14, 15-17 ans). Un effet estimé pourrait donc, en principe,
-refléter une simple recomposition de l'échantillon par âge plutôt qu'une
-évolution des privations des enfants réellement suivis.
+L'estimation principale apparie les enfants. Ce choix découle de l'unité
+d'analyse, mais il restreint l'échantillon aux enfants observés aux deux
+vagues et écarte donc ceux qui naissent, atteignent 18 ans ou quittent le
+ménage entre 2018 et 2021. Pour vérifier que la conclusion ne tient pas à
+cette restriction, la double différence est ré-estimée sur l'ensemble des
+enfants du panel de ménages, sans appariement individuel : l'ATT y vaut
+$0{,}032$ ($p = 0{,}167$), de même signe que l'estimation principale mais
+d'ampleur plus faible et non significatif.
 
-Pour écarter cette possibilité, nous ré-estimons l'ATT sur un panel
-d'enfants, c'est-à-dire sur les seuls enfants présents aux deux vagues.
-L'appariement individuel entre les deux vagues est possible car le
-questionnaire de 2021 précharge, pour chaque ménage panel, les membres relevés
-en 2018 avec leur identifiant d'origine ainsi que leur sexe, leur âge et leur
-lien de parenté. Cet identifiant préchargé, et non le rang dans le roster de
-2021, relie un individu à lui-même d'une vague à l'autre~; sa validité est
-confirmée par la concordance du sexe entre vagues (98,5\,\%) et par un écart
-d'âge médian de trois ans, conforme à l'intervalle entre les deux passages.
-
-Le statut de privation MODA de chaque enfant suivi est recalculé à chaque
-vague en tenant compte de son vieillissement, qui peut le faire changer de
-groupe d'âge et donc de dimensions applicables (un enfant de 3 ans en 2018,
-relevant du groupe 0-4, passe au groupe 5-14 en 2021~; un enfant de 13 ans
-passe de 5-14 à 15-17). Cette approche isole l'évolution intra-individuelle
-des privations de l'effet de composition par âge. Sur les 17\,786 enfants
-appariés aux deux vagues, l'ATT vaut $0{,}035$ ($p = 0{,}153$)~: la
-conclusion obtenue sur le panel de ménages est confirmée, le résultat nul
-ne tient donc pas à une recomposition de l'échantillon par âge.
+L'écart entre les deux ne traduit pas une instabilité du résultat mais l'effet
+propre de l'appariement. Comme le montre la décomposition de
+l'annexe~\ref{ann:A}, les enfants de ménages bénéficiaires partent d'un niveau
+de privation nettement inférieur à celui de leurs témoins ; ne pas corriger
+cet avantage initial atténue mécaniquement l'écart de trajectoire mesuré.
 
 \subsubsection{Sensibilité au traitement et à la méthode d'appariement}
 
 Le tableau~\ref{tab:psm_methodes} (section~\ref{subsec:psmdd}) documente la
-sensibilité de l'ATT à la méthode d'appariement~: k-NN ($0{,}043$,
-$p=0{,}119$), noyau Epanechnikov ($0{,}056$, $p=0{,}057$), caliper
-($0{,}019$, $p=0{,}524$) et double différence brute ($0{,}032$,
-$p=0{,}167$). La conclusion est robuste au choix algorithmique. Elle l'est
-également à la définition du traitement~: en restreignant la comparaison
-aux bénéficiaires durables (recevant un transfert aux deux vagues,
-2\,604 observations-enfants) face aux ménages jamais bénéficiaires
-(23\,580 observations), l'ATT vaut $0{,}023$ ($p = 0{,}474$). Une
-exposition prolongée aux transferts ne produit donc pas davantage d'effet
-mesurable qu'une exposition récente. Enfin, le seuil inter-dimensionnel
-$k$, dont la variation de 3 à 6 laisse l'effet non significatif
-(tableau~\ref{tab:sensib_k}, section~\ref{subsec:sensib_k}), ne conditionne
-pas non plus le résultat.
+sensibilité de l'ATT à la méthode d'appariement : k-NN ($0{,}053$,
+$p = 0{,}086$), noyau Epanechnikov ($0{,}060$, $p = 0{,}074$) et caliper
+($0{,}050$, $p = 0{,}057$). Les trois algorithmes donnent des effets d'ampleur
+voisine, tous significatifs au seuil de 10\,\% et aucun à 5\,\% : la
+conclusion est robuste au choix algorithmique.
+
+Elle l'est moins à la définition du traitement. En restreignant la comparaison
+aux bénéficiaires durables -- recevant un transfert aux deux vagues,
+2\,604 observations-enfants -- face aux ménages jamais bénéficiaires
+(23\,580 observations), l'ATT tombe à $0{,}023$ et perd toute significativité
+($p = 0{,}474$). Une exposition prolongée aux transferts ne s'accompagne donc
+pas de l'écart de trajectoire observé sur le traitement défini à la période de
+base. Ce design a toutefois ses propres limites, le traitement y étant déjà en
+cours à $t=0$ : la première vague n'y mesure pas un niveau pré-traitement.
+
+Enfin, le seuil inter-dimensionnel $k$ module l'intensité de l'effet sans en
+changer le signe (tableau~\ref{tab:sensib_k},
+section~\ref{subsec:sensib_k}) : significatif à 5\,\% pour la définition la
+plus inclusive ($k=3$), à 10\,\% au seuil de référence, non significatif
+au-delà. L'effet se joue à la marge de la pauvreté, non dans son noyau.
 
 \subsubsection{Attrition et biais de sélection}
 
@@ -93,137 +87,156 @@ Le tableau~\ref{tab:heterogeneite} rapporte les ATT PSM-DD pour chaque sous-grou
 \entete Sous-groupe & ATT (MODA) & $p$-val. \\
     \hline
     \multicolumn{3}{|c|}{\textit{Par milieu de résidence}} \\ \hline
-    \quad Milieu urbain & $0{,}044$  & 0,244 \\ \hline
-    \quad Milieu rural  & $0{,}035$ & 0,342 \\ \hline
-    \quad Test d'égalité ($p$-val.) & \multicolumn{2}{|c|}{0,862} \\
+    \quad Milieu urbain & $0{,}067$ & 0,127 \\ \hline
+    \quad Milieu rural  & $0{,}037$ & 0,383 \\ \hline
+    \quad Test d'égalité ($p$-val.) & \multicolumn{2}{|c|}{0,629} \\
     \hline
     \multicolumn{3}{|c|}{\textit{Par sexe de l'enfant}} \\ \hline
-    \quad Garçons & $0{,}020$  & 0,511 \\ \hline
-    \quad Filles  & $0{,}065^{**}$ & 0,028 \\
+    \quad Garçons & $0{,}082^{**}$ & 0,030 \\ \hline
+    \quad Filles  & $0{,}025$      & 0,419 \\
     \hline
     \multicolumn{3}{|c|}{\textit{Par groupe d'âge}} \\ \hline
-    \quad 0-4 ans   & $0{,}084^{**}$ & 0,037 \\ \hline
-    \quad 5-14 ans  & $0{,}024$ & 0,394 \\ \hline
-    \quad 15-17 ans & $0{,}059$ & 0,202 \\
+    \quad 0-4 ans   & $0{,}142^{***}$ & 0,007 \\ \hline
+    \quad 5-14 ans  & $0{,}037$       & 0,249 \\ \hline
+    \quad 15-17 ans & -$0{,}114$      & 0,257 \\
     \hline
   \end{tabular}
 
   {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM.}
 \end{table}
-\footnotetext{\textit{Note :} erreurs-types clusterisées par grappe, poids d'appariement k-NN. $^{**}p<0{,}05$.}
+\footnotetext{\textit{Note :} erreurs-types clusterisées par grappe, poids d'appariement k-NN au niveau enfant. $^{**}p<0{,}05$, $^{***}p<0{,}01$.}
 
 L'analyse par milieu ne conclut à aucune différence entre zones~: l'ATT est
-positif et non significatif en milieu urbain ($0{,}044$, $p = 0{,}244$)
-comme en milieu rural ($0{,}035$, $p = 0{,}342$), et le test d'égalité ne
-rejette pas l'homogénéité ($p = 0{,}862$). Le milieu de résidence ne
+positif et non significatif en milieu urbain ($0{,}067$, $p = 0{,}127$)
+comme en milieu rural ($0{,}037$, $p = 0{,}383$), et le test d'égalité ne
+rejette pas l'homogénéité ($p = 0{,}629$). Le milieu de résidence ne
 conditionne donc pas l'effet des transferts, ce qui infirme le volet
 géographique de l'hypothèse H2.
 
 \subsubsection{Selon le sexe de l'enfant}
 
-La décomposition par sexe fait apparaître le seul écart significatif de
-l'analyse, et c'est le volet de l'hypothèse H2 que les données valident~:
-l'ATT est nul pour les garçons ($0{,}020$, $p = 0{,}511$) mais significatif
-et défavorable pour les filles ($0{,}065$, $p = 0{,}028$), dont la privation
-multidimensionnelle recule 6,5 points plus lentement que celle des filles de
-ménages témoins comparables. L'effet des transferts sur les enfants dépend
-donc bien du sexe de l'enfant, mais dans le sens inverse de celui qu'une
-lecture optimiste des transferts laisserait attendre.
+La décomposition par sexe fait apparaître un écart net, et c'est l'un des deux
+volets de l'hypothèse H2 que les données valident~: l'ATT est significatif et
+défavorable pour les garçons ($0{,}082$, $p = 0{,}030$) alors qu'il est nul
+pour les filles ($0{,}025$, $p = 0{,}419$). La privation multidimensionnelle
+des garçons de ménages bénéficiaires recule 8,2 points plus lentement que
+celle de garçons témoins comparables, écart que l'on n'observe pas chez les
+filles.
 
-Deux lectures de cet écart sont possibles. La première renvoie à un arbitrage
-intra-ménage~: face à des ressources supplémentaires mais aussi à l'absence
-d'un adulte, les ménages reporteraient sur les filles les charges domestiques
-et la garde des cadets, au détriment de leur scolarisation et de leur
-protection. Cette lecture rejoint la littérature sur la substitution du
-travail domestique des filles à celui de l'adulte parti
-\parencite{cortes2007}, et elle est cohérente avec le résultat obtenu sur les
-0-4 ans, dont la prise en charge quotidienne incombe précisément aux aînées.
-La seconde invite à la prudence~: ce test est l'un des huit sous-groupes
-examinés, et sa significativité au seuil de 5\,\% ne survivrait pas
-nécessairement à une correction pour tests multiples. Le résultat désigne
-donc une population à surveiller plutôt qu'un mécanisme établi.
+Ce résultat mérite d'autant plus d'attention que le sexe de l'enfant entre
+dans le score de propension : chaque garçon traité est comparé à des garçons
+témoins de même âge et de profil de ménage identique. L'écart ne peut donc pas
+provenir d'une composition différente des groupes.
+
+Deux mécanismes peuvent l'expliquer. Le premier tient à la substitution du
+travail au sein du ménage : le départ d'un adulte masculin, configuration
+majoritaire de la migration sénégalaise, laisse vacantes des tâches
+productives -- travaux agricoles, activités marchandes, corvées lourdes --
+traditionnellement dévolues aux hommes, et que les garçons du ménage sont
+appelés à reprendre, au détriment de leur scolarisation et de leur temps
+disponible. Le second relève de la trajectoire migratoire elle-même~: dans un
+contexte où l'émigration est fortement masculine, les garçons d'une famille
+déjà engagée dans un réseau migratoire peuvent être orientés plus tôt vers une
+préparation au départ que vers la poursuite d'un parcours scolaire. Une
+réserve s'impose néanmoins~: ce test est l'un des huit sous-groupes examinés,
+et sa significativité ne survivrait pas nécessairement à une correction pour
+tests multiples.
 
 \subsubsection{Selon les groupes d'âge}
 
-La décomposition par groupe d'âge est pertinente sous le design retenu~: la
-petite enfance (0-4 ans) est la tranche d'âge la plus sensible aux
-variations de court terme des ressources du ménage et de son organisation
-\parencite{davis2016,fontenla2022}. C'est précisément là que se concentre
-le seul effet significatif par âge~: l'ATT atteint $0{,}084$
-($p = 0{,}037$) chez les 0-4 ans, contre $0{,}024$ ($p = 0{,}394$) chez les
-5-14 ans et $0{,}059$ ($p = 0{,}202$) chez les 15-17 ans. Les dimensions
-retenues pour les tout-petits reposent largement sur la nutrition, la
-santé et la présence parentale, trois registres directement affectés par
-le départ d'un adulte du ménage~; l'apport monétaire ne compense pas, à cet
-âge et sur cet horizon, la réorganisation familiale qui l'accompagne. Comme
-pour le résultat par sexe, la même réserve sur la multiplicité des tests
-s'applique.
+La décomposition par âge livre le résultat le plus marqué de l'analyse. Chez
+les enfants de 0 à 4 ans, l'ATT atteint $0{,}142$ et est significatif au seuil
+de 1\,\% ($p = 0{,}007$)~: la privation multidimensionnelle des tout-petits de
+ménages bénéficiaires recule plus de 14 points plus lentement que celle de
+leurs témoins appariés. L'effet est trois à quatre fois supérieur à l'ATT
+d'ensemble, et il concerne la tranche d'âge sur laquelle les privations pèsent
+le plus lourdement dans la trajectoire ultérieure de l'enfant. Les 5-14 ans ne
+se distinguent pas ($0{,}037$, $p = 0{,}249$), et les 15-17 ans présentent un
+coefficient négatif mais très imprécis (-$0{,}114$, $p = 0{,}257$), la faible
+taille de ce sous-groupe dans le panel apparié interdisant toute conclusion.
+
+Cette concentration sur la petite enfance est cohérente avec l'effet observé
+sur la nutrition, seule dimension significative de la décomposition
+(section~\ref{sec:resultats})~: les dimensions applicables aux 0-4 ans
+reposent largement sur l'alimentation, la santé et la présence parentale,
+trois registres directement affectés par le départ d'un adulte du ménage. Les
+tout-petits sont aussi les plus dépendants du temps de soin quotidien, que
+l'apport monétaire ne remplace pas. La même réserve sur la multiplicité des
+tests s'applique, mais la convergence entre le résultat par âge et le résultat
+par dimension rend la lecture plus solide qu'un test isolé.
 
 \subsection{Interprétation des résultats}
 
-Nos résultats ne détectent, sur la période 2018-2021, aucune divergence
-significative de trajectoire de pauvreté multidimensionnelle entre les
-enfants des ménages bénéficiaires de transferts de migrants et ceux des
-ménages non bénéficiaires comparables. L'ATT PSM-DD s'établit à $0{,}043$
-($p = 0{,}119$) pour l'incidence MODA, en cohérence avec la double
-différence brute ($0{,}032$, $p = 0{,}167$) et avec les autres méthodes
-d'appariement. Il faut d'abord écarter deux lectures erronées~: ce
-résultat ne signifie ni que les transferts sont sans valeur pour les
-ménages receveurs, ni -- le signe positif du coefficient étant statistiquement
-indistinguable de zéro -- qu'ils aggraveraient la pauvreté des enfants. Il
-signifie que recevoir un transfert d'un migrant issu du ménage ne modifie
-pas, à l'horizon de trois ans, la trajectoire de privations
-multidimensionnelles des enfants. Plusieurs mécanismes, non mutuellement
-exclusifs, peuvent expliquer ce constat~:
+Sur la période 2018-2021, les transferts de migrants ne réduisent pas la
+pauvreté multidimensionnelle des enfants sénégalais. L'ATT PSM-DD s'établit à
+$0{,}053$ ($p = 0{,}086$)~: la trajectoire des enfants de ménages
+bénéficiaires est même légèrement moins favorable que celle d'enfants témoins
+comparables, à hauteur de 5 points de pourcentage. Le résultat est
+significatif au seuil de 10\,\% et non à 5\,\%~; il faut donc le formuler avec
+la prudence qui convient. Ce que les données établissent, c'est que
+l'hypothèse d'une réduction de la pauvreté infantile par les transferts est
+rejetée. Ce qu'elles suggèrent sans le démontrer, c'est un effet de sens
+contraire.
 
-Le premier est la nature de l'usage déclaré des fonds. Les transferts sont
+Trois éléments donnent à cette présomption une consistance qu'un simple
+coefficient marginalement significatif n'aurait pas. D'abord sa stabilité~:
+les trois algorithmes d'appariement donnent des valeurs voisines, toutes
+significatives à 10\,\%. Ensuite sa localisation~: l'effet n'est pas diffus,
+il se concentre sur la nutrition ($p = 0{,}043$) et sur les enfants de 0 à
+4 ans ($p = 0{,}007$), deux résultats qui se répondent. Enfin sa position dans
+la distribution placebo, au 98,5\textsuperscript{e} centile
+(annexe~\ref{ann:A})~: le point estimé est plus grand que ce que produit
+presque toute réassignation aléatoire du traitement.
+
+Il faut d'abord écarter une lecture erronée. Ce résultat ne signifie pas que
+les transferts appauvrissent les enfants. Il signifie que le \emph{fait
+d'appartenir à un ménage recevant des transferts d'un migrant issu de ce
+ménage} s'accompagne, sur trois ans, d'une amélioration plus lente des
+conditions de vie de l'enfant. Or ce statut est indissociable d'un autre
+événement~: le départ d'un membre du ménage. Quatre mécanismes, non
+mutuellement exclusifs, permettent de rendre compte de ce constat.
+
+Le premier est le coût de l'absence. Les transferts internationaux ne se
+produisent pas sans qu'un adulte ait quitté le ménage, souvent un parent. Le
+ménage perd une force de travail, une capacité de soin et, pour l'enfant, une
+présence quotidienne. La concentration de l'effet sur les 0-4 ans, âge où la
+dépendance au temps de soin est maximale, et sur les garçons, appelés à
+reprendre les tâches productives laissées vacantes, converge vers cette
+lecture \parencite{cortes2007,davis2016}. L'argent compense la perte de
+revenu~; il ne remplace pas l'adulte parti.
+
+Le deuxième est la nature de l'usage des fonds. Les transferts sont
 massivement affectés à la consommation courante~: 66,7\,\% en 2018-2019 et
-68,5\,\% en 2021-2022 relèvent du \og soutien courant \fg{}, contre
-3,5\,\% et 3,7\,\% pour la scolarité et 4,6\,\% et 6,5\,\% pour la
-santé. Moins d'un dixième des envois est donc explicitement fléché vers les
-dimensions du bien-être de l'enfant que mesure le MODA.
+68,5\,\% en 2021-2022 relèvent du \og soutien courant \fg{}, contre 3,5\,\%
+et 3,7\,\% pour la scolarité et 4,6\,\% et 6,5\,\% pour la santé
+(section~\ref{sec:methodo}). Moins d'un dixième des envois est explicitement
+fléché vers les dimensions du bien-être de l'enfant que mesure le MODA. Que
+la nutrition soit précisément la dimension où l'écart se creuse est de ce
+point de vue le résultat le plus déroutant de l'étude, puisque c'est celle qui
+dépend le plus directement du budget courant.
 
-Le deuxième est le délai de matérialisation. Les dimensions du MODA sont
-pour l'essentiel des privations structurelles (assainissement, eau,
-logement, combustible), qui exigent des investissements lourds et étalés
-dans le temps~: un flux annuel dont la médiane s'établit à 300\,000 FCFA
-en 2018-2019 et 275\,000 FCFA en 2021-2022 peut soutenir la consommation
-du ménage sans se traduire en équipements observables sur trois ans.
-L'estimation sur les bénéficiaires durables va toutefois à l'encontre d'une
-explication purement temporelle~: une exposition prolongée aux transferts
-ne produit pas davantage d'effet mesurable ($0{,}023$, $p = 0{,}474$).
-
-Le troisième est la compensation entre canaux. Les transferts
-internationaux sont indissociables de l'émigration d'un membre du ménage,
-souvent un parent~: l'apport monétaire et le coût organisationnel et
-psychosocial de l'absence opèrent en sens contraire
-\parencite{cortes2007,davis2016}. La décomposition par dimension ne permet
-pas d'établir directement cette compensation -- aucun effet sectoriel n'est
-significatif -- mais l'orientation des coefficients y est cohérente~:
-l'éducation est la seule dimension dont le coefficient est négatif
-(-$0{,}7$~pp), tandis que la protection, qui capte la séparation d'avec les
-parents, va en sens inverse ($1{,}2$~pp). L'hétérogénéité par âge conforte
-cette lecture~: c'est chez les 0-4 ans, les plus dépendants de la présence
-d'un adulte, que la trajectoire relative est la plus défavorable
-($0{,}084$, $p = 0{,}037$).
-
-Le quatrième est la contrainte d'offre. Dans les zones à fort déficit
-d'infrastructures, les transferts monétaires ne peuvent pas se substituer
-aux investissements publics collectifs~: le pouvoir d'achat supplémentaire
-ne lève pas, à lui seul, les privations d'eau, d'assainissement ou d'accès
-aux services de santé \parencite{mansuri2006}. Le fait que la privation en
-santé touche 97\,\% des enfants aux deux vagues, quasiment sans écart
-entre bénéficiaires et non-bénéficiaires en 2021 ($p = 0{,}708$), en est
+Le troisième est la contrainte d'offre. Dans les zones à fort déficit
+d'infrastructures, les transferts monétaires ne se substituent pas aux
+investissements publics collectifs~: le pouvoir d'achat supplémentaire ne
+lève pas, à lui seul, les privations d'eau, d'assainissement ou d'accès aux
+services de santé \parencite{mansuri2006}. Le fait que la privation en santé
+touche 97\,\% des enfants aux deux vagues, quasiment sans écart entre
+bénéficiaires et non-bénéficiaires en 2021 ($p = 0{,}708$), en est
 l'illustration la plus nette.
 
-Ces résultats s'inscrivent dans un débat empirique contrasté : si certaines
+Le quatrième tient à la marge sur laquelle les transferts opèrent. La
+sensibilité au seuil $k$ montre que l'écart de trajectoire se joue chez les
+enfants proches du seuil de pauvreté multidimensionnelle -- effet significatif
+à $k=3$ et $k=4$, non significatif à $k=5$ et $k=6$. Le noyau des enfants
+cumulant six ou sept privations relève de déficits structurels qu'aucun flux
+monétaire privé ne déplace sur trois ans.
+
+Ces résultats s'inscrivent dans un débat empirique contrasté. Si certaines
 études trouvent des effets positifs des transferts sur les indicateurs
 monétaires de pauvreté \parencite{adams2005,gubert2002}, les effets sur des
 indicateurs multidimensionnels structurels sont moins systématiquement
-établis, en particulier à court terme
-\parencite{mansuri2006,cortes2007}~: notre résultat non significatif à trois
-ans en est une illustration directe. Une réplication de l'analyse sur la
-prochaine vague de l'EHCVM, qui allongerait la durée d'exposition observée,
-permettrait de consolider ces conclusions.
-Les implications de politique économique de ces résultats sont développées
-dans la conclusion générale.
+établis, en particulier à court terme \parencite{mansuri2006,cortes2007}. Une
+réplication sur la prochaine vague de l'EHCVM, qui allongerait la durée
+d'exposition observée, permettrait de trancher entre un coût transitoire
+d'ajustement au départ du migrant et un effet durable. Les implications de
+politique économique sont développées dans la conclusion générale.

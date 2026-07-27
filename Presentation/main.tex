@@ -476,13 +476,13 @@
     \begin{column}{0.46\textwidth}
       \begin{block}{Équilibre après appariement ($k$-NN, $k=4$)}
         \begin{itemize}
-          \item Probit sur 5\,679 ménages (pseudo-$R^2 = 0{,}128$) :
-                sélection positive marquée sur la dépense par tête, la
-                taille du ménage et le sexe du chef.
-          \item Différence standardisée moyenne : 12,3\,\% avant,
-                \textbf{2,1\,\%} après appariement ; aucun écart résiduel
+          \item Probit au \textbf{niveau enfant} : 17\,769 enfants suivis
+                aux deux vagues (pseudo-$R^2 = 0{,}143$), covariables du
+                ménage \emph{et} sexe/âge de l'enfant.
+          \item Différence standardisée moyenne : 12,7\,\% avant,
+                \textbf{2,9\,\%} après appariement ; aucun écart résiduel
                 significatif.
-          \item 756 ménages bénéficiaires, tous sur support commun.
+          \item Panel apparié : 15\,916 observations-enfants.
         \end{itemize}
       \end{block}
     \end{column}
@@ -502,23 +502,23 @@
       Spécification & ATT & Éc.-t. & $p$-valeur \\
       \midrule
       DD brute (sans appariement)      & $0{,}032$ & (0,023) & 0,167 \\
-      \textbf{PSM-DD, k-NN ($k=4$)}   & $\mathbf{0{,}043}$ & (0,027) & \textbf{0,119} \\
-      PSM-DD, noyau Epanechnikov       & $0{,}056$ & (0,028) & 0,057 \\
-      PSM-DD, caliper                  & $0{,}019$ & (0,029) & 0,524 \\
+      \textbf{PSM-DD, k-NN ($k=4$)}   & $\mathbf{0{,}053}$ & (0,031) & \textbf{0,086} \\
+      PSM-DD, noyau Epanechnikov       & $0{,}060$ & (0,031) & 0,074 \\
+      PSM-DD, caliper                  & $0{,}050$ & (0,026) & 0,057 \\
       \bottomrule
     \end{tabular}
   \end{table}
-  \begin{alertblock}{Résultat central : aucun effet statistiquement établi}
+  \begin{alertblock}{Résultat central : pas de réduction, présomption d'effet défavorable}
     Sur 2018-2021, la pauvreté multidimensionnelle des enfants des ménages
-    bénéficiaires recule à un rythme \emph{statistiquement indiscernable}
-    de celui des témoins appariés. Conclusion robuste aux quatre
-    spécifications, au seuil $k$ (de 3 à 6) et à la durée d'exposition.
+    bénéficiaires recule \emph{plus lentement} que celle des témoins appariés
+    ($+5{,}3$ pp). Significatif à 10\,\%, pas à 5\,\% : H1 est rejetée,
+    l'effet inverse est suggéré sans être démontré. Les trois appariements
+    concordent (0,050 à 0,060).
   \end{alertblock}
   \begin{block}{Lecture}
-    Quatre mécanismes : usage des fonds (2/3 en soutien courant), délai de
-    matérialisation des privations structurelles, compensation entre canaux
-    (apport monétaire vs coûts du départ du migrant), contraintes d'offre de
-    services de base.
+    L'effet n'est pas diffus : nutrition, 0-4 ans, garçons. Les transferts
+    étant indissociables du départ d'un adulte, le \textbf{coût de l'absence}
+    est le canal le plus plausible.
   \end{block}
 \end{frame}
 
@@ -530,26 +530,25 @@
       \includegraphics[width=\linewidth,height=0.46\textheight,keepaspectratio]{figures/fig_effets_dim.pdf}
     \end{column}
     \begin{column}{0.43\textwidth}
-      \begin{alertblock}{Aucun effet sectoriel significatif}
+      \begin{alertblock}{Un seul effet sectoriel significatif}
         \begin{itemize}
-          \item \textbf{Éducation} : $-0{,}7$ pp ($p=0{,}625$), seule
-                dimension orientée vers une baisse de la privation.
-          \item \textbf{Protection de l'enfant} : $+1{,}2$ pp
-                ($p=0{,}469$), sens inverse, cohérent avec la séparation
-                parentale qui accompagne le départ du migrant.
-          \item Les cinq autres dimensions : coefficients faibles, tous
-                non significatifs.
+          \item \textbf{Nutrition} : $+8{,}4$ pp ($p=0{,}043$), seule
+                dimension significative -- et celle qui dépend le plus
+                directement du budget courant.
+          \item \textbf{Assainissement} : $+6{,}9$ pp ($p=0{,}109$),
+                même sens, sans atteindre la significativité.
+          \item Éducation rigoureusement nulle ($p=0{,}995$) ; les quatre
+                autres dimensions non significatives.
         \end{itemize}
       \end{alertblock}
     \end{column}
   \end{columns}
   \begin{block}{Lecture}
-    Le résultat agrégé n'est pas la somme d'effets sectoriels opposés qui se
-    compenseraient, mais la juxtaposition d'effets faibles et imprécis.
-    Aucune différence entre milieux ($p=0{,}862$)~; en revanche, trajectoire
-    relative défavorable chez les \textbf{filles} ($+6{,}5$ pp, $p=0{,}028$)
-    et les \textbf{0-4 ans} ($+8{,}4$ pp, $p=0{,}037$), les plus dépendants
-    de la présence d'un adulte.
+    Aucune différence entre milieux ($p=0{,}629$). En revanche, trajectoire
+    nettement défavorable chez les \textbf{0-4 ans} ($+14{,}2$ pp,
+    $p=0{,}007$) et chez les \textbf{garçons} ($+8{,}2$ pp, $p=0{,}030$) :
+    les plus dépendants du temps de soin, et ceux qui reprennent les tâches
+    de l'adulte parti. Effet par âge et effet nutrition se répondent.
   \end{block}
 \end{frame}
 
@@ -562,23 +561,24 @@
 \begin{frame}{Tests de robustesse}
   \begin{block}{Sensibilité des résultats}
     \begin{itemize}
-      \item Méthodes d'appariement (k-NN, noyau, caliper) et DD brute :
-            même conclusion dans les quatre cas.
-      \item Seuil inter-dimensionnel $k$ de 3 à 6 : ATT entre $0{,}016$ et
-            $0{,}043$, non significatif à chaque seuil.
-      \item Panel de 17\,786 enfants suivis individuellement entre les
-            vagues : ATT $= 0{,}035$ ($p=0{,}153$), pas d'artefact de
-            composition par âge.
-      \item Test placebo (200 assignations aléatoires) : distribution bien
-            centrée sur zéro (moyenne $0{,}001$).
+      \item Méthodes d'appariement (k-NN, noyau, caliper) : ATT de
+            $0{,}050$ à $0{,}060$, tous significatifs à 10\,\%.
+      \item Seuil $k$ : significatif à 5\,\% pour $k=3$, à 10\,\% pour
+            $k=4$, non significatif au-delà -- l'effet se joue à la
+            \textbf{marge} de la pauvreté, pas dans son noyau.
+      \item Unité d'appariement : sans appariement individuel, sur tous les
+            enfants du panel de ménages, ATT $= 0{,}032$ ($p=0{,}167$) --
+            même signe, ampleur atténuée.
+      \item Test placebo (200 assignations aléatoires) : distribution
+            centrée sur zéro, ATT réel au 98,5\textsuperscript{e} centile.
       \item Attrition non corrélée au traitement ($p=0{,}101$).
     \end{itemize}
   \end{block}
   \begin{alertblock}{Définition alternative : les bénéficiaires durables}
-    Chez les ménages bénéficiaires aux deux vagues, l'ATT vaut $0{,}023$
-    ($p=0{,}474$) : une exposition prolongée aux transferts ne produit pas
-    davantage d'effet mesurable, ce qui affaiblit l'explication du résultat
-    par la seule brièveté de l'horizon.
+    Chez les ménages bénéficiaires aux deux vagues, l'ATT tombe à $0{,}023$
+    et perd sa significativité ($p=0{,}474$) : l'écart de trajectoire ne se
+    retrouve pas chez les bénéficiaires de longue date. Mais le traitement y
+    est déjà en cours à $t=0$, donc pas de vraie période pré-traitement.
   \end{alertblock}
 \end{frame}
 
@@ -591,9 +591,9 @@
       \toprule
       Hyp. & Énoncé & Résultat & Décision \\
       \midrule
-      H1 & Réduction de la pauvreté & ATT MODA $= 0{,}043$ ($p=0{,}119$) : pas d'effet établi à court terme & Non validée \\[4pt]
-      H2 & Hétérogénéité des effets  & Rien par dimension ni par milieu ($p=0{,}862$) ; mais filles $+6{,}5$ pp ($p=0{,}028$) et 0-4 ans $+8{,}4$ pp ($p=0{,}037$) & Partiellement \\[4pt]
-      H3 & PSM-DD contrôle les biais & PSM seul : $-8{,}1$ pp à $t=0$ ($p=0{,}005$) ; la DD élimine cet écart pré-traitement & Confirmée \\
+      H1 & Réduction de la pauvreté & ATT MODA $= 0{,}053$ ($p=0{,}086$), de signe défavorable : pas de réduction & Rejetée \\[4pt]
+      H2 & Hétérogénéité des effets  & Rien par milieu ($p=0{,}629$) ; mais nutrition ($p=0{,}043$), 0-4 ans ($p=0{,}007$) et garçons ($p=0{,}030$) & Partiellement \\[4pt]
+      H3 & PSM-DD contrôle les biais & PSM seul : $-7{,}9$ pp à $t=0$ ($p=0{,}011$) ; la DD élimine cet écart pré-traitement et inverse le signe & Confirmée \\
       \bottomrule
     \end{tabular}
   \end{table}
@@ -614,13 +614,14 @@
       \item L'incidence MODA recule de 62,8\,\% (2018) à 55,3\,\% (2021) :
             amélioration réelle mais la pauvreté reste massive.
       \pause
-      \item Recevoir des transferts ne modifie pas, à trois ans, la
-            trajectoire de privations des enfants (ATT $0{,}043$,
-            $p=0{,}119$, robuste aux quatre spécifications et au seuil $k$).
+      \item Recevoir des transferts ne réduit pas, à trois ans, la
+            pauvreté multidimensionnelle des enfants : l'ATT est de
+            $+0{,}053$ ($p=0{,}086$), de signe défavorable et stable aux
+            trois appariements.
       \pause
-      \item Aucun effet significatif par dimension, mais une trajectoire
-            relative défavorable chez les filles et les 0-4 ans : le coût de
-            l'absence parentale pèse sur les plus vulnérables.
+      \item L'effet se concentre sur la nutrition, les 0-4 ans et les
+            garçons : le coût du départ de l'adulte pèse sur les plus
+            dépendants, et l'argent ne le compense pas.
     \end{enumerate}
   \end{block}
 \end{frame}
@@ -662,8 +663,9 @@
       \item Panel non cylindré : attrition sélective (ménages urbains et aisés).
       \item L'ATT capte l'effet conjoint du départ du migrant et des transferts ;
             durée d'exposition variable au sein des bénéficiaires (effet de court terme).
-      \item Puissance limitée : 756 ménages traités, intervalle de confiance
-            large ($[-1{,}1 ; 9{,}6]$ pp).
+      \item Effet significatif à 10\,\% seulement : intervalle de confiance
+            à 95\,\% large ($[-0{,}8 ; 11{,}4]$ pp), présomption plutôt que
+            démonstration.
     \end{itemize}
   \end{alertblock}
   \pause
