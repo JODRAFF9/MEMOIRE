@@ -25,45 +25,45 @@ privations.
     \hline
 \entete Variable & EHCVM I (2018-19) & EHCVM II (2021-22) \\
     \hline
-    Taille du ménage              & 9,75 & 9,03  \\ \hline
-    Chef féminin (\%)             & 27,4  & 29,1  \\ \hline
-    Milieu urbain (\%)            & 49,8  & 50,9  \\ \hline
-    Transferts de migrants (\%)   & 24,4  & 26,8  \\ \hline
-    PCE annuel (FCFA)             & 555~879 & 597~804 \\
+    Taille du ménage              & 10,01 & 9,03  \\ \hline
+    Chef de ménage féminin (\%)   & 26,1  & 29,1  \\ \hline
+    Milieu urbain (\%)            & 52,5  & 50,9  \\ \hline
+    Tout transfert de l'étranger (\%) & 24,4  & 26,8  \\ \hline
+    dont expéditeur ex-membre du ménage (\%) & 12,9 & 15,0 \\ \hline
+    Dépense de consommation par tête, annuelle (FCFA) & 510~802 & 597~804 \\
     \hline
     Taille d'échantillon ($n$ ménages) & 7~156 & 7~120 \\ \hline
-    dont enfants 0-17 ans ($n$)       & 33~844 & 31~033 \\
+    dont enfants de 0 à 17 ans ($n$)       & 33~844 & 31~033 \\
     \hline
   \end{tabular}
 
   {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM.}
 \end{table}
 
-La taille moyenne des ménages est de 9,75 personnes en 2018 et diminue à 9,03 en 2021,
-signe d'une structure de ménages étendus en légère contraction. La proportion
-de chefs de ménage féminins progresse de 1,7 point de pourcentage entre les deux vagues.
-La part des ménages bénéficiaires de transferts de migrants passe de 24,4\,\% en 2018 à
-26,8\,\% en 2021, signe d'une légère intensification des flux migratoires ou d'une
-meilleure couverture de ces ménages par l'enquête. La PCE annuelle moyenne progresse
-de 7,5\,\% en termes nominaux, masquant des disparités selon le statut de bénéficiaire.
+Les ménages sénégalais sont de grande taille, avec 10,0 personnes en moyenne
+en 2018-2019, et un ménage sur quatre est dirigé par une femme. Un quart des
+ménages (24,4\,\%) déclare recevoir au moins un transfert en provenance de
+l'étranger, mais tous ces envois ne relèvent pas de la migration issue du
+ménage~: lorsque l'on restreint la définition aux transferts dont l'expéditeur
+a déjà vécu dans le ménage -- celle retenue pour le traitement --, la
+proportion tombe à 12,9\,\% en 2018-2019 et 15,0\,\% en 2021-2022. C'est
+sur cette définition restreinte que reposent la comparaison descriptive et
+l'estimation d'impact qui suivent.
 
 \subsubsection{Bénéficiaires et non-bénéficiaires de transferts}
 
-Le tableau~\ref{tab:comparaison_statut} compare les ménages selon leur statut de
-bénéficiaire à la période de base (EHCVM I). Les ménages bénéficiaires affichent
-une taille légèrement plus grande (11,03 vs. 9,71 personnes) et une dépense de consommation par tête (PCE)PCE nettement
-plus élevée (636~592 vs. 474~219 FCFA/an), ce qui suggère un profil socio-économique
-globalement meilleur. La proportion de chefs féminins est plus élevée
-dans les ménages bénéficiaires (37,0\,\% vs. 22,9\,\%), et ces derniers sont
-davantage localisés en milieu urbain (66,6\,\% vs. 48,4\,\%).
-Cette sélection positive justifie le recours à l'appariement par score de propension~:
-une comparaison naïve des trajectoires de pauvreté entre les deux groupes confondrait
-l'impact causal des transferts avec ces différences initiales. Sur l'échantillon
-d'analyse causale (entrants vs jamais bénéficiaires), les déséquilibres avant
-appariement sont plus modérés, aucun des deux groupes n'étant encore traité à
-la période de base~: le biais standardisé atteint au maximum 27\,\% (log-dépense
-par tête), au-delà du seuil conventionnel de 10\,\%
-(voir tableau~\ref{tab:balance}, section~\ref{sec:resultats}).
+Le tableau~\ref{tab:comparaison_statut} compare les ménages avec enfants
+selon leur statut de bénéficiaire à la période de base (EHCVM~I). Les
+bénéficiaires sont sensiblement plus grands (12,03 contre 9,70 personnes),
+plus aisés (626~136 contre 493~009 FCFA de dépense annuelle par tête), plus
+âgés à la tête du ménage (54,6 contre 51,2 ans), plus souvent dirigés par une
+femme (42,4\,\% contre 23,6\,\%) et davantage urbains (64,4\,\% contre
+50,6\,\%). Toutes ces différences sont significatives à 1\,\textperthousand.
+Cette sélection positive est le c\oe{}ur du problème d'identification~: une
+comparaison naïve des trajectoires de pauvreté entre les deux groupes
+confondrait l'impact causal des transferts avec ces différences initiales,
+d'où le recours à l'appariement par score de propension
+(tableau~\ref{tab:balance}, section~\ref{sec:resultats}).
 
 \begin{table}[H]
   \centering
@@ -74,17 +74,17 @@ par tête), au-delà du seuil conventionnel de 10\,\%
     \hline
 \entete Variable & Bénéficiaires ($D=1$) & Non-bénéf. ($D=0$) & $p$-val. \\
     \hline
-    Taille du ménage              & 11,03 & 9,71  & $<$0,001 \\ \hline
-    Âge du chef de ménage (ans)   & 53,6  & 51,1  & $<$0,001 \\ \hline
-    Chef féminin (\%)             & 37,0  & 22,9  & $<$0,001 \\ \hline
-    Milieu urbain (\%)            & 66,6  & 48,4  & $<$0,001 \\ \hline
-    PCE annuel (FCFA)             & 636~592 & 474~219 & $<$0,001 \\
+    Taille du ménage              & 12,03 & 9,70  & $<$0,001 \\ \hline
+    Âge du chef de ménage (ans)   & 54,6  & 51,2  & $<$0,001 \\ \hline
+    Chef de ménage féminin (\%)   & 42,4  & 23,6  & $<$0,001 \\ \hline
+    Milieu urbain (\%)            & 64,4  & 50,6  & $<$0,001 \\ \hline
+    Dépense par tête, annuelle (FCFA) & 626~136 & 493~009 & $<$0,001 \\
     \hline
-    Taille d'échantillon ($n$ ménages) & 1~448 & 4~979 & - \\
+    Taille d'échantillon ($n$ ménages) & 859 & 5~568 & - \\
     \hline
   \end{tabular}
 
-  {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM.}
+  {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM. Ménages avec enfants de 0 à 17 ans~; écarts-types clusterisés par grappe.}
 \end{table}
 
 \subsubsection{Motifs et montants des transferts reçus}
@@ -171,79 +171,163 @@ conditions de vie des enfants.
 
 \subsubsection{Ensemble 0 à 17 ans}
 
-En 2018-2019, selon l'indicateur N-MODA (calculé sur les seuls indicateurs
-disponibles dans les deux vagues),
-l'incidence de la pauvreté multidimensionnelle des enfants atteint 56,6\,\%,
-avec une intensité moyenne $A = 69{,}5\,\%$, soit la part des 7 dimensions en
-privation parmi les enfants pauvres, et un indice ajusté
-$M_0 = H \times A = 0{,}393$.
-Cette intensité élevée signifie que les enfants multidimensionnellement pauvres
-cumulent en moyenne près de 5 privations sur 7, bien au-delà du seuil $k=4$.
-Ce résultat est supérieur à celui rapporté par \textcite{ansd2024} ($H = 50{,}7\,\%$,
-$A = 72{,}2\,\%$)~; l'écart d'incidence s'explique par une
-opérationnalisation plus étroite de la dimension nutrition (limitée à la
-sécurité alimentaire, faute de données de diversité alimentaire comparables
-entre vagues) et par des différences de traitement statistique de
-l'échantillon par rapport au calcul officiel, détaillées en
+Les statistiques de cette sous-section sont pondérées par les poids de
+sondage de l'EHCVM, afin d'assurer la représentativité nationale et la
+comparabilité avec les chiffres officiels de l'ANSD (annexe~\ref{ann:E})~;
+seule la comparaison des caractéristiques de ménages
+(tableau~\ref{tab:comparaison_statut}) est présentée non pondérée, car elle
+décrit les déséquilibres de l'échantillon analytique que l'appariement
+corrige.
+
+En 2018-2019, l'incidence de la pauvreté multidimensionnelle des enfants
+atteint 62,8\,\%, avec une intensité moyenne $A = 70{,}6\,\%$, soit la part
+des sept dimensions en privation parmi les enfants pauvres, et un indice
+ajusté $M_0 = H \times A = 0{,}443$. Cette intensité élevée signifie que les
+enfants multidimensionnellement pauvres cumulent en moyenne près de cinq
+privations sur sept, bien au-delà du seuil $k=4$. L'incidence est supérieure
+à celle rapportée par \textcite{ansd2024} ($H = 50{,}7\,\%$,
+$A = 72{,}2\,\%$)~; l'écart tient à des choix d'opérationnalisation de
+certains indicateurs et à des différences de traitement statistique de
+l'échantillon par rapport au calcul officiel, détaillés en
 annexe~\ref{ann:E}~; l'intensité, elle, est très proche de la valeur
 officielle.
 
-Cette prévalence confirme une pauvreté infantile structurelle affectant
-près de trois enfants sur cinq en 2018. Les statistiques descriptives de
-cette section sont pondérées par les poids de sondage de l'EHCVM, afin
-d'assurer la représentativité nationale et la comparabilité avec les chiffres
-officiels de l'ANSD (annexe~\ref{ann:E})~; seule la comparaison entre ménages
-bénéficiaires et non-bénéficiaires (tableau~\ref{tab:comparaison_statut}) est
-présentée non pondérée, car elle décrit les déséquilibres de l'échantillon
-analytique que l'appariement corrige.
-
-En 2021-2022, l'incidence N-MODA recule à 48,8\,\% ($A = 68{,}2\,\%$,
-$M_0 = 0{,}333$), soit une baisse de 7,8 points de pourcentage de l'incidence
-et de 0,060 point de l'indice ajusté par rapport à 2018-2019~: les enfants
-sont moins nombreux à être multidimensionnellement pauvres, et ceux qui le
-restent cumulent légèrement moins de privations simultanées (-$1{,}3$ pp
-d'intensité). Cette baisse généralisée de la pauvreté multidimensionnelle des
-enfants entre les deux vagues se retrouve dans toutes les décompositions
-présentées ci-dessous.
+En 2021-2022, l'incidence recule à 55,3\,\% ($A = 69{,}2\,\%$,
+$M_0 = 0{,}383$), soit une baisse de 7,5 points de pourcentage de
+l'incidence et de 0,060 point de l'indice ajusté~: les enfants sont moins
+nombreux à être multidimensionnellement pauvres, et ceux qui le restent
+cumulent légèrement moins de privations simultanées. Cette baisse
+généralisée se retrouve dans toutes les décompositions présentées ci-dessous.
 
 La décomposition par milieu montre que la baisse est de même ampleur en
-milieu rural (-$7{,}8$ pp~: de 74,8\,\% à 67,0\,\%) qu'en milieu urbain
-(-$5{,}9$ pp~: de 30,9\,\% à 25,0\,\%), de sorte que l'écart urbain-rural,
-marqué en 2018 (43,9 pp), reste large (42,0 pp en 2021).
-Par groupe d'âge, l'incidence N-MODA 2018 est la plus élevée chez les 5-14 ans
-(62,7\,\%), suivis des 0-4 ans (49,1\,\%) et des 15-17 ans (47,6\,\%). En 2021,
-le classement est quasi inchangé (5-14 ans : 55,3\,\%~; 15-17 ans : 40,0\,\%~;
-0-4 ans : 38,8\,\%), avec un recul de l'incidence dans tous les groupes d'âge.
+milieu rural (-$7{,}0$ pp~: de 81,7\,\% à 74,7\,\%) qu'en milieu urbain
+(-$6{,}4$ pp~: de 36,2\,\% à 29,8\,\%), de sorte que l'écart urbain-rural,
+déjà considérable en 2018 (45,5 pp), reste inchangé (44,9 pp en 2021). Par
+groupe d'âge, l'incidence 2018 est la plus élevée chez les 5-14 ans
+(68,2\,\%), suivis des 0-4 ans (56,5\,\%) et des 15-17 ans (53,9\,\%)~; le
+classement est identique en 2021 (60,9\,\%~; 47,0\,\%~; 46,9\,\%).
+
+\subsubsection{Privations des enfants selon le statut de bénéficiaire}
+\label{subsec:comparaison_benef}
+
+Le c\oe{}ur descriptif de cette section est la comparaison entre les enfants
+des ménages bénéficiaires de transferts de migrants et ceux des ménages non
+bénéficiaires, aux deux vagues. C'est l'\emph{écart} entre ces deux groupes,
+et surtout son \emph{évolution} entre 2018-2019 et 2021-2022, qui porte
+l'information sur l'impact des transferts~: la double différence descriptive
+reportée dans la dernière colonne du tableau~\ref{tab:comparaison_benef}
+préfigure, sans correction de sélection, l'estimateur PSM-DD de la
+section~\ref{sec:resultats}.
+
+\begin{table}[H]
+  \centering
+  \caption[Privations des enfants selon le statut de bénéficiaire du ménage et la vague (\%)]{Privations des enfants selon le statut de bénéficiaire du ménage et la vague (\%)\protect\footnotemark}
+  \label{tab:comparaison_benef}
+  \zebre
+  \small
+  \resizebox{\linewidth}{!}{%
+  \begin{tabular}{|l|c|c|c|c|c|c|c|}
+    \hline
+\entete & \multicolumn{3}{|c|}{EHCVM I (2018-19)} & \multicolumn{3}{|c|}{EHCVM II (2021-22)} & \\ \hline
+\entete Dimension & Non-bénéf. & Bénéf. & Écart & Non-bénéf. & Bénéf. & Écart & DD \\
+    \hline
+    Assainissement         & 55,0 & 30,9 & -24,1$^{***}$ & 52,1 & 35,2 & -16,9$^{***}$ & 7,2 \\ \hline
+    Eau                    & 24,5 & 20,7 & -3,8$^{**}$   & 17,4 & 14,7 & -2,7          & 1,1 \\ \hline
+    Logement               & 67,5 & 51,9 & -15,5$^{***}$ & 57,6 & 41,8 & -15,8$^{***}$ & -0,3 \\ \hline
+    Nutrition              & 72,4 & 52,4 & -20,0$^{***}$ & 65,7 & 47,9 & -17,9$^{***}$ & 2,1 \\ \hline
+    Santé                  & 98,0 & 94,3 & -3,7$^{**}$   & 97,3 & 97,6 & 0,3           & 3,9 \\ \hline
+    Protection de l'enfant & 66,2 & 73,2 & 6,9$^{***}$   & 65,9 & 72,5 & 6,6$^{***}$   & -0,4 \\ \hline
+    Éducation              & 30,6 & 26,2 & -4,5$^{***}$  & 32,0 & 29,1 & -2,9$^{**}$   & 1,6 \\
+    \hline
+    \hline
+    Incidence N-MODA ($H$) & 67,6 & 48,5 & -19,1$^{***}$ & 59,9 & 43,1 & -16,8$^{***}$ & 2,3 \\
+    \hline
+  \end{tabular}%
+  }
+
+  {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM.}
+\end{table}
+\footnotetext{\textit{Note :} panel vrai, pondéré par \texttt{hhweight}. \og Écart \fg{} = bénéficiaires moins non-bénéficiaires~; \og DD \fg{} = évolution de cet écart entre les deux vagues. Significativité de l'écart testée par régression avec erreurs-types clusterisées par grappe~: $^{**}p<0{,}05$, $^{***}p<0{,}01$.}
+
+Trois enseignements se dégagent. Premièrement, les enfants des ménages
+bénéficiaires sont nettement moins privés que les autres, et ce à chaque
+vague~: 48,5\,\% contre 67,6\,\% en 2018-2019, 43,1\,\% contre 59,9\,\% en
+2021-2022, soit un avantage de près de 19 puis 17 points de pourcentage,
+hautement significatif. L'avantage se lit sur six dimensions sur sept, avec
+des écarts allant jusqu'à 24 points en assainissement et 20 points en
+nutrition. Cet écart de \emph{niveau} ne mesure toutefois pas un effet des
+transferts~: il reflète en grande partie la sélection positive documentée au
+tableau~\ref{tab:comparaison_statut}, les ménages bénéficiaires étant
+initialement plus aisés et plus urbains.
+
+Deuxièmement, la protection de l'enfant fait exception et s'inverse~: les
+enfants des ménages bénéficiaires y sont \emph{plus} privés que les autres,
+de 6,9 points en 2018 et 6,6 points en 2021. Ce résultat est mécanique autant
+que substantiel~: cette dimension inclut le fait de ne pas vivre avec ses
+deux parents biologiques, situation consubstantielle au départ en migration
+d'un membre du ménage qui définit précisément le statut de bénéficiaire.
+
+Troisièmement, et c'est le point qui intéresse l'évaluation d'impact, l'écart
+entre les deux groupes est remarquablement stable entre les deux vagues. La
+double différence descriptive sur l'incidence N-MODA n'est que de 2,3 points
+(l'avantage des bénéficiaires se réduit de 19,1 à 16,8 points), et elle
+n'excède 4 points sur aucune dimension hormis l'assainissement (7,2 points)
+et la santé (3,9 points), deux dimensions dont l'écart de niveau initial
+était le plus atypique. Autrement dit, les deux groupes suivent des
+trajectoires quasi parallèles~: la pauvreté multidimensionnelle recule
+partout, et à un rythme voisin, qu'un migrant du ménage envoie ou non de
+l'argent. C'est ce constat descriptif que l'estimation PSM-DD de la
+section~\ref{sec:resultats} confirme après correction de la sélection.
 
 \begin{figure}[H]
   \centering
-  \caption{Évolution de l'incidence N-MODA entre EHCVM I et EHCVM II}
+  \caption{Évolution de l'incidence N-MODA entre EHCVM I et EHCVM II : enfants des ménages bénéficiaires et non bénéficiaires}
   \includegraphics[width=0.85\linewidth]{figures/fig_evolution_ipm.pdf}
   \label{fig:evolution_ipm}
 
   {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM.}
 \end{figure}
 
-La figure~\ref{fig:evolution_ipm} illustre la baisse de l'incidence N-MODA de
-la pauvreté multidimensionnelle des enfants entre 2018 et 2021.
+La figure~\ref{fig:evolution_ipm} met en évidence ce parallélisme~: les deux
+trajectoires reculent conjointement, l'écart entre elles se refermant à peine.
 
-L'analyse qui suit décline la privation selon quatre périmètres d'âge~:
-l'ensemble des enfants (0-17 ans), puis chacune des trois tranches N-MODA
-(0-4, 5-14 et 15-17 ans). Pour chaque périmètre, un graphique en barres
-présente le taux de privation par indicateur, regroupé par dimension et
-comparé entre les deux vagues (EHCVM~I en gris, EHCVM~II en orange). Seuls
-les indicateurs applicables à la tranche d'âge considérée sont représentés,
-conformément à la matrice N-MODA (annexe~\ref{ann:C}).
+\begin{figure}[H]
+  \centering
+  \caption{Prévalence des privations par dimension N-MODA : bénéficiaires et non-bénéficiaires aux deux vagues}
+  \includegraphics[width=0.90\linewidth]{figures/fig_privations_dim.pdf}
+  \label{fig:privations_dim}
 
-Le tableau~\ref{tab:prevalence_dim} décompose la prévalence des privations par dimension
-N-MODA pour les deux vagues. La dimension santé (combustible solide pour
-cuisiner ou absence d'accès à pied à une structure de santé) est la privation
-la plus répandue, touchant environ 97\,\% des enfants dans les deux vagues
-(le seul combustible solide en concernant déjà près de 92\,\%), suivie du
-logement inadéquat et de
-la protection de l'enfant.
-La dimension nutrition est opérationnalisée à partir du seul module de sécurité
-alimentaire FIES, disponible dans les deux vagues.
+  {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM.}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \caption{Incidence N-MODA par groupe d'âge : bénéficiaires et non-bénéficiaires aux deux vagues}
+  \includegraphics[width=0.85\linewidth]{figures/fig_pauvrete_milieu_age.pdf}
+  \label{fig:pauvrete_milieu_age}
+
+  {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM.}
+\end{figure}
+
+La figure~\ref{fig:pauvrete_milieu_age} décline la même comparaison par
+groupe d'âge. L'avantage des enfants de ménages bénéficiaires se retrouve
+dans les trois tranches et aux deux vagues, sans qu'aucune ne voie cet écart
+se resserrer ou se creuser nettement~: la stabilité de l'écart n'est donc pas
+un artefact d'agrégation entre tranches d'âge.
+
+\subsubsection{Prévalence des privations par dimension}
+
+Le tableau~\ref{tab:prevalence_dim} décompose la prévalence des privations
+par dimension pour l'ensemble des enfants. La dimension santé (combustible
+solide pour cuisiner ou absence d'accès à pied à une structure de santé) est
+la privation la plus répandue, touchant environ 97\,\% des enfants dans les
+deux vagues, le seul combustible solide en concernant déjà près de 92\,\%.
+Viennent ensuite la nutrition, mesurée par l'échelle FIES (\emph{Food Insecurity Experience Scale}) de l'insécurité
+alimentaire vécue, la protection de l'enfant et le logement inadéquat. Cette
+dernière dimension est celle qui s'améliore le plus entre les deux vagues
+(-$10{,}3$ pp), tandis que l'éducation se dégrade légèrement ($1{,}2$ pp),
+signe que les enfants les plus vulnérables restent en dehors du système
+scolaire.
 
 \begin{table}[H]
   \centering
@@ -254,40 +338,25 @@ alimentaire FIES, disponible dans les deux vagues.
     \hline
 \entete Dimension & EHCVM I & EHCVM II & Variation (pp) \\
     \hline
-    Assainissement     & 50,4 & 49,1 & -$1{,}3$ \\ \hline
-    Eau                & 23,3 & 16,3 & -$7{,}0$ \\ \hline
+    Assainissement     & 50,4 & 49,0 & -$1{,}4$ \\ \hline
+    Eau                & 23,3 & 16,2 & -$7{,}1$ \\ \hline
     Logement           & 63,4 & 53,1 & -$10{,}3$ \\ \hline
-    Nutrition          & 45,8 & 41,0 & -$4{,}8$ \\ \hline
+    Nutrition          & 68,1 & 62,6 & -$5{,}5$ \\ \hline
     Santé              & 97,0 & 96,9 & -$0{,}1$ \\ \hline
     Protection de l'enfant & 67,2 & 65,7 & -$1{,}5$ \\ \hline
     Éducation          & 29,3 & 30,5 & $1{,}2$ \\
     \hline
     \hline
-    \multicolumn{4}{|c|}{\textit{Indice N-MODA (approche principale)}} \\ \hline
-    \quad Incidence $H$ (\%)                           & 56,6 & 48,8 & -$7{,}8$ \\ \hline
-    \quad Intensité $A$ (\%)                           & 69,5 & 68,2 & -$1{,}3$ \\ \hline
-    \quad Indice ajusté $M_0 = H \times A$             & 0,393 & 0,333 & -$0{,}060$ \\
+    \multicolumn{4}{|c|}{\textit{Indice N-MODA}} \\ \hline
+    \quad Incidence $H$ (\%)                           & 62,8 & 55,3 & -$7{,}5$ \\ \hline
+    \quad Intensité $A$ (\%)                           & 70,6 & 69,2 & -$1{,}4$ \\ \hline
+    \quad Indice ajusté $M_0 = H \times A$             & 0,443 & 0,383 & -$0{,}060$ \\
     \hline
   \end{tabularx}
 
   {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM.}
 \end{table}
 \footnotetext{\textit{Note :} définition détaillée des indicateurs de chaque dimension en annexe~\ref{ann:C}.}
-
-\begin{figure}[H]
-  \centering
-  \caption{Prévalence des privations par dimension N-MODA : EHCVM I vs EHCVM II}
-  \includegraphics[width=0.90\linewidth]{figures/fig_privations_dim.pdf}
-  \label{fig:privations_dim}
-
-  {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM.}
-\end{figure}
-
-La figure~\ref{fig:privations_dim} met en évidence la prédominance de la privation
-de santé et la forte réduction du logement inadéquat (-$10{,}3$ pp),
-seule dimension ayant connu une amélioration substantielle entre les deux vagues.
-À l'inverse, la dimension éducation s'est légèrement dégradée ($1{,}2$ pp),
-signe que les enfants les plus vulnérables restent en dehors du système scolaire.
 
 \begin{figure}[H]
   \centering
@@ -298,20 +367,20 @@ signe que les enfants les plus vulnérables restent en dehors du système scolai
   {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM.}
 \end{figure}
 
-La figure~\ref{fig:privind_all} détaille, au niveau de l'indicateur, la
-privation d'ensemble. Le combustible solide (près de 92\,\%) et la gestion
-des ordures dominent, tandis que le temps d'accès à l'eau reste marginal. La
-plupart des indicateurs reculent entre les deux vagues, à l'exception du temps
-d'accès à l'eau, du travail des enfants et de la séparation parentale, en
-légère hausse.
+La figure~\ref{fig:privind_all} détaille la privation au niveau de
+l'indicateur. Le combustible solide (près de 92\,\%) et la gestion des
+ordures dominent, tandis que le temps d'accès à l'eau reste marginal. La
+plupart des indicateurs reculent entre les deux vagues, à l'exception du
+temps d'accès à l'eau, du travail des enfants et de la séparation parentale,
+en légère hausse.
 
-La décomposition par groupe d'âge (tableau~\ref{tab:moda_age}) révèle que les
-enfants de 5 à 14 ans affichent le taux de pauvreté N-MODA le plus élevé (62,7\,\%),
-principalement en raison des privations éducatives cumulées aux privations de logement
-et d'assainissement. Les 0-4 ans (49,1\,\%) sont exposés aux privations
-en matière de protection (acte de naissance) et de nutrition. Les 15-17 ans (47,6\,\%)
-concentrent les privations liées à l'alphabétisation (illettrisme) et à la
-séparation parentale.
+Le tableau~\ref{tab:moda_age} récapitule l'incidence par groupe d'âge. Les
+enfants de 5 à 14 ans affichent le taux le plus élevé (68,2\,\% en 2018),
+principalement en raison des privations éducatives cumulées aux privations de
+logement et d'assainissement. Les 0-4 ans (56,5\,\%) sont exposés aux
+privations de protection (acte de naissance, séparation parentale) et de
+nutrition. Les 15-17 ans (53,9\,\%) concentrent les privations liées à
+l'illettrisme et à la séparation parentale.
 
 \begin{table}[H]
   \centering
@@ -324,42 +393,26 @@ séparation parentale.
     
                  & EHCVM I & EHCVM II & EHCVM I & EHCVM II \\
     \hline
-    0-4 ans     & 49,1 & 38,8 & 10~160 & 7~795 \\ \hline
-    5-14 ans    & 62,7 & 55,3 & 19~207 & 18~636 \\ \hline
-    15-17 ans   & 47,6 & 40,0 & 4~477  & 4~602  \\
+    0-4 ans     & 56,5 & 47,0 & 10~160 & 7~795 \\ \hline
+    5-14 ans    & 68,2 & 60,9 & 19~207 & 18~636 \\ \hline
+    15-17 ans   & 53,9 & 46,9 & 4~477  & 4~602  \\
     \hline
-    Ensemble 0-17 ans & 56,6 & 48,8 & 33~844 & 31~033 \\
+    Ensemble 0-17 ans & 62,8 & 55,3 & 33~844 & 31~033 \\
     \hline
   \end{tabular}
 
   {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM.}
 \end{table}
 
-\begin{figure}[H]
-  \centering
-  \caption{Incidence N-MODA par groupe d'âge et milieu de résidence}
-  \includegraphics[width=0.85\linewidth]{figures/fig_pauvrete_milieu_age.pdf}
-  \label{fig:pauvrete_milieu_age}
-
-  {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM.}
-\end{figure}
-
-La figure~\ref{fig:pauvrete_milieu_age} confirme la forte disparité urbain/rural
-dans les deux vagues~: en 2018, l'incidence N-MODA atteint 74,8\,\% en milieu
-rural contre 30,9\,\% en milieu urbain~; en 2021, elle recule dans les deux
-milieux (67,0\,\% en campagne, 25,0\,\% en ville), l'écart urbain/rural
-restant élevé et large (43,9 puis 42,0 points de pourcentage). Le
-classement par groupe d'âge (5-14 ans les plus touchés) se retrouve dans les
-deux milieux et les deux vagues.
-
 \subsubsection{Enfants de 0-4 ans}
 
 Chez les tout-petits (0-4 ans), la privation est dominée par le combustible
-solide (92,3\,\% puis 91,9\,\%) et la gestion des ordures (60,3\,\% puis
-50,0\,\%). La séparation parentale concerne 36,5\,\% des tout-petits en 2018
-et se maintient à un niveau voisin, tandis que l'absence d'acte de naissance
-recule nettement (31,8\,\% à 22,0\,\%). Les indicateurs de logement, d'eau et
-d'assainissement s'améliorent tous entre les deux vagues.
+solide (92,3\,\% puis 91,9\,\%) et la gestion des ordures (59,3\,\% puis
+49,2\,\%). La séparation parentale concerne 36,5\,\% des tout-petits en 2018
+et progresse légèrement (39,0\,\% en 2021), tandis que l'absence d'acte de
+naissance recule nettement (31,8\,\% à 22,0\,\%). Les indicateurs de
+logement, d'eau et d'assainissement s'améliorent tous entre les deux vagues,
+à l'exception du type de toilettes (40,3\,\% puis 41,7\,\%).
 
 \begin{figure}[H]
   \centering
@@ -373,11 +426,11 @@ d'assainissement s'améliorent tous entre les deux vagues.
 \subsubsection{Enfants de 5-14 ans}
 
 Pour les 5-14 ans, la tranche la plus nombreuse et la plus touchée, deux
-indicateurs propres à l'âge s'ajoutent~: le travail des enfants, en hausse
-(40,4\,\% à 42,6\,\%), et la non-scolarisation, quasi stable et élevée
-(45,3\,\% puis 44,8\,\%). Comme pour les autres tranches, le combustible
-solide reste quasi universel et les privations de logement, d'eau et
-d'assainissement reculent sensiblement.
+indicateurs propres à l'âge s'ajoutent~: le travail des enfants, en légère
+hausse (41,8\,\% à 43,1\,\%), et la non-scolarisation, quasi stable et
+élevée (45,3\,\% puis 44,8\,\%). Comme pour les autres tranches, le
+combustible solide reste quasi universel (92,3\,\% puis 91,2\,\%) et les
+privations de logement, d'eau et d'assainissement reculent sensiblement.
 
 \begin{figure}[H]
   \centering
@@ -397,8 +450,11 @@ dans l'agrégat~: la valeur ANSD de référence (85,7\,\%) correspond en réalit
 la seule \emph{absence d'emploi}, sans la condition de non-scolarisation, et
 compte donc les élèves comme privés, ce qui la rend inutilisable comme
 indicateur éducatif (annexe~\ref{ann:E}).
-Les privations d'habitat et de nutrition suivent la même tendance
-baissière que dans les autres tranches, à un niveau un peu inférieur.
+La séparation d'avec les parents y est la plus fréquente de toutes les
+tranches (52,8\,\% puis 50,5\,\%), reflet des mobilités scolaires et
+professionnelles propres à cet âge. Les privations d'habitat et de nutrition
+suivent la même tendance baissière que dans les autres tranches, à un niveau
+un peu inférieur.
 
 \begin{figure}[H]
   \centering
@@ -408,30 +464,3 @@ baissière que dans les autres tranches, à un niveau un peu inférieur.
 
   {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM.}
 \end{figure}
-
-\subsubsection{Selon les régions}
-
-La figure~\ref{fig:carte_nmoda} décompose l'incidence N-MODA par région de
-résidence pour les deux vagues. Les disparités sont considérables~: les régions
-du sud et de l'est (Kédougou, Kolda, Sédhiou, Tambacounda) affichent les
-incidences les plus élevées, dépassant 80\,\% en 2018, tandis que Dakar
-présente l'incidence la plus faible (environ 23\,\%). Cette hétérogénéité
-régionale, dont la structure persiste entre les deux vagues, souligne que la
-pauvreté multidimensionnelle des enfants est avant tout un phénomène
-géographiquement concentré, lié à la fois aux inégalités d'accès aux
-infrastructures et aux spécificités des économies locales.
-
-\begin{figure}[H]
-  \centering
-  \caption{Incidence N-MODA par région : Sénégal, EHCVM I et II}
-  \includegraphics[width=0.85\linewidth]{figures/fig_carte_nmoda.pdf}
-  \label{fig:carte_nmoda}
-
-  {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM.}
-\end{figure}
-
-Ces disparités justifient que les politiques de réduction de la pauvreté
-multidimensionnelle des enfants soient différenciées géographiquement. Les régions
-du Bassin arachidier (Kaolack, Kaffrine, Fatick) et du sud du pays concentrent
-les niveaux de privation les plus élevés et devraient bénéficier d'investissements
-prioritaires dans l'eau, l'assainissement et l'éducation.

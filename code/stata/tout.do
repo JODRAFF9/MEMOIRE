@@ -1717,9 +1717,13 @@ foreach annee in 2018 2021 {
         local ++r
         quietly summarize pauvre_MODA [aw=hhweight] if groupe_moda == `g'
         local hmoda = r(mean)*100
+        /* n_calc = enfants avec un statut N-MODA calcule ; n_tot = effectif
+           total de la tranche (colonne "Obs." du tableau du rapport) */
         local nobs  = r(N)
+        quietly count if groupe_moda == `g'
+        local ntot  = r(N)
         local lbl   = cond(`g'==1,"0-4 ans",cond(`g'==2,"5-14 ans","15-17 ans"))
-        di "  `annee' / `lbl' : H=" %5.1f `hmoda' "% (n=`nobs')"
+        di "  `annee' / `lbl' : H=" %5.1f `hmoda' "% (n_calc=`nobs', n_tot=`ntot')"
     }
 }
 
@@ -1735,6 +1739,35 @@ foreach annee in 2018 2021 {
     foreach dim in assai eau logem nutri sante protect educ {
         quietly summarize dim_`dim' [aw=hhweight]
         di "  `dim' : " %5.1f r(mean)*100 "%"
+    }
+}
+
+/* ── Taux de privation par INDICATEUR et par groupe d'age ──────
+   Alimente les commentaires de la section statistiques descriptives
+   (sous-sections 0-4, 5-14, 15-17 ans) et les figures fig_privind_*.
+   Un indicateur non applicable a une tranche d'age est ignore. */
+di _newline "=== 4bis. Privation par indicateur et groupe d'age ==="
+
+local indics m_toilet m_partag_toi m_eau_source m_eau_temps m_ordures ///
+             m_surpeup m_securite m_combust m_sante_acces m_acte_nais ///
+             m_trav_enf m_parents m_scol m_alfab m_neet
+
+foreach annee in 2018 2021 {
+    use "$TEMP/vague_`annee'.dta", clear
+    di _newline "-- Indicateurs `annee' (pondere hhweight) --"
+    foreach g in 0 1 2 3 {
+        local lbl = cond(`g'==0,"Ensemble 0-17", ///
+                    cond(`g'==1,"0-4 ans",cond(`g'==2,"5-14 ans","15-17 ans")))
+        di "  [`lbl']"
+        foreach v of local indics {
+            capture confirm variable `v'
+            if _rc continue
+            if `g' == 0 quietly summarize `v' [aw=hhweight]
+            else        quietly summarize `v' [aw=hhweight] if groupe_moda == `g'
+            /* indicateur non applicable a cette tranche : rien a afficher */
+            if r(N) == 0 | r(mean) == 0 continue
+            di "    " %-14s "`v'" " : " %5.1f r(mean)*100 "%"
+        }
     }
 }
 
@@ -2083,252 +2116,6 @@ set dp period
 graph export "$OUTPUT/figures/fig_effets_dim.pdf", replace
 di ">>> fig_effets_dim.pdf sauvegardé dans $OUTPUT/figures/"
 di ">>> 07_effets_dim.do terminé."
-
-/* ============================================================
-   SECTION : 08_CARTE_REGION — Carte régionale de l'incidence
-
-   Sorties :
-     output/figures/fig_carte_nmoda.pdf   — carte H par région (présentation)
-   ============================================================ */
-
-
-/* ============================================================
-   1. Incidence N-MODA par région (EHCVM I et II)
-   ============================================================ */
-
-/* Moyenne pondérée (poids de sondage) par région, pour chacune des deux vagues */
-matrix H_reg = J(14, 3, .)
-foreach annee in 2018 2021 {
-    use "$TEMP/vague_`annee'.dta", clear
-    local col = cond(`annee' == 2018, 2, 3)
-    quietly summarize pauvre_MODA [aw=hhweight]
-    scalar H_nat_`annee' = r(mean)*100
-    levelsof region, local(regs)
-    local i = 0
-    foreach r of local regs {
-        local ++i
-        quietly summarize pauvre_MODA [aw=hhweight] if region == `r'
-        matrix H_reg[`i', 1] = `r'
-        matrix H_reg[`i', `col'] = r(mean)*100
-        local lbl : label (region) `r'
-        di "Région `r' (`lbl'), `annee' : H=" %5.1f r(mean)*100 "%"
-    }
-}
-
-/* ── Table des incidences regionales (alimente les cartes) ── */
-preserve
-    clear
-    svmat H_reg, names(col)
-    rename c1 cod_reg
-    rename c2 H_2018
-    rename c3 H_2021
-    sort H_2018
-    gen ordre = _n
-    gen str30 nom_reg = ""
-    /* Correspondance codes vers noms régions Sénégal */
-    replace nom_reg = "Dakar"        if cod_reg == 1
-    replace nom_reg = "Ziguinchor"   if cod_reg == 2
-    replace nom_reg = "Diourbel"     if cod_reg == 3
-    replace nom_reg = "Saint-Louis"  if cod_reg == 4
-    replace nom_reg = "Tambacounda"  if cod_reg == 5
-    replace nom_reg = "Kaolack"      if cod_reg == 6
-    replace nom_reg = "Thiès"        if cod_reg == 7
-    replace nom_reg = "Louga"        if cod_reg == 8
-    replace nom_reg = "Fatick"       if cod_reg == 9
-    replace nom_reg = "Kolda"        if cod_reg == 10
-    replace nom_reg = "Matam"        if cod_reg == 11
-    replace nom_reg = "Kaffrine"     if cod_reg == 12
-    replace nom_reg = "Kédougou"     if cod_reg == 13
-    replace nom_reg = "Sédhiou"      if cod_reg == 14
-
-    /* Labels y-axis depuis la variable */
-    local ylab_str ""
-    forvalues i = 1/14 {
-        local lbl = nom_reg[`i']
-        local ylab_str `"`ylab_str' `i' "`lbl'""'
-    }
-
-
-    /* ── Table H par région, cle = nom en majuscules (NOMREG du
-       shapefile) pour la fusion avec le fond de carte ── */
-    gen str30 NOMREG = ""
-    replace NOMREG = "DAKAR"       if cod_reg == 1
-    replace NOMREG = "ZIGUINCHOR"  if cod_reg == 2
-    replace NOMREG = "DIOURBEL"    if cod_reg == 3
-    replace NOMREG = "SAINT LOUIS" if cod_reg == 4
-    replace NOMREG = "TAMBACOUNDA" if cod_reg == 5
-    replace NOMREG = "KAOLACK"     if cod_reg == 6
-    replace NOMREG = "THIES"       if cod_reg == 7
-    replace NOMREG = "LOUGA"       if cod_reg == 8
-    replace NOMREG = "FATICK"      if cod_reg == 9
-    replace NOMREG = "KOLDA"       if cod_reg == 10
-    replace NOMREG = "MATAM"       if cod_reg == 11
-    replace NOMREG = "KAFFRINE"    if cod_reg == 12
-    replace NOMREG = "KEDOUGOU"    if cod_reg == 13
-    replace NOMREG = "SEDHIOU"     if cod_reg == 14
-    keep NOMREG nom_reg H_2018 H_2021
-    save "$TEMP/h_region.dta", replace
-restore
-
-/* ============================================================
-   1bis. Carte choropleth N-MODA par région (spmap)
-   ============================================================ */
-
-/* Packages requis (installes une seule fois si absents) */
-capture which shp2dta
-if _rc ssc install shp2dta, replace
-capture which spmap
-if _rc ssc install spmap, replace
-
-/* Conversion du shapefile des régions en format Stata */
-shp2dta using "Vecteurs_Sénégal/Limite_Région", ///
-    database("$TEMP/sen_reg_db") coordinates("$TEMP/sen_reg_xy") ///
-    genid(id) replace
-
-/* Fusion des incidences N-MODA sur le nom de région (NOMREG) */
-use "$TEMP/sen_reg_db", clear
-replace NOMREG = trim(upper(NOMREG))
-merge 1:1 NOMREG using "$TEMP/h_region.dta"
-drop if _merge == 2
-drop _merge
-save "$TEMP/sen_reg_db.dta", replace
-
-/* Etendue du fond de carte (coordonnees UTM zone 28N en metres) pour
-   positionner la rose des vents (coin superieur gauche) et la barre
-   d'echelle (bas-centre). */
-use "$TEMP/sen_reg_xy", clear
-quietly summarize _X
-scalar xmin_ = r(min)
-scalar xrng_ = r(max) - r(min)
-quietly summarize _Y
-scalar ymin_ = r(min)
-scalar yrng_ = r(max) - r(min)
-
-/* Rose des vents (indique le nord) : cercle + etoile a 4 branches +
-   lettre "N", en gris, dans le coin superieur gauche. */
-global XC   = xmin_ + 0.07*xrng_                 /* centre x            */
-global YC   = ymin_ + 0.83*yrng_                 /* centre y            */
-global RAD  = 0.045*xrng_                        /* rayon des branches  */
-global RIN  = 0.0135*xrng_                       /* rayon interne etoile*/
-global YNL  = ymin_ + 0.83*yrng_ + 0.075*xrng_   /* "N" au-dessus       */
-
-/* Cercle de la rose : format polyline spmap (1re ligne = coords
-   manquantes, puis 37 noeuds fermant le cercle). */
-clear
-set obs 38
-gen _ID = 1
-gen double th = (_n - 2) * 2 * _pi / 36
-gen double _X = $XC + $RAD * cos(th)
-gen double _Y = $YC + $RAD * sin(th)
-replace _X = . in 1
-replace _Y = . in 1
-drop th
-save "$TEMP/sen_rose_c.dta", replace
-
-/* Etoile a 4 branches (N, E, S, O + pointes internes). Format polyline
-   spmap : 1re ligne = coords manquantes, puis le contour ferme.
-   _ID = 2 : deuxieme polyline du meme fichier que le cercle. */
-clear
-set obs 10
-gen _ID = 2
-gen double _X = .
-gen double _Y = .
-replace _X = $XC        in 2
-replace _Y = $YC + $RAD in 2
-replace _X = $XC + $RIN in 3
-replace _Y = $YC + $RIN in 3
-replace _X = $XC + $RAD in 4
-replace _Y = $YC        in 4
-replace _X = $XC + $RIN in 5
-replace _Y = $YC - $RIN in 5
-replace _X = $XC        in 6
-replace _Y = $YC - $RAD in 6
-replace _X = $XC - $RIN in 7
-replace _Y = $YC - $RIN in 7
-replace _X = $XC - $RAD in 8
-replace _Y = $YC        in 8
-replace _X = $XC - $RIN in 9
-replace _Y = $YC + $RIN in 9
-replace _X = $XC        in 10
-replace _Y = $YC + $RAD in 10
-save "$TEMP/sen_rose_s.dta", replace
-
-/* Un seul fichier de polylines (cercle _ID=1 + etoile _ID=2) : spmap
-   n'accepte l'option line() qu'une seule fois. */
-use "$TEMP/sen_rose_c.dta", clear
-append using "$TEMP/sen_rose_s.dta"
-sort _ID
-save "$TEMP/sen_rose.dta", replace
-
-/* La barre d'echelle est dessinee par l'option native scalebar() de spmap
-   (voir les appels ci-dessous) : pas de dataset a construire. */
-
-/* Points d'ancrage des noms de region : un point garanti a l'interieur de
-   chaque polygone (representative_point), plus fiable que la moyenne des
-   sommets qui, pour les formes concaves, peut tomber hors de la region
-   (Dakar, Fatick). Coordonnees UTM zone 28N, figees comme constantes. */
-clear
-input str14 nom_reg double x_c double y_c
-"Dakar"        262000 1630241
-"Diourbel"     389356 1634520
-"Fatick"       330648 1566850
-"Kaolack"      389907 1552721
-"Kédougou"     795247 1425893
-"Kolda"        562662 1451754
-"Louga"        425604 1702445
-"Matam"        642112 1689583
-"Saint-Louis"  528600 1779250
-"Sédhiou"      440034 1427200
-"Tambacounda"  681879 1534429
-"Thiès"        322000 1631854
-"Ziguinchor"   347984 1410445
-"Kaffrine"     477629 1574729
-end
-save "$TEMP/sen_reg_lbl.dta", replace
-
-/* Recharger la base attributaire (avec H_2018/H_2021) : spmap lit la
-   variable thematique dans le dataset en memoire, pas dans le fichier
-   d'etiquettes qui vient d'etre construit. */
-use "$TEMP/sen_reg_db.dta", clear
-
-/* Bornes de classes communes aux deux vagues pour une échelle de
-   couleur partagée (memes clbreaks sur les deux cartes) */
-set dp comma
-/* Carte EHCVM I : nom de region au centre, fleche du nord en haut a
-   gauche ; legende masquee (partagee, affichee sur la seconde carte).
-   Aucun titre general : la legende du rapport le fournit. */
-spmap H_2018 using "$TEMP/sen_reg_xy", id(id) ///
-    clmethod(custom) clbreaks(0 20 40 60 80 100) ///
-    fcolor(YlOrRd) ocolor(white ..) osize(0.15 ..) ///
-    ndfcolor(gs12) legend(off) ///
-    label(data("$TEMP/sen_reg_lbl.dta") xcoord(x_c) ycoord(y_c) ///
-          label(nom_reg) size(*0.55) color(black)) ///
-    subtitle("EHCVM I (2018-2019)", size(medsmall)) ///
-    line(data("$TEMP/sen_rose.dta") color(gs7) size(medthin)) ///
-    text($YNL $XC "N", size(medium) color(gs7)) ///
-    scalebar(units(150) scale(1/1000) label("km") ///
-             xpos(-70) ypos(-108) size(0.9) tsize(*0.75)) ///
-    name(carte18, replace)
-spmap H_2021 using "$TEMP/sen_reg_xy", id(id) ///
-    clmethod(custom) clbreaks(0 20 40 60 80 100) ///
-    fcolor(YlOrRd) ocolor(white ..) osize(0.15 ..) ///
-    ndfcolor(gs12) legorder(lohi) ///
-    legend(position(6) ring(1) size(vsmall) rows(1) ///
-        label(2 "[0;20]") label(3 "[20;40]") label(4 "[40;60]") ///
-        label(5 "[60;80]") label(6 "[80;100]")) ///
-    label(data("$TEMP/sen_reg_lbl.dta") xcoord(x_c) ycoord(y_c) ///
-          label(nom_reg) size(*0.55) color(black)) ///
-    subtitle("EHCVM II (2021-2022)", size(medsmall)) ///
-    name(carte21, replace)
-graph combine carte18 carte21, cols(2) ///
-    graphregion(color(white))
-set dp period
-graph export "$OUTPUT/figures/fig_carte_nmoda.pdf", replace
-di ">>> fig_carte_nmoda.pdf (carte choropleth) sauvegardé"
-
-
-
-di _newline ">>> 08_carte_region.do terminé."
 
 /* ============================================================
    SECTION : 09_PLACEBO_ATTRITION — Tests de validite (annexe A)

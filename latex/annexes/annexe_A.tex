@@ -1,17 +1,13 @@
-% Marqueur provisoire : cellules a renseigner depuis le log Stata
-% (table de sensibilite au seuil k). A supprimer une fois les valeurs saisies.
-\providecommand{\PLACEHOLDER}{\textbf{\textit{à compléter}}}
-
 \section{Tendances parallèles et tests complémentaires}
 \label{ann:A}
 
 \subsection{Argument de l'appariement}
 
 Le PSM rend l'hypothèse de tendances parallèles plus crédible en sélectionnant
-des ménages non-bénéficiaires statistiquement indiscernables des futurs
-bénéficiaires à $t=0$. Après appariement k-NN
-($k=4$, avec remise), la différence standardisée moyenne (SMD) tombe à 1,4\,\%
-(tableau~\ref{tab:balance}).
+des ménages non bénéficiaires statistiquement indiscernables des ménages
+bénéficiaires à $t=0$. Après appariement par les $k$ plus proches voisins
+($k=4$, avec remise), la différence standardisée moyenne passe de 12,3\,\% à
+2,1\,\% (tableau~\ref{tab:balance}).
 
 \subsection{Appariement seul, sans double différence}
 \label{subsec:psm_sans_dd}
@@ -30,30 +26,35 @@ bénéficiaires et témoins appariés (poids $k$-NN) est estimé séparément à
     \hline
 \entete Spécification & Coefficient & Écart-type & $p$-val. \\
     \hline
-    PSM seul, $t=0$ (écart initial)  & -$0{,}024$ & $0{,}024$ & $0{,}308$ \\ \hline
-    PSM seul, $t=1$ (écart final)    & -$0{,}026$ & $0{,}026$ & $0{,}333$ \\ \hline
-    PSM-DD (référence, tableau~\ref{tab:psmdd_att}) & -$0{,}001$ & $0{,}025$ & $0{,}961$ \\
+    PSM seul, $t=0$ (écart initial)  & -$0{,}081$ & $0{,}029$ & $0{,}005$ \\ \hline
+    PSM seul, $t=1$ (écart final)    & -$0{,}038$ & $0{,}028$ & $0{,}176$ \\ \hline
+    PSM-DD (référence, tableau~\ref{tab:psmdd_att}) & $0{,}043$ & $0{,}027$ & $0{,}119$ \\
     \hline
   \end{tabular}
 
   {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM.}
 \end{table}
 
-À la période de base, les bénéficiaires ne se distinguent pas des témoins
-appariés (2,4~points, $p=0{,}308$)~: l'appariement suffit à équilibrer les
-groupes, cohérent avec le fait qu'aucun n'est encore traité en 2018. À $t=1$,
-l'écart reste faible (2,6~points, $p=0{,}333$), et la double différence est
-proche de zéro ($-0{,}001 = -0{,}026 - (-0{,}024)$, aux arrondis près). La
-cohérence des lectures transversale et différenciée renforce le résultat
-central~: l'absence d'effet ne provient pas d'un artefact de spécification,
-chaque étape racontant la même histoire \parencite{heckman1997,heckman1998}.
+Cette décomposition montre pourquoi la double différence est indispensable. À
+la période de base, les enfants des ménages bénéficiaires sont
+significativement moins pauvres que ceux de leurs témoins appariés
+(-$8{,}1$~points, $p=0{,}005$)~: l'appariement sur les caractéristiques
+observables du ménage ne suffit pas à annuler l'écart de niveau. Un chercheur
+s'arrêtant à l'appariement transversal en 2021 conclurait encore à un
+avantage de 3,8~points en faveur des bénéficiaires. Or cet écart résiduel
+préexiste au traitement~: il ne peut pas lui être imputé. La double
+différence l'élimine en ne retenant que l'\emph{évolution} de l'écart
+($0{,}043 = -0{,}038 - (-0{,}081)$), et renverse le signe apparent de la
+conclusion \parencite{heckman1997,heckman1998}. L'hypothèse H3, selon
+laquelle l'estimateur PSM-DD produit des estimations moins biaisées que les
+approches naïves, est ainsi vérifiée sur nos données.
 
 \subsection{Test placebo}
 
-En affectant aléatoirement un faux statut de traitement à 17,7\,\% des
+En affectant aléatoirement un faux statut de traitement à 13,3\,\% des
 ménages non bénéficiaires (part observée des traités) et en estimant la
-DD sur ce pseudo-traitement (200 réplications), on obtient la distribution
-suivante.
+double différence sur ce pseudo-traitement (200 réplications), on obtient la
+distribution suivante.
 
 \begin{table}[H]
   \centering
@@ -64,12 +65,12 @@ suivante.
     \hline
 \entete Statistique & Pauvreté N-MODA \\
     \hline
-    ATT placebo moyen            & -$0{,}002$ \\ \hline
-    Écart-type                   & $0{,}025$ \\ \hline
+    ATT placebo moyen            & $0{,}001$ \\ \hline
+    Écart-type                   & $0{,}022$ \\ \hline
     Fraction $|$ATT$|$ $>$ 0,05 & 2,5\,\% \\
     \hline
-    ATT réel (tableau~\ref{tab:psmdd_att}) & -$0{,}001$ \\ \hline
-    Rang dans la distribution placebo      & 50\textsuperscript{e} centile \\
+    ATT réel (tableau~\ref{tab:psmdd_att}) & $0{,}043$ \\ \hline
+    Rang dans la distribution placebo      & 97,5\textsuperscript{e} centile \\
     \hline
   \end{tabular}
 
@@ -85,11 +86,24 @@ suivante.
   {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM.}
 \end{figure}
 
-La distribution placebo, centrée sur zéro (écart-type 0,025), fournit la
-référence sous absence d'effet~: l'ATT réel (-$0{,}001$) se situe au
-50\textsuperscript{e} centile, en plein c\oe ur de la distribution,
-c'est-à-dire qu'il est indiscernable d'une assignation aléatoire du
-traitement - lecture pleinement cohérente avec le résultat nul.
+Le test remplit sa fonction première~: la distribution placebo est bien
+centrée sur zéro (moyenne $0{,}001$), ce qui confirme que la procédure
+d'estimation ne fabrique pas d'effet là où il n'y en a pas, et conforte la
+plausibilité de l'hypothèse de tendances parallèles.
+
+La position de l'ATT réel dans cette distribution appelle en revanche une
+lecture nuancée. Il se situe au 97,5\textsuperscript{e} centile, c'est-à-dire
+dans la queue supérieure~: le point estimé est plus grand que ce que produit
+presque toute réassignation aléatoire du traitement. Cette lecture et la
+$p$-valeur de $0{,}119$ du test principal ne sont pas contradictoires, elles
+répondent à deux questions différentes. Le placebo ignore la structure de
+corrélation intra-grappe, alors que le test principal en tient compte par des
+erreurs-types clusterisées~; c'est cette correction, prudente et appropriée
+au plan de sondage, qui élargit l'intervalle de confiance et empêche de
+conclure. La conclusion retenue reste donc celle du test principal --- pas
+d'effet statistiquement établi --- mais le placebo indique que le point
+estimé n'est pas non plus un pur bruit d'échantillonnage, et invite à ne pas
+lire ce résultat comme la démonstration d'un effet exactement nul.
 
 \subsection{Sensibilité au seuil de dimensions}
 
@@ -115,59 +129,40 @@ privés dans 0 à 3 dimensions progresse. Le choix de $k=4$ se situe au
 voisinage du mode de la distribution, sans discontinuité marquée qui
 justifierait un autre seuil.
 
-Au-delà de la forme de la distribution, il importe de vérifier que la
-\emph{conclusion causale} ne dépend pas du seuil retenu. L'ATT est donc
+Au-delà de la forme de la distribution, la vérification que la
+\emph{conclusion causale} ne dépend pas du seuil retenu est présentée au
+tableau~\ref{tab:sensib_k} de la section~\ref{subsec:sensib_k}~: l'ATT y est
 ré-estimé en définissant successivement la pauvreté à $k=3$, $4$, $5$ et $6$
-dimensions sur sept, la spécification et les poids d'appariement restant par
-ailleurs inchangés (tableau~\ref{tab:sensib_k}).
-
-\begin{table}[H]
-  \centering
-  \caption[Sensibilité de l'ATT au seuil inter-dimensionnel $k$]{Sensibilité de l'ATT au seuil inter-dimensionnel $k$\protect\footnotemark}
-  \label{tab:sensib_k}
-  \zebre
-  \begin{tabular}{|c|c|c|c|c|}
-    \hline
-\entete Seuil $k$ & Incidence à $t=0$ (\%) & ATT & Écart-type & $p$-val. \\
-    \hline
-    3 & \PLACEHOLDER & \PLACEHOLDER & \PLACEHOLDER & \PLACEHOLDER \\ \hline
-    4 (référence) & \PLACEHOLDER & \PLACEHOLDER & \PLACEHOLDER & \PLACEHOLDER \\ \hline
-    5 & \PLACEHOLDER & \PLACEHOLDER & \PLACEHOLDER & \PLACEHOLDER \\ \hline
-    6 & \PLACEHOLDER & \PLACEHOLDER & \PLACEHOLDER & \PLACEHOLDER \\
-    \hline
-  \end{tabular}
-
-  {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM.}
-\end{table}
-\footnotetext{\textit{Note :} appariement k-NN, erreurs-types clusterisées par grappe. Seule la définition de la variable de résultat change d'une ligne à l'autre.}
-
-Abaisser le seuil élargit mécaniquement la population considérée comme pauvre,
-tandis que l'élever la restreint aux enfants cumulant le plus de privations~:
-faire varier $k$ revient donc à déplacer le curseur de la sévérité. La
-stabilité de l'ATT sur toute cette plage indique que le résultat ne tient pas
-au choix conventionnel de $k=4$, et qu'il vaut aussi bien pour les privations
-larges que pour les situations les plus sévères.
+dimensions sur sept, et demeure non significatif à chaque seuil. Abaisser le
+seuil élargit mécaniquement la population considérée comme pauvre, tandis que
+l'élever la restreint aux enfants cumulant le plus de privations~: faire
+varier $k$ revient donc à déplacer le curseur de la sévérité. La stabilité du
+résultat sur toute cette plage indique qu'il ne tient pas au choix
+conventionnel de $k=4$.
 
 \subsection{Résultats de l'appariement avec différentes méthodes}
 
 Le tableau~\ref{tab:psm_methodes} (section~\ref{subsec:psmdd}) confronte
-les méthodes d'appariement~: le k-NN ($p=0{,}961$), le noyau Epanechnikov
-($p=0{,}968$), le caliper ($p=0{,}808$) et la double différence brute
-($p=0{,}835$) concordent tous sur l'absence d'effet détectable. La
-stabilité de la conclusion entre méthodes reste l'enseignement principal.
+les méthodes d'appariement~: les $k$ plus proches voisins ($p=0{,}119$), le
+noyau Epanechnikov ($p=0{,}057$), le caliper ($p=0{,}524$) et la double
+différence brute ($p=0{,}167$) concordent sur l'absence d'effet
+statistiquement établi au seuil de 5\,\%. La stabilité de la conclusion
+entre méthodes reste l'enseignement principal.
 
 \subsection{Traitement défini par les bénéficiaires stables}
 
 En complément du design principal, l'ATT est estimé en comparant les
-bénéficiaires stables ($D=1$ aux deux vagues) aux non-bénéficiaires. Le
-PSM-DD donne un ATT positif non significatif ($0{,}038$, $p=0{,}126$)~: la
-pauvreté des enfants durablement bénéficiaires recule moins vite que celle des
-témoins. À interpréter avec prudence~: le traitement y est déjà en cours à la
-période de base (pauvreté inférieure de 26~points dès 2018), si bien que la
-première vague ne mesure pas un niveau pré-traitement et que la dynamique peut
-refléter un rattrapage des témoins autant qu'un effet des transferts. Il
-suggère néanmoins qu'exposition durable et exposition récente ne produisent pas
-la même dynamique.
+bénéficiaires \emph{stables} (recevant un transfert aux deux vagues,
+2\,604 observations-enfants) aux ménages jamais bénéficiaires
+(23\,580 observations). La double différence donne un ATT de $0{,}023$
+($p=0{,}474$), du même ordre que l'estimation principale et tout aussi non
+significatif. Une exposition prolongée aux transferts ne produit donc pas
+davantage d'effet mesurable qu'une exposition définie à la seule période de
+base, ce qui affaiblit l'explication du résultat nul par la seule brièveté de
+l'horizon. Ce design reste toutefois à interpréter avec prudence~: le
+traitement y est déjà en cours à la période de base (pauvreté inférieure de
+21~points dès 2018), si bien que la première vague ne mesure pas un niveau
+pré-traitement.
 
 \subsection{Analyse de l'attrition différentielle}
 
@@ -190,7 +185,7 @@ sont perdus.
     Milieu urbain (\%)     & 49,8  & 71,7  & -$0{,}46$ & $<$0,001 \\ \hline
     Âge du chef (années)   & 51,9  & 49,6  & $0{,}16$ & $<$0,001 \\
     \hline
-    Bénéficiaires 2018 ($D$, \%) & 21,9 & 26,9 & -$0{,}12$ & 0,004 \\
+    Bénéficiaires 2018 ($D$, \%) & 13,1 & 15,4 & -$0{,}07$ & 0,101 \\
     \hline
   \end{tabular}
 
@@ -198,7 +193,11 @@ sont perdus.
 \end{table}
 \footnotetext{\textit{Note :} SMD~: différence standardisée moyenne.}
 
-L'attrition n'est pas aléatoire (ménages perdus plus urbains, aisés et
-féminisés) et modestement corrélée au statut de bénéficiaire 2018 (26,9\,\%
-contre 21,9\,\%, $p=0{,}004$), ce qui borne l'écart estimé comme une borne
-haute pour les ménages sédentaires.
+L'attrition n'est pas aléatoire~: les ménages perdus sont plus urbains, plus
+aisés, plus petits et plus souvent dirigés par une femme. Elle n'est en
+revanche \emph{pas} significativement corrélée au statut de bénéficiaire
+2018 (15,4\,\% contre 13,1\,\%, $p=0{,}101$), ce qui est le point
+déterminant pour la validité de l'estimation~: le suivi différentiel ne
+dépend pas du traitement. La portée des résultats reste en revanche limitée
+aux ménages sédentaires, les ménages urbains les plus mobiles étant
+sous-représentés dans le panel.
