@@ -193,10 +193,10 @@
   maxbibnames=99,
   % Deux auteurs cites portent le nom Ndiaye. APA leve l'ambiguite en
   % ajoutant l'initiale du prenom, mais « M. Ndiaye » se lit « Monsieur »
-  % en francais. uniquename=full designe le prenom entier comme element
-  % desambiguisant ; le style apa l'abrege malgre tout, d'ou l'option
-  % giveninits=false posee sur ces deux seules entrees du fichier .bib.
-  uniquename=full
+  % en francais. Le style apa abrege le prenom quelle que soit la valeur
+  % de uniquename : la desambiguisation par le prenom est donc desactivee,
+  % les deux references restant distinguees par l'annee et le coauteur.
+  uniquename=false
 ]{biblatex}
 \addbibresource{references.bib}
 
