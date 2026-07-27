@@ -598,7 +598,7 @@ Sorted by:
 . codebook, compact
 
 Variable        Obs Unique      Mean       Min       Max  Label
------------------------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------
 country       63530      1         .         .         .  Pays
 year          63530      1      2021      2021      2021  Annee enquete
 vague         63530      2  1.496301         1         2  Vague
@@ -655,7 +655,7 @@ salaire_sec     284     92  669563.4         0   4800000  Salaire an. emploi sec
 bank          63530      2  .3463561         0         1  compte banque ou autre
 servicecon~t  13012      4  2.726868         1         4  Service de santé consulté  
 persconsult   13012      4  2.634338         1         4  Personnel de santé consulté  
------------------------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------
 
 . 
 . use "$BASE_2021/ehcvm_menage_sen2021.dta", clear
@@ -669,14 +669,14 @@ Observations : 7120
 
 . describe
 
-Contains data from https://raw.githubusercontent.com/JODRAFF9/MEMOIRE/main/Base/2021-2022/SEN_2021_EHCVM-2_v01_M_STATA14/ehcvm_menage_sen2021.d
-> ta
+Contains data from https://raw.githubusercontent.com/JODRAFF9/MEMOIRE/main/Base/2021-2022/SEN_2021_EHCVM-
+> 2_v01_M_STATA14/ehcvm_menage_sen2021.dta
  Observations:         7,120                  
     Variables:            38                  02 AUG 2024 11:39
------------------------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------
 Variable      Storage   Display    Value
     name         type    format    label      Variable label
------------------------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------
 country         str3    %3s                   
 hhid            long    %12.0g                Identifiant menage
 year            int     %8.0g                 
@@ -715,13 +715,13 @@ sh_co_eco       byte    %8.0g      ouinon     Choc covariant économique
 sh_id_eco       byte    %8.0g      ouinon     Choc idio économique
 sh_co_vio       byte    %8.0g      ouinon     Choc covariant violence
 sh_co_oth       byte    %8.0g      ouinon     Autres Chocs
------------------------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------
 Sorted by: 
 
 . codebook, compact
 
 Variable     Obs Unique      Mean   Min       Max  Label
------------------------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------
 country     7120      1         .     .         .  
 hhid        7120   7120  30081.54   201     59812  Identifiant menage
 year        7120      1      2021  2021      2021  
@@ -760,7 +760,7 @@ sh_co_eco   7120      2  .4021067     0         1  Choc covariant économique
 sh_id_eco   7120      2  .1353933     0         1  Choc idio économique 
 sh_co_vio   7120      2  .0148876     0         1  Choc covariant violence
 sh_co_oth   7120      2  .0108146     0         1  Autres Chocs
------------------------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------
 
 . 
 . use "$BASE_2021/ehcvm_welfare_sen2021.dta", clear
@@ -774,14 +774,14 @@ Observations : 7120
 
 . describe
 
-Contains data from https://raw.githubusercontent.com/JODRAFF9/MEMOIRE/main/Base/2021-2022/SEN_2021_EHCVM-2_v01_M_STATA14/ehcvm_welfare_sen2021.
-> dta
+Contains data from https://raw.githubusercontent.com/JODRAFF9/MEMOIRE/main/Base/2021-2022/SEN_2021_EHCVM-
+> 2_v01_M_STATA14/ehcvm_welfare_sen2021.dta
  Observations:         7,120                  
     Variables:            47                  02 AUG 2024 11:39
------------------------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------
 Variable      Storage   Display    Value
     name         type    format    label      Variable label
------------------------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------
 grappe          int     %8.0g                 grappe
 menage          byte    %8.0g                 Identifiant du ménage
 country         str3    %3s                   Pays
@@ -820,22 +820,26 @@ zzae            double  %12.0g
 zref            double  %12.0g                Seuil pauvrete national
 def_spa         float   %9.0g                 Deflateur spatial
 def_temp        float   %9.0g                 Deflateur temporel
-def_temp_pri~11 float   %9.0g                 temporal deflator for international poverty, 1 = 2021m11 prices
-def_temp_cpi    float   %9.0g                 alternative temporal deflator based on official CPI, 2018/19 style
-def_temp_adj    float   %9.0g                 temporal deflator adjusted for difference between hh and market survey periods
+def_temp_pri~11 float   %9.0g                 temporal deflator for international poverty, 1 = 2021m11
+                                                prices
+def_temp_cpi    float   %9.0g                 alternative temporal deflator based on official CPI,
+                                                2018/19 style
+def_temp_adj    float   %9.0g                 temporal deflator adjusted for difference between hh and
+                                                market survey periods
 zali0           double  %12.0g                (sum) conso_pc_val_up
 dtet            double  %12.0g                
 monthly_cpi     double  %12.0g                Monthly CPI value
 cpi2017         float   %9.0g                 
 icp2017         double  %12.0g                
-dollars         float   %9.0g                 welfare in 2017 PPP USD per capita per day (not spatially deflated)
------------------------------------------------------------------------------------------------------------------------------------------------
+dollars         float   %9.0g                 welfare in 2017 PPP USD per capita per day (not spatially
+                                                deflated)
+---------------------------------------------------------------------------------------------------------
 Sorted by: 
 
 . codebook, compact
 
 Variable       Obs Unique      Mean       Min       Max  Label
------------------------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------
 grappe        7120    596  300.7435         2       598  grappe
 menage        7120     19  7.186517         1        19  Identifiant du ménage 
 country       7120      1         .         .         .  Pays
@@ -874,16 +878,16 @@ zzae          7120     11  371487.2  331924.6  424179.3
 zref          7120      1  369665.5  369665.5  369665.5  Seuil pauvrete national
 def_spa       7120     11  1.004928  .8979052  1.147468  Deflateur spatial
 def_temp      7120     59  .9980761  .9454877  1.059017  Deflateur temporel
-def_temp_~11  7120      7  1.019655         1  1.086645  temporal deflator for international poverty, 1 = 2021m11 prices
-def_temp_cpi  7120      7   .993477  .9743264  1.058747  alternative temporal deflator based on official CPI, 2018/19 style
-def_temp_adj  7120     59  1.014037  .9606072  1.075952  temporal deflator adjusted for difference between hh and market survey periods
+def_temp_~11  7120      7  1.019655         1  1.086645  temporal deflator for international poverty, ...
+def_temp_cpi  7120      7   .993477  .9743264  1.058747  alternative temporal deflator based on offici...
+def_temp_adj  7120     59  1.014037  .9606072  1.075952  temporal deflator adjusted for difference bet...
 zali0         7120      1  196233.1  196233.1  196233.1  (sum) conso_pc_val_up
 dtet          7120   7120  641537.9  50712.48  1.04e+07  
 monthly_cpi   7120      7  119.5515   117.247  127.4059  Monthly CPI value
 cpi2017       7120      1  1.097094  1.097094  1.097094  
 icp2017       7120      1  238.5777  238.5777  238.5777  
-dollars       7120   7119  6.552606  .5376188  102.5809  welfare in 2017 PPP USD per capita per day (not spatially deflated)
------------------------------------------------------------------------------------------------------------------------------------------------
+dollars       7120   7119  6.552606  .5376188  102.5809  welfare in 2017 PPP USD per capita per day (n...
+---------------------------------------------------------------------------------------------------------
 
 . 
 . use "$BASE_2021/s13_1_me_sen2021.dta", clear
@@ -897,48 +901,58 @@ Observations : 7120
 
 . describe
 
-Contains data from https://raw.githubusercontent.com/JODRAFF9/MEMOIRE/main/Base/2021-2022/SEN_2021_EHCVM-2_v01_M_STATA14/s13_1_me_sen2021.dta
+Contains data from https://raw.githubusercontent.com/JODRAFF9/MEMOIRE/main/Base/2021-2022/SEN_2021_EHCVM-
+> 2_v01_M_STATA14/s13_1_me_sen2021.dta
  Observations:         7,120                  
     Variables:            13                  02 AUG 2024 11:39
------------------------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------
 Variable      Storage   Display    Value
     name         type    format    label      Variable label
------------------------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------
 grappe          int     %8.0g                 grappe
 menage          byte    %8.0g                 Identifiant du ménage
 vague           byte    %8.0g                 Vague
 s13q00          byte    %8.0g                 13.00. Qui est le répondant de cette section?
-s13q01          byte    %8.0g      s13q01     13.01. 12 drniers mois, mbres MEN a un parent proche qui vit à l'étranger?
-s13q02          byte    %8.0g      s13q02     13.02. 12 drniers mois, ces parents proches ont envoyé l'argent au MEN?
-s13q03          byte    %8.0g      s13q03     13.03. 12 drniers mois, mbres MEN a d'autes parents qui vit à l'étranger?
-s13q04          byte    %8.0g      s13q04     13.04. 12 drniers mois, ces autres parents ont envoyé l'argent au MEN?
-s13q05          byte    %8.0g      s13q05   * 13.05. 12 drniers mois, le MEN a reçu l'argent d’un non-membre vit à étranger ?
-s13q06          byte    %8.0g      s13q06   * 13.06. 12 drniers mois, le MEN a reçu argent de famille vit au pays non mbre MEN
-s13q07          byte    %8.0g      s13q07   * 13.07. 12 drniers mois, le MEN a reçu argent autre pers vit au pays non mbre MEN
-s13q08          byte    %8.0g      s13q08     13.08. 12 drniers mois, le MEN a reçu l'argent d’un non-membre vit au pays ?
-s13q09          byte    %8.0g      nonoui     13.09. A-t-on au moins un reponse positive de 13.01 à 13.08?
+s13q01          byte    %8.0g      s13q01     13.01. 12 drniers mois, mbres MEN a un parent proche qui
+                                                vit à l'étranger?
+s13q02          byte    %8.0g      s13q02     13.02. 12 drniers mois, ces parents proches ont envoyé
+                                                l'argent au MEN?
+s13q03          byte    %8.0g      s13q03     13.03. 12 drniers mois, mbres MEN a d'autes parents qui vit
+                                                à l'étranger?
+s13q04          byte    %8.0g      s13q04     13.04. 12 drniers mois, ces autres parents ont envoyé
+                                                l'argent au MEN?
+s13q05          byte    %8.0g      s13q05   * 13.05. 12 drniers mois, le MEN a reçu l'argent d’un
+                                                non-membre vit à étranger ?
+s13q06          byte    %8.0g      s13q06   * 13.06. 12 drniers mois, le MEN a reçu argent de famille vit
+                                                au pays non mbre MEN
+s13q07          byte    %8.0g      s13q07   * 13.07. 12 drniers mois, le MEN a reçu argent autre pers vit
+                                                au pays non mbre MEN
+s13q08          byte    %8.0g      s13q08     13.08. 12 drniers mois, le MEN a reçu l'argent d’un
+                                                non-membre vit au pays ?
+s13q09          byte    %8.0g      nonoui     13.09. A-t-on au moins un reponse positive de 13.01 à
+                                                13.08?
                                             * indicated variables have notes
------------------------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------
 Sorted by: 
 
 . codebook, compact
 
 Variable    Obs Unique      Mean  Min  Max  Label
------------------------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------
 grappe     7120    596  300.7435    2  598  grappe
 menage     7120     19  7.186517    1   19  Identifiant du ménage 
 vague      7120      2   1.50323    1    2  Vague
 s13q00     7117     39  2.550232    1   51  13.00. Qui est le répondant de cette section? 
-s13q01     7117      2  1.762681    1    2  13.01. 12 drniers mois, mbres MEN a un parent proche qui vit à l'étranger?  
-s13q02     1689      2  1.356424    1    2  13.02. 12 drniers mois, ces parents  proches ont envoyé l'argent au MEN? 
-s13q03     7117      2  1.843473    1    2  13.03. 12 drniers mois, mbres MEN a d'autes parents qui vit à l'étranger?  
-s13q04     1114      2  1.608618    1    2  13.04. 12 drniers mois, ces autres parents  ont envoyé l'argent au MEN? 
-s13q05     7117      2  1.871294    1    2  13.05. 12 drniers mois, le MEN a reçu l'argent d’un non-membre  vit à étranger ?     
-s13q06     7118      2  1.658612    1    2  13.06. 12 drniers mois, le MEN a reçu argent de famille vit au pays non mbre MEN 
-s13q07     7118      2  1.826215    1    2  13.07. 12 drniers mois, le MEN a reçu argent autre pers vit au pays non mbre MEN 
-s13q08     7118      2  1.869205    1    2  13.08. 12 drniers mois, le MEN a reçu l'argent d’un non-membre  vit au pays ?   
+s13q01     7117      2  1.762681    1    2  13.01. 12 drniers mois, mbres MEN a un parent proche qui v...
+s13q02     1689      2  1.356424    1    2  13.02. 12 drniers mois, ces parents  proches ont envoyé l'...
+s13q03     7117      2  1.843473    1    2  13.03. 12 drniers mois, mbres MEN a d'autes parents qui vi...
+s13q04     1114      2  1.608618    1    2  13.04. 12 drniers mois, ces autres parents  ont envoyé l'a...
+s13q05     7117      2  1.871294    1    2  13.05. 12 drniers mois, le MEN a reçu l'argent d’un non-me...
+s13q06     7118      2  1.658612    1    2  13.06. 12 drniers mois, le MEN a reçu argent de famille vi...
+s13q07     7118      2  1.826215    1    2  13.07. 12 drniers mois, le MEN a reçu argent autre pers vi...
+s13q08     7118      2  1.869205    1    2  13.08. 12 drniers mois, le MEN a reçu l'argent d’un non-me...
 s13q09     7120      2  .5470506    0    1  13.09. A-t-on au moins un reponse positive de 13.01 à 13.08? 
------------------------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------
 
 . 
 . use "$BASE_2021/s13_2_me_sen2021.dta", clear
@@ -952,13 +966,14 @@ Observations : 10665
 
 . describe
 
-Contains data from https://raw.githubusercontent.com/JODRAFF9/MEMOIRE/main/Base/2021-2022/SEN_2021_EHCVM-2_v01_M_STATA14/s13_2_me_sen2021.dta
+Contains data from https://raw.githubusercontent.com/JODRAFF9/MEMOIRE/main/Base/2021-2022/SEN_2021_EHCVM-
+> 2_v01_M_STATA14/s13_2_me_sen2021.dta
  Observations:        10,665                  
     Variables:            24                  02 AUG 2024 11:39
------------------------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------
 Variable      Storage   Display    Value
     name         type    format    label      Variable label
------------------------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------
 grappe          int     %8.0g                 grappe
 menage          byte    %8.0g                 Identifiant du ménage
 vague           byte    %8.0g                 Vague
@@ -970,10 +985,12 @@ s13q12_autre    strL    %74s                  13.12.autre. Précisez
 s13q13          byte    %8.0g      s13q13     13.13. Quel est le sexe de l'expéditeur ?
 s13q14          int     %8.0g                 13.14. Quel est l'âge de l'expéditeur? ?
 s13q15          byte    %8.0g      s13q15     13.15. Quel est le niveau d'instruction de l'expéditeur ?
-s13q16          int     %8.0g      s13q16     13.16.11. Quel est le statut professionnel de l'expéditeur ?
+s13q16          int     %8.0g      s13q16     13.16.11. Quel est le statut professionnel de l'expéditeur
+                                                ?
 s13q16_autre    strL    %44s                  13.16.autre. Précisez
 s13q17          byte    %8.0g      s13q17     13.17. Est-ce que l'expéditeur a déjà vécu dans ce ménage ?
-s13q18          int     %8.0g                 13.18. Depuis combien d'années (en années révolues) est-il parti du ménage?
+s13q18          int     %8.0g                 13.18. Depuis combien d'années (en années révolues) est-il
+                                                parti du ménage?
 s13q19          byte    %8.0g      s13q19     13.19. Quel est le lieu de résidence de l'expéditeur ?
 s13q19_autre    strL    %32s                  13.19.autre. Précisez
 s13q20          byte    %8.0g      s13q20     13.20. Quel est le principal motif du transfert?
@@ -981,15 +998,17 @@ s13q20_autre    strL    %82s                  13.20.autre. Précisez
 s13q21          byte    %8.0g      s13q21     13.21. Quel est le principal mode de transfert?
 s13q21_autre    strL    %74s                  13.21.autre. Précisez
 s13q22a         long    %12.0g                13.22a. Quelle est le montant envoyé à chaque fois?
-s13q22b         byte    %8.0g      s13q22b    13.22b. Quelle est la fréquence des transferts envoyés à chaque fois?
-s13q23          byte    %8.0g                 13.23. Qui contrôle principalement le revenu de ces transferts ?
------------------------------------------------------------------------------------------------------------------------------------------------
+s13q22b         byte    %8.0g      s13q22b    13.22b. Quelle est la fréquence des transferts envoyés à
+                                                chaque fois?
+s13q23          byte    %8.0g                 13.23. Qui contrôle principalement le revenu de ces
+                                                transferts ?
+---------------------------------------------------------------------------------------------------------
 Sorted by: 
 
 . codebook, compact
 
 Variable        Obs Unique      Mean   Min       Max  Label
------------------------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------
 grappe        10665    596  288.6606     2       598  grappe
 menage        10665     19  7.155931     1        19  Identifiant du ménage 
 vague         10665      2  1.503985     1         2  Vague
@@ -1000,21 +1019,21 @@ s13q12         7439      6  3.091545     1         6  13.12. Qui a envoyé/donn�
 s13q12_autre    843    209         .     .         .  13.12.autre. Précisez 
 s13q13         7439      2  1.173948     1         2  13.13. Quel est le sexe de l'expéditeur ? 
 s13q14         7439     67  2060.758    15      9999  13.14. Quel est l'âge de l'expéditeur? ?  
-s13q15         7439      6  2.788144     1         6  13.15. Quel est le niveau d'instruction de l'expéditeur ? 
-s13q16         7439     14  1502.968     1      9999  13.16.11. Quel est le statut professionnel de l'expéditeur ? 
+s13q15         7439      6  2.788144     1         6  13.15. Quel est le niveau d'instruction de l'exp...
+s13q16         7439     14  1502.968     1      9999  13.16.11. Quel est le statut professionnel de l'...
 s13q16_autre     52     40         .     .         .  13.16.autre. Précisez 
-s13q17         7439      2  1.452346     1         2  13.17. Est-ce que l'expéditeur a déjà vécu dans ce ménage ?     
-s13q18         4074     54  57.35542     0      9999  13.18. Depuis combien d'années (en années révolues) est-il parti du ménage?    
-s13q19         7439     23  8.829681     1        24  13.19. Quel est le lieu de résidence de l'expéditeur ?  
+s13q17         7439      2  1.452346     1         2  13.17. Est-ce que l'expéditeur a déjà vécu dans ...
+s13q18         4074     54  57.35542     0      9999  13.18. Depuis combien d'années (en années révolu...
+s13q19         7439     23  8.829681     1        24  13.19. Quel est le lieu de résidence de l'expédi...
 s13q19_autre    454    125         .     .         .  13.19.autre. Précisez 
 s13q20         7439     10  3.798629     1        10  13.20. Quel est le principal motif du transfert?
 s13q20_autre    653    396         .     .         .  13.20.autre. Précisez 
 s13q21         7439     10  3.553972     1        10  13.21. Quel est le principal mode de transfert?
 s13q21_autre     32     23         .     .         .  13.21.autre. Précisez 
-s13q22a        7439    201  89981.59  1000  6.18e+07  13.22a. Quelle est le montant envoyé à chaque fois?  
-s13q22b        7439      5  3.184568     1         5  13.22b. Quelle est la fréquence des transferts envoyés à chaque fois?   
-s13q23         7439     46  4.066676     1        53  13.23. Qui contrôle principalement le revenu de ces transferts ? 
------------------------------------------------------------------------------------------------------------------------------------------------
+s13q22a        7439    201  89981.59  1000  6.18e+07  13.22a. Quelle est le montant envoyé à chaque fo...
+s13q22b        7439      5  3.184568     1         5  13.22b. Quelle est la fréquence des transferts e...
+s13q23         7439     46  4.066676     1        53  13.23. Qui contrôle principalement le revenu de ...
+---------------------------------------------------------------------------------------------------------
 
 . 
 . 
@@ -1571,8 +1590,8 @@ file code/stata/temp/traitement_2021.dta saved
  49.         capture keep grappe menage s11q02 `v_partag' `v_type_toi' `v_tps_ss' `v_tps_sp' ///
 >             `v_src_ss' `v_src_sp' `v_gate' `v_ordure' `comb_vars' `v_opt'
  50.         if _rc {
- 51.             di as error ">>> ATTENTION : variables eau optionnelles (traitement `v_treat'__* et/ou temps a la source `v_tps_ss_h'...) intr
-> ouvables pour `annee' : verifier les noms."
+ 51.             di as error ">>> ATTENTION : variables eau optionnelles (traitement `v_treat'__* et/ou t
+> emps a la source `v_tps_ss_h'...) introuvables pour `annee' : verifier les noms."
  52.             keep grappe menage s11q02 `v_partag' `v_type_toi' `v_tps_ss' `v_tps_sp' ///
 >                 `v_src_ss' `v_src_sp' `v_gate' `v_ordure' `comb_vars'
  53.         }
@@ -2931,138 +2950,241 @@ file code/stata/temp/panel_complet.dta saved
 
 . 
 . /* ============================================================
->    SECTION : 05_PSM_DD — Estimation PSM-DD sur panel vrai
+>    SECTION : 05_PSM_DD — Estimation PSM-DD au niveau ENFANT
 > 
 >    Strategie :
->      1. Probit au NIVEAU MENAGE sur t=0 -> score de propension
->         (toutes les covariables du score sont des caracteristiques
->         menage : l'appariement au niveau menage est l'approche
->         correcte ; il evite les ex-aequo massifs qu'induirait un
->         appariement au niveau enfant avec des scores identiques
->         au sein d'un meme menage)
->      2. Verification equilibre (SMD)
->      3. Appariement PSM (k-NN, kernel, caliper) au niveau menage
->      4. DD brute (sans appariement)
->      5. PSM-DD sur panel vrai (Heckman et al. 1997/1998)
+>      1. Panel d'enfants suivis entre les deux vagues (cle preload)
+>         puis probit au NIVEAU ENFANT sur t=0 -> score de propension.
+>         L'unite d'analyse du memoire est l'enfant : c'est donc sur les
+>         enfants qu'on apparie. Les covariables melangent les
+>         caracteristiques du menage a la periode de base (taille,
+>         depense par tete, milieu, region, sexe/age/education/statut
+>         matrimonial du chef) et celles de l'enfant (sexe, age) : deux
+>         enfants d'un meme menage n'ont ni le meme sexe, ni le meme age,
+>         ni donc les memes dimensions MODA applicables.
+>      2. Verification equilibre (SMD) sur les covariables menage ET enfant
+>      3. Appariement PSM (k-NN, kernel, caliper) au niveau enfant
+>      4. DD brute (sans appariement, reference)
+>      5. PSM-DD sur le panel d'enfants apparie (Heckman et al. 1997/1998)
 >      6. Heterogeneite (milieu, sexe, age)
->      7. Robustesse (seuil k, methodes d'appariement)
+>      7. Robustesse (seuil k, methodes d'appariement, agregat menage)
 > 
->    Traitement : design ENTRANTS (aucun transfert en 2018 puis
->    transfert etranger en 2021, vs jamais beneficiaire ; menages
->    deja beneficiaires en 2018 exclus en 04_panel).
-> 
->    Aucune ponderation par poids d'enquete (hhweight) : estimations
->    sur effectifs bruts, erreurs-types clusterisees par grappe.
->    Le seul poids utilise est le poids d'appariement PSM.
+>    Traitement : defini a la periode de base (2018), transfert d'un
+>    expediteur residant hors du Senegal et ayant deja vecu dans le
+>    menage.
 >    ============================================================ */
-. 
-. 
-. /* Verifier/installer psmatch2 si absent */
-. capture which psmatch2
-
-. if _rc {
-.     di "Installation de psmatch2 depuis SSC..."
-.     ssc install psmatch2, replace
-. }
-
 . 
 . /* ============================================================
->    1. Score de propension (probit MENAGE sur t=0, panel vrai)
+>    1. Score de propension (probit ENFANT sur t=0, panel d'enfants)
+> 
+>    L'unite d'analyse du memoire est l'ENFANT : le score de propension et
+>    l'appariement sont donc estimes au niveau individuel, et non au niveau
+>    du menage. Le traitement est certes recu par le menage, mais c'est la
+>    privation de l'enfant qui est la variable de resultat, et deux enfants
+>    d'un meme menage n'ont ni le meme sexe, ni le meme age, ni donc les
+>    memes dimensions MODA applicables.
+> 
+>    Echantillon : enfants presents aux DEUX vagues, apparies par leur
+>    identifiant individuel precharge (s01qpreload_pid). C'est la seule
+>    construction ou le poids d'appariement calcule a t=0 se rapporte au
+>    MEME individu a t=1, condition d'une double difference individuelle.
+> 
+>    Covariables : caracteristiques du menage a la periode de base + sexe et
+>    age de l'enfant.
 >    ============================================================ */
 . 
-. use "$TEMP/panel_vrai.dta", clear
+. /* ── 1a. Construction du panel d'enfants suivis ──────────────
+>    Cle : numind_2018, identifiant de 2018 precharge dans le roster 2021.
+>    Le rang dans le roster 2021 (numind) ne designe pas le meme individu
+>    qu'en 2018. */
+. use "$TEMP/enfants_dep_2018.dta", clear
 
-. keep if t == 0 & !missing(D) & !missing(log_pcexp) & !missing(hhsize)
-(28,341 observations deleted)
+. keep grappe menage numind sexe age pauvre_MODA nb_dep groupe_moda ///
+>      dim_assai dim_eau dim_logem dim_nutri dim_sante dim_protect dim_educ ///
+>      hhweight hhsize pcexp region milieu hgender hage heduc hmstat
 
-. bysort grappe menage: keep if _n == 1   /* un menage = une observation */
-(25,691 observations deleted)
+. rename numind numind_2018
+
+. foreach v in sexe age pauvre_MODA nb_dep groupe_moda ///
+>              dim_assai dim_eau dim_logem dim_nutri dim_sante dim_protect dim_educ {
+  2.     rename `v' `v'18
+  3. }
+
+. tempfile enf18_psm
+
+. save `enf18_psm'
+file C:\Users\Bmd\AppData\Local\Temp\ST_5aec_00000u.tmp saved as .dta format
 
 . 
-. di _newline "=== Probit menage — score de propension (EHCVM I, panel vrai) ==="
+. use "$TEMP/enfants_dep_2021.dta", clear
 
-=== Probit menage — score de propension (EHCVM I, panel vrai) ===
+. keep grappe menage numind sexe age pauvre_MODA nb_dep groupe_moda ///
+>      dim_assai dim_eau dim_logem dim_nutri dim_sante dim_protect dim_educ
 
-. di "Menages : " _N
-Menages : 5691
+. foreach v in sexe age pauvre_MODA nb_dep groupe_moda ///
+>              dim_assai dim_eau dim_logem dim_nutri dim_sante dim_protect dim_educ {
+  2.     rename `v' `v'21
+  3. }
+
+. merge m:1 grappe menage numind using "$TEMP/lien_individus.dta", ///
+>     keepusing(numind_2018) keep(match) nogenerate
+
+    Result                      Number of obs
+    -----------------------------------------
+    Not matched                             0
+    Matched                            21,461  
+    -----------------------------------------
+
+. drop numind
+
+. merge 1:1 grappe menage numind_2018 using `enf18_psm', keep(match) nogenerate
+(label grp already defined)
+(label s00q01 already defined)
+(label s00q04 already defined)
+(label s01q01 already defined)
+(label s01q07 already defined)
+(label educl already defined)
+
+    Result                      Number of obs
+    -----------------------------------------
+    Not matched                             0
+    Matched                            21,288  
+    -----------------------------------------
 
 . 
+. /* Traitement defini a la periode de base (transfert 2018, expediteur
+>    ex-membre du menage) */
+. merge m:1 grappe menage using "$TEMP/traitement_2018.dta", ///
+>     keepusing(D) keep(match) nogenerate
+
+    Result                      Number of obs
+    -----------------------------------------
+    Not matched                             0
+    Matched                            21,288  
+    -----------------------------------------
+
+. 
+. /* Restriction aux menages du panel vrai */
+. merge m:1 grappe menage using "$TEMP/ids_panel.dta", keep(match) nogenerate
+
+    Result                      Number of obs
+    -----------------------------------------
+    Not matched                             0
+    Matched                            21,288  
+    -----------------------------------------
+
+. 
+. gen log_pcexp = log(pcexp + 1)
+
+. foreach v in milieu region heduc hmstat {
+  2.     capture destring `v', replace
+  3. }
+
+. 
+. /* Un identifiant individuel unique, stable entre les deux vagues */
+. egen long enfid = group(grappe menage numind_2018)
+
+. label var enfid "Identifiant individuel de l'enfant (panel)"
+
+. 
+. drop if missing(D) | missing(log_pcexp) | missing(hhsize) ///
+>        | missing(sexe18) | missing(age18) | missing(pauvre_MODA18) ///
+>        | missing(pauvre_MODA21)
+(3,502 observations deleted)
+
+. 
+. di _newline "=== Probit ENFANT — score de propension (EHCVM I, panel d'enfants) ==="
+
+=== Probit ENFANT — score de propension (EHCVM I, panel d'enfants) ===
+
+. di "Enfants suivis aux deux vagues : " _N
+Enfants suivis aux deux vagues : 17786
+
+. 
+. /* ── 1b. Probit au niveau enfant ─────────────────────────────
+>    Covariables du menage a t=0 + sexe et age de l'enfant. Erreurs-types
+>    clusterisees au niveau de la grappe (le traitement varie au niveau
+>    menage : la correlation intra-grappe couvre aussi l'intra-menage). */
 . probit D c.hhsize c.log_pcexp i.milieu i.region ///
->          c.hgender c.hage i.heduc i.hmstat, vce(cluster grappe) nolog
+>          c.hgender c.hage i.heduc i.hmstat ///
+>          i.sexe18 c.age18, vce(cluster grappe) nolog
 note: 2.heduc != 0 predicts failure perfectly;
-      2.heduc omitted and 1 obs not used.
+      2.heduc omitted and 2 obs not used.
 
 note: 4.hmstat != 0 predicts failure perfectly;
       4.hmstat omitted and 2 obs not used.
 
 note: 7.hmstat != 0 predicts failure perfectly;
-      7.hmstat omitted and 9 obs not used.
+      7.hmstat omitted and 13 obs not used.
 
 
-Probit regression                                       Number of obs =  5,679
-                                                        Wald chi2(29) = 449.71
+Probit regression                                       Number of obs = 17,769
+                                                        Wald chi2(31) = 259.40
                                                         Prob > chi2   = 0.0000
-Log pseudolikelihood = -1942.6468                       Pseudo R2     = 0.1280
+Log pseudolikelihood = -6393.2877                       Pseudo R2     = 0.1434
 
-                                     (Std. err. adjusted for 596 clusters in grappe)
+                                     (Std. err. adjusted for 581 clusters in grappe)
 ------------------------------------------------------------------------------------
                    |               Robust
                  D | Coefficient  std. err.      z    P>|z|     [95% conf. interval]
 -------------------+----------------------------------------------------------------
-            hhsize |   .0577167    .004269    13.52   0.000     .0493497    .0660838
-         log_pcexp |   .5729587   .0557995    10.27   0.000     .4635937    .6823237
+            hhsize |   .0478302   .0058995     8.11   0.000     .0362674     .059393
+         log_pcexp |   .5832564   .0742079     7.86   0.000     .4378116    .7287013
                    |
             milieu |
-            Rural  |  -.1234176   .0590164    -2.09   0.037    -.2390876   -.0077476
+            Rural  |  -.0930722   .0785415    -1.19   0.236    -.2470107    .0608663
                    |
             region |
-       ziguinchor  |  -.0728501    .127788    -0.57   0.569      -.32331    .1776098
-         diourbel  |   .0820523   .1183904     0.69   0.488    -.1499887    .3140933
-      SAINT-LOUIS  |  -.1412334   .1233603    -1.14   0.252    -.3830152    .1005483
-      tambacounda  |  -.0838172   .1459665    -0.57   0.566    -.3699063    .2022719
-          kaolack  |  -.0186375   .1122933    -0.17   0.868    -.2387282    .2014532
-            thies  |  -.1676164   .1261915    -1.33   0.184    -.4149472    .0797144
-            louga  |  -.0035574   .1160922    -0.03   0.976    -.2310938    .2239791
-           fatick  |   -.206031    .132819    -1.55   0.121    -.4663514    .0542894
-            kolda  |   .2930169   .1242003     2.36   0.018     .0495887    .5364451
-            matam  |   .5574878   .1272202     4.38   0.000     .3081407    .8068349
-         kaffrine  |  -.5775531   .1321101    -4.37   0.000    -.8364843    -.318622
-         kedougou  |  -.3260694   .1467593    -2.22   0.026    -.6137124   -.0384264
-          sedhiou  |    .203646   .1300194     1.57   0.117    -.0511873    .4584793
+       ziguinchor  |  -.1746461   .1563076    -1.12   0.264    -.4810033    .1317111
+         diourbel  |   -.173894   .1832678    -0.95   0.343    -.5330923    .1853044
+      SAINT-LOUIS  |  -.2310421   .1546027    -1.49   0.135    -.5340578    .0719737
+      tambacounda  |   .0473074   .1856997     0.25   0.799    -.3166574    .4112721
+          kaolack  |  -.1831825   .1345568    -1.36   0.173     -.446909    .0805441
+            thies  |  -.1597247   .1546794    -1.03   0.302    -.4628908    .1434413
+            louga  |  -.0931475   .1392268    -0.67   0.503     -.366027    .1797321
+           fatick  |  -.3386526   .1677647    -2.02   0.044    -.6674654   -.0098399
+            kolda  |   .2806902   .2162324     1.30   0.194    -.1431175    .7044979
+            matam  |   .5779988   .1459886     3.96   0.000     .2918665    .8641312
+         kaffrine  |  -.5755358   .1736373    -3.31   0.001    -.9158586    -.235213
+         kedougou  |  -.2953002   .1995811    -1.48   0.139    -.6864719    .0958715
+          sedhiou  |   .2058589   .1756724     1.17   0.241    -.1384526    .5501704
                    |
-           hgender |   .6456562   .0650855     9.92   0.000      .518091    .7732215
-              hage |   .0071063   .0018892     3.76   0.000     .0034034    .0108091
+           hgender |   .5842311   .0846005     6.91   0.000     .4184172     .750045
+              hage |   .0054182   .0025073     2.16   0.031      .000504    .0103324
                    |
              heduc |
        Maternelle  |          0  (empty)
-         Primaire  |  -.0494806   .0689522    -0.72   0.473    -.1846244    .0856631
-     Second. gl 1  |   .0246193   .0913026     0.27   0.787    -.1543305    .2035692
-  Second. tech. 1  |  -.1045558   .2835257    -0.37   0.712    -.6602559    .4511443
-     Second. gl 2  |  -.1549042    .133413    -1.16   0.246    -.4163888    .1065804
-  Second. tech. 2  |   .0775193   .4178037     0.19   0.853    -.7413609    .8963996
-   Postsecondaire  |   .1774342    .253372     0.70   0.484    -.3191658    .6740341
-        Superieur  |  -.2367083   .1409719    -1.68   0.093    -.5130081    .0395916
+         Primaire  |   .0257034   .0928688     0.28   0.782    -.1563162     .207723
+     Second. gl 1  |   .1053293   .1166715     0.90   0.367    -.1233425    .3340012
+  Second. tech. 1  |  -.4599485   .3159385    -1.46   0.145    -1.079177    .1592796
+     Second. gl 2  |  -.4203121   .1946038    -2.16   0.031    -.8017285   -.0388957
+  Second. tech. 2  |   .3711038   .5263432     0.71   0.481    -.6605099    1.402717
+   Postsecondaire  |   .3708111   .2703234     1.37   0.170    -.1590129    .9006351
+        Superieur  |  -.2738708   .1868528    -1.47   0.143    -.6400956    .0923539
                    |
             hmstat |
-Mari�(e) monogame  |  -.2819297   .1907384    -1.48   0.139      -.65577    .0919106
-Mari�(e) polygame  |  -.3212097   .1956575    -1.64   0.101    -.7046914    .0622719
+Marié(e) monogame  |  -.1703675   .2872468    -0.59   0.553     -.733361    .3926259
+Marié(e) polygame  |  -.1512378   .2897806    -0.52   0.602    -.7191974    .4167218
       Union libre  |          0  (empty)
-         Veuf(ve)  |  -.6013844   .2013998    -2.99   0.003    -.9961207   -.2066481
-       Divorc�(e)  |  -1.052306   .2758559    -3.81   0.000    -1.592974   -.5116383
-        S�par�(e)  |          0  (empty)
+         Veuf(ve)  |  -.4978935   .3101239    -1.61   0.108    -1.105725    .1099381
+       Divorcé(e)  |  -1.082311   .3850489    -2.81   0.005    -1.836993   -.3276289
+        Séparé(e)  |          0  (empty)
                    |
-             _cons |  -9.983572   .7886979   -12.66   0.000    -11.52939   -8.437753
+            sexe18 |
+          Féminin  |   .0178206   .0240027     0.74   0.458    -.0292239     .064865
+             age18 |   .0029607   .0032041     0.92   0.355    -.0033192    .0092405
+             _cons |  -9.950525   1.031297    -9.65   0.000    -11.97183   -7.929221
 ------------------------------------------------------------------------------------
 
 . 
 . di "Pseudo-R2 McFadden : " %6.3f 1 - e(ll)/e(ll_0)
-Pseudo-R2 McFadden :  0.128
+Pseudo-R2 McFadden :  0.143
 
 . 
 . predict pscore, pr
-(12 missing values generated)
+(17 missing values generated)
 
-. label var pscore "Score de propension (menage)"
+. label var pscore "Score de propension (enfant)"
 
 . 
 . /* Graphique de densite (support commun) */
@@ -3071,10 +3193,9 @@ Pseudo-R2 McFadden :  0.128
 . twoway ///
 >     (kdensity pscore if D == 0, lcolor(gs9) lwidth(medthick)) ///
 >     (kdensity pscore if D == 1, lcolor(orange) lwidth(medthick)), ///
->     legend(order(1 "Jamais bénéficiaires" 2 "Entrants (D=0 vers 1)") ///
+>     legend(order(1 "Enfants non bénéficiaires" 2 "Enfants bénéficiaires") ///
 >            pos(6) rows(1) region(color(white))) ///
 >     xtitle("Score de propension") ytitle("Densité") ///
->     xlabel(0(0.1)0.5, format(%3.1f)) ///
 >     graphregion(color(white)) plotregion(color(white)) ///
 >     saving("$OUTPUT/overlap_panel.gph", replace)
 file code/stata/output/overlap_panel.gph saved
@@ -3090,18 +3211,25 @@ file code/stata/temp/pscore_t0.dta saved
 
 . 
 . /* ============================================================
->    2. Appariement PSM au niveau menage
+>    2. Appariement PSM au niveau ENFANT
 > 
 >    Trois algorithmes pour robustesse :
 >      a. k plus proches voisins (k=K_VOISINS, avec remise)
 >      b. Kernel Epanechnikov (h=0.06)
 >      c. Caliper (epsilon=CALIPER, sans remise)
+> 
+>    Chaque enfant traite est apparie a des enfants temoins de profil
+>    observable comparable, y compris en sexe et en age.
 >    ============================================================ */
 . 
-. /* -- 2a. k-NN ------------------------------------------------ */
-. di _newline "=== Appariement k-NN (k=$K_VOISINS, avec remise) ==="
+. local covbal hhsize log_pcexp i.milieu i.region hgender hage ///
+>              i.heduc i.hmstat i.sexe18 age18
 
-=== Appariement k-NN (k=4, avec remise) ===
+. 
+. /* -- 2a. k-NN ------------------------------------------------ */
+. di _newline "=== Appariement k-NN (k=$K_VOISINS, avec remise), niveau enfant ==="
+
+=== Appariement k-NN (k=4, avec remise), niveau enfant ===
 
 . psmatch2 D, pscore(pscore) neighbor($K_VOISINS) common
 
@@ -3110,132 +3238,138 @@ file code/stata/temp/pscore_t0.dta saved
 
 Balance avant/apres (SMD) :
 
-. pstest hhsize log_pcexp i.milieu i.region hgender hage i.heduc i.hmstat, both
+. pstest `covbal', both
 
 ----------------------------------------------------------------------------------------
                 Unmatched |       Mean               %reduct |     t-test    |  V(T)/
 Variable          Matched | Treated Control    %bias  |bias| |    t    p>|t| |  V(C)
 --------------------------+----------------------------------+---------------+----------
-hhsize                 U  | 12.446   10.066     36.5         |  10.58  0.000 |  1.85*
-                       M  | 12.404   12.213      2.9    92.0 |   0.50  0.620 |  0.91
+hhsize                 U  | 17.276   12.956     49.8         |  27.10  0.000 |  2.05*
+                       M  | 17.256   16.408      9.8    80.4 |   3.05  0.002 |  0.98
                           |                                  |               |
-log_pcexp              U  | 13.089    12.89     35.7         |   9.27  0.000 |  1.08
-                       M  | 13.089   13.088      0.3    99.2 |   0.06  0.956 |  0.92
+log_pcexp              U  | 12.888   12.736     29.3         |  13.79  0.000 |  0.96
+                       M  | 12.888   12.936     -9.3    68.2 |  -3.04  0.002 |  0.66*
                           |                                  |               |
-2.milieu               U  | .38889   .52123    -26.8         |  -6.80  0.000 |     .
-                       M  |  .3894   .38907      0.1    99.7 |   0.01  0.989 |     .
+2.milieu               U  | .47043   .58066    -22.2         | -10.57  0.000 |     .
+                       M  | .47079   .45524      3.1    85.9 |   1.13  0.258 |     .
                           |                                  |               |
-2.region               U  | .03836   .06419    -11.7         |  -2.77  0.006 |     .
-                       M  | .03841   .04404     -2.6    78.2 |  -0.55  0.583 |     .
+2.region               U  | .01971   .04078    -12.3         |  -5.25  0.000 |     .
+                       M  | .01973   .01811      0.9    92.3 |   0.43  0.668 |     .
                           |                                  |               |
-3.region               U  | .10847   .08166      9.1         |   2.46  0.014 |     .
-                       M  | .10861   .10596      0.9    90.1 |   0.17  0.868 |     .
+3.region               U  | .05118     .061     -4.3         |  -1.97  0.049 |     .
+                       M  | .05121   .05235     -0.5    88.4 |  -0.19  0.852 |     .
                           |                                  |               |
-4.region               U  | .06746   .07841     -4.2         |  -1.05  0.293 |     .
-                       M  | .06755   .07252     -1.9    54.6 |  -0.38  0.706 |     .
+4.region               U  | .07013   .08526     -5.7         |  -2.60  0.009 |     .
+                       M  | .07018   .08175     -4.3    23.5 |  -1.59  0.113 |     .
                           |                                  |               |
-5.region               U  | .05026   .06459     -6.2         |  -1.51  0.130 |     .
-                       M  | .05033   .04669      1.6    74.6 |   0.33  0.742 |     .
+5.region               U  |  .0887   .07779      4.0         |   1.91  0.056 |     .
+                       M  | .08877   .08754      0.4    88.7 |   0.16  0.875 |     .
                           |                                  |               |
-6.region               U  | .08069   .07678      1.4         |   0.37  0.708 |     .
-                       M  | .08079   .08974     -3.3  -128.9 |  -0.62  0.534 |     .
+6.region               U  | .07771   .09986     -7.8         |  -3.56  0.000 |     .
+                       M  | .07777   .07853     -0.3    96.6 |  -0.10  0.918 |     .
                           |                                  |               |
-7.region               U  | .07143   .07922     -3.0         |  -0.74  0.458 |     .
-                       M  | .07152   .07119      0.1    95.8 |   0.02  0.980 |     .
+7.region               U  |  .0815   .08354     -0.7         |  -0.35  0.727 |     .
+                       M  | .08156   .07104      3.8  -417.1 |   1.44  0.150 |     .
                           |                                  |               |
-8.region               U  | .08069   .07211      3.2         |   0.84  0.399 |     .
-                       M  | .08079   .06954      4.2   -31.3 |   0.83  0.407 |     .
+8.region               U  | .09212   .08354      3.0         |   1.46  0.144 |     .
+                       M  | .09219   .08488      2.6    14.9 |   0.93  0.351 |     .
                           |                                  |               |
-9.region               U  |  .0463    .0713    -10.6         |  -2.54  0.011 |     .
-                       M  | .04636   .04437      0.8    92.1 |   0.19  0.853 |     .
+9.region               U  | .03942   .07805    -16.5         |  -7.08  0.000 |     .
+                       M  | .03945   .04543     -2.5    84.5 |  -1.08  0.282 |     .
                           |                                  |               |
-10.region              U  | .06878   .06277      2.4         |   0.63  0.528 |     .
-                       M  | .06887   .08046     -4.7   -92.6 |  -0.86  0.392 |     .
+10.region              U  |  .0508   .03833      6.0         |   3.01  0.003 |     .
+                       M  | .05083   .05662     -2.8    53.6 |  -0.93  0.352 |     .
                           |                                  |               |
-11.region              U  | .12698   .05261     26.2         |   7.91  0.000 |     .
-                       M  | .12583   .12219      1.3    95.1 |   0.21  0.830 |     .
+11.region              U  | .18347    .0649     36.5         |  20.67  0.000 |     .
+                       M  | .18285   .17583      2.2    94.1 |   0.66  0.507 |     .
                           |                                  |               |
-12.region              U  | .01984   .07577    -26.4         |  -5.69  0.000 |     .
-                       M  | .01987   .01887      0.5    98.2 |   0.14  0.889 |     .
+12.region              U  | .02616   .09557    -29.3         | -11.83  0.000 |     .
+                       M  | .02618   .02798     -0.8    97.4 |  -0.40  0.687 |     .
                           |                                  |               |
-13.region              U  | .02778   .06642    -18.3         |  -4.13  0.000 |     .
-                       M  | .02781   .02616      0.8    95.7 |   0.20  0.843 |     .
+13.region              U  | .02388   .05439    -15.8         |  -6.65  0.000 |     .
+                       M  |  .0239   .02257      0.7    95.6 |   0.32  0.749 |     .
                           |                                  |               |
-14.region              U  | .06878   .05972      3.7         |   0.97  0.332 |     .
-                       M  | .06887    .0702     -0.5    85.4 |  -0.10  0.919 |     .
+14.region              U  | .07847   .06186      6.5         |   3.21  0.001 |     .
+                       M  | .07853   .07454      1.6    76.0 |   0.54  0.587 |     .
                           |                                  |               |
-hgender                U  | 1.4021   1.2265     38.5         |  10.48  0.000 |  1.37*
-                       M  | 1.4026   1.4248     -4.9    87.4 |  -0.87  0.382 |  0.98
+hgender                U  | 1.2995    1.183     27.5         |  13.87  0.000 |  1.40*
+                       M  | 1.2997   1.3418     -9.9    63.8 |  -3.28  0.001 |  0.93
                           |                                  |               |
-hage                   U  | 54.665   51.595     21.4         |   5.74  0.000 |  1.27*
-                       M  | 54.656   55.333     -4.7    77.9 |  -0.89  0.372 |  1.13
+hage                   U  | 54.794   51.873     20.7         |  10.29  0.000 |  1.29*
+                       M  | 54.789   54.217      4.1    80.4 |   1.41  0.159 |  1.07
                           |                                  |               |
 2.heduc                U  |      0        0        .         |      .      . |     .
                        M  |      0        0        .       . |      .      . |     .
                           |                                  |               |
-3.heduc                U  | .13757   .14402     -1.9         |  -0.47  0.637 |     .
-                       M  | .13775   .13974     -0.6    69.2 |  -0.11  0.911 |     .
+3.heduc                U  | .13723    .1265      3.2         |   1.52  0.128 |     .
+                       M  | .13733    .1416     -1.3    60.2 |  -0.45  0.655 |     .
                           |                                  |               |
-4.heduc                U  |  .0754   .06195      5.3         |   1.41  0.159 |     .
-                       M  |  .0755   .07417      0.5    90.1 |   0.10  0.922 |     .
+4.heduc                U  | .06558    .0491      7.1         |   3.53  0.000 |     .
+                       M  | .06563   .05947      2.7    62.6 |   0.92  0.355 |     .
                           |                                  |               |
-5.heduc                U  | .00529   .00589     -0.8         |  -0.20  0.840 |     .
-                       M  |  .0053   .00464      0.9   -10.4 |   0.18  0.855 |     .
+5.heduc                U  | .00227   .00502     -4.6         |  -1.92  0.055 |     .
+                       M  | .00228   .00114      1.9    58.6 |   1.00  0.317 |     .
                           |                                  |               |
-6.heduc                U  | .03042   .03148     -0.6         |  -0.16  0.876 |     .
-                       M  | .03046   .03079     -0.2    68.8 |  -0.04  0.970 |     .
+6.heduc                U  | .01744      .03     -8.3         |  -3.60  0.000 |     .
+                       M  | .01745   .01811     -0.4    94.7 |  -0.18  0.855 |     .
                           |                                  |               |
-7.heduc                U  | .00265   .00163      2.2         |   0.62  0.533 |     .
-                       M  | .00265   .00099      3.6   -62.2 |   0.75  0.451 |     .
+7.heduc                U  | .00265   .00106      3.7         |   2.10  0.035 |     .
+                       M  | .00266   .00351     -2.0    46.5 |  -0.56  0.576 |     .
                           |                                  |               |
-8.heduc                U  | .00926   .00508      5.0         |   1.43  0.153 |     .
-                       M  | .00927   .00795      1.6    68.3 |   0.28  0.781 |     .
+8.heduc                U  | .01403   .00502      9.3         |   5.37  0.000 |     .
+                       M  | .01404   .01129      2.8    69.5 |   0.89  0.372 |     .
                           |                                  |               |
-9.heduc                U  |  .0291   .03047     -0.8         |  -0.20  0.838 |     .
-                       M  | .02914   .02682      1.4   -69.3 |   0.27  0.785 |     .
+9.heduc                U  | .01744   .02036     -2.1         |  -0.99  0.322 |     .
+                       M  | .01745   .01584      1.2    44.7 |   0.46  0.647 |     .
                           |                                  |               |
-2.hmstat               U  | .47354   .57099    -19.6         |  -5.03  0.000 |     .
-                       M  | .47417   .44338      6.2    68.4 |   1.20  0.230 |     .
+2.hmstat               U  | .43897   .53076    -18.4         |  -8.72  0.000 |     .
+                       M  |  .4393   .44765     -1.7    90.9 |  -0.61  0.542 |     .
                           |                                  |               |
-3.hmstat               U  | .33333   .29372      8.5         |   2.22  0.027 |     .
-                       M  | .33245   .33543     -0.6    92.5 |  -0.12  0.902 |     .
+3.hmstat               U  | .42987   .36481     13.3         |   6.38  0.000 |     .
+                       M  | .42944     .397      6.6    50.1 |   2.39  0.017 |     .
                           |                                  |               |
 4.hmstat               U  |      0        0        .         |      .      . |     .
                        M  |      0        0        .       . |      .      . |     .
                           |                                  |               |
-5.hmstat               U  | .16667   .10563     17.9         |   4.93  0.000 |     .
-                       M  | .16689   .19073     -7.0    60.9 |  -1.21  0.227 |     .
+5.hmstat               U  | .11789   .08492     10.9         |   5.47  0.000 |     .
+                       M  | .11798   .13249     -4.8    56.0 |  -1.59  0.112 |     .
                           |                                  |               |
-6.hmstat               U  | .00926   .01788     -7.5         |  -1.72  0.085 |     .
-                       M  | .00927   .01225     -2.6    65.4 |  -0.56  0.575 |     .
+6.hmstat               U  | .00379   .01137     -8.7         |  -3.57  0.000 |     .
+                       M  | .00379   .00436     -0.7    92.5 |  -0.32  0.746 |     .
                           |                                  |               |
 7.hmstat               U  |      0        0        .         |      .      . |     .
                        M  |      0        0        .       . |      .      . |     .
                           |                                  |               |
+2.sexe18               U  | .50455   .49752      1.4         |   0.67  0.505 |     .
+                       M  | .50417   .50635     -0.4    69.0 |  -0.16  0.874 |     .
+                          |                                  |               |
+age18                  U  | 6.8779   6.6892      4.4         |   2.12  0.034 |  1.02
+                       M  | 6.8733   6.9919     -2.8    37.1 |  -1.00  0.317 |  0.96
+                          |                                  |               |
 ----------------------------------------------------------------------------------------
-* if variance ratio outside [0.87; 1.15] for U and [0.87; 1.15] for M
+* if variance ratio outside [0.93; 1.08] for U and [0.93; 1.08] for M
 
 -----------------------------------------------------------------------------------
  Sample    | Ps R2   LR chi2   p>chi2   MeanBias   MedBias      B      R     %Var
 -----------+-----------------------------------------------------------------------
- Unmatched | 0.128    570.21    0.000     12.3       7.5      96.9*   1.04     75
- Matched   | 0.003      6.44    1.000      2.1       1.4      13.1    0.95      0
+ Unmatched | 0.143   2140.45    0.000     12.7       8.3     100.2*   1.32     60
+ Matched   | 0.006     43.23    0.071      2.9       2.2      18.1    0.80     20
 -----------------------------------------------------------------------------------
 * if B>25%, R outside [0.5; 2]
 
 . 
 . rename _weight weight_knn
 
-. keep grappe menage D pscore weight_knn _support
+. keep enfid grappe menage numind_2018 D pscore weight_knn _support
 
 . save "$TEMP/pscore_knn.dta", replace
 file code/stata/temp/pscore_knn.dta saved
 
 . 
 . /* -- 2b. Kernel Epanechnikov --------------------------------- */
-. di _newline "=== Appariement Kernel (Epanechnikov, h=0.06) ==="
+. di _newline "=== Appariement Kernel (Epanechnikov, h=0.06), niveau enfant ==="
 
-=== Appariement Kernel (Epanechnikov, h=0.06) ===
+=== Appariement Kernel (Epanechnikov, h=0.06), niveau enfant ===
 
 . use "$TEMP/pscore_t0.dta", clear
 
@@ -3246,132 +3380,138 @@ file code/stata/temp/pscore_knn.dta saved
 
 Balance avant/apres (SMD), methode kernel :
 
-. pstest hhsize log_pcexp i.milieu i.region hgender hage i.heduc i.hmstat, both
+. pstest `covbal', both
 
 ----------------------------------------------------------------------------------------
                 Unmatched |       Mean               %reduct |     t-test    |  V(T)/
 Variable          Matched | Treated Control    %bias  |bias| |    t    p>|t| |  V(C)
 --------------------------+----------------------------------+---------------+----------
-hhsize                 U  | 12.446   10.066     36.5         |  10.58  0.000 |  1.85*
-                       M  | 12.404     12.2      3.1    91.4 |   0.52  0.600 |  0.89
+hhsize                 U  | 17.276   12.956     49.8         |  27.10  0.000 |  2.05*
+                       M  | 17.256   16.842      4.8    90.4 |   1.45  0.146 |  0.89*
                           |                                  |               |
-log_pcexp              U  | 13.089    12.89     35.7         |   9.27  0.000 |  1.08
-                       M  | 13.089   13.078      2.1    94.2 |   0.39  0.699 |  0.91
+log_pcexp              U  | 12.888   12.736     29.3         |  13.79  0.000 |  0.96
+                       M  | 12.888   12.898     -1.8    93.8 |  -0.62  0.536 |  0.76*
                           |                                  |               |
-2.milieu               U  | .38889   .52123    -26.8         |  -6.80  0.000 |     .
-                       M  |  .3894   .39509     -1.2    95.7 |  -0.23  0.821 |     .
+2.milieu               U  | .47043   .58066    -22.2         | -10.57  0.000 |     .
+                       M  | .47079    .4664      0.9    96.0 |   0.32  0.749 |     .
                           |                                  |               |
-2.region               U  | .03836   .06419    -11.7         |  -2.77  0.006 |     .
-                       M  | .03841   .04027     -0.8    92.8 |  -0.19  0.853 |     .
+2.region               U  | .01971   .04078    -12.3         |  -5.25  0.000 |     .
+                       M  | .01973   .01989     -0.1    99.2 |  -0.04  0.966 |     .
                           |                                  |               |
-3.region               U  | .10847   .08166      9.1         |   2.46  0.014 |     .
-                       M  | .10861   .10529      1.1    87.6 |   0.21  0.835 |     .
+3.region               U  | .05118     .061     -4.3         |  -1.97  0.049 |     .
+                       M  | .05121   .04899      1.0    77.3 |   0.37  0.711 |     .
                           |                                  |               |
-4.region               U  | .06746   .07841     -4.2         |  -1.05  0.293 |     .
-                       M  | .06755   .07675     -3.5    15.9 |  -0.69  0.490 |     .
+4.region               U  | .07013   .08526     -5.7         |  -2.60  0.009 |     .
+                       M  | .07018   .08143     -4.2    25.6 |  -1.54  0.123 |     .
                           |                                  |               |
-5.region               U  | .05026   .06459     -6.2         |  -1.51  0.130 |     .
-                       M  | .05033   .04678      1.5    75.2 |   0.32  0.749 |     .
+5.region               U  |  .0887   .07779      4.0         |   1.91  0.056 |     .
+                       M  | .08877   .07642      4.5   -13.2 |   1.63  0.103 |     .
                           |                                  |               |
-6.region               U  | .08069   .07678      1.4         |   0.37  0.708 |     .
-                       M  | .08079   .08626     -2.0   -40.0 |  -0.38  0.701 |     .
+6.region               U  | .07771   .09986     -7.8         |  -3.56  0.000 |     .
+                       M  | .07777   .08111     -1.2    84.9 |  -0.45  0.654 |     .
                           |                                  |               |
-7.region               U  | .07143   .07922     -3.0         |  -0.74  0.458 |     .
-                       M  | .07152   .06919      0.9    70.1 |   0.18  0.860 |     .
+7.region               U  |  .0815   .08354     -0.7         |  -0.35  0.727 |     .
+                       M  | .08156   .07528      2.3  -208.5 |   0.85  0.396 |     .
                           |                                  |               |
-8.region               U  | .08069   .07211      3.2         |   0.84  0.399 |     .
-                       M  | .08079   .07511      2.1    33.7 |   0.41  0.680 |     .
+8.region               U  | .09212   .08354      3.0         |   1.46  0.144 |     .
+                       M  | .09219   .08446      2.7    10.0 |   0.99  0.323 |     .
                           |                                  |               |
-9.region               U  |  .0463    .0713    -10.6         |  -2.54  0.011 |     .
-                       M  | .04636    .0487     -1.0    90.7 |  -0.21  0.831 |     .
+9.region               U  | .03942   .07805    -16.5         |  -7.08  0.000 |     .
+                       M  | .03945   .04314     -1.6    90.5 |  -0.67  0.501 |     .
                           |                                  |               |
-10.region              U  | .06878   .06277      2.4         |   0.63  0.528 |     .
-                       M  | .06887   .07506     -2.5    -2.8 |  -0.46  0.642 |     .
+10.region              U  |  .0508   .03833      6.0         |   3.01  0.003 |     .
+                       M  | .05083   .06339     -6.1    -0.8 |  -1.97  0.049 |     .
                           |                                  |               |
-11.region              U  | .12698   .05261     26.2         |   7.91  0.000 |     .
-                       M  | .12583   .12067      1.8    93.1 |   0.30  0.761 |     .
+11.region              U  | .18347    .0649     36.5         |  20.67  0.000 |     .
+                       M  | .18285     .173      3.0    91.7 |   0.94  0.350 |     .
                           |                                  |               |
-12.region              U  | .01984   .07577    -26.4         |  -5.69  0.000 |     .
-                       M  | .01987   .02415     -2.0    92.3 |  -0.57  0.571 |     .
+12.region              U  | .02616   .09557    -29.3         | -11.83  0.000 |     .
+                       M  | .02618   .03053     -1.8    93.7 |  -0.95  0.341 |     .
                           |                                  |               |
-13.region              U  | .02778   .06642    -18.3         |  -4.13  0.000 |     .
-                       M  | .02781   .02914     -0.6    96.6 |  -0.15  0.877 |     .
+13.region              U  | .02388   .05439    -15.8         |  -6.65  0.000 |     .
+                       M  |  .0239   .02403     -0.1    99.6 |  -0.03  0.976 |     .
                           |                                  |               |
-14.region              U  | .06878   .05972      3.7         |   0.97  0.332 |     .
-                       M  | .06887   .06689      0.8    78.1 |   0.15  0.878 |     .
+14.region              U  | .07847   .06186      6.5         |   3.21  0.001 |     .
+                       M  | .07853    .0777      0.3    95.0 |   0.11  0.911 |     .
                           |                                  |               |
-hgender                U  | 1.4021   1.2265     38.5         |  10.48  0.000 |  1.37*
-                       M  | 1.4026   1.4012      0.3    99.2 |   0.06  0.955 |  1.00
+hgender                U  | 1.2995    1.183     27.5         |  13.87  0.000 |  1.40*
+                       M  | 1.2997   1.3063     -1.6    94.3 |  -0.52  0.603 |  0.99
                           |                                  |               |
-hage                   U  | 54.665   51.595     21.4         |   5.74  0.000 |  1.27*
-                       M  | 54.656   54.824     -1.2    94.5 |  -0.22  0.824 |  1.14
+hage                   U  | 54.794   51.873     20.7         |  10.29  0.000 |  1.29*
+                       M  | 54.789   54.537      1.8    91.4 |   0.63  0.531 |  1.11*
                           |                                  |               |
 2.heduc                U  |      0        0        .         |      .      . |     .
                        M  |      0        0        .       . |      .      . |     .
                           |                                  |               |
-3.heduc                U  | .13757   .14402     -1.9         |  -0.47  0.637 |     .
-                       M  | .13775   .13891     -0.3    82.0 |  -0.07  0.948 |     .
+3.heduc                U  | .13723    .1265      3.2         |   1.52  0.128 |     .
+                       M  | .13733   .14811     -3.2    -0.4 |  -1.12  0.263 |     .
                           |                                  |               |
-4.heduc                U  |  .0754   .06195      5.3         |   1.41  0.159 |     .
-                       M  |  .0755   .07146      1.6    70.0 |   0.30  0.764 |     .
+4.heduc                U  | .06558    .0491      7.1         |   3.53  0.000 |     .
+                       M  | .06563   .05995      2.4    65.6 |   0.85  0.396 |     .
                           |                                  |               |
-5.heduc                U  | .00529   .00589     -0.8         |  -0.20  0.840 |     .
-                       M  |  .0053    .0049      0.5    34.0 |   0.11  0.914 |     .
+5.heduc                U  | .00227   .00502     -4.6         |  -1.92  0.055 |     .
+                       M  | .00228   .00211      0.3    93.9 |   0.13  0.896 |     .
                           |                                  |               |
-6.heduc                U  | .03042   .03148     -0.6         |  -0.16  0.876 |     .
-                       M  | .03046   .03286     -1.4  -125.6 |  -0.27  0.791 |     .
+6.heduc                U  | .01744      .03     -8.3         |  -3.60  0.000 |     .
+                       M  | .01745   .02081     -2.2    73.2 |  -0.89  0.373 |     .
                           |                                  |               |
-7.heduc                U  | .00265   .00163      2.2         |   0.62  0.533 |     .
-                       M  | .00265   .00202      1.4    38.7 |   0.25  0.801 |     .
+7.heduc                U  | .00265   .00106      3.7         |   2.10  0.035 |     .
+                       M  | .00266   .00219      1.1    70.7 |   0.34  0.730 |     .
                           |                                  |               |
-8.heduc                U  | .00926   .00508      5.0         |   1.43  0.153 |     .
-                       M  | .00927   .00752      2.1    58.1 |   0.37  0.709 |     .
+8.heduc                U  | .01403   .00502      9.3         |   5.37  0.000 |     .
+                       M  | .01404   .00827      5.9    36.0 |   1.99  0.046 |     .
                           |                                  |               |
-9.heduc                U  |  .0291   .03047     -0.8         |  -0.20  0.838 |     .
-                       M  | .02914   .02855      0.3    56.7 |   0.07  0.945 |     .
+9.heduc                U  | .01744   .02036     -2.1         |  -0.99  0.322 |     .
+                       M  | .01745   .01666      0.6    72.9 |   0.22  0.824 |     .
                           |                                  |               |
-2.hmstat               U  | .47354   .57099    -19.6         |  -5.03  0.000 |     .
-                       M  | .47417   .46881      1.1    94.5 |   0.21  0.835 |     .
+2.hmstat               U  | .43897   .53076    -18.4         |  -8.72  0.000 |     .
+                       M  |  .4393   .44699     -1.5    91.6 |  -0.56  0.574 |     .
                           |                                  |               |
-3.hmstat               U  | .33333   .29372      8.5         |   2.22  0.027 |     .
-                       M  | .33245   .32948      0.6    92.5 |   0.12  0.903 |     .
+3.hmstat               U  | .42987   .36481     13.3         |   6.38  0.000 |     .
+                       M  | .42944   .41531      2.9    78.3 |   1.04  0.299 |     .
                           |                                  |               |
 4.hmstat               U  |      0        0        .         |      .      . |     .
                        M  |      0        0        .       . |      .      . |     .
                           |                                  |               |
-5.hmstat               U  | .16667   .10563     17.9         |   4.93  0.000 |     .
-                       M  | .16689     .175     -2.4    86.7 |  -0.42  0.676 |     .
+5.hmstat               U  | .11789   .08492     10.9         |   5.47  0.000 |     .
+                       M  | .11798   .12215     -1.4    87.4 |  -0.47  0.641 |     .
                           |                                  |               |
-6.hmstat               U  | .00926   .01788     -7.5         |  -1.72  0.085 |     .
-                       M  | .00927   .00994     -0.6    92.3 |  -0.13  0.894 |     .
+6.hmstat               U  | .00379   .01137     -8.7         |  -3.57  0.000 |     .
+                       M  | .00379    .0046     -0.9    89.3 |  -0.45  0.649 |     .
                           |                                  |               |
 7.hmstat               U  |      0        0        .         |      .      . |     .
                        M  |      0        0        .       . |      .      . |     .
                           |                                  |               |
+2.sexe18               U  | .50455   .49752      1.4         |   0.67  0.505 |     .
+                       M  | .50417   .50072      0.7    50.9 |   0.25  0.802 |     .
+                          |                                  |               |
+age18                  U  | 6.8779   6.6892      4.4         |   2.12  0.034 |  1.02
+                       M  | 6.8733   6.8576      0.4    91.7 |   0.13  0.894 |  1.00
+                          |                                  |               |
 ----------------------------------------------------------------------------------------
-* if variance ratio outside [0.87; 1.15] for U and [0.87; 1.15] for M
+* if variance ratio outside [0.93; 1.08] for U and [0.93; 1.08] for M
 
 -----------------------------------------------------------------------------------
  Sample    | Ps R2   LR chi2   p>chi2   MeanBias   MedBias      B      R     %Var
 -----------+-----------------------------------------------------------------------
- Unmatched | 0.128    570.21    0.000     12.3       7.5      96.9*   1.04     75
- Matched   | 0.001      3.12    1.000      1.4       1.2       9.1    1.17      0
+ Unmatched | 0.143   2140.45    0.000     12.7       8.3     100.2*   1.32     60
+ Matched   | 0.003     20.54    0.924      2.0       1.6      12.5    1.35     60
 -----------------------------------------------------------------------------------
 * if B>25%, R outside [0.5; 2]
 
 . 
 . rename _weight weight_kernel
 
-. keep grappe menage weight_kernel
+. keep enfid weight_kernel
 
 . save "$TEMP/poids_kernel.dta", replace
 file code/stata/temp/poids_kernel.dta saved
 
 . 
 . /* -- 2c. Caliper -------------------------------------------- */
-. di _newline "=== Appariement Caliper (eps=$CALIPER, sans remise) ==="
+. di _newline "=== Appariement Caliper (eps=$CALIPER, sans remise), niveau enfant ==="
 
-=== Appariement Caliper (eps=0.05, sans remise) ===
+=== Appariement Caliper (eps=0.05, sans remise), niveau enfant ===
 
 . use "$TEMP/pscore_t0.dta", clear
 
@@ -3382,126 +3522,207 @@ file code/stata/temp/poids_kernel.dta saved
 
 Balance avant/apres (SMD), methode caliper :
 
-. pstest hhsize log_pcexp i.milieu i.region hgender hage i.heduc i.hmstat, both
+. pstest `covbal', both
 
 ----------------------------------------------------------------------------------------
                 Unmatched |       Mean               %reduct |     t-test    |  V(T)/
 Variable          Matched | Treated Control    %bias  |bias| |    t    p>|t| |  V(C)
 --------------------------+----------------------------------+---------------+----------
-hhsize                 U  | 12.446   10.066     36.5         |  10.58  0.000 |  1.85*
-                       M  | 12.238   11.965      4.2    88.5 |   0.72  0.471 |  0.87
+hhsize                 U  | 17.276   12.956     49.8         |  27.10  0.000 |  2.05*
+                       M  | 16.459   16.249      2.4    95.1 |   0.78  0.435 |  0.81*
                           |                                  |               |
-log_pcexp              U  | 13.089    12.89     35.7         |   9.27  0.000 |  1.08
-                       M  |  13.09   13.112     -3.9    89.2 |  -0.70  0.482 |  0.86*
+log_pcexp              U  | 12.888   12.736     29.3         |  13.79  0.000 |  0.96
+                       M  | 12.896   12.902     -1.2    95.9 |  -0.41  0.679 |  0.84*
                           |                                  |               |
-2.milieu               U  | .38889   .52123    -26.8         |  -6.80  0.000 |     .
-                       M  |  .3909   .38554      1.1    96.0 |   0.21  0.832 |     .
+2.milieu               U  | .47043   .58066    -22.2         | -10.57  0.000 |     .
+                       M  | .46897   .48311     -2.8    87.2 |  -1.01  0.313 |     .
                           |                                  |               |
-2.region               U  | .03836   .06419    -11.7         |  -2.77  0.006 |     .
-                       M  | .03882   .03748      0.6    94.8 |   0.13  0.893 |     .
+2.region               U  | .01971   .04078    -12.3         |  -5.25  0.000 |     .
+                       M  | .02042    .0165      2.3    81.4 |   1.04  0.298 |     .
                           |                                  |               |
-3.region               U  | .10847   .08166      9.1         |   2.46  0.014 |     .
-                       M  | .10977   .09639      4.6    50.1 |   0.85  0.395 |     .
+3.region               U  | .05118     .061     -4.3         |  -1.97  0.049 |     .
+                       M  | .05302   .05263      0.2    96.0 |   0.06  0.950 |     .
                           |                                  |               |
-4.region               U  | .06746   .07841     -4.2         |  -1.05  0.293 |     .
-                       M  | .06693   .08969     -8.8  -107.9 |  -1.64  0.102 |     .
+4.region               U  | .07013   .08526     -5.7         |  -2.60  0.009 |     .
+                       M  | .07148   .08445     -4.8    14.3 |  -1.72  0.085 |     .
                           |                                  |               |
-5.region               U  | .05026   .06459     -6.2         |  -1.51  0.130 |     .
-                       M  | .05087   .04685      1.7    72.0 |   0.36  0.719 |     .
+5.region               U  |  .0887   .07779      4.0         |   1.91  0.056 |     .
+                       M  | .08366   .08209      0.6    85.6 |   0.20  0.839 |     .
                           |                                  |               |
-6.region               U  | .08069   .07678      1.4         |   0.37  0.708 |     .
-                       M  | .08166   .08166      0.0   100.0 |  -0.00  1.000 |     .
+6.region               U  | .07771   .09986     -7.8         |  -3.56  0.000 |     .
+                       M  | .08052   .07816      0.8    89.4 |   0.31  0.756 |     .
                           |                                  |               |
-7.region               U  | .07143   .07922     -3.0         |  -0.74  0.458 |     .
-                       M  | .07095   .07631     -2.0    31.3 |  -0.40  0.692 |     .
+7.region               U  |  .0815   .08354     -0.7         |  -0.35  0.727 |     .
+                       M  | .08445   .07031      5.1  -594.5 |   1.89  0.059 |     .
                           |                                  |               |
-8.region               U  | .08069   .07211      3.2         |   0.84  0.399 |     .
-                       M  | .08166   .06961      4.5   -40.5 |   0.88  0.379 |     .
+8.region               U  | .09212   .08354      3.0         |   1.46  0.144 |     .
+                       M  | .09544   .08955      2.1    31.3 |   0.73  0.468 |     .
                           |                                  |               |
-9.region               U  |  .0463    .0713    -10.6         |  -2.54  0.011 |     .
-                       M  | .04685   .04552      0.6    94.6 |   0.12  0.902 |     .
+9.region               U  | .03942   .07805    -16.5         |  -7.08  0.000 |     .
+                       M  | .04085   .04713     -2.7    83.7 |  -1.09  0.274 |     .
                           |                                  |               |
-10.region              U  | .06878   .06277      2.4         |   0.63  0.528 |     .
-                       M  | .06961   .09371     -9.7  -300.5 |  -1.70  0.089 |     .
+10.region              U  |  .0508   .03833      6.0         |   3.01  0.003 |     .
+                       M  | .05263   .05892     -3.0    49.6 |  -0.98  0.329 |     .
                           |                                  |               |
-11.region              U  | .12698   .05261     26.2         |   7.91  0.000 |     .
-                       M  | .12048   .11513      1.9    92.8 |   0.32  0.748 |     .
+11.region              U  | .18347    .0649     36.5         |  20.67  0.000 |     .
+                       M  | .16614   .17125     -1.6    95.7 |  -0.49  0.627 |     .
                           |                                  |               |
-12.region              U  | .01984   .07577    -26.4         |  -5.69  0.000 |     .
-                       M  | .02008   .01874      0.6    97.6 |   0.19  0.851 |     .
+12.region              U  | .02616   .09557    -29.3         | -11.83  0.000 |     .
+                       M  |  .0271   .02435      1.2    96.0 |   0.62  0.536 |     .
                           |                                  |               |
-13.region              U  | .02778   .06642    -18.3         |  -4.13  0.000 |     .
-                       M  | .02811   .02811      0.0   100.0 |  -0.00  1.000 |     .
+13.region              U  | .02388   .05439    -15.8         |  -6.65  0.000 |     .
+                       M  | .02474   .02121      1.8    88.4 |   0.84  0.400 |     .
                           |                                  |               |
-14.region              U  | .06878   .05972      3.7         |   0.97  0.332 |     .
-                       M  | .06827    .0656      1.1    70.5 |   0.21  0.836 |     .
+14.region              U  | .07847   .06186      6.5         |   3.21  0.001 |     .
+                       M  | .07855   .07934     -0.3    95.3 |  -0.10  0.917 |     .
                           |                                  |               |
-hgender                U  | 1.4021   1.2265     38.5         |  10.48  0.000 |  1.37*
-                       M  | 1.4003   1.4244     -5.3    86.3 |  -0.95  0.344 |  0.98
+hgender                U  | 1.2995    1.183     27.5         |  13.87  0.000 |  1.40*
+                       M  |  1.302   1.3193     -4.1    85.2 |  -1.33  0.183 |  0.97
                           |                                  |               |
-hage                   U  | 54.665   51.595     21.4         |   5.74  0.000 |  1.27*
-                       M  | 54.549     55.4     -5.9    72.3 |  -1.13  0.258 |  1.17*
+hage                   U  | 54.794   51.873     20.7         |  10.29  0.000 |  1.29*
+                       M  |  54.53   54.221      2.2    89.4 |   0.76  0.449 |  1.15*
                           |                                  |               |
 2.heduc                U  |      0        0        .         |      .      . |     .
                        M  |      0        0        .       . |      .      . |     .
                           |                                  |               |
-3.heduc                U  | .13757   .14402     -1.9         |  -0.47  0.637 |     .
-                       M  | .13922   .14592     -1.9    -3.7 |  -0.37  0.712 |     .
+3.heduc                U  | .13723    .1265      3.2         |   1.52  0.128 |     .
+                       M  | .13747   .13983     -0.7    78.0 |  -0.24  0.808 |     .
                           |                                  |               |
-4.heduc                U  |  .0754   .06195      5.3         |   1.41  0.159 |     .
-                       M  | .07497   .06426      4.2    20.3 |   0.81  0.416 |     .
+4.heduc                U  | .06558    .0491      7.1         |   3.53  0.000 |     .
+                       M  | .06795   .06599      0.8    88.1 |   0.28  0.779 |     .
                           |                                  |               |
-5.heduc                U  | .00529   .00589     -0.8         |  -0.20  0.840 |     .
-                       M  | .00535   .00402      1.8  -123.2 |   0.38  0.705 |     .
+5.heduc                U  | .00227   .00502     -4.6         |  -1.92  0.055 |     .
+                       M  | .00236   .00118      2.0    57.1 |   1.00  0.317 |     .
                           |                                  |               |
-6.heduc                U  | .03042   .03148     -0.6         |  -0.16  0.876 |     .
-                       M  | .03079   .03614     -3.1  -404.4 |  -0.58  0.565 |     .
+6.heduc                U  | .01744      .03     -8.3         |  -3.60  0.000 |     .
+                       M  | .01807    .0165      1.0    87.5 |   0.43  0.667 |     .
                           |                                  |               |
-7.heduc                U  | .00265   .00163      2.2         |   0.62  0.533 |     .
-                       M  | .00268   .00134      2.9   -31.2 |   0.58  0.564 |     .
+7.heduc                U  | .00265   .00106      3.7         |   2.10  0.035 |     .
+                       M  | .00275   .00353     -1.8    50.8 |  -0.50  0.617 |     .
                           |                                  |               |
-8.heduc                U  | .00926   .00508      5.0         |   1.43  0.153 |     .
-                       M  | .00937   .00402      6.3   -28.1 |   1.27  0.205 |     .
+8.heduc                U  | .01403   .00502      9.3         |   5.37  0.000 |     .
+                       M  | .01178   .00825      3.6    60.7 |   1.27  0.205 |     .
                           |                                  |               |
-9.heduc                U  |  .0291   .03047     -0.8         |  -0.20  0.838 |     .
-                       M  | .02945   .03614     -3.9  -389.0 |  -0.73  0.468 |     .
+9.heduc                U  | .01744   .02036     -2.1         |  -0.99  0.322 |     .
+                       M  | .01807   .01139      4.9  -128.8 |   1.98  0.048 |     .
                           |                                  |               |
-2.hmstat               U  | .47354   .57099    -19.6         |  -5.03  0.000 |     .
-                       M  | .47657   .45382      4.6    76.6 |   0.88  0.378 |     .
+2.hmstat               U  | .43897   .53076    -18.4         |  -8.72  0.000 |     .
+                       M  | .44737   .44148      1.2    93.6 |   0.42  0.672 |     .
                           |                                  |               |
-3.hmstat               U  | .33333   .29372      8.5         |   2.22  0.027 |     .
-                       M  | .33199   .33333     -0.3    96.6 |  -0.05  0.956 |     .
+3.hmstat               U  | .42987   .36481     13.3         |   6.38  0.000 |     .
+                       M  | .41673   .41398      0.6    95.8 |   0.20  0.842 |     .
                           |                                  |               |
 4.hmstat               U  |      0        0        .         |      .      . |     .
                        M  |      0        0        .       . |      .      . |     .
                           |                                  |               |
-5.hmstat               U  | .16667   .10563     17.9         |   4.93  0.000 |     .
-                       M  | .16466   .19143     -7.8    56.1 |  -1.35  0.176 |     .
+5.hmstat               U  | .11789   .08492     10.9         |   5.47  0.000 |     .
+                       M  | .12215   .12765     -1.8    83.3 |  -0.59  0.553 |     .
                           |                                  |               |
-6.hmstat               U  | .00926   .01788     -7.5         |  -1.72  0.085 |     .
-                       M  | .00937   .00937      0.0   100.0 |   0.00  1.000 |     .
+6.hmstat               U  | .00379   .01137     -8.7         |  -3.57  0.000 |     .
+                       M  | .00393    .0055     -1.8    79.3 |  -0.82  0.413 |     .
                           |                                  |               |
 7.hmstat               U  |      0        0        .         |      .      . |     .
                        M  |      0        0        .       . |      .      . |     .
                           |                                  |               |
+2.sexe18               U  | .50455   .49752      1.4         |   0.67  0.505 |     .
+                       M  | .50668   .49961      1.4    -0.6 |   0.50  0.614 |     .
+                          |                                  |               |
+age18                  U  | 6.8779   6.6892      4.4         |   2.12  0.034 |  1.02
+                       M  | 6.8452   6.9309     -2.0    54.6 |  -0.71  0.476 |  0.98
+                          |                                  |               |
 ----------------------------------------------------------------------------------------
-* if variance ratio outside [0.87; 1.15] for U and [0.87; 1.15] for M
+* if variance ratio outside [0.93; 1.08] for U and [0.93; 1.08] for M
 
 -----------------------------------------------------------------------------------
  Sample    | Ps R2   LR chi2   p>chi2   MeanBias   MedBias      B      R     %Var
 -----------+-----------------------------------------------------------------------
- Unmatched | 0.128    570.21    0.000     12.3       7.5      96.9*   1.04     75
- Matched   | 0.008     16.17    0.974      3.2       2.9      20.8    1.02     50
+ Unmatched | 0.143   2140.45    0.000     12.7       8.3     100.2*   1.32     60
+ Matched   | 0.003     24.33    0.797      2.0       1.8      13.8    1.19     60
 -----------------------------------------------------------------------------------
 * if B>25%, R outside [0.5; 2]
 
 . 
 . rename _weight weight_caliper
 
-. keep grappe menage weight_caliper
+. keep enfid weight_caliper
 
 . save "$TEMP/poids_caliper.dta", replace
 file code/stata/temp/poids_caliper.dta saved
+
+. 
+. /* ── 2d. Panel d'enfants en format long ──────────────────────
+>    Chaque enfant apparait a t=0 et t=1 avec SON poids d'appariement, qui
+>    ne varie pas dans le temps : c'est exactement ce qu'exige la double
+>    difference appariee de Heckman et al. (1997, 1998). */
+. use "$TEMP/pscore_t0.dta", clear
+
+. merge 1:1 enfid using "$TEMP/poids_kernel.dta",  nogenerate
+
+    Result                      Number of obs
+    -----------------------------------------
+    Not matched                             0
+    Matched                            17,786  
+    -----------------------------------------
+
+. merge 1:1 enfid using "$TEMP/poids_caliper.dta", nogenerate
+
+    Result                      Number of obs
+    -----------------------------------------
+    Not matched                             0
+    Matched                            17,786  
+    -----------------------------------------
+
+. merge 1:1 enfid using "$TEMP/pscore_knn.dta", ///
+>     keepusing(weight_knn _support) nogenerate
+
+    Result                      Number of obs
+    -----------------------------------------
+    Not matched                             0
+    Matched                            17,786  
+    -----------------------------------------
+
+. 
+. reshape long pauvre_MODA nb_dep groupe_moda sexe age ///
+>              dim_assai dim_eau dim_logem dim_nutri dim_sante dim_protect dim_educ, ///
+>     i(enfid) j(periode)
+(j = 18 21)
+
+Data                               Wide   ->   Long
+-----------------------------------------------------------------------------
+Number of observations           17,786   ->   35,572      
+Number of variables                  44   ->   33          
+j variable (2 values)                     ->   periode
+xij variables:
+            pauvre_MODA18 pauvre_MODA21   ->   pauvre_MODA
+                      nb_dep18 nb_dep21   ->   nb_dep
+            groupe_moda18 groupe_moda21   ->   groupe_moda
+                          sexe18 sexe21   ->   sexe
+                            age18 age21   ->   age
+                dim_assai18 dim_assai21   ->   dim_assai
+                    dim_eau18 dim_eau21   ->   dim_eau
+                dim_logem18 dim_logem21   ->   dim_logem
+                dim_nutri18 dim_nutri21   ->   dim_nutri
+                dim_sante18 dim_sante21   ->   dim_sante
+            dim_protect18 dim_protect21   ->   dim_protect
+                  dim_educ18 dim_educ21   ->   dim_educ
+-----------------------------------------------------------------------------
+
+. gen byte t = (periode == 21)
+
+. label var t "0 = EHCVM I (2018-19), 1 = EHCVM II (2021-22)"
+
+. drop periode
+
+. 
+. save "$TEMP/panel_enfants_psm.dta", replace
+(file code/stata/temp/panel_enfants_psm.dta not found)
+file code/stata/temp/panel_enfants_psm.dta saved
+
+. 
+. di _newline "Panel d'enfants apparie : " _N " observations (" ///
+>     %6.0f `=_N/2' " enfants x 2 vagues)"
+
+Panel d'enfants apparie : 35572 observations ( 17786 enfants x 2 vagues)
 
 . 
 . /* ============================================================
@@ -3510,9 +3731,9 @@ file code/stata/temp/poids_caliper.dta saved
 . 
 . use "$TEMP/panel_vrai.dta", clear
 
-. di _newline "=== Stats descriptives (panel vrai, design entrants) ==="
+. di _newline "=== Stats descriptives (panel vrai, traitement 2018) ==="
 
-=== Stats descriptives (panel vrai, design entrants) ===
+=== Stats descriptives (panel vrai, traitement 2018) ===
 
 . tabstat pauvre_MODA nb_dep pcexp, ///
 >     by(D) stat(mean n) format(%6.3f)
@@ -3582,41 +3803,32 @@ Linear regression                               Number of obs     =     53,679
 
 . 
 . /* ============================================================
->    5. PSM-DD sur panel vrai
+>    5. PSM-DD sur le panel d'enfants apparie
 >       Specification : Y_it = a + b*t + c*D + d*(t#D) + e
->       d = ATT estime, poids d'appariement k-NN (niveau menage)
+>       d = ATT estime, poids d'appariement k-NN (niveau ENFANT)
 >    ============================================================ */
 . 
-. use "$TEMP/panel_vrai.dta", clear
-
-. merge m:1 grappe menage using "$TEMP/pscore_knn.dta", ///
->     keepusing(weight_knn) keep(master match) nogenerate
-
-    Result                      Number of obs
-    -----------------------------------------
-    Not matched                             0
-    Matched                            59,723  
-    -----------------------------------------
+. use "$TEMP/panel_enfants_psm.dta", clear
 
 . keep if !missing(weight_knn) & weight_knn > 0
-(31,464 observations deleted)
+(19,656 observations deleted)
 
 . 
-. di _newline "Panel apparie (k-NN, niveau menage) : " _N " obs enfants"
+. di _newline "Panel d'enfants apparie (k-NN) : " _N " observations"
 
-Panel apparie (k-NN, niveau menage) : 28259 obs enfants
+Panel d'enfants apparie (k-NN) : 15916 observations
 
 . tabstat D, by(t) stat(mean sum n) format(%6.3f)
 
 Summary for variables: D
-Group variable: t 
+Group variable: t (0 = EHCVM I (2018-19), 1 = EHCVM II (2021-22))
 
        t |      Mean       Sum         N
 ---------+------------------------------
-       0 |     0.318  4779.000   1.5e+04
-       1 |     0.323  4279.000   1.3e+04
+       0 |     0.331  2636.000  7958.000
+       1 |     0.331  2636.000  7958.000
 ---------+------------------------------
-   Total |     0.321  9058.000   2.8e+04
+   Total |     0.331  5272.000   1.6e+04
 ----------------------------------------
 
 . 
@@ -3634,26 +3846,26 @@ Group variable: t
   7. }
 
 --- PSM-DD pauvre_MODA ---
-(sum of wgt is 15,906.25)
+(sum of wgt is 10,544)
 
-Linear regression                               Number of obs     =     25,160
-                                                F(3, 576)         =      10.49
-                                                Prob > F          =     0.0000
-                                                R-squared         =     0.0111
-                                                Root MSE          =     .49596
+Linear regression                               Number of obs     =     15,916
+                                                F(3, 574)         =       7.40
+                                                Prob > F          =     0.0001
+                                                R-squared         =     0.0073
+                                                Root MSE          =     .49786
 
-                               (Std. err. adjusted for 577 clusters in grappe)
+                               (Std. err. adjusted for 575 clusters in grappe)
 ------------------------------------------------------------------------------
              |               Robust
  pauvre_MODA | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
 -------------+----------------------------------------------------------------
-         1.t |  -.1031555   .0204436    -5.05   0.000    -.1433085   -.0630024
-         1.D |  -.0808815   .0289329    -2.80   0.005    -.1377083   -.0240546
+         1.t |  -.0884863   .0214136    -4.13   0.000     -.130545   -.0464277
+         1.D |  -.0788126   .0310007    -2.54   0.011    -.1397012   -.0179239
              |
          t#D |
-        1 1  |   .0426709   .0273298     1.56   0.119    -.0110072     .096349
+        1 1  |   .0532056   .0309349     1.72   0.086    -.0075538    .1139651
              |
-       _cons |   .6130848   .0218359    28.08   0.000     .5701972    .6559725
+       _cons |   .5898141   .0212235    27.79   0.000      .548129    .6314992
 ------------------------------------------------------------------------------
 
  ( 1)  1.t#1.D = 0
@@ -3661,9 +3873,9 @@ Linear regression                               Number of obs     =     25,160
 ------------------------------------------------------------------------------
  pauvre_MODA | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
 -------------+----------------------------------------------------------------
-         (1) |   .0426709   .0273298     1.56   0.119    -.0110072     .096349
+         (1) |   .0532056   .0309349     1.72   0.086    -.0075538    .1139651
 ------------------------------------------------------------------------------
-  ATT_PSM-DD =   0.0427  SE =   0.0273  p = 0.1190
+  ATT_PSM-DD =   0.0532  SE =   0.0309  p = 0.0860
 
 . 
 . /* ── Sensibilite au seuil inter-dimensionnel k ──────────────────
@@ -3686,10 +3898,10 @@ Linear regression                               Number of obs     =     25,160
   7.     di "  " %1.0f `k' %14.1f `inc' "%" %10.4f r(estimate) %9.4f r(se) %8.4f r(p)
   8.     quietly drop pauvre_k`k'
   9. }
-  3          78.5%    0.0173   0.0228  0.4480
-  4          57.4%    0.0427   0.0273  0.1190
-  5          32.4%    0.0263   0.0265  0.3205
-  6          11.9%    0.0158   0.0188  0.3993
+  3          75.1%    0.0524   0.0258  0.0422
+  4          54.4%    0.0532   0.0309  0.0860
+  5          31.8%    0.0344   0.0271  0.2045
+  6          13.3%    0.0290   0.0214  0.1747
 
 . 
 . /* ── PSM seul (transversal, sans double difference) ─────────────
@@ -3707,52 +3919,52 @@ Linear regression                               Number of obs     =     25,160
 --- PSM seul, t=0 (niveau initial apparie) ---
 
 . regress pauvre_MODA D [aw=weight_knn] if t == 0, vce(cluster grappe)
-(sum of wgt is 8,865.25)
+(sum of wgt is 5,272)
 
-Linear regression                               Number of obs     =     13,994
-                                                F(1, 572)         =       7.81
-                                                Prob > F          =     0.0054
-                                                R-squared         =     0.0067
-                                                Root MSE          =     .49306
+Linear regression                               Number of obs     =      7,958
+                                                F(1, 574)         =       6.46
+                                                Prob > F          =     0.0113
+                                                R-squared         =     0.0063
+                                                Root MSE          =     .49595
 
-                               (Std. err. adjusted for 573 clusters in grappe)
+                               (Std. err. adjusted for 575 clusters in grappe)
 ------------------------------------------------------------------------------
              |               Robust
  pauvre_MODA | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
 -------------+----------------------------------------------------------------
-           D |  -.0808815   .0289324    -2.80   0.005    -.1377082   -.0240547
-       _cons |   .6130848   .0218355    28.08   0.000     .5701974    .6559723
+           D |  -.0788126   .0309997    -2.54   0.011    -.1396993   -.0179259
+       _cons |   .5898141   .0212228    27.79   0.000     .5481303    .6314979
 ------------------------------------------------------------------------------
 
 . di "  ATT PSM (t=0) = " %8.4f _b[D] "  SE = " %8.4f _se[D] ///
 >    "  p = " %6.4f (2*ttail(e(df_r), abs(_b[D]/_se[D])))
-  ATT PSM (t=0) =  -0.0809  SE =   0.0289  p = 0.0054
+  ATT PSM (t=0) =  -0.0788  SE =   0.0310  p = 0.0113
 
 . di _newline "--- PSM seul, t=1 (EHCVM II, sans DD) ---"
 
 --- PSM seul, t=1 (EHCVM II, sans DD) ---
 
 . regress pauvre_MODA D [aw=weight_knn] if t == 1, vce(cluster grappe)
-(sum of wgt is 7,041)
+(sum of wgt is 5,272)
 
-Linear regression                               Number of obs     =     11,166
-                                                F(1, 560)         =       1.84
-                                                Prob > F          =     0.1758
-                                                R-squared         =     0.0015
-                                                Root MSE          =     .49958
+Linear regression                               Number of obs     =      7,958
+                                                F(1, 574)         =       0.71
+                                                Prob > F          =     0.3990
+                                                R-squared         =     0.0007
+                                                Root MSE          =     .49977
 
-                               (Std. err. adjusted for 561 clusters in grappe)
+                               (Std. err. adjusted for 575 clusters in grappe)
 ------------------------------------------------------------------------------
              |               Robust
  pauvre_MODA | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
 -------------+----------------------------------------------------------------
-           D |  -.0382106   .0281861    -1.36   0.176    -.0935739    .0171528
-       _cons |   .5099294   .0197845    25.77   0.000     .4710685    .5487903
+           D |   -.025607   .0303408    -0.84   0.399    -.0851995    .0339856
+       _cons |   .5013278   .0210149    23.86   0.000     .4600523    .5426033
 ------------------------------------------------------------------------------
 
 . di "  ATT PSM (t=1) = " %8.4f _b[D] "  SE = " %8.4f _se[D] ///
 >    "  p = " %6.4f (2*ttail(e(df_r), abs(_b[D]/_se[D])))
-  ATT PSM (t=1) =  -0.0382  SE =   0.0282  p = 0.1758
+  ATT PSM (t=1) =  -0.0256  SE =   0.0303  p = 0.3990
 
 . di _newline "  Rappel : ATT_PSM-DD = ATT_PSM(t=1) - ATT_PSM(t=0), par construction."
 
@@ -3763,127 +3975,59 @@ Linear regression                               Number of obs     =     11,166
 file code/stata/temp/panel_apparie.dta saved
 
 . 
-. /* ── Robustesse : panel d'enfants (memes enfants suivis entre vagues) ──
->    Verifie que le resultat n'est pas un artefact de recomposition de
->    l'echantillon par age. Les enfants presents dans les deux vagues sont
->    apparies par leur identifiant individuel (numind_2018, precharge en 2021),
->    et non par leur rang dans le roster ; leur statut N-MODA est recalcule a
->    chaque vague, en tenant compte de leur changement eventuel de groupe d'age
->    (et donc de dimensions applicables). Double difference sur ce panel
->    d'enfants. */
+. /* ── Robustesse : agregat menage (design de comparaison) ─────
+>    Le design principal apparie les ENFANTS. On verifie ici que la
+>    conclusion ne tient pas a ce choix d'unite, en reproduisant la double
+>    difference sur l'ensemble des enfants du panel de menages (y compris
+>    ceux qui n'apparaissent qu'a une seule vague), sans appariement
+>    individuel. Un ecart important entre les deux signalerait un effet de
+>    recomposition de l'echantillon plutot qu'un effet du traitement. */
 . preserve
 
-.     use "$TEMP/enfants_dep_2018.dta", clear
+.     use "$TEMP/panel_vrai.dta", clear
 
-.     keep grappe menage numind age pauvre_MODA
+.     di _newline "=== Robustesse : tous les enfants du panel de menages ==="
 
-.     rename (age pauvre_MODA) (age18 pm18)
+=== Robustesse : tous les enfants du panel de menages ===
 
-.     rename numind numind_2018
+.     di "  Observations : " _N
+  Observations : 59723
 
-.     tempfile enf18
+.     regress pauvre_MODA i.t##i.D, vce(cluster grappe)
 
-.     save `enf18'
-file C:\Users\Bmd\AppData\Local\Temp\ST_5aec_00000v.tmp saved as .dta format
-
-.     use "$TEMP/enfants_dep_2021.dta", clear
-
-.     keep grappe menage numind age pauvre_MODA
-
-.     rename (age pauvre_MODA) (age21 pm21)
-
-.     /* Cle individuelle entre vagues : identifiant 2018 precharge en 2021
->        (s01qpreload_pid). Le rang dans le roster 2021 (numind) ne designe pas
->        le meme individu qu'en 2018 : c'est bien numind_2018 qui apparie une
->        personne a elle-meme. */
-.     merge m:1 grappe menage numind using "$TEMP/lien_individus.dta", ///
->         keepusing(numind_2018) keep(match) nogenerate
-
-    Result                      Number of obs
-    -----------------------------------------
-    Not matched                             0
-    Matched                            21,461  
-    -----------------------------------------
-
-.     merge 1:1 grappe menage numind_2018 using `enf18', keep(match) nogenerate
-
-    Result                      Number of obs
-    -----------------------------------------
-    Not matched                             0
-    Matched                            21,288  
-    -----------------------------------------
-
-.     merge m:1 grappe menage using "$TEMP/traitement_stable.dta", ///
->         keepusing(D_stable) keep(master match) nogenerate
-
-    Result                      Number of obs
-    -----------------------------------------
-    Not matched                             0
-    Matched                            21,288  
-    -----------------------------------------
-
-.     drop if missing(D_stable) | missing(pm18) | missing(pm21)
-(3,502 observations deleted)
-
-.     gen long enfid = _n
-
-.     reshape long pm age, i(enfid) j(periode)
-(j = 18 21)
-
-Data                               Wide   ->   Long
------------------------------------------------------------------------------
-Number of observations           17,786   ->   35,572      
-Number of variables                  10   ->   9           
-j variable (2 values)                     ->   periode
-xij variables:
-                              pm18 pm21   ->   pm
-                            age18 age21   ->   age
------------------------------------------------------------------------------
-
-.     gen byte t = (periode == 21)
-
-.     di _newline "=== Robustesse : panel d'ENFANTS (memes individus, cle preload) ==="
-
-=== Robustesse : panel d'ENFANTS (memes individus, cle preload) ===
-
-.     di "  Enfants suivis apparies entre vagues : " %9.0f `=_N/2'
-  Enfants suivis apparies entre vagues :     17786
-
-.     regress pm i.t##i.D_stable, vce(cluster grappe)
-
-Linear regression                               Number of obs     =     35,572
-                                                F(3, 580)         =      34.99
+Linear regression                               Number of obs     =     53,679
+                                                F(3, 595)         =      50.21
                                                 Prob > F          =     0.0000
-                                                R-squared         =     0.0192
-                                                Root MSE          =     .47749
+                                                R-squared         =     0.0219
+                                                Root MSE          =     .47459
 
-                               (Std. err. adjusted for 581 clusters in grappe)
+                               (Std. err. adjusted for 596 clusters in grappe)
 ------------------------------------------------------------------------------
              |               Robust
-          pm | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+ pauvre_MODA | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
 -------------+----------------------------------------------------------------
-         1.t |  -.0699762   .0090558    -7.73   0.000    -.0877624   -.0521901
-  1.D_stable |  -.1807813   .0281196    -6.43   0.000    -.2360099   -.1255527
+         1.t |   -.088729   .0093332    -9.51   0.000    -.1070591    -.070399
+         1.D |  -.1744316   .0243963    -7.15   0.000    -.2223449   -.1265182
              |
-  t#D_stable |
-        1 1  |   .0351013   .0245367     1.43   0.153    -.0130903    .0832929
+         t#D |
+        1 1  |   .0321474   .0232525     1.38   0.167    -.0135195    .0778143
              |
-       _cons |   .6917745   .0131318    52.68   0.000     .6659828    .7175662
+       _cons |    .704755    .011968    58.89   0.000     .6812503    .7282598
 ------------------------------------------------------------------------------
 
-.     lincom 1.t#1.D_stable
+.     lincom 1.t#1.D
 
- ( 1)  1.t#1.D_stable = 0
+ ( 1)  1.t#1.D = 0
 
 ------------------------------------------------------------------------------
-          pm | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
+ pauvre_MODA | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
 -------------+----------------------------------------------------------------
-         (1) |   .0351013   .0245367     1.43   0.153    -.0130903    .0832929
+         (1) |   .0321474   .0232525     1.38   0.167    -.0135195    .0778143
 ------------------------------------------------------------------------------
 
-.     di "  ATT panel d'enfants = " %8.4f r(estimate) ///
+.     di "  ATT agregat menage = " %8.4f r(estimate) ///
 >        "  SE = " %8.4f r(se) "  p = " %6.4f r(p)
-  ATT panel d'enfants =   0.0351  SE =   0.0245  p = 0.1531
+  ATT agregat menage =   0.0321  SE =   0.0233  p = 0.1673
 
 . restore
 
@@ -4019,26 +4163,26 @@ file code/stata/output/figures/fig_dd_trajectoires.pdf saved as PDF format
  13. }
 
 --- Urbain — pauvre_MODA ---
-(sum of wgt is 8,585.5)
+(sum of wgt is 5,662)
 
-Linear regression                               Number of obs     =     12,844
-                                                F(3, 321)         =       7.20
-                                                Prob > F          =     0.0001
-                                                R-squared         =     0.0155
-                                                Root MSE          =     .47775
+Linear regression                               Number of obs     =      8,108
+                                                F(3, 318)         =       4.11
+                                                Prob > F          =     0.0070
+                                                R-squared         =     0.0105
+                                                Root MSE          =     .47093
 
-                               (Std. err. adjusted for 322 clusters in grappe)
+                               (Std. err. adjusted for 319 clusters in grappe)
 ------------------------------------------------------------------------------
              |               Robust
  pauvre_MODA | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
 -------------+----------------------------------------------------------------
-         1.t |  -.1062086   .0279627    -3.80   0.000    -.1612218   -.0511953
-         1.D |  -.1014636   .0394203    -2.57   0.011    -.1790184   -.0239088
+         1.t |  -.0934889    .031894    -2.93   0.004    -.1562387    -.030739
+         1.D |  -.1014832    .043563    -2.33   0.020    -.1871914    -.015775
              |
          t#D |
-        1 1  |   .0435946   .0373601     1.17   0.244     -.029907    .1170962
+        1 1  |   .0669656   .0437946     1.53   0.127    -.0191983    .1531294
              |
-       _cons |   .4538445   .0305402    14.86   0.000     .3937603    .5139288
+       _cons |    .419046    .032958    12.71   0.000     .3542027    .4838892
 ------------------------------------------------------------------------------
 
  ( 1)  1.t#1.D = 0
@@ -4046,31 +4190,31 @@ Linear regression                               Number of obs     =     12,844
 ------------------------------------------------------------------------------
  pauvre_MODA | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
 -------------+----------------------------------------------------------------
-         (1) |   .0435946   .0373601     1.17   0.244     -.029907    .1170962
+         (1) |   .0669656   .0437946     1.53   0.127    -.0191983    .1531294
 ------------------------------------------------------------------------------
-  ATT =   0.0436  p = 0.2441
+  ATT =   0.0670  p = 0.1272
 
 --- Rural — pauvre_MODA ---
-(sum of wgt is 7,320.75)
+(sum of wgt is 4,882)
 
-Linear regression                               Number of obs     =     12,316
-                                                F(3, 254)         =       4.97
-                                                Prob > F          =     0.0023
-                                                R-squared         =     0.0096
-                                                Root MSE          =     .43823
+Linear regression                               Number of obs     =      7,808
+                                                F(3, 255)         =       4.12
+                                                Prob > F          =     0.0070
+                                                R-squared         =     0.0083
+                                                Root MSE          =     .44273
 
-                               (Std. err. adjusted for 255 clusters in grappe)
+                               (Std. err. adjusted for 256 clusters in grappe)
 ------------------------------------------------------------------------------
              |               Robust
  pauvre_MODA | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
 -------------+----------------------------------------------------------------
-         1.t |  -.0957793   .0256864    -3.73   0.000    -.1463648   -.0451937
-         1.D |  -.0466285     .03145    -1.48   0.139    -.1085646    .0153075
+         1.t |     -.0825   .0273147    -3.02   0.003    -.1362911   -.0287089
+         1.D |  -.0657219   .0327939    -2.00   0.046    -.1303031   -.0011406
              |
          t#D |
-        1 1  |   .0345709   .0363095     0.95   0.342    -.0369351    .1060769
+        1 1  |   .0373751    .042725     0.87   0.383    -.0467638     .121514
              |
-       _cons |   .7948873   .0250118    31.78   0.000     .7456303    .8441442
+       _cons |   .7941667   .0238045    33.36   0.000     .7472883    .8410451
 ------------------------------------------------------------------------------
 
  ( 1)  1.t#1.D = 0
@@ -4078,9 +4222,9 @@ Linear regression                               Number of obs     =     12,316
 ------------------------------------------------------------------------------
  pauvre_MODA | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
 -------------+----------------------------------------------------------------
-         (1) |   .0345709   .0363095     0.95   0.342    -.0369351    .1060769
+         (1) |   .0373751    .042725     0.87   0.383    -.0467638     .121514
 ------------------------------------------------------------------------------
-  ATT =   0.0346  p = 0.3419
+  ATT =   0.0374  p = 0.3825
 
 . 
 . /* Test d'egalite urbain vs rural */
@@ -4095,37 +4239,37 @@ Test d'egalite (urbain vs rural) :
   3.     lincom 1.t#1.D#1.urban
   4.     di "  Diff ATT (urbain - rural) : " %8.4f r(estimate) "  p = " %6.4f r(p)
   5. }
-(sum of wgt is 15,906.25)
+(sum of wgt is 10,544)
 
-Linear regression                               Number of obs     =     25,160
-                                                F(7, 576)         =      32.22
+Linear regression                               Number of obs     =     15,916
+                                                F(7, 574)         =      33.30
                                                 Prob > F          =     0.0000
-                                                R-squared         =     0.1495
-                                                Root MSE          =     .45998
+                                                R-squared         =     0.1598
+                                                Root MSE          =     .45809
 
-                               (Std. err. adjusted for 577 clusters in grappe)
+                               (Std. err. adjusted for 575 clusters in grappe)
 ------------------------------------------------------------------------------
              |               Robust
  pauvre_MODA | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
 -------------+----------------------------------------------------------------
-         1.t |  -.0957793   .0256587    -3.73   0.000    -.1461753   -.0453832
-         1.D |  -.0466285   .0314161    -1.48   0.138    -.1083326    .0150755
+         1.t |     -.0825   .0272858    -3.02   0.003    -.1360922   -.0289078
+         1.D |  -.0657219   .0327591    -2.01   0.045    -.1300643   -.0013794
              |
          t#D |
-        1 1  |   .0345709   .0362703     0.95   0.341    -.0366672    .1058091
+        1 1  |   .0373751   .0426798     0.88   0.382    -.0464526    .1212028
              |
-     1.urban |  -.3410427   .0394424    -8.65   0.000    -.4185112   -.2635742
+     1.urban |  -.3751207   .0406231    -9.23   0.000    -.4549089   -.2953326
              |
      t#urban |
-        1 1  |  -.0104293   .0379373    -0.27   0.783    -.0849416     .064083
+        1 1  |  -.0109889    .041957    -0.26   0.793    -.0933968    .0714191
              |
      D#urban |
-        1 1  |   -.054835   .0503871    -1.09   0.277       -.1538    .0441299
+        1 1  |  -.0357614   .0544828    -0.66   0.512    -.1427714    .0712487
              |
    t#D#urban |
-      1 1 1  |   .0090237   .0520524     0.17   0.862     -.093212    .1112594
+      1 1 1  |   .0295905   .0611309     0.48   0.629    -.0904771     .149658
              |
-       _cons |   .7948873   .0249848    31.81   0.000     .7458148    .8439597
+       _cons |   .7941667   .0237793    33.40   0.000     .7474616    .8408717
 ------------------------------------------------------------------------------
 
  ( 1)  1.t#1.D#1.urban = 0
@@ -4133,9 +4277,9 @@ Linear regression                               Number of obs     =     25,160
 ------------------------------------------------------------------------------
  pauvre_MODA | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
 -------------+----------------------------------------------------------------
-         (1) |   .0090237   .0520524     0.17   0.862     -.093212    .1112594
+         (1) |   .0295905   .0611309     0.48   0.629    -.0904771     .149658
 ------------------------------------------------------------------------------
-  Diff ATT (urbain - rural) :   0.0090  p = 0.8624
+  Diff ATT (urbain - rural) :   0.0296  p = 0.6285
 
 . drop urban
 
@@ -4163,26 +4307,26 @@ Linear regression                               Number of obs     =     25,160
  12.         }
  13.     }
 --- Garcons — pauvre_MODA ---
-(sum of wgt is 7,973.25)
+(sum of wgt is 5,215.5)
 
-Linear regression                               Number of obs     =     12,675
-                                                F(3, 566)         =       8.07
-                                                Prob > F          =     0.0000
-                                                R-squared         =     0.0093
-                                                Root MSE          =      .4958
+Linear regression                               Number of obs     =      7,930
+                                                F(3, 556)         =       6.76
+                                                Prob > F          =     0.0002
+                                                R-squared         =     0.0070
+                                                Root MSE          =     .49797
 
-                               (Std. err. adjusted for 567 clusters in grappe)
+                               (Std. err. adjusted for 557 clusters in grappe)
 ------------------------------------------------------------------------------
              |               Robust
  pauvre_MODA | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
 -------------+----------------------------------------------------------------
-         1.t |  -.0953557   .0233345    -4.09   0.000    -.1411885    -.049523
-         1.D |  -.0514612   .0308835    -1.67   0.096    -.1121213     .009199
+         1.t |  -.1097022   .0262218    -4.18   0.000    -.1612082   -.0581962
+         1.D |  -.0643649   .0334156    -1.93   0.055    -.1300011    .0012714
              |
          t#D |
-        1 1  |   .0202022   .0306936     0.66   0.511    -.0400851    .0804896
+        1 1  |   .0817716   .0376645     2.17   0.030     .0077894    .1557538
              |
-       _cons |   .6071702   .0229818    26.42   0.000     .5620301    .6523102
+       _cons |   .5869356   .0230443    25.47   0.000      .541671    .6322003
 ------------------------------------------------------------------------------
 
  ( 1)  1.t#1.D = 0
@@ -4190,30 +4334,30 @@ Linear regression                               Number of obs     =     12,675
 ------------------------------------------------------------------------------
  pauvre_MODA | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
 -------------+----------------------------------------------------------------
-         (1) |   .0202022   .0306936     0.66   0.511    -.0400851    .0804896
+         (1) |   .0817716   .0376645     2.17   0.030     .0077894    .1557538
 ------------------------------------------------------------------------------
-  ATT =   0.0202  p = 0.5107
+  ATT =   0.0818  p = 0.0303
 --- Filles — pauvre_MODA ---
-(sum of wgt is 7,933)
+(sum of wgt is 5,328.5)
 
-Linear regression                               Number of obs     =     12,485
-                                                F(3, 572)         =      11.74
-                                                Prob > F          =     0.0000
-                                                R-squared         =     0.0137
-                                                Root MSE          =     .49584
+Linear regression                               Number of obs     =      7,986
+                                                F(3, 548)         =       6.07
+                                                Prob > F          =     0.0005
+                                                R-squared         =     0.0097
+                                                Root MSE          =     .49736
 
-                               (Std. err. adjusted for 573 clusters in grappe)
+                               (Std. err. adjusted for 549 clusters in grappe)
 ------------------------------------------------------------------------------
              |               Robust
  pauvre_MODA | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
 -------------+----------------------------------------------------------------
-         1.t |  -.1113565   .0209655    -5.31   0.000    -.1525352   -.0701778
-         1.D |  -.1098255    .030029    -3.66   0.000    -.1688061   -.0508448
+         1.t |   -.067803   .0214832    -3.16   0.002    -.1100025   -.0256034
+         1.D |  -.0929966   .0345261    -2.69   0.007    -.1608163   -.0251768
              |
          t#D |
-        1 1  |   .0648972   .0293818     2.21   0.028     .0071878    .1226066
+        1 1  |    .025322   .0313259     0.81   0.419    -.0362115    .0868556
              |
-       _cons |   .6193683   .0225482    27.47   0.000     .5750809    .6636558
+       _cons |   .5926203   .0241139    24.58   0.000     .5452533    .6399874
 ------------------------------------------------------------------------------
 
  ( 1)  1.t#1.D = 0
@@ -4221,9 +4365,9 @@ Linear regression                               Number of obs     =     12,485
 ------------------------------------------------------------------------------
  pauvre_MODA | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
 -------------+----------------------------------------------------------------
-         (1) |   .0648972   .0293818     2.21   0.028     .0071878    .1226066
+         (1) |    .025322   .0313259     0.81   0.419    -.0362115    .0868556
 ------------------------------------------------------------------------------
-  ATT =   0.0649  p = 0.0276
+  ATT =   0.0253  p = 0.4192
 . }
 
 . 
@@ -4245,26 +4389,26 @@ Linear regression                               Number of obs     =     12,485
  10.     }
  11. }
 --- Groupe 1 — pauvre_MODA ---
-(sum of wgt is 4,334.25)
+(sum of wgt is 2,409)
 
-Linear regression                               Number of obs     =      6,803
-                                                F(3, 557)         =       8.29
-                                                Prob > F          =     0.0000
-                                                R-squared         =     0.0129
-                                                Root MSE          =     .49604
+Linear regression                               Number of obs     =      3,617
+                                                F(3, 527)         =       5.92
+                                                Prob > F          =     0.0006
+                                                R-squared         =     0.0143
+                                                Root MSE          =     .49397
 
-                               (Std. err. adjusted for 558 clusters in grappe)
+                               (Std. err. adjusted for 528 clusters in grappe)
 ------------------------------------------------------------------------------
              |               Robust
  pauvre_MODA | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
 -------------+----------------------------------------------------------------
-         1.t |  -.1413122    .029585    -4.78   0.000     -.199424   -.0832004
-         1.D |  -.0740649   .0363097    -2.04   0.042    -.1453856   -.0027442
+         1.t |   -.171066   .0425577    -4.02   0.000    -.2546696   -.0874623
+         1.D |  -.0875548   .0398592    -2.20   0.028    -.1658571   -.0092524
              |
          t#D |
-        1 1  |    .084071   .0401763     2.09   0.037     .0051553    .1629866
+        1 1  |   .1418832   .0527539     2.69   0.007     .0382494    .2455169
              |
-       _cons |   .5460526   .0270512    20.19   0.000     .4929177    .5991875
+       _cons |   .5185502   .0276182    18.78   0.000     .4642949    .5728056
 ------------------------------------------------------------------------------
 
  ( 1)  1.t#1.D = 0
@@ -4272,30 +4416,30 @@ Linear regression                               Number of obs     =      6,803
 ------------------------------------------------------------------------------
  pauvre_MODA | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
 -------------+----------------------------------------------------------------
-         (1) |    .084071   .0401763     2.09   0.037     .0051553    .1629866
+         (1) |   .1418832   .0527539     2.69   0.007     .0382494    .2455169
 ------------------------------------------------------------------------------
-  ATT =   0.0841  p = 0.0368
+  ATT =   0.1419  p = 0.0074
 --- Groupe 2 — pauvre_MODA ---
-(sum of wgt is 9,294)
+(sum of wgt is 7,031.75)
 
-Linear regression                               Number of obs     =     14,722
-                                                F(3, 569)         =      10.57
-                                                Prob > F          =     0.0000
-                                                R-squared         =     0.0134
-                                                Root MSE          =     .48932
+Linear regression                               Number of obs     =     10,713
+                                                F(3, 570)         =       6.90
+                                                Prob > F          =     0.0001
+                                                R-squared         =     0.0081
+                                                Root MSE          =     .49455
 
-                               (Std. err. adjusted for 570 clusters in grappe)
+                               (Std. err. adjusted for 571 clusters in grappe)
 ------------------------------------------------------------------------------
              |               Robust
  pauvre_MODA | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
 -------------+----------------------------------------------------------------
-         1.t |  -.0947653   .0208772    -4.54   0.000    -.1357711   -.0537595
-         1.D |  -.0883392   .0294339    -3.00   0.003    -.1461515   -.0305269
+         1.t |  -.0784443   .0212607    -3.69   0.000    -.1202032   -.0366854
+         1.D |   -.082605   .0320799    -2.57   0.010    -.1456142   -.0195958
              |
          t#D |
-        1 1  |   .0242503   .0284261     0.85   0.394    -.0315825    .0800831
+        1 1  |   .0364816   .0316267     1.15   0.249    -.0256375    .0986007
              |
-       _cons |   .6684258   .0217373    30.75   0.000     .6257306    .7111209
+       _cons |   .6321599   .0227007    27.85   0.000     .5875728     .676747
 ------------------------------------------------------------------------------
 
  ( 1)  1.t#1.D = 0
@@ -4303,30 +4447,30 @@ Linear regression                               Number of obs     =     14,722
 ------------------------------------------------------------------------------
  pauvre_MODA | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
 -------------+----------------------------------------------------------------
-         (1) |   .0242503   .0284261     0.85   0.394    -.0315825    .0800831
+         (1) |   .0364816   .0316267     1.15   0.249    -.0256375    .0986007
 ------------------------------------------------------------------------------
-  ATT =   0.0243  p = 0.3940
+  ATT =   0.0365  p = 0.2492
 --- Groupe 3 — pauvre_MODA ---
-(sum of wgt is 2,278)
+(sum of wgt is 1,103.25)
 
-Linear regression                               Number of obs     =      3,635
-                                                F(3, 546)         =       5.12
-                                                Prob > F          =     0.0017
-                                                R-squared         =     0.0084
-                                                Root MSE          =     .49647
+Linear regression                               Number of obs     =      1,586
+                                                F(3, 466)         =       3.34
+                                                Prob > F          =     0.0193
+                                                R-squared         =     0.0102
+                                                Root MSE          =     .49197
 
-                               (Std. err. adjusted for 547 clusters in grappe)
+                               (Std. err. adjusted for 467 clusters in grappe)
 ------------------------------------------------------------------------------
              |               Robust
  pauvre_MODA | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
 -------------+----------------------------------------------------------------
-         1.t |  -.1029719    .028348    -3.63   0.000    -.1586563   -.0472875
-         1.D |  -.0721937   .0369595    -1.95   0.051     -.144794    .0004066
+         1.t |  -.0819884    .069167    -1.19   0.236    -.2179062    .0539295
+         1.D |   .1089197   .0932834     1.17   0.244    -.0743885    .2922279
              |
          t#D |
-        1 1  |   .0589337   .0461168     1.28   0.202    -.0316544    .1495217
+        1 1  |   -.113725   .1001321    -1.14   0.257    -.3104913    .0830413
              |
-       _cons |    .530025   .0260605    20.34   0.000      .478834    .5812161
+       _cons |   .4880952   .0669862     7.29   0.000     .3564628    .6197277
 ------------------------------------------------------------------------------
 
  ( 1)  1.t#1.D = 0
@@ -4334,9 +4478,9 @@ Linear regression                               Number of obs     =      3,635
 ------------------------------------------------------------------------------
  pauvre_MODA | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
 -------------+----------------------------------------------------------------
-         (1) |   .0589337   .0461168     1.28   0.202    -.0316544    .1495217
+         (1) |   -.113725   .1001321    -1.14   0.257    -.3104913    .0830413
 ------------------------------------------------------------------------------
-  ATT =   0.0589  p = 0.2018
+  ATT =  -0.1137  p = 0.2566
 
 . 
 . /* ============================================================
@@ -4348,23 +4492,7 @@ Linear regression                               Number of obs     =      3,635
 
 === Comparaison des trois methodes d'appariement ===
 
-. foreach poids_var in weight_kernel weight_caliper {
-  2.     merge m:1 grappe menage using "$TEMP/poids_`=substr("`poids_var'",8,.)'.dta", ///
->         keepusing(`poids_var') keep(master match) nogenerate
-  3. }
-
-    Result                      Number of obs
-    -----------------------------------------
-    Not matched                             0
-    Matched                            28,259  
-    -----------------------------------------
-
-    Result                      Number of obs
-    -----------------------------------------
-    Not matched                             0
-    Matched                            28,259  
-    -----------------------------------------
-
+. /* Les trois poids sont deja portes par panel_enfants_psm.dta (niveau enfant) */
 . foreach poids_var in weight_knn weight_kernel weight_caliper {
   2.     foreach outcome in pauvre_MODA {
   3.         quietly count if !missing(`poids_var') & `poids_var' > 0
@@ -4377,86 +4505,26 @@ Linear regression                               Number of obs     =      3,635
   8.         }
   9.     }
  10. }
-(sum of wgt is 15,906.25)
+(sum of wgt is 10,544)
 
-Linear regression                               Number of obs     =     25,160
-                                                F(3, 576)         =      10.49
-                                                Prob > F          =     0.0000
-                                                R-squared         =     0.0111
-                                                Root MSE          =     .49596
-
-                               (Std. err. adjusted for 577 clusters in grappe)
-------------------------------------------------------------------------------
-             |               Robust
- pauvre_MODA | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
--------------+----------------------------------------------------------------
-         1.t |  -.1031555   .0204436    -5.05   0.000    -.1433085   -.0630024
-         1.D |  -.0808815   .0289329    -2.80   0.005    -.1377083   -.0240546
-             |
-         t#D |
-        1 1  |   .0426709   .0273298     1.56   0.119    -.0110072     .096349
-             |
-       _cons |   .6130848   .0218359    28.08   0.000     .5701972    .6559725
-------------------------------------------------------------------------------
-
- ( 1)  1.t#1.D = 0
-
-------------------------------------------------------------------------------
- pauvre_MODA | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
--------------+----------------------------------------------------------------
-         (1) |   .0426709   .0273298     1.56   0.119    -.0110072     .096349
-------------------------------------------------------------------------------
-  weight_knn — pauvre_MODA : ATT=  0.0427  p=0.1190
-(sum of wgt is 12,922.4579580599)
-
-Linear regression                               Number of obs     =     25,160
-                                                F(3, 576)         =       9.30
-                                                Prob > F          =     0.0000
-                                                R-squared         =     0.0081
-                                                Root MSE          =     .49774
-
-                               (Std. err. adjusted for 577 clusters in grappe)
-------------------------------------------------------------------------------
-             |               Robust
- pauvre_MODA | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
--------------+----------------------------------------------------------------
-         1.t |  -.1159572   .0231902    -5.00   0.000    -.1615048   -.0704096
-         1.D |  -.0529689   .0294002    -1.80   0.072    -.1107135    .0047757
-             |
-         t#D |
-        1 1  |   .0554726   .0290525     1.91   0.057    -.0015891    .1125344
-             |
-       _cons |   .5851723   .0227475    25.72   0.000     .5404941    .6298505
-------------------------------------------------------------------------------
-
- ( 1)  1.t#1.D = 0
-
-------------------------------------------------------------------------------
- pauvre_MODA | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
--------------+----------------------------------------------------------------
-         (1) |   .0554726   .0290525     1.91   0.057    -.0015891    .1125344
-------------------------------------------------------------------------------
-  weight_kernel — pauvre_MODA : ATT=  0.0555  p=0.0567
-(sum of wgt is 15,317)
-
-Linear regression                               Number of obs     =     15,317
-                                                F(3, 516)         =       7.04
+Linear regression                               Number of obs     =     15,916
+                                                F(3, 574)         =       7.40
                                                 Prob > F          =     0.0001
-                                                R-squared         =     0.0081
-                                                Root MSE          =     .49722
+                                                R-squared         =     0.0073
+                                                Root MSE          =     .49786
 
-                               (Std. err. adjusted for 517 clusters in grappe)
+                               (Std. err. adjusted for 575 clusters in grappe)
 ------------------------------------------------------------------------------
              |               Robust
  pauvre_MODA | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
 -------------+----------------------------------------------------------------
-         1.t |   -.075556   .0209026    -3.61   0.000    -.1166206   -.0344914
-         1.D |  -.0675255   .0299659    -2.25   0.025    -.1263956   -.0086554
+         1.t |  -.0884863   .0214136    -4.13   0.000     -.130545   -.0464277
+         1.D |  -.0788126   .0310007    -2.54   0.011    -.1397012   -.0179239
              |
          t#D |
-        1 1  |   .0185513   .0290645     0.64   0.524    -.0385479    .0756506
+        1 1  |   .0532056   .0309349     1.72   0.086    -.0075538    .1139651
              |
-       _cons |   .5925313   .0227861    26.00   0.000     .5477664    .6372963
+       _cons |   .5898141   .0212235    27.79   0.000      .548129    .6314992
 ------------------------------------------------------------------------------
 
  ( 1)  1.t#1.D = 0
@@ -4464,9 +4532,69 @@ Linear regression                               Number of obs     =     15,317
 ------------------------------------------------------------------------------
  pauvre_MODA | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
 -------------+----------------------------------------------------------------
-         (1) |   .0185513   .0290645     0.64   0.524    -.0385479    .0756506
+         (1) |   .0532056   .0309349     1.72   0.086    -.0075538    .1139651
 ------------------------------------------------------------------------------
-  weight_caliper — pauvre_MODA : ATT=  0.0186  p=0.5236
+  weight_knn — pauvre_MODA : ATT=  0.0532  p=0.0860
+(sum of wgt is 8,324.10873322199)
+
+Linear regression                               Number of obs     =     15,916
+                                                F(3, 574)         =       5.49
+                                                Prob > F          =     0.0010
+                                                R-squared         =     0.0048
+                                                Root MSE          =     .49885
+
+                               (Std. err. adjusted for 575 clusters in grappe)
+------------------------------------------------------------------------------
+             |               Robust
+ pauvre_MODA | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+         1.t |  -.0956547   .0252398    -3.79   0.000    -.1452283   -.0460811
+         1.D |  -.0568494   .0339578    -1.67   0.095     -.123546    .0098472
+             |
+         t#D |
+        1 1  |    .060374   .0337896     1.79   0.075    -.0059922    .1267403
+             |
+       _cons |   .5678509   .0250165    22.70   0.000     .5187158     .616986
+------------------------------------------------------------------------------
+
+ ( 1)  1.t#1.D = 0
+
+------------------------------------------------------------------------------
+ pauvre_MODA | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+         (1) |    .060374   .0337896     1.79   0.075    -.0059922    .1267403
+------------------------------------------------------------------------------
+  weight_kernel — pauvre_MODA : ATT=  0.0604  p=0.0745
+(sum of wgt is 9,908)
+
+Linear regression                               Number of obs     =      9,908
+                                                F(3, 540)         =      10.78
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.0097
+                                                Root MSE          =     .49705
+
+                               (Std. err. adjusted for 541 clusters in grappe)
+------------------------------------------------------------------------------
+             |               Robust
+ pauvre_MODA | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+         1.t |  -.0834718   .0171653    -4.86   0.000    -.1171907   -.0497528
+         1.D |  -.1003757   .0291106    -3.45   0.001    -.1575596   -.0431917
+             |
+         t#D |
+        1 1  |   .0496933   .0260515     1.91   0.057    -.0014813    .1008679
+             |
+       _cons |   .6054817    .020128    30.08   0.000     .5659429    .6450206
+------------------------------------------------------------------------------
+
+ ( 1)  1.t#1.D = 0
+
+------------------------------------------------------------------------------
+ pauvre_MODA | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+         (1) |   .0496933   .0260515     1.91   0.057    -.0014813    .1008679
+------------------------------------------------------------------------------
+  weight_caliper — pauvre_MODA : ATT=  0.0497  p=0.0570
 
 . 
 . /* ============================================================
@@ -4712,7 +4840,8 @@ t#D_stable_alt |
   7.         gen byte chef_f = (hgender == 2)
   8.         gen byte urbain = (milieu == 1)
   9.         foreach v in hhsize hage pcexp chef_f urbain D {
- 10.             summarize `v' [aw=hhweight]   /* caracteristiques ponderees (representativite nationale) */
+ 10.             summarize `v' [aw=hhweight]   /* caracteristiques ponderees (representativite nationale)
+>  */
  11.             if "`v'" == "hhsize" scalar m_hhsize_`annee' = r(mean)
  12.             if "`v'" == "hage"   scalar m_hage_`annee'   = r(mean)
  13.             if "`v'" == "pcexp"  scalar m_pcexp_`annee'  = r(mean)
@@ -5224,17 +5353,21 @@ Number of observations (_N) was 0, now 6.
   4.         local ++r
   5.         quietly summarize pauvre_MODA [aw=hhweight] if groupe_moda == `g'
   6.         local hmoda = r(mean)*100
-  7.         local nobs  = r(N)
-  8.         local lbl   = cond(`g'==1,"0-4 ans",cond(`g'==2,"5-14 ans","15-17 ans"))
-  9.         di "  `annee' / `lbl' : H=" %5.1f `hmoda' "% (n=`nobs')"
- 10.     }
- 11. }
-  2018 / 0-4 ans : H= 56.5% (n=9569)
-  2018 / 5-14 ans : H= 68.2% (n=17884)
-  2018 / 15-17 ans : H= 53.9% (n=4211)
-  2021 / 0-4 ans : H= 47.0% (n=6703)
-  2021 / 5-14 ans : H= 60.9% (n=15924)
-  2021 / 15-17 ans : H= 46.9% (n=3911)
+  7.         /* n_calc = enfants avec un statut N-MODA calcule ; n_tot = effectif
+>            total de la tranche (colonne "Obs." du tableau du rapport) */
+.         local nobs  = r(N)
+  8.         quietly count if groupe_moda == `g'
+  9.         local ntot  = r(N)
+ 10.         local lbl   = cond(`g'==1,"0-4 ans",cond(`g'==2,"5-14 ans","15-17 ans"))
+ 11.         di "  `annee' / `lbl' : H=" %5.1f `hmoda' "% (n_calc=`nobs', n_tot=`ntot')"
+ 12.     }
+ 13. }
+  2018 / 0-4 ans : H= 56.5% (n_calc=9569, n_tot=10160)
+  2018 / 5-14 ans : H= 68.2% (n_calc=17884, n_tot=19207)
+  2018 / 15-17 ans : H= 53.9% (n_calc=4211, n_tot=4477)
+  2021 / 0-4 ans : H= 47.0% (n_calc=6703, n_tot=7795)
+  2021 / 5-14 ans : H= 60.9% (n_calc=15924, n_tot=18636)
+  2021 / 15-17 ans : H= 46.9% (n_calc=3911, n_tot=4602)
 
 . 
 . /* ============================================================
@@ -5272,6 +5405,154 @@ Number of observations (_N) was 0, now 6.
   sante :  96.9%
   protect :  65.7%
   educ :  30.5%
+
+. 
+. /* ── Taux de privation par INDICATEUR et par groupe d'age ──────
+>    Alimente les commentaires de la section statistiques descriptives
+>    (sous-sections 0-4, 5-14, 15-17 ans) et les figures fig_privind_*.
+>    Un indicateur non applicable a une tranche d'age est ignore. */
+. di _newline "=== 4bis. Privation par indicateur et groupe d'age ==="
+
+=== 4bis. Privation par indicateur et groupe d'age ===
+
+. 
+. local indics m_toilet m_partag_toi m_eau_source m_eau_temps m_ordures ///
+>              m_surpeup m_securite m_combust m_sante_acces m_acte_nais ///
+>              m_trav_enf m_parents m_scol m_alfab m_neet
+
+. 
+. foreach annee in 2018 2021 {
+  2.     use "$TEMP/vague_`annee'.dta", clear
+  3.     di _newline "-- Indicateurs `annee' (pondere hhweight) --"
+  4.     foreach g in 0 1 2 3 {
+  5.         local lbl = cond(`g'==0,"Ensemble 0-17", ///
+>                     cond(`g'==1,"0-4 ans",cond(`g'==2,"5-14 ans","15-17 ans")))
+  6.         di "  [`lbl']"
+  7.         foreach v of local indics {
+  8.             capture confirm variable `v'
+  9.             if _rc continue
+ 10.             if `g' == 0 quietly summarize `v' [aw=hhweight]
+ 11.             else        quietly summarize `v' [aw=hhweight] if groupe_moda == `g'
+ 12.             /* indicateur non applicable a cette tranche : rien a afficher */
+.             if r(N) == 0 | r(mean) == 0 continue
+ 13.             di "    " %-14s "`v'" " : " %5.1f r(mean)*100 "%"
+ 14.         }
+ 15.     }
+ 16. }
+
+-- Indicateurs 2018 (pondere hhweight) --
+  [Ensemble 0-17]
+    m_toilet       :  38.8%
+    m_partag_toi   :  19.6%
+    m_eau_source   :  10.3%
+    m_eau_temps    :  16.6%
+    m_ordures      :  57.9%
+    m_surpeup      :  12.7%
+    m_securite     :  68.1%
+    m_combust      :  92.2%
+    m_sante_acces  :  69.6%
+    m_acte_nais    :  26.6%
+    m_trav_enf     :  23.6%
+    m_parents      :  42.3%
+    m_scol         :  25.6%
+    m_alfab        :   3.7%
+    m_neet         :   4.4%
+  [0-4 ans]
+    m_toilet       :  40.3%
+    m_partag_toi   :  20.4%
+    m_eau_source   :  11.9%
+    m_eau_temps    :  17.7%
+    m_ordures      :  59.3%
+    m_surpeup      :  13.3%
+    m_securite     :  68.0%
+    m_combust      :  92.3%
+    m_sante_acces  :  71.0%
+    m_acte_nais    :  31.8%
+    m_parents      :  36.5%
+  [5-14 ans]
+    m_toilet       :  39.1%
+    m_partag_toi   :  19.4%
+    m_eau_source   :  10.0%
+    m_eau_temps    :  16.7%
+    m_ordures      :  58.2%
+    m_surpeup      :  12.7%
+    m_securite     :  68.3%
+    m_combust      :  92.3%
+    m_sante_acces  :  69.8%
+    m_acte_nais    :  30.0%
+    m_trav_enf     :  41.8%
+    m_parents      :  43.0%
+    m_scol         :  45.3%
+  [15-17 ans]
+    m_toilet       :  34.1%
+    m_partag_toi   :  18.6%
+    m_eau_source   :   7.9%
+    m_eau_temps    :  13.6%
+    m_ordures      :  53.0%
+    m_surpeup      :  11.4%
+    m_securite     :  67.3%
+    m_combust      :  91.5%
+    m_sante_acces  :  65.4%
+    m_parents      :  52.8%
+    m_alfab        :  28.1%
+    m_neet         :  33.7%
+
+-- Indicateurs 2021 (pondere hhweight) --
+  [Ensemble 0-17]
+    m_toilet       :  41.2%
+    m_partag_toi   :  14.0%
+    m_eau_source   :  10.8%
+    m_eau_temps    :  12.0%
+    m_ordures      :  47.7%
+    m_surpeup      :   9.6%
+    m_securite     :  62.6%
+    m_combust      :  91.2%
+    m_sante_acces  :  82.1%
+    m_acte_nais    :  19.8%
+    m_trav_enf     :  25.7%
+    m_parents      :  42.9%
+    m_scol         :  26.8%
+    m_alfab        :   3.7%
+    m_neet         :   5.0%
+  [0-4 ans]
+    m_toilet       :  41.7%
+    m_partag_toi   :  14.2%
+    m_eau_source   :  10.6%
+    m_eau_temps    :  12.2%
+    m_ordures      :  49.2%
+    m_surpeup      :   9.7%
+    m_securite     :  62.1%
+    m_combust      :  91.9%
+    m_sante_acces  :  82.6%
+    m_acte_nais    :  22.0%
+    m_parents      :  39.0%
+  [5-14 ans]
+    m_toilet       :  42.1%
+    m_partag_toi   :  13.7%
+    m_eau_source   :  11.0%
+    m_eau_temps    :  12.3%
+    m_ordures      :  48.2%
+    m_surpeup      :   9.7%
+    m_securite     :  63.2%
+    m_combust      :  91.2%
+    m_sante_acces  :  82.3%
+    m_acte_nais    :  23.8%
+    m_trav_enf     :  43.1%
+    m_parents      :  42.7%
+    m_scol         :  44.8%
+  [15-17 ans]
+    m_toilet       :  37.1%
+    m_partag_toi   :  14.6%
+    m_eau_source   :  10.3%
+    m_eau_temps    :  10.3%
+    m_ordures      :  43.3%
+    m_surpeup      :   8.7%
+    m_securite     :  61.1%
+    m_combust      :  90.2%
+    m_sante_acces  :  80.7%
+    m_parents      :  50.5%
+    m_alfab        :  25.0%
+    m_neet         :  34.0%
 
 . 
 . /* Export CSV privations */
@@ -5721,40 +6002,10 @@ file code/stata/output/figures/fig_distrib_dimensions.pdf saved as PDF format
 . 
 . 
 . /* Joindre poids k-NN au panel vrai */
-. use "$TEMP/pscore_knn.dta", clear
+. use "$TEMP/panel_enfants_psm.dta", clear
 
-. keep grappe menage weight_knn
-
-. drop if missing(weight_knn)
-(3,177 observations deleted)
-
-. duplicates drop grappe menage, force
-
-Duplicates in terms of grappe menage
-
-(0 observations are duplicates)
-
-. tempfile poids_knn
-
-. save `poids_knn'
-file C:\Users\Bmd\AppData\Local\Temp\ST_5aec_000014.tmp saved as .dta format
-
-. 
-. use "$TEMP/panel_vrai.dta", clear
-
-. merge m:1 grappe menage using `poids_knn', keepusing(weight_knn) nogenerate
-
-    Result                      Number of obs
-    -----------------------------------------
-    Not matched                        31,464
-        from master                    31,464  
-        from using                          0  
-
-    Matched                            28,259  
-    -----------------------------------------
-
-. keep if !missing(weight_knn)
-(31,464 observations deleted)
+. keep if !missing(weight_knn) & weight_knn > 0
+(19,656 observations deleted)
 
 . 
 . /* ATT PSM-DD pour chaque dimension (poids d'appariement PSM uniquement,
@@ -5782,13 +6033,13 @@ file C:\Users\Bmd\AppData\Local\Temp\ST_5aec_000014.tmp saved as .dta format
   7.     matrix UB[`i',1]  = r(estimate) + 1.96*r(se)
   8.     di "  dim_`dim' : ATT=" %8.4f r(estimate) "  SE=" %7.4f r(se) "  p=" %6.4f r(p)
   9. }
-  dim_assai : ATT=  0.0390  SE= 0.0399  p=0.3290
-  dim_eau : ATT=  0.0103  SE= 0.0271  p=0.7039
-  dim_logem : ATT=  0.0328  SE= 0.0364  p=0.3669
-  dim_nutri : ATT=  0.0255  SE= 0.0378  p=0.5000
-  dim_sante : ATT=  0.0061  SE= 0.0105  p=0.5615
-  dim_protect : ATT=  0.0123  SE= 0.0170  p=0.4690
-  dim_educ : ATT= -0.0066  SE= 0.0136  p=0.6250
+  dim_assai : ATT=  0.0694  SE= 0.0432  p=0.1088
+  dim_eau : ATT=  0.0026  SE= 0.0285  p=0.9283
+  dim_logem : ATT=  0.0414  SE= 0.0413  p=0.3156
+  dim_nutri : ATT=  0.0843  SE= 0.0416  p=0.0431
+  dim_sante : ATT=  0.0101  SE= 0.0120  p=0.4000
+  dim_protect : ATT=  0.0190  SE= 0.0201  p=0.3445
+  dim_educ : ATT= -0.0001  SE= 0.0157  p=0.9952
 
 . 
 . /* Construire dataset pour le graphique */
@@ -5865,7 +6116,7 @@ variable dim was str12 now str14
 . sort att
 
 . replace ordre = _n
-(7 real changes made)
+(6 real changes made)
 
 . 
 . /* Construire les labels ylabel à partir des valeurs de dim triées */
@@ -5916,479 +6167,6 @@ file code/stata/output/figures/fig_effets_dim.pdf saved as PDF format
 
 . 
 . /* ============================================================
->    SECTION : 08_CARTE_REGION — Carte régionale de l'incidence
-> 
->    Sorties :
->      output/figures/fig_carte_nmoda.pdf   — carte H par région (présentation)
->    ============================================================ */
-. 
-. 
-. /* ============================================================
->    1. Incidence N-MODA par région (EHCVM I et II)
->    ============================================================ */
-. 
-. /* Moyenne pondérée (poids de sondage) par région, pour chacune des deux vagues */
-. matrix H_reg = J(14, 3, .)
-
-. foreach annee in 2018 2021 {
-  2.     use "$TEMP/vague_`annee'.dta", clear
-  3.     local col = cond(`annee' == 2018, 2, 3)
-  4.     quietly summarize pauvre_MODA [aw=hhweight]
-  5.     scalar H_nat_`annee' = r(mean)*100
-  6.     levelsof region, local(regs)
-  7.     local i = 0
-  8.     foreach r of local regs {
-  9.         local ++i
- 10.         quietly summarize pauvre_MODA [aw=hhweight] if region == `r'
- 11.         matrix H_reg[`i', 1] = `r'
- 12.         matrix H_reg[`i', `col'] = r(mean)*100
- 13.         local lbl : label (region) `r'
- 14.         di "Région `r' (`lbl'), `annee' : H=" %5.1f r(mean)*100 "%"
- 15.     }
- 16. }
-1 2 3 4 5 6 7 8 9 10 11 12 13 14
-Région 1 (dakar), 2018 : H= 26.5%
-Région 2 (ziguinchor), 2018 : H= 78.2%
-Région 3 (diourbel), 2018 : H= 74.0%
-Région 4 (SAINT-LOUIS), 2018 : H= 65.2%
-Région 5 (tambacounda), 2018 : H= 83.1%
-Région 6 (kaolack), 2018 : H= 64.3%
-Région 7 (thies), 2018 : H= 47.5%
-Région 8 (louga), 2018 : H= 71.3%
-Région 9 (fatick), 2018 : H= 76.0%
-Région 10 (kolda), 2018 : H= 90.1%
-Région 11 (matam), 2018 : H= 77.5%
-Région 12 (kaffrine), 2018 : H= 81.7%
-Région 13 (kedougou), 2018 : H= 89.5%
-Région 14 (sedhiou), 2018 : H= 90.0%
-1 2 3 4 5 6 7 8 9 10 11 12 13 14
-Région 1 (dakar), 2021 : H= 19.3%
-Région 2 (ziguinchor), 2021 : H= 60.7%
-Région 3 (diourbel), 2021 : H= 61.2%
-Région 4 (SAINT-LOUIS), 2021 : H= 60.2%
-Région 5 (tambacounda), 2021 : H= 78.1%
-Région 6 (kaolack), 2021 : H= 65.5%
-Région 7 (thies), 2021 : H= 52.1%
-Région 8 (louga), 2021 : H= 59.9%
-Région 9 (fatick), 2021 : H= 62.2%
-Région 10 (kolda), 2021 : H= 83.6%
-Région 11 (matam), 2021 : H= 67.4%
-Région 12 (kaffrine), 2021 : H= 66.1%
-Région 13 (kedougou), 2021 : H= 81.7%
-Région 14 (sedhiou), 2021 : H= 85.6%
-
-. 
-. /* ── Table des incidences regionales (alimente les cartes) ── */
-. preserve
-
-.     clear
-
-.     svmat H_reg, names(col)
-number of observations will be reset to 14
-Press any key to continue, or Break to abort
-Number of observations (_N) was 0, now 14.
-
-.     rename c1 cod_reg
-
-.     rename c2 H_2018
-
-.     rename c3 H_2021
-
-.     sort H_2018
-
-.     gen ordre = _n
-
-.     gen str30 nom_reg = ""
-(14 missing values generated)
-
-.     /* Correspondance codes vers noms régions Sénégal */
-.     replace nom_reg = "Dakar"        if cod_reg == 1
-(1 real change made)
-
-.     replace nom_reg = "Ziguinchor"   if cod_reg == 2
-(1 real change made)
-
-.     replace nom_reg = "Diourbel"     if cod_reg == 3
-(1 real change made)
-
-.     replace nom_reg = "Saint-Louis"  if cod_reg == 4
-(1 real change made)
-
-.     replace nom_reg = "Tambacounda"  if cod_reg == 5
-(1 real change made)
-
-.     replace nom_reg = "Kaolack"      if cod_reg == 6
-(1 real change made)
-
-.     replace nom_reg = "Thiès"        if cod_reg == 7
-(1 real change made)
-
-.     replace nom_reg = "Louga"        if cod_reg == 8
-(1 real change made)
-
-.     replace nom_reg = "Fatick"       if cod_reg == 9
-(1 real change made)
-
-.     replace nom_reg = "Kolda"        if cod_reg == 10
-(1 real change made)
-
-.     replace nom_reg = "Matam"        if cod_reg == 11
-(1 real change made)
-
-.     replace nom_reg = "Kaffrine"     if cod_reg == 12
-(1 real change made)
-
-.     replace nom_reg = "Kédougou"     if cod_reg == 13
-(1 real change made)
-
-.     replace nom_reg = "Sédhiou"      if cod_reg == 14
-(1 real change made)
-
-. 
-.     /* Labels y-axis depuis la variable */
-.     local ylab_str ""
-
-.     forvalues i = 1/14 {
-  2.         local lbl = nom_reg[`i']
-  3.         local ylab_str `"`ylab_str' `i' "`lbl'""'
-  4.     }
-
-. 
-. 
-.     /* ── Table H par région, cle = nom en majuscules (NOMREG du
->        shapefile) pour la fusion avec le fond de carte ── */
-.     gen str30 NOMREG = ""
-(14 missing values generated)
-
-.     replace NOMREG = "DAKAR"       if cod_reg == 1
-(1 real change made)
-
-.     replace NOMREG = "ZIGUINCHOR"  if cod_reg == 2
-(1 real change made)
-
-.     replace NOMREG = "DIOURBEL"    if cod_reg == 3
-(1 real change made)
-
-.     replace NOMREG = "SAINT LOUIS" if cod_reg == 4
-(1 real change made)
-
-.     replace NOMREG = "TAMBACOUNDA" if cod_reg == 5
-(1 real change made)
-
-.     replace NOMREG = "KAOLACK"     if cod_reg == 6
-(1 real change made)
-
-.     replace NOMREG = "THIES"       if cod_reg == 7
-(1 real change made)
-
-.     replace NOMREG = "LOUGA"       if cod_reg == 8
-(1 real change made)
-
-.     replace NOMREG = "FATICK"      if cod_reg == 9
-(1 real change made)
-
-.     replace NOMREG = "KOLDA"       if cod_reg == 10
-(1 real change made)
-
-.     replace NOMREG = "MATAM"       if cod_reg == 11
-(1 real change made)
-
-.     replace NOMREG = "KAFFRINE"    if cod_reg == 12
-(1 real change made)
-
-.     replace NOMREG = "KEDOUGOU"    if cod_reg == 13
-(1 real change made)
-
-.     replace NOMREG = "SEDHIOU"     if cod_reg == 14
-(1 real change made)
-
-.     keep NOMREG nom_reg H_2018 H_2021
-
-.     save "$TEMP/h_region.dta", replace
-file code/stata/temp/h_region.dta saved
-
-. restore
-
-. 
-. /* ============================================================
->    1bis. Carte choropleth N-MODA par région (spmap)
->    ============================================================ */
-. 
-. /* Packages requis (installes une seule fois si absents) */
-. capture which shp2dta
-
-. if _rc ssc install shp2dta, replace
-
-. capture which spmap
-
-. if _rc ssc install spmap, replace
-
-. 
-. /* Conversion du shapefile des régions en format Stata */
-. shp2dta using "Vecteurs_Sénégal/Limite_Région", ///
->     database("$TEMP/sen_reg_db") coordinates("$TEMP/sen_reg_xy") ///
->     genid(id) replace
-type: 5
-
-. 
-. /* Fusion des incidences N-MODA sur le nom de région (NOMREG) */
-. use "$TEMP/sen_reg_db", clear
-
-. replace NOMREG = trim(upper(NOMREG))
-(0 real changes made)
-
-. merge 1:1 NOMREG using "$TEMP/h_region.dta"
-(variable NOMREG was str11, now str30 to accommodate using data's values)
-
-    Result                      Number of obs
-    -----------------------------------------
-    Not matched                             0
-    Matched                                14  (_merge==3)
-    -----------------------------------------
-
-. drop if _merge == 2
-(0 observations deleted)
-
-. drop _merge
-
-. save "$TEMP/sen_reg_db.dta", replace
-file code/stata/temp/sen_reg_db.dta saved
-
-. 
-. /* Etendue du fond de carte (coordonnees UTM zone 28N en metres) pour
->    positionner la rose des vents (coin superieur gauche) et la barre
->    d'echelle (bas-centre). */
-. use "$TEMP/sen_reg_xy", clear
-
-. quietly summarize _X
-
-. scalar xmin_ = r(min)
-
-. scalar xrng_ = r(max) - r(min)
-
-. quietly summarize _Y
-
-. scalar ymin_ = r(min)
-
-. scalar yrng_ = r(max) - r(min)
-
-. 
-. /* Rose des vents (indique le nord) : cercle + etoile a 4 branches +
->    lettre "N", en gris, dans le coin superieur gauche. */
-. global XC   = xmin_ + 0.07*xrng_                 /* centre x            */
-
-. global YC   = ymin_ + 0.83*yrng_                 /* centre y            */
-
-. global RAD  = 0.045*xrng_                        /* rayon des branches  */
-
-. global RIN  = 0.0135*xrng_                       /* rayon interne etoile*/
-
-. global YNL  = ymin_ + 0.83*yrng_ + 0.075*xrng_   /* "N" au-dessus       */
-
-. 
-. /* Cercle de la rose : format polyline spmap (1re ligne = coords
->    manquantes, puis 37 noeuds fermant le cercle). */
-. clear
-
-. set obs 38
-Number of observations (_N) was 0, now 38.
-
-. gen _ID = 1
-
-. gen double th = (_n - 2) * 2 * _pi / 36
-
-. gen double _X = $XC + $RAD * cos(th)
-
-. gen double _Y = $YC + $RAD * sin(th)
-
-. replace _X = . in 1
-(1 real change made, 1 to missing)
-
-. replace _Y = . in 1
-(1 real change made, 1 to missing)
-
-. drop th
-
-. save "$TEMP/sen_rose_c.dta", replace
-file code/stata/temp/sen_rose_c.dta saved
-
-. 
-. /* Etoile a 4 branches (N, E, S, O + pointes internes). Format polyline
->    spmap : 1re ligne = coords manquantes, puis le contour ferme.
->    _ID = 2 : deuxieme polyline du meme fichier que le cercle. */
-. clear
-
-. set obs 10
-Number of observations (_N) was 0, now 10.
-
-. gen _ID = 2
-
-. gen double _X = .
-(10 missing values generated)
-
-. gen double _Y = .
-(10 missing values generated)
-
-. replace _X = $XC        in 2
-(1 real change made)
-
-. replace _Y = $YC + $RAD in 2
-(1 real change made)
-
-. replace _X = $XC + $RIN in 3
-(1 real change made)
-
-. replace _Y = $YC + $RIN in 3
-(1 real change made)
-
-. replace _X = $XC + $RAD in 4
-(1 real change made)
-
-. replace _Y = $YC        in 4
-(1 real change made)
-
-. replace _X = $XC + $RIN in 5
-(1 real change made)
-
-. replace _Y = $YC - $RIN in 5
-(1 real change made)
-
-. replace _X = $XC        in 6
-(1 real change made)
-
-. replace _Y = $YC - $RAD in 6
-(1 real change made)
-
-. replace _X = $XC - $RIN in 7
-(1 real change made)
-
-. replace _Y = $YC - $RIN in 7
-(1 real change made)
-
-. replace _X = $XC - $RAD in 8
-(1 real change made)
-
-. replace _Y = $YC        in 8
-(1 real change made)
-
-. replace _X = $XC - $RIN in 9
-(1 real change made)
-
-. replace _Y = $YC + $RIN in 9
-(1 real change made)
-
-. replace _X = $XC        in 10
-(1 real change made)
-
-. replace _Y = $YC + $RAD in 10
-(1 real change made)
-
-. save "$TEMP/sen_rose_s.dta", replace
-file code/stata/temp/sen_rose_s.dta saved
-
-. 
-. /* Un seul fichier de polylines (cercle _ID=1 + etoile _ID=2) : spmap
->    n'accepte l'option line() qu'une seule fois. */
-. use "$TEMP/sen_rose_c.dta", clear
-
-. append using "$TEMP/sen_rose_s.dta"
-
-. sort _ID
-
-. save "$TEMP/sen_rose.dta", replace
-file code/stata/temp/sen_rose.dta saved
-
-. 
-. /* La barre d'echelle est dessinee par l'option native scalebar() de spmap
->    (voir les appels ci-dessous) : pas de dataset a construire. */
-. 
-. /* Points d'ancrage des noms de region : un point garanti a l'interieur de
->    chaque polygone (representative_point), plus fiable que la moyenne des
->    sommets qui, pour les formes concaves, peut tomber hors de la region
->    (Dakar, Fatick). Coordonnees UTM zone 28N, figees comme constantes. */
-. clear
-
-. input str14 nom_reg double x_c double y_c
-
-            nom_reg         x_c         y_c
-  1. "Dakar"        262000 1630241
-  2. "Diourbel"     389356 1634520
-  3. "Fatick"       330648 1566850
-  4. "Kaolack"      389907 1552721
-  5. "Kédougou"     795247 1425893
-  6. "Kolda"        562662 1451754
-  7. "Louga"        425604 1702445
-  8. "Matam"        642112 1689583
-  9. "Saint-Louis"  528600 1779250
- 10. "Sédhiou"      440034 1427200
- 11. "Tambacounda"  681879 1534429
- 12. "Thiès"        322000 1631854
- 13. "Ziguinchor"   347984 1410445
- 14. "Kaffrine"     477629 1574729
- 15. end
-
-. save "$TEMP/sen_reg_lbl.dta", replace
-file code/stata/temp/sen_reg_lbl.dta saved
-
-. 
-. /* Recharger la base attributaire (avec H_2018/H_2021) : spmap lit la
->    variable thematique dans le dataset en memoire, pas dans le fichier
->    d'etiquettes qui vient d'etre construit. */
-. use "$TEMP/sen_reg_db.dta", clear
-
-. 
-. /* Bornes de classes communes aux deux vagues pour une échelle de
->    couleur partagée (memes clbreaks sur les deux cartes) */
-. set dp comma
-
-. /* Carte EHCVM I : nom de region au centre, fleche du nord en haut a
->    gauche ; legende masquee (partagee, affichee sur la seconde carte).
->    Aucun titre general : la legende du rapport le fournit. */
-. spmap H_2018 using "$TEMP/sen_reg_xy", id(id) ///
->     clmethod(custom) clbreaks(0 20 40 60 80 100) ///
->     fcolor(YlOrRd) ocolor(white ..) osize(0.15 ..) ///
->     ndfcolor(gs12) legend(off) ///
->     label(data("$TEMP/sen_reg_lbl.dta") xcoord(x_c) ycoord(y_c) ///
->           label(nom_reg) size(*0.55) color(black)) ///
->     subtitle("EHCVM I (2018-2019)", size(medsmall)) ///
->     line(data("$TEMP/sen_rose.dta") color(gs7) size(medthin)) ///
->     text($YNL $XC "N", size(medium) color(gs7)) ///
->     scalebar(units(150) scale(1/1000) label("km") ///
->              xpos(-70) ypos(-108) size(0.9) tsize(*0.75)) ///
->     name(carte18, replace)
-
-. spmap H_2021 using "$TEMP/sen_reg_xy", id(id) ///
->     clmethod(custom) clbreaks(0 20 40 60 80 100) ///
->     fcolor(YlOrRd) ocolor(white ..) osize(0.15 ..) ///
->     ndfcolor(gs12) legorder(lohi) ///
->     legend(position(6) ring(1) size(vsmall) rows(1) ///
->         label(2 "[0;20]") label(3 "[20;40]") label(4 "[40;60]") ///
->         label(5 "[60;80]") label(6 "[80;100]")) ///
->     label(data("$TEMP/sen_reg_lbl.dta") xcoord(x_c) ycoord(y_c) ///
->           label(nom_reg) size(*0.55) color(black)) ///
->     subtitle("EHCVM II (2021-2022)", size(medsmall)) ///
->     name(carte21, replace)
-
-. graph combine carte18 carte21, cols(2) ///
->     graphregion(color(white))
-
-. set dp period
-
-. graph export "$OUTPUT/figures/fig_carte_nmoda.pdf", replace
-file code/stata/output/figures/fig_carte_nmoda.pdf saved as PDF format
-
-. di ">>> fig_carte_nmoda.pdf (carte choropleth) sauvegardé"
->>> fig_carte_nmoda.pdf (carte choropleth) sauvegardé
-
-. 
-. 
-. 
-. di _newline ">>> 08_carte_region.do terminé."
-
->>> 08_carte_region.do terminé.
-
-. 
-. /* ============================================================
 >    SECTION : 09_PLACEBO_ATTRITION — Tests de validite (annexe A)
 > 
 >    1. Test placebo : 200 assignations aleatoires d'un faux
@@ -6425,7 +6203,7 @@ file code/stata/output/figures/fig_carte_nmoda.pdf saved as PDF format
 . tempfile never
 
 . save `never'
-file C:\Users\Bmd\AppData\Local\Temp\ST_5aec_000016.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_5aec_000014.tmp saved as .dta format
 
 . 
 . /* Liste des menages (une ligne par menage) */
@@ -6437,7 +6215,7 @@ file C:\Users\Bmd\AppData\Local\Temp\ST_5aec_000016.tmp saved as .dta format
 . tempfile liste_men
 
 . save `liste_men'
-file C:\Users\Bmd\AppData\Local\Temp\ST_5aec_000017.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_5aec_000015.tmp saved as .dta format
 
 . quietly count
 
@@ -6525,7 +6303,7 @@ Number of observations (_N) was 0, now 200.
 
 Placebo moda : moyenne= 0.0012  sd=0.0218
   fraction |ATT|>0.05 :  2.5%
-  ATT reel (0.0427) : rang = 97.5e centile
+  ATT reel (0.0532) : rang = 98.5e centile
 
 . 
 . /* ── Fig placebo : distribution des ATT placebo vs ATT reel ──
@@ -6580,7 +6358,7 @@ file code/stata/output/figures/fig_placebo_dd.pdf saved as PDF format
 . tempfile men18
 
 . save `men18'
-file C:\Users\Bmd\AppData\Local\Temp\ST_5aec_000075.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_5aec_000073.tmp saved as .dta format
 
 . 
 . /* Menages retrouves en 2021 : variable officielle PanelHH (et non la
@@ -6681,7 +6459,6 @@ Group variable: suivi
   5.     }
   6.     di "    ok `f'"
   7. }
-    ok fig_carte_nmoda.pdf
     ok fig_carte_nmoda_barres.pdf
     ok fig_croisement_pauvrete.pdf
     ok fig_dd_trajectoires.pdf
