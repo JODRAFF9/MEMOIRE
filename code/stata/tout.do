@@ -233,6 +233,36 @@ local fich_list s13a_1
     quietly summarize D
     di "  `annee' : " %5.1f r(mean)*100 "%  (" %4.0f r(sum) "/" %5.0f r(N) " menages)"
 
+    /* ── Intensite du traitement : montant annuel recu ────────────
+       Meme perimetre que D (transfert etranger d'un ex-membre du menage).
+       Le montant par envoi est annualise par la frequence declaree, puis
+       somme sur l'ensemble des transferts eligibles du menage.
+       v_montant / v_freq : s13aq17a/b en 2018, s13q22a/b en 2021. */
+    if `annee' == 2018 {
+        local v_montant s13aq17a
+        local v_freq    s13aq17b
+    }
+    else {
+        local v_montant s13q22a
+        local v_freq    s13q22b
+    }
+    use "`base'/`fich_det'_me_sen`annee'.dta", clear
+    keep if `var_lieu' >= $CODE_ETRANGER_MIN & !missing(`var_lieu') ///
+        & `var_exmbr' == 1
+    gen double mult = .
+    replace mult = 12 if `v_freq' == 1   /* mois       */
+    replace mult = 4  if `v_freq' == 2   /* trimestre  */
+    replace mult = 2  if `v_freq' == 3   /* semestre   */
+    replace mult = 1  if `v_freq' == 4   /* annee      */
+    replace mult = 1  if `v_freq' == 5   /* irregulier : deja sur 12 mois */
+    gen double montant = `v_montant' * mult
+    collapse (sum) montant_transf = montant, by(grappe menage)
+    drop if montant_transf <= 0
+    label var montant_transf "Montant annuel de transferts recus (FCFA)"
+    save "$TEMP/montant_`annee'.dta", replace
+    di "  Montant annuel (menages beneficiaires, `annee') :"
+    summarize montant_transf, detail
+
 local annee 2021
 local var_lieu s13q19
 local var_exmbr s13q17
@@ -1047,6 +1077,11 @@ merge m:1 grappe menage using "$TEMP/traitement_2018.dta", ///
 /* Restriction aux menages du panel vrai */
 merge m:1 grappe menage using "$TEMP/ids_panel.dta", keep(match) nogenerate
 
+/* Intensite du traitement : montant annuel recu en 2018. Manquant pour les
+   menages non beneficiaires, par construction. */
+merge m:1 grappe menage using "$TEMP/montant_2018.dta", ///
+    keepusing(montant_transf) keep(master match) nogenerate
+
 gen log_pcexp = log(pcexp + 1)
 foreach v in milieu region heduc hmstat {
     capture destring `v', replace
@@ -1420,6 +1455,64 @@ foreach g in 1 2 3 {
         }
     }
 }
+
+/* -- 6d. Par quintile de montant de transferts --------------
+   H2 porte aussi sur l'intensite du traitement : un transfert plus eleve
+   produit-il un effet different ? Les quintiles sont definis sur la
+   distribution du montant annuel PARMI LES MENAGES BENEFICIAIRES ; chaque
+   quintile d'enfants traites est ensuite compare a l'ensemble des enfants
+   temoins apparies. Les quintiles sont preferes aux deciles : avec environ
+   2 600 enfants traites, un decoupage en dix laisserait des sous-groupes
+   trop petits pour une inference exploitable. */
+di _newline "=== Heterogeneite par quintile de montant de transferts ==="
+
+/* Quintiles construits au niveau MENAGE beneficiaire (un menage = un
+   montant), pour que le decoupage ne soit pas deforme par le nombre
+   d'enfants du menage. */
+preserve
+    keep if D == 1 & t == 0 & !missing(montant_transf)
+    bysort grappe menage: keep if _n == 1
+    xtile q_montant = montant_transf, nquantiles(5)
+    keep grappe menage q_montant montant_transf
+    tempfile quintiles
+    save `quintiles'
+    di "  Bornes des quintiles de montant annuel (FCFA) :"
+    forvalues q = 1/5 {
+        quietly summarize montant_transf if q_montant == `q'
+        di "    Q`q' : " %10.0f r(min) " a " %10.0f r(max) ///
+           "  (mediane " %10.0f r(mean) ", n=" %4.0f r(N) " menages)"
+    }
+restore
+
+merge m:1 grappe menage using `quintiles', ///
+    keepusing(q_montant) keep(master match) nogenerate
+
+foreach outcome in pauvre_MODA {
+    forvalues q = 1/5 {
+        quietly count if q_montant == `q' & !missing(weight_knn)
+        if r(N) > 30 {
+            di _newline "--- Quintile `q' — `outcome' ---"
+            regress `outcome' i.t##i.D [aw=weight_knn] ///
+                if D == 0 | q_montant == `q', vce(cluster grappe)
+            lincom 1.t#1.D
+            di "  ATT = " %8.4f r(estimate) "  SE = " %8.4f r(se) ///
+               "  p = " %6.4f r(p)
+        }
+    }
+}
+
+/* Test continu : l'effet varie-t-il avec le logarithme du montant ?
+   Estime sur les seuls enfants traites, la reference etant l'ecart de
+   trajectoire moyen. Plus puissant que la comparaison par quintiles, qui
+   decoupe l'information. */
+di _newline "Effet dose-reponse (montant en logarithme, enfants traites) :"
+quietly gen double log_montant = log(montant_transf) if montant_transf > 0
+regress pauvre_MODA i.t##c.log_montant [aw=weight_knn] if D == 1, ///
+    vce(cluster grappe)
+lincom 1.t#c.log_montant
+di "  Pente dose-reponse = " %8.4f r(estimate) "  SE = " %8.4f r(se) ///
+   "  p = " %6.4f r(p)
+drop log_montant
 
 /* ============================================================
    7. Robustesse

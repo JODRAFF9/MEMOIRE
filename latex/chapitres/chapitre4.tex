@@ -1,3 +1,7 @@
+% Cellules en attente de la prochaine execution de tout.do (quintiles de
+% montant). A supprimer une fois les valeurs saisies.
+\providecommand{\ATTENTE}{\textbf{\textit{à compléter}}}
+
 \section{Discussion}
 \label{sec:discussion}
 
@@ -168,6 +172,67 @@ tout-petits sont aussi les plus dépendants du temps de soin quotidien, que
 l'apport monétaire ne remplace pas. La même réserve sur la multiplicité des
 tests s'applique, mais la convergence entre le résultat par âge et le résultat
 par dimension rend la lecture plus solide qu'un test isolé.
+
+\subsubsection{Selon le montant des transferts reçus}
+\label{subsec:hetero_montant}
+
+Les trois volets précédents traitent le traitement comme binaire. Or les
+montants reçus varient considérablement d'un ménage à l'autre~: la médiane
+s'établit autour de 300\,000 FCFA par an, mais le troisième quartile atteint
+1\,200\,000 FCFA (section~\ref{sec:methodo}). Un transfert de 50\,000 FCFA et
+un transfert de deux millions ne desserrent pas la même contrainte
+budgétaire, et rien n'impose que leurs effets soient de même ampleur. Ce
+dernier volet de l'hypothèse H2 examine donc la relation dose-réponse.
+
+Les quintiles sont construits sur la distribution du montant annuel parmi les
+ménages bénéficiaires, au niveau du ménage afin que le découpage ne soit pas
+déformé par le nombre d'enfants, puis chaque quintile d'enfants traités est
+comparé à l'ensemble des enfants témoins appariés. Le choix des quintiles
+plutôt que des déciles est dicté par la précision~: avec environ
+2\,600 enfants traités, un découpage en dix laisserait des sous-groupes dont
+les intervalles de confiance interdiraient toute lecture.
+
+Le tableau~\ref{tab:hetero_montant} rapporte l'ATT par quintile ainsi qu'un
+test continu, qui estime la pente de l'effet en fonction du logarithme du
+montant sur les seuls enfants traités. Ce second test est plus puissant que la
+comparaison par quintiles, qui découpe l'information~; il constitue la mesure
+de référence de la relation dose-réponse, les quintiles en donnant la lecture
+détaillée.
+
+\begin{table}[H]
+  \centering
+  \caption[Hétérogénéité de l'effet selon le montant annuel des transferts]{Hétérogénéité de l'effet selon le montant annuel des transferts\protect\footnotemark}
+  \label{tab:hetero_montant}
+  \zebre
+  \begin{tabular}{|l|c|c|c|}
+    \hline
+\entete Quintile de montant & ATT & Éc.-t. (cluster) & $p$-valeur \\
+    \hline
+    Q1 (montants les plus faibles) & \ATTENTE & \ATTENTE & \ATTENTE \\ \hline
+    Q2 & \ATTENTE & \ATTENTE & \ATTENTE \\ \hline
+    Q3 & \ATTENTE & \ATTENTE & \ATTENTE \\ \hline
+    Q4 & \ATTENTE & \ATTENTE & \ATTENTE \\ \hline
+    Q5 (montants les plus élevés) & \ATTENTE & \ATTENTE & \ATTENTE \\
+    \hline
+    \hline
+    Pente dose-réponse (log du montant) & \ATTENTE & \ATTENTE & \ATTENTE \\
+    \hline
+  \end{tabular}
+
+  {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM.}
+\end{table}
+\footnotetext{\textit{Note :} appariement k-NN au niveau enfant, erreurs-types clusterisées par grappe. Les quintiles sont définis sur le montant annuel des transferts parmi les ménages bénéficiaires~; chaque quintile est comparé à l'ensemble des témoins appariés. La pente dose-réponse est le coefficient de l'interaction entre la vague et le logarithme du montant, estimé sur les enfants traités.}
+
+Deux réserves encadrent la lecture de ce tableau. La première tient à la
+mesure du montant, déclaré par le ménage et reconstitué en annualisant le
+montant par envoi selon la fréquence rapportée~: l'erreur de mesure y est
+vraisemblablement plus forte que sur le statut binaire de bénéficiaire, et
+elle atténue mécaniquement toute relation dose-réponse. La seconde tient à
+l'identification~: le montant n'est pas assigné aléatoirement parmi les
+bénéficiaires, il dépend des ressources du migrant et des besoins du ménage.
+La comparaison entre quintiles ne repose donc pas sur la même stratégie
+d'identification que l'estimation principale et s'interprète comme une
+association conditionnelle, non comme un effet causal du montant.
 
 \subsection{Interprétation des résultats}
 
