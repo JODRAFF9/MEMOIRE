@@ -14,8 +14,8 @@ par dimension de la pauvreté.
 
 Le score de propension est estimé par un probit au niveau du ménage
 sur les données de la période de base (EHCVM I, 2018-2019), en conservant
-uniquement les ménages du panel vrai sans transfert en 2018 (entrants et
-jamais bénéficiaires) pour lesquels toutes les covariables sont disponibles
+uniquement les ménages du panel vrai (bénéficiaires et non
+non-bénéficiaires) pour lesquels toutes les covariables sont disponibles
 ($n = 4\,424$ ménages). Les covariables étant mesurées à la période de
 base, avant le début du traitement, elles ne peuvent pas être affectées par
 celui-ci. Le modèle inclut les variables retenues dans
@@ -78,9 +78,9 @@ section~\ref{sec:discussion}.
 
 
 La figure~\ref{fig:support} représente les distributions du score de propension
-pour les ménages entrants ($D=1$) et jamais bénéficiaires ($D=0$).
+pour les ménages bénéficiaires ($D=1$) et non-bénéficiaires ($D=0$).
 Les deux distributions se recouvrent presque entièrement, conséquence du
-faible pouvoir prédictif du probit~: les 784 ménages entrants de
+faible pouvoir prédictif du probit~: les ménages bénéficiaires de
 l'échantillon d'estimation se trouvent tous dans la zone de support commun
 et sont retenus pour l'estimation PSM-DD, appariés à 1\,863 ménages
 témoins distincts (appariement $k$-NN avec remise).
@@ -102,7 +102,7 @@ reflète là encore le fait qu'aucun des deux groupes n'est traité à la
 période de base. Le tableau~\ref{tab:balance} présente le diagnostic
 d'équilibrage \emph{après} appariement k-plus-proches-voisins ($k=4$, avec
 remise, au niveau ménage)~: pour chaque covariable, la moyenne chez les
-entrants (traités) et chez leurs témoins appariés, la différence standardisée (SMD)
+bénéficiaires (traités) et chez leurs témoins appariés, la différence standardisée (SMD)
 (SMD, en \%) et le test de Student associé. L'appariement élimine
 pratiquement les déséquilibres~: la différence standardisée moyenne (SMD) après
 appariement tombe à 1,4\,\%, largement sous le seuil conventionnel de
@@ -141,10 +141,10 @@ significative au seuil de 5\,\%.
 sans appariement (tableau~\ref{tab:dd_brut}). L'impact
 estimé est nul et loin de la significativité pour le N-MODA
 (-$0{,}5$ pp, $p = 0{,}835$)~: la pauvreté multidimensionnelle des enfants a
-reculé au même rythme chez les entrants et chez les jamais bénéficiaires.
+reculé au même rythme chez les bénéficiaires et chez les non-bénéficiaires.
 Cette comparaison brute reste toutefois exposée aux différences initiales
-entre les deux groupes (les futurs entrants sont un peu plus aisés et
-urbains que les jamais bénéficiaires), d'où le recours à l'appariement PSM
+entre les deux groupes (les bénéficiaires sont un peu plus aisés et
+urbains que les non-bénéficiaires), d'où le recours à l'appariement PSM
 pour confirmer le résultat sur des groupes rendus comparables.
 
 \begin{table}[H]
@@ -192,10 +192,10 @@ sélection sur observables et les effets fixes inobservables constants dans le t
 
 L'estimateur PSM-DD donne un ATT de -$0{,}001$ ($p = 0{,}961$) sur la pauvreté
 N-MODA~: après appariement, aucune divergence de trajectoire n'est
-détectable entre les enfants des ménages entrants et ceux des témoins
+détectable entre les enfants des ménages bénéficiaires et ceux des témoins
 comparables. La pauvreté multidimensionnelle recule dans les deux groupes
 à un rythme statistiquement indiscernable sur la période 2018-2021.
-Ce résultat s'interprète comme un effet de court terme~: les entrants ne
+Ce résultat s'interprète avec prudence~: les bénéficiaires ne
 reçoivent des transferts que depuis une date comprise entre les deux
 vagues, une durée d'exposition sans doute trop brève pour que les envois
 se traduisent en améliorations mesurables des conditions de vie des
@@ -206,11 +206,11 @@ les bénéficiaires durables (annexe~\ref{ann:A}), sont discutés en détail
 dans la section~\ref{sec:discussion}.
 
 La figure~\ref{fig:dd_trajectoires} illustre le mécanisme de la double
-différence. Elle représente l'incidence N-MODA des entrants et des témoins
+différence. Elle représente l'incidence N-MODA des bénéficiaires et des témoins
 appariés aux deux vagues, ainsi que le contrefactuel obtenu en appliquant
-la tendance des témoins au niveau initial des entrants. Les deux
+la tendance des témoins au niveau initial des bénéficiaires. Les deux
 trajectoires observées sont presque parallèles~: la trajectoire des
-entrants se confond pratiquement avec son contrefactuel, illustration
+bénéficiaires se confond pratiquement avec son contrefactuel, illustration
 graphique de l'ATT proche de zéro.
 
 \begin{figure}[H]
@@ -268,7 +268,7 @@ L'analyse par dimension (figure~\ref{fig:effets_dim}) décompose l'ATT
 global sur les sept dimensions N-MODA, et révèle que le résultat nul
 agrégé masque deux effets sectoriels de signes opposés qui se compensent.
 D'un côté, la dimension éducation s'améliore significativement chez les
-enfants des ménages entrants (ATT $=$ -$0{,}039$, $p = 0{,}005$)~: la
+enfants des ménages bénéficiaires (ATT $=$ -$0{,}039$, $p = 0{,}005$)~: la
 probabilité de privation éducative y recule de 3,9 points de pourcentage
 de plus que chez les témoins appariés, ce qui est cohérent avec
 l'hypothèse d'un investissement prioritaire et rapide des transferts dans

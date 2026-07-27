@@ -995,9 +995,9 @@ merge m:1 grappe menage using "$TEMP/traitement_stable.dta", ///
 drop if missing(D_stable)
 replace D = D_stable
 drop D_stable
-label var D "Traitement entrant (1=transfert etranger recu en 2021, aucun en 2018)"
+label var D "Traitement (1=beneficiaire migrant en 2018, 0=non beneficiaire)"
 
-di _newline "=== Panel vrai (design entrants) ==="
+di _newline "=== Panel vrai (traitement defini en 2018) ==="
 di "Observations totales     : " _N
 quietly count if t == 0
 di "  - Periode t=0 (2018)  : " r(N)
@@ -1181,6 +1181,22 @@ foreach outcome in pauvre_MODA {
     di "  ATT_PSM-DD = " %8.4f r(estimate) ///
        "  SE = " %8.4f r(se) "  p = " %6.4f r(p)
     global ATT_REEL = r(estimate)   /* reutilise par le test placebo */
+}
+
+/* ── Sensibilite au seuil inter-dimensionnel k ──────────────────
+   Le seuil k=4 est une convention. On reestime l'ATT en definissant la
+   pauvrete successivement a k=3, 4, 5 et 6 dimensions sur 7, pour verifier
+   que la conclusion ne depend pas du seuil retenu. */
+di _newline "=== Sensibilite de l'ATT au seuil de privation k ==="
+di "  k     Incidence(t=0)   ATT      SE       p"
+foreach k in 3 4 5 6 {
+    quietly gen byte pauvre_k`k' = (nb_dep >= `k') if !missing(nb_dep)
+    quietly summarize pauvre_k`k' [aw=hhweight] if t == 0
+    local inc = r(mean)*100
+    quietly regress pauvre_k`k' i.t##i.D [aw=weight_knn], vce(cluster grappe)
+    quietly lincom 1.t#1.D
+    di "  " %1.0f `k' %14.1f `inc' "%" %10.4f r(estimate) %9.4f r(se) %8.4f r(p)
+    quietly drop pauvre_k`k'
 }
 
 /* ── PSM seul (transversal, sans double difference) ─────────────
@@ -1910,6 +1926,51 @@ graph twoway ///
 set dp period
 graph export "$OUTPUT/figures/fig_distrib_dimensions.pdf", replace
 di ">>> fig_distrib_dimensions.pdf sauvegardé"
+
+/* ============================================================
+   COMPARAISON BENEFICIAIRES / NON-BENEFICIAIRES x 2018-2021
+
+   Coeur descriptif de la section : pour chaque dimension N-MODA et pour
+   l'incidence globale, taux de privation des enfants selon le statut de
+   traitement du menage (D=1 beneficiaire migrant en 2018 ; D=0 non
+   beneficiaire) a chaque vague, ecart entre groupes a chaque date, et
+   evolution de cet ecart (double difference descriptive, non ponderee
+   par l'appariement). Echantillon : panel vrai, ponderation hhweight.
+   ============================================================ */
+
+use "$TEMP/panel_vrai.dta", clear
+
+di _newline(2) "=== Privations : beneficiaires vs non-beneficiaires, 2018 et 2021 ==="
+di "    (panel vrai, pondere hhweight ; D=1 beneficiaire migrant 2018)"
+di _newline "  Indicateur          D=0 2018  D=1 2018   Ecart |  D=0 2021  D=1 2021   Ecart |     DD"
+
+foreach v in dim_assai dim_eau dim_logem dim_nutri dim_sante dim_protect ///
+             dim_educ pauvre_MODA {
+    quietly summarize `v' [aw=hhweight] if t == 0 & D == 0
+    local a0 = r(mean)*100
+    quietly summarize `v' [aw=hhweight] if t == 0 & D == 1
+    local a1 = r(mean)*100
+    quietly summarize `v' [aw=hhweight] if t == 1 & D == 0
+    local b0 = r(mean)*100
+    quietly summarize `v' [aw=hhweight] if t == 1 & D == 1
+    local b1 = r(mean)*100
+    local g0 = `a1' - `a0'      /* ecart benef - non benef en 2018 */
+    local g1 = `b1' - `b0'      /* ecart benef - non benef en 2021 */
+    local dd = `g1' - `g0'      /* evolution de l'ecart = DD descriptive */
+    di "  " %-18s "`v'" %9.1f `a0' %10.1f `a1' %8.1f `g0' " |" ///
+       %9.1f `b0' %10.1f `b1' %8.1f `g1' " |" %7.1f `dd'
+}
+
+/* Test de significativite de l'ecart entre groupes, a chaque vague */
+di _newline "  Test de l'ecart beneficiaires/non-beneficiaires (p-valeurs) :"
+foreach v in dim_assai dim_eau dim_logem dim_nutri dim_sante dim_protect ///
+             dim_educ pauvre_MODA {
+    quietly regress `v' D if t == 0, vce(cluster grappe)
+    local p0 = 2*ttail(e(df_r), abs(_b[D]/_se[D]))
+    quietly regress `v' D if t == 1, vce(cluster grappe)
+    local p1 = 2*ttail(e(df_r), abs(_b[D]/_se[D]))
+    di "  " %-18s "`v'" "  2018 : p=" %6.4f `p0' "   2021 : p=" %6.4f `p1'
+}
 
 di _newline ">>> 06_stats_desc.do terminé."
 di ">>> Sorties dans : $OUTPUT/tables/ et $OUTPUT/figures/"

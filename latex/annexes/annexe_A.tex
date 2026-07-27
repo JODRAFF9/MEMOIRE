@@ -4,8 +4,8 @@
 \subsection{Argument de l'appariement}
 
 Le PSM rend l'hypothèse de tendances parallèles plus crédible en sélectionnant
-des ménages jamais bénéficiaires statistiquement indiscernables des futurs
-entrants à $t=0$, avant le début du traitement. Après appariement k-NN
+des ménages non-bénéficiaires statistiquement indiscernables des futurs
+bénéficiaires à $t=0$. Après appariement k-NN
 ($k=4$, avec remise), la différence standardisée moyenne (SMD) tombe à 1,4\,\%
 (tableau~\ref{tab:balance}).
 
@@ -14,12 +14,12 @@ entrants à $t=0$, avant le début du traitement. Après appariement k-NN
 
 Pour illustrer concrètement l'apport de la double différence par rapport à un
 appariement transversal seul, l'écart de pauvreté N-MODA entre ménages
-entrants et témoins appariés (poids $k$-NN) est estimé séparément à $t=0$
+bénéficiaires et témoins appariés (poids $k$-NN) est estimé séparément à $t=0$
 (EHCVM~I) et $t=1$ (EHCVM~II), sans les différencier.
 
 \begin{table}[H]
   \centering
-  \caption{PSM seul (transversal) vs PSM-DD, design entrants}
+  \caption{PSM seul (transversal) vs PSM-DD}
   \label{tab:psm_sans_dd}
   \zebre
   \begin{tabular}{|l|c|c|c|}
@@ -35,7 +35,7 @@ entrants et témoins appariés (poids $k$-NN) est estimé séparément à $t=0$
   {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM.}
 \end{table}
 
-À la période de base, les futurs entrants ne se distinguent pas des témoins
+À la période de base, les bénéficiaires ne se distinguent pas des témoins
 appariés (2,4~points, $p=0{,}308$)~: l'appariement suffit à équilibrer les
 groupes, cohérent avec le fait qu'aucun n'est encore traité en 2018. À $t=1$,
 l'écart reste faible (2,6~points, $p=0{,}333$), et la double différence est
@@ -47,7 +47,7 @@ chaque étape racontant la même histoire \parencite{heckman1997,heckman1998}.
 \subsection{Test placebo}
 
 En affectant aléatoirement un faux statut de traitement à 17,7\,\% des
-ménages jamais bénéficiaires (part observée des entrants) et en estimant la
+ménages non bénéficiaires (part observée des traités) et en estimant la
 DD sur ce pseudo-traitement (200 réplications), on obtient la distribution
 suivante.
 
@@ -121,8 +121,8 @@ stabilité de la conclusion entre méthodes reste l'enseignement principal.
 
 \subsection{Traitement défini par les bénéficiaires stables}
 
-En complément du design entrants, l'ATT est estimé en comparant les
-bénéficiaires stables ($D=1$ aux deux vagues) aux jamais bénéficiaires. Le
+En complément du design principal, l'ATT est estimé en comparant les
+bénéficiaires stables ($D=1$ aux deux vagues) aux non-bénéficiaires. Le
 PSM-DD donne un ATT positif non significatif ($0{,}038$, $p=0{,}126$)~: la
 pauvreté des enfants durablement bénéficiaires recule moins vite que celle des
 témoins. À interpréter avec prudence~: le traitement y est déjà en cours à la

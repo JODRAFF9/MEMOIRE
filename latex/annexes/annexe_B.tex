@@ -7,10 +7,10 @@ PSM-DD. Le code complet est organisé en scripts numérotés dans le répertoire
 l'ensemble du pipeline)~;
 les erreurs-types sont clusterisées au niveau de la grappe.
 
-\subsection{Statut de traitement des entrants}
+\subsection{Statut de traitement}
 
 \begin{verbatim}
-/* 04_panel.do - entrants vs jamais beneficiaires */
+/* 04_panel.do - beneficiaires 2018 vs non beneficiaires */
 use "$TEMP/traitement_2018.dta", clear
 rename D D_2018
 merge 1:1 grappe menage using "$TEMP/traitement_2021.dta", ///
@@ -84,7 +84,7 @@ foreach dim of local dims {
 Le script \texttt{main.do} orchestre l'ensemble du pipeline~: exploration des
 bases (\texttt{01\_visitation.do}), variable de traitement
 (\texttt{02\_traitement.do}), indicateurs de pauvreté
-(\texttt{03\_deprivation.do}), panel et traitement entrants
+(\texttt{03\_deprivation.do}), panel et traitement
 (\texttt{04\_panel.do}), estimation PSM-DD (\texttt{05\_psm\_dd.do}),
 statistiques descriptives (\texttt{06\_stats\_desc.do}), effets par dimension
 (\texttt{07\_effets\_dim.do}), analyses régionales
