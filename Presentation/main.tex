@@ -198,7 +198,7 @@
   \end{block}
   \begin{alertblock}{Pauvreté infantile : un défi persistant}
     \begin{itemize}
-      \item Plus de \textbf{56\,\%} des enfants souffrent de privations multiples (N-MODA, EHCVM I).
+      \item Plus de \textbf{62\,\%} des enfants souffrent de privations multiples (N-MODA, EHCVM I).
       \item Privations cumulées : éducation, santé, eau, assainissement, logement, nutrition, protection.
       \item La pauvreté monétaire ne suffit pas à capturer toutes ces dimensions.
     \end{itemize}
@@ -422,10 +422,10 @@
           \toprule
           Vague & $H$ & $A$ & $M_0$ \\
           \midrule
-          2018-2019 & 56,6\,\% & 69,5\,\% & 0,393 \\
-          2021-2022 & 48,8\,\% & 68,2\,\% & 0,333 \\
+          2018-2019 & 62,8\,\% & 70,6\,\% & 0,443 \\
+          2021-2022 & 55,3\,\% & 69,2\,\% & 0,383 \\
           \midrule
-          $\Delta$ & $-7{,}8$ pp & $-1{,}3$ pp & $-0{,}060$ \\
+          $\Delta$ & $-7{,}5$ pp & $-1{,}4$ pp & $-0{,}060$ \\
           \bottomrule
         \end{tabular}
       \end{block}
@@ -454,12 +454,13 @@
       \includegraphics[width=\linewidth,height=0.52\textheight,keepaspectratio]{figures/fig_pauvrete_milieu_age.pdf}
     \end{column}
   \end{columns}
-  \begin{alertblock}{Amélioration entre 2018 et 2022}
-    Baisse de 7,8 pp de l'incidence N-MODA ;
-    plus d'un enfant sur deux reste privé dans au moins 4 dimensions.
+  \begin{alertblock}{Bénéficiaires vs non-bénéficiaires : des trajectoires parallèles}
+    Baisse de 7,5 pp de l'incidence N-MODA entre les deux vagues. L'avantage
+    des enfants de ménages bénéficiaires (48,5\,\% contre 67,6\,\% en 2018)
+    se maintient en 2021 (43,1\,\% contre 59,9\,\%) : l'écart ne se referme
+    pas, il ne se creuse pas non plus.
   \end{alertblock}
   \begin{center}
-    \hyperlink{maps-spatial}{\beamergotobutton{Voir les distributions spatiales}}
     \hyperlink{distrib-dimensions}{\beamergotobutton{Distribution selon le seuil}}
   \end{center}
 \end{frame}
@@ -475,13 +476,13 @@
     \begin{column}{0.46\textwidth}
       \begin{block}{Équilibre après appariement ($k$-NN, $k=4$)}
         \begin{itemize}
-          \item Probit peu prédictif (pseudo-$R^2 = 0{,}042$) : sélection
-                initiale modérée, cohérente avec un traitement débutant
-                après la période de base.
-          \item Différence standardisée moyenne (SMD) : 7,7\,\% avant, \textbf{1,4\,\%}
-                après appariement.
-          \item ménages bénéficiaires, tous sur support commun, appariés à
-                1\,863 témoins distincts.
+          \item Probit sur 5\,679 ménages (pseudo-$R^2 = 0{,}128$) :
+                sélection positive marquée sur la dépense par tête, la
+                taille du ménage et le sexe du chef.
+          \item Différence standardisée moyenne : 12,3\,\% avant,
+                \textbf{2,1\,\%} après appariement ; aucun écart résiduel
+                significatif.
+          \item 756 ménages bénéficiaires, tous sur support commun.
         \end{itemize}
       \end{block}
     \end{column}
@@ -500,22 +501,24 @@
       \toprule
       Spécification & ATT & Éc.-t. & $p$-valeur \\
       \midrule
-      DD brute (sans appariement)      & $-0{,}005$ & (0,022) & 0,835 \\
-      \textbf{PSM-DD, k-NN ($k=4$)}   & $\mathbf{-0{,}001}$ & (0,025) & \textbf{0,961} \\
-      PSM-DD, noyau Epanechnikov       & $-0{,}001$ & (0,025) & 0,968 \\
-      PSM-DD, caliper                  & $-0{,}007$ & (0,028) & 0,808 \\
+      DD brute (sans appariement)      & $0{,}032$ & (0,023) & 0,167 \\
+      \textbf{PSM-DD, k-NN ($k=4$)}   & $\mathbf{0{,}043}$ & (0,027) & \textbf{0,119} \\
+      PSM-DD, noyau Epanechnikov       & $0{,}056$ & (0,028) & 0,057 \\
+      PSM-DD, caliper                  & $0{,}019$ & (0,029) & 0,524 \\
       \bottomrule
     \end{tabular}
   \end{table}
-  \begin{alertblock}{Résultat central : aucun effet détectable à court terme}
+  \begin{alertblock}{Résultat central : aucun effet statistiquement établi}
     Sur 2018-2021, la pauvreté multidimensionnelle des enfants des ménages
-    devenus bénéficiaires recule \emph{au même rythme} que celle des témoins
-    appariés. Conclusion robuste aux quatre spécifications.
+    bénéficiaires recule à un rythme \emph{statistiquement indiscernable}
+    de celui des témoins appariés. Conclusion robuste aux quatre
+    spécifications, au seuil $k$ (de 3 à 6) et à la durée d'exposition.
   \end{alertblock}
   \begin{block}{Lecture}
-    Trois mécanismes : délai de matérialisation (privations structurelles vs
-    exposition $<$ 3 ans), compensation entre canaux (apport monétaire vs
-    coûts du départ du migrant), contraintes d'offre de services de base.
+    Quatre mécanismes : usage des fonds (2/3 en soutien courant), délai de
+    matérialisation des privations structurelles, compensation entre canaux
+    (apport monétaire vs coûts du départ du migrant), contraintes d'offre de
+    services de base.
   \end{block}
 \end{frame}
 
@@ -527,24 +530,26 @@
       \includegraphics[width=\linewidth,height=0.46\textheight,keepaspectratio]{figures/fig_effets_dim.pdf}
     \end{column}
     \begin{column}{0.43\textwidth}
-      \begin{alertblock}{Deux canaux opposés qui se compensent}
+      \begin{alertblock}{Aucun effet sectoriel significatif}
         \begin{itemize}
-          \item \textbf{Éducation} : $-3{,}9$ pp ($p=0{,}005$),
-                seule dimension en amélioration significative.
-          \item \textbf{Protection de l'enfant} : $+5{,}1$ pp
-                ($p=0{,}003$), dégradation liée à la séparation
+          \item \textbf{Éducation} : $-0{,}7$ pp ($p=0{,}625$), seule
+                dimension orientée vers une baisse de la privation.
+          \item \textbf{Protection de l'enfant} : $+1{,}2$ pp
+                ($p=0{,}469$), sens inverse, cohérent avec la séparation
                 parentale qui accompagne le départ du migrant.
-          \item Les cinq autres dimensions : aucun effet significatif.
+          \item Les cinq autres dimensions : coefficients faibles, tous
+                non significatifs.
         \end{itemize}
       \end{alertblock}
     \end{column}
   \end{columns}
-  \begin{block}{Lecture : preuve directe du mécanisme de compensation}
-    Le résultat nul agrégé masque deux effets sectoriels de signes opposés
-    et d'ampleurs comparables : le bénéfice éducatif de l'apport monétaire
-    (cohérent avec les motifs déclarés) est neutralisé par le coût de
-    l'absence parentale. Pas de différence significative par sexe ni âge~;
-    milieu à la limite ($p=0{,}053$, dynamique rurale plus favorable non concluante).
+  \begin{block}{Lecture}
+    Le résultat agrégé n'est pas la somme d'effets sectoriels opposés qui se
+    compenseraient, mais la juxtaposition d'effets faibles et imprécis.
+    Aucune différence entre milieux ($p=0{,}862$)~; en revanche, trajectoire
+    relative défavorable chez les \textbf{filles} ($+6{,}5$ pp, $p=0{,}028$)
+    et les \textbf{0-4 ans} ($+8{,}4$ pp, $p=0{,}037$), les plus dépendants
+    de la présence d'un adulte.
   \end{block}
 \end{frame}
 
@@ -558,19 +563,22 @@
   \begin{block}{Sensibilité des résultats}
     \begin{itemize}
       \item Méthodes d'appariement (k-NN, noyau, caliper) et DD brute :
-            conclusion nulle identique dans les quatre cas.
-      \item Panel d'enfants (mêmes enfants suivis entre les vagues) :
-            ATT $= -0{,}014$ ($p=0{,}579$), pas d'artefact de composition par âge.
-      \item Test placebo (200 assignations aléatoires) : l'ATT réel se situe au
-            50\textsuperscript{e} centile de la distribution placebo,
-            indiscernable du hasard.
+            même conclusion dans les quatre cas.
+      \item Seuil inter-dimensionnel $k$ de 3 à 6 : ATT entre $0{,}016$ et
+            $0{,}043$, non significatif à chaque seuil.
+      \item Panel de 17\,786 enfants suivis individuellement entre les
+            vagues : ATT $= 0{,}035$ ($p=0{,}153$), pas d'artefact de
+            composition par âge.
+      \item Test placebo (200 assignations aléatoires) : distribution bien
+            centrée sur zéro (moyenne $0{,}001$).
+      \item Attrition non corrélée au traitement ($p=0{,}101$).
     \end{itemize}
   \end{block}
   \begin{alertblock}{Définition alternative : les bénéficiaires durables}
-    Chez les ménages bénéficiaires aux deux vagues (traitement antérieur à la
-    base), la dynamique relative est défavorable, quoique non significative
-    ($0{,}038$, $p=0{,}126$) : les effets des transferts, dans un sens comme
-    dans l'autre, se matérialisent au-delà de l'horizon de trois ans.
+    Chez les ménages bénéficiaires aux deux vagues, l'ATT vaut $0{,}023$
+    ($p=0{,}474$) : une exposition prolongée aux transferts ne produit pas
+    davantage d'effet mesurable, ce qui affaiblit l'explication du résultat
+    par la seule brièveté de l'horizon.
   \end{alertblock}
 \end{frame}
 
@@ -583,9 +591,9 @@
       \toprule
       Hyp. & Énoncé & Résultat & Décision \\
       \midrule
-      H1 & Réduction de la pauvreté & ATT N-MODA $= -0{,}001$ ($p=0{,}961$) : pas d'effet à court terme & Non rejet de $H_0$ \\[4pt]
-      H2 & Hétérogénéité des effets  & Éducation favorable vs protection dégradée ; rien de significatif par sexe/âge, milieu à la limite ($p=0{,}053$) & Partiellement \\[4pt]
-      H3 & PSM-DD contrôle les biais & Support commun total ; biais moyen 1,4\,\% après appariement & Confirmée \\
+      H1 & Réduction de la pauvreté & ATT N-MODA $= 0{,}043$ ($p=0{,}119$) : pas d'effet établi à court terme & Non validée \\[4pt]
+      H2 & Hétérogénéité des effets  & Aucun effet significatif par dimension ni par milieu ($p=0{,}862$) ; écarts par sexe et par âge & Non validée \\[4pt]
+      H3 & PSM-DD contrôle les biais & PSM seul : $-8{,}1$ pp à $t=0$ ($p=0{,}005$) ; la DD élimine cet écart pré-traitement & Confirmée \\
       \bottomrule
     \end{tabular}
   \end{table}
@@ -603,16 +611,16 @@
       \item Mesure de la pauvreté multidimensionnelle des enfants sur deux
             vagues EHCVM selon l'approche N-MODA (7 dimensions, $k=4$).
       \pause
-      \item L'incidence N-MODA recule de 56,6\,\% (2018) à 48,8\,\% (2021) :
+      \item L'incidence N-MODA recule de 62,8\,\% (2018) à 55,3\,\% (2021) :
             amélioration réelle mais la pauvreté reste massive.
       \pause
-      \item Devenir bénéficiaire de transferts ne modifie pas, à trois ans,
-            la trajectoire de privations des enfants (ATT $0{,}010$,
-            $p=0{,}707$, robuste aux quatre spécifications).
+      \item Recevoir des transferts ne modifie pas, à trois ans, la
+            trajectoire de privations des enfants (ATT $0{,}043$,
+            $p=0{,}119$, robuste aux quatre spécifications et au seuil $k$).
       \pause
-      \item L'impact est différencié : l'éducation s'améliore
-            ($-3{,}2$ pp) tandis que la protection se dégrade
-            ($+2{,}9$ pp) - deux canaux opposés qui se compensent.
+      \item Aucun effet significatif par dimension, mais une trajectoire
+            relative défavorable chez les filles et les 0-4 ans : le coût de
+            l'absence parentale pèse sur les plus vulnérables.
     \end{enumerate}
   \end{block}
 \end{frame}
@@ -648,7 +656,8 @@
       \item L'ATT capte l'effet conjoint du départ du migrant et des transferts ;
             durée d'exposition variable au sein des bénéficiaires (effet de court terme).
       \item Dimension nutrition limitée à la sécurité alimentaire (module FIES).
-      \item Effets de spillover possibles entre ménages bénéficiaires et non-bénéficiaires.
+      \item Puissance limitée : 756 ménages traités, intervalle de confiance
+            large ($[-1{,}1 ; 9{,}6]$ pp).
     \end{itemize}
   \end{alertblock}
   \pause
@@ -714,12 +723,6 @@
   \smallskip
   {\scriptsize \checkmark~= applicable au groupe d'âge~; -~= non applicable.
    \textit{Source :} adaptation de l'ANSD/UNICEF (2024) aux fichiers EHCVM I et II.}\\[0.2cm]
-  \hyperlink{privations-dim}{\beamerreturnbutton{Retour}}
-\end{frame}
-
-\begin{frame}[label=maps-spatial]{Taux de privation régionale}
-  \centering
-  \includegraphics[height=0.74\textheight,keepaspectratio]{figures/fig_carte_nmoda.pdf}\\[0.2cm]
   \hyperlink{privations-dim}{\beamerreturnbutton{Retour}}
 \end{frame}
 
