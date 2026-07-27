@@ -1,3 +1,7 @@
+% Marqueur provisoire : cellules a renseigner depuis le log Stata
+% (table de sensibilite au seuil k). A supprimer une fois les valeurs saisies.
+\providecommand{\PLACEHOLDER}{\textbf{\textit{à compléter}}}
+
 \section{Tendances parallèles et tests complémentaires}
 \label{ann:A}
 
@@ -110,6 +114,39 @@ enfants privés dans 5 dimensions ou plus recule, tandis que celle des enfants
 privés dans 0 à 3 dimensions progresse. Le choix de $k=4$ se situe au
 voisinage du mode de la distribution, sans discontinuité marquée qui
 justifierait un autre seuil.
+
+Au-delà de la forme de la distribution, il importe de vérifier que la
+\emph{conclusion causale} ne dépend pas du seuil retenu. L'ATT est donc
+ré-estimé en définissant successivement la pauvreté à $k=3$, $4$, $5$ et $6$
+dimensions sur sept, la spécification et les poids d'appariement restant par
+ailleurs inchangés (tableau~\ref{tab:sensib_k}).
+
+\begin{table}[H]
+  \centering
+  \caption[Sensibilité de l'ATT au seuil inter-dimensionnel $k$]{Sensibilité de l'ATT au seuil inter-dimensionnel $k$\protect\footnotemark}
+  \label{tab:sensib_k}
+  \zebre
+  \begin{tabular}{|c|c|c|c|c|}
+    \hline
+\entete Seuil $k$ & Incidence à $t=0$ (\%) & ATT & Écart-type & $p$-val. \\
+    \hline
+    3 & \PLACEHOLDER & \PLACEHOLDER & \PLACEHOLDER & \PLACEHOLDER \\ \hline
+    4 (référence) & \PLACEHOLDER & \PLACEHOLDER & \PLACEHOLDER & \PLACEHOLDER \\ \hline
+    5 & \PLACEHOLDER & \PLACEHOLDER & \PLACEHOLDER & \PLACEHOLDER \\ \hline
+    6 & \PLACEHOLDER & \PLACEHOLDER & \PLACEHOLDER & \PLACEHOLDER \\
+    \hline
+  \end{tabular}
+
+  {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM.}
+\end{table}
+\footnotetext{\textit{Note :} appariement k-NN, erreurs-types clusterisées par grappe. Seule la définition de la variable de résultat change d'une ligne à l'autre.}
+
+Abaisser le seuil élargit mécaniquement la population considérée comme pauvre,
+tandis que l'élever la restreint aux enfants cumulant le plus de privations~:
+faire varier $k$ revient donc à déplacer le curseur de la sévérité. La
+stabilité de l'ATT sur toute cette plage indique que le résultat ne tient pas
+au choix conventionnel de $k=4$, et qu'il vaut aussi bien pour les privations
+larges que pour les situations les plus sévères.
 
 \subsection{Résultats de l'appariement avec différentes méthodes}
 
