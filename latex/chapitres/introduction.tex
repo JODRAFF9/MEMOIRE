@@ -2,83 +2,93 @@
 \addcontentsline{toc}{section}{Introduction générale}
 \markboth{Introduction générale}{Introduction générale}
 
-Le Sénégal, à l'instar de nombreux pays d'Afrique subsaharienne, se caractérise
-par une dépendance structurelle aux transferts de fonds envoyés par sa diaspora.
-Selon la Banque mondiale \parencite{worldbank2023}, ces flux représentent entre
-10 et 12\% du produit intérieur brut sénégalais, dépassant largement les
-investissements directs étrangers et l'aide publique au développement. En valeur,
-les transferts des travailleurs migrants atteignaient déjà 459,1 milliards de
-FCFA en 2006 \parencite{diagne2008}, témoignant de l'ancienneté et de l'ampleur
-de ces flux. Cette
-réalité traduit l'ampleur des liens économiques qui unissent les ménages
-sénégalais à leurs membres établis à l'étranger, en France, en Italie, en
-Espagne, aux États-Unis et dans de nombreux autres pays. La diaspora sénégalaise,
-estimée à plus de trois millions de personnes \parencite{ndiaye2013}, constitue
-ainsi un acteur économique majeur dont les envois de fonds conditionnent le
-quotidien de plusieurs centaines de milliers de ménages.
+\subsection*{Contexte}
 
-Parallèlement, la pauvreté infantile demeure un défi persistant
-du développement sénégalais. Les enfants y subissent des privations cumulées
-dans des domaines fondamentaux pour leur développement : l'éducation, la santé,
-la nutrition, l'eau potable, l'assainissement, le logement et la protection.
-Ces privations multiples, qui échappent aux mesures traditionnelles fondées sur
-le seul revenu du ménage, ont des conséquences durables sur le capital humain
-et les perspectives d'avenir des générations futures. C'est pourquoi ce mémoire
-mesure la pauvreté des enfants par une approche multidimensionnelle
-(N-MODA), plus fidèle à la réalité de leur bien-être~: le recours à cette
-approche, plutôt qu'à un indicateur monétaire agrégé, constitue l'un des
-apports du présent travail.
+Le Sénégal se caractérise par une dépendance structurelle aux transferts de
+fonds de sa diaspora. Selon la Banque mondiale \parencite{worldbank2023}, ces
+flux représentent entre 10 et 12\,\% du produit intérieur brut, dépassant
+largement les investissements directs étrangers et l'aide publique au
+développement. Ils ne relèvent pas d'un phénomène marginal à l'échelle des
+ménages~: en 2018-2019, près d'un ménage sénégalais sur quatre (24\,\%) déclare
+recevoir un transfert en provenance de l'étranger, pour un montant médian
+proche de 300\,000 FCFA par an, soit un ordre de grandeur comparable au seuil
+de pauvreté monétaire annuel par tête. Portés par une diaspora estimée à plus
+de trois millions de personnes \parencite{ndiaye2013}, ces envois constituent
+une ressource privée de premier plan pour les ménages receveurs.
 
-La question de l'impact des transferts de migrants sur le bien-être des enfants
-se situe à la jonction de ces deux réalités. Si plusieurs travaux ont documenté
-l'impact des remittances sur la scolarisation \parencite{cox2003, acosta2011},
-la santé \parencite{hildebrandt2005, amuedo2007} ou la consommation des ménages
-\parencite{adams2005, yang2008}, l'analyse de leur impact sur la pauvreté
-multidimensionnelle des enfants, entendue comme la privation simultanée dans
-plusieurs dimensions du bien-être, reste insuffisamment explorée dans le
-contexte sénégalais. Cette lacune est d'autant plus notable que les bases de
-données disponibles offrent désormais des opportunités méthodologiques nouvelles
-pour aborder cette question de manière rigoureuse.
+Parallèlement, la pauvreté infantile demeure un défi persistant. Selon
+l'actualisation N-MODA de l'ANSD et de l'UNICEF \parencite{ansd2024},
+50,7\,\% des enfants sénégalais de 0 à 17 ans étaient, en 2018, privés
+simultanément dans au moins quatre des sept dimensions de leur bien-être~:
+éducation, santé, nutrition, eau, assainissement, logement et protection. Ces
+privations cumulées, qui échappent aux mesures fondées sur le seul revenu du
+ménage, pèsent durablement sur la formation du capital humain. C'est pourquoi
+la pauvreté des enfants est ici appréhendée par une approche
+multidimensionnelle (N-MODA), plus fidèle à la réalité de leur bien-être~; ce
+choix, plutôt qu'un indicateur monétaire agrégé, constitue l'un des apports du
+présent travail.
 
-La principale difficulté méthodologique tient au biais de sélection~: les ménages
-bénéficiaires de transferts diffèrent systématiquement des non-bénéficiaires sur
-des caractéristiques observables et inobservables, ce qui rend toute comparaison
-naïve biaisée.
+\subsection*{Problématique}
 
-Pour surmonter cette difficulté, le présent travail combine deux méthodes
-d'évaluation d'impact : l'appariement par score de propension (PSM), introduit
-par \textcite{rosenbaum1983} et opérationnalisé par \textcite{heckman1997},
-et la méthode de la double différence (DD). La disponibilité de deux vagues de l'Enquête harmonisée sur les conditions
-de vie des ménages, l'EHCVM I (2018-2019) et l'EHCVM II (2021-2022), constitue une opportunité pour mettre en œuvre cette stratégie
-d'identification combinée. L'EHCVM II ayant suivi effectivement 86\,\% des
-ménages de la première vague (6\,127 ménages identifiés), il est possible d'observer les mêmes unités avant et après,
-ce qui renforce la crédibilité de l'hypothèse de tendances parallèles et
-permet de contrôler simultanément les biais de sélection observables et les
-effets fixes inobservables stables dans le temps. Le présent travail vise à répondre à la question suivante : 
+Ces deux réalités se rejoignent en une question simple~: cette ressource
+privée massive parvient-elle effectivement à réduire les privations des
+enfants~? La réponse n'a rien d'évident. D'un côté, les transferts desserrent
+la contrainte budgétaire et peuvent financer scolarité, soins et équipements
+du logement. De l'autre, ils sont indissociables du départ d'un membre du
+ménage~: l'apport monétaire s'accompagne d'une réorganisation familiale et de
+l'absence d'un parent, dont les effets sur l'enfant vont en sens inverse. À
+cela s'ajoute que plusieurs privations relèvent de l'offre publique de
+services, que le seul pouvoir d'achat ne suffit pas à lever.
 
-Dans quelle mesure les transferts de migrants
-réduisent-ils la pauvreté multidimensionnelle des enfants au Sénégal ?
+Si plusieurs travaux ont documenté l'impact des transferts sur la
+scolarisation \parencite{cox2003, acosta2011}, la santé
+\parencite{hildebrandt2005, amuedo2007} ou la consommation des ménages
+\parencite{adams2005, yang2008}, leur effet sur la pauvreté
+\emph{multidimensionnelle} des enfants, entendue comme la privation simultanée
+dans plusieurs dimensions, reste peu exploré dans le contexte sénégalais.
 
-L'objectif général de cette étude est d'évaluer l'impact causal des
-transferts de migrants sur la pauvreté multidimensionnelle des enfants au Sénégal,
-à partir des données EHCVM I et II, en mobilisant une approche PSM combinée
-à la double différence.
+Évaluer cet effet se heurte enfin à une difficulté d'identification~: les
+ménages bénéficiaires diffèrent systématiquement des autres, sur des
+caractéristiques observables comme inobservables. Recevoir des transferts
+suppose en effet d'appartenir à un réseau migratoire, ce qui rend toute
+comparaison naïve entre bénéficiaires et non-bénéficiaires biaisée et impose
+une stratégie d'identification explicite.
+
+\subsection*{Question de recherche et objectifs}
+
+Le présent travail vise à répondre à la question suivante~: \textbf{dans quelle
+mesure les transferts de migrants réduisent-ils la pauvreté
+multidimensionnelle des enfants au Sénégal~?}
+
+L'objectif général est d'évaluer l'\emph{impact causal} des transferts de
+migrants sur la pauvreté multidimensionnelle des enfants, à partir des deux
+vagues de l'Enquête harmonisée sur les conditions de vie des ménages
+(EHCVM~I, 2018-2019 et EHCVM~II, 2021-2022). De manière spécifique, il s'agit
+de~:
+
+\begin{enumerate}
+  \item Construire un indice de pauvreté multidimensionnelle adapté aux enfants
+        sénégalais selon l'approche N-MODA~;
+  \item Analyser l'évolution des privations entre les deux vagues, en comparant
+        les enfants des ménages bénéficiaires et non bénéficiaires de
+        transferts~;
+  \item Estimer l'impact causal des transferts sur la pauvreté N-MODA à l'aide
+        de l'estimateur PSM-double différence, et analyser l'hétérogénéité des
+        effets selon le milieu de résidence, le sexe et l'âge de l'enfant ainsi
+        que la dimension de privation.
+\end{enumerate}
 
 \medskip
 
-De manière spécifique, il s'agit de :
-\begin{enumerate}
-  \item Construire un indice de pauvreté multidimensionnelle adapté aux enfants
-        sénégalais selon l'approche N-MODA;
-  \item Analyser l'évolution de la pauvreté multidimensionnelle des enfants entre
-        les deux vagues de l'EHCVM (2018-2019 et 2021-2022), en distinguant les
-        milieux de résidence et les régions ;
-  \item Estimer l'impact causal des transferts de migrants sur la pauvreté
-        multidimensionnelle N-MODA des enfants à
-        l'aide de l'estimateur PSM-Double différence, et analyser
-        l'hétérogénéité des effets selon le milieu de résidence, le genre de
-        l'enfant et la dimension de privation.
-\end{enumerate}
+Pour identifier cet effet, l'étude combine deux méthodes d'évaluation
+d'impact~: l'appariement par score de propension (PSM), introduit par
+\textcite{rosenbaum1983} et opérationnalisé par \textcite{heckman1997}, qui
+corrige la sélection sur les caractéristiques observables, et la double
+différence (DD), qui élimine les écarts inobservables stables dans le temps.
+L'EHCVM~II ayant suivi 86\,\% des ménages de la première vague
+(6\,127 ménages), les mêmes unités sont observées aux deux dates, ce qui rend
+cette stratégie combinée opérationnelle et renforce la crédibilité de
+l'hypothèse de tendances parallèles.
 
 \medskip
 
@@ -101,8 +111,8 @@ ce travail entend répondre. La section 2 présente les données EHCVM I et II
 ainsi que le cadre méthodologique : construction de l'indice N-MODA de pauvreté
 multidimensionnelle des enfants et stratégie d'identification
 PSM-Double différence. La section 3
-expose les statistiques descriptives sur la pauvreté multidimensionnelle des enfants
-et les caractéristiques des ménages bénéficiaires. La section 4 présente
+expose les statistiques descriptives, en confrontant les privations des enfants
+des ménages bénéficiaires et non bénéficiaires aux deux vagues. La section 4 présente
 les résultats des estimations PSM-DD. La section 5 discute la robustesse
 des résultats et l'hétérogénéité des effets. La section 6 conclut et
 formule des recommandations de politique économique.
