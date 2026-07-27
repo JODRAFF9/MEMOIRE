@@ -438,19 +438,31 @@ du traitement sur les traités (ATT) :
   \tau_{ATT} = \E\left[Y_i(1) - Y_i(0) \mid D_i = 1\right].
   \label{eq:att}
 \end{equation}
-L'estimateur naïf est biaisé car les ménages bénéficiaires et non-bénéficiaires
-diffèrent systématiquement sur des caractéristiques observables et inobservables
-(biais de sélection).
+L'estimateur naïf est biaisé car les enfants de ménages bénéficiaires et ceux
+de ménages non bénéficiaires diffèrent systématiquement sur des
+caractéristiques observables et inobservables (biais de sélection).
 
 \subsubsection{Appariement par score de propension}
 
 L'appariement par score de propension, introduit par \textcite{rosenbaum1983},
 corrige le biais de sélection lié aux caractéristiques observables dans les
-études non expérimentales. Plutôt qu'une comparaison directe entre ménages
-bénéficiaires et non-bénéficiaires, potentiellement différents dès le
-départ, il construit pour chaque ménage bénéficiaire un contrefactuel crédible
-à partir de ménages non-bénéficiaires aux caractéristiques observables
-similaires. Le PSM repose sur deux hypothèses. La première est l'indépendance
+études non expérimentales. Plutôt qu'une comparaison directe entre enfants de
+ménages bénéficiaires et enfants de ménages non bénéficiaires, potentiellement
+différents dès le départ, il construit pour chaque enfant bénéficiaire un
+contrefactuel crédible à partir d'enfants non bénéficiaires aux
+caractéristiques observables similaires.
+
+L'unité $i$ est donc l'\emph{enfant}, et non le ménage. Le transfert est certes
+reçu par le ménage, mais la variable de résultat est la privation de l'enfant,
+et deux enfants d'un même ménage n'ont ni le même sexe, ni le même âge, ni donc
+les mêmes dimensions MODA applicables. On pose ainsi $D_i = 1$ si l'enfant $i$
+vit dans un ménage bénéficiaire à la période de base, et le score de propension
+$p(X_i)$ s'interprète comme la \emph{probabilité qu'un enfant de
+caractéristiques $X_i$ vive dans un ménage bénéficiaire}. Le vecteur $X_i$
+combine à cet effet deux niveaux~: les caractéristiques du ménage à la période
+de base, qui gouvernent la sélection dans le traitement, et celles de l'enfant
+lui-même -- son sexe et son âge --, qui garantissent que chaque enfant traité
+soit comparé à des enfants évalués sur les mêmes dimensions. Le PSM repose sur deux hypothèses. La première est l'indépendance
 conditionnelle (CIA) : conditionnellement aux covariables observées $X_i$,
 les résultats potentiels sont indépendants du traitement,
 \begin{equation}
@@ -470,10 +482,12 @@ estimé par un modèle probit :
 Les covariables $X_i$ du modèle probit sont choisies pour satisfaire
 l'hypothèse d'indépendance conditionnelle (CIA) tout en évitant d'inclure
 des variables potentiellement affectées par le traitement~: chacune est
-mesurée à la période de base (2018) et se rattache à l'un des cadres
-théoriques exposés en revue de littérature (section~\ref{sec:revue}), qui
-gouvernent conjointement la décision de migrer, d'envoyer des transferts et,
-partant, le statut de bénéficiaire du ménage.
+mesurée à la période de base (2018). Les covariables de ménage se rattachent
+à l'un des cadres théoriques exposés en revue de littérature
+(section~\ref{sec:revue}), qui gouvernent conjointement la décision de migrer,
+d'envoyer des transferts et, partant, le statut de bénéficiaire du ménage. Les
+covariables individuelles répondent quant à elles à une exigence de mesure
+propre à l'approche MODA, exposée plus bas.
 
 Les caractéristiques du chef de ménage relèvent d'abord de la théorie
 néoclassique du capital humain \parencite{sjaastad1962, harris1970}~: l'âge et
@@ -528,6 +542,8 @@ azam2016, combes2019}.
                    & Bien-être initial (dépense par tête) \\ \hline
     Localisation   & Milieu (urbain = 1)   \\ \hline
                    & Région (14 régions)   \\ \hline
+    Enfant         & Sexe (féminin = 1)    \\ \hline
+                   & Âge (années révolues) \\ \hline
   \end{tabular}
 
   {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM.}
@@ -536,69 +552,29 @@ azam2016, combes2019}.
 logarithme pour réduire l'asymétrie de la distribution~; la région est
 traitée comme un facteur à 14 modalités. La spécification retient la taille
 du ménage, le logarithme de la dépense par tête, le milieu, la région, le
-sexe, l'âge, l'éducation et le statut matrimonial du chef de ménage.}
+sexe, l'âge, l'éducation et le statut matrimonial du chef de ménage, ainsi que
+le sexe et l'âge de l'enfant.}
 
-L'appariement est réalisé au niveau du ménage : toutes les covariables
-du score de propension étant des caractéristiques du ménage,
-tous les enfants d'un même ménage partagent le même score. Apparier au niveau
-de l'enfant induirait des ex-aequo massifs et une pondération arbitraire par
-le nombre d'enfants~; l'appariement au niveau ménage évite ces artefacts, les
-poids d'appariement étant ensuite appliqués à l'ensemble des enfants du ménage
-dans l'estimation. Ce poids n'est pas divisé par le nombre d'enfants du
-ménage~: chaque enfant hérite du poids complet de son ménage, de sorte qu'un
-ménage comptant davantage d'enfants pèse proportionnellement plus dans
-l'estimation. Ce choix est cohérent avec l'unité d'analyse retenue,
-l'enfant, l'objectif étant de mesurer l'effet moyen sur les enfants et non
-sur les ménages.
+L'appariement est réalisé au niveau de l'enfant. Ce choix a deux
+justifications. La première tient à la mesure~: les dimensions MODA
+applicables dépendent du groupe d'âge de l'enfant, de sorte qu'apparier au
+niveau du ménage reviendrait à traiter comme interchangeables des enfants dont
+le bien-être n'est pas évalué sur les mêmes indicateurs. Introduire le sexe et
+l'âge dans le score garantit au contraire qu'un enfant traité soit comparé à
+des enfants témoins évalués sur les mêmes dimensions. La seconde tient à
+l'unité d'analyse~: l'objectif est de mesurer un effet moyen sur les
+\emph{enfants}, non sur les ménages, et c'est donc la population d'enfants qui
+doit être équilibrée entre traités et témoins.
 
-Trois algorithmes d'appariement sont mis en œuvre et comparés \parencite{caliendo2008,
-heckman1997}. L'appariement aux $k$ plus proches voisins \parencite{rosenbaum1983}
-($k = 4$, avec remplacement) associe à chaque traité les 4 témoins les plus proches
-en termes de score :
-\begin{equation}
-  \hat{\tau}_{k\text{-NN}} = \frac{1}{n_T} \sum_{i \in \mathcal{T}}
-  \left[Y_i - \frac{1}{k}\sum_{j \in \mathcal{N}(i)} Y_j\right].
-  \label{eq:knn}
-\end{equation}
-L'appariement par noyau d'Epanechnikov \parencite{heckman1997} utilise une moyenne
-pondérée de l'ensemble des témoins, les poids décroissant avec la distance en score :
-\begin{equation}
-  \hat{\tau}_{\text{kernel}} = \frac{1}{n_T} \sum_{i \in \mathcal{T}}
-  \left[Y_i - \frac{\sum_{j \in \mathcal{C}} K\!\left(\frac{p_i-p_j}{h}
-  \right) Y_j}{\sum_{j \in \mathcal{C}} K\!\left(\frac{p_i-p_j}{h}\right)}
-  \right],
-  \label{eq:kernel}
-\end{equation}
-où $h = 0{,}06$ est la largeur de bande. Enfin, l'appariement par rayon
-(caliper) \parencite{caliendo2008} associe à chaque traité un unique témoin,
-le plus proche en score, à condition que leur distance ne dépasse pas un
-rayon maximal $\epsilon$~:
-\begin{equation}
-  \hat{\tau}_{\text{caliper}} = \frac{1}{n_T^{\epsilon}}
-  \sum_{i \in \mathcal{T}^{\epsilon}} \left[Y_i - Y_{j(i)}\right],
-  \qquad j(i) = \argmin_{j \in \mathcal{C}} \left|p_i - p_j\right|
-  \;\text{ sous contrainte }\; \left|p_i - p_{j(i)}\right| < \epsilon,
-  \label{eq:caliper}
-\end{equation}
-avec $\epsilon = 0{,}05$ et un appariement sans remise (chaque témoin ne
-peut être utilisé qu'une fois). Les traités sans témoin à l'intérieur du
-rayon sont écartés de l'estimation ($\mathcal{T}^{\epsilon}$ désigne les
-$n_T^{\epsilon}$ traités appariés)~: cette méthode privilégie donc la
-qualité de chaque appariement au prix d'une réduction de l'échantillon,
-à l'inverse du noyau qui mobilise tous les témoins. La comparaison des
-trois algorithmes, qui arbitrent différemment entre biais (proximité des
-appariements) et variance (nombre de témoins mobilisés), sert de test de
-robustesse à la section des résultats.
-
-La qualité de l'appariement est évaluée par la différence standardisée moyenne (SMD)
-\parencite{rosenbaum1983},
-\begin{equation}
-  SB_j = 100 \cdot \frac{\bar{X}_{1j} - \bar{X}_{0j}}
-  {\sqrt{0{,}5\left(V_{1j} + V_{0j}\right)}},
-  \label{eq:sb}
-\end{equation}
-un $|SB| < 10$ traduit un équilibre satisfaisant \parencite{caliendo2008},
-ainsi que par le test $t$ d'égalité des moyennes et la statistique pseudo-$R^2$.
+Ce choix a une contrepartie. Les enfants d'un même ménage partageant leurs
+covariables de ménage, leurs scores de propension sont proches, et les ménages
+nombreux entrent dans l'estimation autant de fois qu'ils comptent d'enfants.
+Cette pondération est voulue -- un ménage de six enfants doit peser six fois
+plus qu'un ménage d'un enfant dans une étude de la pauvreté infantile -- mais
+elle rend certaines covariables de ménage plus difficiles à équilibrer, ce que
+le diagnostic post-appariement de la section~\ref{sec:resultats} documente.
+Les erreurs-types sont clusterisées au niveau de la grappe, qui englobe la
+corrélation entre enfants d'un même ménage.
 
 \subsubsection{Double différence}
 
