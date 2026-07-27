@@ -18,7 +18,7 @@
      02_traitement  — variable D + identification panel
      03_deprivation — indicateurs N-MODA
      04_panel       — panel vrai + traitement entrants
-     05_psm_dd      — estimation PSM-DD (matching niveau menage)
+     05_psm_dd      — estimation PSM-DD (matching niveau enfant)
      06_stats_desc  — statistiques descriptives
      07_effets_dim  — effets par dimension
      08_carte_region— carte regionale
@@ -1053,67 +1053,122 @@ tabstat D, by(t) stat(mean sum n) format(%6.3f)
 save "$TEMP/panel_complet.dta", replace
 
 /* ============================================================
-   SECTION : 05_PSM_DD — Estimation PSM-DD sur panel vrai
+   SECTION : 05_PSM_DD — Estimation PSM-DD au niveau ENFANT
 
    Strategie :
-     1. Probit au NIVEAU MENAGE sur t=0 -> score de propension
-        (toutes les covariables du score sont des caracteristiques
-        menage : l'appariement au niveau menage est l'approche
-        correcte ; il evite les ex-aequo massifs qu'induirait un
-        appariement au niveau enfant avec des scores identiques
-        au sein d'un meme menage)
-     2. Verification equilibre (SMD)
-     3. Appariement PSM (k-NN, kernel, caliper) au niveau menage
-     4. DD brute (sans appariement)
-     5. PSM-DD sur panel vrai (Heckman et al. 1997/1998)
+     1. Panel d'enfants suivis entre les deux vagues (cle preload)
+        puis probit au NIVEAU ENFANT sur t=0 -> score de propension.
+        L'unite d'analyse du memoire est l'enfant : c'est donc sur les
+        enfants qu'on apparie. Les covariables melangent les
+        caracteristiques du menage a la periode de base (taille,
+        depense par tete, milieu, region, sexe/age/education/statut
+        matrimonial du chef) et celles de l'enfant (sexe, age) : deux
+        enfants d'un meme menage n'ont ni le meme sexe, ni le meme age,
+        ni donc les memes dimensions MODA applicables.
+     2. Verification equilibre (SMD) sur les covariables menage ET enfant
+     3. Appariement PSM (k-NN, kernel, caliper) au niveau enfant
+     4. DD brute (sans appariement, reference)
+     5. PSM-DD sur le panel d'enfants apparie (Heckman et al. 1997/1998)
      6. Heterogeneite (milieu, sexe, age)
-     7. Robustesse (seuil k, methodes d'appariement)
+     7. Robustesse (seuil k, methodes d'appariement, agregat menage)
 
-   Traitement : design ENTRANTS (aucun transfert en 2018 puis
-   transfert etranger en 2021, vs jamais beneficiaire ; menages
-   deja beneficiaires en 2018 exclus en 04_panel).
-
-   Aucune ponderation par poids d'enquete (hhweight) : estimations
-   sur effectifs bruts, erreurs-types clusterisees par grappe.
-   Le seul poids utilise est le poids d'appariement PSM.
+   Traitement : defini a la periode de base (2018), transfert d'un
+   expediteur residant hors du Senegal et ayant deja vecu dans le
+   menage.
    ============================================================ */
-
-
-/* Verifier/installer psmatch2 si absent */
-capture which psmatch2
-if _rc {
-    di "Installation de psmatch2 depuis SSC..."
-    ssc install psmatch2, replace
-}
 
 /* ============================================================
-   1. Score de propension (probit MENAGE sur t=0, panel vrai)
+   1. Score de propension (probit ENFANT sur t=0, panel d'enfants)
+
+   L'unite d'analyse du memoire est l'ENFANT : le score de propension et
+   l'appariement sont donc estimes au niveau individuel, et non au niveau
+   du menage. Le traitement est certes recu par le menage, mais c'est la
+   privation de l'enfant qui est la variable de resultat, et deux enfants
+   d'un meme menage n'ont ni le meme sexe, ni le meme age, ni donc les
+   memes dimensions MODA applicables.
+
+   Echantillon : enfants presents aux DEUX vagues, apparies par leur
+   identifiant individuel precharge (s01qpreload_pid). C'est la seule
+   construction ou le poids d'appariement calcule a t=0 se rapporte au
+   MEME individu a t=1, condition d'une double difference individuelle.
+
+   Covariables : caracteristiques du menage a la periode de base + sexe et
+   age de l'enfant.
    ============================================================ */
 
-use "$TEMP/panel_vrai.dta", clear
-keep if t == 0 & !missing(D) & !missing(log_pcexp) & !missing(hhsize)
-bysort grappe menage: keep if _n == 1   /* un menage = une observation */
+/* ── 1a. Construction du panel d'enfants suivis ──────────────
+   Cle : numind_2018, identifiant de 2018 precharge dans le roster 2021.
+   Le rang dans le roster 2021 (numind) ne designe pas le meme individu
+   qu'en 2018. */
+use "$TEMP/enfants_dep_2018.dta", clear
+keep grappe menage numind sexe age pauvre_MODA nb_dep groupe_moda ///
+     dim_assai dim_eau dim_logem dim_nutri dim_sante dim_protect dim_educ ///
+     hhweight hhsize pcexp region milieu hgender hage heduc hmstat
+rename numind numind_2018
+foreach v in sexe age pauvre_MODA nb_dep groupe_moda ///
+             dim_assai dim_eau dim_logem dim_nutri dim_sante dim_protect dim_educ {
+    rename `v' `v'18
+}
+tempfile enf18_psm
+save `enf18_psm'
 
-di _newline "=== Probit menage — score de propension (EHCVM I, panel vrai) ==="
-di "Menages : " _N
+use "$TEMP/enfants_dep_2021.dta", clear
+keep grappe menage numind sexe age pauvre_MODA nb_dep groupe_moda ///
+     dim_assai dim_eau dim_logem dim_nutri dim_sante dim_protect dim_educ
+foreach v in sexe age pauvre_MODA nb_dep groupe_moda ///
+             dim_assai dim_eau dim_logem dim_nutri dim_sante dim_protect dim_educ {
+    rename `v' `v'21
+}
+merge m:1 grappe menage numind using "$TEMP/lien_individus.dta", ///
+    keepusing(numind_2018) keep(match) nogenerate
+drop numind
+merge 1:1 grappe menage numind_2018 using `enf18_psm', keep(match) nogenerate
 
+/* Traitement defini a la periode de base (transfert 2018, expediteur
+   ex-membre du menage) */
+merge m:1 grappe menage using "$TEMP/traitement_2018.dta", ///
+    keepusing(D) keep(match) nogenerate
+
+/* Restriction aux menages du panel vrai */
+merge m:1 grappe menage using "$TEMP/ids_panel.dta", keep(match) nogenerate
+
+gen log_pcexp = log(pcexp + 1)
+foreach v in milieu region heduc hmstat {
+    capture destring `v', replace
+}
+
+/* Un identifiant individuel unique, stable entre les deux vagues */
+egen long enfid = group(grappe menage numind_2018)
+label var enfid "Identifiant individuel de l'enfant (panel)"
+
+drop if missing(D) | missing(log_pcexp) | missing(hhsize) ///
+       | missing(sexe18) | missing(age18) | missing(pauvre_MODA18) ///
+       | missing(pauvre_MODA21)
+
+di _newline "=== Probit ENFANT — score de propension (EHCVM I, panel d'enfants) ==="
+di "Enfants suivis aux deux vagues : " _N
+
+/* ── 1b. Probit au niveau enfant ─────────────────────────────
+   Covariables du menage a t=0 + sexe et age de l'enfant. Erreurs-types
+   clusterisees au niveau de la grappe (le traitement varie au niveau
+   menage : la correlation intra-grappe couvre aussi l'intra-menage). */
 probit D c.hhsize c.log_pcexp i.milieu i.region ///
-         c.hgender c.hage i.heduc i.hmstat, vce(cluster grappe) nolog
+         c.hgender c.hage i.heduc i.hmstat ///
+         i.sexe18 c.age18, vce(cluster grappe) nolog
 
 di "Pseudo-R2 McFadden : " %6.3f 1 - e(ll)/e(ll_0)
 
 predict pscore, pr
-label var pscore "Score de propension (menage)"
+label var pscore "Score de propension (enfant)"
 
 /* Graphique de densite (support commun) */
 set dp comma
 twoway ///
     (kdensity pscore if D == 0, lcolor(gs9) lwidth(medthick)) ///
     (kdensity pscore if D == 1, lcolor(orange) lwidth(medthick)), ///
-    legend(order(1 "Jamais bénéficiaires" 2 "Entrants (D=0 vers 1)") ///
+    legend(order(1 "Enfants non bénéficiaires" 2 "Enfants bénéficiaires") ///
            pos(6) rows(1) region(color(white))) ///
     xtitle("Score de propension") ytitle("Densité") ///
-    xlabel(0(0.1)0.5, format(%3.1f)) ///
     graphregion(color(white)) plotregion(color(white)) ///
     saving("$OUTPUT/overlap_panel.gph", replace)
 set dp period
@@ -1122,55 +1177,83 @@ graph export "$OUTPUT/overlap_panel.pdf", replace
 save "$TEMP/pscore_t0.dta", replace
 
 /* ============================================================
-   2. Appariement PSM au niveau menage
+   2. Appariement PSM au niveau ENFANT
 
    Trois algorithmes pour robustesse :
      a. k plus proches voisins (k=K_VOISINS, avec remise)
      b. Kernel Epanechnikov (h=0.06)
      c. Caliper (epsilon=CALIPER, sans remise)
+
+   Chaque enfant traite est apparie a des enfants temoins de profil
+   observable comparable, y compris en sexe et en age.
    ============================================================ */
 
+local covbal hhsize log_pcexp i.milieu i.region hgender hage ///
+             i.heduc i.hmstat i.sexe18 age18
+
 /* -- 2a. k-NN ------------------------------------------------ */
-di _newline "=== Appariement k-NN (k=$K_VOISINS, avec remise) ==="
+di _newline "=== Appariement k-NN (k=$K_VOISINS, avec remise), niveau enfant ==="
 psmatch2 D, pscore(pscore) neighbor($K_VOISINS) common
 
 di _newline "Balance avant/apres (SMD) :"
-pstest hhsize log_pcexp i.milieu i.region hgender hage i.heduc i.hmstat, both
+pstest `covbal', both
 
 rename _weight weight_knn
-keep grappe menage D pscore weight_knn _support
+keep enfid grappe menage numind_2018 D pscore weight_knn _support
 save "$TEMP/pscore_knn.dta", replace
 
 /* -- 2b. Kernel Epanechnikov --------------------------------- */
-di _newline "=== Appariement Kernel (Epanechnikov, h=0.06) ==="
+di _newline "=== Appariement Kernel (Epanechnikov, h=0.06), niveau enfant ==="
 use "$TEMP/pscore_t0.dta", clear
 psmatch2 D, pscore(pscore) kernel kerneltype(epan) bwidth(0.06) common
 
 di _newline "Balance avant/apres (SMD), methode kernel :"
-pstest hhsize log_pcexp i.milieu i.region hgender hage i.heduc i.hmstat, both
+pstest `covbal', both
 
 rename _weight weight_kernel
-keep grappe menage weight_kernel
+keep enfid weight_kernel
 save "$TEMP/poids_kernel.dta", replace
 
 /* -- 2c. Caliper -------------------------------------------- */
-di _newline "=== Appariement Caliper (eps=$CALIPER, sans remise) ==="
+di _newline "=== Appariement Caliper (eps=$CALIPER, sans remise), niveau enfant ==="
 use "$TEMP/pscore_t0.dta", clear
 psmatch2 D, pscore(pscore) caliper($CALIPER) noreplacement common
 
 di _newline "Balance avant/apres (SMD), methode caliper :"
-pstest hhsize log_pcexp i.milieu i.region hgender hage i.heduc i.hmstat, both
+pstest `covbal', both
 
 rename _weight weight_caliper
-keep grappe menage weight_caliper
+keep enfid weight_caliper
 save "$TEMP/poids_caliper.dta", replace
+
+/* ── 2d. Panel d'enfants en format long ──────────────────────
+   Chaque enfant apparait a t=0 et t=1 avec SON poids d'appariement, qui
+   ne varie pas dans le temps : c'est exactement ce qu'exige la double
+   difference appariee de Heckman et al. (1997, 1998). */
+use "$TEMP/pscore_t0.dta", clear
+merge 1:1 enfid using "$TEMP/poids_kernel.dta",  nogenerate
+merge 1:1 enfid using "$TEMP/poids_caliper.dta", nogenerate
+merge 1:1 enfid using "$TEMP/pscore_knn.dta", ///
+    keepusing(weight_knn _support) nogenerate
+
+reshape long pauvre_MODA nb_dep groupe_moda sexe age ///
+             dim_assai dim_eau dim_logem dim_nutri dim_sante dim_protect dim_educ, ///
+    i(enfid) j(periode)
+gen byte t = (periode == 21)
+label var t "0 = EHCVM I (2018-19), 1 = EHCVM II (2021-22)"
+drop periode
+
+save "$TEMP/panel_enfants_psm.dta", replace
+
+di _newline "Panel d'enfants apparie : " _N " observations (" ///
+    %6.0f `=_N/2' " enfants x 2 vagues)"
 
 /* ============================================================
    3. Statistiques descriptives sur le panel
    ============================================================ */
 
 use "$TEMP/panel_vrai.dta", clear
-di _newline "=== Stats descriptives (panel vrai, design entrants) ==="
+di _newline "=== Stats descriptives (panel vrai, traitement 2018) ==="
 tabstat pauvre_MODA nb_dep pcexp, ///
     by(D) stat(mean n) format(%6.3f)
 
@@ -1188,17 +1271,15 @@ foreach outcome in pauvre_MODA {
 }
 
 /* ============================================================
-   5. PSM-DD sur panel vrai
+   5. PSM-DD sur le panel d'enfants apparie
       Specification : Y_it = a + b*t + c*D + d*(t#D) + e
-      d = ATT estime, poids d'appariement k-NN (niveau menage)
+      d = ATT estime, poids d'appariement k-NN (niveau ENFANT)
    ============================================================ */
 
-use "$TEMP/panel_vrai.dta", clear
-merge m:1 grappe menage using "$TEMP/pscore_knn.dta", ///
-    keepusing(weight_knn) keep(master match) nogenerate
+use "$TEMP/panel_enfants_psm.dta", clear
 keep if !missing(weight_knn) & weight_knn > 0
 
-di _newline "Panel apparie (k-NN, niveau menage) : " _N " obs enfants"
+di _newline "Panel d'enfants apparie (k-NN) : " _N " observations"
 tabstat D, by(t) stat(mean sum n) format(%6.3f)
 
 di _newline "=== PSM-DD — ATT principal (Heckman 1997/1998) ==="
@@ -1246,42 +1327,20 @@ di _newline "  Rappel : ATT_PSM-DD = ATT_PSM(t=1) - ATT_PSM(t=0), par constructi
 
 save "$TEMP/panel_apparie.dta", replace
 
-/* ── Robustesse : panel d'enfants (memes enfants suivis entre vagues) ──
-   Verifie que le resultat n'est pas un artefact de recomposition de
-   l'echantillon par age. Les enfants presents dans les deux vagues sont
-   apparies par leur identifiant individuel (numind_2018, precharge en 2021),
-   et non par leur rang dans le roster ; leur statut N-MODA est recalcule a
-   chaque vague, en tenant compte de leur changement eventuel de groupe d'age
-   (et donc de dimensions applicables). Double difference sur ce panel
-   d'enfants. */
+/* ── Robustesse : agregat menage (design de comparaison) ─────
+   Le design principal apparie les ENFANTS. On verifie ici que la
+   conclusion ne tient pas a ce choix d'unite, en reproduisant la double
+   difference sur l'ensemble des enfants du panel de menages (y compris
+   ceux qui n'apparaissent qu'a une seule vague), sans appariement
+   individuel. Un ecart important entre les deux signalerait un effet de
+   recomposition de l'echantillon plutot qu'un effet du traitement. */
 preserve
-    use "$TEMP/enfants_dep_2018.dta", clear
-    keep grappe menage numind age pauvre_MODA
-    rename (age pauvre_MODA) (age18 pm18)
-    rename numind numind_2018
-    tempfile enf18
-    save `enf18'
-    use "$TEMP/enfants_dep_2021.dta", clear
-    keep grappe menage numind age pauvre_MODA
-    rename (age pauvre_MODA) (age21 pm21)
-    /* Cle individuelle entre vagues : identifiant 2018 precharge en 2021
-       (s01qpreload_pid). Le rang dans le roster 2021 (numind) ne designe pas
-       le meme individu qu'en 2018 : c'est bien numind_2018 qui apparie une
-       personne a elle-meme. */
-    merge m:1 grappe menage numind using "$TEMP/lien_individus.dta", ///
-        keepusing(numind_2018) keep(match) nogenerate
-    merge 1:1 grappe menage numind_2018 using `enf18', keep(match) nogenerate
-    merge m:1 grappe menage using "$TEMP/traitement_stable.dta", ///
-        keepusing(D_stable) keep(master match) nogenerate
-    drop if missing(D_stable) | missing(pm18) | missing(pm21)
-    gen long enfid = _n
-    reshape long pm age, i(enfid) j(periode)
-    gen byte t = (periode == 21)
-    di _newline "=== Robustesse : panel d'ENFANTS (memes individus, cle preload) ==="
-    di "  Enfants suivis apparies entre vagues : " %9.0f `=_N/2'
-    regress pm i.t##i.D_stable, vce(cluster grappe)
-    lincom 1.t#1.D_stable
-    di "  ATT panel d'enfants = " %8.4f r(estimate) ///
+    use "$TEMP/panel_vrai.dta", clear
+    di _newline "=== Robustesse : tous les enfants du panel de menages ==="
+    di "  Observations : " _N
+    regress pauvre_MODA i.t##i.D, vce(cluster grappe)
+    lincom 1.t#1.D
+    di "  ATT agregat menage = " %8.4f r(estimate) ///
        "  SE = " %8.4f r(se) "  p = " %6.4f r(p)
 restore
 
@@ -1417,10 +1476,7 @@ foreach g in 1 2 3 {
 
 /* -- 7. Robustesse aux trois methodes d'appariement -------- */
 di _newline "=== Comparaison des trois methodes d'appariement ==="
-foreach poids_var in weight_kernel weight_caliper {
-    merge m:1 grappe menage using "$TEMP/poids_`=substr("`poids_var'",8,.)'.dta", ///
-        keepusing(`poids_var') keep(master match) nogenerate
-}
+/* Les trois poids sont deja portes par panel_enfants_psm.dta (niveau enfant) */
 foreach poids_var in weight_knn weight_kernel weight_caliper {
     foreach outcome in pauvre_MODA {
         quietly count if !missing(`poids_var') & `poids_var' > 0
@@ -2030,16 +2086,8 @@ di ">>> Sorties dans : $OUTPUT/tables/ et $OUTPUT/figures/"
 
 
 /* Joindre poids k-NN au panel vrai */
-use "$TEMP/pscore_knn.dta", clear
-keep grappe menage weight_knn
-drop if missing(weight_knn)
-duplicates drop grappe menage, force
-tempfile poids_knn
-save `poids_knn'
-
-use "$TEMP/panel_vrai.dta", clear
-merge m:1 grappe menage using `poids_knn', keepusing(weight_knn) nogenerate
-keep if !missing(weight_knn)
+use "$TEMP/panel_enfants_psm.dta", clear
+keep if !missing(weight_knn) & weight_knn > 0
 
 /* ATT PSM-DD pour chaque dimension (poids d'appariement PSM uniquement,
    pas de poids d'enquete ; erreurs-types clusterisees au niveau grappe) */
