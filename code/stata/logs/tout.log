@@ -1082,7 +1082,7 @@ Nouveau Ménage |        993       13.95       13.95
 .     tempfile id_2021
 
 .     save `id_2021'
-file C:\Users\Bmd\AppData\Local\Temp\ST_37c4_000002.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_3c78_000002.tmp saved as .dta format
 
 . restore
 
@@ -1243,7 +1243,7 @@ Autre pays hors Afrique |        227        2.13       69.75
 .     tempfile etrangers
 
 .     save `etrangers'
-file C:\Users\Bmd\AppData\Local\Temp\ST_37c4_000003.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_3c78_000003.tmp saved as .dta format
 
 . 
 .     /* Fusionner sur la liste exhaustive des menages */
@@ -1395,7 +1395,7 @@ file code/stata/temp/montant_2018.dta saved
 .     tempfile etrangers
 
 .     save `etrangers'
-file C:\Users\Bmd\AppData\Local\Temp\ST_37c4_000004.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_3c78_000004.tmp saved as .dta format
 
 . 
 .     /* Fusionner sur la liste exhaustive des menages */
@@ -2071,7 +2071,7 @@ file code/stata/temp/traitement_2021.dta saved
 (0 observations deleted)
 (1,722 missing values generated)
 (1,722 real changes made)
-file C:\Users\Bmd\AppData\Local\Temp\ST_37c4_000006.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_3c78_000006.tmp saved as .dta format
   CSP du chef 2018 :
 
                    Categorie |
@@ -2124,7 +2124,7 @@ Sans emploi ou non renseigne |      1,722       24.06       24.06
     Not matched                             0
     Matched                            33,844  
     -----------------------------------------
-file C:\Users\Bmd\AppData\Local\Temp\ST_37c4_000008.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_3c78_000008.tmp saved as .dta format
 
     Result                      Number of obs
     -----------------------------------------
@@ -2133,7 +2133,7 @@ file C:\Users\Bmd\AppData\Local\Temp\ST_37c4_000008.tmp saved as .dta format
     -----------------------------------------
 (4 missing values generated)
 (9,059 observations deleted)
-file C:\Users\Bmd\AppData\Local\Temp\ST_37c4_00000a.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_3c78_00000a.tmp saved as .dta format
 
     Result                      Number of obs
     -----------------------------------------
@@ -2143,21 +2143,21 @@ file C:\Users\Bmd\AppData\Local\Temp\ST_37c4_00000a.tmp saved as .dta format
 
     Matched                            24,955  
     -----------------------------------------
-file C:\Users\Bmd\AppData\Local\Temp\ST_37c4_00000c.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_3c78_00000c.tmp saved as .dta format
 
     Result                      Number of obs
     -----------------------------------------
     Not matched                             0
     Matched                            33,844  
     -----------------------------------------
-file C:\Users\Bmd\AppData\Local\Temp\ST_37c4_00000e.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_3c78_00000e.tmp saved as .dta format
 
     Result                      Number of obs
     -----------------------------------------
     Not matched                             0
     Matched                            33,844  
     -----------------------------------------
-file C:\Users\Bmd\AppData\Local\Temp\ST_37c4_00000g.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_3c78_00000g.tmp saved as .dta format
 
     Result                      Number of obs
     -----------------------------------------
@@ -2353,7 +2353,7 @@ file code/stata/temp/enfants_dep_2018.dta saved
 (0 observations deleted)
 (1,326 missing values generated)
 (1,326 real changes made)
-file C:\Users\Bmd\AppData\Local\Temp\ST_37c4_00000i.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_3c78_00000i.tmp saved as .dta format
   CSP du chef 2021 :
 
                    Categorie |
@@ -2409,7 +2409,7 @@ Sans emploi ou non renseigne |      1,326       18.62       18.62
     Not matched                             0
     Matched                            31,033  
     -----------------------------------------
-file C:\Users\Bmd\AppData\Local\Temp\ST_37c4_00000k.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_3c78_00000k.tmp saved as .dta format
 
     Result                      Number of obs
     -----------------------------------------
@@ -2417,21 +2417,21 @@ file C:\Users\Bmd\AppData\Local\Temp\ST_37c4_00000k.tmp saved as .dta format
     Matched                            31,033  
     -----------------------------------------
 (14,304 observations deleted)
-file C:\Users\Bmd\AppData\Local\Temp\ST_37c4_00000m.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_3c78_00000m.tmp saved as .dta format
 
     Result                      Number of obs
     -----------------------------------------
     Not matched                             0
     Matched                            31,033  
     -----------------------------------------
-file C:\Users\Bmd\AppData\Local\Temp\ST_37c4_00000o.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_3c78_00000o.tmp saved as .dta format
 
     Result                      Number of obs
     -----------------------------------------
     Not matched                             0
     Matched                            31,033  
     -----------------------------------------
-file C:\Users\Bmd\AppData\Local\Temp\ST_37c4_00000q.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_3c78_00000q.tmp saved as .dta format
 (16,493 observations deleted)
 file code/stata/temp/lien_individus.dta saved
 
@@ -2445,7 +2445,7 @@ file code/stata/temp/lien_individus.dta saved
     Not matched                             0
     Matched                            31,033  
     -----------------------------------------
-file C:\Users\Bmd\AppData\Local\Temp\ST_37c4_00000t.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_3c78_00000t.tmp saved as .dta format
 
     Result                      Number of obs
     -----------------------------------------
@@ -2803,7 +2803,7 @@ Duplicates in terms of grappe menage
 . tempfile id2018
 
 . save `id2018'
-file C:\Users\Bmd\AppData\Local\Temp\ST_37c4_00000u.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_3c78_00000u.tmp saved as .dta format
 
 . 
 . use "$TEMP/vague_2021.dta", clear
@@ -2840,7 +2840,7 @@ Duplicates in terms of grappe menage
 . tempfile ids_panel
 
 . save `ids_panel'
-file C:\Users\Bmd\AppData\Local\Temp\ST_37c4_00000v.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_3c78_00000v.tmp saved as .dta format
 
 . save "$TEMP/ids_panel.dta", replace   /* liste complete de tous les menages
 >     suivis, reutilisee par l'analyse de robustesse "beneficiaires stables" */
@@ -2868,7 +2868,7 @@ Menages vraiment suivis (presences dans les 2 vagues) : 5691
 . tempfile panel_t0
 
 . save `panel_t0'
-file C:\Users\Bmd\AppData\Local\Temp\ST_37c4_00000w.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_3c78_00000w.tmp saved as .dta format
 
 . 
 . use "$TEMP/vague_2021.dta", clear
@@ -2884,7 +2884,7 @@ file C:\Users\Bmd\AppData\Local\Temp\ST_37c4_00000w.tmp saved as .dta format
 . tempfile panel_t1
 
 . save `panel_t1'
-file C:\Users\Bmd\AppData\Local\Temp\ST_37c4_00000x.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_3c78_00000x.tmp saved as .dta format
 
 . 
 . use `panel_t0', clear
@@ -3108,7 +3108,7 @@ file code/stata/temp/panel_complet.dta saved
 . tempfile enf18_psm
 
 . save `enf18_psm'
-file C:\Users\Bmd\AppData\Local\Temp\ST_37c4_000010.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_3c78_000010.tmp saved as .dta format
 
 . 
 . use "$TEMP/enfants_dep_2021.dta", clear
@@ -3340,92 +3340,10 @@ Manoeuvre, aide menagere  |  -.5147105   .3342393    -1.54   0.124    -1.169808 
 Pseudo-R2 McFadden :  0.151
 
 . 
-. /* ── 1b-bis. Qualite d'ajustement du probit ──────────────────
->    Le score de propension n'a pas vocation a predire le traitement, mais a
->    resumer la selection sur observables. On en verifie neanmoins trois
->    proprietes : le pouvoir discriminant (aire sous la courbe ROC), le taux
->    de bon classement, et la calibration (probabilite predite vs frequence
->    observee par decile de score). */
-. di _newline "--- Qualite d'ajustement du probit ---"
-
---- Qualite d'ajustement du probit ---
-
-. 
-. lroc, nograph
-
-Probit model for D
-
-Number of observations =    17735
-Area under ROC curve   =   0.7711
-
-. di "  Aire sous la courbe ROC : " %5.3f r(area)
-  Aire sous la courbe ROC : 0.771
-
-. 
-. estat classification, cutoff(0.1484)   /* seuil = part de traites */
-
-Probit model for D
-
-              -------- True --------
-Classified |         D            ~D  |      Total
------------+--------------------------+-----------
-     +     |      1844          4579  |       6423
-     -     |       794         10518  |      11312
------------+--------------------------+-----------
-   Total   |      2638         15097  |      17735
-
-Classified + if predicted Pr(D) >= .1484
-True D defined as D != 0
---------------------------------------------------
-Sensitivity                     Pr( +| D)   69.90%
-Specificity                     Pr( -|~D)   69.67%
-Positive predictive value       Pr( D| +)   28.71%
-Negative predictive value       Pr(~D| -)   92.98%
---------------------------------------------------
-False + rate for true ~D        Pr( +|~D)   30.33%
-False - rate for true D         Pr( -| D)   30.10%
-False + rate for classified +   Pr(~D| +)   71.29%
-False - rate for classified -   Pr( D| -)    7.02%
---------------------------------------------------
-Correctly classified                        69.70%
---------------------------------------------------
-
-. 
 . predict pscore, pr
 (51 missing values generated)
 
 . label var pscore "Score de propension (enfant)"
-
-. 
-. /* Calibration : score moyen predit vs part observee de traites, par decile */
-. di _newline "  Calibration par decile de score :"
-
-  Calibration par decile de score :
-
-. di "  Decile   Predit   Observe   n"
-  Decile   Predit   Observe   n
-
-. xtile dec_ps = pscore, nquantiles(10)
-
-. forvalues d = 1/10 {
-  2.     quietly summarize pscore if dec_ps == `d'
-  3.     local pred = r(mean)
-  4.     local n    = r(N)
-  5.     quietly summarize D if dec_ps == `d'
-  6.     di "  " %4.0f `d' %10.3f `pred' %9.3f r(mean) %7.0f `n'
-  7. }
-     1     0.019    0.019   1774
-     2     0.037    0.046   1773
-     3     0.054    0.037   1774
-     4     0.073    0.073   1773
-     5     0.095    0.087   1774
-     6     0.121    0.130   1773
-     7     0.153    0.160   1774
-     8     0.198    0.205   1773
-     9     0.271    0.256   1774
-    10     0.463    0.475   1773
-
-. drop dec_ps
 
 . 
 . /* Graphique de densite (support commun) */
@@ -4843,7 +4761,7 @@ Linear regression                               Number of obs     =      1,624
 .     tempfile quintiles
 
 .     save `quintiles'
-file C:\Users\Bmd\AppData\Local\Temp\ST_37c4_000014.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_3c78_000014.tmp saved as .dta format
 
 .     di "  Bornes des quintiles de montant annuel (FCFA) :"
   Bornes des quintiles de montant annuel (FCFA) :
@@ -5234,7 +5152,7 @@ Linear regression                               Number of obs     =     10,014
 . tempfile menages_panel
 
 . save `menages_panel'
-file C:\Users\Bmd\AppData\Local\Temp\ST_37c4_000015.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_3c78_000015.tmp saved as .dta format
 
 . 
 . use "$TEMP/vague_2018.dta", clear
@@ -5259,7 +5177,7 @@ file C:\Users\Bmd\AppData\Local\Temp\ST_37c4_000015.tmp saved as .dta format
 . tempfile alt_t0
 
 . save `alt_t0'
-file C:\Users\Bmd\AppData\Local\Temp\ST_37c4_000016.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_3c78_000016.tmp saved as .dta format
 
 . 
 . use "$TEMP/vague_2021.dta", clear
@@ -5284,7 +5202,7 @@ file C:\Users\Bmd\AppData\Local\Temp\ST_37c4_000016.tmp saved as .dta format
 . tempfile alt_t1
 
 . save `alt_t1'
-file C:\Users\Bmd\AppData\Local\Temp\ST_37c4_000017.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_3c78_000017.tmp saved as .dta format
 
 . 
 . use `alt_t0', clear
@@ -6277,6 +6195,83 @@ file code/stata/output/figures/fig_distrib_dimensions.pdf saved as PDF format
   pauvre_MODA         2018 : p=0.0000   2021 : p=0.0000
 
 . 
+. /* Meme comparaison declinee par groupe d'age : chaque sous-section du
+>    rapport confronte les dimensions et le statut de beneficiaire au sein
+>    d'une tranche d'age. dim_educ n'est pas applicable aux 0-4 ans. */
+. forvalues g = 1/3 {
+  2.     if `g' == 1 local lbl "0-4 ans"
+  3.     if `g' == 2 local lbl "5-14 ans"
+  4.     if `g' == 3 local lbl "15-17 ans"
+  5.     di _newline(2) "=== Privations par dimension et statut — `lbl' ==="
+  6.     di "  Indicateur          D=0 2018  D=1 2018   Ecart |  D=0 2021  D=1 2021   Ecart |     DD    p
+> 18    p21"
+  7.     foreach v in dim_assai dim_eau dim_logem dim_nutri dim_sante dim_protect ///
+>                  dim_educ pauvre_MODA {
+  8.         quietly summarize `v' [aw=hhweight] if t == 0 & D == 0 & groupe_moda == `g'
+  9.         local a0 = r(mean)*100
+ 10.         quietly summarize `v' [aw=hhweight] if t == 0 & D == 1 & groupe_moda == `g'
+ 11.         local a1 = r(mean)*100
+ 12.         quietly summarize `v' [aw=hhweight] if t == 1 & D == 0 & groupe_moda == `g'
+ 13.         local b0 = r(mean)*100
+ 14.         quietly summarize `v' [aw=hhweight] if t == 1 & D == 1 & groupe_moda == `g'
+ 15.         local b1 = r(mean)*100
+ 16.         local g0 = `a1' - `a0'
+ 17.         local g1 = `b1' - `b0'
+ 18.         local dd = `g1' - `g0'
+ 19.         quietly regress `v' D if t == 0 & groupe_moda == `g', vce(cluster grappe)
+ 20.         local p0 = 2*ttail(e(df_r), abs(_b[D]/_se[D]))
+ 21.         quietly regress `v' D if t == 1 & groupe_moda == `g', vce(cluster grappe)
+ 22.         local p1 = 2*ttail(e(df_r), abs(_b[D]/_se[D]))
+ 23.         di "  " %-18s "`v'" %9.1f `a0' %10.1f `a1' %8.1f `g0' " |" ///
+>            %9.1f `b0' %10.1f `b1' %8.1f `g1' " |" %7.1f `dd' ///
+>            %7.3f `p0' %7.3f `p1'
+ 24.     }
+ 25.     quietly count if groupe_moda == `g' & t == 0
+ 26.     local n18 = r(N)
+ 27.     quietly count if groupe_moda == `g' & t == 1
+ 28.     di "  Effectifs : `n18' enfants en 2018, " r(N) " en 2021"
+ 29. }
+
+
+=== Privations par dimension et statut — 0-4 ans ===
+  Indicateur          D=0 2018  D=1 2018   Ecart |  D=0 2021  D=1 2021   Ecart |     DD    p18    p21
+  dim_assai              56.8      32.2   -24.6 |     52.7      38.1   -14.6 |   10.0  0.000  0.000
+  dim_eau                27.0      21.8    -5.2 |     17.8      15.8    -1.9 |    3.3  0.078  0.257
+  dim_logem              69.0      52.6   -16.5 |     58.9      44.5   -14.4 |    2.1  0.000  0.001
+  dim_nutri              72.5      51.2   -21.3 |     66.0      48.2   -17.8 |    3.6  0.000  0.000
+  dim_sante              97.9      94.4    -3.4 |     98.4      98.3    -0.1 |    3.4  0.072  0.290
+  dim_protect            56.4      63.1     6.6 |     53.6      60.9     7.3 |    0.6  0.006  0.000
+  dim_educ                0.0       0.0     0.0 |      0.0       0.0     0.0 |    0.0      .      .
+  pauvre_MODA            61.5      40.2   -21.4 |     51.4      38.0   -13.4 |    8.0  0.000  0.000
+  Effectifs : 9403 enfants en 2018, 6982 en 2021
+
+
+=== Privations par dimension et statut — 5-14 ans ===
+  Indicateur          D=0 2018  D=1 2018   Ecart |  D=0 2021  D=1 2021   Ecart |     DD    p18    p21
+  dim_assai              55.0      31.2   -23.7 |     52.7      34.5   -18.2 |    5.5  0.000  0.000
+  dim_eau                24.2      20.8    -3.4 |     17.7      14.8    -2.9 |    0.5  0.055  0.215
+  dim_logem              67.5      53.0   -14.5 |     58.1      42.1   -15.9 |   -1.4  0.000  0.000
+  dim_nutri              72.5      52.9   -19.6 |     66.0      48.4   -17.6 |    2.0  0.000  0.000
+  dim_sante              98.1      94.7    -3.4 |     97.0      97.2     0.2 |    3.6  0.011  0.995
+  dim_protect            75.4      80.2     4.8 |     75.3      79.1     3.9 |   -0.9  0.001  0.000
+  dim_educ               47.1      40.2    -7.0 |     46.5      41.8    -4.7 |    2.2  0.002  0.051
+  pauvre_MODA            72.9      54.5   -18.4 |     65.7      46.4   -19.3 |   -0.9  0.000  0.000
+  Effectifs : 17904 enfants en 2018, 17157 en 2021
+
+
+=== Privations par dimension et statut — 15-17 ans ===
+  Indicateur          D=0 2018  D=1 2018   Ecart |  D=0 2021  D=1 2021   Ecart |     DD    p18    p21
+  dim_assai              50.9      26.6   -24.4 |     48.8      34.0   -14.9 |    9.5  0.000  0.000
+  dim_eau                19.7      17.6    -2.1 |     15.5      12.4    -3.1 |   -1.0  0.068  0.091
+  dim_logem              63.6      46.2   -17.4 |     53.5      36.5   -17.0 |    0.3  0.000  0.000
+  dim_nutri              71.7      53.0   -18.7 |     64.1      45.3   -18.8 |   -0.1  0.000  0.000
+  dim_sante              97.4      92.2    -5.3 |     96.8      98.1     1.3 |    6.6  0.028  0.483
+  dim_protect            48.6      66.0    17.4 |     48.3      64.0    15.7 |   -1.7  0.000  0.000
+  dim_educ               29.8      24.6    -5.2 |     26.4      22.7    -3.7 |    1.4  0.237  0.065
+  pauvre_MODA            58.3      41.2   -17.1 |     50.3      37.9   -12.4 |    4.8  0.000  0.006
+  Effectifs : 4075 enfants en 2018, 4202 en 2021
+
+. 
 . di _newline ">>> 06_stats_desc.do terminé."
 
 >>> 06_stats_desc.do terminé.
@@ -6493,7 +6488,7 @@ file code/stata/output/figures/fig_effets_dim.pdf saved as PDF format
 . tempfile never
 
 . save `never'
-file C:\Users\Bmd\AppData\Local\Temp\ST_37c4_000018.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_3c78_000018.tmp saved as .dta format
 
 . 
 . /* Liste des menages (une ligne par menage) */
@@ -6505,7 +6500,7 @@ file C:\Users\Bmd\AppData\Local\Temp\ST_37c4_000018.tmp saved as .dta format
 . tempfile liste_men
 
 . save `liste_men'
-file C:\Users\Bmd\AppData\Local\Temp\ST_37c4_000019.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_3c78_000019.tmp saved as .dta format
 
 . quietly count
 
@@ -6648,7 +6643,7 @@ file code/stata/output/figures/fig_placebo_dd.pdf saved as PDF format
 . tempfile men18
 
 . save `men18'
-file C:\Users\Bmd\AppData\Local\Temp\ST_37c4_000077.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_3c78_000077.tmp saved as .dta format
 
 . 
 . /* Menages retrouves en 2021 : variable officielle PanelHH (et non la
