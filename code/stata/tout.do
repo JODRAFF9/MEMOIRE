@@ -1655,69 +1655,37 @@ foreach annee in 2018 2021 {
     di "  Transferts    : " %5.1f p_D_`annee'      "%"
 }
 
-/* Export CSV tableau ménages */
-clear
-set obs 2
-gen str6 annee  = ""
-replace annee   = "2018" in 1
-replace annee   = "2021" in 2
-gen hhsize      = .
-gen pcexp       = .
-gen p_chef_f    = .
-gen p_urbain    = .
-gen p_transfert = .
-foreach a in 2018 2021 {
-    local r = cond("`a'" == "2018", 1, 2)
-    replace hhsize      = m_hhsize_`a'   in `r'
-    replace pcexp       = m_pcexp_`a'    in `r'
-    replace p_chef_f    = p_chef_f_`a'   in `r'
-    replace p_urbain    = p_urbain_`a'   in `r'
-    replace p_transfert = p_D_`a'        in `r'
-}
-export delimited using "$OUTPUT/tables/tab_menages.csv", replace
-di ">>> tab_menages.csv sauvegardé"
 
 /* ============================================================
    2. Balance traités / non-traités (EHCVM I, t=0)
    ============================================================ */
 
-di _newline "=== 2. Balance traités / non-traités ==="
+di _newline "=== 2. Balance traites / non-traites (niveau ENFANT) ==="
 
+/* Alimente le tableau de selection de la section 2 : qui recoit des
+   transferts ? L'unite est l'enfant, comme dans tout le memoire. */
 use "$TEMP/vague_2018.dta", clear
-bysort grappe menage: keep if _n == 1
-
 merge m:1 grappe menage using "$TEMP/traitement_2018.dta", ///
     keepusing(D) nogenerate keep(master match)
 replace D = 0 if missing(D)
 
-foreach v in hhsize hage pcexp {
-    di "  `v' par D :"
-    tabstat `v', by(D) stat(mean sd) format(%9.2f)
-}
 gen byte chef_f = (hgender == 2)
 gen byte urbain = (milieu  == 1)
-foreach v in chef_f urbain {
-    di "  `v' par D (%) :"
-    tabstat `v', by(D) stat(mean n) format(%6.3f)
-}
+gen byte fille  = (sexe == 2)
 
-/* Tests avec erreurs-types clusterisees au niveau de la grappe */
-foreach v in hhsize hage pcexp chef_f urbain {
+foreach v in fille age hhsize hage pcexp chef_f urbain {
+    quietly summarize `v' [aw=hhweight] if D == 1
+    local m1 = r(mean)
+    quietly summarize `v' [aw=hhweight] if D == 0
+    local m0 = r(mean)
     quietly regress `v' D, vce(cluster grappe)
-    di "  Test `v' : diff=" %8.3f _b[D] ///
-       "  SE=" %8.3f _se[D] ///
+    di "  " %-8s "`v'" " : D=1 " %10.2f `m1' "  D=0 " %10.2f `m0' ///
        "  p=" %6.4f (2*ttail(e(df_r), abs(_b[D]/_se[D])))
 }
-
-/* Export balance : moyennes brutes + n */
-preserve
-    gen n_obs = 1
-    collapse (mean) hhsize hage pcexp chef_f urbain ///
-             (sum)  n_obs, by(D)
-    export delimited using "$OUTPUT/tables/tab_balance.csv", replace
-    di ">>> tab_balance.csv sauvegardé"
-restore
-
+quietly count if D == 1
+di "  Enfants traites : " r(N)
+quietly count if D == 0
+di "  Enfants temoins : " r(N)
 
 /* ============================================================
    2bis. Caracteristiques des transferts etrangers recus :
@@ -1841,51 +1809,6 @@ foreach annee in 2018 2021 {
     }
 }
 
-/* ── Taux de privation par INDICATEUR et par groupe d'age ──────
-   Alimente les commentaires de la section statistiques descriptives
-   (sous-sections 0-4, 5-14, 15-17 ans) et les figures fig_privind_*.
-   Un indicateur non applicable a une tranche d'age est ignore. */
-di _newline "=== 4bis. Privation par indicateur et groupe d'age ==="
-
-local indics m_toilet m_partag_toi m_eau_source m_eau_temps m_ordures ///
-             m_surpeup m_securite m_combust m_sante_acces m_acte_nais ///
-             m_trav_enf m_parents m_scol m_alfab m_neet
-
-foreach annee in 2018 2021 {
-    use "$TEMP/vague_`annee'.dta", clear
-    di _newline "-- Indicateurs `annee' (pondere hhweight) --"
-    foreach g in 0 1 2 3 {
-        local lbl = cond(`g'==0,"Ensemble 0-17", ///
-                    cond(`g'==1,"0-4 ans",cond(`g'==2,"5-14 ans","15-17 ans")))
-        di "  [`lbl']"
-        foreach v of local indics {
-            capture confirm variable `v'
-            if _rc continue
-            if `g' == 0 quietly summarize `v' [aw=hhweight]
-            else        quietly summarize `v' [aw=hhweight] if groupe_moda == `g'
-            /* indicateur non applicable a cette tranche : rien a afficher */
-            if r(N) == 0 | r(mean) == 0 continue
-            di "    " %-14s "`v'" " : " %5.1f r(mean)*100 "%"
-        }
-    }
-}
-
-/* Export CSV privations */
-foreach annee in 2018 2021 {
-    use "$TEMP/vague_`annee'.dta", clear
-    collapse (mean) dim_assai dim_eau dim_logem dim_nutri ///
-                    dim_sante dim_protect dim_educ [aw=hhweight]
-    gen annee = `annee'
-    if `annee' == 2018 {
-        tempfile dim_2018
-        save `dim_2018'
-    }
-    else {
-        append using `dim_2018'
-        export delimited using "$OUTPUT/tables/tab_prevalence_dim.csv", replace
-        di ">>> tab_prevalence_dim.csv sauvegardé"
-    }
-}
 
 /* ============================================================
    5. Graphiques
@@ -1978,32 +1901,6 @@ graph bar nb18 b18 nb21 b21, over(dim, sort(ordre) label(angle(30) labsize(small
 set dp period
 graph export "$OUTPUT/figures/fig_privations_dim.pdf", replace
 di ">>> fig_privations_dim.pdf sauvegardé"
-
-/* ── Fig 2b : Taux de privation par indicateur, par tranche d'age et par
-   vague (ensemble 0-17, 0-4, 5-14, 15-17 ans), facon figure ANSD/UNICEF.
-   Ces quatre figures (fig_privind_all/0_4/5_14/15_17) sont produites par
-   un script Python dedie, appele ci-dessous.
-   Motif : la mise en page ANSD (libelles de dimension centres a gauche,
-   regroupant leurs indicateurs) n'est pas realisable proprement avec
-   graph hbar — le double over(indicateur)#over(dimension) echoue sur un
-   croisement non rectangulaire (r(198)). Le script lit les memes .dta et
-   applique les memes poids de sondage (hhweight).
-
-   Prerequis : Python accessible en ligne de commande, avec les modules
-   pandas et matplotlib. Si Python est indisponible, l'appel echoue sans
-   interrompre le pipeline (capture) et les figures deja versionnees sont
-   conservees. On essaie "python" puis "python3". */
-capture shell python "code/python/gen_fig_privind.py"
-if _rc {
-    capture shell python3 "code/python/gen_fig_privind.py"
-}
-if _rc {
-    di as txt ">>> gen_fig_privind.py non execute (Python indisponible) : " ///
-              "figures fig_privind_* versionnees conservees."
-}
-else {
-    di as txt ">>> fig_privind_*.pdf (re)generees via gen_fig_privind.py"
-}
 
 /* ── Fig 3 : Pauvreté par groupe d'âge, beneficiaires vs non-beneficiaires
    aux deux vagues. Panneaux = groupe d'age ; barres = statut x vague. */
