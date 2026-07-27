@@ -1183,6 +1183,22 @@ foreach outcome in pauvre_MODA {
     global ATT_REEL = r(estimate)   /* reutilise par le test placebo */
 }
 
+/* ── Sensibilite au seuil inter-dimensionnel k ──────────────────
+   Le seuil k=4 est une convention. On reestime l'ATT en definissant la
+   pauvrete successivement a k=3, 4, 5 et 6 dimensions sur 7, pour verifier
+   que la conclusion ne depend pas du seuil retenu. */
+di _newline "=== Sensibilite de l'ATT au seuil de privation k ==="
+di "  k     Incidence(t=0)   ATT      SE       p"
+foreach k in 3 4 5 6 {
+    quietly gen byte pauvre_k`k' = (nb_dep >= `k') if !missing(nb_dep)
+    quietly summarize pauvre_k`k' [aw=hhweight] if t == 0
+    local inc = r(mean)*100
+    quietly regress pauvre_k`k' i.t##i.D [aw=weight_knn], vce(cluster grappe)
+    quietly lincom 1.t#1.D
+    di "  " %1.0f `k' %14.1f `inc' "%" %10.4f r(estimate) %9.4f r(se) %8.4f r(p)
+    quietly drop pauvre_k`k'
+}
+
 /* ── PSM seul (transversal, sans double difference) ─────────────
    Decompose le PSM-DD en ses deux composantes transversales : l'ecart
    de niveau apparie a t=0 (avant traitement) et a t=1 (apres), ponderes
