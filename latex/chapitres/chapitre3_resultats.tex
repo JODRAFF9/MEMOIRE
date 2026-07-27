@@ -211,15 +211,15 @@ dirigés par une femme --, d'où le recours à l'appariement.
   \caption[Estimations par double différence (DD brute, sans appariement)]{Estimations par double différence (DD brute, sans appariement)\protect\footnotemark}
   \label{tab:dd_brut}
   \zebre
-  \begin{tabular}{|l|c|c|}
+  \begin{tabular}{|l|c|}
     \hline
-\entete Variable de résultat & ATT$_{\text{DD}}$ & $p$-valeur \\
+\entete Variable de résultat & ATT$_{\text{DD}}$ \\
     \hline
-    Pauvreté MODA ($\hat{H}_{\text{MODA}}$) & \makecell{$0{,}032$\\$(0{,}023)$} & 0,167 \\
+    Pauvreté MODA ($\hat{H}_{\text{MODA}}$) & \makecell{$0{,}032$\\$(0{,}023)$} \\
     \hline
   \end{tabular}
 
-  {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM.}
+  {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM. $^{*}p<0{,}10$, $^{**}p<0{,}05$, $^{***}p<0{,}01$.}
 \end{table}
 \footnotetext{\textit{Note :} erreurs-types clusterisées par grappe, entre parenthèses sous le coefficient, $n = 53\,679$~; $\delta$ de $Y_{it} = \alpha + \beta t + \gamma D + \delta(t \times D) + \varepsilon_{it}$.}
 
@@ -236,12 +236,12 @@ sélection sur observables et les effets fixes inobservables constants dans le t
   \caption[Impact des transferts sur la pauvreté multidimensionnelle : estimateur PSM-DD (ATT)]{Impact des transferts sur la pauvreté multidimensionnelle : estimateur PSM-DD (ATT)\protect\footnotemark}
   \label{tab:psmdd_att}
   \zebre
-  \begin{tabular}{|l|c|c|}
+  \begin{tabular}{|l|c|}
     \hline
-\entete Variable de résultat & ATT & $p$-valeur \\
+\entete Variable de résultat & ATT \\
     \hline
-    \multicolumn{3}{|c|}{Approche MODA (7 dimensions, $k=4$)} \\ \hline
-    \quad Incidence $\hat{H}_{\text{MODA}}$         & \makecell{$0{,}058^{*}$\\$(0{,}030)$} & 0,052 \\
+    \multicolumn{2}{|c|}{Approche MODA (7 dimensions, $k=4$)} \\ \hline
+    \quad Incidence $\hat{H}_{\text{MODA}}$         & \makecell{$0{,}058^{*}$\\$(0{,}030)$} \\
     \hline
   \end{tabular}
 
@@ -298,14 +298,14 @@ l'avantage initial des enfants de ménages bénéficiaires.
   \caption[Sensibilité de l'ATT PSM-DD au choix de la méthode d'appariement]{Sensibilité de l'ATT PSM-DD au choix de la méthode d'appariement\protect\footnotemark}
   \label{tab:psm_methodes}
   \zebre
-  \begin{tabular}{|l|c|c|}
+  \begin{tabular}{|l|c|}
     \hline
-\entete Méthode d'appariement & ATT (MODA) & $p$-valeur \\
+\entete Méthode d'appariement & ATT (MODA) \\
     \hline
-    k-NN ($k=4$, avec remise)             & $0{,}058^{*}$ & 0,052 \\ \hline
-    Noyau Epanechnikov ($h=0{,}06$)       & $0{,}055^{*}$ & 0,079 \\ \hline
-    Caliper ($\varepsilon = 0{,}05$, sans remise) & $0{,}047^{*}$ & 0,083 \\ \hline
-    DD brute (sans appariement)           & $0{,}032$  & 0,167 \\
+    k-NN ($k=4$, avec remise)             & $0{,}058^{*}$ \\ \hline
+    Noyau Epanechnikov ($h=0{,}06$)       & $0{,}055^{*}$ \\ \hline
+    Caliper ($\varepsilon = 0{,}05$, sans remise) & $0{,}047^{*}$ \\ \hline
+    DD brute (sans appariement)           & $0{,}032$ \\
     \hline
   \end{tabular}
 
@@ -340,21 +340,21 @@ ensemble.
   \caption[Sensibilité de l'ATT PSM-DD au seuil inter-dimensionnel $k$]{Sensibilité de l'ATT PSM-DD au seuil inter-dimensionnel $k$\protect\footnotemark}
   \label{tab:sensib_k}
   \zebre
-  \begin{tabular}{|c|c|c|}
+  \begin{tabular}{|c|c|}
     \hline
-\entete Seuil $k$ & ATT & $p$-valeur \\
+\entete Seuil $k$ & ATT \\
     \hline
-    1 & \makecell{$0{,}006$\\$(0{,}006)$}      & 0,302 \\ \hline
-    2 & \makecell{$0{,}022$\\$(0{,}014)$}      & 0,100 \\ \hline
-    3 & \makecell{$0{,}048^{*}$\\$(0{,}026)$}  & 0,065 \\ \hline
-    4 & \makecell{$0{,}058^{*}$\\$(0{,}030)$}  & 0,052 \\ \hline
-    5 & \makecell{$0{,}031$\\$(0{,}028)$}      & 0,277 \\ \hline
-    6 & \makecell{$0{,}009$\\$(0{,}021)$}      & 0,670 \\ \hline
-    7 & \makecell{$0{,}014$\\$(0{,}011)$}      & 0,201 \\
+    1 & \makecell{$0{,}006$\\$(0{,}006)$}      \\ \hline
+    2 & \makecell{$0{,}022$\\$(0{,}014)$}      \\ \hline
+    3 & \makecell{$0{,}048^{*}$\\$(0{,}026)$}  \\ \hline
+    4 & \makecell{$0{,}058^{*}$\\$(0{,}030)$}  \\ \hline
+    5 & \makecell{$0{,}031$\\$(0{,}028)$}      \\ \hline
+    6 & \makecell{$0{,}009$\\$(0{,}021)$}      \\ \hline
+    7 & \makecell{$0{,}014$\\$(0{,}011)$}      \\
     \hline
   \end{tabular}
 
-  {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM.}
+  {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM. $^{*}p<0{,}10$.}
 \end{table}
 \footnotetext{\textit{Note :} appariement k-NN au niveau enfant, erreurs-types clusterisées par grappe, entre parenthèses sous le coefficient. Seule la définition de la variable de résultat change d'une ligne à l'autre.}
 
@@ -394,17 +394,17 @@ section~\ref{sec:discussion}.
   \caption[Impact des transferts par dimension MODA (ATT PSM-DD)]{Impact des transferts par dimension MODA (ATT PSM-DD)\protect\footnotemark}
   \label{tab:effets_dim}
   \zebre
-  \begin{tabular}{|l|c|c|}
+  \begin{tabular}{|l|c|}
     \hline
-\entete Dimension & ATT & $p$-valeur \\
+\entete Dimension & ATT \\
     \hline
-    Nutrition            & \makecell{$0{,}081^{**}$\\$(0{,}039)$} & 0,042 \\ \hline
-    Assainissement       & \makecell{$0{,}037$\\$(0{,}041)$}      & 0,367 \\ \hline
-    Protection           & \makecell{$0{,}016$\\$(0{,}020)$}      & 0,413 \\ \hline
-    Eau                  & \makecell{$0{,}015$\\$(0{,}027)$}      & 0,571 \\ \hline
-    Logement             & \makecell{$0{,}014$\\$(0{,}041)$}      & 0,744 \\ \hline
-    Éducation            & \makecell{$0{,}013$\\$(0{,}017)$}      & 0,463 \\ \hline
-    Santé                & \makecell{$0{,}012$\\$(0{,}013)$}      & 0,372 \\
+    Nutrition            & \makecell{$0{,}081^{**}$\\$(0{,}039)$} \\ \hline
+    Assainissement       & \makecell{$0{,}037$\\$(0{,}041)$}      \\ \hline
+    Protection           & \makecell{$0{,}016$\\$(0{,}020)$}      \\ \hline
+    Eau                  & \makecell{$0{,}015$\\$(0{,}027)$}      \\ \hline
+    Logement             & \makecell{$0{,}014$\\$(0{,}041)$}      \\ \hline
+    Éducation            & \makecell{$0{,}013$\\$(0{,}017)$}      \\ \hline
+    Santé                & \makecell{$0{,}012$\\$(0{,}013)$}      \\
     \hline
   \end{tabular}
 
