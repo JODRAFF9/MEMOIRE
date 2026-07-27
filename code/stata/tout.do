@@ -1868,11 +1868,13 @@ di ">>> fig_evolution_ipm.pdf sauvegardé"
 /* ── Fig 2 : Distribution du nombre de dimensions en privation ──
    Abscisse : nombre exact de dimensions en privation (0 a 7).
    Ordonnee  : part des enfants (%), a l'image du rapport ANSD/UNICEF
-   MODA. Ligne verticale entre 3 et 4 marquant le seuil k=4 retenu. */
+   MODA. Ligne verticale placee apres la barre des 4 dimensions. */
 tempname distrib
 matrix `distrib' = J(8, 3, .)
 foreach annee in 2018 2021 {
-    use "$TEMP/vague_`annee'.dta", clear
+    local tt = cond(`annee' == 2018, 0, 1)
+    use "$TEMP/panel_vrai.dta", clear
+    keep if t == `tt'
     local col = cond(`annee' == 2018, 2, 3)
     quietly count if !missing(nb_dep)
     local n_tot = r(N)
@@ -1900,7 +1902,7 @@ graph twoway ///
      mlabpos(12) mlabcolor(black) mlabsize(vsmall)) ///
     (scatter pct_2021 x_2021, msymbol(none) mlabel(lbl_21) ///
      mlabpos(12) mlabcolor(black) mlabsize(vsmall)) ///
-    , xline(3.5, lcolor(red) lpattern(dash) lwidth(medthick)) ///
+    , xline(4.5, lcolor(red) lpattern(dash) lwidth(medthick)) ///
     xlabel(0(1)7) xtitle("Nombre de dimensions en privation (sur 7)") ///
     ylabel(0(5)30, grid) ytitle("Part des enfants (%)") ///
     legend(order(1 "EHCVM I (2018-19)" 2 "EHCVM II (2021-22)") pos(6) rows(1)) ///
