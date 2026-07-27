@@ -34,7 +34,11 @@ sensibilité de l'ATT à la méthode d'appariement : k-NN ($0{,}053$,
 $p = 0{,}086$), noyau Epanechnikov ($0{,}060$, $p = 0{,}074$) et caliper
 ($0{,}050$, $p = 0{,}057$). Les trois algorithmes donnent des effets d'ampleur
 voisine, tous significatifs au seuil de 10\,\% et aucun à 5\,\% : la
-conclusion est robuste au choix algorithmique.
+conclusion est robuste au choix algorithmique. Cette concordance est d'autant
+plus utile que les trois méthodes n'atteignent pas la même qualité
+d'équilibrage (tableau~\ref{tab:balance_global})~: le noyau et le caliper,
+mieux équilibrés que le k-NN sur le test joint, encadrent l'estimation de
+référence plutôt qu'ils ne la contredisent.
 
 Elle l'est moins à la définition du traitement. En restreignant la comparaison
 aux bénéficiaires durables -- recevant un transfert aux deux vagues,
