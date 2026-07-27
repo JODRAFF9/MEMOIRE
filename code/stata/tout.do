@@ -1026,6 +1026,64 @@ tabstat D, by(t) stat(mean sum n) format(%6.3f)
 save "$TEMP/panel_vrai.dta", replace
 
 /* ============================================================
+   DIAGNOSTIC : departs de membres entre les deux vagues
+
+   Le questionnaire 2021 precharge chaque membre releve en 2018 et demande
+   s'il fait toujours partie du menage (s01q00aa), pour quelle raison il
+   l'a quitte (s01q00b) et depuis quand (s01q00c). Ces variables ne sont
+   pas encore exploitees. Elles permettraient de mesurer si les menages
+   temoins ont eux aussi perdu un adulte, ce que le design suppose sans le
+   verifier, et de savoir si le motif distingue un depart a l'etranger
+   d'un depart a l'interieur du pays.
+
+   Ce bloc ne modifie aucune estimation : il decrit ce qui est exploitable.
+   ============================================================ */
+
+preserve
+    use "$BASE_2021/s01_me_sen2021.dta", clear
+    keep grappe menage membres__id s01qpreload_pid s01qpreload_sex ///
+         s01qpreload_age s01q00aa s01q00b s01q00c
+
+    /* Restriction aux membres precharges, c'est-a-dire presents en 2018 */
+    keep if !missing(s01qpreload_pid)
+
+    /* Menages du panel d'analyse et statut de traitement */
+    merge m:1 grappe menage using "$TEMP/ids_panel.dta", keep(match) nogenerate
+    merge m:1 grappe menage using "$TEMP/traitement_2018.dta", ///
+        keepusing(D) keep(master match) nogenerate
+    replace D = 0 if missing(D)
+
+    di _newline(2) "=== Departs de membres entre 2018 et 2021 (menages du panel) ==="
+    di "  Membres precharges : " _N
+
+    di _newline "--- s01q00aa : toujours membre du menage ? ---"
+    tab s01q00aa, missing
+
+    gen byte parti = (s01q00aa == 2) if !missing(s01q00aa)
+
+    di _newline "--- Motif du depart (s01q00b) ---"
+    tab s01q00b if parti == 1, missing
+
+    di _newline "--- Annee de depart (s01q00c) ---"
+    tab s01q00c if parti == 1, missing
+
+    di _newline "--- Age precharge (2018) des partants ---"
+    summarize s01qpreload_age if parti == 1, detail
+
+    di _newline "--- Motif du depart des 15 ans et plus, selon le statut du menage ---"
+    tab s01q00b D if parti == 1 & s01qpreload_age >= 15, column
+
+    /* Part des menages ayant perdu un adulte, par statut de traitement.
+       C'est le chiffre qui manque au chapitre 4 : le depart d'un adulte
+       est-il propre aux beneficiaires ? */
+    gen byte parti_adulte = (parti == 1 & s01qpreload_age >= 15)
+    collapse (max) parti_adulte (first) D, by(grappe menage)
+    di _newline "--- Menages ayant perdu au moins un membre de 15 ans ou plus ---"
+    tab parti_adulte D, column
+restore
+
+
+/* ============================================================
    4. Panel complet — panel vrai + nouveaux menages 2021
 
    Utile pour les estimations sur echantillon elargi
