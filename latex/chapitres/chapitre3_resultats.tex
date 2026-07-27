@@ -1,3 +1,5 @@
+\providecommand{\ATTENTE}{\textbf{\textit{à compléter}}}
+
 \section{Résultats des estimations}
 \label{sec:resultats}
 
@@ -335,14 +337,15 @@ l'avantage initial des enfants de ménages bénéficiaires.
 \label{subsec:sensib_k}
 
 Le seuil $k=4$ dimensions sur sept retenu pour déclarer un enfant pauvre est
-une convention. Le tableau~\ref{tab:sensib_k} réestime l'ATT en le faisant
-varier de $k=3$ à $k=6$, ce qui fait passer l'incidence de 75,1\,\% à
-13,3\,\% sur le panel apparié à la période de base. Le signe de l'effet est
-positif à chaque seuil et son ampleur décroît avec la sévérité : $5{,}2$ pp à
-$k=3$, $5{,}3$ pp à $k=4$, $3{,}4$ pp à $k=5$ et $2{,}9$ pp à $k=6$. La
-significativité suit la même pente : l'effet est significatif à 5\,\% pour la
-définition la plus inclusive ($p = 0{,}042$), à 10\,\% au seuil de référence
-($p = 0{,}086$), et ne l'est plus au-delà.
+une convention. Le tableau~\ref{tab:sensib_k} réestime l'ATT à chaque seuil
+possible, de $k=1$ à $k=7$. Le seuil $k=0$ est écarté : tout enfant étant privé
+dans au moins zéro dimension, la variable de résultat y serait constamment
+égale à un et l'ATT nul par construction.
+
+Le signe de l'effet est positif à tous les seuils, et son ampleur décroît avec
+la sévérité retenue. La significativité suit la même pente : l'effet est
+significatif pour les définitions les plus inclusives, marginalement au seuil
+de référence, et cesse de l'être au-delà.
 
 Cette structure a un sens économique. Les transferts pèsent sur la marge, là
 où quelques privations font basculer un enfant de part et d'autre du seuil, et
@@ -356,20 +359,23 @@ c'est son intensité qui varie.
   \caption[Sensibilité de l'ATT PSM-DD au seuil inter-dimensionnel $k$]{Sensibilité de l'ATT PSM-DD au seuil inter-dimensionnel $k$\protect\footnotemark}
   \label{tab:sensib_k}
   \zebre
-  \begin{tabular}{|c|c|c|c|c|}
+  \begin{tabular}{|c|c|c|c|}
     \hline
-\entete Seuil $k$ & Incidence 2018 (\%) & ATT & Éc.-t. (cluster) & $p$-valeur \\
+\entete Seuil $k$ & ATT & Éc.-t. (cluster) & $p$-valeur \\
     \hline
-    3 & 75,1 & $0{,}052^{**}$ & $(0{,}026)$ & 0,042 \\ \hline
-    4 & 54,4 & $0{,}053^{*}$  & $(0{,}031)$ & 0,086 \\ \hline
-    5 & 31,8 & $0{,}034$      & $(0{,}027)$ & 0,205 \\ \hline
-    6 & 13,3 & $0{,}029$      & $(0{,}021)$ & 0,175 \\
+    1 & \ATTENTE & \ATTENTE & \ATTENTE \\ \hline
+    2 & \ATTENTE & \ATTENTE & \ATTENTE \\ \hline
+    3 & \ATTENTE & \ATTENTE & \ATTENTE \\ \hline
+    4 & \ATTENTE & \ATTENTE & \ATTENTE \\ \hline
+    5 & \ATTENTE & \ATTENTE & \ATTENTE \\ \hline
+    6 & \ATTENTE & \ATTENTE & \ATTENTE \\ \hline
+    7 & \ATTENTE & \ATTENTE & \ATTENTE \\
     \hline
   \end{tabular}
 
-  {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM. $^{*}p<0{,}10$, $^{**}p<0{,}05$.}
+  {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM.}
 \end{table}
-\footnotetext{\textit{Note :} appariement k-NN au niveau enfant, erreurs-types clusterisées par grappe~; l'incidence est pondérée par \texttt{hhweight} sur le panel apparié à $t=0$.}
+\footnotetext{\textit{Note :} appariement k-NN au niveau enfant, erreurs-types clusterisées par grappe. Seule la définition de la variable de résultat change d'une ligne à l'autre.}
 
 \subsubsection{Effets par dimension}
 
