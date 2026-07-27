@@ -1220,6 +1220,14 @@ merge 1:1 enfid using "$TEMP/poids_caliper.dta", nogenerate
 merge 1:1 enfid using "$TEMP/pscore_knn.dta", ///
     keepusing(weight_knn _support) nogenerate
 
+/* Groupe d'age fige a la periode de base. Un enfant de 3 ans en 2018 en a
+   6 en 2021 : recalcule a chaque vague, le groupe change en cours de panel
+   et la double difference d'un sous-groupe ne compare plus le meme enfant a
+   lui-meme. Le groupe de base suit l'enfant aux deux vagues, si bien que
+   « 0-4 ans » se lit « age de 0 a 4 ans en 2018 ». */
+clonevar groupe_base = groupe_moda18
+label var groupe_base "Groupe d'age MODA a la periode de base (2018)"
+
 reshape long pauvre_MODA nb_dep groupe_moda sexe age ///
              dim_assai dim_eau dim_logem dim_nutri dim_sante dim_protect dim_educ, ///
     i(enfid) j(periode)
@@ -1437,13 +1445,18 @@ if _rc == 0 {
     }
 }
 
-di _newline "=== Heterogeneite par groupe d'age ==="
+di _newline "=== Heterogeneite par groupe d'age (groupe fige en 2018) ==="
 foreach g in 1 2 3 {
     foreach outcome in pauvre_MODA {
-        quietly count if groupe_moda == `g'
+        quietly count if groupe_base == `g'
         if r(N) > 30 {
             di "--- Groupe `g' — `outcome' ---"
-            regress `outcome' i.t##i.D [aw=weight_knn] if groupe_moda == `g', ///
+            quietly count if groupe_base == `g' & groupe_moda != groupe_base
+            local n_chg = r(N)
+            quietly count if groupe_base == `g'
+            di "  Observations changeant de groupe d'age entre les vagues : " ///
+               %5.1f 100*`n_chg'/r(N) "%"
+            regress `outcome' i.t##i.D [aw=weight_knn] if groupe_base == `g', ///
                 vce(cluster grappe)
             lincom 1.t#1.D
             di "  ATT = " %8.4f r(estimate) "  p = " %6.4f r(p)
