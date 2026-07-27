@@ -112,14 +112,14 @@ reconstruite à chaque passage et un même rang désigne, d'une vague à l'autre
 des personnes différentes.
 
 Le questionnaire de l'EHCVM~II résout cette difficulté par un mécanisme de
-\emph{préchargement}. Pour chaque ménage panel, la première section du
-questionnaire 2021 affiche à l'enquêteur la liste des membres relevés en 2018,
-avec leur identifiant d'origine, leur sexe, leur âge et leur lien de parenté
-avec le chef. L'enquêteur confirme la présence de chaque personne, signale les
-départs et enregistre les nouveaux arrivants. La variable
-\texttt{s01qpreload\_pid} conserve ainsi, pour chaque membre de 2021 déjà
-présent en 2018, son identifiant de 2018. C'est cette variable, et non le rang
-dans la liste, qui apparie une personne à elle-même.
+préchargement. Pour chaque ménage panel, la première section du questionnaire
+2021 affiche à l'enquêteur la liste des membres relevés en 2018, avec leur
+identifiant d'origine, leur sexe, leur âge et leur lien de parenté avec le
+chef. L'enquêteur confirme la présence de chaque personne, signale les départs
+et enregistre les nouveaux arrivants. La variable \texttt{s01qpreload\_pid}
+conserve ainsi, pour chaque membre de 2021 déjà présent en 2018, son
+identifiant de 2018. C'est cette variable, et non le rang dans la liste, qui
+apparie une personne à elle-même.
 
 La table de correspondance ainsi construite couvre 62\,239 individus répartis
 dans 7\,049 ménages. Le triplet identifiant est biunivoque dans les deux
@@ -149,11 +149,11 @@ d'âge, elle-même corrélée aux conditions de vie du ménage.
 
 \subsection{Construction de la variable de traitement}
 
-La variable de traitement $D_i \in \{0, 1\}$ est définie à la \emph{période
-de base} (2018), qui sert de référence avant l'observation des résultats
-ultérieurs. Fixer le statut en début de période garantit qu'il ne peut pas
-être affecté par l'évolution des privations observée entre les deux vagues,
-et donc qu'il n'y a pas de causalité inverse du résultat vers le traitement.
+La variable de traitement $D_i \in \{0, 1\}$ est définie à la période de base
+(2018), qui sert de référence avant l'observation des résultats ultérieurs.
+Fixer le statut en début de période garantit qu'il ne peut pas être affecté par
+l'évolution des privations observée entre les deux vagues, et donc qu'il n'y a
+pas de causalité inverse du résultat vers le traitement.
 
 Le traitement retient en outre la seule migration issue du ménage~:
 sont comptabilisés les transferts dont l'expéditeur a déjà vécu dans le
@@ -409,8 +409,8 @@ la petite enfance.
 
 Pour chaque enfant $i$ et chaque dimension $j \in \{1, \ldots, 7\}$, la variable
 de privation est $d_{ij} = \mathbf{1}[\text{privé dans au moins un indicateur
-de la dimension } j]$. Le \textit{score de
-privation} de l'enfant $i$ est le nombre de dimensions dans lesquelles il est privé :
+de la dimension } j]$. Le score de privation
+de l'enfant $i$ est le nombre de dimensions dans lesquelles il est privé :
 \begin{equation}
   s_i = \sum_{j=1}^{7} d_{ij}.
   \label{eq:score_moda}
@@ -495,13 +495,13 @@ différents dès le départ, il construit pour chaque enfant bénéficiaire un
 contrefactuel crédible à partir d'enfants non bénéficiaires aux
 caractéristiques observables similaires.
 
-L'unité $i$ est donc l'\emph{enfant}, et non le ménage. Le transfert est certes
+L'unité $i$ est donc l'enfant, et non le ménage. Le transfert est certes
 reçu par le ménage, mais la variable de résultat est la privation de l'enfant,
 et deux enfants d'un même ménage n'ont ni le même sexe, ni le même âge, ni donc
 les mêmes dimensions MODA applicables. On pose ainsi $D_i = 1$ si l'enfant $i$
 vit dans un ménage bénéficiaire à la période de base, et le score de propension
-$p(X_i)$ s'interprète comme la \emph{probabilité qu'un enfant de
-caractéristiques $X_i$ vive dans un ménage bénéficiaire}. Le vecteur $X_i$
+$p(X_i)$ s'interprète comme la probabilité qu'un enfant de caractéristiques
+$X_i$ vive dans un ménage bénéficiaire. Le vecteur $X_i$
 combine à cet effet deux niveaux~: les caractéristiques du ménage à la période
 de base, qui gouvernent la sélection dans le traitement, et celles de l'enfant
 lui-même -- son sexe et son âge --, qui garantissent que chaque enfant traité
@@ -599,15 +599,15 @@ sexe, l'âge, l'éducation et le statut matrimonial du chef de ménage, ainsi qu
 le sexe et l'âge de l'enfant.}
 
 L'appariement est réalisé au niveau de l'enfant. Ce choix a deux
-justifications. La première tient à la mesure~: les dimensions MODA
-applicables dépendent du groupe d'âge de l'enfant, de sorte qu'apparier au
-niveau du ménage reviendrait à traiter comme interchangeables des enfants dont
-le bien-être n'est pas évalué sur les mêmes indicateurs. Introduire le sexe et
-l'âge dans le score garantit au contraire qu'un enfant traité soit comparé à
-des enfants témoins évalués sur les mêmes dimensions. La seconde tient à
-l'unité d'analyse~: l'objectif est de mesurer un effet moyen sur les
-\emph{enfants}, non sur les ménages, et c'est donc la population d'enfants qui
-doit être équilibrée entre traités et témoins.
+justifications. La première tient à la mesure~: les dimensions MODA applicables
+dépendent du groupe d'âge de l'enfant, de sorte qu'apparier au niveau du ménage
+reviendrait à traiter comme interchangeables des enfants dont le bien-être
+n'est pas évalué sur les mêmes indicateurs. Introduire le sexe et l'âge dans le
+score garantit au contraire qu'un enfant traité soit comparé à des enfants
+témoins évalués sur les mêmes dimensions. La seconde tient à l'unité
+d'analyse~: l'objectif est de mesurer un effet moyen sur les enfants, non sur
+les ménages, et c'est donc la population d'enfants qui doit être équilibrée
+entre traités et témoins.
 
 Ce choix a une contrepartie. Les enfants d'un même ménage partageant leurs
 covariables de ménage, leurs scores de propension sont proches, et les ménages

@@ -12,20 +12,19 @@ par dimension de la pauvreté.
 
 \subsubsection{Résultats du modèle probit}
 
-Le score de propension est estimé par un probit au \emph{niveau de l'enfant},
-et non du ménage. Ce choix découle de l'unité d'analyse retenue tout au long
-du mémoire : c'est la privation de l'enfant qui constitue la variable de
-résultat, et deux enfants d'un même ménage n'ont ni le même sexe, ni le même
-âge, ni donc les mêmes dimensions MODA applicables. Apparier des ménages
-reviendrait à traiter comme identiques des enfants dont les besoins mesurés
-diffèrent.
+Le score de propension est estimé par un probit au niveau de l'enfant, et non
+du ménage. Ce choix découle de l'unité d'analyse retenue tout au long du
+mémoire : c'est la privation de l'enfant qui constitue la variable de résultat,
+et deux enfants d'un même ménage n'ont ni le même sexe, ni le même âge, ni donc
+les mêmes dimensions MODA applicables. Apparier des ménages reviendrait à
+traiter comme identiques des enfants dont les besoins mesurés diffèrent.
 
-L'échantillon d'estimation est le panel d'enfants suivis entre les deux
-vagues, appariés par l'identifiant préchargé décrit en
-section~\ref{subsec:panel_enfants} (17\,786 enfants, dont 17\,769 utilisés par le
-probit). Cette restriction n'est pas une commodité : c'est la seule
+L'échantillon d'estimation est le panel d'enfants suivis entre les deux vagues,
+appariés par l'identifiant préchargé décrit en
+section~\ref{subsec:panel_enfants} (17\,786 enfants, dont 17\,769 utilisés par
+le probit). Cette restriction n'est pas une commodité : c'est la seule
 construction dans laquelle le poids d'appariement calculé à la période de base
-se rapporte au \emph{même} individu à la seconde vague, condition d'une double
+se rapporte bien au même individu à la seconde vague, condition d'une double
 différence individuelle.
 
 Les covariables combinent deux niveaux. Celles du ménage à la période de base
@@ -266,8 +265,8 @@ l'ensemble des témoins du support commun ; sur un échantillon où les enfants
 traités se concentrent dans un nombre limité de ménages, cette parcimonie se
 paie en équilibrage.
 
-Ce constat ne remet pas en cause les résultats, pour deux raisons. D'abord,
-les trois méthodes donnent des estimations très proches
+Ce constat ne remet pas en cause les résultats, pour deux raisons. D'abord, les
+trois méthodes donnent des estimations très proches
 (tableau~\ref{tab:psm_methodes}) : l'ATT vaut $0{,}053$ en k-NN, $0{,}060$ en
 noyau et $0{,}050$ en caliper, tous significatifs au seuil de 10\,\%. Que les
 deux spécifications les mieux équilibrées encadrent l'estimation de référence
@@ -276,8 +275,8 @@ covariables — taille du ménage, dépense par tête, sexe du chef — dont l'e
 de niveau est de toute façon éliminé par la double différence, celle-ci ne
 retenant que la variation intra-individuelle. Le biais résiduel n'affecterait
 l'ATT que si ces caractéristiques déterminaient non pas le niveau, mais la
-\emph{tendance} des privations, hypothèse que le test placebo
-(annexe~\ref{ann:A}) ne corrobore pas.
+tendance des privations, hypothèse que le test placebo (annexe~\ref{ann:A}) ne
+corrobore pas.
 
 \subsection{Impact des transferts sur la pauvreté multidimensionnelle}
 
@@ -333,12 +332,12 @@ sélection sur observables et les effets fixes inobservables constants dans le t
 \end{table}
 \footnotetext{\textit{Note :} appariement k-NN au niveau enfant, erreurs-types clusterisées par grappe, $n = 15\,916$ observations-enfants.}
 
-L'estimateur PSM-DD donne un ATT de $0{,}053$, significatif au seuil de
-10\,\% mais non au seuil de 5\,\% ($p = 0{,}086$). Le signe est positif :
-entre 2018-2019 et 2021-2022, la privation multidimensionnelle des enfants de
-ménages bénéficiaires a reculé \emph{plus lentement} que celle d'enfants
-témoins de sexe, d'âge et de profil de ménage comparables, l'écart étant de
-l'ordre de 5 points de pourcentage.
+L'estimateur PSM-DD donne un ATT de $0{,}053$, significatif au seuil de 10\,\%
+mais non au seuil de 5\,\% ($p = 0{,}086$). Le signe est positif : entre
+2018-2019 et 2021-2022, la privation multidimensionnelle des enfants de ménages
+bénéficiaires a reculé plus lentement que celle d'enfants témoins de sexe,
+d'âge et de profil de ménage comparables, l'écart étant de l'ordre de 5 points
+de pourcentage.
 
 Deux conclusions s'imposent. D'abord, l'hypothèse H1 n'est pas validée : les
 transferts ne réduisent pas la pauvreté multidimensionnelle des enfants sur
@@ -452,12 +451,12 @@ c'est son intensité qui varie.
 
 L'analyse par dimension (figure~\ref{fig:effets_dim} et
 tableau~\ref{tab:effets_dim}) décompose l'ATT global sur les sept dimensions
-MODA. Une seule ressort : la \textbf{nutrition}, avec un ATT de $0{,}084$
-significatif au seuil de 5\,\% ($p = 0{,}043$). La privation alimentaire des
-enfants de ménages bénéficiaires recule 8,4 points plus lentement que celle de
-leurs témoins appariés. C'est aussi la dimension la plus directement sensible
-au budget courant du ménage, donc celle où un apport monétaire aurait dû se
-voir en premier : le résultat va à l'encontre de l'effet attendu.
+MODA. Une seule ressort, la nutrition, avec un ATT de $0{,}084$ significatif au
+seuil de 5\,\% ($p = 0{,}043$). La privation alimentaire des enfants de ménages
+bénéficiaires recule 8,4 points plus lentement que celle de leurs témoins
+appariés. C'est aussi la dimension la plus directement sensible au budget
+courant du ménage, donc celle où un apport monétaire aurait dû se voir en
+premier : le résultat va à l'encontre de l'effet attendu.
 
 L'assainissement suit avec $0{,}069$, sans atteindre la significativité
 ($p = 0{,}109$). Les cinq autres dimensions présentent des coefficients
