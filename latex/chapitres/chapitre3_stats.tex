@@ -1,183 +1,14 @@
 \section{Statistiques descriptives}
 \label{sec:stats}
 
-Cette section dresse un portrait statistique de l'échantillon et de la pauvreté
-multidimensionnelle des enfants : profil des ménages, niveaux de pauvreté dans
-les deux vagues, et décomposition des privations par dimension et par groupe
-d'âge.
+Cette section mesure la pauvreté multidimensionnelle des enfants sénégalais
+aux deux vagues et confronte les enfants des ménages bénéficiaires de
+transferts à ceux des ménages non bénéficiaires, dimension par dimension et
+groupe d'âge par groupe d'âge. L'unité d'observation est l'enfant,
+conformément à l'unité d'analyse retenue pour l'estimation d'impact, et toutes
+les moyennes sont pondérées par les poids de sondage de l'EHCVM.
 
-\subsection{Profil des ménages enquêtés}
-
-\subsubsection{Caractéristiques générales}
-
-La source, le plan de sondage et la construction de l'échantillon (panel vrai,
-enfants de 0 à 17 ans) sont détaillés au chapitre~\ref{sec:methodo} et ne sont
-pas repris ici. Le tableau~\ref{tab:stats_menages} en résume les principales
-caractéristiques socio-démographiques, préalable descriptif à l'analyse des
-privations.
-
-\begin{table}[H]
-  \centering
-  \caption{Caractéristiques des ménages : EHCVM I (2018-2019) et EHCVM II (2021-2022)}
-  \label{tab:stats_menages}
-  \zebre
-  \begin{tabular}{|l|c|c|}
-    \hline
-\entete Variable & EHCVM I (2018-19) & EHCVM II (2021-22) \\
-    \hline
-    Taille du ménage              & 10,01 & 9,03  \\ \hline
-    Chef de ménage féminin (\%)   & 26,1  & 29,1  \\ \hline
-    Milieu urbain (\%)            & 52,5  & 50,9  \\ \hline
-    Tout transfert de l'étranger (\%) & 24,4  & 26,8  \\ \hline
-    dont expéditeur ex-membre du ménage (\%) & 12,9 & 15,0 \\ \hline
-    Dépense de consommation par tête, annuelle (FCFA) & 510~802 & 597~804 \\
-    \hline
-    Taille d'échantillon ($n$ ménages) & 7~156 & 7~120 \\ \hline
-    dont enfants de 0 à 17 ans ($n$)       & 33~844 & 31~033 \\
-    \hline
-  \end{tabular}
-
-  {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM.}
-\end{table}
-
-Les ménages sénégalais sont de grande taille, avec 10,0 personnes en moyenne
-en 2018-2019, et un ménage sur quatre est dirigé par une femme. Un quart des
-ménages (24,4\,\%) déclare recevoir au moins un transfert en provenance de
-l'étranger, mais tous ces envois ne relèvent pas de la migration issue du
-ménage~: lorsque l'on restreint la définition aux transferts dont l'expéditeur
-a déjà vécu dans le ménage -- celle retenue pour le traitement --, la
-proportion tombe à 12,9\,\% en 2018-2019 et 15,0\,\% en 2021-2022. C'est
-sur cette définition restreinte que reposent la comparaison descriptive et
-l'estimation d'impact qui suivent.
-
-\subsubsection{Bénéficiaires et non-bénéficiaires de transferts}
-
-Le tableau~\ref{tab:comparaison_statut} compare les ménages avec enfants
-selon leur statut de bénéficiaire à la période de base (EHCVM~I). Les
-bénéficiaires sont sensiblement plus grands (12,03 contre 9,70 personnes),
-plus aisés (626~136 contre 493~009 FCFA de dépense annuelle par tête), plus
-âgés à la tête du ménage (54,6 contre 51,2 ans), plus souvent dirigés par une
-femme (42,4\,\% contre 23,6\,\%) et davantage urbains (64,4\,\% contre
-50,6\,\%). Toutes ces différences sont significatives à 1\,\textperthousand.
-Cette sélection positive est le c\oe{}ur du problème d'identification~: une
-comparaison naïve des trajectoires de pauvreté entre les deux groupes
-confondrait l'impact causal des transferts avec ces différences initiales,
-d'où le recours à l'appariement par score de propension
-(tableau~\ref{tab:balance}, section~\ref{sec:resultats}).
-
-\begin{table}[H]
-  \centering
-  \caption{Comparaison des ménages selon le statut de transferts (EHCVM I, 2018-2019)}
-  \label{tab:comparaison_statut}
-  \zebre
-  \begin{tabular}{|l|c|c|c|}
-    \hline
-\entete Variable & Bénéficiaires ($D=1$) & Non-bénéf. ($D=0$) & $p$-val. \\
-    \hline
-    Taille du ménage              & 12,03 & 9,70  & $<$0,001 \\ \hline
-    Âge du chef de ménage (ans)   & 54,6  & 51,2  & $<$0,001 \\ \hline
-    Chef de ménage féminin (\%)   & 42,4  & 23,6  & $<$0,001 \\ \hline
-    Milieu urbain (\%)            & 64,4  & 50,6  & $<$0,001 \\ \hline
-    Dépense par tête, annuelle (FCFA) & 626~136 & 493~009 & $<$0,001 \\
-    \hline
-    Taille d'échantillon ($n$ ménages) & 859 & 5~568 & - \\
-    \hline
-  \end{tabular}
-
-  {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM. Ménages avec enfants de 0 à 17 ans~; écarts-types clusterisés par grappe.}
-\end{table}
-
-\subsubsection{Motifs et montants des transferts reçus}
-
-Au-delà du statut binaire de bénéficiaire, le module transferts de l'EHCVM
-renseigne, pour chaque transfert reçu, le motif principal déclaré par le
-ménage ainsi que le montant et la fréquence des envois. Le
-tableau~\ref{tab:motifs_transferts} présente la répartition des motifs pour
-les transferts en provenance de l'étranger.
-
-\begin{table}[H]
-  \centering
-  \caption[Répartition des motifs déclarés des transferts de migrants (\%)]{Répartition des motifs déclarés des transferts de migrants (\%)\protect\footnotemark}
-  \label{tab:motifs_transferts}
-  \zebre
-  \begin{tabular}{|l|c|c|}
-    \hline
-\entete Motif principal déclaré & EHCVM I (2018) & EHCVM II (2021) \\
-    \hline
-    Soutien courant                        & 66,7 & 68,5 \\ \hline
-    Fête, évènements                       & 11,3 & 9,3  \\ \hline
-    Santé, maladie                         & 4,6  & 6,5  \\ \hline
-    Scolarité, éducation                   & 3,5  & 3,7  \\ \hline
-    Appui à une entreprise non agricole    & 0,6  & 1,2  \\ \hline
-    Construction d'une maison              & 0,7  & 0,7  \\ \hline
-    Appui aux travaux des champs           & 0,5  & 0,5  \\ \hline
-    Achat de terrain                       & 0,1  & 0,1  \\ \hline
-    Aide liée à la COVID-19                & -    & 0,3  \\ \hline
-    Autre                                  & 11,9 & 9,2  \\
-    \hline
-    Nombre de transferts étrangers         & 2~406 & 2~775 \\
-    \hline
-  \end{tabular}
-
-  {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM.}
-\end{table}
-\footnotetext{\textit{Note :} unité d'observation~: le transfert.}
-
-La structure des motifs est stable entre les deux vagues~:
-environ deux transferts sur trois relèvent du soutien courant, c'est-à-dire
-d'un appui non affecté au budget général du ménage. Les motifs directement
-fléchés vers le capital humain des enfants (scolarité et santé) ne
-représentent qu'environ 8 à 10\,\% des transferts déclarés. Cette
-prédominance du soutien non affecté conforte le choix de mesurer l'effet des
-transferts sur les conditions de vie effectives des enfants (privations
-MODA) plutôt que de raisonner sur l'affectation déclarée des fonds~:
-l'argent étant fongible au sein du budget du ménage, un transfert de
-soutien courant peut financer la scolarité ou les soins, et réciproquement.
-
-\begin{table}[H]
-  \centering
-  \caption[Montant annuel des transferts étrangers reçus par ménage bénéficiaire (FCFA)]{Montant annuel des transferts étrangers reçus par ménage bénéficiaire (FCFA)\protect\footnotemark}
-  \label{tab:montants_transferts}
-  \zebre
-  \begin{tabular}{|l|c|c|}
-    \hline
-\entete Statistique & EHCVM I (2018) & EHCVM II (2021) \\
-    \hline
-    Moyenne              & 883~180   & 948~113   \\ \hline
-    Médiane              & 300~000   & 275~000   \\ \hline
-    Premier quartile     & 60~000    & 70~000    \\ \hline
-    Troisième quartile   & 1~200~000 & 1~200~000 \\
-    \hline
-    Ménages bénéficiaires ($n$) & 1~584 & 1~765 \\
-    \hline
-  \end{tabular}
-
-  {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM.}
-\end{table}
-\footnotetext{\textit{Note :} montants annualisés, sommés au niveau du ménage.}
-
-Les montants en jeu sont substantiels mais dispersés~: la médiane
-s'établit autour de 300~000 FCFA par an (soit un ordre de grandeur comparable
-au seuil de pauvreté monétaire par tête), tandis que la moyenne, proche de
-900~000 FCFA, est tirée vers le haut par une minorité de gros receveurs (le
-troisième quartile atteint 1~200~000 FCFA dans les deux vagues). Rapportée à
-la dépense annuelle par tête moyenne des ménages,
-cette manne représente une ressource loin d'être marginale pour les ménages
-bénéficiaires (tableau~\ref{tab:stats_menages}), ce qui rend d'autant plus
-plausible un effet mesurable, dans un sens ou dans l'autre, sur les
-conditions de vie des enfants.
-
-\subsection{Analyse de pauvreté multidimensionnelle des enfants}
-
-\subsubsection{Ensemble 0 à 17 ans}
-
-Les statistiques de cette sous-section sont pondérées par les poids de
-sondage de l'EHCVM, afin d'assurer la représentativité nationale et la
-comparabilité avec les chiffres officiels de l'ANSD (annexe~\ref{ann:E})~;
-seule la comparaison des caractéristiques de ménages
-(tableau~\ref{tab:comparaison_statut}) est présentée non pondérée, car elle
-décrit les déséquilibres de l'échantillon analytique que l'appariement
-corrige.
+\subsection{Ensemble 0 à 17 ans}
 
 En 2018-2019, l'incidence de la pauvreté multidimensionnelle des enfants
 atteint 62,8\,\%, avec une intensité moyenne $A = 70{,}6\,\%$, soit la part
@@ -207,7 +38,7 @@ groupe d'âge, l'incidence 2018 est la plus élevée chez les 5-14 ans
 (68,2\,\%), suivis des 0-4 ans (56,5\,\%) et des 15-17 ans (53,9\,\%)~; le
 classement est identique en 2021 (60,9\,\%~; 47,0\,\%~; 46,9\,\%).
 
-\subsubsection{Privations des enfants selon le statut de bénéficiaire}
+\subsection{Privations des enfants selon le statut de bénéficiaire}
 \label{subsec:comparaison_benef}
 
 Le c\oe{}ur descriptif de cette section est la comparaison entre les enfants
@@ -256,9 +87,9 @@ vague~: 48,5\,\% contre 67,6\,\% en 2018-2019, 43,1\,\% contre 59,9\,\% en
 hautement significatif. L'avantage se lit sur six dimensions sur sept, avec
 des écarts allant jusqu'à 24 points en assainissement et 20 points en
 nutrition. Cet écart de niveau ne mesure toutefois pas un effet des
-transferts~: il reflète en grande partie la sélection positive documentée au
-tableau~\ref{tab:comparaison_statut}, les ménages bénéficiaires étant
-initialement plus aisés et plus urbains.
+transferts~: il reflète en grande partie la sélection positive des ménages
+bénéficiaires, initialement plus aisés et plus urbains
+(section~\ref{sec:methodo}), que corrige l'appariement.
 
 Deuxièmement, la protection de l'enfant fait exception et s'inverse~: les
 enfants des ménages bénéficiaires y sont davantage privés que les autres, de
@@ -315,7 +146,7 @@ dans les trois tranches et aux deux vagues, sans qu'aucune ne voie cet écart
 se resserrer ou se creuser nettement~: la stabilité de l'écart n'est donc pas
 un artefact d'agrégation entre tranches d'âge.
 
-\subsubsection{Prévalence des privations par dimension}
+\subsection{Prévalence des privations par dimension}
 
 Le tableau~\ref{tab:prevalence_dim} décompose la prévalence des privations par
 dimension pour l'ensemble des enfants. La dimension santé (combustible solide
@@ -404,7 +235,7 @@ l'illettrisme et à la séparation parentale.
   {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM.}
 \end{table}
 
-\subsubsection{Enfants de 0-4 ans}
+\subsection{Enfants de 0-4 ans}
 
 Chez les tout-petits (0-4 ans), la privation est dominée par le combustible
 solide (92,3\,\% puis 91,9\,\%) et la gestion des ordures (59,3\,\% puis
@@ -423,7 +254,7 @@ logement, d'eau et d'assainissement s'améliorent tous entre les deux vagues,
   {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM.}
 \end{figure}
 
-\subsubsection{Enfants de 5-14 ans}
+\subsection{Enfants de 5-14 ans}
 
 Pour les 5-14 ans, la tranche la plus nombreuse et la plus touchée, deux
 indicateurs propres à l'âge s'ajoutent~: le travail des enfants, en légère
@@ -441,7 +272,7 @@ privations de logement, d'eau et d'assainissement reculent sensiblement.
   {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM.}
 \end{figure}
 
-\subsubsection{Enfants de 15-17 ans}
+\subsection{Enfants de 15-17 ans}
 
 Chez les adolescents (15-17 ans), l'indicateur éducatif retenu est
 l'illettrisme (28,1\,\% puis 25,0\,\%). La situation NEET (ni scolarisé ni en
