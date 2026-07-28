@@ -530,9 +530,10 @@
     concordent (0,047 à 0,058).
   \end{alertblock}
   \begin{block}{Lecture}
-    L'effet n'est pas diffus : nutrition, 0-4 ans, petits montants. Les transferts
-    étant indissociables du départ d'un adulte, le coût de l'absence
-    est le canal le plus plausible.
+    L'effet n'est pas diffus : il n'est établi que sur la nutrition, chez les
+    0-4 ans et sur les petits montants. Les transferts étant indissociables du
+    départ d'un adulte, le coût de l'absence en donne une lecture partielle,
+    sans suffire à porter l'écart.
   \end{block}
 \end{frame}
 
@@ -609,7 +610,7 @@
 \begin{frame}{Tests de robustesse}
   \begin{block}{Sensibilité des résultats}
     \begin{itemize}
-      \item Méthodes d'appariement (k-NN, noyau, caliper) : ATT de
+      \item Méthodes d'appariement (k-NN, noyau, caliper) : effet de
             $0{,}047$ à $0{,}058$, tous significatifs à 10\,\%.
       \item Seuil $k$, testé de 1 à 7 : ampleur en courbe de cloche,
             maximale à $k=4$ et significative seulement à $k=3$ et $k=4$ --
@@ -619,7 +620,7 @@
             $0{,}032$ ($p=0{,}167$) -- même signe, ampleur atténuée, l'avantage
             initial des bénéficiaires n'étant pas corrigé.
       \item Test placebo (200 assignations aléatoires) : distribution
-            centrée sur zéro, ATT réel au 99,0\textsuperscript{e} centile.
+            centrée sur zéro, effet réel au 99,0\textsuperscript{e} centile.
       \item Attrition non corrélée au traitement ($p=0{,}101$).
     \end{itemize}
   \end{block}
@@ -627,7 +628,7 @@
     Chez les ménages bénéficiaires aux deux vagues, l'effet tombe à $0{,}023$
     et perd sa significativité ($p=0{,}474$) : l'écart de trajectoire ne se
     retrouve pas chez les bénéficiaires de longue date. Mais le traitement y
-    est déjà en cours à $t=0$, donc pas de vraie période pré-traitement.
+    est déjà en cours dès 2018, donc pas de vraie période pré-traitement.
   \end{alertblock}
 \end{frame}
 
@@ -642,7 +643,7 @@
       \midrule
       H1 & Réduction de la pauvreté & ATT MODA $= 0{,}058$ ($p=0{,}052$), de signe défavorable : pas de réduction & Rejetée \\[4pt]
       H2 & Hétérogénéité des effets  & Aucun test d'égalité concluant (milieu $p=0{,}336$ ; sexe $p=0{,}719$ ; âge $p=0{,}495$) ; effet établi seulement sur la nutrition ($p=0{,}042$) et chez les 0-4 ans ($p=0{,}045$) ; gradient selon le montant & Partiellement \\[4pt]
-      H3 & PSM-DD contrôle les biais & PSM seul : $-7{,}7$ pp à $t=0$ ($p=0{,}013$) ; la DD élimine cet écart pré-traitement et inverse le signe & Confirmée \\
+      H3 & PSM-DD contrôle les biais & PSM seul : $-7{,}7$ pp en 2018 ($p=0{,}013$) ; la DD élimine cet écart pré-traitement et inverse le signe & Confirmée \\
       \bottomrule
     \end{tabular}
   \end{table}
