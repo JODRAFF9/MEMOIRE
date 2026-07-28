@@ -1712,9 +1712,12 @@ di _newline ">>> 05_psm_dd.do termine."
    SECTION : 06_STATS_DESC — Statistiques descriptives
    Chapitre 3 : profil ménages, pauvreté, privations, comparaison D=0/1
 
-   Toutes les statistiques de cette section portent sur le panel vrai, le
-   meme echantillon que l'estimation d'impact, afin que les effectifs et les
-   niveaux coincident d'un tableau a l'autre du rapport.
+   Les statistiques portant sur les ENFANTS sont calculees sur les enfants
+   suivis individuellement d'une vague a l'autre (panel_enfants_psm.dta),
+   c'est-a-dire sur l'echantillon meme de l'estimation d'impact avant la
+   restriction au support commun. Un tableau descriptif et un coefficient
+   estime decrivent ainsi les memes enfants. Le profil des MENAGES (bloc 1)
+   reste sur le panel vrai, son unite etant le menage et non l'enfant.
 
    Les statistiques de pauvrete/privation (incidence MODA, par dimension,
    par age, par milieu, par region) sont PONDEREES par les poids de sondage
@@ -1778,7 +1781,7 @@ di _newline "=== 2. Balance traites / non-traites (niveau ENFANT) ==="
 
 /* Alimente le tableau de selection de la section 2 : qui recoit des
    transferts ? L'unite est l'enfant, comme dans tout le memoire. */
-use "$TEMP/panel_vrai.dta", clear
+use "$TEMP/panel_enfants_psm.dta", clear
 keep if t == 0
 
 gen byte chef_f = (hgender == 2)
@@ -1865,7 +1868,7 @@ di _newline "=== 3. Incidence pauvreté multidimensionnelle ==="
 
 foreach annee in 2018 2021 {
     local tt = cond(`annee' == 2018, 0, 1)
-    use "$TEMP/panel_vrai.dta", clear
+    use "$TEMP/panel_enfants_psm.dta", clear
     keep if t == `tt'
 
     di _newline "-- MODA `annee' (pondéré hhweight) --"
@@ -1894,7 +1897,7 @@ gen n_obs            = .
 local r = 0
 foreach annee in 2018 2021 {
     local tt = cond(`annee' == 2018, 0, 1)
-    use "$TEMP/panel_vrai.dta", clear
+    use "$TEMP/panel_enfants_psm.dta", clear
     keep if t == `tt'
     foreach g in 1 2 3 {
         local ++r
@@ -1918,7 +1921,7 @@ di _newline "=== 4. Privation par dimension ==="
 
 foreach annee in 2018 2021 {
     local tt = cond(`annee' == 2018, 0, 1)
-    use "$TEMP/panel_vrai.dta", clear
+    use "$TEMP/panel_enfants_psm.dta", clear
     keep if t == `tt'
     di _newline "-- Dimensions `annee' --"
     foreach dim in assai eau logem nutri sante protect educ {
@@ -1953,7 +1956,7 @@ di _newline "=== 5. Graphiques ==="
    non-beneficiaires. Les deux trajectoires rendent visible la logique de
    double difference : c'est l'ECART entre les groupes, et son evolution
    entre les deux vagues, qui porte l'information sur l'impact. ── */
-use "$TEMP/panel_vrai.dta", clear
+use "$TEMP/panel_enfants_psm.dta", clear
 forvalues d = 0/1 {
     foreach tt in 0 1 {
         quietly summarize pauvre_MODA [aw=hhweight] if D == `d' & t == `tt'
@@ -1995,7 +1998,7 @@ tempname distrib
 matrix `distrib' = J(8, 3, .)
 foreach annee in 2018 2021 {
     local tt = cond(`annee' == 2018, 0, 1)
-    use "$TEMP/panel_vrai.dta", clear
+    use "$TEMP/panel_enfants_psm.dta", clear
     keep if t == `tt'
     local col = cond(`annee' == 2018, 2, 3)
     quietly count if !missing(nb_dep)
@@ -2041,13 +2044,13 @@ di ">>> fig_distrib_dimensions.pdf sauvegardé"
    traitement du menage (D=1 beneficiaire migrant en 2018 ; D=0 non
    beneficiaire) a chaque vague, ecart entre groupes a chaque date, et
    evolution de cet ecart (double difference descriptive, non ponderee
-   par l'appariement). Echantillon : panel vrai, ponderation hhweight.
+   par l'appariement). Echantillon : enfants suivis, ponderation hhweight.
    ============================================================ */
 
-use "$TEMP/panel_vrai.dta", clear
+use "$TEMP/panel_enfants_psm.dta", clear
 
 di _newline(2) "=== Privations : beneficiaires vs non-beneficiaires, 2018 et 2021 ==="
-di "    (panel vrai, pondere hhweight ; D=1 beneficiaire migrant 2018)"
+di "    (enfants suivis, pondere hhweight ; D=1 beneficiaire migrant 2018)"
 di _newline "  Indicateur          D=0 2018  D=1 2018   Ecart |  D=0 2021  D=1 2021   Ecart |     DD"
 
 foreach v in dim_assai dim_eau dim_logem dim_nutri dim_sante dim_protect ///
