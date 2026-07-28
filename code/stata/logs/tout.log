@@ -4207,10 +4207,7 @@ Linear regression                               Number of obs     =     16,152
 . /* ── Sensibilite au seuil inter-dimensionnel k ──────────────────
 >    Le seuil k=4 est une convention. On reestime l'ATT en definissant la
 >    pauvrete successivement a chaque seuil de 1 a 7 dimensions sur 7, pour
->    verifier que la conclusion ne depend pas du seuil retenu.
->    k=0 est exclu : tout enfant etant prive dans au moins 0 dimension, la
->    variable de resultat serait constante egale a 1 et l'ATT nul par
->    construction, sans contenu informatif. */
+>    verifier que la conclusion ne depend pas du seuil retenu. */
 . di _newline "=== Sensibilite de l'ATT au seuil de privation k ==="
 
 === Sensibilite de l'ATT au seuil de privation k ===
@@ -4817,20 +4814,20 @@ Linear regression                               Number of obs     =        464
   ATT =  -0.0438  p = 0.6863
 
 . 
-. /* -- 6d. Par quintile de montant de transferts --------------
+. /* -- 6d. Par decile de montant de transferts ----------------
 >    H2 porte aussi sur l'intensite du traitement : un transfert plus eleve
->    produit-il un effet different ? Les quintiles sont definis sur la
+>    produit-il un effet different ? Les deciles sont definis sur la
 >    distribution du montant annuel PARMI LES MENAGES BENEFICIAIRES ; chaque
->    quintile d'enfants traites est ensuite compare a l'ensemble des enfants
->    temoins apparies. Les quintiles sont preferes aux deciles : avec environ
->    2 600 enfants traites, un decoupage en dix laisserait des sous-groupes
->    trop petits pour une inference exploitable. */
-. di _newline "=== Heterogeneite par quintile de montant de transferts ==="
+>    decile d'enfants traites est ensuite compare a l'ensemble des enfants
+>    temoins apparies. Le decoupage en dix laisse une soixantaine de menages
+>    par groupe : les erreurs-types sont larges et les coefficients doivent
+>    se lire comme un profil, non comme dix estimations independantes. */
+. di _newline "=== Heterogeneite par decile de montant de transferts ==="
 
-=== Heterogeneite par quintile de montant de transferts ===
+=== Heterogeneite par decile de montant de transferts ===
 
 . 
-. /* Quintiles construits au niveau MENAGE beneficiaire (un menage = un
+. /* Deciles construits au niveau MENAGE beneficiaire (un menage = un
 >    montant), pour que le decoupage ne soit pas deforme par le nombre
 >    d'enfants du menage. */
 . preserve
@@ -4841,33 +4838,38 @@ Linear regression                               Number of obs     =        464
 .     bysort grappe menage: keep if _n == 1
 (2,014 observations deleted)
 
-.     xtile q_montant = montant_transf, nquantiles(5)
+.     xtile q_montant = montant_transf, nquantiles(10)
 
 .     keep grappe menage q_montant montant_transf
 
-.     tempfile quintiles
+.     tempfile deciles
 
-.     save `quintiles'
+.     save `deciles'
 file C:\Users\Bmd\AppData\Local\Temp\ST_291c_000015.tmp saved as .dta format
 
-.     di "  Bornes des quintiles de montant annuel (FCFA) :"
-  Bornes des quintiles de montant annuel (FCFA) :
+.     di "  Bornes des deciles de montant annuel (FCFA) :"
+  Bornes des deciles de montant annuel (FCFA) :
 
-.     forvalues q = 1/5 {
-  2.         quietly summarize montant_transf if q_montant == `q'
-  3.         di "    Q`q' : " %10.0f r(min) " a " %10.0f r(max) ///
->            "  (mediane " %10.0f r(mean) ", n=" %4.0f r(N) " menages)"
+.     forvalues q = 1/10 {
+  2.         quietly summarize montant_transf if q_montant == `q', detail
+  3.         di "    D`q' : " %10.0f r(min) " a " %10.0f r(max) ///
+>            "  (mediane " %10.0f r(p50) ", n=" %4.0f r(N) " menages)"
   4.     }
-    Q1 :       5000 a     100000  (mediane      47335, n= 136 menages)
-    Q2 :     110000 a     360000  (mediane     227721, n= 111 menages)
-    Q3 :     380000 a     900000  (mediane     655264, n= 125 menages)
-    Q4 :     920000 a    1800000  (mediane    1398483, n= 116 menages)
-    Q5 :    1824000 a    8400000  (mediane    3270248, n= 121 menages)
+    D1 :       5000 a      40000  (mediane      20000, n=  63 menages)
+    D2 :      42500 a     100000  (mediane      60000, n=  73 menages)
+    D3 :     110000 a     200000  (mediane     150000, n=  57 menages)
+    D4 :     210000 a     360000  (mediane     300000, n=  54 menages)
+    D5 :     380000 a     600000  (mediane     545000, n=  64 menages)
+    D6 :     610000 a     900000  (mediane     780000, n=  61 menages)
+    D7 :     920000 a    1200000  (mediane    1200000, n=  55 menages)
+    D8 :    1230000 a    1800000  (mediane    1800000, n=  61 menages)
+    D9 :    1824000 a    2700000  (mediane    2400000, n=  64 menages)
+    D10 :    2760000 a    8400000  (mediane    4200000, n=  57 menages)
 
 . restore
 
 . 
-. merge m:1 grappe menage using `quintiles', ///
+. merge m:1 grappe menage using `deciles', ///
 >     keepusing(q_montant) keep(master match) nogenerate
 
     Result                      Number of obs
@@ -4881,10 +4883,10 @@ file C:\Users\Bmd\AppData\Local\Temp\ST_291c_000015.tmp saved as .dta format
 
 . 
 . foreach outcome in pauvre_MODA {
-  2.     forvalues q = 1/5 {
+  2.     forvalues q = 1/10 {
   3.         quietly count if q_montant == `q' & !missing(weight_knn)
   4.         if r(N) > 30 {
-  5.             di _newline "--- Quintile `q' — `outcome' ---"
+  5.             di _newline "--- Decile `q' — `outcome' ---"
   6.             regress `outcome' i.t##i.D [aw=weight_knn] ///
 >                 if D == 0 | q_montant == `q', vce(cluster grappe)
   7.             lincom 1.t#1.D
@@ -4894,27 +4896,27 @@ file C:\Users\Bmd\AppData\Local\Temp\ST_291c_000015.tmp saved as .dta format
  10.     }
  11. }
 
---- Quintile 1 — pauvre_MODA ---
-(sum of wgt is 6,424)
+--- Decile 1 — pauvre_MODA ---
+(sum of wgt is 5,824)
 
-Linear regression                               Number of obs     =     12,024
-                                                F(3, 561)         =      11.46
+Linear regression                               Number of obs     =     11,424
+                                                F(3, 560)         =       8.31
                                                 Prob > F          =     0.0000
-                                                R-squared         =     0.0172
-                                                Root MSE          =     .49162
+                                                R-squared         =     0.0109
+                                                Root MSE          =     .49482
 
-                               (Std. err. adjusted for 562 clusters in grappe)
+                               (Std. err. adjusted for 561 clusters in grappe)
 ------------------------------------------------------------------------------
              |               Robust
  pauvre_MODA | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
 -------------+----------------------------------------------------------------
-         1.t |  -.0927786   .0197557    -4.70   0.000    -.1315827   -.0539745
-         1.D |   .0670121    .049268     1.36   0.174    -.0297602    .1637844
+         1.t |  -.0927786   .0197558    -4.70   0.000    -.1315832   -.0539741
+         1.D |    .039697    .073805     0.54   0.591    -.1052713    .1846654
              |
          t#D |
-        1 1  |   .1223953    .051692     2.37   0.018     .0208619    .2239288
+        1 1  |   .1073772   .0860642     1.25   0.213    -.0616709    .2764253
              |
-       _cons |   .5880402   .0197774    29.73   0.000     .5491934     .626887
+       _cons |   .5880402   .0197776    29.73   0.000     .5491929    .6268874
 ------------------------------------------------------------------------------
 
  ( 1)  1.t#1.D = 0
@@ -4922,31 +4924,63 @@ Linear regression                               Number of obs     =     12,024
 ------------------------------------------------------------------------------
  pauvre_MODA | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
 -------------+----------------------------------------------------------------
-         (1) |   .1223953    .051692     2.37   0.018     .0208619    .2239288
+         (1) |   .1073772   .0860642     1.25   0.213    -.0616709    .2764253
 ------------------------------------------------------------------------------
-  ATT =   0.1224  SE =   0.0517  p = 0.0182
+  ATT =   0.1074  SE =   0.0861  p = 0.2127
 
---- Quintile 2 — pauvre_MODA ---
-(sum of wgt is 6,214)
+--- Decile 2 — pauvre_MODA ---
+(sum of wgt is 5,876)
 
-Linear regression                               Number of obs     =     11,814
-                                                F(3, 566)         =       7.50
-                                                Prob > F          =     0.0001
-                                                R-squared         =     0.0083
-                                                Root MSE          =     .49569
+Linear regression                               Number of obs     =     11,476
+                                                F(3, 561)         =      11.67
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.0175
+                                                Root MSE          =     .49234
+
+                               (Std. err. adjusted for 562 clusters in grappe)
+------------------------------------------------------------------------------
+             |               Robust
+ pauvre_MODA | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+         1.t |  -.0927786   .0197558    -4.70   0.000    -.1315829   -.0539743
+         1.D |   .0919598   .0593368     1.55   0.122    -.0245896    .2085092
+             |
+         t#D |
+        1 1  |    .136112   .0478989     2.84   0.005     .0420289     .230195
+             |
+       _cons |   .5880402   .0197775    29.73   0.000     .5491932    .6268872
+------------------------------------------------------------------------------
+
+ ( 1)  1.t#1.D = 0
+
+------------------------------------------------------------------------------
+ pauvre_MODA | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+         (1) |    .136112   .0478989     2.84   0.005     .0420289     .230195
+------------------------------------------------------------------------------
+  ATT =   0.1361  SE =   0.0479  p = 0.0047
+
+--- Decile 3 — pauvre_MODA ---
+(sum of wgt is 5,736)
+
+Linear regression                               Number of obs     =     11,336
+                                                F(3, 566)         =       7.75
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.0085
+                                                Root MSE          =      .4965
 
                                (Std. err. adjusted for 567 clusters in grappe)
 ------------------------------------------------------------------------------
              |               Robust
  pauvre_MODA | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
 -------------+----------------------------------------------------------------
-         1.t |  -.0927786   .0197555    -4.70   0.000    -.1315818   -.0539755
-         1.D |  -.0038184   .0502988    -0.08   0.940    -.1026136    .0949767
+         1.t |  -.0927786   .0197557    -4.70   0.000     -.131582   -.0539753
+         1.D |  -.0836924   .0767435    -1.09   0.276    -.2344292    .0670444
              |
          t#D |
-        1 1  |   .0927786   .0420578     2.21   0.028     .0101702     .175387
+        1 1  |   .0797351   .0581846     1.37   0.171     -.034549    .1940193
              |
-       _cons |   .5880402   .0197773    29.73   0.000     .5491944     .626886
+       _cons |   .5880402   .0197774    29.73   0.000     .5491942    .6268862
 ------------------------------------------------------------------------------
 
  ( 1)  1.t#1.D = 0
@@ -4954,31 +4988,31 @@ Linear regression                               Number of obs     =     11,814
 ------------------------------------------------------------------------------
  pauvre_MODA | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
 -------------+----------------------------------------------------------------
-         (1) |   .0927786   .0420578     2.21   0.028     .0101702     .175387
+         (1) |   .0797351   .0581846     1.37   0.171     -.034549    .1940193
 ------------------------------------------------------------------------------
-  ATT =   0.0928  SE =   0.0421  p = 0.0278
+  ATT =   0.0797  SE =   0.0582  p = 0.1711
 
---- Quintile 3 — pauvre_MODA ---
-(sum of wgt is 6,392)
+--- Decile 4 — pauvre_MODA ---
+(sum of wgt is 5,754)
 
-Linear regression                               Number of obs     =     11,992
-                                                F(3, 564)         =       8.18
+Linear regression                               Number of obs     =     11,354
+                                                F(3, 560)         =       8.83
                                                 Prob > F          =     0.0000
-                                                R-squared         =     0.0091
-                                                Root MSE          =     .49659
+                                                R-squared         =     0.0129
+                                                Root MSE          =     .49416
 
-                               (Std. err. adjusted for 565 clusters in grappe)
+                               (Std. err. adjusted for 561 clusters in grappe)
 ------------------------------------------------------------------------------
              |               Robust
  pauvre_MODA | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
 -------------+----------------------------------------------------------------
-         1.t |  -.0927786   .0197556    -4.70   0.000    -.1315821   -.0539751
-         1.D |  -.0450294   .0539251    -0.84   0.404    -.1509481    .0608892
+         1.t |  -.0927786   .0197558    -4.70   0.000    -.1315832    -.053974
+         1.D |   .0730477   .0656617     1.11   0.266    -.0559256    .2020209
              |
          t#D |
-        1 1  |   .0139256   .0466066     0.30   0.765    -.0776182    .1054693
+        1 1  |   .1053309   .0561932     1.87   0.061    -.0050443    .2157061
              |
-       _cons |   .5880402   .0197773    29.73   0.000      .549194    .6268863
+       _cons |   .5880402   .0197776    29.73   0.000     .5491929    .6268875
 ------------------------------------------------------------------------------
 
  ( 1)  1.t#1.D = 0
@@ -4986,31 +5020,31 @@ Linear regression                               Number of obs     =     11,992
 ------------------------------------------------------------------------------
  pauvre_MODA | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
 -------------+----------------------------------------------------------------
-         (1) |   .0139256   .0466066     0.30   0.765    -.0776182    .1054693
+         (1) |   .1053309   .0561932     1.87   0.061    -.0050443    .2157061
 ------------------------------------------------------------------------------
-  ATT =   0.0139  SE =   0.0466  p = 0.7652
+  ATT =   0.1053  SE =   0.0562  p = 0.0614
 
---- Quintile 4 — pauvre_MODA ---
-(sum of wgt is 6,234)
+--- Decile 5 — pauvre_MODA ---
+(sum of wgt is 5,856)
 
-Linear regression                               Number of obs     =     11,834
-                                                F(3, 561)         =      14.49
+Linear regression                               Number of obs     =     11,456
+                                                F(3, 561)         =       9.28
                                                 Prob > F          =     0.0000
-                                                R-squared         =     0.0241
-                                                Root MSE          =     .49383
+                                                R-squared         =     0.0098
+                                                Root MSE          =     .49589
 
                                (Std. err. adjusted for 562 clusters in grappe)
 ------------------------------------------------------------------------------
              |               Robust
  pauvre_MODA | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
 -------------+----------------------------------------------------------------
-         1.t |  -.0927786   .0197557    -4.70   0.000    -.1315828   -.0539745
-         1.D |  -.2185203     .05156    -4.24   0.000    -.3197945   -.1172462
+         1.t |  -.0927786   .0197558    -4.70   0.000     -.131583   -.0539743
+         1.D |   .0257529   .0740188     0.35   0.728    -.1196349    .1711407
              |
          t#D |
-        1 1  |   .0781648   .0611641     1.28   0.202    -.0419738    .1983034
+        1 1  |  -.0486007   .0467255    -1.04   0.299    -.1403789    .0431776
              |
-       _cons |   .5880402   .0197774    29.73   0.000     .5491933     .626887
+       _cons |   .5880402   .0197775    29.73   0.000     .5491932    .6268872
 ------------------------------------------------------------------------------
 
  ( 1)  1.t#1.D = 0
@@ -5018,31 +5052,159 @@ Linear regression                               Number of obs     =     11,834
 ------------------------------------------------------------------------------
  pauvre_MODA | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
 -------------+----------------------------------------------------------------
-         (1) |   .0781648   .0611641     1.28   0.202    -.0419738    .1983034
+         (1) |  -.0486007   .0467255    -1.04   0.299    -.1403789    .0431776
 ------------------------------------------------------------------------------
-  ATT =   0.0782  SE =   0.0612  p = 0.2018
+  ATT =  -0.0486  SE =   0.0467  p = 0.2987
 
---- Quintile 5 — pauvre_MODA ---
-(sum of wgt is 6,362)
+--- Decile 6 — pauvre_MODA ---
+(sum of wgt is 5,812)
 
-Linear regression                               Number of obs     =     11,962
-                                                F(3, 562)         =      16.06
+Linear regression                               Number of obs     =     11,412
+                                                F(3, 563)         =       8.08
                                                 Prob > F          =     0.0000
-                                                R-squared         =     0.0359
-                                                Root MSE          =     .49101
+                                                R-squared         =     0.0101
+                                                Root MSE          =      .4964
+
+                               (Std. err. adjusted for 564 clusters in grappe)
+------------------------------------------------------------------------------
+             |               Robust
+ pauvre_MODA | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+         1.t |  -.0927786   .0197557    -4.70   0.000    -.1315826   -.0539747
+         1.D |  -.1216223   .0691561    -1.76   0.079    -.2574578    .0142132
+             |
+         t#D |
+        1 1  |   .0815846   .0784069     1.04   0.299    -.0724212    .2355904
+             |
+       _cons |   .5880402   .0197775    29.73   0.000     .5491936    .6268868
+------------------------------------------------------------------------------
+
+ ( 1)  1.t#1.D = 0
+
+------------------------------------------------------------------------------
+ pauvre_MODA | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+         (1) |   .0815846   .0784069     1.04   0.299    -.0724212    .2355904
+------------------------------------------------------------------------------
+  ATT =   0.0816  SE =   0.0784  p = 0.2985
+
+--- Decile 7 — pauvre_MODA ---
+(sum of wgt is 5,728)
+
+Linear regression                               Number of obs     =     11,328
+                                                F(3, 560)         =       9.25
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.0108
+                                                Root MSE          =     .49622
+
+                               (Std. err. adjusted for 561 clusters in grappe)
+------------------------------------------------------------------------------
+             |               Robust
+ pauvre_MODA | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+         1.t |  -.0927786   .0197558    -4.70   0.000    -.1315832    -.053974
+         1.D |  -.1234384   .0731099    -1.69   0.092    -.2670416    .0201647
+             |
+         t#D |
+        1 1  |   .0529556   .0951942     0.56   0.578    -.1340258     .239937
+             |
+       _cons |   .5880402   .0197776    29.73   0.000     .5491929    .6268875
+------------------------------------------------------------------------------
+
+ ( 1)  1.t#1.D = 0
+
+------------------------------------------------------------------------------
+ pauvre_MODA | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+         (1) |   .0529556   .0951942     0.56   0.578    -.1340258     .239937
+------------------------------------------------------------------------------
+  ATT =   0.0530  SE =   0.0952  p = 0.5782
+
+--- Decile 8 — pauvre_MODA ---
+(sum of wgt is 5,782)
+
+Linear regression                               Number of obs     =     11,382
+                                                F(3, 561)         =      13.84
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.0284
+                                                Root MSE          =     .49257
+
+                               (Std. err. adjusted for 562 clusters in grappe)
+------------------------------------------------------------------------------
+             |               Robust
+ pauvre_MODA | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+         1.t |  -.0927786   .0197558    -4.70   0.000     -.131583   -.0539743
+         1.D |  -.3034552   .0692722    -4.38   0.000    -.4395197   -.1673907
+             |
+         t#D |
+        1 1  |   .1006838   .0664046     1.52   0.130    -.0297482    .2311157
+             |
+       _cons |   .5880402   .0197775    29.73   0.000     .5491931    .6268872
+------------------------------------------------------------------------------
+
+ ( 1)  1.t#1.D = 0
+
+------------------------------------------------------------------------------
+ pauvre_MODA | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+         (1) |   .1006838   .0664046     1.52   0.130    -.0297482    .2311157
+------------------------------------------------------------------------------
+  ATT =   0.1007  SE =   0.0664  p = 0.1300
+
+--- Decile 9 — pauvre_MODA ---
+(sum of wgt is 5,824)
+
+Linear regression                               Number of obs     =     11,424
+                                                F(3, 560)         =      15.67
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.0286
+                                                Root MSE          =     .49254
+
+                               (Std. err. adjusted for 561 clusters in grappe)
+------------------------------------------------------------------------------
+             |               Robust
+ pauvre_MODA | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+         1.t |  -.0927786   .0197558    -4.70   0.000    -.1315832   -.0539741
+         1.D |  -.2449745    .062255    -3.94   0.000    -.3672563   -.1226927
+             |
+         t#D |
+        1 1  |   .0051874   .0758141     0.07   0.945    -.1437274    .1541022
+             |
+       _cons |   .5880402   .0197776    29.73   0.000     .5491929    .6268874
+------------------------------------------------------------------------------
+
+ ( 1)  1.t#1.D = 0
+
+------------------------------------------------------------------------------
+ pauvre_MODA | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+         (1) |   .0051874   .0758141     0.07   0.945    -.1437274    .1541022
+------------------------------------------------------------------------------
+  ATT =   0.0052  SE =   0.0758  p = 0.9455
+
+--- Decile 10 — pauvre_MODA ---
+(sum of wgt is 5,814)
+
+Linear regression                               Number of obs     =     11,414
+                                                F(3, 562)         =      13.35
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.0217
+                                                Root MSE          =     .49406
 
                                (Std. err. adjusted for 563 clusters in grappe)
 ------------------------------------------------------------------------------
              |               Robust
  pauvre_MODA | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
 -------------+----------------------------------------------------------------
-         1.t |  -.0927786   .0197556    -4.70   0.000    -.1315825   -.0539747
-         1.D |   -.210508   .0675334    -3.12   0.002    -.3431566   -.0778593
+         1.t |  -.0927786   .0197558    -4.70   0.000    -.1315828   -.0539745
+         1.D |  -.1754008   .1132552    -1.55   0.122    -.3978559    .0470544
              |
          t#D |
-        1 1  |  -.0140354   .0527657    -0.27   0.790    -.1176775    .0896068
+        1 1  |  -.0336154   .0641141    -0.52   0.600     -.159548    .0923172
              |
-       _cons |   .5880402   .0197774    29.73   0.000     .5491936    .6268868
+       _cons |   .5880402   .0197775    29.73   0.000     .5491933     .626887
 ------------------------------------------------------------------------------
 
  ( 1)  1.t#1.D = 0
@@ -5050,14 +5212,14 @@ Linear regression                               Number of obs     =     11,962
 ------------------------------------------------------------------------------
  pauvre_MODA | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
 -------------+----------------------------------------------------------------
-         (1) |  -.0140354   .0527657    -0.27   0.790    -.1176775    .0896068
+         (1) |  -.0336154   .0641141    -0.52   0.600     -.159548    .0923172
 ------------------------------------------------------------------------------
-  ATT =  -0.0140  SE =   0.0528  p = 0.7903
+  ATT =  -0.0336  SE =   0.0641  p = 0.6003
 
 . 
 . /* Test continu : l'effet varie-t-il avec le logarithme du montant ?
 >    Estime sur les seuls enfants traites, la reference etant l'ecart de
->    trajectoire moyen. Plus puissant que la comparaison par quintiles, qui
+>    trajectoire moyen. Plus puissant que la comparaison par deciles, qui
 >    decoupe l'information. */
 . di _newline "Effet dose-reponse (montant en logarithme, enfants traites) :"
 
@@ -6338,12 +6500,160 @@ file code/stata/output/figures/fig_distrib_dimensions.pdf saved as PDF format
 > 2171
 
 . 
+. /* Incidence MODA par decile de montant recu, pour l'ensemble des enfants
+>    puis pour chaque tranche d'age. Les deciles sont construits sur le
+>    montant annuel des menages beneficiaires, au niveau menage pour que le
+>    decoupage ne soit pas deforme par le nombre d'enfants. Les enfants de
+>    menages non beneficiaires forment la ligne de reference. */
+. capture drop montant_transf
+
+. capture drop d_montant
+
+. merge m:1 grappe menage using "$TEMP/montant_2018.dta", ///
+>     keepusing(montant_transf) keep(master match) nogenerate
+
+    Result                      Number of obs
+    -----------------------------------------
+    Not matched                        50,660
+        from master                    50,660  
+        from using                          0  
+
+    Matched                             9,063  
+    -----------------------------------------
+
+. 
+. preserve
+
+.     keep if D == 1 & t == 0 & !missing(montant_transf)
+(54,934 observations deleted)
+
+.     bysort grappe menage: keep if _n == 1
+(4,035 observations deleted)
+
+.     xtile d_montant = montant_transf, nquantiles(10)
+
+.     keep grappe menage d_montant
+
+.     tempfile dec_desc
+
+.     save `dec_desc'
+file C:\Users\Bmd\AppData\Local\Temp\ST_291c_00001a.tmp saved as .dta format
+
+. restore
+
+. merge m:1 grappe menage using `dec_desc', ///
+>     keepusing(d_montant) keep(master match) nogenerate
+
+    Result                      Number of obs
+    -----------------------------------------
+    Not matched                        50,660
+        from master                    50,660  
+        from using                          0  
+
+    Matched                             9,063  
+    -----------------------------------------
+
+. 
+. forvalues g = 0/3 {
+  2.     if `g' == 0 local lbl "Ensemble 0-17 ans"
+  3.     if `g' == 1 local lbl "0-4 ans"
+  4.     if `g' == 2 local lbl "5-14 ans"
+  5.     if `g' == 3 local lbl "15-17 ans"
+  6.     if `g' == 0 local cond "1"
+  7.     else        local cond "groupe_moda == `g'"
+  8.     di _newline(2) "=== Incidence MODA par decile de montant — `lbl' ==="
+  9.     di "  Groupe          H 2018   H 2021      DD       n18      n21"
+ 10.     quietly summarize pauvre_MODA [aw=hhweight] if t == 0 & D == 0 & `cond'
+ 11.     local r0 = r(mean)*100
+ 12.     quietly summarize pauvre_MODA [aw=hhweight] if t == 1 & D == 0 & `cond'
+ 13.     local r1 = r(mean)*100
+ 14.     quietly count if t == 0 & D == 0 & `cond'
+ 15.     local m0 = r(N)
+ 16.     quietly count if t == 1 & D == 0 & `cond'
+ 17.     di "  " %-14s "Non-benef." %8.1f `r0' %9.1f `r1' %8.1f `r1'-`r0' ///
+>        %10.0f `m0' %9.0f r(N)
+ 18.     forvalues q = 1/10 {
+ 19.         quietly count if d_montant == `q' & t == 0 & `cond'
+ 20.         local n0 = r(N)
+ 21.         if `n0' > 0 {
+ 22.             quietly summarize pauvre_MODA [aw=hhweight] if t == 0 & d_montant == `q' & `cond'
+ 23.             local a0 = r(mean)*100
+ 24.             quietly summarize pauvre_MODA [aw=hhweight] if t == 1 & d_montant == `q' & `cond'
+ 25.             local a1 = r(mean)*100
+ 26.             quietly count if t == 1 & d_montant == `q' & `cond'
+ 27.             di "  " %-14s "Decile `q'" %8.1f `a0' %9.1f `a1' ///
+>                %8.1f (`a1'-`a0')-(`r1'-`r0') %10.0f `n0' %9.0f r(N)
+ 28.         }
+ 29.     }
+ 30. }
+
+
+=== Incidence MODA par decile de montant — Ensemble 0-17 ans ===
+  Groupe          H 2018   H 2021      DD       n18      n21
+  Non-benef.        67.6     59.9    -7.7     26576    24047
+  Decile 1          68.0     66.4     6.0       491      442
+  Decile 2          64.8     70.9    13.7       574      461
+  Decile 3          52.6     52.9     7.9       381      349
+  Decile 4          58.8     62.3    11.2       469      399
+  Decile 5          49.7     39.0    -3.0       509      452
+  Decile 6          43.1     43.3     7.9       474      435
+  Decile 7          47.8     36.0    -4.1       499      431
+  Decile 8          29.6     30.2     8.3       453      435
+  Decile 9          41.0     28.5    -4.8       433      403
+  Decile 10         37.6     18.7   -11.2       506      467
+
+
+=== Incidence MODA par decile de montant — 0-4 ans ===
+  Groupe          H 2018   H 2021      DD       n18      n21
+  Non-benef.        61.5     51.4   -10.2      7996     5964
+  Decile 1          63.8     67.2    13.6       136      100
+  Decile 2          53.9     64.6    20.8       172      122
+  Decile 3          50.5     52.0    11.7       103       77
+  Decile 4          54.5     54.8    10.5       149       97
+  Decile 5          37.3     32.0     4.9       171      106
+  Decile 6          33.2     40.8    17.8       130      112
+  Decile 7          43.2     21.1   -11.9       134       85
+  Decile 8          24.9     19.5     4.7       144      100
+  Decile 9          28.8     32.8    14.2       111       92
+  Decile 10         21.8     12.4     0.8       150      120
+
+
+=== Incidence MODA par decile de montant — 5-14 ans ===
+  Groupe          H 2018   H 2021      DD       n18      n21
+  Non-benef.        72.9     65.7    -7.2     15143    14564
+  Decile 1          72.8     70.2     4.6       296      270
+  Decile 2          72.7     74.7     9.1       326      268
+  Decile 3          53.2     53.1     7.1       227      213
+  Decile 4          65.1     67.8     9.9       266      246
+  Decile 5          60.5     39.5   -13.8       272      281
+  Decile 6          46.2     48.3     9.3       280      250
+  Decile 7          54.1     39.6    -7.4       291      263
+  Decile 8          35.3     33.7     5.5       250      262
+  Decile 9          45.6     30.1    -8.4       263      245
+  Decile 10         47.2     23.3   -16.8       281      283
+
+
+=== Incidence MODA par decile de montant — 15-17 ans ===
+  Groupe          H 2018   H 2021      DD       n18      n21
+  Non-benef.        58.3     50.3    -8.0      3437     3519
+  Decile 1          57.1     50.1     1.1        59       72
+  Decile 2          56.4     65.9    17.4        76       71
+  Decile 3          54.4     53.3     6.9        51       59
+  Decile 4          40.1     53.6    21.6        54       56
+  Decile 5          38.7     48.9    18.2        66       65
+  Decile 6          48.5     31.2    -9.3        64       73
+  Decile 7          29.8     39.6    17.8        74       83
+  Decile 8          15.5     30.5    23.0        59       73
+  Decile 9          44.9     17.4   -19.5        59       66
+  Decile 10         33.9     12.8   -13.1        75       64
+
+. 
 . di _newline ">>> 06_stats_desc.do terminé."
 
 >>> 06_stats_desc.do terminé.
 
-. di ">>> Sorties dans : $OUTPUT/tables/ et $OUTPUT/figures/"
->>> Sorties dans : code/stata/output/tables/ et code/stata/output/figures/
+. di ">>> Sorties dans : $OUTPUT/tables/ et $OUTPUT/figures/\"
+>>> Sorties dans : code/stata/output/tables/ et code/stata/output/figures/\
 
 . 
 . /* ============================================================
@@ -6554,7 +6864,7 @@ file code/stata/output/figures/fig_effets_dim.pdf saved as PDF format
 . tempfile never
 
 . save `never'
-file C:\Users\Bmd\AppData\Local\Temp\ST_291c_000019.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_291c_00001b.tmp saved as .dta format
 
 . 
 . /* Liste des menages (une ligne par menage) */
@@ -6566,7 +6876,7 @@ file C:\Users\Bmd\AppData\Local\Temp\ST_291c_000019.tmp saved as .dta format
 . tempfile liste_men
 
 . save `liste_men'
-file C:\Users\Bmd\AppData\Local\Temp\ST_291c_00001a.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_291c_00001c.tmp saved as .dta format
 
 . quietly count
 
@@ -6709,7 +7019,7 @@ file code/stata/output/figures/fig_placebo_dd.pdf saved as PDF format
 . tempfile men18
 
 . save `men18'
-file C:\Users\Bmd\AppData\Local\Temp\ST_291c_000078.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_291c_00007a.tmp saved as .dta format
 
 . 
 . /* Menages retrouves en 2021 : variable officielle PanelHH (et non la
