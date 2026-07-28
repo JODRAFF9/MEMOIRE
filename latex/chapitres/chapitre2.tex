@@ -36,30 +36,14 @@ dans les ménages enquêtés dans les deux vagues. L'EHCVM I couvre
 7\,156 ménages et l'EHCVM II 7\,120 ménages selon le même plan de sondage,
 avec un sous-échantillon panel identifié dans les données par un indicateur de
 statut de suivi \parencite{ansd2019, ansd2022}. L'échantillon analytique
-repose sur le panel vrai constitué des
-6\,127 ménages panel, c'est-à-dire les
-ménages enquêtés lors des deux vagues et retrouvés dans leur logement d'origine
-(5\,643 ménages dans le même logement ; 290 ménages
-retrouvés dans un nouveau logement). Chaque ménage est ainsi observé en
-2018-2019 puis en 2021-2022, ce qui autorise une estimation DD en
-différences intra-ménage sans recourir à des hypothèses d'agrégation au niveau
-des grappes \parencite{deaton1997}.
-
-L'appariement des ménages entre les deux vagues suit la procédure prescrite
-par l'ANSD~: la documentation de l'EHCVM~II précise que les variables
-« grappe » et « menage » servent à identifier le ménage et à fusionner les
-données d'une vague à l'autre, seuls les ménages marqués comme panel dans la
-variable « PanelHH » disposant d'une correspondance valide avec la vague
-précédente \parencite{ansd2022}. Le protocole de terrain garantit cette
-identité~: en 2021-2022, les mêmes grappes ont été revisitées afin
-d'enquêter en priorité les douze ménages de 2018-2019 lorsqu'ils étaient
-retrouvés, les ménages de remplacement ne servant qu'à compléter les grappes
-déficitaires. La fusion $1$:$1$ sur le couple (grappe, menage) est ainsi
-vérifiée pour la totalité des 6\,127 ménages panel, dont la région, le
-département et la commune coïncident entre les deux vagues, ce qui confirme
-l'identité des unités appariées. Le tableau~\ref{tab:panelhh} présente la
-répartition des ménages enquêtés en 2021-2022 selon leur statut de suivi et le
-milieu de résidence.
+repose sur le panel vrai des 6\,127 ménages enquêtés lors des deux vagues,
+apparié comme le prescrit l'ANSD sur le couple (grappe, ménage) pour les seuls
+ménages marqués panel \parencite{ansd2022}. Chaque ménage y est observé en
+2018-2019 puis en 2021-2022, ce qui autorise une estimation DD en différences
+intra-ménage sans recourir à des hypothèses d'agrégation au niveau des grappes
+\parencite{deaton1997}. Le tableau~\ref{tab:panelhh} présente la répartition
+des ménages enquêtés en 2021-2022 selon leur statut de suivi et le milieu de
+résidence.
 
 \begin{table}[H]
   \centering
@@ -88,16 +72,12 @@ milieu de résidence.
   {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM.}
 \end{table}
 
-Après nettoyage (exclusion des observations avec plus de deux indicateurs de
-privation manquants et des ménages sans information sur les transferts),
-l'échantillon retenu comprend les enfants âgés de 0 à 17 ans pour lesquels
-l'intégralité des indicateurs MODA ainsi que la variable de traitement
-sont disponibles dans les deux vagues. L'échantillon complet incluant les
-993 nouveaux ménages de 2021 est utilisé dans
-les analyses de robustesse. La limite principale de cette construction est
-l'attrition différentielle : si les ménages perdus entre les deux vagues
-diffèrent systématiquement des ménages retenus, les estimations PSM-DD
-peuvent être biaisées, ce point est discuté dans la section~\ref{sec:discussion}.
+L'échantillon retenu comprend les enfants de 0 à 17 ans pour lesquels
+l'intégralité des indicateurs MODA et la variable de traitement sont
+disponibles aux deux vagues. La limite principale de cette construction est
+l'attrition différentielle~: si les ménages perdus entre les deux vagues
+diffèrent systématiquement des ménages retenus, les estimations peuvent être
+biaisées, ce que la section~\ref{sec:discussion} examine.
 
 \subsubsection{Identification des enfants suivis d'une vague à l'autre}
 \label{subsec:panel_enfants}
