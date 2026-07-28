@@ -5,7 +5,7 @@
 
 Le PSM rend l'hypothèse de tendances parallèles plus crédible en sélectionnant
 des enfants non bénéficiaires statistiquement indiscernables des enfants
-bénéficiaires à $t=0$, sur les caractéristiques de leur ménage comme sur leur
+bénéficiaires à la période de base, sur les caractéristiques de leur ménage comme sur leur
 propre sexe et leur propre âge. Après appariement par les $k$ plus proches
 voisins ($k=4$, avec remise), la différence standardisée moyenne passe de
 11,4\,\% à 2,5\,\% (tableau~\ref{tab:balance}).
@@ -15,8 +15,8 @@ voisins ($k=4$, avec remise), la différence standardisée moyenne passe de
 
 Pour illustrer concrètement l'apport de la double différence par rapport à un
 appariement transversal seul, l'écart de pauvreté MODA entre ménages
-bénéficiaires et témoins appariés (poids $k$-NN) est estimé séparément à $t=0$
-(EHCVM~I) et $t=1$ (EHCVM~II), sans les différencier.
+bénéficiaires et témoins appariés (poids $k$-NN) est estimé séparément sur
+l'EHCVM~I et sur l'EHCVM~II, sans les différencier.
 
 \begin{table}[H]
   \centering
@@ -27,8 +27,8 @@ bénéficiaires et témoins appariés (poids $k$-NN) est estimé séparément à
     \hline
 \entete Spécification & Coefficient \\
     \hline
-    PSM seul, $t=0$ (écart initial)  & \makecell{-$0{,}077^{**}$\\$(0{,}031)$} \\ \hline
-    PSM seul, $t=1$ (écart final)    & \makecell{-$0{,}019$\\$(0{,}031)$} \\ \hline
+    PSM seul, EHCVM~I (écart initial)  & \makecell{-$0{,}077^{**}$\\$(0{,}031)$} \\ \hline
+    PSM seul, EHCVM~II (écart final)   & \makecell{-$0{,}019$\\$(0{,}031)$} \\ \hline
     PSM-DD (référence, tableau~\ref{tab:psmdd_att}) & \makecell{$0{,}058^{*}$\\$(0{,}030)$} \\
     \hline
   \end{tabular}
