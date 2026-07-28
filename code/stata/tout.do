@@ -1520,6 +1520,17 @@ if _rc == 0 {
             }
         }
     }
+
+    /* Les ATT separes peuvent differer sans que l'ecart soit distinguable
+       du bruit : le test formel est la triple interaction. */
+    di _newline "Test d'egalite (garcons vs filles) :"
+    gen byte fille = (sexe == 2) if !missing(sexe)
+    foreach outcome in pauvre_MODA {
+        regress `outcome' i.t##i.D##i.fille [aw=weight_knn], vce(cluster grappe)
+        lincom 1.t#1.D#1.fille
+        di "  Diff ATT (filles - garcons) : " %8.4f r(estimate) "  p = " %6.4f r(p)
+    }
+    drop fille
 }
 
 di _newline "=== Heterogeneite par groupe d'age (groupe fige en 2018) ==="
@@ -1537,6 +1548,27 @@ foreach g in 1 2 3 {
                 vce(cluster grappe)
             lincom 1.t#1.D
             di "  ATT = " %8.4f r(estimate) "  p = " %6.4f r(p)
+        }
+    }
+}
+
+/* Trois groupes : un test joint d'abord (les trois ATT sont-ils egaux ?),
+   puis les ecarts a la reference 0-4 ans, groupe sur lequel se concentre
+   l'effet. */
+di _newline "Test d'egalite des ATT entre groupes d'age :"
+foreach outcome in pauvre_MODA {
+    regress `outcome' i.t##i.D##ib1.groupe_base [aw=weight_knn], ///
+        vce(cluster grappe)
+    testparm i.t#i.D#i.groupe_base
+    di "  Test joint d'egalite des trois ATT : F = " %6.2f r(F) ///
+       "  p = " %6.4f r(p)
+    foreach g in 2 3 {
+        if `g' == 2 local lab_g "5-14 ans"
+        else        local lab_g "15-17 ans"
+        capture lincom 1.t#1.D#`g'.groupe_base
+        if _rc == 0 {
+            di "  Diff ATT (`lab_g' - 0-4 ans) : " %8.4f r(estimate) ///
+               "  p = " %6.4f r(p)
         }
     }
 }
