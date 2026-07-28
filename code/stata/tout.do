@@ -1026,61 +1026,86 @@ tabstat D, by(t) stat(mean sum n) format(%6.3f)
 save "$TEMP/panel_vrai.dta", replace
 
 /* ============================================================
-   DIAGNOSTIC : departs de membres entre les deux vagues
+   DEPARTS DE MEMBRES ENTRE LES DEUX VAGUES
 
    Le questionnaire 2021 precharge chaque membre releve en 2018 et demande
-   s'il fait toujours partie du menage (s01q00aa), pour quelle raison il
-   l'a quitte (s01q00b) et depuis quand (s01q00c). Ces variables ne sont
-   pas encore exploitees. Elles permettraient de mesurer si les menages
+   s'il fait toujours partie du menage (s01q00aa) et pour quelle raison il
+   l'a quitte (s01q00b). Le motif distingue un depart a l'etranger d'un
+   depart a l'interieur du pays : on peut donc mesurer si les menages
    temoins ont eux aussi perdu un adulte, ce que le design suppose sans le
-   verifier, et de savoir si le motif distingue un depart a l'etranger
-   d'un depart a l'interieur du pays.
+   verifier.
 
-   Ce bloc ne modifie aucune estimation : il decrit ce qui est exploitable.
+   Trois retraitements sont necessaires. L'age precharge comporte des codes
+   de non-reponse (9999) qui seraient comptes comme adultes. Le motif
+   « etait visiteur » ne designe pas un depart mais une personne recensee a
+   tort en 2018. Les deces ne relevent pas de la migration et sont isoles.
+
+   Ce bloc ne modifie aucune estimation.
    ============================================================ */
 
 preserve
     use "$BASE_2021/s01_me_sen2021.dta", clear
     keep grappe menage membres__id s01qpreload_pid s01qpreload_sex ///
-         s01qpreload_age s01q00aa s01q00b s01q00c
+         s01qpreload_age s01q00aa s01q00b
 
-    /* Restriction aux membres precharges, c'est-a-dire presents en 2018 */
-    keep if !missing(s01qpreload_pid)
+    keep if !missing(s01qpreload_pid)   /* membres presents en 2018 */
 
-    /* Menages du panel d'analyse et statut de traitement */
     merge m:1 grappe menage using "$TEMP/ids_panel.dta", keep(match) nogenerate
     merge m:1 grappe menage using "$TEMP/traitement_2018.dta", ///
         keepusing(D) keep(master match) nogenerate
     replace D = 0 if missing(D)
 
-    di _newline(2) "=== Departs de membres entre 2018 et 2021 (menages du panel) ==="
-    di "  Membres precharges : " _N
-
-    di _newline "--- s01q00aa : toujours membre du menage ? ---"
-    tab s01q00aa, missing
+    /* Age precharge : 9999 et valeurs aberrantes mises a manquant */
+    replace s01qpreload_age = . if s01qpreload_age > 100
 
     gen byte parti = (s01q00aa == 2) if !missing(s01q00aa)
 
-    di _newline "--- Motif du depart (s01q00b) ---"
-    tab s01q00b if parti == 1, missing
+    /* Codes numeriques du motif, pour ne pas dependre du libelle */
+    di _newline(2) "=== Departs de membres entre 2018 et 2021 (menages du panel) ==="
+    di _newline "--- Motif du depart : codes numeriques ---"
+    tab s01q00b if parti == 1, nolabel missing
 
-    di _newline "--- Annee de depart (s01q00c) ---"
-    tab s01q00c if parti == 1, missing
+    /* Categorie de depart. Le classement s'appuie sur le libelle : les
+       modalites opposent explicitement « ailleurs dans le pays » et
+       « a l'etranger ». */
+    decode s01q00b, gen(motif_txt)
+    gen byte motif_cat = .
+    replace motif_cat = 1 if strpos(motif_txt, "tranger")            /* etranger */
+    replace motif_cat = 2 if missing(motif_cat) & ///
+        (strpos(motif_txt, "dans le p") | strpos(motif_txt, "Affectation"))
+    replace motif_cat = 3 if missing(motif_cat) & strpos(motif_txt, "cès")
+    replace motif_cat = 4 if missing(motif_cat) & strpos(motif_txt, "visiteur")
+    replace motif_cat = 5 if missing(motif_cat) & !missing(motif_txt)
+    label define motif_cat_lbl 1 "Migration a l'etranger" ///
+        2 "Migration dans le pays" 3 "Deces" 4 "Etait visiteur" ///
+        5 "Autre motif (mariage, demenagement...)", replace
+    label values motif_cat motif_cat_lbl
 
-    di _newline "--- Age precharge (2018) des partants ---"
-    summarize s01qpreload_age if parti == 1, detail
+    di _newline "--- Repartition des departs par categorie ---"
+    tab motif_cat if parti == 1, missing
+
+    /* Un depart au sens du canal du cout de l'absence : membre de 15 ans ou
+       plus effectivement parti, hors deces et hors visiteurs. */
+    gen byte depart_adulte = (parti == 1 & s01qpreload_age >= 15 & ///
+        !missing(s01qpreload_age) & inlist(motif_cat, 1, 2, 5))
+    gen byte depart_etranger = (depart_adulte == 1 & motif_cat == 1)
+    gen byte depart_interne  = (depart_adulte == 1 & motif_cat == 2)
 
     di _newline "--- Motif du depart des 15 ans et plus, selon le statut du menage ---"
-    tab s01q00b D if parti == 1 & s01qpreload_age >= 15, column
+    tab motif_cat D if parti == 1 & s01qpreload_age >= 15 & ///
+        !missing(s01qpreload_age), column
 
-    /* Part des menages ayant perdu un adulte, par statut de traitement.
-       C'est le chiffre qui manque au chapitre 4 : le depart d'un adulte
-       est-il propre aux beneficiaires ? */
-    gen byte parti_adulte = (parti == 1 & s01qpreload_age >= 15)
-    collapse (max) parti_adulte (first) D, by(grappe menage)
-    di _newline "--- Menages ayant perdu au moins un membre de 15 ans ou plus ---"
-    tab parti_adulte D, column
+    collapse (max) depart_adulte depart_etranger depart_interne ///
+             (first) D, by(grappe menage)
+
+    di _newline "--- Menages ayant perdu un adulte (15 ans ou plus, hors deces et visiteurs) ---"
+    tab depart_adulte D, column
+    di _newline "--- dont depart a l'etranger ---"
+    tab depart_etranger D, column
+    di _newline "--- dont depart dans le pays ---"
+    tab depart_interne D, column
 restore
+
 
 
 /* ============================================================
