@@ -73,16 +73,17 @@
 % centre, filet fin. #1 = titre, #2 = numero (vide pour une section non
 % numerotee, la pastille n'est alors pas tracee).
 \setlength{\fboxsep}{6pt}
-\newlength{\ensaefilet}
-\setlength{\ensaefilet}{0.90\textwidth}
 \newcommand{\ensaetetesection}[2]{%
   \par\noindent
   \begin{tikzpicture}
-    \fill[ensaeblue] (0,0) rectangle (\ensaefilet,4pt);
+    % Le filet se deroule depuis la pastille, comme un tapis depuis son
+    % rouleau : il court jusqu'au centre du cercle, qui est trace ensuite
+    % et recouvre son extremite.
+    \fill[ensaeblue] (0,-3pt) rectangle (0.925\textwidth,3pt);
     \ifx\relax#2\relax\else
       \node[circle, fill=ensaeblue, text=white, minimum size=2.1cm,
             inner sep=0pt, font=\fontsize{42}{42}\selectfont]
-        at (0.925\textwidth,0.95cm) {#2};
+        at (0.925\textwidth,0.42cm) {#2};
     \fi
   \end{tikzpicture}\par
   \vspace{0.30cm}
