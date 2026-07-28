@@ -69,18 +69,31 @@
 \titlespacing*{\subsection}{0pt}{8pt}{4pt}
 \titlespacing*{\subsubsection}{0pt}{6pt}{3pt}
 
-% Bandeau pleine largeur ENSAE
+% En-tete de section : pastille numerotee a droite, filet epais, titre
+% centre, filet fin. #1 = titre, #2 = numero (vide pour une section non
+% numerotee, la pastille n'est alors pas tracee).
 \setlength{\fboxsep}{6pt}
-\newcommand{\ensaebandeau}[1]{%
-  \noindent\colorbox{ensaeblue}{%
-    \parbox[c]{\dimexpr\textwidth-12pt\relax}{%
-      \centering\color{white}\large\scshape #1%
-    }%
-  }%
+\newlength{\ensaefilet}
+\setlength{\ensaefilet}{0.90\textwidth}
+\newcommand{\ensaetetesection}[2]{%
+  \par\noindent
+  \begin{tikzpicture}
+    \fill[ensaeblue] (0,0) rectangle (\ensaefilet,4pt);
+    \ifx\relax#2\relax\else
+      \node[circle, fill=ensaeblue, text=white, minimum size=1.5cm,
+            inner sep=0pt, font=\fontsize{30}{30}\selectfont]
+        at (0.945\textwidth,0.62cm) {#2};
+    \fi
+  \end{tikzpicture}\par
+  \vspace{0.30cm}
+  {\centering\color{ensaeblue}\Large\bfseries #1\par}
+  \vspace{0.22cm}
+  \noindent{\color{ensaeblue!35}\rule{\textwidth}{0.6pt}}\par
+  \vspace{0.10cm}
 }
 % Wrappers : évite #1 direct dans \titleformat (incompatible avec certaines versions titlesec)
-\newcommand{\ensaebandeaunum}[1]{\ensaebandeau{\thesection\quad #1}}
-\newcommand{\ensaebandeaunn}[1]{\ensaebandeau{#1}}
+\newcommand{\ensaebandeaunum}[1]{\ensaetetesection{#1}{\thesection}}
+\newcommand{\ensaebandeaunn}[1]{\ensaetetesection{#1}{}}
 
 \titleformat{\section}[block]{\normalfont}{}{0pt}{\ensaebandeaunum}
 \titleformat{name=\section,numberless}[block]{\normalfont}{}{0pt}{\ensaebandeaunn}
@@ -335,8 +348,8 @@
 \addcontentsline{toc}{section}{Annexes}
 \section*{Annexes}
 \begin{appendices}
-  % Bandeau : affiche "Annexe A Titre" sans modifier \thesection
-  \renewcommand{\ensaebandeaunum}[1]{\ensaebandeau{Annexe~\thesection\quad #1}}
+  % La pastille porte la lettre de l'annexe, le titre reste seul
+  \renewcommand{\ensaebandeaunum}[1]{\ensaetetesection{#1}{\thesection}}
   {\let\clearpage\relax \input{annexes/annexe_A}}
   \input{annexes/annexe_C}
 \end{appendices}
