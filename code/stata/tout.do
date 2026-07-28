@@ -1541,42 +1541,42 @@ foreach g in 1 2 3 {
     }
 }
 
-/* -- 6d. Par quintile de montant de transferts --------------
+/* -- 6d. Par decile de montant de transferts ----------------
    H2 porte aussi sur l'intensite du traitement : un transfert plus eleve
-   produit-il un effet different ? Les quintiles sont definis sur la
+   produit-il un effet different ? Les deciles sont definis sur la
    distribution du montant annuel PARMI LES MENAGES BENEFICIAIRES ; chaque
-   quintile d'enfants traites est ensuite compare a l'ensemble des enfants
-   temoins apparies. Les quintiles sont preferes aux deciles : avec environ
-   2 600 enfants traites, un decoupage en dix laisserait des sous-groupes
-   trop petits pour une inference exploitable. */
-di _newline "=== Heterogeneite par quintile de montant de transferts ==="
+   decile d'enfants traites est ensuite compare a l'ensemble des enfants
+   temoins apparies. Le decoupage en dix laisse une soixantaine de menages
+   par groupe : les erreurs-types sont larges et les coefficients doivent
+   se lire comme un profil, non comme dix estimations independantes. */
+di _newline "=== Heterogeneite par decile de montant de transferts ==="
 
-/* Quintiles construits au niveau MENAGE beneficiaire (un menage = un
+/* Deciles construits au niveau MENAGE beneficiaire (un menage = un
    montant), pour que le decoupage ne soit pas deforme par le nombre
    d'enfants du menage. */
 preserve
     keep if D == 1 & t == 0 & !missing(montant_transf)
     bysort grappe menage: keep if _n == 1
-    xtile q_montant = montant_transf, nquantiles(5)
+    xtile q_montant = montant_transf, nquantiles(10)
     keep grappe menage q_montant montant_transf
-    tempfile quintiles
-    save `quintiles'
-    di "  Bornes des quintiles de montant annuel (FCFA) :"
-    forvalues q = 1/5 {
-        quietly summarize montant_transf if q_montant == `q'
-        di "    Q`q' : " %10.0f r(min) " a " %10.0f r(max) ///
-           "  (mediane " %10.0f r(mean) ", n=" %4.0f r(N) " menages)"
+    tempfile deciles
+    save `deciles'
+    di "  Bornes des deciles de montant annuel (FCFA) :"
+    forvalues q = 1/10 {
+        quietly summarize montant_transf if q_montant == `q', detail
+        di "    D`q' : " %10.0f r(min) " a " %10.0f r(max) ///
+           "  (mediane " %10.0f r(p50) ", n=" %4.0f r(N) " menages)"
     }
 restore
 
-merge m:1 grappe menage using `quintiles', ///
+merge m:1 grappe menage using `deciles', ///
     keepusing(q_montant) keep(master match) nogenerate
 
 foreach outcome in pauvre_MODA {
-    forvalues q = 1/5 {
+    forvalues q = 1/10 {
         quietly count if q_montant == `q' & !missing(weight_knn)
         if r(N) > 30 {
-            di _newline "--- Quintile `q' — `outcome' ---"
+            di _newline "--- Decile `q' — `outcome' ---"
             regress `outcome' i.t##i.D [aw=weight_knn] ///
                 if D == 0 | q_montant == `q', vce(cluster grappe)
             lincom 1.t#1.D
@@ -1588,7 +1588,7 @@ foreach outcome in pauvre_MODA {
 
 /* Test continu : l'effet varie-t-il avec le logarithme du montant ?
    Estime sur les seuls enfants traites, la reference etant l'ecart de
-   trajectoire moyen. Plus puissant que la comparaison par quintiles, qui
+   trajectoire moyen. Plus puissant que la comparaison par deciles, qui
    decoupe l'information. */
 di _newline "Effet dose-reponse (montant en logarithme, enfants traites) :"
 quietly gen double log_montant = log(montant_transf) if montant_transf > 0
@@ -2119,8 +2119,62 @@ forvalues g = 0/3 {
     }
 }
 
+/* Incidence MODA par decile de montant recu, pour l'ensemble des enfants
+   puis pour chaque tranche d'age. Les deciles sont construits sur le
+   montant annuel des menages beneficiaires, au niveau menage pour que le
+   decoupage ne soit pas deforme par le nombre d'enfants. Les enfants de
+   menages non beneficiaires forment la ligne de reference. */
+capture drop montant_transf
+capture drop d_montant
+merge m:1 grappe menage using "$TEMP/montant_2018.dta", ///
+    keepusing(montant_transf) keep(master match) nogenerate
+
+preserve
+    keep if D == 1 & t == 0 & !missing(montant_transf)
+    bysort grappe menage: keep if _n == 1
+    xtile d_montant = montant_transf, nquantiles(10)
+    keep grappe menage d_montant
+    tempfile dec_desc
+    save `dec_desc'
+restore
+merge m:1 grappe menage using `dec_desc', ///
+    keepusing(d_montant) keep(master match) nogenerate
+
+forvalues g = 0/3 {
+    if `g' == 0 local lbl "Ensemble 0-17 ans"
+    if `g' == 1 local lbl "0-4 ans"
+    if `g' == 2 local lbl "5-14 ans"
+    if `g' == 3 local lbl "15-17 ans"
+    if `g' == 0 local cond "1"
+    else        local cond "groupe_moda == `g'"
+    di _newline(2) "=== Incidence MODA par decile de montant — `lbl' ==="
+    di "  Groupe          H 2018   H 2021      DD       n18      n21"
+    quietly summarize pauvre_MODA [aw=hhweight] if t == 0 & D == 0 & `cond'
+    local r0 = r(mean)*100
+    quietly summarize pauvre_MODA [aw=hhweight] if t == 1 & D == 0 & `cond'
+    local r1 = r(mean)*100
+    quietly count if t == 0 & D == 0 & `cond'
+    local m0 = r(N)
+    quietly count if t == 1 & D == 0 & `cond'
+    di "  " %-14s "Non-benef." %8.1f `r0' %9.1f `r1' %8.1f `r1'-`r0' ///
+       %10.0f `m0' %9.0f r(N)
+    forvalues q = 1/10 {
+        quietly count if d_montant == `q' & t == 0 & `cond'
+        local n0 = r(N)
+        if `n0' > 0 {
+            quietly summarize pauvre_MODA [aw=hhweight] if t == 0 & d_montant == `q' & `cond'
+            local a0 = r(mean)*100
+            quietly summarize pauvre_MODA [aw=hhweight] if t == 1 & d_montant == `q' & `cond'
+            local a1 = r(mean)*100
+            quietly count if t == 1 & d_montant == `q' & `cond'
+            di "  " %-14s "Decile `q'" %8.1f `a0' %9.1f `a1' ///
+               %8.1f (`a1'-`a0')-(`r1'-`r0') %10.0f `n0' %9.0f r(N)
+        }
+    }
+}
+
 di _newline ">>> 06_stats_desc.do terminé."
-di ">>> Sorties dans : $OUTPUT/tables/ et $OUTPUT/figures/"
+di ">>> Sorties dans : $OUTPUT/tables/ et $OUTPUT/figures/\"
 
 /* ============================================================
    SECTION : 07_EFFETS_DIM — ATT PSM-DD par dimension MODA
