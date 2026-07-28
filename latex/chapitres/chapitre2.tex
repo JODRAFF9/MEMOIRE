@@ -30,6 +30,7 @@ reposent sur un plan de sondage aléatoire stratifié à deux degrés :
 \end{itemize}
 
 \subsubsection{Construction de l'échantillon}
+\label{subsec:panel_enfants}
 
 L'unité d'analyse est l'enfant. La population cible est l'ensemble des enfants
 âgés de 0 à 17 ans vivant dans un ménage enquêté aux deux vagues, le ménage ne
@@ -40,19 +41,63 @@ panel vrai, apparié comme le prescrit l'ANSD sur le couple (grappe, ménage)
 et 28\,341 en 2021-2022, dont 17\,786 sont suivis individuellement d'une vague
 à l'autre selon la procédure décrite ci-après. Sont retenus les enfants pour
 lesquels l'intégralité des indicateurs MODA et la variable de traitement sont
-disponibles aux deux vagues.
+disponibles aux deux vagues. Le tableau~\ref{tab:panelhh} donne la répartition
+des ménages selon leur statut de suivi et le tableau~\ref{tab:panelenf} les
+effectifs d'enfants qui en découlent.
 
-\subsubsection{Identification des enfants suivis d'une vague à l'autre}
-\label{subsec:panel_enfants}
+\begin{table}[H]
+  \centering
+  \caption{Répartition des ménages EHCVM II selon le statut de suivi}
+  \label{tab:panelhh}
+  \small
+  \zebre
+  \begin{tabular}{|l|r|r|r|r|r|}
+    \hline
+\entete & \multicolumn{2}{|c|}{Nouveau ménage} & \multicolumn{2}{|c|}{Ménage panel} & Total \\ \hline
+    
+    & $n$ & \% & $n$ & \% & $n$ \\
+    \hline
+    Urbain & 740 & 18,9 & 3\,182 & 81,1 & 3\,922 \\ \hline
+    Rural  & 253 &  7,9 & 2\,945 & 92,1 & 3\,198 \\
+    \hline
+    Total & 993 & 13,9 & 6\,127 & 86,1 & 7\,120 \\
+    \hline
+    \multicolumn{6}{|c|}{Dont ménages panel selon condition de logement} \\ \hline
+    \quad Même logement qu'en 2018 & & & 5\,643 & 92,1 & \\ \hline
+    \quad Logement différent       & & &   290 &  4,7 & \\ \hline
+    \quad Non renseigné            & & &   194 &  3,2 & \\
+    \hline
+  \end{tabular}
 
-Le suivi des ménages ne suffit pas : l'unité d'analyse étant l'enfant, et le
-score de propension comme l'appariement étant estimés à ce niveau, il faut
-pouvoir relier chaque enfant de 2021 à lui-même en 2018. Le rang de l'individu
+  {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM.}
+\end{table}
+
+\begin{table}[H]
+  \centering
+  \caption[Effectifs d'enfants de 0 à 17 ans aux différentes étapes de la construction]{Effectifs d'enfants de 0 à 17 ans aux différentes étapes de la construction\protect\footnotemark}
+  \label{tab:panelenf}
+  \zebre
+  \begin{tabularx}{\linewidth}{|X|r|r|}
+    \hline
+\entete Étape & EHCVM I & EHCVM II \\
+    \hline
+    Enfants des ménages enquêtés            & 33\,844 & 31\,033 \\ \hline
+    Enfants des ménages du panel vrai       & 31\,382 & 28\,341 \\ \hline
+    Enfants suivis individuellement aux deux vagues & \multicolumn{2}{r|}{17\,786} \\ \hline
+    \quad dont retenus par le score de propension  & \multicolumn{2}{r|}{17\,735} \\ \hline
+    \quad dont appariés sur le support commun      & \multicolumn{2}{r|}{8\,076} \\
+    \hline
+  \end{tabularx}
+
+  {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM.}
+\end{table}
+\footnotetext{\textit{Note :} les deux dernières étapes portent sur des enfants observés aux deux vagues, l'effectif est donc commun aux deux colonnes.}
+
+Reste à relier chaque enfant de 2021 à lui-même en 2018. Le rang de l'individu
 dans la liste des membres du ménage ne le permet pas : cette numérotation est
 reconstruite à chaque passage et un même rang désigne, d'une vague à l'autre,
-des personnes différentes.
-
-Le questionnaire de l'EHCVM~II résout cette difficulté par un mécanisme de
+des personnes différentes. Le questionnaire de l'EHCVM~II résout cette
+difficulté par un mécanisme de
 préchargement. Pour chaque ménage panel, la première section du questionnaire
 2021 affiche à l'enquêteur la liste des membres relevés en 2018, avec leur
 identifiant d'origine, leur sexe, leur âge et leur lien de parenté avec le
