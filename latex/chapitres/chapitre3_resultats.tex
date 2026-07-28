@@ -5,7 +5,7 @@ Cette section présente les résultats empiriques de la stratégie d'identificat
 PSM-Double différence. Elle s'organise en trois temps : l'estimation du score de
 propension et la vérification de la qualité de l'appariement, la présentation des
 estimateurs de double différence brute, et enfin les résultats de l'estimateur PSM-DD
-de l'effet moyen du traitement sur les traités (ATT), avec une analyse des impacts
+de l'effet moyen du traitement sur les traités, avec une analyse des impacts
 par dimension de la pauvreté.
 
 \subsection{Estimation du score de propension}
@@ -191,7 +191,7 @@ $p = 0{,}967$), le k-NN et le caliper se tenant à 2,5\,\%. Le déséquilibre
 résiduel du k-NN porte sur la taille du ménage et la dépense
 par tête, dont l'effet de niveau est de toute façon éliminé par la double
 différence, celle-ci ne retenant que la variation intra-individuelle. Il
-n'affecterait l'ATT que si ces caractéristiques déterminaient non pas le
+n'affecterait l'estimation que si ces caractéristiques déterminaient non pas le
 niveau, mais la tendance des privations, hypothèse que le test placebo
 (annexe~\ref{ann:A}) ne corrobore pas.
 
@@ -226,7 +226,8 @@ dirigés par une femme --, d'où le recours à l'appariement.
 \subsubsection{Estimateur par appariement et double différence}
 \label{subsec:psmdd}
 
-Le tableau~\ref{tab:psmdd_att} rapporte les estimations de l'ATT par l'estimateur
+Le tableau~\ref{tab:psmdd_att} rapporte les estimations de l'effet moyen du
+traitement sur les traités par l'estimateur
 PSM-DD de \textcite{heckman1997,heckman1998}, qui combine l'appariement par score
 de propension et la double différence pour éliminer simultanément les biais de
 sélection sur observables et les effets fixes inobservables constants dans le temps.
@@ -249,7 +250,7 @@ sélection sur observables et les effets fixes inobservables constants dans le t
 \end{table}
 \footnotetext{\textit{Note :} appariement k-NN au niveau enfant, erreurs-types clusterisées par grappe, entre parenthèses sous le coefficient, $n = 16\,152$ observations-enfants.}
 
-L'estimateur PSM-DD donne un ATT de $0{,}058$, significatif au seuil de 10\,\%
+L'estimateur PSM-DD donne un effet de $0{,}058$, significatif au seuil de 10\,\%
 et à la limite du seuil de 5\,\% ($p = 0{,}052$). Le signe est positif : entre
 2018-2019 et 2021-2022, la privation multidimensionnelle des enfants de ménages
 bénéficiaires a reculé plus lentement que celle d'enfants témoins de sexe,
@@ -269,7 +270,7 @@ différence. Elle représente l'incidence MODA des enfants bénéficiaires et de
 témoins appariés aux deux vagues, ainsi que le contrefactuel obtenu en
 appliquant la tendance des témoins au niveau initial des bénéficiaires ;
 l'écart entre la trajectoire observée des bénéficiaires et son contrefactuel
-correspond à l'ATT estimé.
+correspond à l'effet estimé.
 
 \begin{figure}[H]
   \centering
@@ -285,7 +286,7 @@ correspond à l'ATT estimé.
 
 Le tableau~\ref{tab:psm_methodes} examine la stabilité des résultats selon la
 méthode d'appariement retenue. Les trois algorithmes concordent étroitement :
-l'ATT vaut $0{,}058$ pour le k-NN ($p = 0{,}052$), $0{,}055$ pour le noyau
+l'effet vaut $0{,}058$ pour le k-NN ($p = 0{,}052$), $0{,}055$ pour le noyau
 Epanechnikov ($p = 0{,}079$) et $0{,}047$ pour le caliper ($p = 0{,}083$),
 tous trois significatifs au seuil de 10\,\% et aucun au seuil de 5\,\%. La
 double différence brute, qui ne corrige pas la sélection, donne une valeur
@@ -317,10 +318,10 @@ l'avantage initial des enfants de ménages bénéficiaires.
 \label{subsec:sensib_k}
 
 Le seuil $k=4$ dimensions sur sept retenu pour déclarer un enfant pauvre est
-une convention. Le tableau~\ref{tab:sensib_k} réestime l'ATT à chaque seuil
+une convention. Le tableau~\ref{tab:sensib_k} réestime l'effet à chaque seuil
 possible, de $k=1$ à $k=7$. Le seuil $k=0$ est écarté : tout enfant étant privé
 dans au moins zéro dimension, la variable de résultat y serait constamment
-égale à un et l'ATT nul par construction. Le signe de l'effet est positif à
+égale à un et l'effet nul par construction. Le signe de l'effet est positif à
 tous les seuils, mais son ampleur suit une
 courbe en cloche : quasi nulle à $k=1$ ($0{,}006$), elle croît jusqu'à un
 maximum à $k=4$ ($0{,}058$) puis retombe, jusqu'à $0{,}009$ à $k=6$. La
@@ -365,8 +366,9 @@ ensemble.
 \end{figure}
 
 L'analyse par dimension (figure~\ref{fig:effets_dim} et
-tableau~\ref{tab:effets_dim}) décompose l'ATT global sur les sept dimensions
-MODA. Une seule ressort, la nutrition, avec un ATT de $0{,}081$ significatif au
+tableau~\ref{tab:effets_dim}) décompose l'effet d'ensemble sur les sept
+dimensions MODA. Une seule ressort, la nutrition, avec un effet de $0{,}081$
+significatif au
 seuil de 5\,\% ($p = 0{,}042$). La privation alimentaire des enfants de ménages
 bénéficiaires recule 8,1 points plus lentement que celle de leurs témoins
 appariés. C'est aussi la dimension la plus directement sensible au budget

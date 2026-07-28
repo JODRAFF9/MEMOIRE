@@ -17,7 +17,7 @@ d'analyse, mais il restreint l'échantillon aux enfants observés aux deux
 vagues et écarte donc ceux qui naissent, atteignent 18 ans ou quittent le
 ménage entre 2018 et 2021. Pour vérifier que la conclusion ne tient pas à
 cette restriction, la double différence est ré-estimée sur l'ensemble des
-enfants du panel de ménages, sans appariement individuel : l'ATT y vaut
+enfants du panel de ménages, sans appariement individuel : l'effet y vaut
 $0{,}032$ ($p = 0{,}167$), de même signe que l'estimation principale mais
 d'ampleur plus faible et non significatif. L'écart entre les deux ne traduit
 pas une instabilité du résultat mais l'effet
@@ -29,7 +29,7 @@ cet avantage initial atténue mécaniquement l'écart de trajectoire mesuré.
 \subsubsection{Sensibilité au traitement et à la méthode d'appariement}
 
 Le tableau~\ref{tab:psm_methodes} (section~\ref{subsec:psmdd}) documente la
-sensibilité de l'ATT à la méthode d'appariement : k-NN ($0{,}058$,
+sensibilité de l'effet estimé à la méthode d'appariement : k-NN ($0{,}058$,
 $p = 0{,}052$), noyau Epanechnikov ($0{,}055$, $p = 0{,}079$) et caliper
 ($0{,}047$, $p = 0{,}083$). Les trois algorithmes donnent des effets d'ampleur
 voisine, tous significatifs au seuil de 10\,\% et aucun à 5\,\% : la
@@ -39,7 +39,7 @@ atteignent une qualité d'équilibrage comparable
 du traitement. En restreignant la comparaison
 aux bénéficiaires durables -- recevant un transfert aux deux vagues,
 2\,604 observations-enfants -- face aux ménages jamais bénéficiaires
-(23\,580 observations), l'ATT tombe à $0{,}023$ et perd toute significativité
+(23\,580 observations), l'effet tombe à $0{,}023$ et perd toute significativité
 ($p = 0{,}474$). Une exposition prolongée aux transferts ne s'accompagne donc
 pas de l'écart de trajectoire observé sur le traitement défini à la période de
 base. Ce design a toutefois ses propres limites, le traitement y étant déjà en
@@ -69,7 +69,7 @@ corrélée au statut de traitement~: 15,4\,\% de bénéficiaires 2018 parmi
 les perdus contre 13,1\,\% parmi les suivis, un écart de 2,4 points non
 significatif ($p = 0{,}101$). C'est le point qui importe ici~: le suivi
 différentiel ne dépend pas du traitement, ce qui limite le risque que
-l'ATT en soit biaisé. La généralisabilité des résultats aux ménages urbains
+l'estimation en soit biaisée. La généralisabilité des résultats aux ménages urbains
 les plus mobiles reste en revanche restreinte.
 
 \subsection{Analyse de l'hétérogénéité des effets}
@@ -78,7 +78,7 @@ les plus mobiles reste en revanche restreinte.
 
 L'impact des transferts est susceptible de varier selon le milieu de
 résidence, le sexe et l'âge de l'enfant. Le tableau~\ref{tab:heterogeneite}
-rapporte les ATT PSM-DD pour chacun de ces sous-groupes.
+rapporte les effets estimés pour chacun de ces sous-groupes.
 
 \begin{table}[H]
   \centering
@@ -109,7 +109,7 @@ rapporte les ATT PSM-DD pour chacun de ces sous-groupes.
 \end{table}
 \footnotetext{\textit{Note :} erreurs-types clusterisées par grappe, poids d'appariement k-NN au niveau enfant. Les groupes d'âge sont ceux de la période de base, l'enfant conservant son groupe aux deux vagues. $^{*}p<0{,}10$, $^{**}p<0{,}05$.}
 
-L'ATT est significatif en milieu urbain ($0{,}084$, $p = 0{,}034$) et ne l'est
+L'effet est significatif en milieu urbain ($0{,}084$, $p = 0{,}034$) et ne l'est
 pas en milieu rural ($0{,}027$, $p = 0{,}542$). Le test d'égalité entre les
 deux ne rejette toutefois pas l'homogénéité ($p = 0{,}336$)~: l'écart entre
 les deux coefficients n'est pas lui-même significatif, et l'on ne peut pas
@@ -119,7 +119,7 @@ sous-groupes pris isolément invite à surveiller le milieu urbain.
 
 \subsubsection{Selon le sexe de l'enfant}
 
-L'ATT est significatif chez les filles ($0{,}064$, $p = 0{,}048$) et ne l'est
+L'effet est significatif chez les filles ($0{,}064$, $p = 0{,}048$) et ne l'est
 pas chez les garçons ($0{,}052$, $p = 0{,}141$). L'écart entre les deux
 coefficients est cependant faible, de l'ordre d'un point de pourcentage, très
 inférieur aux erreurs-types de chacun~: la différence de significativité tient
@@ -137,7 +137,7 @@ bénéficiaires était en 2018 nettement plus large chez les filles que chez les
 garçons, 22,4 points contre 15,8, et c'est chez les filles qu'il se resserre~:
 la double différence descriptive vaut 5,0 points pour elles contre
 $-0{,}5$ point pour eux. L'écart est du même signe et de même ordre que celui
-des ATT appariés, alors que les deux calculs ne reposent ni sur le même
+de l'estimation appariée, alors que les deux calculs ne reposent ni sur le même
 échantillon ni sur la même correction de sélection. Le volet de H2 relatif au
 sexe reste donc non établi au sens statistique, mais la convergence des deux
 lectures désigne les filles comme le sous-groupe sur lequel une réplication
@@ -154,10 +154,10 @@ donc \og âgé de 0 à 4 ans en 2018 \fg{}, ce qui est la lecture pertinente
 puisque c'est l'âge à l'exposition qui importe.
 
 La décomposition livre le coefficient de plus grande ampleur de l'analyse.
-Chez les enfants de 0 à 4 ans, l'ATT atteint $0{,}079$ et est significatif au
+Chez les enfants de 0 à 4 ans, l'effet atteint $0{,}079$ et est significatif au
 seuil de 5\,\% ($p = 0{,}045$)~: la privation multidimensionnelle des
 tout-petits de ménages bénéficiaires recule près de 8 points plus lentement
-que celle de leurs témoins appariés. L'effet dépasse d'un tiers l'ATT
+que celle de leurs témoins appariés. Il dépasse d'un tiers l'effet
 d'ensemble, et il concerne la tranche d'âge sur laquelle les privations pèsent
 le plus lourdement dans la trajectoire ultérieure de l'enfant. C'est le seul
 sous-groupe d'âge qui atteint le seuil de 5\,\%. Les 5-14 ans ne se
@@ -193,7 +193,7 @@ quintiles sont construits sur la distribution du montant annuel parmi les
 ménages bénéficiaires, au niveau du ménage afin que le découpage ne soit pas
 déformé par le nombre d'enfants, puis chaque quintile d'enfants traités est
 comparé à l'ensemble des enfants témoins appariés. Le tableau
-\ref{tab:hetero_montant} rapporte l'ATT par quintile ainsi qu'un test continu,
+\ref{tab:hetero_montant} rapporte l'effet par quintile ainsi qu'un test continu,
 qui estime la pente de l'effet en fonction du logarithme du montant sur les
 seuls enfants traités.
 
@@ -232,7 +232,7 @@ logarithme du montant vaut -$0{,}025$ ($p = 0{,}082$). Plus le montant est
 élevé, plus l'écart de trajectoire défavorable se réduit, jusqu'à s'annuler
 pour les transferts les plus importants. Le volet de H2 relatif au montant est
 donc validé, et c'est celui pour lequel l'hétérogénéité est la mieux établie.
-Cette lecture éclaire aussi l'ATT d'ensemble. L'effet moyen défavorable n'est pas
+Cette lecture éclaire aussi l'effet d'ensemble. L'effet moyen défavorable n'est pas
 uniforme~: il est porté par les ménages recevant les montants les plus
 faibles, pour lesquels l'apport monétaire ne compense pas le coût du départ
 d'un adulte. Au-delà d'un certain seuil, l'apport devient suffisant pour
@@ -256,7 +256,7 @@ une association conditionnelle, non comme un effet causal du montant.
 \subsection{Interprétation des résultats}
 
 Sur la période 2018-2021, les transferts de migrants ne réduisent pas la
-pauvreté multidimensionnelle des enfants sénégalais. L'ATT PSM-DD s'établit à
+pauvreté multidimensionnelle des enfants sénégalais. L'effet estimé s'établit à
 $0{,}058$ ($p = 0{,}052$)~: la trajectoire des enfants de ménages
 bénéficiaires est même légèrement moins favorable que celle d'enfants témoins
 comparables, à hauteur de près de 6 points de pourcentage. Le résultat est
