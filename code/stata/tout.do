@@ -1367,10 +1367,7 @@ foreach outcome in pauvre_MODA {
 /* ── Sensibilite au seuil inter-dimensionnel k ──────────────────
    Le seuil k=4 est une convention. On reestime l'ATT en definissant la
    pauvrete successivement a chaque seuil de 1 a 7 dimensions sur 7, pour
-   verifier que la conclusion ne depend pas du seuil retenu.
-   k=0 est exclu : tout enfant etant prive dans au moins 0 dimension, la
-   variable de resultat serait constante egale a 1 et l'ATT nul par
-   construction, sans contenu informatif. */
+   verifier que la conclusion ne depend pas du seuil retenu. */
 di _newline "=== Sensibilite de l'ATT au seuil de privation k ==="
 di "  k        ATT      SE       p"
 forvalues k = 1/7 {
