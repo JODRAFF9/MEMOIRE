@@ -541,9 +541,7 @@ foreach annee in 2018 2021 {
        l'age et du lien de parente precharges). Cette variable, et non le
        rang dans le roster 2021 (membres__id), est la cle qui relie un
        individu a lui-meme d'une vague a l'autre. Elle permet de constituer
-       un veritable panel d'ENFANTS, et non seulement de menages.
-       Validation : sexe identique dans 98,5 % des cas et ecart d'age
-       median de 3 ans, conforme a l'intervalle entre les deux passages. */
+       un veritable panel d'ENFANTS, et non seulement de menages. */
     if `annee' == 2021 {
         preserve
             use "`base'/s01_me_sen2021.dta", clear
@@ -1198,9 +1196,8 @@ drop if missing(D) | missing(log_pcexp) | missing(hhsize) ///
        | missing(pauvre_MODA18) | missing(pauvre_MODA21)
 
 /* ── Validation empirique de l'appariement individuel ─────────
-   La cle s01qpreload_pid n'est pas documentee dans la documentation
-   officielle de l'enquete : sa validite est etablie par deux verifications
-   qu'un appariement arbitraire ne pourrait pas satisfaire. */
+   Deux verifications qu'un appariement arbitraire ne pourrait pas
+   satisfaire. */
 di _newline "--- Validation de l'appariement individuel ---"
 quietly count if sexe18 == sexe21
 di "  Concordance du sexe entre vagues : " %5.1f 100*r(N)/_N "%"
