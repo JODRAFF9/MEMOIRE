@@ -65,7 +65,7 @@
 
 % ── Titres de section - bandeau ENSAE ────────────────────────
 \usepackage{titlesec}
-\titlespacing*{\section}{0pt}{12pt}{8pt}
+\titlespacing*{\section}{0pt}{-18pt}{8pt}
 \titlespacing*{\subsection}{0pt}{8pt}{4pt}
 \titlespacing*{\subsubsection}{0pt}{6pt}{3pt}
 
@@ -80,9 +80,9 @@
   \begin{tikzpicture}
     \fill[ensaeblue] (0,0) rectangle (\ensaefilet,4pt);
     \ifx\relax#2\relax\else
-      \node[circle, fill=ensaeblue, text=white, minimum size=1.5cm,
-            inner sep=0pt, font=\fontsize{30}{30}\selectfont]
-        at (0.945\textwidth,0.62cm) {#2};
+      \node[circle, fill=ensaeblue, text=white, minimum size=2.1cm,
+            inner sep=0pt, font=\fontsize{42}{42}\selectfont]
+        at (0.925\textwidth,0.95cm) {#2};
     \fi
   \end{tikzpicture}\par
   \vspace{0.30cm}
