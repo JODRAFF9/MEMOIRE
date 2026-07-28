@@ -31,49 +31,15 @@ reposent sur un plan de sondage aléatoire stratifié à deux degrés :
 
 \subsubsection{Construction de l'échantillon}
 
-Notre population cible est l'ensemble des enfants âgés de 0 à 17 ans résidant
-dans les ménages enquêtés dans les deux vagues. L'EHCVM I couvre
-7\,156 ménages et l'EHCVM II 7\,120 ménages selon le même plan de sondage,
-avec un sous-échantillon panel identifié dans les données par un indicateur de
-statut de suivi \parencite{ansd2019, ansd2022}. L'échantillon analytique
-repose sur le panel vrai des 6\,127 ménages enquêtés lors des deux vagues,
-apparié comme le prescrit l'ANSD sur le couple (grappe, ménage) pour les seuls
-ménages marqués panel \parencite{ansd2022}. Chaque ménage y est observé en
-2018-2019 puis en 2021-2022, ce qui autorise une estimation DD en différences
-intra-ménage sans recourir à des hypothèses d'agrégation au niveau des grappes
-\parencite{deaton1997}. Le tableau~\ref{tab:panelhh} présente la répartition
-des ménages enquêtés en 2021-2022 selon leur statut de suivi et le milieu de
-résidence.
-
-\begin{table}[H]
-  \centering
-  \caption{Répartition des ménages EHCVM II selon le statut de suivi}
-  \label{tab:panelhh}
-  \small
-  \zebre
-  \begin{tabular}{|l|r|r|r|r|r|}
-    \hline
-\entete & \multicolumn{2}{|c|}{Nouveau ménage} & \multicolumn{2}{|c|}{Ménage panel} & Total \\ \hline
-    
-    & $n$ & \% & $n$ & \% & $n$ \\
-    \hline
-    Urbain & 740 & 18,9 & 3\,182 & 81,1 & 3\,922 \\ \hline
-    Rural  & 253 &  7,9 & 2\,945 & 92,1 & 3\,198 \\
-    \hline
-    Total & 993 & 13,9 & 6\,127 & 86,1 & 7\,120 \\
-    \hline
-    \multicolumn{6}{|c|}{Dont ménages panel selon condition de logement} \\ \hline
-    \quad Même logement qu'en 2018 & & & 5\,643 & 92,1 & \\ \hline
-    \quad Logement différent       & & &   290 &  4,7 & \\ \hline
-    \quad Non renseigné            & & &   194 &  3,2 & \\
-    \hline
-  \end{tabular}
-
-  {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM.}
-\end{table}
-
-L'échantillon retenu comprend les enfants de 0 à 17 ans pour lesquels
-l'intégralité des indicateurs MODA et la variable de traitement sont
+L'unité d'analyse est l'enfant. La population cible est l'ensemble des enfants
+âgés de 0 à 17 ans vivant dans un ménage enquêté aux deux vagues, le ménage ne
+servant ici qu'à les atteindre. Sur les 7\,156 ménages de l'EHCVM~I et les
+7\,120 de l'EHCVM~II, 6\,127 sont enquêtés aux deux passages et forment le
+panel vrai, apparié comme le prescrit l'ANSD sur le couple (grappe, ménage)
+\parencite{ansd2022}. Ils abritent 31\,382 enfants de 0 à 17 ans en 2018-2019
+et 28\,341 en 2021-2022, dont 17\,786 sont suivis individuellement d'une vague
+à l'autre selon la procédure décrite ci-après. Sont retenus les enfants pour
+lesquels l'intégralité des indicateurs MODA et la variable de traitement sont
 disponibles aux deux vagues.
 
 \subsubsection{Identification des enfants suivis d'une vague à l'autre}
