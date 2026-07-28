@@ -199,73 +199,57 @@ s'établit autour de 300\,000 FCFA par an, mais le troisième quartile atteint
 un transfert de deux millions ne desserrent pas la même contrainte
 budgétaire, et rien n'impose que leurs effets soient de même ampleur. Ce
 dernier volet de l'hypothèse H2 examine donc la relation dose-réponse. Les
-déciles sont construits sur la distribution du montant annuel parmi les
+quintiles sont construits sur la distribution du montant annuel parmi les
 ménages bénéficiaires, au niveau du ménage afin que le découpage ne soit pas
-déformé par le nombre d'enfants, puis chaque décile d'enfants traités est
-comparé à l'ensemble des enfants témoins appariés. Le
-tableau~\ref{tab:hetero_montant} rapporte l'effet par décile ainsi qu'un test
-continu, qui estime la pente de l'effet en fonction du logarithme du montant
-sur les seuls enfants traités.
+déformé par le nombre d'enfants, puis chaque quintile d'enfants traités est
+comparé à l'ensemble des enfants témoins appariés. Le tableau
+\ref{tab:hetero_montant} rapporte l'effet par quintile ainsi qu'un test continu,
+qui estime la pente de l'effet en fonction du logarithme du montant sur les
+seuls enfants traités.
 
 \begin{table}[H]
   \centering
   \caption[Hétérogénéité de l'effet selon le montant annuel des transferts]{Hétérogénéité de l'effet selon le montant annuel des transferts\protect\footnotemark}
   \label{tab:hetero_montant}
   \zebre
-  \small
-  \begin{tabular}{|l|c|c|}
+  \begin{tabular}{|l|c|}
     \hline
-\entete Décile de montant annuel (FCFA) & Médiane & ATT \\
+\entete Quintile de montant & ATT \\
     \hline
-    D1 \quad jusqu'à 40~000        & 20~000    & \makecell{$0{,}107$\\$(0{,}086)$} \\ \hline
-    D2 \quad 42~500 à 100~000      & 60~000    & \makecell{$0{,}136^{***}$\\$(0{,}048)$} \\ \hline
-    D3 \quad 110~000 à 200~000     & 150~000   & \makecell{$0{,}080$\\$(0{,}058)$} \\ \hline
-    D4 \quad 210~000 à 360~000     & 300~000   & \makecell{$0{,}105^{*}$\\$(0{,}056)$} \\ \hline
-    D5 \quad 380~000 à 600~000     & 545~000   & \makecell{-$0{,}049$\\$(0{,}047)$} \\ \hline
-    D6 \quad 610~000 à 900~000     & 780~000   & \makecell{$0{,}082$\\$(0{,}078)$} \\ \hline
-    D7 \quad 920~000 à 1~200~000   & 1~200~000 & \makecell{$0{,}053$\\$(0{,}095)$} \\ \hline
-    D8 \quad 1~230~000 à 1~800~000 & 1~800~000 & \makecell{$0{,}101$\\$(0{,}066)$} \\ \hline
-    D9 \quad 1~824~000 à 2~700~000 & 2~400~000 & \makecell{$0{,}005$\\$(0{,}076)$} \\ \hline
-    D10 \quad au-delà de 2~760~000 & 4~200~000 & \makecell{-$0{,}034$\\$(0{,}064)$} \\
+    Q1 (jusqu'à 100~000 FCFA)  & \makecell{$0{,}122^{**}$\\$(0{,}052)$} \\ \hline
+    Q2 (110~000 à 360~000)     & \makecell{$0{,}093^{**}$\\$(0{,}042)$} \\ \hline
+    Q3 (380~000 à 900~000)     & \makecell{$0{,}014$\\$(0{,}047)$}      \\ \hline
+    Q4 (920~000 à 1~800~000)   & \makecell{$0{,}078$\\$(0{,}061)$}      \\ \hline
+    Q5 (au-delà de 1~824~000)  & \makecell{-$0{,}014$\\$(0{,}053)$}     \\
     \hline
     \hline
-    Pente dose-réponse (log du montant) & & \makecell{-$0{,}025^{*}$\\$(0{,}014)$} \\
+    Pente dose-réponse (log du montant) & \makecell{-$0{,}025^{*}$\\$(0{,}014)$} \\
     \hline
   \end{tabular}
 
-  {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM. $^{*}p<0{,}10$, $^{***}p<0{,}01$.}
+  {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM. $^{*}p<0{,}10$, $^{**}p<0{,}05$.}
 \end{table}
-\footnotetext{\textit{Note :} appariement k-NN au niveau enfant, erreurs-types clusterisées par grappe, entre parenthèses sous le coefficient. Les déciles sont définis sur le montant annuel des transferts parmi les ménages bénéficiaires, soit une soixantaine de ménages par décile~; chaque décile est comparé à l'ensemble des témoins appariés. La pente dose-réponse est le coefficient de l'interaction entre la vague et le logarithme du montant, estimé sur les enfants traités.}
+\footnotetext{\textit{Note :} appariement k-NN au niveau enfant, erreurs-types clusterisées par grappe, entre parenthèses sous le coefficient. Les quintiles sont définis sur le montant annuel des transferts parmi les ménages bénéficiaires~; chaque quintile est comparé à l'ensemble des témoins appariés. La pente dose-réponse est le coefficient de l'interaction entre la vague et le logarithme du montant, estimé sur les enfants traités.}
 
-Le tableau se lit comme un profil, non comme dix estimations indépendantes.
-Avec une soixantaine de ménages par décile, les erreurs-types vont de 0,047 à
-0,095 et aucun coefficient pris isolément ne serait concluant~: seuls le
-deuxième décile ($0{,}136$~; $p = 0{,}005$) et le quatrième ($0{,}105$~;
-$p = 0{,}061$) franchissent un seuil usuel.
-
-Le profil, lui, est orienté. Les quatre premiers déciles, jusqu'à
-360~000 FCFA par an, portent des coefficients compris entre $0{,}080$ et
-$0{,}136$~; les deux derniers, au-delà de 1,8 million, tombent à $0{,}005$ et
--$0{,}034$. Le test continu, qui n'a pas à découper l'information, confirme
-cette pente~: l'effet décroît de $0{,}025$ par unité de logarithme du montant
-($p = 0{,}082$). Plus le transfert est élevé, plus l'écart de trajectoire
-défavorable se réduit, jusqu'à s'annuler pour les envois les plus importants.
-Le volet de H2 relatif au montant est donc validé.
-
-Le milieu de la distribution est en revanche irrégulier~: le cinquième décile
-ressort à -$0{,}049$ quand le sixième et le huitième dépassent $0{,}080$. Ces
-allers-retours n'ont pas d'interprétation économique, ils sont la marque de
-sous-groupes trop petits. C'est la raison pour laquelle la pente continue,
-plus que les coefficients par décile, porte la conclusion.
-
-Cette lecture éclaire aussi l'effet d'ensemble. L'effet moyen défavorable
-n'est pas uniforme~: il est porté par les ménages recevant les montants les
-plus faibles, pour lesquels l'apport monétaire ne compense pas le coût du
-départ d'un adulte. Au-delà d'un certain seuil, l'apport devient suffisant
-pour équilibrer ce coût. Un transfert de 20~000 FCFA par an, montant médian du
-premier décile, représente quelques pour cent de la dépense annuelle par tête
-d'un ménage bénéficiaire~; un transfert de 4,2 millions, médiane du dernier
-décile, en représente plusieurs fois le montant.
+Le résultat est net. L'effet défavorable se concentre sur les petits
+montants~: $12{,}2$ points de pourcentage dans le premier quintile, jusqu'à
+100~000 FCFA par an, et $9{,}3$ points dans le deuxième, tous deux
+significatifs à 5\,\%. Il disparaît ensuite~: les troisième et quatrième
+quintiles ne se distinguent pas, et le cinquième, au-delà de 1,8 million de
+FCFA par an, présente un coefficient négatif et nul en pratique
+(-$0{,}014$~; $p = 0{,}790$). Le test continu confirme cette structure~: la pente de l'effet en fonction du
+logarithme du montant vaut -$0{,}025$ ($p = 0{,}082$). Plus le montant est
+élevé, plus l'écart de trajectoire défavorable se réduit, jusqu'à s'annuler
+pour les transferts les plus importants. Le volet de H2 relatif au montant est
+donc validé, et c'est celui pour lequel l'hétérogénéité est la mieux établie.
+Cette lecture éclaire aussi l'effet d'ensemble. L'effet moyen défavorable n'est pas
+uniforme~: il est porté par les ménages recevant les montants les plus
+faibles, pour lesquels l'apport monétaire ne compense pas le coût du départ
+d'un adulte. Au-delà d'un certain seuil, l'apport devient suffisant pour
+équilibrer ce coût. Un transfert de 47~000 FCFA par an, montant médian du
+premier quintile, représente environ un dixième de la dépense annuelle par
+tête d'un ménage bénéficiaire~; un transfert de 3,3 millions, médiane du
+dernier quintile, en représente plusieurs fois le montant.
 
 Deux réserves encadrent la lecture de ce tableau. La première tient à la
 mesure du montant, déclaré par le ménage et reconstitué en annualisant le
@@ -275,7 +259,7 @@ elle atténue mécaniquement toute relation dose-réponse. Que celle-ci
 apparaisse malgré cette atténuation en renforce plutôt la crédibilité. La
 seconde tient à l'identification~: le montant n'est pas assigné aléatoirement
 parmi les bénéficiaires, il dépend des ressources du migrant et des besoins du
-ménage. La comparaison entre déciles ne repose donc pas sur la même
+ménage. La comparaison entre quintiles ne repose donc pas sur la même
 stratégie d'identification que l'estimation principale et s'interprète comme
 une association conditionnelle, non comme un effet causal du montant.
 
