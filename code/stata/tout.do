@@ -1146,11 +1146,11 @@ save "$TEMP/panel_complet.dta", replace
    Le rang dans le roster 2021 (numind) ne designe pas le meme individu
    qu'en 2018. */
 use "$TEMP/enfants_dep_2018.dta", clear
-keep grappe menage numind sexe age pauvre_MODA nb_dep groupe_moda ///
+keep grappe menage numind sexe age pauvre_MODA nb_dep intensite_moda groupe_moda ///
      dim_assai dim_eau dim_logem dim_nutri dim_sante dim_protect dim_educ ///
      hhweight hhsize pcexp region milieu hgender hage heduc hmstat hcsp
 rename numind numind_2018
-foreach v in sexe age pauvre_MODA nb_dep groupe_moda ///
+foreach v in sexe age pauvre_MODA nb_dep intensite_moda groupe_moda ///
              dim_assai dim_eau dim_logem dim_nutri dim_sante dim_protect dim_educ {
     rename `v' `v'18
 }
@@ -1158,9 +1158,9 @@ tempfile enf18_psm
 save `enf18_psm'
 
 use "$TEMP/enfants_dep_2021.dta", clear
-keep grappe menage numind sexe age pauvre_MODA nb_dep groupe_moda ///
+keep grappe menage numind sexe age pauvre_MODA nb_dep intensite_moda groupe_moda ///
      dim_assai dim_eau dim_logem dim_nutri dim_sante dim_protect dim_educ
-foreach v in sexe age pauvre_MODA nb_dep groupe_moda ///
+foreach v in sexe age pauvre_MODA nb_dep intensite_moda groupe_moda ///
              dim_assai dim_eau dim_logem dim_nutri dim_sante dim_protect dim_educ {
     rename `v' `v'21
 }
@@ -1308,7 +1308,7 @@ merge 1:1 enfid using "$TEMP/pscore_knn.dta", ///
 clonevar groupe_base = groupe_moda18
 label var groupe_base "Groupe d'age MODA a la periode de base (2018)"
 
-reshape long pauvre_MODA nb_dep groupe_moda sexe age ///
+reshape long pauvre_MODA nb_dep intensite_moda groupe_moda sexe age ///
              dim_assai dim_eau dim_logem dim_nutri dim_sante dim_protect dim_educ, ///
     i(enfid) j(periode)
 gen byte t = (periode == 21)
