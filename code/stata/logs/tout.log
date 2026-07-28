@@ -1082,7 +1082,7 @@ Nouveau Ménage |        993       13.95       13.95
 .     tempfile id_2021
 
 .     save `id_2021'
-file C:\Users\Bmd\AppData\Local\Temp\ST_27e8_000002.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_4e30_000002.tmp saved as .dta format
 
 . restore
 
@@ -1243,7 +1243,7 @@ Autre pays hors Afrique |        227        2.13       69.75
 .     tempfile etrangers
 
 .     save `etrangers'
-file C:\Users\Bmd\AppData\Local\Temp\ST_27e8_000003.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_4e30_000003.tmp saved as .dta format
 
 . 
 .     /* Fusionner sur la liste exhaustive des menages */
@@ -1395,7 +1395,7 @@ file code/stata/temp/montant_2018.dta saved
 .     tempfile etrangers
 
 .     save `etrangers'
-file C:\Users\Bmd\AppData\Local\Temp\ST_27e8_000004.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_4e30_000004.tmp saved as .dta format
 
 . 
 .     /* Fusionner sur la liste exhaustive des menages */
@@ -2062,7 +2062,7 @@ file code/stata/temp/traitement_2021.dta saved
 (0 observations deleted)
 (1,722 missing values generated)
 (1,722 real changes made)
-file C:\Users\Bmd\AppData\Local\Temp\ST_27e8_000006.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_4e30_000006.tmp saved as .dta format
   CSP du chef 2018 :
 
                    Categorie |
@@ -2115,7 +2115,7 @@ Sans emploi ou non renseigne |      1,722       24.06       24.06
     Not matched                             0
     Matched                            33,844  
     -----------------------------------------
-file C:\Users\Bmd\AppData\Local\Temp\ST_27e8_000008.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_4e30_000008.tmp saved as .dta format
 
     Result                      Number of obs
     -----------------------------------------
@@ -2124,7 +2124,7 @@ file C:\Users\Bmd\AppData\Local\Temp\ST_27e8_000008.tmp saved as .dta format
     -----------------------------------------
 (4 missing values generated)
 (9,059 observations deleted)
-file C:\Users\Bmd\AppData\Local\Temp\ST_27e8_00000a.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_4e30_00000a.tmp saved as .dta format
 
     Result                      Number of obs
     -----------------------------------------
@@ -2134,21 +2134,21 @@ file C:\Users\Bmd\AppData\Local\Temp\ST_27e8_00000a.tmp saved as .dta format
 
     Matched                            24,955  
     -----------------------------------------
-file C:\Users\Bmd\AppData\Local\Temp\ST_27e8_00000c.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_4e30_00000c.tmp saved as .dta format
 
     Result                      Number of obs
     -----------------------------------------
     Not matched                             0
     Matched                            33,844  
     -----------------------------------------
-file C:\Users\Bmd\AppData\Local\Temp\ST_27e8_00000e.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_4e30_00000e.tmp saved as .dta format
 
     Result                      Number of obs
     -----------------------------------------
     Not matched                             0
     Matched                            33,844  
     -----------------------------------------
-file C:\Users\Bmd\AppData\Local\Temp\ST_27e8_00000g.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_4e30_00000g.tmp saved as .dta format
 
     Result                      Number of obs
     -----------------------------------------
@@ -2244,7 +2244,7 @@ file code/stata/temp/enfants_dep_2018.dta saved
 (0 observations deleted)
 (1,326 missing values generated)
 (1,326 real changes made)
-file C:\Users\Bmd\AppData\Local\Temp\ST_27e8_00000i.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_4e30_00000i.tmp saved as .dta format
   CSP du chef 2021 :
 
                    Categorie |
@@ -2300,7 +2300,7 @@ Sans emploi ou non renseigne |      1,326       18.62       18.62
     Not matched                             0
     Matched                            31,033  
     -----------------------------------------
-file C:\Users\Bmd\AppData\Local\Temp\ST_27e8_00000k.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_4e30_00000k.tmp saved as .dta format
 
     Result                      Number of obs
     -----------------------------------------
@@ -2308,21 +2308,21 @@ file C:\Users\Bmd\AppData\Local\Temp\ST_27e8_00000k.tmp saved as .dta format
     Matched                            31,033  
     -----------------------------------------
 (14,304 observations deleted)
-file C:\Users\Bmd\AppData\Local\Temp\ST_27e8_00000m.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_4e30_00000m.tmp saved as .dta format
 
     Result                      Number of obs
     -----------------------------------------
     Not matched                             0
     Matched                            31,033  
     -----------------------------------------
-file C:\Users\Bmd\AppData\Local\Temp\ST_27e8_00000o.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_4e30_00000o.tmp saved as .dta format
 
     Result                      Number of obs
     -----------------------------------------
     Not matched                             0
     Matched                            31,033  
     -----------------------------------------
-file C:\Users\Bmd\AppData\Local\Temp\ST_27e8_00000q.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_4e30_00000q.tmp saved as .dta format
 (16,493 observations deleted)
 file code/stata/temp/lien_individus.dta saved
 
@@ -2336,7 +2336,7 @@ file code/stata/temp/lien_individus.dta saved
     Not matched                             0
     Matched                            31,033  
     -----------------------------------------
-file C:\Users\Bmd\AppData\Local\Temp\ST_27e8_00000t.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_4e30_00000t.tmp saved as .dta format
 
     Result                      Number of obs
     -----------------------------------------
@@ -2594,7 +2594,7 @@ Duplicates in terms of grappe menage
 . tempfile id2018
 
 . save `id2018'
-file C:\Users\Bmd\AppData\Local\Temp\ST_27e8_00000u.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_4e30_00000u.tmp saved as .dta format
 
 . 
 . use "$TEMP/vague_2021.dta", clear
@@ -2631,7 +2631,7 @@ Duplicates in terms of grappe menage
 . tempfile ids_panel
 
 . save `ids_panel'
-file C:\Users\Bmd\AppData\Local\Temp\ST_27e8_00000v.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_4e30_00000v.tmp saved as .dta format
 
 . save "$TEMP/ids_panel.dta", replace   /* liste complete de tous les menages
 >     suivis, reutilisee par l'analyse de robustesse "beneficiaires stables" */
@@ -2659,7 +2659,7 @@ Menages vraiment suivis (presences dans les 2 vagues) : 5691
 . tempfile panel_t0
 
 . save `panel_t0'
-file C:\Users\Bmd\AppData\Local\Temp\ST_27e8_00000w.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_4e30_00000w.tmp saved as .dta format
 
 . 
 . use "$TEMP/vague_2021.dta", clear
@@ -2675,7 +2675,7 @@ file C:\Users\Bmd\AppData\Local\Temp\ST_27e8_00000w.tmp saved as .dta format
 . tempfile panel_t1
 
 . save `panel_t1'
-file C:\Users\Bmd\AppData\Local\Temp\ST_27e8_00000x.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_4e30_00000x.tmp saved as .dta format
 
 . 
 . use `panel_t0', clear
@@ -2783,17 +2783,21 @@ file code/stata/temp/panel_vrai.dta saved
 
 . 
 . /* ============================================================
->    DIAGNOSTIC : departs de membres entre les deux vagues
+>    DEPARTS DE MEMBRES ENTRE LES DEUX VAGUES
 > 
 >    Le questionnaire 2021 precharge chaque membre releve en 2018 et demande
->    s'il fait toujours partie du menage (s01q00aa), pour quelle raison il
->    l'a quitte (s01q00b) et depuis quand (s01q00c). Ces variables ne sont
->    pas encore exploitees. Elles permettraient de mesurer si les menages
+>    s'il fait toujours partie du menage (s01q00aa) et pour quelle raison il
+>    l'a quitte (s01q00b). Le motif distingue un depart a l'etranger d'un
+>    depart a l'interieur du pays : on peut donc mesurer si les menages
 >    temoins ont eux aussi perdu un adulte, ce que le design suppose sans le
->    verifier, et de savoir si le motif distingue un depart a l'etranger
->    d'un depart a l'interieur du pays.
+>    verifier.
 > 
->    Ce bloc ne modifie aucune estimation : il decrit ce qui est exploitable.
+>    Trois retraitements sont necessaires. L'age precharge comporte des codes
+>    de non-reponse (9999) qui seraient comptes comme adultes. Le motif
+>    « etait visiteur » ne designe pas un depart mais une personne recensee a
+>    tort en 2018. Les deces ne relevent pas de la migration et sont isoles.
+> 
+>    Ce bloc ne modifie aucune estimation.
 >    ============================================================ */
 . 
 . preserve
@@ -2801,15 +2805,13 @@ file code/stata/temp/panel_vrai.dta saved
 .     use "$BASE_2021/s01_me_sen2021.dta", clear
 
 .     keep grappe menage membres__id s01qpreload_pid s01qpreload_sex ///
->          s01qpreload_age s01q00aa s01q00b s01q00c
+>          s01qpreload_age s01q00aa s01q00b
 
 . 
-.     /* Restriction aux membres precharges, c'est-a-dire presents en 2018 */
-.     keep if !missing(s01qpreload_pid)
+.     keep if !missing(s01qpreload_pid)   /* membres presents en 2018 */
 (16,493 observations deleted)
 
 . 
-.     /* Menages du panel d'analyse et statut de traitement */
 .     merge m:1 grappe menage using "$TEMP/ids_panel.dta", keep(match) nogenerate
 
     Result                      Number of obs
@@ -2831,183 +2833,117 @@ file code/stata/temp/panel_vrai.dta saved
 (0 real changes made)
 
 . 
-.     di _newline(2) "=== Departs de membres entre 2018 et 2021 (menages du panel) ==="
-
-
-=== Departs de membres entre 2018 et 2021 (menages du panel) ===
-
-.     di "  Membres precharges : " _N
-  Membres precharges : 58900
-
-. 
-.     di _newline "--- s01q00aa : toujours membre du menage ? ---"
-
---- s01q00aa : toujours membre du menage ? ---
-
-.     tab s01q00aa, missing
-
-    1.00aa. |
-      [NOM] |
-     est-il |
-toujours un |
-  membre de |
- ce ménage? |      Freq.     Percent        Cum.
-------------+-----------------------------------
-        oui |     44,855       76.15       76.15
-        non |     14,045       23.85      100.00
-------------+-----------------------------------
-      Total |     58,900      100.00
+.     /* Age precharge : 9999 et valeurs aberrantes mises a manquant */
+.     replace s01qpreload_age = . if s01qpreload_age > 100
+(7 real changes made, 7 to missing)
 
 . 
 .     gen byte parti = (s01q00aa == 2) if !missing(s01q00aa)
 
 . 
-.     di _newline "--- Motif du depart (s01q00b) ---"
+.     /* Codes numeriques du motif, pour ne pas dependre du libelle */
+.     di _newline(2) "=== Departs de membres entre 2018 et 2021 (menages du panel) ==="
 
---- Motif du depart (s01q00b) ---
 
-.     tab s01q00b if parti == 1, missing
+=== Departs de membres entre 2018 et 2021 (menages du panel) ===
 
-     1.00b. Pour quelle raison [NOM] ne |
-          vit-il plus dans le ménage?  |      Freq.     Percent        Cum.
-----------------------------------------+-----------------------------------
-                         Etait visiteur |      1,494       10.64       10.64
-                                Mariage |      1,637       11.66       22.29
-                     Divorce/Séparation |        984        7.01       29.30
-                       Décès (COVID-19) |         70        0.50       29.80
-                    Décès (Autre cause) |        883        6.29       36.08
-Poursuivre les études ailleurs dans le  |      2,689       19.15       55.23
-Affectation ou autre emploi ailleurs da |        617        4.39       59.62
-                    Perte de son emploi |         22        0.16       59.78
-Chercher du travail ailleurs  dans le p |      1,642       11.69       71.47
-          Migration à.cause du COVID-19 |          7        0.05       71.52
-Migration dans le pays (santé, famille, |      1,727       12.30       83.82
-Poursuivre les études ailleurs à l'étra |        118        0.84       84.66
-        Autre migration pour l'étranger |        359        2.56       87.21
-                      Autres à préciser |        917        6.53       93.74
-                           Déménagement |        879        6.26      100.00
-----------------------------------------+-----------------------------------
-                                  Total |     14,045      100.00
+.     di _newline "--- Motif du depart : codes numeriques ---"
 
-. 
-.     di _newline "--- Annee de depart (s01q00c) ---"
+--- Motif du depart : codes numeriques ---
 
---- Annee de depart (s01q00c) ---
+.     tab s01q00b if parti == 1, nolabel missing
 
-.     tab s01q00c if parti == 1, missing
-
-1.00c.Depui |
-    s quand |
-      [NOM] |
-     est-il |
-   parti du |
-    ménage? |      Freq.     Percent        Cum.
+1.00b. Pour |
+     quelle |
+     raison |
+   [NOM] ne |
+vit-il plus |
+    dans le |
+  ménage?  |      Freq.     Percent        Cum.
 ------------+-----------------------------------
-         -1 |          1        0.01        0.01
-          0 |        360        2.56        2.57
-          1 |        493        3.51        6.08
-          2 |        687        4.89       10.97
-          3 |        726        5.17       16.14
-          4 |        389        2.77       18.91
-          5 |        379        2.70       21.61
-          6 |        583        4.15       25.76
-          7 |        474        3.37       29.13
-          8 |        588        4.19       33.32
-          9 |        326        2.32       35.64
-         10 |        290        2.06       37.71
-         11 |        126        0.90       38.60
-         12 |      2,457       17.49       56.10
-         13 |        215        1.53       57.63
-         14 |        193        1.37       59.00
-         15 |        242        1.72       60.73
-         16 |         99        0.70       61.43
-         17 |         40        0.28       61.72
-         18 |        223        1.59       63.30
-         19 |         40        0.28       63.59
-         20 |        149        1.06       64.65
-         21 |         52        0.37       65.02
-         22 |         47        0.33       65.35
-         23 |         57        0.41       65.76
-         24 |      2,538       18.07       83.83
-         25 |        127        0.90       84.73
-         26 |        182        1.30       86.03
-         27 |         66        0.47       86.50
-         28 |        118        0.84       87.34
-         29 |         21        0.15       87.49
-         30 |        318        2.26       89.75
-         31 |         13        0.09       89.85
-         32 |         57        0.41       90.25
-         33 |          6        0.04       90.30
-         34 |         29        0.21       90.50
-         35 |         48        0.34       90.84
-         36 |        824        5.87       96.71
-         37 |          8        0.06       96.77
-         38 |         47        0.33       97.10
-         39 |          7        0.05       97.15
-         40 |         53        0.38       97.53
-         45 |          1        0.01       97.54
-         46 |          1        0.01       97.54
-         48 |         55        0.39       97.94
-         50 |          2        0.01       97.95
-         60 |         24        0.17       98.12
-         65 |          1        0.01       98.13
-         69 |          1        0.01       98.13
-         72 |          7        0.05       98.18
-         84 |          5        0.04       98.22
-         90 |          3        0.02       98.24
-         96 |          3        0.02       98.26
-         99 |          1        0.01       98.27
-        108 |          2        0.01       98.28
-        120 |         10        0.07       98.36
-        167 |          1        0.01       98.36
-        168 |          1        0.01       98.37
-        180 |          2        0.01       98.38
-        228 |          1        0.01       98.39
-        270 |          1        0.01       98.40
-        999 |          2        0.01       98.41
-       1997 |          1        0.01       98.42
-       2000 |          1        0.01       98.43
-       2004 |          1        0.01       98.43
-       2013 |          1        0.01       98.44
-       2014 |          1        0.01       98.45
-       2015 |          3        0.02       98.47
-       2017 |          7        0.05       98.52
-       2018 |         20        0.14       98.66
-       2019 |         65        0.46       99.12
-       2020 |         89        0.63       99.76
-       2021 |         21        0.15       99.91
-       9999 |         13        0.09      100.00
+          1 |      1,494       10.64       10.64
+          2 |      1,637       11.66       22.29
+          3 |        984        7.01       29.30
+          4 |         70        0.50       29.80
+          5 |        883        6.29       36.08
+          6 |      2,689       19.15       55.23
+          7 |        617        4.39       59.62
+          8 |         22        0.16       59.78
+          9 |      1,642       11.69       71.47
+         10 |          7        0.05       71.52
+         11 |      1,727       12.30       83.82
+         12 |        118        0.84       84.66
+         13 |        359        2.56       87.21
+         14 |        917        6.53       93.74
+         15 |        879        6.26      100.00
 ------------+-----------------------------------
       Total |     14,045      100.00
 
 . 
-.     di _newline "--- Age precharge (2018) des partants ---"
+.     /* Categorie de depart. Le classement s'appuie sur le libelle : les
+>        modalites opposent explicitement « ailleurs dans le pays » et
+>        « a l'etranger ». */
+.     decode s01q00b, gen(motif_txt)
 
---- Age precharge (2018) des partants ---
+.     gen byte motif_cat = .
+(58,900 missing values generated)
 
-.     summarize s01qpreload_age if parti == 1, detail
+.     replace motif_cat = 1 if strpos(motif_txt, "tranger")            /* etranger */
+(477 real changes made)
 
-                       s01qpreload_age
--------------------------------------------------------------
-      Percentiles      Smallest
- 1%            0              0
- 5%            2              0
-10%            4              0       Obs              14,045
-25%            9              0       Sum of wgt.      14,045
+.     replace motif_cat = 2 if missing(motif_cat) & ///
+>         (strpos(motif_txt, "dans le p") | strpos(motif_txt, "Affectation"))
+(6,675 real changes made)
 
-50%           17                      Mean           23.06828
-                        Largest       Std. dev.       146.848
-75%           27            105
-90%           44           9999       Variance       21564.33
-95%           60           9999       Skewness       66.97538
-99%           81           9999       Kurtosis       4549.916
+.     replace motif_cat = 3 if missing(motif_cat) & strpos(motif_txt, "cès")
+(953 real changes made)
+
+.     replace motif_cat = 4 if missing(motif_cat) & strpos(motif_txt, "visiteur")
+(1,494 real changes made)
+
+.     replace motif_cat = 5 if missing(motif_cat) & !missing(motif_txt)
+(4,446 real changes made)
+
+.     label define motif_cat_lbl 1 "Migration a l'etranger" ///
+>         2 "Migration dans le pays" 3 "Deces" 4 "Etait visiteur" ///
+>         5 "Autre motif (mariage, demenagement...)", replace
+
+.     label values motif_cat motif_cat_lbl
+
+. 
+.     di _newline "--- Repartition des departs par categorie ---"
+
+--- Repartition des departs par categorie ---
+
+.     tab motif_cat if parti == 1, missing
+
+                             motif_cat |      Freq.     Percent        Cum.
+---------------------------------------+-----------------------------------
+                Migration a l'etranger |        477        3.40        3.40
+                Migration dans le pays |      6,675       47.53       50.92
+                                 Deces |        953        6.79       57.71
+                        Etait visiteur |      1,494       10.64       68.34
+Autre motif (mariage, demenagement...) |      4,446       31.66      100.00
+---------------------------------------+-----------------------------------
+                                 Total |     14,045      100.00
+
+. 
+.     /* Un depart au sens du canal du cout de l'absence : membre de 15 ans ou
+>        plus effectivement parti, hors deces et hors visiteurs. */
+.     gen byte depart_adulte = (parti == 1 & s01qpreload_age >= 15 & ///
+>         !missing(s01qpreload_age) & inlist(motif_cat, 1, 2, 5))
+
+.     gen byte depart_etranger = (depart_adulte == 1 & motif_cat == 1)
+
+.     gen byte depart_interne  = (depart_adulte == 1 & motif_cat == 2)
 
 . 
 .     di _newline "--- Motif du depart des 15 ans et plus, selon le statut du menage ---"
 
 --- Motif du depart des 15 ans et plus, selon le statut du menage ---
 
-.     tab s01q00b D if parti == 1 & s01qpreload_age >= 15, column
+.     tab motif_cat D if parti == 1 & s01qpreload_age >= 15 & ///
+>         !missing(s01qpreload_age), column
 
 +-------------------+
 | Key               |
@@ -3016,72 +2952,39 @@ Poursuivre les études ailleurs à l'étra |        118        0.84       84.66
 | column percentage |
 +-------------------+
 
-   1.00b. Pour quelle |     Traitement :
-      raison [NOM] ne | transfert de migrant
-  vit-il plus dans le |     recu (1=oui)
-            ménage?  |         0          1 |     Total
+                      |     Traitement :
+                      | transfert de migrant
+                      |     recu (1=oui)
+            motif_cat |         0          1 |     Total
+----------------------+----------------------+----------
+Migration a l'etrange |       208         99 |       307 
+                      |      3.05       6.39 |      3.67 
+----------------------+----------------------+----------
+Migration dans le pay |     3,084        663 |     3,747 
+                      |     45.24      42.77 |     44.78 
+----------------------+----------------------+----------
+                Deces |       639        138 |       777 
+                      |      9.37       8.90 |      9.29 
 ----------------------+----------------------+----------
        Etait visiteur |       632        130 |       762 
-                      |      9.27       8.39 |      9.10 
+                      |      9.27       8.39 |      9.11 
 ----------------------+----------------------+----------
-              Mariage |     1,026        221 |     1,247 
-                      |     15.04      14.26 |     14.90 
+Autre motif (mariage, |     2,254        520 |     2,774 
+                      |     33.06      33.55 |     33.15 
 ----------------------+----------------------+----------
-   Divorce/Séparation |       471        113 |       584 
-                      |      6.91       7.29 |      6.98 
-----------------------+----------------------+----------
-     Décès (COVID-19) |        40         15 |        55 
-                      |      0.59       0.97 |      0.66 
-----------------------+----------------------+----------
-  Décès (Autre cause) |       600        123 |       723 
-                      |      8.80       7.94 |      8.64 
-----------------------+----------------------+----------
-Poursuivre les études |       951        225 |     1,176 
-                      |     13.94      14.52 |     14.05 
-----------------------+----------------------+----------
-Affectation ou autre  |       428         72 |       500 
-                      |      6.27       4.65 |      5.97 
-----------------------+----------------------+----------
-  Perte de son emploi |        13          4 |        17 
-                      |      0.19       0.26 |      0.20 
-----------------------+----------------------+----------
-Chercher du travail a |     1,080        156 |     1,236 
-                      |     15.83      10.06 |     14.77 
-----------------------+----------------------+----------
-Migration à.cause du  |         4          1 |         5 
-                      |      0.06       0.06 |      0.06 
-----------------------+----------------------+----------
-Migration dans le pay |       627        210 |       837 
-                      |      9.19      13.55 |     10.00 
-----------------------+----------------------+----------
-Poursuivre les études |        39         18 |        57 
-                      |      0.57       1.16 |      0.68 
-----------------------+----------------------+----------
-Autre migration pour  |       169         81 |       250 
-                      |      2.48       5.23 |      2.99 
-----------------------+----------------------+----------
-    Autres à préciser |       329         80 |       409 
-                      |      4.82       5.16 |      4.89 
-----------------------+----------------------+----------
-         Déménagement |       412        101 |       513 
-                      |      6.04       6.52 |      6.13 
-----------------------+----------------------+----------
-                Total |     6,821      1,550 |     8,371 
+                Total |     6,817      1,550 |     8,367 
                       |    100.00     100.00 |    100.00 
 
 . 
-.     /* Part des menages ayant perdu un adulte, par statut de traitement.
->        C'est le chiffre qui manque au chapitre 4 : le depart d'un adulte
->        est-il propre aux beneficiaires ? */
-.     gen byte parti_adulte = (parti == 1 & s01qpreload_age >= 15)
+.     collapse (max) depart_adulte depart_etranger depart_interne ///
+>              (first) D, by(grappe menage)
 
-.     collapse (max) parti_adulte (first) D, by(grappe menage)
+. 
+.     di _newline "--- Menages ayant perdu un adulte (15 ans ou plus, hors deces et visiteurs) ---"
 
-.     di _newline "--- Menages ayant perdu au moins un membre de 15 ans ou plus ---"
+--- Menages ayant perdu un adulte (15 ans ou plus, hors deces et visiteurs) ---
 
---- Menages ayant perdu au moins un membre de 15 ans ou plus ---
-
-.     tab parti_adulte D, column
+.     tab depart_adulte D, column
 
 +-------------------+
 | Key               |
@@ -3091,20 +2994,73 @@ Autre migration pour  |       169         81 |       250
 +-------------------+
 
      (max) |
-parti_adul |       (first) D
-        te |         0          1 |     Total
+depart_adu |       (first) D
+       lte |         0          1 |     Total
 -----------+----------------------+----------
-         0 |     1,917        197 |     2,114 
-           |     38.85      26.09 |     37.16 
+         0 |     2,288        251 |     2,539 
+           |     46.37      33.25 |     44.63 
 -----------+----------------------+----------
-         1 |     3,017        558 |     3,575 
-           |     61.15      73.91 |     62.84 
+         1 |     2,646        504 |     3,150 
+           |     53.63      66.75 |     55.37 
+-----------+----------------------+----------
+     Total |     4,934        755 |     5,689 
+           |    100.00     100.00 |    100.00 
+
+.     di _newline "--- dont depart a l'etranger ---"
+
+--- dont depart a l'etranger ---
+
+.     tab depart_etranger D, column
+
++-------------------+
+| Key               |
+|-------------------|
+|     frequency     |
+| column percentage |
++-------------------+
+
+     (max) |
+depart_etr |       (first) D
+     anger |         0          1 |     Total
+-----------+----------------------+----------
+         0 |     4,758        681 |     5,439 
+           |     96.43      90.20 |     95.61 
+-----------+----------------------+----------
+         1 |       176         74 |       250 
+           |      3.57       9.80 |      4.39 
+-----------+----------------------+----------
+     Total |     4,934        755 |     5,689 
+           |    100.00     100.00 |    100.00 
+
+.     di _newline "--- dont depart dans le pays ---"
+
+--- dont depart dans le pays ---
+
+.     tab depart_interne D, column
+
++-------------------+
+| Key               |
+|-------------------|
+|     frequency     |
+| column percentage |
++-------------------+
+
+     (max) |
+depart_int |       (first) D
+      erne |         0          1 |     Total
+-----------+----------------------+----------
+         0 |     3,108        413 |     3,521 
+           |     62.99      54.70 |     61.89 
+-----------+----------------------+----------
+         1 |     1,826        342 |     2,168 
+           |     37.01      45.30 |     38.11 
 -----------+----------------------+----------
      Total |     4,934        755 |     5,689 
            |    100.00     100.00 |    100.00 
 
 . restore
 
+. 
 . 
 . 
 . /* ============================================================
@@ -3224,7 +3180,7 @@ file code/stata/temp/panel_complet.dta saved
 . tempfile enf18_psm
 
 . save `enf18_psm'
-file C:\Users\Bmd\AppData\Local\Temp\ST_27e8_000011.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_4e30_000011.tmp saved as .dta format
 
 . 
 . use "$TEMP/enfants_dep_2021.dta", clear
@@ -4895,7 +4851,7 @@ Linear regression                               Number of obs     =        464
 .     tempfile quintiles
 
 .     save `quintiles'
-file C:\Users\Bmd\AppData\Local\Temp\ST_27e8_000015.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_4e30_000015.tmp saved as .dta format
 
 .     di "  Bornes des quintiles de montant annuel (FCFA) :"
   Bornes des quintiles de montant annuel (FCFA) :
@@ -5286,7 +5242,7 @@ Linear regression                               Number of obs     =     10,014
 . tempfile menages_panel
 
 . save `menages_panel'
-file C:\Users\Bmd\AppData\Local\Temp\ST_27e8_000016.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_4e30_000016.tmp saved as .dta format
 
 . 
 . use "$TEMP/vague_2018.dta", clear
@@ -5311,7 +5267,7 @@ file C:\Users\Bmd\AppData\Local\Temp\ST_27e8_000016.tmp saved as .dta format
 . tempfile alt_t0
 
 . save `alt_t0'
-file C:\Users\Bmd\AppData\Local\Temp\ST_27e8_000017.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_4e30_000017.tmp saved as .dta format
 
 . 
 . use "$TEMP/vague_2021.dta", clear
@@ -5336,7 +5292,7 @@ file C:\Users\Bmd\AppData\Local\Temp\ST_27e8_000017.tmp saved as .dta format
 . tempfile alt_t1
 
 . save `alt_t1'
-file C:\Users\Bmd\AppData\Local\Temp\ST_27e8_000018.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_4e30_000018.tmp saved as .dta format
 
 . 
 . use `alt_t0', clear
@@ -6601,7 +6557,7 @@ file code/stata/output/figures/fig_effets_dim.pdf saved as PDF format
 . tempfile never
 
 . save `never'
-file C:\Users\Bmd\AppData\Local\Temp\ST_27e8_000019.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_4e30_000019.tmp saved as .dta format
 
 . 
 . /* Liste des menages (une ligne par menage) */
@@ -6613,7 +6569,7 @@ file C:\Users\Bmd\AppData\Local\Temp\ST_27e8_000019.tmp saved as .dta format
 . tempfile liste_men
 
 . save `liste_men'
-file C:\Users\Bmd\AppData\Local\Temp\ST_27e8_00001a.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_4e30_00001a.tmp saved as .dta format
 
 . quietly count
 
@@ -6756,7 +6712,7 @@ file code/stata/output/figures/fig_placebo_dd.pdf saved as PDF format
 . tempfile men18
 
 . save `men18'
-file C:\Users\Bmd\AppData\Local\Temp\ST_27e8_000078.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_4e30_000078.tmp saved as .dta format
 
 . 
 . /* Menages retrouves en 2021 : variable officielle PanelHH (et non la
