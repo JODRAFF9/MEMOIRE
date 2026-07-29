@@ -65,35 +65,35 @@
 
 % ── Titres de section - bandeau ENSAE ────────────────────────
 \usepackage{titlesec}
-\titlespacing*{\section}{0pt}{-18pt}{8pt}
+\titlespacing*{\section}{0pt}{0pt}{8pt}
 \titlespacing*{\subsection}{0pt}{8pt}{4pt}
 \titlespacing*{\subsubsection}{0pt}{6pt}{3pt}
 
-% En-tete de section : pastille numerotee a droite, filet epais, titre
-% centre, filet fin. #1 = titre, #2 = numero (vide pour une section non
-% numerotee, la pastille n'est alors pas tracee).
+% En-tete de section : titre centre, puis bandeau epais surmonte de la
+% pastille numerotee a droite. #1 = titre, #2 = numero (vide pour une
+% section non numerotee, la pastille n'est alors pas tracee).
 \setlength{\fboxsep}{6pt}
 \newcommand{\ensaetetesection}[2]{%
   \par\begingroup\setlength{\parskip}{0pt}%
+  {\centering\color{ensaeblue}\Large\bfseries #1\par}
+  \vspace{0.32cm}
   \noindent
   \begin{tikzpicture}
     \ifx\relax#2\relax
-      % Section non numerotee : sans pastille, le filet occupe toute la
+      % Section non numerotee : sans pastille, le bandeau occupe toute la
       % largeur, faute de quoi la droite resterait vide.
       \fill[ensaeblue] (0,-3pt) rectangle (\textwidth,3pt);
     \else
-      % Le filet se deroule depuis le bas de la pastille, comme un tapis
+      % Le bandeau se deroule depuis le bas de la pastille, comme un tapis
       % depuis son rouleau : il court jusqu'au centre du cercle, dont le
       % bord inferieur affleure son epaisseur. Le cercle etant trace
-      % ensuite, l'extremite du filet disparait sous le rouleau.
+      % ensuite, l'extremite du bandeau disparait sous le rouleau.
       \fill[ensaeblue] (0,-3pt) rectangle (0.925\textwidth,3pt);
       \node[circle, fill=ensaeblue, text=white, minimum size=2.1cm,
             inner sep=0pt, font=\fontsize{42}{42}\selectfont]
-        at (0.925\textwidth,0.90cm) {#2};
+        at (0.925\textwidth,-0.90cm) {#2};
     \fi
   \end{tikzpicture}\par
-  \vspace{0.32cm}
-  {\centering\color{ensaeblue}\Large\bfseries #1\par}
   \endgroup
   \vspace{0.42cm}
 }
