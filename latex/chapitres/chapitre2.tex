@@ -296,22 +296,13 @@ ménages suivis entre les deux vagues.
 \subsubsection{Analyses d'hétérogénéité et de robustesse}
 \label{subsec:robustesse}
 
-Les analyses d'hétérogénéité estiment l'impact PSM-DD séparément selon le
-milieu de résidence, le groupe d'âge, le genre, le montant du transfert,chaque
-dimension de privation. La robustesse est vérifiée par la comparaison entre les
-trois algorithmes d'appariement et un test placebo.
-
-La principale vérification de robustesse repose sur une approche par
-panel d'enfants. La mesure MODA attribue à chaque enfant un jeu de
-dimensions dépendant de son groupe d'âge (0-4, 5-14, 15-17 ans). Or un enfant
-suivi entre 2018 et 2021 vieillit d'environ trois ans et peut donc changer de
-groupe d'âge~: un enfant de 3 ans en 2018 (groupe 0-4) relève du groupe 5-14 en
-2021, un enfant de 13 ans (groupe 5-14) passe au groupe 15-17. Les dimensions
-et indicateurs qui lui sont applicables se modifient alors d'une vague à
-l'autre. Plutôt que de comparer des enfants distincts d'une même tranche d'âge
-à chaque vague, l'approche par panel d'enfants suit les mêmes enfants et
-recalcule leur statut de privation MODA en tenant compte de cette transition
-d'âge. Elle constitue une alternative au panel de ménages~: elle vérifie que
-l'impact estimé des transferts sur la pauvreté multidimensionnelle n'est pas un
-artefact de la composition par âge de l'échantillon, mais reflète bien une
-évolution des privations des enfants réellement suivis.
+Les analyses d'hétérogénéité estiment l'impact PSM-DD séparément selon le milieu de résidence, le groupe d'âge, le sexe de l'enfant, chaque dimension de privation et le quintile de montant reçu.
+La robustesse est vérifiée de trois manières~: par la comparaison des trois
+algorithmes d'appariement, par un test placebo réassignant aléatoirement le
+traitement, et par une définition alternative du traitement. Celle-ci
+restreint la comparaison d'enfants des ménages bénéficiaires
+stables face aux enfants des
+ménages jamais bénéficiaires, en excluant ceux qui changent de statut entre
+2018 et 2021. Ce second design mesure l'effet d'une exposition durable aux
+transferts et vérifie que la conclusion ne tient pas à la seule définition
+du traitement à la période de base (annexe~\ref{ann:A}).
