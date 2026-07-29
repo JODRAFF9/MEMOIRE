@@ -1145,9 +1145,9 @@ save "$TEMP/panel_complet.dta", replace
      6. Heterogeneite (milieu, sexe, age)
      7. Robustesse (seuil k, methodes d'appariement, agregat menage)
 
-   Traitement : defini a la periode de base (2018), transfert d'un
+   Traitement : beneficiaire en 2018 seulement (transfert d'un
    expediteur residant hors du Senegal et ayant deja vecu dans le
-   menage.
+   menage, plus recu en 2021) contre jamais beneficiaire.
    ============================================================ */
 
 /* ── 1a. Construction du panel d'enfants suivis ──────────────
@@ -1178,10 +1178,16 @@ merge m:1 grappe menage numind using "$TEMP/lien_individus.dta", ///
 drop numind
 merge 1:1 grappe menage numind_2018 using `enf18_psm', keep(match) nogenerate
 
-/* Traitement defini a la periode de base (transfert 2018, expediteur
-   ex-membre du menage) */
-merge m:1 grappe menage using "$TEMP/traitement_2018.dta", ///
-    keepusing(D) keep(match) nogenerate
+/* Traitement principal : beneficiaire en 2018 seulement (transfert d'un
+   expediteur ex-membre du menage) contre jamais beneficiaire. Les enfants
+   des menages beneficiaires stables ou entrants en 2021 (D_stable manquant)
+   sortent de l'echantillon d'estimation. */
+merge m:1 grappe menage using "$TEMP/traitement_stable.dta", ///
+    keepusing(D_stable) keep(match) nogenerate
+drop if missing(D_stable)
+gen byte D = D_stable
+drop D_stable
+label var D "Traitement (1=beneficiaire 2018 seulement, 0=jamais beneficiaire)"
 
 /* Restriction aux menages du panel vrai */
 merge m:1 grappe menage using "$TEMP/ids_panel.dta", keep(match) nogenerate
