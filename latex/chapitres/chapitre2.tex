@@ -260,31 +260,9 @@ mesure propre à MODA, exposée ci-après. Cette spécification rejoint celle de
 la littérature empirique sur les déterminants des transferts en Afrique
 \parencite{adams2005, gubert2002, azam2006, combes2011}.
 
-L'appariement est réalisé au niveau de l'enfant. Ce choix a deux
-justifications. La première tient à la mesure~: les dimensions MODA applicables
-dépendent du groupe d'âge de l'enfant, de sorte qu'apparier au niveau du ménage
-reviendrait à traiter comme interchangeables des enfants dont le bien-être
-n'est pas évalué sur les mêmes indicateurs. Introduire le sexe et l'âge dans le
-score garantit au contraire qu'un enfant traité soit comparé à des enfants
-témoins évalués sur les mêmes dimensions. La seconde tient à l'unité
-d'analyse~: l'objectif est de mesurer un effet moyen sur les enfants, non sur
-les ménages, et c'est donc la population d'enfants qui doit être équilibrée
-entre traités et témoins.
-
-Ce choix a une contrepartie. Les enfants d'un même ménage partageant leurs
-covariables de ménage, leurs scores de propension sont proches, et les ménages
-nombreux entrent dans l'estimation autant de fois qu'ils comptent d'enfants.
-Cette pondération est voulue - un ménage de six enfants doit peser six fois
-plus qu'un ménage d'un enfant dans une étude de la pauvreté infantile - mais
-elle rend certaines covariables de ménage plus difficiles à équilibrer, ce que
-le diagnostic post-appariement de la section~\ref{sec:resultats} documente.
-Les erreurs-types sont clusterisées au niveau de la grappe, qui englobe la
-corrélation entre enfants d'un même ménage.
-
 \subsubsection{Double différence}
 
-La DD, dont \textcite{card1994} ont popularisé l'usage en évaluation des
-politiques publiques, exploite la dimension temporelle des deux vagues EHCVM
+La double différence (DD) \textcite{card1994} exploite la dimension temporelle des deux vagues EHCVM
 pour contrôler les effets fixes inobservables stables dans le temps :
 \begin{equation}
   \hat{\tau}_{DD} = \left(\bar{Y}^1_{t=2} - \bar{Y}^1_{t=1}\right)
@@ -298,12 +276,6 @@ et le groupe témoin ($D_i=0$), sous l'hypothèse de tendances parallèles :
   = \E\!\left[Y_i(0)_{t=2} - Y_i(0)_{t=1} \mid D_i = 0\right].
   \label{eq:parallel}
 \end{equation}
-Parce que $D_i$ est figé sur la valeur de 2018, les ménages dont le statut
-de réception change entre les deux vagues sont exclus de l'échantillon
-d'estimation (restriction never-treated pour le groupe témoin).
-Cette exclusion garantit que le terme $\bar{Y}^0_{t=2} - \bar{Y}^0_{t=1}$
-décrit bien la tendance contrefactuelle des non-bénéficiaires, non contaminée
-par une réception tardive de transferts \parencite{callaway2021}.
 
 \subsubsection{Estimateur par appariement et double différence}
 
@@ -319,16 +291,13 @@ le temps (DD) :
 \end{equation}
 où $\Delta Y_i = Y_{i,t=2} - Y_{i,t=1}$ est la variation intra-ménage
 de la variable de résultat MODA, calculée directement sur les
-ménages suivis entre les deux vagues. Le panel vrai dont nous disposons
-rend cette différence directement observable sans agrégation par cellule,
-ce qui renforce la validité de l'hypothèse de tendances parallèles. Les
-écarts-types sont clusterisés au niveau de la grappe \parencite{caliendo2008}.
+ménages suivis entre les deux vagues.
 
 \subsubsection{Analyses d'hétérogénéité et de robustesse}
 \label{subsec:robustesse}
 
 Les analyses d'hétérogénéité estiment l'impact PSM-DD séparément selon le
-milieu de résidence (urbain et rural), le groupe d'âge, le genre et chaque
+milieu de résidence, le groupe d'âge, le genre, le montant du transfert,chaque
 dimension de privation. La robustesse est vérifiée par la comparaison entre les
 trois algorithmes d'appariement et un test placebo.
 
