@@ -928,15 +928,18 @@ foreach annee in 2018 2021 {
    2. Statut de traitement : defini a la periode de BASE (2018)
 
    Design principal : le statut de traitement est fixe par la situation
-   de 2018, qui sert de reference avant l'observation des resultats
-   ulterieurs. On definit :
+   de 2018 croisee avec celle de 2021. On definit :
      - traites (D_stable=1) : menage recevant en 2018 un transfert
        etranger d'un expediteur ayant deja vecu dans le menage
-       (migration d'un membre du menage)
-     - temoins (D_stable=0) : menage ne recevant aucun transfert
-       etranger de ce type en 2018
-   Le statut etant fige a la periode de base, il ne peut pas etre
-   affecte par l'evolution des privations entre les deux vagues.
+       (migration d'un membre du menage) et n'en recevant plus en 2021
+       (beneficiaire en 2018 seulement)
+     - temoins (D_stable=0) : menage ne recevant ce type de transfert
+       a aucune des deux vagues (jamais beneficiaire)
+   Les menages beneficiaires stables (aux deux vagues) sont reserves
+   a la definition alternative du traitement (robustesse) ; les
+   menages devenant beneficiaires en 2021 seulement sont exclus, leur
+   trajectoire etant contaminee par un traitement recu pendant la
+   periode d'observation.
    ============================================================ */
 
 use "$TEMP/traitement_2018.dta", clear
@@ -944,15 +947,19 @@ rename D D_2018
 merge 1:1 grappe menage using "$TEMP/traitement_2021.dta", ///
     keepusing(D) keep(match) nogenerate
 rename D D_2021
-gen byte D_stable = D_2018
-label var D_stable "Traitement (1=beneficiaire migrant en 2018, 0=non beneficiaire)"
+gen byte D_stable = .
+replace D_stable = 1 if D_2018 == 1 & D_2021 == 0
+replace D_stable = 0 if D_2018 == 0 & D_2021 == 0
+label var D_stable "Traitement (1=beneficiaire 2018 seulement, 0=jamais beneficiaire)"
 
 di _newline ">>> Cellules de traitement (menages presents aux 2 vagues) :"
 tab D_2018 D_2021
 quietly count if D_stable == 1
-di "  Beneficiaires 2018 (migrant) : " r(N)
+di "  Beneficiaires 2018 seulement (traites) : " r(N)
 quietly count if D_stable == 0
-di "  Non beneficiaires 2018       : " r(N)
+di "  Jamais beneficiaires (temoins)         : " r(N)
+quietly count if missing(D_stable)
+di "  Exclus (stables et entrants 2021)      : " r(N)
 
 keep grappe menage D_stable D_2018 D_2021
 save "$TEMP/traitement_stable.dta", replace
@@ -1004,14 +1011,16 @@ use `panel_t0', clear
 append using `panel_t1'
 sort grappe menage t
 
-/* Appliquer le statut de traitement ENTRANT et exclure les menages
-   deja beneficiaires en 2018 (traitement anterieur a la periode) */
+/* Appliquer le statut de traitement principal : beneficiaires en 2018
+   seulement contre jamais beneficiaires. Les menages a D_stable manquant
+   (beneficiaires stables et entrants 2021) sortent de l'echantillon
+   d'estimation. */
 merge m:1 grappe menage using "$TEMP/traitement_stable.dta", ///
     keepusing(D_stable) keep(master match) nogenerate
 drop if missing(D_stable)
 replace D = D_stable
 drop D_stable
-label var D "Traitement (1=beneficiaire migrant en 2018, 0=non beneficiaire)"
+label var D "Traitement (1=beneficiaire 2018 seulement, 0=jamais beneficiaire)"
 
 di _newline "=== Panel vrai (traitement defini en 2018) ==="
 di "Observations totales     : " _N
@@ -1321,10 +1330,10 @@ di _newline "Panel d'enfants apparie : " _N " observations (" ///
     %6.0f `=_N/2' " enfants x 2 vagues)"
 
 /* ── Ventilation des enfants suivis par stabilite du statut ─────
-   Alimente le tableau de repartition du traitement (chap. 2) : parmi les
-   17 786 enfants suivis, croisement du statut 2018 (D) avec le statut a
-   l'autre vague, d'ou les sous-groupes stables / 2018 seulement /
-   jamais / 2021 seulement mobilises par la robustesse. */
+   Alimente le tableau de repartition du traitement (chap. 2) : croisement
+   du statut 2018 avec le statut a l'autre vague sur les enfants retenus
+   dans l'echantillon principal (beneficiaires 2018 seulement et jamais
+   beneficiaires). */
 use "$TEMP/panel_enfants_psm.dta", clear
 keep if t == 0
 merge m:1 grappe menage using "$TEMP/traitement_stable.dta", ///
@@ -1672,8 +1681,8 @@ foreach poids_var in weight_knn weight_kernel weight_caliper {
    8. Robustesse : definition alternative du traitement
       (beneficiaires stables)
 
-   En complement du design principal (entrants, DD canonique avec
-   periode pre-traitement observee), l'ATT est aussi estime en
+   En complement du design principal (beneficiaires en 2018 seulement
+   contre jamais beneficiaires), l'ATT est aussi estime en
    comparant les beneficiaires STABLES (D_2018=1 et D_2021=1) aux
    menages jamais beneficiaires, sur les memes menages panel. Ce
    design capte l'effet d'une exposition durable aux transferts,
