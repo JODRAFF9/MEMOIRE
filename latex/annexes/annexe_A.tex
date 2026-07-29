@@ -8,7 +8,7 @@ des enfants non bénéficiaires statistiquement indiscernables des enfants
 bénéficiaires à la période de base, sur les caractéristiques de leur ménage comme sur leur
 propre sexe et leur propre âge. Après appariement par les $k$ plus proches
 voisins ($k=4$, avec remise), la différence standardisée moyenne passe de
-11,4\,\% à 2,5\,\% (tableau~\ref{tab:balance}).
+11,1\,\% à 2,0\,\% (tableau~\ref{tab:balance}).
 
 \subsection{Appariement seul, sans double différence}
 \label{subsec:psm_sans_dd}
@@ -27,9 +27,9 @@ l'EHCVM~I et sur l'EHCVM~II, sans les différencier.
     \hline
 \entete Spécification & Coefficient \\
     \hline
-    PSM seul, EHCVM~I (écart initial)  & \makecell{-$0{,}077^{**}$\\$(0{,}031)$} \\ \hline
-    PSM seul, EHCVM~II (écart final)   & \makecell{-$0{,}019$\\$(0{,}031)$} \\ \hline
-    PSM-DD (référence, tableau~\ref{tab:psmdd_att}) & \makecell{$0{,}058^{*}$\\$(0{,}030)$} \\
+    PSM seul, EHCVM~I (écart initial)  & \makecell{-$0{,}080^{**}$\\$(0{,}036)$} \\ \hline
+    PSM seul, EHCVM~II (écart final)   & \makecell{-$0{,}030$\\$(0{,}034)$} \\ \hline
+    PSM-DD (référence, tableau~\ref{tab:psmdd_att}) & \makecell{$0{,}051$\\$(0{,}031)$} \\
     \hline
   \end{tabular}
 
@@ -38,20 +38,20 @@ l'EHCVM~I et sur l'EHCVM~II, sans les différencier.
 
 Cette décomposition montre pourquoi la double différence est indispensable. À
 la période de base, les enfants de ménages bénéficiaires sont significativement
-moins pauvres que ceux de leurs témoins appariés (-$7{,}7$~points,
+moins pauvres que ceux de leurs témoins appariés (-$8{,}0$~points,
 significatif au seuil de 5\,\%)~: l'appariement sur les caractéristiques observables ne suffit pas
 à annuler l'écart de niveau. Un chercheur s'arrêtant à l'appariement
-transversal en 2021 conclurait encore à un avantage de 1,9~point en faveur des
+transversal en 2021 conclurait encore à un avantage de 3,0~points en faveur des
 bénéficiaires. Or cet écart résiduel préexiste au traitement~: il ne peut pas
 lui être imputé. La double différence l'élimine en ne retenant que la variation
-de l'écart ($0{,}058 = -0{,}019 - (-0{,}077)$), et renverse le signe apparent
+de l'écart ($0{,}051 = -0{,}030 - (-0{,}080)$), et renverse le signe apparent
 de la conclusion \parencite{heckman1997,heckman1998}. L'hypothèse H3, selon
 laquelle l'estimateur PSM-DD produit des estimations moins biaisées que les
 approches naïves, est ainsi vérifiée sur nos données.
 
 \subsection{Test placebo}
 
-En affectant aléatoirement un faux statut de traitement à 13,3\,\% des
+En affectant aléatoirement un faux statut de traitement à 7,9\,\% des
 ménages non bénéficiaires (part observée des traités) et en estimant la
 double différence sur ce pseudo-traitement (200 réplications), on obtient la
 distribution suivante.
@@ -65,12 +65,12 @@ distribution suivante.
     \hline
 \entete Statistique & Pauvreté MODA \\
     \hline
-    ATT placebo moyen            & $0{,}001$ \\ \hline
-    Écart-type                   & $0{,}022$ \\ \hline
-    Fraction $|$ATT$|$ $>$ 0,05 & 2,5\,\% \\
+    ATT placebo moyen            & -$0{,}001$ \\ \hline
+    Écart-type                   & $0{,}030$ \\ \hline
+    Fraction $|$ATT$|$ $>$ 0,05 & 8,0\,\% \\
     \hline
-    ATT réel (tableau~\ref{tab:psmdd_att}) & $0{,}058$ \\ \hline
-    Rang dans la distribution placebo      & 99,0\textsuperscript{e} centile \\
+    ATT réel (tableau~\ref{tab:psmdd_att}) & $0{,}051$ \\ \hline
+    Rang dans la distribution placebo      & 95,0\textsuperscript{e} centile \\
     \hline
   \end{tabular}
 
@@ -87,20 +87,21 @@ distribution suivante.
 \end{figure}
 
 Le test remplit sa fonction première~: la distribution placebo est bien
-centrée sur zéro (moyenne $0{,}001$, écart-type $0{,}022$), ce qui confirme que
+centrée sur zéro (moyenne -$0{,}001$, écart-type $0{,}030$), ce qui confirme que
 la procédure d'estimation ne fabrique pas d'effet là où il n'y en a pas, et
 conforte la plausibilité de l'hypothèse de tendances parallèles.
 
-L'effet estimé se situe au 99,0\textsuperscript{e} centile de cette distribution~:
-le point estimé est plus grand que ce que produit presque toute réassignation
-aléatoire du traitement. Cette lecture et la $p$-valeur de $0{,}052$ du test
+L'effet estimé se situe au 95,0\textsuperscript{e} centile de cette distribution~:
+le point estimé est plus grand que ce que produit la quasi-totalité des
+réassignations aléatoires du traitement, sans se situer dans la queue
+extrême. Cette lecture et la $p$-valeur de $0{,}103$ du test
 principal ne sont pas contradictoires, elles répondent à deux questions
 différentes. Le placebo ignore la structure de corrélation intra-grappe, alors
 que le test principal en tient compte par des erreurs-types clusterisées~;
 c'est cette correction, prudente et appropriée au plan de sondage, qui élargit
-l'intervalle de confiance. Les deux approches convergent néanmoins ici~: le
-point estimé n'est pas un artefact d'échantillonnage, ce qui renforce la
-présomption d'un effet de sens défavorable sans l'établir au seuil de 5\,\%.
+l'intervalle de confiance. Les deux approches convergent ici vers le même
+constat~: le point estimé n'est probablement pas un pur artefact
+d'échantillonnage, mais rien ne l'établit aux seuils conventionnels.
 
 \subsection{Sensibilité au seuil de dimensions}
 
@@ -132,31 +133,32 @@ tableau~\ref{tab:sensib_k} de la section~\ref{subsec:sensib_k}~: l'effet y est
 ré-estimé à chaque seuil possible, de $k=1$ à $k=7$ dimensions sur sept.
 Abaisser le seuil élargit mécaniquement la population considérée comme pauvre,
 tandis que l'élever la restreint aux enfants cumulant le plus de privations~:
-faire varier $k$ revient donc à déplacer le curseur de la sévérité. L'effet
-garde le même signe sur toute la plage, mais son ampleur suit une courbe en
-cloche, maximale au seuil retenu et retombant de part et d'autre~: il se joue
+faire varier $k$ revient donc à déplacer le curseur de la sévérité. Son ampleur suit une courbe en
+cloche, maximale au seuil retenu et retombant de part et d'autre~: l'écart de
+trajectoire, pour autant qu'il existe, se joue
 au milieu de la distribution, ni chez les enfants faiblement privés ni dans le
 noyau des plus démunis.
 
 \subsection{Résultats de l'appariement avec différentes méthodes}
 
 Le tableau~\ref{tab:psm_methodes} (section~\ref{subsec:psmdd}) confronte
-les méthodes d'appariement~: les $k$ plus proches voisins ($0{,}058$),
-le noyau Epanechnikov ($0{,}055$) et le caliper
-($0{,}047$) donnent des effets d'ampleur voisine, tous
-significatifs à 10\,\% et aucun à 5\,\%. La double différence brute, qui ne
+les méthodes d'appariement~: les $k$ plus proches voisins ($0{,}051$),
+le noyau Epanechnikov ($0{,}059$) et le caliper
+($0{,}049$) donnent des effets d'ampleur voisine, dont seul le
+deuxième franchit le seuil de 10\,\%. La double différence brute, qui ne
 corrige pas la sélection, donne une valeur plus faible et non significative
-($0{,}032$).
+($0{,}043$).
 
 \subsection{Traitement défini par les bénéficiaires stables}
 
-En complément du design principal, l'effet est estimé en comparant les
+En complément du design principal, l'effet est estimé en substituant aux
+bénéficiaires de 2018 seulement les
 bénéficiaires stables (recevant un transfert aux deux vagues,
-2\,604 observations-enfants) aux ménages jamais bénéficiaires
+2\,604 observations-enfants), toujours face aux ménages jamais bénéficiaires
 (23\,580 observations). La double différence donne un effet de $0{,}023$
 (non significatif)~: de même signe que l'estimation principale, mais d'ampleur plus
-faible et non significatif. L'écart de trajectoire observé sur le traitement
-défini à la période de base ne se retrouve donc pas chez les bénéficiaires de
+faible. L'écart de trajectoire suggéré par le traitement
+principal ne se retrouve donc pas chez les bénéficiaires de
 longue date. Ce design a toutefois ses propres limites~: le traitement y est
 déjà en cours à la période de base (pauvreté inférieure de 21~points dès
 2018), si bien que la première vague ne mesure pas un niveau pré-traitement.
