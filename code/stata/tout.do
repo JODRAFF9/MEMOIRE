@@ -22,7 +22,7 @@
      06_stats_desc  — statistiques descriptives
      07_effets_dim  — effets par dimension
      08_carte_region— carte regionale
-     09_placebo_attrition — tests placebo et attrition
+     09_placebo — tests placebo
    ============================================================ */
 cd "C:\Users\Bmd\Documents\ISE\Cours\ISE3\Memoire"
 capture log close _all
@@ -2304,13 +2304,12 @@ di ">>> fig_effets_dim.pdf sauvegardé dans $OUTPUT/figures/"
 di ">>> 07_effets_dim.do terminé."
 
 /* ============================================================
-   SECTION : 09_PLACEBO_ATTRITION — Tests de validite (annexe A)
+   SECTION : 09_PLACEBO — Tests de validite (annexe A)
 
    1. Test placebo : 200 assignations aleatoires d'un faux
       traitement parmi les menages jamais traites ; la
       distribution des ATT placebo doit etre centree sur zero
       si l'hypothese de tendances paralleles est plausible.
-   2. Test d'attrition : comparaison des menages de l'EHCVM I
       retrouves vs perdus en 2021 sur les covariables de base.
 
    Aucune ponderation par poids d'enquete.
@@ -2417,43 +2416,7 @@ set dp period
 graph export "$OUTPUT/figures/fig_placebo_dd.pdf", replace
 di ">>> fig_placebo_dd.pdf sauvegardé"
 
-/* ============================================================
-   2. Test d'attrition
-   ============================================================ */
-
-di _newline "=== Test d'attrition (menages avec enfants, EHCVM I) ==="
-
-/* Menages 2018 (une ligne par menage) */
-use "$TEMP/vague_2018.dta", clear
-bysort grappe menage: keep if _n == 1
-gen byte chef_f = (hgender == 2)
-gen byte urbain = (milieu == 1)
-tempfile men18
-save `men18'
-
-/* Menages retrouves en 2021 : variable officielle PanelHH (et non la
-   presence dans panel_vrai.dta, qui exclut aussi les menages deja beneficiaires en 2018 et
-   confondrait attrition et exclusion de l'echantillon d'analyse) */
-use "$BASE_2021/s00_me_sen2021.dta", clear
-keep if PanelHH == 1
-bysort grappe menage: keep if _n == 1
-keep grappe menage
-gen byte suivi = 1
-merge 1:1 grappe menage using `men18', keepusing(hhsize hage chef_f ///
-    urbain log_pcexp D) keep(match using) nogenerate
-replace suivi = 0 if missing(suivi)
-
-di _newline "Menages suivis vs perdus :"
-tabstat hhsize hage chef_f urbain log_pcexp D, by(suivi) ///
-    stat(mean n) format(%7.3f)
-
-foreach v in log_pcexp hhsize chef_f urbain hage D {
-    quietly regress `v' suivi, vce(cluster grappe)
-    di "  `v' : diff=" %8.3f _b[suivi] "  p=" %6.4f ///
-       (2*ttail(e(df_r), abs(_b[suivi]/_se[suivi])))
-}
-
-di _newline ">>> 09_placebo_attrition.do termine."
+di _newline ">>> 09_placebo.do termine."
 
 /* ============================================================
    SECTION FINALE : copie des figures vers le rapport LaTeX
