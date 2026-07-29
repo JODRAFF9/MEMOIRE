@@ -1671,15 +1671,28 @@ foreach poids_var in weight_knn weight_kernel weight_caliper {
 /* ── Validation croisee avec la commande diff (Villa 2016) ──────
    La commande communautaire diff implemente le kernel PSM diff-in-diff de
    Heckman et al. (1998), soit exactement l'estimateur programme ci-dessus.
-   On lui fournit NOTRE score de propension (pscore) : le resultat doit
-   coincider avec la ligne weight_kernel de la comparaison precedente, aux
-   details d'implementation pres (bande passante 0.06, Epanechnikov).
+   Le score de propension y est reestime par LOGIT sur les memes covariables
+   que le probit principal (option logit de diff ; les facteurs sont
+   prealablement eclates en indicatrices via xi, diff n'acceptant pas la
+   notation i.). Le resultat doit etre proche de la ligne weight_kernel de
+   la comparaison precedente, aux details d'implementation pres (logit vs
+   probit, bande passante 0.06, Epanechnikov).
    Installation si besoin : ssc install diff */
 capture which diff
 if _rc == 0 {
-    di _newline "=== Validation croisee : diff (kernel, pscore fourni) ==="
-    diff pauvre_MODA, t(D) p(t) kernel id(enfid) pscore(pscore) ///
+    di _newline "=== Validation croisee : diff (kernel, score logit) ==="
+    capture drop _I*
+    xi, noomit i.milieu i.region i.heduc i.hmstat i.hcsp i.sexe
+    foreach v of varlist _I* {
+        quietly count if `v' == 1
+        if r(N) == 0 | r(N) == _N drop `v'
+    }
+    /* une modalite de reference par facteur pour eviter la colinearite */
+    capture drop _Imilieu_1 _Iregion_1 _Iheduc_1 _Ihmstat_1 _Ihcsp_1 _Isexe_1
+    diff pauvre_MODA, t(D) p(t) kernel id(enfid) logit ///
+        cov(hhsize log_pcexp hgender hage age _I*) ///
         support cluster(grappe)
+    drop _I*
     di _newline "  Rappel estimateur maison (kernel) : voir ligne weight_kernel ci-dessus."
 }
 else {
