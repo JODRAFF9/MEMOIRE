@@ -12,15 +12,12 @@ les implications pour les politiques publiques.
 
 \subsubsection{Robustesse au champ et à la correction de la sélection}
 
-L'estimation principale porte sur les 14\,633 enfants reliés à eux-mêmes
-d'une vague à l'autre, appariés individuellement, une fois écartés les enfants
-de ménages bénéficiaires stables ou devenant bénéficiaires en 2021. Ce champ
-découle de l'unité
-d'analyse et de la définition du traitement, mais il écarte aussi les enfants
-nés après 2018, ceux qui atteignent
+L'estimation principale porte sur les 17\,786 enfants reliés à eux-mêmes
+d'une vague à l'autre, appariés individuellement. Ce champ découle de l'unité
+d'analyse, mais il écarte les enfants nés après 2018, ceux qui atteignent
 18 ans et ceux qui quittent le ménage entre les deux passages. La double
 différence estimée sans appariement sur l'ensemble des enfants des ménages du
-panel, ces derniers compris, donne $0{,}043$~: même signe,
+panel, ces derniers compris, donne $0{,}032$~: même signe,
 ampleur plus faible, non significatif.
 
 La comparaison des deux chiffres demande une précaution, car ils diffèrent par
@@ -29,7 +26,7 @@ correction de la sélection, présente ou absente. Ils ne permettent donc pas
 d'isoler l'effet du seul champ. Le second aspect suffit toutefois à rendre
 compte du sens de l'écart. La décomposition de l'annexe~\ref{ann:A} montre que
 les enfants de ménages bénéficiaires partent d'un niveau de privation
-inférieur de 8,0 points à celui de leurs témoins appariés~; sans appariement,
+inférieur de 7,7 points à celui de leurs témoins appariés~; sans appariement,
 cet avantage initial n'est pas corrigé et l'écart de trajectoire mesuré s'en
 trouve mécaniquement atténué.
 
@@ -42,28 +39,25 @@ précisément ceux dont la situation familiale a changé entre les deux vagues.
 \subsubsection{Sensibilité au traitement et à la méthode d'appariement}
 
 Le tableau~\ref{tab:psm_methodes} (section~\ref{subsec:psmdd}) documente la
-sensibilité de l'effet estimé à la méthode d'appariement : k-NN ($0{,}051$), noyau Epanechnikov ($0{,}059$) et caliper
-($0{,}049$). Les trois algorithmes donnent des effets d'ampleur
-voisine, mais seul le noyau franchit le seuil de 10\,\% : l'ampleur est
-robuste au choix algorithmique, la significativité ne l'est pas, et les trois
-méthodes atteignent une qualité d'équilibrage comparable
-(tableau~\ref{tab:balance_global}). La définition alternative
-du traitement conduit au même constat. En substituant aux bénéficiaires de
-2018 seulement les bénéficiaires stables - recevant un transfert aux deux
-vagues, 2\,604 observations-enfants - toujours face aux ménages jamais
-bénéficiaires
-(23\,580 observations), l'effet tombe à $0{,}023$ et s'éloigne de toute
-significativité. Une exposition prolongée aux transferts ne s'accompagne donc
-pas d'un écart de trajectoire. Ce design a toutefois ses propres limites, le
-traitement y étant déjà en
+sensibilité de l'effet estimé à la méthode d'appariement : k-NN ($0{,}058$), noyau Epanechnikov ($0{,}055$) et caliper
+($0{,}047$). Les trois algorithmes donnent des effets d'ampleur
+voisine, tous significatifs au seuil de 10\,\% et aucun à 5\,\% : la
+conclusion est robuste au choix algorithmique, et les trois méthodes
+atteignent une qualité d'équilibrage comparable
+(tableau~\ref{tab:balance_global}). La conclusion l'est moins à la définition
+du traitement. En restreignant la comparaison
+aux bénéficiaires durables - recevant un transfert aux deux vagues,
+2\,604 observations-enfants - face aux ménages jamais bénéficiaires
+(23\,580 observations), l'effet tombe à $0{,}023$ et perd toute significativité. Une exposition prolongée aux transferts ne s'accompagne donc
+pas de l'écart de trajectoire observé sur le traitement défini à la période de
+base. Ce design a toutefois ses propres limites, le traitement y étant déjà en
 cours dès 2018 : la première vague n'y mesure pas un niveau pré-traitement.
 
 Enfin, le seuil inter-dimensionnel $k$, que le tableau~\ref{tab:sensib_k}
 (section~\ref{subsec:sensib_k}) fait varier sur toute son étendue, module
-l'intensité de l'effet : l'ampleur suit une courbe en
+l'intensité de l'effet sans en changer le signe : l'ampleur suit une courbe en
 cloche, maximale à $k=4$ et retombant de part et d'autre, et la
-significativité n'est atteinte qu'à $k=3$. L'écart de trajectoire, pour
-autant qu'il existe, se joue au milieu
+significativité n'est atteinte qu'à $k=3$ et $k=4$. L'effet se joue au milieu
 de la distribution, ni chez les enfants faiblement privés ni dans le noyau des
 plus démunis.
 
@@ -85,20 +79,20 @@ rapporte les effets estimés pour chacun de ces sous-groupes.
 \entete Sous-groupe & ATT (MODA) \\
     \hline
     \multicolumn{2}{|c|}{Par milieu de résidence} \\ \hline
-    \quad Milieu urbain & $0{,}105^{**}$ \\ \hline
-    \quad Milieu rural  & -$0{,}017$     \\ \hline
-    \quad Test d'égalité ($p$-valeur) & 0,045 \\
+    \quad Milieu urbain & $0{,}084^{**}$ \\ \hline
+    \quad Milieu rural  & $0{,}027$      \\ \hline
+    \quad Test d'égalité ($p$-valeur) & 0,336 \\
     \hline
     \multicolumn{2}{|c|}{Par sexe de l'enfant} \\ \hline
-    \quad Garçons & $0{,}081^{**}$ \\ \hline
-    \quad Filles  & $0{,}021$      \\ \hline
-    \quad Test d'égalité ($p$-valeur) & 0,131 \\
+    \quad Garçons & $0{,}052$      \\ \hline
+    \quad Filles  & $0{,}064^{**}$ \\ \hline
+    \quad Test d'égalité ($p$-valeur) & 0,719 \\
     \hline
     \multicolumn{2}{|c|}{Par groupe d'âge} \\ \hline
-    \quad 0-4 ans   & $0{,}046$      \\ \hline
-    \quad 5-14 ans  & $0{,}063^{*}$  \\ \hline
-    \quad 15-17 ans & -$0{,}039$     \\ \hline
-    \quad Test d'égalité ($p$-valeur) & 0,609 \\
+    \quad 0-4 ans   & $0{,}079^{**}$ \\ \hline
+    \quad 5-14 ans  & $0{,}051$      \\ \hline
+    \quad 15-17 ans & -$0{,}044$     \\ \hline
+    \quad Test d'égalité ($p$-valeur) & 0,495 \\
     \hline
   \end{tabular}
 
@@ -106,40 +100,40 @@ rapporte les effets estimés pour chacun de ces sous-groupes.
 \end{table}
 \footnotetext{\textit{Note :} erreurs-types clusterisées par grappe, poids d'appariement k-NN au niveau enfant. Les groupes d'âge sont ceux de la période de base, l'enfant conservant son groupe aux deux vagues. $^{*}p<0{,}10$, $^{**}p<0{,}05$.}
 
-L'effet est significatif en milieu urbain ($0{,}105$) et absent en milieu
-rural (-$0{,}017$), et le test d'égalité rejette cette fois l'homogénéité
-($p = 0{,}045$)~: l'écart de 12 points entre les deux coefficients est
-lui-même significatif. C'est le résultat d'hétérogénéité le mieux établi de
-l'analyse, et le seul volet de l'hypothèse H2 qui soit validé. Il éclaire
-aussi l'effet d'ensemble~: le ralentissement de trajectoire, insaisissable en
-moyenne, est porté par les enfants des villes, où les bénéficiaires partent
-d'un niveau de privation bien plus bas et où la marge de progression est plus
-étroite.
+L'effet est significatif en milieu urbain ($0{,}084$) et ne l'est
+pas en milieu rural ($0{,}027$). Le test d'égalité entre les
+deux ne rejette toutefois pas l'homogénéité~: l'écart entre
+les deux coefficients n'est pas lui-même significatif, et l'on ne peut pas
+conclure que l'effet diffère selon le milieu. Le volet géographique de
+l'hypothèse H2 n'est donc pas validé, même si la lecture des deux
+sous-groupes pris isolément invite à surveiller le milieu urbain.
 
 \subsubsection{Selon le sexe de l'enfant}
 
-L'effet est significatif chez les garçons ($0{,}081$) et ne l'est
-pas chez les filles ($0{,}021$). L'écart entre les deux
-coefficients, de six points en faveur des garçons, reste toutefois inférieur
-à ce que la précision d'estimation permet de distinguer~: le test d'égalité ne
-le sépare pas du bruit ($p = 0{,}131$). Il serait
-imprudent d'en conclure que les transferts affectent les garçons et épargnent
-les filles sur la seule foi de ces deux coefficients~: selon la spécification
-retenue pour l'appariement, c'est tantôt l'un tantôt l'autre sexe qui
-franchit le seuil de 5\,\%, et avec 1\,156 enfants traités répartis
-en sous-groupes, la puissance disponible ne permet pas de trancher un
+L'effet est significatif chez les filles ($0{,}064$) et ne l'est
+pas chez les garçons ($0{,}052$). L'écart entre les deux
+coefficients est cependant faible, de l'ordre d'un point de pourcentage, très
+inférieur aux erreurs-types de chacun, et le test d'égalité ne le distingue
+pas du bruit ($1{,}2$ point en faveur des filles)~: la
+différence de significativité tient
+davantage à la précision d'estimation qu'à une différence d'ampleur. Il serait
+imprudent d'en conclure que les transferts affectent les filles et épargnent
+les garçons sur la seule foi de ces deux coefficients. Selon la spécification
+retenue pour l'appariement, c'est d'ailleurs tantôt l'un tantôt l'autre qui
+franchit le seuil de 5\,\%, et avec environ 2\,600 enfants traités répartis
+en huit sous-groupes, la puissance disponible ne permet pas de trancher un
 écart de cette taille.
 
 Le versant descriptif ne dit pas autre chose (section~\ref{sec:stats}).
 L'avantage de niveau des enfants de ménages bénéficiaires est un peu plus
-large chez les garçons que chez les filles en 2018, 20,3 points contre 14,6,
-et la double
-différence descriptive vaut 4,8 points chez les garçons contre -0,1 chez les
-filles~: le même contraste apparaît, sans que l'écart soit statistiquement
-établi. Le volet de H2 relatif au sexe n'est donc pas validé. La seule
-tranche où le descriptif fait apparaître un écart défavorable pour les deux
-sexes est celle des 0 à 4 ans, avec 6,7 points chez les garçons et 4,8 chez
-les filles.
+large chez les filles que chez les garçons en 2018, 21,6 points contre 19,2,
+et il se resserre dans les mêmes proportions pour les deux sexes~: la double
+différence descriptive vaut 2,7 points chez les filles et 2,1 chez les
+garçons. Les deux lectures convergent donc, mais vers une absence de
+différence~: le sexe de l'enfant ne sépare ni les niveaux ni les
+trajectoires, et le volet de H2 qui s'y rapporte n'est pas validé. La seule
+tranche où le descriptif fait apparaître un écart entre sexes est celle des
+0 à 4 ans, avec 8,9 points chez les filles contre 5,1 chez les garçons.
 
 \subsubsection{Selon les groupes d'âge}
 
@@ -151,32 +145,49 @@ observations du groupe des 0-4 ans sont dans ce cas. \og 0-4 ans \fg{} se lit
 donc \og âgé de 0 à 4 ans en 2018 \fg{}, ce qui est la lecture pertinente
 puisque c'est l'âge à l'exposition qui importe.
 
-Aucune tranche d'âge ne livre d'effet solidement établi. Chez les enfants de
-0 à 4 ans, le coefficient vaut $0{,}046$ et n'est pas significatif
-($p = 0{,}199$)~; chez les 5-14 ans, il atteint $0{,}063$ et franchit le seuil
-de 10\,\% sans atteindre celui de 5\,\%. Le test joint d'égalité des trois
-effets ne rejette pas l'homogénéité ($p = 0{,}609$)~: rien ne permet
-d'affirmer que l'effet diffère selon l'âge, et le volet de H2 qui s'y rapporte
-n'est pas validé. Cette absence de contraste tient pour
-partie à la faiblesse des effectifs~: avec 1\,156 enfants traités
+La décomposition livre le coefficient de plus grande ampleur de l'analyse.
+Chez les enfants de 0 à 4 ans, l'effet atteint $0{,}079$ et est significatif au
+seuil de 5\,\%~: la privation multidimensionnelle des
+tout-petits de ménages bénéficiaires recule près de 8 points plus lentement
+que celle de leurs témoins appariés. Il dépasse d'un tiers l'effet
+d'ensemble, et il concerne la tranche d'âge sur laquelle les privations pèsent
+le plus lourdement dans la trajectoire ultérieure de l'enfant. C'est le seul
+sous-groupe d'âge qui atteint le seuil de 5\,\%. Les 5-14 ans ne se
+distinguent pas ($0{,}051$).
+
+Là encore, le passage du sous-groupe à la comparaison entre sous-groupes
+appelle de la prudence. Le test joint d'égalité des trois effets ne rejette
+pas l'homogénéité, et l'écart des 5-14 ans aux 0-4 ans, de
+2,8 points, n'est pas significatif. Ce que l'on peut affirmer
+est donc que l'effet est établi chez les tout-petits et ne l'est pas ailleurs,
+non que son ampleur y soit statistiquement supérieure. Cette nuance tient pour
+partie à la faiblesse des effectifs~: avec environ 2\,600 enfants traités
 répartis sur trois tranches, la puissance disponible ne permet pas de
 distinguer des coefficients séparés de quelques points.
 
 Les 15-17 ans échappent en revanche à l'analyse. Un enfant de 15 à 17 ans en
 2018 en a 18 à 20 en 2021 et sort du champ de l'étude~: il ne reste que
-135 enfants appariés dans ce sous-groupe, contre 1\,511 chez les 0-4 ans et
-2\,670 chez les 5-14 ans. Le coefficient obtenu (-$0{,}039$, non significatif)
+232 enfants dans ce sous-groupe, contre 2\,686 chez les 0-4 ans et
+5\,158 chez les 5-14 ans. Le coefficient obtenu (-$0{,}044$, non significatif)
 ne repose sur rien d'exploitable. C'est une limite intrinsèque du suivi
-individuel sur trois ans, non un résultat.
+individuel sur trois ans, non un résultat. Cette concentration sur la
+petite enfance est cohérente avec l'effet observé
+sur la nutrition, seule dimension significative de la décomposition
+(section~\ref{sec:resultats})~: les dimensions applicables aux 0-4 ans
+reposent largement sur l'alimentation, la santé et la présence parentale,
+trois registres directement affectés par le départ d'un adulte du ménage. Les
+tout-petits sont aussi les plus dépendants du temps de soin quotidien, que
+l'apport monétaire ne remplace pas. La convergence entre le résultat par âge
+et le résultat par dimension rend cette lecture plus solide que celle des
+autres sous-groupes.
 
 \subsubsection{Selon le montant des transferts reçus}
 \label{subsec:hetero_montant}
 
 Les trois volets précédents traitent le traitement comme binaire. Or les
-montants reçus varient considérablement d'un ménage à l'autre~: parmi les
-ménages bénéficiaires de 2018 seulement, la médiane
-s'établit autour de 300\,000 FCFA par an et le dernier quintile dépasse
-1,2 million (section~\ref{sec:methodo}). Un transfert de 50\,000 FCFA et
+montants reçus varient considérablement d'un ménage à l'autre~: la médiane
+s'établit autour de 300\,000 FCFA par an, mais le troisième quartile atteint
+1\,200\,000 FCFA (section~\ref{sec:methodo}). Un transfert de 50\,000 FCFA et
 un transfert de deux millions ne desserrent pas la même contrainte
 budgétaire, et rien n'impose que leurs effets soient de même ampleur. Ce
 dernier volet de l'hypothèse H2 examine donc la relation dose-réponse. Les
@@ -197,14 +208,14 @@ seuls enfants traités.
     \hline
 \entete Quintile de montant & ATT \\
     \hline
-    Q1 (jusqu'à 50~000 FCFA)   & \makecell{$0{,}095$\\$(0{,}079)$} \\ \hline
-    Q2 (55~000 à 180~000)      & \makecell{$0{,}082$\\$(0{,}054)$} \\ \hline
-    Q3 (200~000 à 480~000)     & \makecell{$0{,}052$\\$(0{,}053)$} \\ \hline
-    Q4 (500~000 à 1~200~000)   & \makecell{$0{,}007$\\$(0{,}055)$} \\ \hline
-    Q5 (au-delà de 1~230~000)  & \makecell{$0{,}015$\\$(0{,}073)$} \\
+    Q1 (jusqu'à 100~000 FCFA)  & \makecell{$0{,}122^{**}$\\$(0{,}052)$} \\ \hline
+    Q2 (110~000 à 360~000)     & \makecell{$0{,}093^{**}$\\$(0{,}042)$} \\ \hline
+    Q3 (380~000 à 900~000)     & \makecell{$0{,}014$\\$(0{,}047)$}      \\ \hline
+    Q4 (920~000 à 1~800~000)   & \makecell{$0{,}078$\\$(0{,}061)$}      \\ \hline
+    Q5 (au-delà de 1~824~000)  & \makecell{-$0{,}014$\\$(0{,}053)$}     \\
     \hline
     \hline
-    Pente dose-réponse (log du montant) & \makecell{-$0{,}021$\\$(0{,}020)$} \\
+    Pente dose-réponse (log du montant) & \makecell{-$0{,}025^{*}$\\$(0{,}014)$} \\
     \hline
   \end{tabular}
 
@@ -212,22 +223,25 @@ seuls enfants traités.
 \end{table}
 \footnotetext{\textit{Note :} appariement k-NN au niveau enfant, erreurs-types clusterisées par grappe, entre parenthèses sous le coefficient. Les quintiles sont définis sur le montant annuel des transferts parmi les ménages bénéficiaires~; chaque quintile est comparé à l'ensemble des témoins appariés. La pente dose-réponse est le coefficient de l'interaction entre la vague et le logarithme du montant, estimé sur les enfants traités.}
 
-Le tableau dessine un gradient sans l'établir. Les coefficients décroissent
-des petits montants ($0{,}095$ dans le premier quintile, jusqu'à
-50~000 FCFA par an, puis $0{,}082$ dans le deuxième) vers des valeurs
-proches de zéro dans les deux derniers quintiles, mais aucun d'eux n'est
-significatif, et le test continu ne l'est pas davantage~: la pente de l'effet
-en fonction du logarithme du montant vaut -$0{,}021$ ($p = 0{,}308$). Avec
-moins de 300 ménages bénéficiaires porteurs d'un montant, répartis en cinq
-groupes, la puissance disponible est très faible, et le volet de H2 relatif au
-montant n'est pas validé. La structure décroissante des points estimés reste
-compatible avec la lecture selon laquelle les petits transferts ne compensent
-pas le coût du départ d'un adulte quand les gros le font~: un transfert de
-29~000 FCFA par an, montant médian du
-premier quintile, représente moins d'un dixième de la dépense annuelle par
-tête d'un ménage bénéficiaire, contre plusieurs fois ce montant pour la
-médiane du dernier quintile (2,1 millions). Mais cette lecture demeure une
-hypothèse, non un résultat.
+Le résultat est net. L'effet défavorable se concentre sur les petits
+montants~: $12{,}2$ points de pourcentage dans le premier quintile, jusqu'à
+100~000 FCFA par an, et $9{,}3$ points dans le deuxième, tous deux
+significatifs à 5\,\%. Il disparaît ensuite~: les troisième et quatrième
+quintiles ne se distinguent pas, et le cinquième, au-delà de 1,8 million de
+FCFA par an, présente un coefficient négatif et nul en pratique
+(-$0{,}014$). Le test continu confirme cette structure~: la pente de l'effet en fonction du
+logarithme du montant vaut -$0{,}025$, significative au seuil de 10\,\%. Plus le montant est
+élevé, plus l'écart de trajectoire défavorable se réduit, jusqu'à s'annuler
+pour les transferts les plus importants. Le volet de H2 relatif au montant est
+donc validé, et c'est celui pour lequel l'hétérogénéité est la mieux établie.
+Cette lecture éclaire aussi l'effet d'ensemble. L'effet moyen défavorable n'est pas
+uniforme~: il est porté par les ménages recevant les montants les plus
+faibles, pour lesquels l'apport monétaire ne compense pas le coût du départ
+d'un adulte. Au-delà d'un certain seuil, l'apport devient suffisant pour
+équilibrer ce coût. Un transfert de 47~000 FCFA par an, montant médian du
+premier quintile, représente environ un dixième de la dépense annuelle par
+tête d'un ménage bénéficiaire~; un transfert de 3,3 millions, médiane du
+dernier quintile, en représente plusieurs fois le montant.
 
 Deux réserves encadrent la lecture de ce tableau. La première tient à la
 mesure du montant, déclaré par le ménage et reconstitué en annualisant le
@@ -245,29 +259,26 @@ une association conditionnelle, non comme un effet causal du montant.
 
 Sur la période 2018-2021, les transferts de migrants ne réduisent pas la
 pauvreté multidimensionnelle des enfants sénégalais. L'effet estimé s'établit à
-$0{,}051$ et n'est pas significatif ($p = 0{,}103$)~: la trajectoire des
-enfants de ménages
-bénéficiaires n'est en tout cas pas plus favorable que celle d'enfants témoins
-comparables, et le point estimé suggère même un écart défavorable de l'ordre
-de 5 points de pourcentage. Ce que les données établissent, c'est que
+$0{,}058$, significatif au seuil de 10\,\%~: la trajectoire des enfants de ménages
+bénéficiaires est même légèrement moins favorable que celle d'enfants témoins
+comparables, à hauteur de près de 6 points de pourcentage. Le résultat est
+significatif au seuil de 10\,\% et non à 5\,\%~; il faut donc le formuler avec
+la prudence qui convient. Ce que les données établissent, c'est que
 l'hypothèse d'une réduction de la pauvreté infantile par les transferts est
 rejetée. Ce qu'elles suggèrent sans le démontrer, c'est un effet de sens
-contraire. Cette présomption s'appuie sur trois indices, à tenir pour ce
-qu'ils sont. D'abord la stabilité de l'ampleur~:
-les trois algorithmes d'appariement donnent des valeurs voisines, de
-$0{,}049$ à $0{,}059$, même si un seul franchit le seuil de 10\,\%. Ensuite
-sa localisation~: l'effet est nettement établi en milieu urbain
-($0{,}105$, $p = 0{,}020$), où le test d'égalité avec le milieu rural rejette
-l'homogénéité, seul résultat d'hétérogénéité qui résiste. Enfin sa position dans
-la distribution placebo, au 95,0\textsuperscript{e} centile
+contraire. Trois éléments donnent à cette présomption une consistance qu'un simple
+coefficient marginalement significatif n'aurait pas. D'abord sa stabilité~:
+les trois algorithmes d'appariement donnent des valeurs voisines, toutes
+significatives à 10\,\%. Ensuite sa localisation~: l'effet n'est pas diffus,
+il se concentre sur la nutrition et sur les enfants de 0 à
+4 ans, seuls résultats significatifs au seuil de 5\,\%, qui se répondent. Enfin sa position dans
+la distribution placebo, au 99,0\textsuperscript{e} centile
 (annexe~\ref{ann:A})~: le point estimé est plus grand que ce que produit
-la quasi-totalité des réassignations aléatoires du traitement, sans se situer
-dans la queue extrême. Il faut en revanche
+presque toute réassignation aléatoire du traitement. Il faut en revanche
 écarter une lecture erronée. Ce résultat ne signifie pas que
 les transferts appauvrissent les enfants. Il signifie qu'appartenir à un ménage
 recevant des transferts d'un migrant issu de ce ménage s'accompagne, sur trois
-ans, d'une amélioration au mieux équivalente, en ville plus lente, des
-conditions de vie de l'enfant. Or ce
+ans, d'une amélioration plus lente des conditions de vie de l'enfant. Or ce
 statut est indissociable d'un autre événement~: le départ d'un membre du
 ménage. Quatre mécanismes, non mutuellement exclusifs, permettent de rendre
 compte de ce constat.
@@ -276,7 +287,9 @@ Le premier est le coût de l'absence. Les transferts retenus ici ne se
 produisent pas sans qu'un adulte ait quitté le ménage, souvent un parent~:
 l'expéditeur est par définition un ancien membre parti en migration
 (section~\ref{sec:methodo}). Le ménage perd une force de travail, une
-capacité de soin et, pour l'enfant, une présence quotidienne
+capacité de soin et, pour l'enfant, une présence quotidienne. Le fait que
+l'effet ne soit établi que chez les 0-4 ans, âge où la dépendance au temps de
+soin est maximale, converge vers cette lecture
 \parencite{cortes2007,davis2016}. L'argent compense la perte de revenu~; il ne
 remplace pas l'adulte parti.
 
@@ -312,7 +325,8 @@ qui subsiste dans l'estimation, ce sont les départs survenus entre 2018 et
 l'étranger et de 8,3 points sur l'interne.
 
 Le coût de l'absence ne peut donc pas porter à lui seul l'écart de
-trajectoire suggéré, et il faut le tenir pour une lecture partielle plutôt que
+trajectoire mesuré. Il conserve sa cohérence avec la localisation de l'effet
+chez les 0-4 ans, mais il faut le tenir pour une lecture partielle plutôt que
 pour l'explication principale.
 
 Le deuxième est la nature de l'usage des fonds. Les transferts sont
@@ -320,16 +334,18 @@ massivement affectés à la consommation courante~: 66,7\,\% en 2018-2019 et
 68,5\,\% en 2021-2022 relèvent du \og soutien courant \fg{}, contre 3,5\,\%
 et 3,7\,\% pour la scolarité et 4,6\,\% et 6,5\,\% pour la santé
 (section~\ref{sec:methodo}). Moins d'un dixième des envois est explicitement
-fléché vers les dimensions du bien-être de l'enfant que mesure le MODA. Un
-flux affecté au budget courant peut soutenir la consommation sans déplacer
-les privations structurelles que l'indicateur enregistre.
+fléché vers les dimensions du bien-être de l'enfant que mesure le MODA. Que
+la nutrition soit précisément la dimension où l'écart se creuse est de ce
+point de vue le résultat le plus déroutant de l'étude, puisque c'est celle qui
+dépend le plus directement du budget courant.
 
 Le troisième est la contrainte d'offre. Dans les zones à fort déficit
 d'infrastructures, les transferts monétaires ne se substituent pas aux
 investissements publics collectifs~: le pouvoir d'achat supplémentaire ne
 lève pas, à lui seul, les privations d'eau, d'assainissement ou d'accès aux
 services de santé \parencite{mansuri2006}. Le fait que la privation en santé
-touche 97\,\% des enfants aux deux vagues en est
+touche 97\,\% des enfants aux deux vagues, quasiment sans écart entre
+bénéficiaires et non-bénéficiaires en 2021 ($p = 0{,}708$), en est
 l'illustration la plus nette.
 
 Le quatrième tient à la marge sur laquelle les transferts opèrent. La

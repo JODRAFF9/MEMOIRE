@@ -95,20 +95,16 @@ ménage partagent donc le même statut. Construit à partir de la section 13
 des deux vagues EHCVM, le statut est défini à la période de base (2018)~: un
 enfant est traité si son ménage a reçu en 2018 au moins un transfert d'un
 expéditeur résidant hors du Sénégal et ayant déjà vécu dans le ménage, en
-tant qu'ancien membre parti en migration, et ne reçoit plus de transfert de
-ce type en 2021 - le traitement s'entend donc comme la réception de
-transferts à la période de base seulement. Le groupe témoin rassemble les
-enfants des ménages n'en recevant à aucune des deux vagues~; les transferts
+tant qu'ancien membre parti en migration. Le groupe témoin rassemble les
+enfants des ménages ne recevant aucun transfert de ce type~; les transferts
 internes et les envois d'expéditeurs n'ayant jamais appartenu au ménage
 sont écartés. Le tableau~\ref{tab:repart_traitement} donne la répartition
-qui en résulte~: sur les 17\,786 enfants suivis, 1\,156 sont traités
-(bénéficiaires en 2018 seulement) et 13\,477 sont témoins (jamais
-bénéficiaires), soit 14\,633 enfants retenus pour l'estimation principale.
-Les 1\,482 enfants de ménages bénéficiaires stables, recevant un transfert
-aux deux vagues, sont réservés à la définition alternative du traitement en
-robustesse~; les 1\,671 enfants de ménages devenant bénéficiaires en 2021
-seulement sont exclus, leur trajectoire étant affectée par un traitement
-reçu pendant la période d'observation.
+qui en résulte~: 2\,638 enfants suivis, soit 14,8\,\%, vivent dans un
+ménage bénéficiaire à la période de base. Le tableau distingue aussi les
+statuts à l'autre vague~: 1\,482 enfants vivent dans un ménage bénéficiaire
+stable, recevant un transfert aux deux vagues, et 13\,477 dans un ménage
+jamais bénéficiaire -- les deux groupes que mobilise la définition
+alternative du traitement en robustesse.
 
 \begin{table}[H]
   \centering
@@ -117,14 +113,16 @@ reçu pendant la période d'observation.
   \zebre
   \begin{tabular}{|l|r|r|}
     \hline
-\entete Statut du ménage & Enfants suivis ($n$) & Part (\%) \\
+\entete Statut du ménage en 2018 & Enfants suivis ($n$) & Part (\%) \\
     \hline
-    Bénéficiaire en 2018 seulement ($D=1$) &  1\,156 &   6,5 \\ \hline
-    Jamais bénéficiaire ($D=0$)            & 13\,477 &  75,8 \\ \hline
-    Bénéficiaire stable (robustesse)       &  1\,482 &   8,3 \\ \hline
-    Bénéficiaire en 2021 seulement (exclu) &  1\,671 &   9,4 \\
+    Bénéficiaire ($D=1$)     &  2\,638 &  14,8 \\ \hline
+    \quad dont bénéficiaire stable (aux deux vagues) & 1\,482 & 8,3 \\ \hline
+    \quad dont bénéficiaire en 2018 seulement        & 1\,156 & 6,5 \\ \hline
+    Non-bénéficiaire ($D=0$) & 15\,148 &  85,2 \\ \hline
+    \quad dont jamais bénéficiaire                   & 13\,477 & 75,8 \\ \hline
+    \quad dont bénéficiaire en 2021 seulement        &  1\,671 &  9,4 \\
     \hline
-    Total des enfants suivis               & 17\,786 & 100,0 \\
+    Total                    & 17\,786 & 100,0 \\
     \hline
   \end{tabular}
 
@@ -310,9 +308,11 @@ Les analyses d'hétérogénéité estiment l'impact PSM-DD séparément selon le
 La robustesse est vérifiée de trois manières~: par la comparaison des trois
 algorithmes d'appariement, par un test placebo réassignant aléatoirement le
 traitement, et par une définition alternative du traitement. Celle-ci
-substitue aux bénéficiaires en 2018 seulement les enfants des ménages
-bénéficiaires stables, recevant un transfert aux deux vagues, toujours face
-aux enfants des ménages jamais bénéficiaires. Ce second design mesure
-l'effet d'une exposition durable aux transferts et vérifie que la
-conclusion ne tient pas à la seule définition retenue du traitement
-(annexe~\ref{ann:A}).
+restreint la comparaison d'enfants des ménages bénéficiaires
+stables face aux enfants des
+ménages jamais bénéficiaires, en excluant ceux qui changent de statut entre
+2018 et 2021. Ce second design mesure l'effet d'une exposition durable aux
+transferts et vérifie que la conclusion ne tient pas à la seule définition
+du traitement à la période de base~; il est décliné selon le quintile de
+montant annuel reçu, afin de vérifier si l'exposition durable joue
+différemment selon l'intensité du traitement (annexe~\ref{ann:A}).
