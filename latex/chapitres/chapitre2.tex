@@ -69,11 +69,16 @@ de suivi.
 
 \subsection{Construction de la variable de traitement}
 
-La variable de traitement $D_i \in \{0, 1\}$ est définie à la période de base
-(2018), qui sert de référence avant l'observation des résultats ultérieurs.
-Fixer le statut en début de période garantit qu'il ne peut pas être affecté par
-l'évolution des privations observée entre les deux vagues, et donc qu'il n'y a
-pas de causalité inverse du résultat vers le traitement.
+L'unité d'analyse étant l'enfant, la variable de traitement
+$D_i \in \{0, 1\}$ est attachée à chaque enfant $i$~: elle vaut 1 si
+l'enfant vit dans un ménage bénéficiaire de transferts de migrants. Les
+transferts étant reçus par le ménage, tous les enfants d'un même ménage
+partagent le même statut, mais c'est bien la privation de chaque enfant que
+le traitement est censé affecter. Le statut est défini à la période de base
+(2018), qui sert de référence avant l'observation des résultats ultérieurs~:
+fixé en début de période, il ne peut pas être affecté par l'évolution des
+privations de l'enfant entre les deux vagues, ce qui écarte toute causalité
+inverse du résultat vers le traitement.
 
 Le traitement retient en outre la seule migration issue du ménage~:
 sont comptabilisés les transferts dont l'expéditeur a déjà vécu dans le
@@ -84,17 +89,18 @@ d'une autre nature et ne justifient pas la même lecture causale~; ils sont
 donc écartés du traitement.
 
 La construction de cette variable repose sur la section 13 de transferts des
-deux vagues EHCVM. Un ménage est classé comme traité ($D_i=1$) s'il satisfait
-deux conditions~: il a reçu en 2018 au moins un transfert dont l'expéditeur
-réside hors du Sénégal, et cet expéditeur a déjà vécu dans le ménage, en tant
-qu'ancien membre parti en migration. Le groupe témoin ($D_i = 0$) est composé
-des ménages ne recevant, en 2018, aucun transfert international de ce type. Le
-statut est mesuré sur les ménages du panel vrai, présents aux deux vagues, et
-les transferts internes sont exclus car ils relèvent d'une logique de
-redistribution domestique distincte des envois de la diaspora internationale
-\parencite{ndiaye2009}. Le tableau~\ref{tab:repart_traitement} donne la
-répartition des enfants suivis qui en résulte~: 2\,638 enfants, soit
-14,8\,\%, vivent dans un ménage bénéficiaire à la période de base.
+deux vagues EHCVM. Un enfant est classé comme traité ($D_i=1$) si son ménage
+satisfait deux conditions~: avoir reçu en 2018 au moins un transfert dont
+l'expéditeur réside hors du Sénégal, et cet expéditeur avoir déjà vécu dans
+le ménage, en tant qu'ancien membre parti en migration. Le groupe témoin
+($D_i = 0$) rassemble les enfants des ménages ne recevant, en 2018, aucun
+transfert international de ce type. Le statut est mesuré sur les ménages du
+panel vrai, présents aux deux vagues, et les transferts internes sont exclus
+car ils relèvent d'une logique de redistribution domestique distincte des
+envois de la diaspora internationale \parencite{ndiaye2009}. Le
+tableau~\ref{tab:repart_traitement} donne la répartition des enfants suivis
+qui en résulte~: 2\,638 enfants, soit 14,8\,\%, vivent dans un ménage
+bénéficiaire à la période de base.
 
 \begin{table}[H]
   \centering
