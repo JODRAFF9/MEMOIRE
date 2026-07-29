@@ -80,7 +80,10 @@
   % et n'a aucun effet sur un titre qui ouvre la page. Seul un \vspace*
   % (etoile) survit au saut de page : c'est lui qui remonte le titre.
   \vspace*{-1.5cm}%
-  {\centering\color{ensaeblue}\Large\bfseries #1\par}
+  % Le titre est confine a 78 % de la largeur : un intitule long passe a la
+  % ligne au lieu de venir buter sur la pastille, qui occupe la droite.
+  {\centering
+   \parbox{0.78\textwidth}{\centering\color{ensaeblue}\Large\bfseries #1}\par}
   \vspace{0.12cm}
   \noindent
   \begin{tikzpicture}
