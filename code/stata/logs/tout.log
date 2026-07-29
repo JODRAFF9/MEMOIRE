@@ -2476,15 +2476,18 @@ Vague 2021 : 31033 enfants, dont 0 ménages panel
 >    2. Statut de traitement : defini a la periode de BASE (2018)
 > 
 >    Design principal : le statut de traitement est fixe par la situation
->    de 2018, qui sert de reference avant l'observation des resultats
->    ulterieurs. On definit :
+>    de 2018 croisee avec celle de 2021. On definit :
 >      - traites (D_stable=1) : menage recevant en 2018 un transfert
 >        etranger d'un expediteur ayant deja vecu dans le menage
->        (migration d'un membre du menage)
->      - temoins (D_stable=0) : menage ne recevant aucun transfert
->        etranger de ce type en 2018
->    Le statut etant fige a la periode de base, il ne peut pas etre
->    affecte par l'evolution des privations entre les deux vagues.
+>        (migration d'un membre du menage) et n'en recevant plus en 2021
+>        (beneficiaire en 2018 seulement)
+>      - temoins (D_stable=0) : menage ne recevant ce type de transfert
+>        a aucune des deux vagues (jamais beneficiaire)
+>    Les menages beneficiaires stables (aux deux vagues) sont reserves
+>    a la definition alternative du traitement (robustesse) ; les
+>    menages devenant beneficiaires en 2021 seulement sont exclus, leur
+>    trajectoire etant contaminee par un traitement recu pendant la
+>    periode d'observation.
 >    ============================================================ */
 . 
 . use "$TEMP/traitement_2018.dta", clear
@@ -2503,10 +2506,16 @@ Vague 2021 : 31033 enfants, dont 0 ménages panel
 
 . rename D D_2021
 
-. gen byte D_stable = D_2018
-(688 missing values generated)
+. gen byte D_stable = .
+(7,120 missing values generated)
 
-. label var D_stable "Traitement (1=beneficiaire migrant en 2018, 0=non beneficiaire)"
+. replace D_stable = 1 if D_2018 == 1 & D_2021 == 0
+(432 real changes made)
+
+. replace D_stable = 0 if D_2018 == 0 & D_2021 == 0
+(5,022 real changes made)
+
+. label var D_stable "Traitement (1=beneficiaire 2018 seulement, 0=jamais beneficiaire)"
 
 . 
 . di _newline ">>> Cellules de traitement (menages presents aux 2 vagues) :"
@@ -2529,13 +2538,18 @@ de migrant | transfert de migrant
 
 . quietly count if D_stable == 1
 
-. di "  Beneficiaires 2018 (migrant) : " r(N)
-  Beneficiaires 2018 (migrant) : 846
+. di "  Beneficiaires 2018 seulement (traites) : " r(N)
+  Beneficiaires 2018 seulement (traites) : 432
 
 . quietly count if D_stable == 0
 
-. di "  Non beneficiaires 2018       : " r(N)
-  Non beneficiaires 2018       : 5586
+. di "  Jamais beneficiaires (temoins)         : " r(N)
+  Jamais beneficiaires (temoins)         : 5022
+
+. quietly count if missing(D_stable)
+
+. di "  Exclus (stables et entrants 2021)      : " r(N)
+  Exclus (stables et entrants 2021)      : 1666
 
 . 
 . keep grappe menage D_stable D_2018 D_2021
@@ -2699,8 +2713,10 @@ file C:\Users\Bmd\AppData\Local\Temp\ST_c70_00000x.tmp saved as .dta format
 . sort grappe menage t
 
 . 
-. /* Appliquer le statut de traitement ENTRANT et exclure les menages
->    deja beneficiaires en 2018 (traitement anterieur a la periode) */
+. /* Appliquer le statut de traitement principal : beneficiaires en 2018
+>    seulement contre jamais beneficiaires. Les menages a D_stable manquant
+>    (beneficiaires stables et entrants 2021) sortent de l'echantillon
+>    d'estimation. */
 . merge m:1 grappe menage using "$TEMP/traitement_stable.dta", ///
 >     keepusing(D_stable) keep(master match) nogenerate
 
@@ -2711,14 +2727,14 @@ file C:\Users\Bmd\AppData\Local\Temp\ST_c70_00000x.tmp saved as .dta format
     -----------------------------------------
 
 . drop if missing(D_stable)
-(0 observations deleted)
+(10,735 observations deleted)
 
 . replace D = D_stable
-(4,793 real changes made)
+(1,976 real changes made)
 
 . drop D_stable
 
-. label var D "Traitement (1=beneficiaire migrant en 2018, 0=non beneficiaire)"
+. label var D "Traitement (1=beneficiaire 2018 seulement, 0=jamais beneficiaire)"
 
 . 
 . di _newline "=== Panel vrai (traitement defini en 2018) ==="
@@ -2726,17 +2742,17 @@ file C:\Users\Bmd\AppData\Local\Temp\ST_c70_00000x.tmp saved as .dta format
 === Panel vrai (traitement defini en 2018) ===
 
 . di "Observations totales     : " _N
-Observations totales     : 59723
+Observations totales     : 48988
 
 . quietly count if t == 0
 
 . di "  - Periode t=0 (2018)  : " r(N)
-  - Periode t=0 (2018)  : 31382
+  - Periode t=0 (2018)  : 25782
 
 . quietly count if t == 1
 
 . di "  - Periode t=1 (2021)  : " r(N)
-  - Periode t=1 (2021)  : 28341
+  - Periode t=1 (2021)  : 23206
 
 . tabstat D, by(t) stat(mean sum n) format(%6.3f)
 
@@ -2745,10 +2761,10 @@ Group variable: t
 
        t |      Mean       Sum         N
 ---------+------------------------------
-       0 |     0.153  4806.000   3.1e+04
-       1 |     0.152  4294.000   2.8e+04
+       0 |     0.085  2202.000   2.6e+04
+       1 |     0.085  1976.000   2.3e+04
 ---------+------------------------------
-   Total |     0.152  9100.000   6.0e+04
+   Total |     0.085  4178.000   4.9e+04
 ----------------------------------------
 
 . 
@@ -4029,10 +4045,10 @@ Panel d'enfants apparie : 35572 observations ( 17786 enfants x 2 vagues)
 
 . 
 . /* ── Ventilation des enfants suivis par stabilite du statut ─────
->    Alimente le tableau de repartition du traitement (chap. 2) : parmi les
->    17 786 enfants suivis, croisement du statut 2018 (D) avec le statut a
->    l'autre vague, d'ou les sous-groupes stables / 2018 seulement /
->    jamais / 2021 seulement mobilises par la robustesse. */
+>    Alimente le tableau de repartition du traitement (chap. 2) : croisement
+>    du statut 2018 avec le statut a l'autre vague sur les enfants retenus
+>    dans l'echantillon principal (beneficiaires 2018 seulement et jamais
+>    beneficiaires). */
 . use "$TEMP/panel_enfants_psm.dta", clear
 
 . keep if t == 0
@@ -4106,18 +4122,18 @@ Beneficiaire 2021 slt |     1,671          0 |     1,671
 >     by(D) stat(mean n) format(%6.3f)
 
 Summary statistics: Mean, N
-Group variable: D (Traitement (1=beneficiaire migrant en 2018, 0=non beneficiaire))
+Group variable: D (Traitement (1=beneficiaire 2018 seulement, 0=jamais beneficiaire))
 
        D |  pauvre~A    nb_dep     pcexp
 ---------+------------------------------
-       0 |     0.665     4.106   4.0e+05
-         |   4.6e+04   4.6e+04   5.1e+04
+       0 |     0.674     4.138   4.0e+05
+         |   4.0e+04   4.0e+04   4.5e+04
 ---------+------------------------------
-       1 |     0.505     3.580   4.7e+05
-         |  8108.000  8108.000  9100.000
+       1 |     0.544     3.716   4.4e+05
+         |  3609.000  3609.000  4178.000
 ---------+------------------------------
-   Total |     0.640     4.026   4.1e+05
-         |   5.4e+04   5.4e+04   6.0e+04
+   Total |     0.663     4.103   4.0e+05
+         |   4.4e+04   4.4e+04   4.9e+04
 ----------------------------------------
 
 . 
@@ -4139,24 +4155,24 @@ Group variable: D (Traitement (1=beneficiaire migrant en 2018, 0=non beneficiair
 
 --- DD pauvre_MODA ---
 
-Linear regression                               Number of obs     =     53,679
-                                                F(3, 595)         =      50.21
+Linear regression                               Number of obs     =     43,895
+                                                F(3, 595)         =      36.09
                                                 Prob > F          =     0.0000
-                                                R-squared         =     0.0219
-                                                Root MSE          =     .47459
+                                                R-squared         =     0.0137
+                                                Root MSE          =     .46936
 
                                (Std. err. adjusted for 596 clusters in grappe)
 ------------------------------------------------------------------------------
              |               Robust
  pauvre_MODA | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
 -------------+----------------------------------------------------------------
-         1.t |   -.088729   .0093332    -9.51   0.000    -.1070591    -.070399
-         1.D |  -.1744316   .0243963    -7.15   0.000    -.2223449   -.1265182
+         1.t |   -.087698   .0095476    -9.19   0.000    -.1064492   -.0689469
+         1.D |  -.1493054   .0303964    -4.91   0.000    -.2090027   -.0896082
              |
          t#D |
-        1 1  |   .0321474   .0232525     1.38   0.167    -.0135195    .0778143
+        1 1  |   .0427587   .0285936     1.50   0.135    -.0133979    .0989154
              |
-       _cons |    .704755    .011968    58.89   0.000     .6812503    .7282598
+       _cons |   .7135233   .0119989    59.47   0.000      .689958    .7370885
 ------------------------------------------------------------------------------
 
  ( 1)  1.t#1.D = 0
@@ -4164,9 +4180,9 @@ Linear regression                               Number of obs     =     53,679
 ------------------------------------------------------------------------------
  pauvre_MODA | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
 -------------+----------------------------------------------------------------
-         (1) |   .0321474   .0232525     1.38   0.167    -.0135195    .0778143
+         (1) |   .0427587   .0285936     1.50   0.135    -.0133979    .0989154
 ------------------------------------------------------------------------------
-  ATT_DD  =   0.0321  SE =   0.0233  p = 0.1673
+  ATT_DD  =   0.0428  SE =   0.0286  p = 0.1353
 
 . 
 . /* ============================================================
@@ -4359,28 +4375,28 @@ file code/stata/temp/panel_apparie.dta saved
 === Robustesse : tous les enfants du panel de menages ===
 
 .     di "  Observations : " _N
-  Observations : 59723
+  Observations : 48988
 
 .     regress pauvre_MODA i.t##i.D, vce(cluster grappe)
 
-Linear regression                               Number of obs     =     53,679
-                                                F(3, 595)         =      50.21
+Linear regression                               Number of obs     =     43,895
+                                                F(3, 595)         =      36.09
                                                 Prob > F          =     0.0000
-                                                R-squared         =     0.0219
-                                                Root MSE          =     .47459
+                                                R-squared         =     0.0137
+                                                Root MSE          =     .46936
 
                                (Std. err. adjusted for 596 clusters in grappe)
 ------------------------------------------------------------------------------
              |               Robust
  pauvre_MODA | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
 -------------+----------------------------------------------------------------
-         1.t |   -.088729   .0093332    -9.51   0.000    -.1070591    -.070399
-         1.D |  -.1744316   .0243963    -7.15   0.000    -.2223449   -.1265182
+         1.t |   -.087698   .0095476    -9.19   0.000    -.1064492   -.0689469
+         1.D |  -.1493054   .0303964    -4.91   0.000    -.2090027   -.0896082
              |
          t#D |
-        1 1  |   .0321474   .0232525     1.38   0.167    -.0135195    .0778143
+        1 1  |   .0427587   .0285936     1.50   0.135    -.0133979    .0989154
              |
-       _cons |    .704755    .011968    58.89   0.000     .6812503    .7282598
+       _cons |   .7135233   .0119989    59.47   0.000      .689958    .7370885
 ------------------------------------------------------------------------------
 
 .     lincom 1.t#1.D
@@ -4390,12 +4406,12 @@ Linear regression                               Number of obs     =     53,679
 ------------------------------------------------------------------------------
  pauvre_MODA | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
 -------------+----------------------------------------------------------------
-         (1) |   .0321474   .0232525     1.38   0.167    -.0135195    .0778143
+         (1) |   .0427587   .0285936     1.50   0.135    -.0133979    .0989154
 ------------------------------------------------------------------------------
 
 .     di "  ATT agregat menage = " %8.4f r(estimate) ///
 >        "  SE = " %8.4f r(se) "  p = " %6.4f r(p)
-  ATT agregat menage =   0.0321  SE =   0.0233  p = 0.1673
+  ATT agregat menage =   0.0428  SE =   0.0286  p = 0.1353
 
 . restore
 
@@ -5386,8 +5402,8 @@ Linear regression                               Number of obs     =     10,014
 >    8. Robustesse : definition alternative du traitement
 >       (beneficiaires stables)
 > 
->    En complement du design principal (entrants, DD canonique avec
->    periode pre-traitement observee), l'ATT est aussi estime en
+>    En complement du design principal (beneficiaires en 2018 seulement
+>    contre jamais beneficiaires), l'ATT est aussi estime en
 >    comparant les beneficiaires STABLES (D_2018=1 et D_2021=1) aux
 >    menages jamais beneficiaires, sur les memes menages panel. Ce
 >    design capte l'effet d'une exposition durable aux transferts,
@@ -5644,36 +5660,36 @@ t#D_stable_alt |
  28.     di "  Milieu urbain : " %5.1f p_urbain_`annee' "%"
  29.     di "  Transferts    : " %5.1f p_D_`annee'      "%"
  30. }
-(28,341 observations deleted)
-(25,691 observations deleted)
+(23,206 observations deleted)
+(20,984 observations deleted)
 
     Result                      Number of obs
     -----------------------------------------
     Not matched                             0
-    Matched                             5,691  
+    Matched                             4,798  
     -----------------------------------------
 (0 real changes made)
-2018 : 5691 ménages
-  Taille moy : 10.16
-  PCE moy    :       515217 FCFA/an
-  Chef féminin  :  26.2%
-  Milieu urbain :  45.9%
-  Transferts    :  13.9%
-(31,382 observations deleted)
-(22,650 observations deleted)
+2018 : 4798 ménages
+  Taille moy :  9.88
+  PCE moy    :       496493 FCFA/an
+  Chef féminin  :  23.3%
+  Milieu urbain :  44.9%
+  Transferts    :   7.9%
+(25,782 observations deleted)
+(18,408 observations deleted)
 
     Result                      Number of obs
     -----------------------------------------
     Not matched                             0
-    Matched                             5,691  
+    Matched                             4,798  
     -----------------------------------------
 (0 real changes made)
-2021 : 5691 ménages
-  Taille moy :  9.38
-  PCE moy    :       565226 FCFA/an
-  Chef féminin  :  28.7%
-  Milieu urbain :  45.9%
-  Transferts    :  16.5%
+2021 : 4798 ménages
+  Taille moy :  9.12
+  PCE moy    :       540382 FCFA/an
+  Chef féminin  :  25.6%
+  Milieu urbain :  44.9%
+  Transferts    :   0.0%
 
 . 
 . 
@@ -6832,7 +6848,7 @@ file code/stata/output/figures/fig_effets_dim.pdf saved as PDF format
 . use "$TEMP/panel_vrai.dta", clear
 
 . keep if D == 0
-(9,100 observations deleted)
+(4,178 observations deleted)
 
 . tempfile never
 
@@ -6842,7 +6858,7 @@ file C:\Users\Bmd\AppData\Local\Temp\ST_c70_00001b.tmp saved as .dta format
 . 
 . /* Liste des menages (une ligne par menage) */
 . bysort grappe menage: keep if _n == 1
-(45,688 observations deleted)
+(40,391 observations deleted)
 
 . keep grappe menage
 
@@ -6862,10 +6878,10 @@ file C:\Users\Bmd\AppData\Local\Temp\ST_c70_00001c.tmp saved as .dta format
 .     use "$TEMP/panel_vrai.dta", clear
 
 .     keep if t == 0
-(28,341 observations deleted)
+(23,206 observations deleted)
 
 .     bysort grappe menage: keep if _n == 1
-(25,691 observations deleted)
+(20,984 observations deleted)
 
 .     quietly summarize D
 
@@ -6874,7 +6890,7 @@ file C:\Users\Bmd\AppData\Local\Temp\ST_c70_00001c.tmp saved as .dta format
 . restore
 
 . di "  Part de faux traites appliquee : " %6.4f `part_fake'
-  Part de faux traites appliquee : 0.1328
+  Part de faux traites appliquee : 0.0790
 
 . 
 . forvalues r = 1/`n_rep' {
@@ -6935,9 +6951,9 @@ Number of observations (_N) was 0, now 200.
   9.     di "  ATT reel (" %6.4f $ATT_REEL ") : rang = " %4.1f 100*r(N)/`ntot' "e centile"
  10. }
 
-Placebo moda : moyenne= 0.0012  sd=0.0218
-  fraction |ATT|>0.05 :  2.5%
-  ATT reel (0.0579) : rang = 99.0e centile
+Placebo moda : moyenne=-0.0013  sd=0.0296
+  fraction |ATT|>0.05 :  8.0%
+  ATT reel (0.0579) : rang = 97.0e centile
 
 . 
 . /* ── Fig placebo : distribution des ATT placebo vs ATT reel ──
@@ -6959,7 +6975,7 @@ Placebo moda : moyenne= 0.0012  sd=0.0218
 >     xlabel(-0.06 "-0,06" -0.04 "-0,04" -0.02 "-0,02" 0 "0" ///
 >            0.02 "0,02" 0.04 "0,04" 0.06 "0,06" 0.08 "0,08" 0.10 "0,10", grid) ///
 >     graphregion(color(white)) plotregion(color(white))
-(bin=27, start=-,0670127, width=,005)
+(bin=34, start=-,08505544, width=,005)
 
 . set dp period
 
