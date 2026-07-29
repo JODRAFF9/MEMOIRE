@@ -38,12 +38,14 @@ servant ici qu'à les atteindre. Sur les 7\,156 ménages de l'EHCVM~I et les
 7\,120 de l'EHCVM~II, 6\,127 sont enquêtés aux deux passages et forment le
 panel vrai, apparié comme le prescrit l'ANSD sur le couple (grappe, ménage)
 \parencite{ansd2022}. Ils abritent 31\,382 enfants de 0 à 17 ans en 2018-2019
-et 28\,341 en 2021-2022, dont 17\,786 sont suivis individuellement d'une vague
-à l'autre selon la procédure décrite ci-après. Sont retenus les enfants pour
-lesquels l'intégralité des indicateurs MODA et la variable de traitement sont
-disponibles aux deux vagues. Le tableau~\ref{tab:panelhh} donne la répartition
-des ménages selon leur statut de suivi et le tableau~\ref{tab:panelenf} les
-effectifs d'enfants qui en découlent.
+et 28\,341 en 2021-2022, dont 17\,786 sont suivis individuellement d'une
+vague à l'autre grâce à l'identifiant de 2018 préchargé dans le questionnaire
+de l'EHCVM~II (variable \texttt{s01qpreload\_pid}), qui relie chaque
+personne à elle-même indépendamment de son rang dans la liste des membres.
+Sont retenus les enfants pour lesquels l'intégralité des indicateurs MODA et
+la variable de traitement sont disponibles aux deux vagues. Le
+tableau~\ref{tab:panelhh} donne la répartition des ménages selon leur statut
+de suivi.
 
 \begin{table}[H]
   \centering
@@ -66,32 +68,6 @@ effectifs d'enfants qui en découlent.
 
   {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM.}
 \end{table}
-
-\begin{table}[H]
-  \centering
-  \caption[Effectifs d'enfants de 0 à 17 ans aux différentes étapes de la construction]{Effectifs d'enfants de 0 à 17 ans aux différentes étapes de la construction\protect\footnotemark}
-  \label{tab:panelenf}
-  \zebre
-  \begin{tabularx}{\linewidth}{|X|r|r|}
-    \hline
-\entete Étape & EHCVM I & EHCVM II \\
-    \hline
-    Enfants des ménages enquêtés            & 33\,844 & 31\,033 \\ \hline
-    Enfants des ménages du panel vrai       & 31\,382 & 28\,341 \\ \hline
-    Enfants suivis individuellement aux deux vagues & \multicolumn{2}{r|}{17\,786} \\
-    \hline
-  \end{tabularx}
-
-  {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM.}
-\end{table}
-\footnotetext{\textit{Note :} la dernière étape porte sur des enfants observés aux deux vagues, l'effectif est donc commun aux deux colonnes.}
-
-Chaque enfant de 2021 est relié à lui-même en 2018 par le mécanisme de
-préchargement du questionnaire de l'EHCVM~II~: pour chaque ménage panel, la
-première section affiche à l'enquêteur la liste des membres relevés en 2018 et
-la variable \texttt{s01qpreload\_pid} conserve, pour tout membre de 2021 déjà
-présent en 2018, son identifiant de 2018. C'est cette variable, et non le rang
-dans la liste des membres, qui apparie une personne à elle-même.
 
 \subsection{Construction de la variable de traitement}
 
