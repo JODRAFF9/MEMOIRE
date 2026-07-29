@@ -86,7 +86,6 @@
       % Section non numerotee : sans pastille, le bandeau occupe toute la
       % largeur, faute de quoi la droite resterait vide.
       \fill[ensaeblue, rounded corners=3pt] (0,-3pt) rectangle (\textwidth,3pt);
-      \fill[ensaeorange] (0,0) circle (2.6pt);
     \else
       % Le bandeau souligne le titre et vient mourir dans la pastille : le
       % bas du cercle affleure le bas du filet, si bien que l'extremite du
@@ -94,11 +93,9 @@
       % le cercle, sans rupture. Meme bleu uni pour les deux. La pastille
       % est en « overlay » : elle monte au-dessus du filet sans entrer dans
       % la boite englobante, faute de quoi elle ecarterait le soulignement
-      % du titre. Le point orange a gauche repond a l'accent orange des
-      % angles de page.
+      % du titre.
       \fill[ensaeblue, rounded corners=3pt]
         (0,-3pt) rectangle (0.925\textwidth,3pt);
-      \fill[ensaeorange] (0,0) circle (2.6pt);
       \node[circle, fill=ensaeblue, text=white, minimum size=1.8cm,
             inner sep=0pt, overlay,
             font=\fontsize{36}{36}\selectfont] (pastille)
