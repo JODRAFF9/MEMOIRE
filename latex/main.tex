@@ -84,19 +84,29 @@
   \begin{tikzpicture}
     \ifx\relax#2\relax
       % Section non numerotee : sans pastille, le bandeau occupe toute la
-      % largeur, faute de quoi la droite resterait vide.
-      \fill[ensaeblue] (0,-3pt) rectangle (\textwidth,3pt);
+      % largeur et s'eteint en fondu cyan a droite, echo du filet degrade
+      % de la page de garde.
+      \shade[left color=ensaeblue, right color=ensaecyan, rounded corners=3pt]
+        (0,-3pt) rectangle (\textwidth,3pt);
+      \fill[ensaeorange] (0,0) circle (2.6pt);
     \else
-      % Le bandeau souligne le titre et la pastille en marque l'extremite
-      % droite, centree sur son epaisseur. Le cercle est trace en
-      % « overlay » : il deborde de part et d'autre du filet sans entrer
-      % dans la boite englobante, faute de quoi il ecarterait le
-      % soulignement du titre.
-      \fill[ensaeblue] (0,-3pt) rectangle (0.925\textwidth,3pt);
-      \node[circle, fill=ensaeblue, text=white, minimum size=1.8cm,
-            inner sep=0pt, overlay,
-            font=\fontsize{36}{36}\selectfont]
+      % Le bandeau souligne le titre : il nait en cyan a gauche, se fonce
+      % vers le bleu ENSAE et vient mourir sous la pastille, qui marque son
+      % extremite droite, centree sur son epaisseur. La pastille porte un
+      % double lisere blanc puis cyan qui la detache du bandeau. Tracee en
+      % « overlay », elle deborde de part et d'autre du filet sans entrer
+      % dans la boite englobante, faute de quoi elle ecarterait le
+      % soulignement du titre. Le point orange a gauche repond a l'accent
+      % orange des angles de page.
+      \shade[left color=ensaecyan, right color=ensaeblue, rounded corners=3pt]
+        (0,-3pt) rectangle (0.925\textwidth,3pt);
+      \fill[ensaeorange] (0,0) circle (2.6pt);
+      \node[circle, fill=ensaeblue, draw=white, line width=1.6pt,
+            text=white, minimum size=1.8cm, inner sep=0pt, overlay,
+            font=\fontsize{36}{36}\selectfont] (pastille)
         at (0.925\textwidth,0cm) {#2};
+      \draw[ensaecyan, line width=0.7pt, overlay]
+        (pastille.center) circle (0.98cm);
     \fi
   \end{tikzpicture}\par
   \endgroup
