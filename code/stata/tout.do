@@ -1320,6 +1320,24 @@ save "$TEMP/panel_enfants_psm.dta", replace
 di _newline "Panel d'enfants apparie : " _N " observations (" ///
     %6.0f `=_N/2' " enfants x 2 vagues)"
 
+/* ── Ventilation des enfants suivis par stabilite du statut ─────
+   Alimente le tableau de repartition du traitement (chap. 2) : parmi les
+   17 786 enfants suivis, croisement du statut 2018 (D) avec le statut a
+   l'autre vague, d'ou les sous-groupes stables / 2018 seulement /
+   jamais / 2021 seulement mobilises par la robustesse. */
+use "$TEMP/panel_enfants_psm.dta", clear
+keep if t == 0
+merge m:1 grappe menage using "$TEMP/traitement_stable.dta", ///
+    keepusing(D_2018 D_2021) keep(master match) nogenerate
+gen str24 statut_stab = ""
+replace statut_stab = "Beneficiaire stable"    if D_2018 == 1 & D_2021 == 1
+replace statut_stab = "Beneficiaire 2018 slt"  if D_2018 == 1 & D_2021 == 0
+replace statut_stab = "Jamais beneficiaire"    if D_2018 == 0 & D_2021 == 0
+replace statut_stab = "Beneficiaire 2021 slt"  if D_2018 == 0 & D_2021 == 1
+di _newline "=== Enfants suivis : statut 2018 x stabilite ==="
+tab statut_stab D, missing
+tab statut_stab, missing
+
 /* ============================================================
    3. Statistiques descriptives sur le panel
    ============================================================ */
