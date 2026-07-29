@@ -101,18 +101,20 @@
       \shade[left color=ensaecyan, right color=ensaeblue, rounded corners=3pt]
         (0,-3pt) rectangle (0.925\textwidth,3pt);
       \fill[ensaeorange] (0,0) circle (2.6pt);
+      % Tangence : l'anneau cyan exterieur (rayon 0,98 cm) vient poser la
+      % pastille sur le bord superieur du bandeau (+3 pt), sans le chevaucher.
       \node[circle, fill=ensaeblue, draw=white, line width=1.6pt,
             text=white, minimum size=1.8cm, inner sep=0pt, overlay,
             font=\fontsize{36}{36}\selectfont] (pastille)
-        at (0.925\textwidth,0cm) {#2};
+        at ([yshift=0.98cm]0.925\textwidth,3pt) {#2};
       \draw[ensaecyan, line width=0.7pt, overlay]
         (pastille.center) circle (0.98cm);
     \fi
   \end{tikzpicture}\par
   \endgroup
-  % Plancher impose par la pastille : tracee en overlay, elle descend de
-  % 0,9 cm sous le filet sans que LaTeX en reserve la place.
-  \vspace{0.95cm}
+  % La pastille repose desormais sur le bandeau : plus rien ne deborde en
+  % dessous, l'espace se regle librement.
+  \vspace{0.45cm}
 }
 % Wrappers : évite #1 direct dans \titleformat (incompatible avec certaines versions titlesec)
 \newcommand{\ensaebandeaunum}[1]{\ensaetetesection{#1}{\thesection}}
