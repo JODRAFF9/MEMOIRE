@@ -23,6 +23,82 @@ milieu urbain (-$6{,}5$ pp~: de 35,3\,\% à 28,8\,\%) qu'en milieu rural
 (-$5{,}2$ pp~: de 82,0\,\% à 76,8\,\%), de sorte que l'écart urbain-rural,
 déjà considérable en 2018 (46,7 pp), se creuse légèrement (48,0 pp en 2021).
 
+Le tableau~\ref{tab:moda_age} récapitule l'incidence par groupe d'âge de la
+période de base. En 2018, les enfants de 5 à 14 ans affichent le taux le plus
+élevé (67,3\,\%), du fait des privations éducatives cumulées aux privations de
+logement et d'assainissement. Le classement s'inverse en 2021~: cette tranche
+enregistre le recul le plus net (-$10{,}6$ pp) et passe sous les deux autres,
+tandis que les enfants de 0 à 4 ans en 2018 voient leur incidence augmenter de
+3,2 points. Cette hausse est la contrepartie du vieillissement déjà signalé~:
+scolarisables en 2021, ces enfants sont désormais évalués sur sept dimensions
+au lieu de six, ce qui relève mécaniquement leur probabilité d'atteindre le
+seuil de quatre privations.
+
+\begin{table}[H]
+	\centering
+	\caption{Incidence MODA par groupe d'âge à la période de base : EHCVM I (2018-2019) et EHCVM II (2021-2022)}
+	\label{tab:moda_age}
+	\zebre
+	\begin{tabular}{|l|c|c|}
+		\hline
+		\entete Groupe d'âge en 2018 & \multicolumn{2}{|c|}{$H$ (\%)} \\ \hline
+		
+		& EHCVM I & EHCVM II \\
+		\hline
+		0-4 ans     & 56,9 & 60,1 \\ \hline
+		5-14 ans    & 67,3 & 56,7 \\ \hline
+		15-17 ans   & 58,3 & 52,2 \\
+		\hline
+		Ensemble 0-17 ans & 63,5 & 57,8 \\
+		\hline
+	\end{tabular}
+	
+	{\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM.}
+\end{table}
+
+Le tableau~\ref{tab:prevalence_dim} décompose les taux de privation par
+dimension pour l'ensemble des enfants. La dimension santé (combustible solide
+pour cuisiner ou absence d'accès à pied à une structure de santé) est la
+privation la plus répandue, touchant environ 97\,\% des enfants aux deux
+vagues. Viennent ensuite la nutrition, mesurée par l'échelle FIES (\emph{Food
+	Insecurity Experience Scale}) de l'insécurité alimentaire vécue, la protection
+de l'enfant et le logement inadéquat. Cette dernière dimension est celle qui
+s'améliore le plus entre les deux vagues (-$11{,}3$ pp), tandis que l'éducation
+progresse de 7,3 points. Cette hausse n'est pas une dégradation~: elle tient
+pour l'essentiel au vieillissement du panel, l'indicateur de scolarisation
+devenant applicable à des enfants qui étaient trop jeunes en 2018.
+
+\begin{table}[H]
+	\centering
+	\caption[Taux de privation par dimension MODA (enfants 0-17 ans, \%)]{Taux de privation par dimension MODA (enfants 0-17 ans, \%)\protect\footnotemark}
+	\label{tab:prevalence_dim}
+	\zebre
+	\begin{tabularx}{\linewidth}{|X|c|c|c|}
+		\hline
+		\entete Dimension & EHCVM I & EHCVM II & Variation (pp) \\
+		\hline
+		Assainissement     & 51,1 & 49,4 & -$1{,}7$ \\ \hline
+		Eau                & 22,7 & 17,3 & -$5{,}4$ \\ \hline
+		Logement           & 65,2 & 53,9 & -$11{,}3$ \\ \hline
+		Nutrition          & 68,1 & 62,7 & -$5{,}4$ \\ \hline
+		Santé              & 97,0 & 96,6 & -$0{,}4$ \\ \hline
+		Protection de l'enfant & 66,3 & 66,9 & $0{,}6$ \\ \hline
+		Éducation          & 28,4 & 35,7 & $7{,}3$ \\
+		\hline
+		\hline
+		\multicolumn{4}{|c|}{Indice MODA} \\ \hline
+		\quad Incidence $H$ (\%)                           & 63,5 & 57,8 & -$5{,}7$ \\ \hline
+		\quad Intensité $A$ (\%)                           & 70,7 & 70,3 & -$0{,}4$ \\ \hline
+		\quad Indice ajusté $M_0$                          & 0,449 & 0,406 & -$0{,}043$ \\
+		\hline
+	\end{tabularx}
+	
+	{\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM.}
+\end{table}
+\footnotetext{\textit{Note :} définition détaillée des indicateurs de chaque dimension en annexe~\ref{ann:C}.}
+
+
+
 \begin{table}[H]
   \centering
   \caption{Taux de privation par dimension selon le statut de bénéficiaire, ensemble des enfants (\%)}
@@ -68,94 +144,6 @@ double différence descriptive sur l'incidence MODA est de 2,4 points
 (l'avantage des bénéficiaires se réduit de 20,4 à 18,0 points), et elle est
 portée par deux dimensions, la nutrition (7,8 points) et l'assainissement
 (6,6 points).
-
-\begin{figure}[H]
-  \centering
-  \caption{Évolution de l'incidence MODA entre EHCVM I et EHCVM II : enfants des ménages bénéficiaires et non bénéficiaires}
-  \includegraphics[width=0.85\linewidth]{figures/fig_evolution_ipm.pdf}
-  \label{fig:evolution_ipm}
-
-  {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM.}
-\end{figure}
-
-La figure~\ref{fig:evolution_ipm} met en évidence le quasi-parallélisme des
-deux trajectoires, qui reculent conjointement, l'écart entre elles se refermant
-à peine. Cette comparaison est déclinée groupe d'âge par groupe d'âge dans les
-sous-sections~\ref{subsec:age_0_4} à~\ref{subsec:age_15_17}.
-
-Le tableau~\ref{tab:prevalence_dim} décompose les taux de privation par
-dimension pour l'ensemble des enfants. La dimension santé (combustible solide
-pour cuisiner ou absence d'accès à pied à une structure de santé) est la
-privation la plus répandue, touchant environ 97\,\% des enfants aux deux
-vagues. Viennent ensuite la nutrition, mesurée par l'échelle FIES (\emph{Food
-Insecurity Experience Scale}) de l'insécurité alimentaire vécue, la protection
-de l'enfant et le logement inadéquat. Cette dernière dimension est celle qui
-s'améliore le plus entre les deux vagues (-$11{,}3$ pp), tandis que l'éducation
-progresse de 7,3 points. Cette hausse n'est pas une dégradation~: elle tient
-pour l'essentiel au vieillissement du panel, l'indicateur de scolarisation
-devenant applicable à des enfants qui étaient trop jeunes en 2018.
-
-\begin{table}[H]
-  \centering
-  \caption[Taux de privation par dimension MODA (enfants 0-17 ans, \%)]{Taux de privation par dimension MODA (enfants 0-17 ans, \%)\protect\footnotemark}
-  \label{tab:prevalence_dim}
-  \zebre
-  \begin{tabularx}{\linewidth}{|X|c|c|c|}
-    \hline
-\entete Dimension & EHCVM I & EHCVM II & Variation (pp) \\
-    \hline
-    Assainissement     & 51,1 & 49,4 & -$1{,}7$ \\ \hline
-    Eau                & 22,7 & 17,3 & -$5{,}4$ \\ \hline
-    Logement           & 65,2 & 53,9 & -$11{,}3$ \\ \hline
-    Nutrition          & 68,1 & 62,7 & -$5{,}4$ \\ \hline
-    Santé              & 97,0 & 96,6 & -$0{,}4$ \\ \hline
-    Protection de l'enfant & 66,3 & 66,9 & $0{,}6$ \\ \hline
-    Éducation          & 28,4 & 35,7 & $7{,}3$ \\
-    \hline
-    \hline
-    \multicolumn{4}{|c|}{Indice MODA} \\ \hline
-    \quad Incidence $H$ (\%)                           & 63,5 & 57,8 & -$5{,}7$ \\ \hline
-    \quad Intensité $A$ (\%)                           & 70,7 & 70,3 & -$0{,}4$ \\ \hline
-    \quad Indice ajusté $M_0$                          & 0,449 & 0,406 & -$0{,}043$ \\
-    \hline
-  \end{tabularx}
-
-  {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM.}
-\end{table}
-\footnotetext{\textit{Note :} définition détaillée des indicateurs de chaque dimension en annexe~\ref{ann:C}.}
-
-Le tableau~\ref{tab:moda_age} récapitule l'incidence par groupe d'âge de la
-période de base. En 2018, les enfants de 5 à 14 ans affichent le taux le plus
-élevé (67,3\,\%), du fait des privations éducatives cumulées aux privations de
-logement et d'assainissement. Le classement s'inverse en 2021~: cette tranche
-enregistre le recul le plus net (-$10{,}6$ pp) et passe sous les deux autres,
-tandis que les enfants de 0 à 4 ans en 2018 voient leur incidence augmenter de
-3,2 points. Cette hausse est la contrepartie du vieillissement déjà signalé~:
-scolarisables en 2021, ces enfants sont désormais évalués sur sept dimensions
-au lieu de six, ce qui relève mécaniquement leur probabilité d'atteindre le
-seuil de quatre privations.
-
-\begin{table}[H]
-  \centering
-  \caption{Incidence MODA par groupe d'âge à la période de base : EHCVM I (2018-2019) et EHCVM II (2021-2022)}
-  \label{tab:moda_age}
-  \zebre
-  \begin{tabular}{|l|c|c|}
-    \hline
-\entete Groupe d'âge en 2018 & \multicolumn{2}{|c|}{$H$ (\%)} \\ \hline
-
-                 & EHCVM I & EHCVM II \\
-    \hline
-    0-4 ans     & 56,9 & 60,1 \\ \hline
-    5-14 ans    & 67,3 & 56,7 \\ \hline
-    15-17 ans   & 58,3 & 52,2 \\
-    \hline
-    Ensemble 0-17 ans & 63,5 & 57,8 \\
-    \hline
-  \end{tabular}
-
-  {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM.}
-\end{table}
 
 \begin{table}[H]
   \centering
@@ -243,8 +231,7 @@ les six autres dimensions reculent ou stagnent (tableau~\ref{tab:dim_0_4}).
     Logement           & 66,8 & 56,5 & -$10{,}3$ \\ \hline
     Nutrition          & 67,8 & 63,3 & -$4{,}5$ \\ \hline
     Santé              & 96,9 & 97,0 & $0{,}1$ \\ \hline
-    Protection de l'enfant & 54,6 & 60,8 & $6{,}2$ \\ \hline
-    Éducation          & Non applicable & 43,1 & --- \\
+    Protection de l'enfant & 54,6 & 60,8 & $6{,}2$ \\
     \hline
     \hline
     Incidence MODA ($H$) & 56,9 & 60,1 & $3{,}2$ \\
@@ -283,8 +270,8 @@ ici plus de six enfants sur dix aux deux vagues.
     Logement & 69,0 & 54,3 & -14,8$^{***}$ & 58,7 & 43,9 & -14,8$^{***}$ & 0,0 \\ \hline
     Nutrition & 72,1 & 43,3 & -28,8$^{***}$ & 65,8 & 48,8 & -17,0$^{***}$ & 11,8 \\ \hline
     Santé & 97,4 & 93,9 & -3,5 & 96,9 & 97,6 & 0,7 & 4,2 \\ \hline
-    Protection de l'enfant & 53,6 & 60,3 & 6,7$^{**}$ & 59,7 & 67,3 & 7,6$^{***}$ & 0,9 \\ \hline
-    Éducation & \multicolumn{3}{|c|}{Non applicable} & 43,6 & 40,5 & -3,1 & --- \\
+    Protection de l'enfant & 53,6 & 60,3 & 6,7$^{**}$ & 59,7 & 67,3 & 7,6$^{***}$ & 0,9 \\ 
+    \hline
     \hline
     Incidence MODA ($H$) & 60,5 & 36,7 & -23,7$^{***}$ & 62,6 & 45,7 & -16,9$^{***}$ & 6,8 \\
     \hline
