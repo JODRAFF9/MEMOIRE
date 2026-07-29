@@ -1668,6 +1668,24 @@ foreach poids_var in weight_knn weight_kernel weight_caliper {
     }
 }
 
+/* ── Validation croisee avec la commande diff (Villa 2016) ──────
+   La commande communautaire diff implemente le kernel PSM diff-in-diff de
+   Heckman et al. (1998), soit exactement l'estimateur programme ci-dessus.
+   On lui fournit NOTRE score de propension (pscore) : le resultat doit
+   coincider avec la ligne weight_kernel de la comparaison precedente, aux
+   details d'implementation pres (bande passante 0.06, Epanechnikov).
+   Installation si besoin : ssc install diff */
+capture which diff
+if _rc == 0 {
+    di _newline "=== Validation croisee : diff (kernel, pscore fourni) ==="
+    diff pauvre_MODA, t(D) p(t) kernel id(enfid) pscore(pscore) ///
+        support cluster(grappe)
+    di _newline "  Rappel estimateur maison (kernel) : voir ligne weight_kernel ci-dessus."
+}
+else {
+    di _newline "(!) commande diff absente : ssc install diff pour la validation croisee."
+}
+
 /* ============================================================
    8. Robustesse : definition alternative du traitement
       (beneficiaires stables)
