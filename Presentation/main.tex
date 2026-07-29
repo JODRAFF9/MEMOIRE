@@ -390,16 +390,18 @@
       \item \textbf{EHCVM I (2018-2019)} : première vague harmonisée UEMOA au Sénégal.
       \item \textbf{EHCVM II (2021-2022)} : deuxième vague permettant de constituer un panel.
       \item \textbf{Panel vrai} : 6\,127 ménages suivis entre les deux vagues.
-      \item \textbf{Traitement} : ménages bénéficiaires en 2018 d'un transfert
-            de migrant issu du ménage, comparés aux non-bénéficiaires.
+      \item \textbf{Traitement} : ménages bénéficiaires en 2018 seulement
+            d'un transfert de migrant issu du ménage, comparés aux ménages
+            jamais bénéficiaires.
     \end{itemize}
   \end{block}
   \begin{block}{Population cible et unité d'analyse}
     Enfants de 0 à 17 ans suivis individuellement d'une vague à l'autre par
-    l'identifiant préchargé du questionnaire 2021, soit 17\,786 enfants :
-    2\,638 dans un ménage bénéficiaire en 2018 (dont 1\,482 bénéficiaires
-    stables aux deux vagues) et 15\,148 dans un ménage non bénéficiaire
-    (dont 13\,477 jamais bénéficiaires). Le score de propension et
+    l'identifiant préchargé du questionnaire 2021, soit 17\,786 enfants.
+    L'estimation retient les 1\,156 enfants de ménages bénéficiaires en 2018
+    seulement (traités) et les 13\,477 enfants de ménages jamais
+    bénéficiaires (témoins), soit 14\,633 enfants ; stables (1\,482) et
+    entrants 2021 (1\,671) sont écartés. Le score de propension et
     l'appariement sont estimés à ce niveau.
   \end{block}
   \begin{alertblock}{Covariables du modèle de propension}
@@ -424,10 +426,10 @@
           \toprule
           Vague & $H$ & $A$ & $M_0$ \\
           \midrule
-          2018-2019 & 63,5\,\% & 70,7\,\% & 0,449 \\
-          2021-2022 & 57,8\,\% & 70,3\,\% & 0,406 \\
+          2018-2019 & 65,8\,\% & 71,2\,\% & 0,468 \\
+          2021-2022 & 59,9\,\% & 70,6\,\% & 0,422 \\
           \midrule
-          $\Delta$ & $-5{,}7$ pp & $-0{,}4$ pp & $-0{,}043$ \\
+          $\Delta$ & $-5{,}9$ pp & $-0{,}6$ pp & $-0{,}046$ \\
           \bottomrule
         \end{tabular}
       \end{block}
@@ -454,26 +456,26 @@
       & \multicolumn{2}{c}{EHCVM I (2018-19)} & \multicolumn{2}{c}{EHCVM II (2021-22)} & \\
       Sous-groupe & Non-bénéf. & Bénéf. & Non-bénéf. & Bénéf. & DD \\
       \midrule
-      0-4 ans   & 60,5 & 36,7 & 62,6 & 45,7 & $+6{,}8$ \\
-      5-14 ans  & 70,4 & 50,8 & 59,6 & 40,7 & $+0{,}7$ \\
-      15-17 ans & 58,1 & 59,9 & 53,5 & 44,6 & $-10{,}7$ \\
+      0-4 ans   & 60,7 & 39,6 & 62,9 & 47,6 & $+5{,}9$ \\
+      5-14 ans  & 71,1 & 54,4 & 60,3 & 45,2 & $+1{,}6$ \\
+      15-17 ans & 59,3 & 64,2 & 55,5 & 43,3 & $-17{,}1$ \\
       \midrule
-      Garçons   & 65,6 & 46,3 & 60,1 & 42,9 & $+2{,}1$ \\
-      Filles    & 67,7 & 46,1 & 60,9 & 42,1 & $+2{,}7$ \\
+      Garçons   & 66,0 & 45,7 & 60,4 & 44,9 & $+4{,}8$ \\
+      Filles    & 68,5 & 53,9 & 61,8 & 47,1 & $-0{,}1$ \\
       \bottomrule
     \end{tabular}
   \end{table}
-  \begin{alertblock}{L'écart se referme chez les tout-petits}
-    Chez les 0-4 ans, l'avantage des bénéficiaires passe de 23,7 à
-    16,9 points ; chez les 5-14 ans il ne bouge pas. Le sexe ne sépare rien :
-    $+2{,}7$ points chez les filles contre $+2{,}1$ chez les garçons. Le
-    descriptif annonce le résultat causal.
+  \begin{alertblock}{L'écart se referme chez les tout-petits et les garçons}
+    Chez les 0-4 ans, l'avantage des bénéficiaires passe de 21,1 à
+    15,2 points ; chez les 5-14 ans il bouge à peine. Le contraste par sexe
+    est net au plan descriptif ($+4{,}8$ points chez les garçons contre
+    $-0{,}1$ chez les filles) sans être établi statistiquement.
   \end{alertblock}
   \begin{block}{Lecture}
     Groupes d'âge figés en 2018, mêmes enfants aux deux vagues. Le
     resserrement chez les 0-4 ans vient de la nutrition, dont l'écart tombe de
-    $28{,}8$ à $17{,}0$ points : la dimension même sur laquelle l'estimation
-    conclut. Les 15-17 ans ne sont plus que 445, l'âge les faisant sortir du
+    $20{,}4$ à $9{,}6$ points, sans que l'estimation ne l'établisse. Les
+    15-17 ans ne sont plus que 378, l'âge les faisant sortir du
     champ : leur ligne n'est pas interprétable.
   \end{block}
   \begin{center}
@@ -492,13 +494,13 @@
     \begin{column}{0.46\textwidth}
       \begin{block}{Équilibre après appariement ($k$-NN, $k=4$)}
         \begin{itemize}
-          \item Probit au niveau enfant : 17\,735 enfants suivis
-                aux deux vagues (pseudo-$R^2 = 0{,}151$), covariables du
+          \item Probit au niveau enfant : 14\,583 enfants suivis
+                aux deux vagues (pseudo-$R^2 = 0{,}099$), covariables du
                 ménage ainsi que sexe et âge de l'enfant.
-          \item Différence standardisée moyenne : 11,4\,\% avant,
-                2,5\,\% après appariement ; le test joint de nullité des
+          \item Différence standardisée moyenne : 11,1\,\% avant,
+                2,0\,\% après appariement ; le test joint de nullité des
                 covariables n'est plus rejeté.
-          \item Panel apparié : 16\,152 observations-enfants.
+          \item Panel apparié : 8\,632 observations-enfants.
         \end{itemize}
       \end{block}
     \end{column}
@@ -517,24 +519,25 @@
       \toprule
       Spécification & ATT \\
       \midrule
-      DD brute (sans appariement)      & \makecell{$0{,}032$\\(0,023)} \\
-      PSM-DD, k-NN ($k=4$)             & \makecell{$0{,}058^{*}$\\(0,030)} \\
-      PSM-DD, noyau Epanechnikov       & \makecell{$0{,}055^{*}$\\(0,031)} \\
-      PSM-DD, caliper                  & \makecell{$0{,}047^{*}$\\(0,027)} \\
+      DD brute (sans appariement)      & \makecell{$0{,}043$\\(0,029)} \\
+      PSM-DD, k-NN ($k=4$)             & \makecell{$0{,}051$\\(0,031)} \\
+      PSM-DD, noyau Epanechnikov       & \makecell{$0{,}059^{*}$\\(0,032)} \\
+      PSM-DD, caliper                  & \makecell{$0{,}049$\\(0,032)} \\
       \bottomrule
     \end{tabular}
     {\scriptsize Écarts-types entre parenthèses. $^{*}p<0{,}10$.}
   \end{table}
   \begin{alertblock}{Résultat central : pas de réduction, présomption d'effet défavorable}
     Sur 2018-2021, la pauvreté multidimensionnelle des enfants des ménages
-    bénéficiaires recule plus lentement que celle des témoins appariés
-    ($+5{,}8$ pp). Significatif à 10\,\%, pas à 5\,\% : H1 est rejetée,
+    bénéficiaires ne recule pas plus vite que celle des témoins appariés
+    ($+5{,}1$ pp, $p=0{,}103$) : H1 est rejetée,
     l'effet inverse est suggéré sans être démontré. Les trois appariements
-    concordent (0,047 à 0,058).
+    donnent des ampleurs voisines (0,049 à 0,059), un seul franchit 10\,\%.
   \end{alertblock}
   \begin{block}{Lecture}
-    L'effet n'est pas diffus : il n'est établi que sur la nutrition, chez les
-    0-4 ans et sur les petits montants. Les transferts étant indissociables du
+    L'effet n'est établi qu'en milieu urbain ($+10{,}5$ pp, test d'égalité
+    $p=0{,}045$), seul volet d'hétérogénéité qui résiste. Les transferts étant
+    indissociables du
     départ d'un adulte, le coût de l'absence en donne une lecture partielle,
     sans suffire à porter l'écart.
   \end{block}
@@ -548,28 +551,24 @@
       \includegraphics[width=\linewidth,height=0.46\textheight,keepaspectratio]{figures/fig_effets_dim.pdf}
     \end{column}
     \begin{column}{0.43\textwidth}
-      \begin{alertblock}{Un seul effet sectoriel significatif}
+      \begin{alertblock}{Aucun effet sectoriel significatif}
         \begin{itemize}
-          \item Nutrition : $+8{,}1$ pp, significative à 5\,\%, seule
-                dimension significative -- et celle qui dépend le plus
-                directement du budget courant.
-          \item Assainissement : $+3{,}7$ pp, même sens,
-                sans atteindre la significativité.
-          \item Les cinq autres dimensions restent comprises entre
-                $+1{,}2$ et $+1{,}6$ pp, toutes non significatives.
+          \item Assainissement : $+3{,}9$ pp, coefficient le plus élevé,
+                non significatif.
+          \item Santé : $+2{,}8$ pp, la plus proche du seuil
+                ($p=0{,}10$) sans l'atteindre.
+          \item Nutrition et logement : $+2{,}9$ pp chacun ; protection,
+                éducation et eau sous $+1$ pp, tous non significatifs.
         \end{itemize}
       \end{alertblock}
     \end{column}
   \end{columns}
   \begin{block}{Lecture}
-    Aucun test d'égalité ne conclut à un effet différencié, ni entre
-    milieux, ni selon le sexe, ni entre tranches d'âge.
-    L'effet n'est établi que chez les 0-4 ans ($+7{,}9$ pp, significatif à
-    5\,\%), les
-    plus dépendants du temps de soin : effet par âge et effet nutrition se
-    répondent. Chez les filles, il est plus élevé que chez les garçons
-    ($0{,}064$ contre $0{,}052$) sans que l'écart soit tranchable, mais le
-    descriptif va dans le même sens.
+    Le seul test d'égalité qui conclut est celui du milieu de résidence :
+    $+10{,}5$ pp en urbain contre $-1{,}7$ en rural ($p=0{,}045$). Ni le sexe
+    (garçons $0{,}081^{**}$, filles $0{,}021$, écart non tranché), ni l'âge
+    (test joint $p=0{,}61$), ni les dimensions ne séparent statistiquement
+    les trajectoires.
   \end{block}
 \end{frame}
 
@@ -583,21 +582,22 @@
       \toprule
       Quintile de montant annuel & ATT \\
       \midrule
-      Q1 (jusqu'à 100~000 FCFA)  & \makecell{$0{,}122^{**}$\\(0,052)}  \\
-      Q2 (110~000 à 360~000)     & \makecell{$0{,}093^{**}$\\(0,042)}  \\
-      Q3 (380~000 à 900~000)     & \makecell{$0{,}014$\\(0,047)}  \\
-      Q4 (920~000 à 1~800~000)   & \makecell{$0{,}078$\\(0,061)}  \\
-      Q5 (au-delà de 1~824~000)  & \makecell{$-0{,}014$\\(0,053)} \\
+      Q1 (jusqu'à 50~000 FCFA)   & \makecell{$0{,}095$\\(0,079)}  \\
+      Q2 (55~000 à 180~000)      & \makecell{$0{,}082$\\(0,054)}  \\
+      Q3 (200~000 à 480~000)     & \makecell{$0{,}052$\\(0,053)}  \\
+      Q4 (500~000 à 1~200~000)   & \makecell{$0{,}007$\\(0,055)}  \\
+      Q5 (au-delà de 1~230~000)  & \makecell{$0{,}015$\\(0,073)} \\
       \midrule
-      Pente dose-réponse (log du montant) & \makecell{$-0{,}025^{*}$\\(0,014)} \\
+      Pente dose-réponse (log du montant) & \makecell{$-0{,}021$\\(0,020)} \\
       \bottomrule
     \end{tabular}
     {\scriptsize Écarts-types entre parenthèses. $^{*}p<0{,}10$, $^{**}p<0{,}05$.}
   \end{table}
-  \begin{alertblock}{Le volet de H2 le mieux établi}
-    L'effet défavorable se concentre sur les petits montants et disparaît
-    au-delà. Là où l'apport monétaire reste faible, il ne compense pas le coût
-    du départ de l'adulte ; au-delà d'un certain seuil, il l'équilibre.
+  \begin{alertblock}{Un gradient dessiné, non établi}
+    Les points estimés décroissent des petits vers les gros montants, mais
+    aucun n'est significatif et la pente ne l'est pas : avec moins de
+    300 ménages porteurs d'un montant, la puissance manque. La lecture
+    « petits transferts ne compensant pas le départ » reste une hypothèse.
   \end{alertblock}
   \begin{block}{Réserve}
     Le montant n'est pas assigné aléatoirement parmi les bénéficiaires :
@@ -615,21 +615,21 @@
   \begin{block}{Sensibilité des résultats}
     \begin{itemize}
       \item Méthodes d'appariement (k-NN, noyau, caliper) : effet de
-            $0{,}047$ à $0{,}058$, tous significatifs à 10\,\%.
+            $0{,}049$ à $0{,}059$, un seul significatif à 10\,\%.
       \item Seuil $k$, testé de 1 à 7 : ampleur en courbe de cloche,
-            maximale à $k=4$ et significative seulement à $k=3$ et $k=4$ --
-            l'effet se joue au milieu de la distribution des privations,
+            maximale à $k=4$ et significative seulement à $k=3$ --
+            l'écart se joue au milieu de la distribution des privations,
             pas dans son noyau.
       \item Sans appariement, sur tous les enfants des ménages du panel :
-            $0{,}032$, non significatif -- même signe, ampleur atténuée, l'avantage
+            $0{,}043$, non significatif -- même signe, ampleur atténuée, l'avantage
             initial des bénéficiaires n'étant pas corrigé.
       \item Test placebo (200 assignations aléatoires) : distribution
-            centrée sur zéro, effet réel au 99,0\textsuperscript{e} centile.
+            centrée sur zéro, effet réel au 95,0\textsuperscript{e} centile.
     \end{itemize}
   \end{block}
   \begin{alertblock}{Définition alternative : les bénéficiaires stables}
     Enfants des ménages bénéficiaires aux deux vagues face aux jamais
-    bénéficiaires : l'effet tombe à $0{,}023$ et perd sa significativité,
+    bénéficiaires : l'effet tombe à $0{,}023$, loin de toute significativité,
     l'écart de trajectoire ne se retrouvant pas chez les bénéficiaires de
     longue date. Mais le traitement y est déjà en cours dès 2018, donc pas
     de vraie période pré-traitement.
@@ -645,9 +645,9 @@
       \toprule
       Hyp. & Énoncé & Résultat & Décision \\
       \midrule
-      H1 & Réduction de la pauvreté & ATT MODA $= 0{,}058$, significatif à 10\,\% et de signe défavorable : pas de réduction & Rejetée \\[4pt]
-      H2 & Hétérogénéité des effets  & Aucun test d'égalité concluant (milieu, sexe, âge) ; effet établi seulement sur la nutrition et chez les 0-4 ans (5\,\%) ; gradient selon le montant & Partiellement \\[4pt]
-      H3 & PSM-DD contrôle les biais & PSM seul : $-7{,}7$ pp en 2018, significatif ; la DD élimine cet écart pré-traitement et inverse le signe & Confirmée \\
+      H1 & Réduction de la pauvreté & ATT MODA $= 0{,}051$, non significatif et de signe défavorable : pas de réduction & Rejetée \\[4pt]
+      H2 & Hétérogénéité des effets  & Un seul test d'égalité concluant, le milieu ($+10{,}5$ pp en urbain, $p=0{,}045$) ; ni sexe, ni âge, ni dimension, ni montant établis & Partiellement \\[4pt]
+      H3 & PSM-DD contrôle les biais & PSM seul : $-8{,}0$ pp en 2018, significatif ; la DD élimine cet écart pré-traitement et inverse le signe & Confirmée \\
       \bottomrule
     \end{tabular}
   \end{table}
@@ -665,17 +665,18 @@
       \item Mesure de la pauvreté multidimensionnelle des enfants sur deux
             vagues EHCVM selon l'approche MODA (7 dimensions, $k=4$).
       \pause
-      \item L'incidence MODA recule de 63,5\,\% (2018) à 57,8\,\% (2021) :
+      \item L'incidence MODA recule de 65,8\,\% (2018) à 59,9\,\% (2021) :
             amélioration réelle mais la pauvreté reste massive.
       \pause
       \item Recevoir des transferts ne réduit pas, à trois ans, la
             pauvreté multidimensionnelle des enfants : l'effet est de
-            $+0{,}058$, significatif à 10\,\%, de signe défavorable et stable aux
-            trois appariements.
+            $+0{,}051$, non significatif, de signe défavorable et d'ampleur
+            stable aux trois appariements.
       \pause
-      \item Il n'est établi que sur la nutrition, chez les 0-4 ans et sur les
-            plus faibles montants reçus : le coût du départ de l'adulte pèse sur
-            les plus dépendants, et l'argent ne le compense pas.
+      \item Il n'est établi qu'en milieu urbain ($+10{,}5$ pp), seul volet
+            d'hétérogénéité qui résiste au test d'égalité : le coût du départ
+            de l'adulte en donne une lecture partielle, que l'argent ne
+            compense pas.
     \end{enumerate}
   \end{block}
 \end{frame}
