@@ -65,10 +65,7 @@
 
 % ── Titres de section - bandeau ENSAE ────────────────────────
 \usepackage{titlesec}
-% L'en-tete est vide mais sa hauteur reste reservee : un espacement negatif
-% remonte le titre vers le haut de la page sans deplacer le corps du texte
-% des autres pages.
-\titlespacing*{\section}{0pt}{-45pt}{4pt}
+\titlespacing*{\section}{0pt}{0pt}{4pt}
 \titlespacing*{\subsection}{0pt}{8pt}{4pt}
 \titlespacing*{\subsubsection}{0pt}{6pt}{3pt}
 
@@ -78,6 +75,11 @@
 \setlength{\fboxsep}{6pt}
 \newcommand{\ensaetetesection}[2]{%
   \par\begingroup\setlength{\parskip}{0pt}%
+  % L'en-tete de page est vide mais sa hauteur reste reservee ; l'espace
+  % « avant » de titlespacing etant une glue, il est jete en haut de page
+  % et n'a aucun effet sur un titre qui ouvre la page. Seul un \vspace*
+  % (etoile) survit au saut de page : c'est lui qui remonte le titre.
+  \vspace*{-1.5cm}%
   {\centering\color{ensaeblue}\Large\bfseries #1\par}
   \vspace{0.12cm}
   \noindent
