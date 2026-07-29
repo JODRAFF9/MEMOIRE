@@ -10,6 +10,37 @@ les implications pour les politiques publiques.
 
 \subsection{Tests de robustesse}
 
+\subsection{Traitement défini par les bénéficiaires stables}
+
+En complément du design principal, l'effet est estimé en comparant les
+bénéficiaires stables (recevant un transfert aux deux vagues,
+2\,604 observations-enfants) aux ménages jamais bénéficiaires
+(23\,580 observations). La double différence donne un effet de $0{,}023$
+(non significatif)~: de même signe que l'estimation principale, mais d'ampleur plus
+faible et non significatif. L'écart de trajectoire observé sur le traitement
+défini à la période de base ne se retrouve donc pas chez les bénéficiaires de
+longue date.
+
+\begin{table}[H]
+	\centering
+	\caption[Bénéficiaires stables : effet par quintile de montant annuel reçu en 2018]{Bénéficiaires stables : effet par quintile de montant annuel reçu en 2018\protect\footnotemark}
+	\label{tab:stables_montant}
+	\zebre
+	\begin{tabular}{|l|c|}
+		\hline
+		\entete Quintile de montant (2018) & ATT (DD) \\
+		\hline
+		Q1 (jusqu'à 200~000 FCFA)  & \makecell{$0{,}101$\\$(0{,}065)$} \\ \hline
+		Q2 (220~000 à 763~000)     & \makecell{$0{,}009$\\$(0{,}056)$} \\ \hline
+		Q3 (768~000 à 1~400~000)   & \makecell{-$0{,}021$\\$(0{,}075)$} \\ \hline
+		Q4 (1~450~000 à 2~400~000) & \makecell{$0{,}029$\\$(0{,}073)$} \\ \hline
+		Q5 (au-delà de 2~490~000)  & \makecell{$0{,}000$\\$(0{,}072)$} \\
+		\hline
+	\end{tabular}
+	
+	{\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM.}
+\end{table}
+
 \subsubsection{Sensibilité au traitement et à la méthode d'appariement}
 
 Le tableau~\ref{tab:psm_methodes} (section~\ref{subsec:psmdd}) documente la
