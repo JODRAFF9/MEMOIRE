@@ -79,8 +79,7 @@ revenu absent plutôt qu'il n'accompagne une position professionnelle établie,
 lecture cohérente avec le motif assurantiel de la nouvelle économie des
 migrations \parencite{stark1985}. Les deux covariables individuelles ne sont
 en revanche pas significatives : ni
-le sexe de l'enfant ($0{,}018$~; $p = 0{,}458$) ni son âge ($0{,}003$~;
-$p = 0{,}355$) ne prédisent l'appartenance à un ménage bénéficiaire, ce qui
+le sexe de l'enfant ($0{,}018$) ni son âge ($0{,}003$) ne prédisent l'appartenance à un ménage bénéficiaire, ce qui
 était attendu puisque le traitement est reçu au niveau du ménage. Leur
 présence dans le modèle ne vise pas à améliorer la prédiction mais à garantir
 que chaque enfant traité soit comparé à des enfants témoins de même sexe et de
@@ -152,8 +151,8 @@ la taille du ménage ($9{,}4$\,\%) et le log de la dépense par tête
 résultat n'est pas fortuit : l'appariement au niveau de l'enfant fait entrer
 chaque ménage autant de fois qu'il abrite d'enfants, ce qui accentue le poids
 des ménages nombreux et rend leur taille plus difficile à équilibrer. Le test
-joint sur l'échantillon apparié n'est en revanche pas significatif
-($p = 0{,}330$) : le déséquilibre reste localisé sur ces deux variables et ne
+joint sur l'échantillon apparié n'est en revanche pas significatif : le
+déséquilibre reste localisé sur ces deux variables et ne
 compromet pas l'équilibrage d'ensemble.
 
 \subsubsection{Comparaison de la qualité des trois appariements}
@@ -186,8 +185,7 @@ Les trois algorithmes satisfont les critères usuels : la différence
 standardisée moyenne tombe à 2,5\,\% ou moins, le pseudo-$R^2$ passe de 0,151
 à 0,007 ou moins, $B$ reste sous 25\,\% et $R$ dans l'intervalle
 $[0{,}5~;~2]$. Le test joint n'est significatif pour aucune des trois
-méthodes. Le noyau s'équilibre un peu mieux (SMD de 2,0\,\%,
-$p = 0{,}967$), le k-NN et le caliper se tenant à 2,5\,\%. Le déséquilibre
+méthodes. Le noyau s'équilibre un peu mieux (SMD de 2,0\,\%), le k-NN et le caliper se tenant à 2,5\,\%. Le déséquilibre
 résiduel du k-NN porte sur la taille du ménage et la dépense
 par tête, dont l'effet de niveau est de toute façon éliminé par la double
 différence, celle-ci ne retenant que la variation intra-individuelle. Il
@@ -201,7 +199,7 @@ niveau, mais la tendance des privations, hypothèse que le test placebo
 
 À titre de référence, nous estimons d'abord un estimateur de double
 différence sans appariement (tableau~\ref{tab:dd_brut}). L'impact estimé est
-de $+3{,}2$ points de pourcentage et non significatif ($p = 0{,}167$). Cette
+de $+3{,}2$ points de pourcentage et non significatif. Cette
 comparaison brute reste toutefois exposée aux différences initiales entre les
 deux groupes -- les bénéficiaires sont plus aisés, plus urbains, plus souvent
 dirigés par une femme --, d'où le recours à l'appariement.
@@ -251,7 +249,7 @@ sélection sur observables et les effets fixes inobservables constants dans le t
 \footnotetext{\textit{Note :} appariement k-NN au niveau enfant, erreurs-types clusterisées par grappe, entre parenthèses sous le coefficient, $n = 16\,152$ observations-enfants.}
 
 L'estimateur PSM-DD donne un effet de $0{,}058$, significatif au seuil de 10\,\%
-et à la limite du seuil de 5\,\% ($p = 0{,}052$). Le signe est positif : entre
+et à la limite du seuil de 5\,\%. Le signe est positif : entre
 2018-2019 et 2021-2022, la privation multidimensionnelle des enfants de ménages
 bénéficiaires a reculé plus lentement que celle d'enfants témoins de sexe,
 d'âge et de profil de ménage comparables, l'écart étant de l'ordre de 6 points
@@ -286,11 +284,11 @@ correspond à l'effet estimé.
 
 Le tableau~\ref{tab:psm_methodes} examine la stabilité des résultats selon la
 méthode d'appariement retenue. Les trois algorithmes concordent étroitement :
-l'effet vaut $0{,}058$ pour le k-NN ($p = 0{,}052$), $0{,}055$ pour le noyau
-Epanechnikov ($p = 0{,}079$) et $0{,}047$ pour le caliper ($p = 0{,}083$),
+l'effet vaut $0{,}058$ pour le k-NN, $0{,}055$ pour le noyau
+Epanechnikov et $0{,}047$ pour le caliper,
 tous trois significatifs au seuil de 10\,\% et aucun au seuil de 5\,\%. La
 double différence brute, qui ne corrige pas la sélection, donne une valeur
-plus faible et non significative ($0{,}032$~; $p = 0{,}167$) : c'est
+plus faible et non significative ($0{,}032$) : c'est
 l'appariement qui fait apparaître l'écart de trajectoire, en neutralisant
 l'avantage initial des enfants de ménages bénéficiaires.
 
@@ -365,9 +363,8 @@ ensemble.
 
 L'analyse par dimension (figure~\ref{fig:effets_dim} et
 tableau~\ref{tab:effets_dim}) décompose l'effet d'ensemble sur les sept
-dimensions MODA. Une seule ressort, la nutrition, avec un effet de $0{,}081$
-significatif au
-seuil de 5\,\% ($p = 0{,}042$). La privation alimentaire des enfants de ménages
+dimensions MODA. Une seule ressort, la nutrition, avec un effet de $0{,}081$,
+significatif au seuil de 5\,\%. La privation alimentaire des enfants de ménages
 bénéficiaires recule 8,1 points plus lentement que celle de leurs témoins
 appariés. C'est aussi la dimension la plus directement sensible au budget
 courant du ménage, donc celle où un apport monétaire aurait dû se voir en
@@ -376,7 +373,7 @@ premier : le résultat va à l'encontre de l'effet attendu.
 Les six autres dimensions présentent des coefficients faibles, tous positifs
 et tous non significatifs, entre $0{,}012$ pour la santé et $0{,}037$ pour
 l'assainissement. La protection de l'enfant, malgré son contenu directement
-lié à l'absence parentale, ne se distingue pas ($0{,}016$~; $p = 0{,}413$).
+lié à l'absence parentale, ne se distingue pas ($0{,}016$).
 L'effet à la nutrition dépasse donc du double le plus élevé des autres. Le
 volet dimensionnel de l'hypothèse H2 est ainsi partiellement validé :
 l'effet des transferts n'est pas uniforme entre dimensions, il se concentre
