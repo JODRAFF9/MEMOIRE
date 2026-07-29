@@ -93,14 +93,16 @@
       % dans la boite englobante, faute de quoi il ecarterait le
       % soulignement du titre.
       \fill[ensaeblue] (0,-3pt) rectangle (0.925\textwidth,3pt);
-      \node[circle, fill=ensaeblue, text=white, minimum size=2.1cm,
+      \node[circle, fill=ensaeblue, text=white, minimum size=1.8cm,
             inner sep=0pt, overlay,
-            font=\fontsize{42}{42}\selectfont]
+            font=\fontsize{36}{36}\selectfont]
         at (0.925\textwidth,0cm) {#2};
     \fi
   \end{tikzpicture}\par
   \endgroup
-  \vspace{1cm}
+  % Plancher impose par la pastille : tracee en overlay, elle descend de
+  % 0,9 cm sous le filet sans que LaTeX en reserve la place.
+  \vspace{0.95cm}
 }
 % Wrappers : évite #1 direct dans \titleformat (incompatible avec certaines versions titlesec)
 \newcommand{\ensaebandeaunum}[1]{\ensaetetesection{#1}{\thesection}}
