@@ -1,3 +1,29 @@
+/* ============================================================
+   tout.do — Script unique contenant l'integralite du pipeline
+
+   Ce fichier regroupe tous les codes du projet dans l'ordre
+   d'execution logique. Il peut etre lance depuis la racine :
+     do "code/stata/tout.do"
+
+   Aucune ponderation par poids d'enquete (hhweight) : toutes les
+   statistiques et estimations sont calculees sur effectifs bruts,
+   avec erreurs-types clusterisees au niveau de la grappe.
+   Traitement : design ENTRANTS (aucun transfert en 2018, transfert
+   etranger recu en 2021, vs jamais beneficiaire aux deux vagues).
+
+   Pipeline :
+     config       — chemins, constantes
+     (chargement direct des bases, sans sous-programmes)
+     01_visitation  — exploration des bases brutes
+     02_traitement  — variable D + identification panel
+     03_deprivation — indicateurs MODA
+     04_panel       — panel vrai + traitement entrants
+     05_psm_dd      — estimation PSM-DD (matching niveau enfant)
+     06_stats_desc  — statistiques descriptives
+     07_effets_dim  — effets par dimension
+     08_carte_region— carte regionale
+     09_placebo — tests placebo
+   ============================================================ */
 cd "C:\Users\Bmd\Documents\ISE\Cours\ISE3\Memoire"
 capture log close _all
 /* Si un ancien log est verrouille par un autre programme (r(608)),
@@ -41,9 +67,87 @@ set seed   $SEED
 set more   off
 set varabbrev off
 
+/* Pas de ponderation par poids d'enquete (hhweight) dans ce projet :
+   toutes les statistiques et estimations sont calculees sur effectifs
+   bruts. Les erreurs-types sont clusterisees au niveau de la grappe
+   (vce(cluster grappe)) pour tenir compte du plan de sondage en grappes,
+   sans recourir aux poids de sondage. */
+
 foreach d in "$OUTPUT" "$TEMP" "$PREP" "$LOGS" {
     capture mkdir "`d'"
 }
+
+
+/* ============================================================
+   SECTION : 01_VISITATION — Exploration des deux bases EHCVM
+   ============================================================ */
+
+
+/* ── EHCVM I (2018-2019) ──────────────────────────────────── */
+
+use "$BASE_2018/ehcvm_individu_sen2018.dta", clear
+di _newline "===== Individus 2018-2019 ====="
+di "Observations : " _N
+describe
+codebook, compact
+
+use "$BASE_2018/ehcvm_menage_sen2018.dta", clear
+di _newline "===== Menages 2018-2019 ====="
+di "Observations : " _N
+describe
+codebook, compact
+
+use "$BASE_2018/ehcvm_welfare_sen2018.dta", clear
+di _newline "===== Welfare 2018-2019 ====="
+di "Observations : " _N
+describe
+codebook, compact
+
+use "$BASE_2018/s13a_1_me_sen2018.dta", clear
+di _newline "===== Transferts S13A-1 (2018-2019) ====="
+di "Observations : " _N
+describe
+codebook, compact
+
+use "$BASE_2018/s13a_2_me_sen2018.dta", clear
+di _newline "===== Transferts S13A-2 (2018-2019) ====="
+di "Observations : " _N
+describe
+codebook, compact
+
+
+/* ── EHCVM II (2021-2022) ─────────────────────────────────── */
+
+use "$BASE_2021/ehcvm_individu_sen2021.dta", clear
+di _newline "===== Individus 2021-2022 ====="
+di "Observations : " _N
+describe
+codebook, compact
+
+use "$BASE_2021/ehcvm_menage_sen2021.dta", clear
+di _newline "===== Menages 2021-2022 ====="
+di "Observations : " _N
+describe
+codebook, compact
+
+use "$BASE_2021/ehcvm_welfare_sen2021.dta", clear
+di _newline "===== Welfare 2021-2022 ====="
+di "Observations : " _N
+describe
+codebook, compact
+
+use "$BASE_2021/s13_1_me_sen2021.dta", clear
+di _newline "===== Transferts S13-1 (2021-2022) ====="
+di "Observations : " _N
+describe
+codebook, compact
+
+use "$BASE_2021/s13_2_me_sen2021.dta", clear
+di _newline "===== Transferts S13-2 (2021-2022) ====="
+di "Observations : " _N
+describe
+codebook, compact
+
 
 /* ── Structure panel : variable PanelHH (s00_me_sen2021) ─── */
 
@@ -824,18 +928,15 @@ foreach annee in 2018 2021 {
    2. Statut de traitement : defini a la periode de BASE (2018)
 
    Design principal : le statut de traitement est fixe par la situation
-   de 2018 croisee avec celle de 2021. On definit :
+   de 2018, qui sert de reference avant l'observation des resultats
+   ulterieurs. On definit :
      - traites (D_stable=1) : menage recevant en 2018 un transfert
        etranger d'un expediteur ayant deja vecu dans le menage
-       (migration d'un membre du menage) et n'en recevant plus en 2021
-       (beneficiaire en 2018 seulement)
-     - temoins (D_stable=0) : menage ne recevant ce type de transfert
-       a aucune des deux vagues (jamais beneficiaire)
-   Les menages beneficiaires stables (aux deux vagues) sont reserves
-   a la definition alternative du traitement (robustesse) ; les
-   menages devenant beneficiaires en 2021 seulement sont exclus, leur
-   trajectoire etant contaminee par un traitement recu pendant la
-   periode d'observation.
+       (migration d'un membre du menage)
+     - temoins (D_stable=0) : menage ne recevant aucun transfert
+       etranger de ce type en 2018
+   Le statut etant fige a la periode de base, il ne peut pas etre
+   affecte par l'evolution des privations entre les deux vagues.
    ============================================================ */
 
 use "$TEMP/traitement_2018.dta", clear
@@ -843,19 +944,15 @@ rename D D_2018
 merge 1:1 grappe menage using "$TEMP/traitement_2021.dta", ///
     keepusing(D) keep(match) nogenerate
 rename D D_2021
-gen byte D_stable = .
-replace D_stable = 1 if D_2018 == 1 & D_2021 == 0
-replace D_stable = 0 if D_2018 == 0 & D_2021 == 0
-label var D_stable "Traitement (1=beneficiaire 2018 seulement, 0=jamais beneficiaire)"
+gen byte D_stable = D_2018
+label var D_stable "Traitement (1=beneficiaire migrant en 2018, 0=non beneficiaire)"
 
 di _newline ">>> Cellules de traitement (menages presents aux 2 vagues) :"
 tab D_2018 D_2021
 quietly count if D_stable == 1
-di "  Beneficiaires 2018 seulement (traites) : " r(N)
+di "  Beneficiaires 2018 (migrant) : " r(N)
 quietly count if D_stable == 0
-di "  Jamais beneficiaires (temoins)         : " r(N)
-quietly count if missing(D_stable)
-di "  Exclus (stables et entrants 2021)      : " r(N)
+di "  Non beneficiaires 2018       : " r(N)
 
 keep grappe menage D_stable D_2018 D_2021
 save "$TEMP/traitement_stable.dta", replace
@@ -907,16 +1004,14 @@ use `panel_t0', clear
 append using `panel_t1'
 sort grappe menage t
 
-/* Appliquer le statut de traitement principal : beneficiaires en 2018
-   seulement contre jamais beneficiaires. Les menages a D_stable manquant
-   (beneficiaires stables et entrants 2021) sortent de l'echantillon
-   d'estimation. */
+/* Appliquer le statut de traitement ENTRANT et exclure les menages
+   deja beneficiaires en 2018 (traitement anterieur a la periode) */
 merge m:1 grappe menage using "$TEMP/traitement_stable.dta", ///
     keepusing(D_stable) keep(master match) nogenerate
 drop if missing(D_stable)
 replace D = D_stable
 drop D_stable
-label var D "Traitement (1=beneficiaire 2018 seulement, 0=jamais beneficiaire)"
+label var D "Traitement (1=beneficiaire migrant en 2018, 0=non beneficiaire)"
 
 di _newline "=== Panel vrai (traitement defini en 2018) ==="
 di "Observations totales     : " _N
@@ -1041,9 +1136,9 @@ save "$TEMP/panel_complet.dta", replace
      6. Heterogeneite (milieu, sexe, age)
      7. Robustesse (seuil k, methodes d'appariement, agregat menage)
 
-   Traitement : beneficiaire en 2018 seulement (transfert d'un
+   Traitement : defini a la periode de base (2018), transfert d'un
    expediteur residant hors du Senegal et ayant deja vecu dans le
-   menage, plus recu en 2021) contre jamais beneficiaire.
+   menage.
    ============================================================ */
 
 /* ── 1a. Construction du panel d'enfants suivis ──────────────
@@ -1074,16 +1169,10 @@ merge m:1 grappe menage numind using "$TEMP/lien_individus.dta", ///
 drop numind
 merge 1:1 grappe menage numind_2018 using `enf18_psm', keep(match) nogenerate
 
-/* Traitement principal : beneficiaire en 2018 seulement (transfert d'un
-   expediteur ex-membre du menage) contre jamais beneficiaire. Les enfants
-   des menages beneficiaires stables ou entrants en 2021 (D_stable manquant)
-   sortent de l'echantillon d'estimation. */
-merge m:1 grappe menage using "$TEMP/traitement_stable.dta", ///
-    keepusing(D_stable) keep(match) nogenerate
-drop if missing(D_stable)
-gen byte D = D_stable
-drop D_stable
-label var D "Traitement (1=beneficiaire 2018 seulement, 0=jamais beneficiaire)"
+/* Traitement defini a la periode de base (transfert 2018, expediteur
+   ex-membre du menage) */
+merge m:1 grappe menage using "$TEMP/traitement_2018.dta", ///
+    keepusing(D) keep(match) nogenerate
 
 /* Restriction aux menages du panel vrai */
 merge m:1 grappe menage using "$TEMP/ids_panel.dta", keep(match) nogenerate
@@ -1232,10 +1321,10 @@ di _newline "Panel d'enfants apparie : " _N " observations (" ///
     %6.0f `=_N/2' " enfants x 2 vagues)"
 
 /* ── Ventilation des enfants suivis par stabilite du statut ─────
-   Alimente le tableau de repartition du traitement (chap. 2) : croisement
-   du statut 2018 avec le statut a l'autre vague sur les enfants retenus
-   dans l'echantillon principal (beneficiaires 2018 seulement et jamais
-   beneficiaires). */
+   Alimente le tableau de repartition du traitement (chap. 2) : parmi les
+   17 786 enfants suivis, croisement du statut 2018 (D) avec le statut a
+   l'autre vague, d'ou les sous-groupes stables / 2018 seulement /
+   jamais / 2021 seulement mobilises par la robustesse. */
 use "$TEMP/panel_enfants_psm.dta", clear
 keep if t == 0
 merge m:1 grappe menage using "$TEMP/traitement_stable.dta", ///
@@ -1583,8 +1672,8 @@ foreach poids_var in weight_knn weight_kernel weight_caliper {
    8. Robustesse : definition alternative du traitement
       (beneficiaires stables)
 
-   En complement du design principal (beneficiaires en 2018 seulement
-   contre jamais beneficiaires), l'ATT est aussi estime en
+   En complement du design principal (entrants, DD canonique avec
+   periode pre-traitement observee), l'ATT est aussi estime en
    comparant les beneficiaires STABLES (D_2018=1 et D_2021=1) aux
    menages jamais beneficiaires, sur les memes menages panel. Ce
    design capte l'effet d'une exposition durable aux transferts,
@@ -1635,10 +1724,59 @@ lincom 1.t#1.D_stable_alt
 di "  ATT_DD_stables = " %8.4f r(estimate) ///
    "  SE = " %8.4f r(se) "  p = " %6.4f r(p)
 
+/* ── Heterogeneite de l'effet stables par quintile de montant ──
+   Meme logique que la section 6d : quintiles du montant annuel 2018,
+   construits au niveau des menages beneficiaires STABLES (un menage = un
+   montant), puis chaque quintile d'enfants stables est compare a l'ensemble
+   des enfants jamais beneficiaires. */
+preserve
+    keep if D_stable_alt == 1 & t == 0
+    bysort grappe menage: keep if _n == 1
+    merge 1:1 grappe menage using "$TEMP/montant_2018.dta", ///
+        keepusing(montant_transf) keep(match) nogenerate
+    xtile q_sta = montant_transf, nquantiles(5)
+    di _newline "  Bornes des quintiles (menages stables, montant 2018, FCFA) :"
+    forvalues q = 1/5 {
+        quietly summarize montant_transf if q_sta == `q', detail
+        di "    Q`q' : " %10.0f r(min) " a " %10.0f r(max) ///
+           "  (mediane " %10.0f r(p50) ", n=" %4.0f r(N) " menages)"
+    }
+    keep grappe menage q_sta
+    tempfile quint_sta
+    save `quint_sta'
+restore
+merge m:1 grappe menage using `quint_sta', keep(master match) nogenerate
+
+di _newline "=== Robustesse stables : effet par quintile de montant ==="
+forvalues q = 1/5 {
+    quietly count if q_sta == `q' & t == 0
+    local n_q = r(N)
+    if `n_q' > 0 {
+        regress pauvre_MODA i.t##i.D_stable_alt ///
+            if D_stable_alt == 0 | q_sta == `q', vce(cluster grappe)
+        lincom 1.t#1.D_stable_alt
+        di "  Q`q' : ATT = " %8.4f r(estimate) "  SE = " %8.4f r(se) ///
+           "  p = " %6.4f r(p) "  (enfants traites t=0 : `n_q')"
+    }
+}
+
 di _newline ">>> 05_psm_dd.do termine."
 
 /* ============================================================
    SECTION : 06_STATS_DESC — Statistiques descriptives
+   Chapitre 3 : profil ménages, pauvreté, privations, comparaison D=0/1
+
+   Les statistiques portant sur les ENFANTS sont calculees sur les enfants
+   suivis individuellement d'une vague a l'autre (panel_enfants_psm.dta),
+   c'est-a-dire sur l'echantillon meme de l'estimation d'impact avant la
+   restriction au support commun. Un tableau descriptif et un coefficient
+   estime decrivent ainsi les memes enfants. Le profil des MENAGES (bloc 1)
+   reste sur le panel vrai, son unite etant le menage et non l'enfant.
+
+   Les statistiques de pauvrete/privation (incidence MODA, par dimension,
+   par age, par milieu, par region) sont PONDEREES par les poids de sondage
+   (hhweight). Le profil des menages et la balance traites/non-traites
+   restent sur effectifs bruts.
    ============================================================ */
 
 
@@ -1997,6 +2135,14 @@ foreach v in dim_assai dim_eau dim_logem dim_nutri dim_sante dim_protect ///
     di "  " %-18s "`v'" "  2018 : p=" %6.4f `p0' "   2021 : p=" %6.4f `p1'
 }
 
+/* Meme comparaison declinee par groupe d'age : chaque sous-section du
+   rapport confronte les dimensions et le statut de beneficiaire au sein
+   d'une tranche d'age. Le groupe est celui de la PERIODE DE BASE : sur un
+   panel d'enfants suivis, un decoupage sur l'age courant ferait changer les
+   sous-groupes de composition entre les deux vagues et la comparaison ne
+   porterait plus sur les memes enfants. « 0-4 ans » se lit donc « age de 0 a
+   4 ans en 2018 », et ces enfants ont 3 a 7 ans en 2021 : dim_educ, nulle
+   par construction en 2018, devient applicable a une partie d'entre eux. */
 forvalues g = 1/3 {
     if `g' == 1 local lbl "0-4 ans"
     if `g' == 2 local lbl "5-14 ans"
@@ -2329,6 +2475,9 @@ di _newline ">>> 09_placebo.do termine."
 /* ============================================================
    SECTION FINALE : copie des figures vers le rapport LaTeX
    ------------------------------------------------------------
+   Recopie automatiquement les PDF generes dans output/figures
+   vers latex/figures, pour que le memoire compile toujours les
+   dernieres versions sans manipulation manuelle.
    ============================================================ */
 
 di _newline ">>> Copie des figures vers latex/figures et Presentation/figures ..."
