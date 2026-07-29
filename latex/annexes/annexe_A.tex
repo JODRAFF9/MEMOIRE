@@ -160,3 +160,36 @@ défini à la période de base ne se retrouve donc pas chez les bénéficiaires 
 longue date. Ce design a toutefois ses propres limites~: le traitement y est
 déjà en cours à la période de base (pauvreté inférieure de 21~points dès
 2018), si bien que la première vague ne mesure pas un niveau pré-traitement.
+
+Cette définition alternative est enfin déclinée selon le quintile de montant
+annuel reçu en 2018, les quintiles étant construits parmi les ménages
+bénéficiaires stables (tableau~\ref{tab:stables_montant}). Aucun quintile ne
+produit d'effet significatif, mais le profil retrouve celui de l'estimation
+principale~: le coefficient le plus élevé est celui des plus petits montants
+($0{,}101$ dans le premier quintile, jusqu'à 200~000 FCFA par an), les quatre
+autres quintiles restant proches de zéro. Même chez les bénéficiaires de
+longue date, le seul écart de trajectoire qui affleure, sans être établi,
+concerne les ménages recevant les montants les plus faibles~: la lecture
+selon laquelle les petits transferts ne compensent pas le coût du départ
+s'en trouve confortée.
+
+\begin{table}[H]
+  \centering
+  \caption[Bénéficiaires stables : effet par quintile de montant annuel reçu en 2018]{Bénéficiaires stables : effet par quintile de montant annuel reçu en 2018\protect\footnotemark}
+  \label{tab:stables_montant}
+  \zebre
+  \begin{tabular}{|l|c|}
+    \hline
+\entete Quintile de montant (2018) & ATT (DD) \\
+    \hline
+    Q1 (jusqu'à 200~000 FCFA)  & \makecell{$0{,}101$\\$(0{,}065)$} \\ \hline
+    Q2 (220~000 à 763~000)     & \makecell{$0{,}009$\\$(0{,}056)$} \\ \hline
+    Q3 (768~000 à 1~400~000)   & \makecell{-$0{,}021$\\$(0{,}075)$} \\ \hline
+    Q4 (1~450~000 à 2~400~000) & \makecell{$0{,}029$\\$(0{,}073)$} \\ \hline
+    Q5 (au-delà de 2~490~000)  & \makecell{$0{,}000$\\$(0{,}072)$} \\
+    \hline
+  \end{tabular}
+
+  {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM.}
+\end{table}
+\footnotetext{\textit{Note :} double différence, erreurs-types clusterisées par grappe, entre parenthèses sous le coefficient. Quintiles du montant annuel 2018 construits au niveau des ménages bénéficiaires stables~; chaque quintile d'enfants stables (422 à 570 enfants) est comparé à l'ensemble des enfants des ménages jamais bénéficiaires.}
