@@ -10,32 +10,6 @@ les implications pour les politiques publiques.
 
 \subsection{Tests de robustesse}
 
-\subsubsection{Robustesse au champ et à la correction de la sélection}
-
-L'estimation principale porte sur les 17\,786 enfants reliés à eux-mêmes
-d'une vague à l'autre, appariés individuellement. Ce champ découle de l'unité
-d'analyse, mais il écarte les enfants nés après 2018, ceux qui atteignent
-18 ans et ceux qui quittent le ménage entre les deux passages. La double
-différence estimée sans appariement sur l'ensemble des enfants des ménages du
-panel, ces derniers compris, donne $0{,}032$~: même signe,
-ampleur plus faible, non significatif.
-
-La comparaison des deux chiffres demande une précaution, car ils diffèrent par
-deux aspects à la fois~: le champ, restreint ou non aux enfants suivis, et la
-correction de la sélection, présente ou absente. Ils ne permettent donc pas
-d'isoler l'effet du seul champ. Le second aspect suffit toutefois à rendre
-compte du sens de l'écart. La décomposition de l'annexe~\ref{ann:A} montre que
-les enfants de ménages bénéficiaires partent d'un niveau de privation
-inférieur de 7,7 points à celui de leurs témoins appariés~; sans appariement,
-cet avantage initial n'est pas corrigé et l'écart de trajectoire mesuré s'en
-trouve mécaniquement atténué.
-
-Trancher entre les deux aspects supposerait d'estimer la double différence
-sans appariement sur les seuls enfants suivis, ce que ce travail ne fait pas.
-La restriction du champ reste donc une limite du dispositif plutôt qu'un
-résultat testé, et elle n'est pas anodine~: les enfants qu'elle écarte sont
-précisément ceux dont la situation familiale a changé entre les deux vagues.
-
 \subsubsection{Sensibilité au traitement et à la méthode d'appariement}
 
 Le tableau~\ref{tab:psm_methodes} (section~\ref{subsec:psmdd}) documente la
@@ -226,9 +200,9 @@ seuls enfants traités.
 
   {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM. $^{*}p<0{,}10$, $^{**}p<0{,}05$.}
 \end{table}
-\footnotetext{\textit{Note :} appariement k-NN au niveau enfant, erreurs-types clusterisées par grappe, entre parenthèses sous le coefficient. Les quintiles sont définis sur le montant annuel des transferts parmi les ménages bénéficiaires~; chaque quintile est comparé à l'ensemble des témoins appariés. La pente dose-réponse est le coefficient de l'interaction entre la vague et le logarithme du montant, estimé sur les enfants traités.}
 
-Le résultat est net. L'effet défavorable se concentre sur les petits
+
+L'effet défavorable se concentre sur les petits
 montants~: $12{,}2$ points de pourcentage dans le premier quintile, jusqu'à
 100~000 FCFA par an, et $9{,}3$ points dans le deuxième, tous deux
 significatifs à 5\,\%. Il disparaît ensuite~: les troisième et quatrième
@@ -248,18 +222,6 @@ premier quintile, représente environ un dixième de la dépense annuelle par
 tête d'un ménage bénéficiaire~; un transfert de 3,3 millions, médiane du
 dernier quintile, en représente plusieurs fois le montant.
 
-Deux réserves encadrent la lecture de ce tableau. La première tient à la
-mesure du montant, déclaré par le ménage et reconstitué en annualisant le
-montant par envoi selon la fréquence rapportée~: l'erreur de mesure y est
-vraisemblablement plus forte que sur le statut binaire de bénéficiaire, et
-elle atténue mécaniquement toute relation dose-réponse. Que celle-ci
-apparaisse malgré cette atténuation en renforce plutôt la crédibilité. La
-seconde tient à l'identification~: le montant n'est pas assigné aléatoirement
-parmi les bénéficiaires, il dépend des ressources du migrant et des besoins du
-ménage. La comparaison entre quintiles ne repose donc pas sur la même
-stratégie d'identification que l'estimation principale et s'interprète comme
-une association conditionnelle, non comme un effet causal du montant.
-
 \subsection{Interprétation des résultats}
 
 Sur la période 2018-2021, les transferts de migrants ne réduisent pas la
@@ -267,8 +229,7 @@ pauvreté multidimensionnelle des enfants sénégalais. L'effet estimé s'établ
 $0{,}058$, significatif au seuil de 10\,\%~: la trajectoire des enfants de ménages
 bénéficiaires est même légèrement moins favorable que celle d'enfants témoins
 comparables, à hauteur de près de 6 points de pourcentage. Le résultat est
-significatif au seuil de 10\,\% et non à 5\,\%~; il faut donc le formuler avec
-la prudence qui convient. Ce que les données établissent, c'est que
+significatif au seuil de 10\,\%. Ce que les données établissent, c'est que
 l'hypothèse d'une réduction de la pauvreté infantile par les transferts est
 rejetée. Ce qu'elles suggèrent sans le démontrer, c'est un effet de sens
 contraire. Trois éléments donnent à cette présomption une consistance qu'un simple
@@ -297,13 +258,6 @@ l'effet ne soit établi que chez les 0-4 ans, âge où la dépendance au temps d
 soin est maximale, converge vers cette lecture
 \parencite{cortes2007,davis2016}. L'argent compense la perte de revenu~; il ne
 remplace pas l'adulte parti.
-
-Ce mécanisme est plausible, mais les données conduisent à en douter. Le
-questionnaire de 2021 précharge chaque membre relevé en 2018 et demande s'il
-appartient toujours au ménage, et pour quel motif il l'a quitté. Le motif
-distingue explicitement un départ à l'étranger d'un départ ailleurs dans le
-pays, ce qui permet de mesurer un fait que le dispositif suppose sans le
-vérifier.
 
 Le départ d'un adulte n'est pas propre au groupe traité, et il est même
 majoritaire chez les témoins. En excluant les décès et les personnes
@@ -363,8 +317,4 @@ empirique contrasté. Si certaines
 études trouvent des effets positifs des transferts sur les indicateurs
 monétaires de pauvreté \parencite{adams2005,gubert2002}, les effets sur des
 indicateurs multidimensionnels structurels sont moins systématiquement
-établis, en particulier à court terme \parencite{mansuri2006,cortes2007}. Une
-réplication sur la prochaine vague de l'EHCVM, qui allongerait la durée
-d'exposition observée, permettrait de trancher entre un coût transitoire
-d'ajustement au départ du migrant et un effet durable. Les implications de
-politique économique sont développées dans la conclusion générale.
+établis, en particulier à court terme \parencite{mansuri2006,cortes2007}.

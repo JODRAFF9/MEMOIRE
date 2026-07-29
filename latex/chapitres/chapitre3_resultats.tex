@@ -12,17 +12,26 @@ par dimension de la pauvreté.
 
 \subsubsection{Résultats du modèle probit}
 
-Le score de propension est estimé par un probit au niveau de l'enfant
-(section~\ref{sec:methodo}). L'échantillon d'estimation est le panel d'enfants
-suivis entre les deux vagues, appariés par l'identifiant préchargé décrit en
-section~\ref{subsec:panel_enfants} : 17\,786 enfants, dont 17\,735 utilisés
-par le probit. Les covariables combinent deux niveaux. Celles du ménage à la période de base
-reprennent les déterminants des transferts retenus dans la littérature
-\parencite{adams2005,gubert2002} : log de la dépense par tête, taille du
-ménage, sexe, âge, niveau d'éducation, état matrimonial et catégorie
-socioprofessionnelle du chef, milieu et région de résidence. S'y ajoutent
-celles de l'enfant, son sexe et son âge, toutes mesurées avant l'observation
-des résultats.
+Le modèle présente un pseudo-$R^2$ de McFadden de 15,1\,\%. Les déterminants
+sont conformes à la littérature : la probabilité qu'un enfant vive dans un
+ménage bénéficiaire croît avec la dépense par tête ($0{,}58$), la présence
+d'une femme à la tête du ménage ($0{,}51$), la taille du ménage ($0{,}05$) et
+l'âge du chef. Le coefficient de la dépense par tête signale une sélection
+positive : ce sont les ménages les moins contraints qui ont pu financer un
+départ à l'étranger. Celui du chef féminin reflète la configuration migratoire
+typique où l'époux émigré laisse la gestion du ménage à son épouse,
+configuration au c\oe{}ur du canal \og absence parentale \fg{} discuté en
+section~\ref{sec:discussion}. La catégorie socioprofessionnelle du chef
+apporte une information distincte de
+la dépense par tête. À niveau de vie donné, les ménages dirigés par un cadre
+moyen (-$0{,}60$), un travailleur familial (-$0{,}40$) ou un travailleur pour
+compte propre (-$0{,}21$) reçoivent moins souvent des transferts que ceux dont
+le chef est sans emploi, catégorie de référence. Le transfert supplée donc un
+revenu absent plutôt qu'il n'accompagne une position professionnelle établie,
+lecture cohérente avec le motif assurantiel de la nouvelle économie des
+migrations \parencite{stark1985}. Les deux covariables individuelles ne sont
+en revanche pas significatives : ni
+le sexe de l'enfant ($0{,}018$) ni son âge ($0{,}003$) ne prédisent l'appartenance à un ménage bénéficiaire.
 
 \begin{table}[H]
   \centering
@@ -60,41 +69,6 @@ des résultats.
   {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM. $^{*}p<0{,}10$, $^{**}p<0{,}05$, $^{***}p<0{,}01$~; écarts-types clusterisés par grappe entre parenthèses sous le coefficient.}
 \end{table}
 
-Le modèle présente un pseudo-$R^2$ de McFadden de 15,1\,\%. Les déterminants
-sont conformes à la littérature : la probabilité qu'un enfant vive dans un
-ménage bénéficiaire croît avec la dépense par tête ($0{,}58$), la présence
-d'une femme à la tête du ménage ($0{,}51$), la taille du ménage ($0{,}05$) et
-l'âge du chef. Le coefficient de la dépense par tête signale une sélection
-positive : ce sont les ménages les moins contraints qui ont pu financer un
-départ à l'étranger. Celui du chef féminin reflète la configuration migratoire
-typique où l'époux émigré laisse la gestion du ménage à son épouse,
-configuration au c\oe{}ur du canal \og absence parentale \fg{} discuté en
-section~\ref{sec:discussion}. La catégorie socioprofessionnelle du chef
-apporte une information distincte de
-la dépense par tête. À niveau de vie donné, les ménages dirigés par un cadre
-moyen (-$0{,}60$), un travailleur familial (-$0{,}40$) ou un travailleur pour
-compte propre (-$0{,}21$) reçoivent moins souvent des transferts que ceux dont
-le chef est sans emploi, catégorie de référence. Le transfert supplée donc un
-revenu absent plutôt qu'il n'accompagne une position professionnelle établie,
-lecture cohérente avec le motif assurantiel de la nouvelle économie des
-migrations \parencite{stark1985}. Les deux covariables individuelles ne sont
-en revanche pas significatives : ni
-le sexe de l'enfant ($0{,}018$) ni son âge ($0{,}003$) ne prédisent l'appartenance à un ménage bénéficiaire, ce qui
-était attendu puisque le traitement est reçu au niveau du ménage. Leur
-présence dans le modèle ne vise pas à améliorer la prédiction mais à garantir
-que chaque enfant traité soit comparé à des enfants témoins de même sexe et de
-même âge, donc évalués sur les mêmes dimensions MODA.
-
-\subsubsection{Vérification de la qualité de l'appariement}
-
-La condition de chevauchement, indispensable à l'identification, est
-satisfaite. La figure~\ref{fig:support} représente les distributions du score
-de propension des enfants bénéficiaires ($D=1$) et non bénéficiaires ($D=0$) :
-elles se recouvrent sur l'essentiel de leur support et la restriction au
-support commun n'écarte qu'un nombre marginal d'observations. Les enfants
-bénéficiaires situés dans la zone de support commun sont tous retenus et
-appariés par la méthode des $k$ plus proches voisins (k-NN, $k=4$, avec
-remise), pour un panel apparié de 16\,152 observations-enfants.
 
 \begin{figure}[H]
   \centering
@@ -179,8 +153,6 @@ d'équilibrage des trois algorithmes, selon les critères de
 
   {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM.}
 \end{table}
-\footnotetext{\textit{Note :} $B$ = différence standardisée des indices de propension linéaires, $R$ = rapport de leurs variances. Critères d'un appariement satisfaisant \parencite{rosenbaum2002} : $B < 25\,\%$ et $R \in [0{,}5~;~2]$.}
-
 Les trois algorithmes satisfont les critères usuels : la différence
 standardisée moyenne tombe à 2,5\,\% ou moins, le pseudo-$R^2$ passe de 0,151
 à 0,007 ou moins, $B$ reste sous 25\,\% et $R$ dans l'intervalle
@@ -199,10 +171,7 @@ niveau, mais la tendance des privations, hypothèse que le test placebo
 
 À titre de référence, nous estimons d'abord un estimateur de double
 différence sans appariement (tableau~\ref{tab:dd_brut}). L'impact estimé est
-de $+3{,}2$ points de pourcentage et non significatif. Cette
-comparaison brute reste toutefois exposée aux différences initiales entre les
-deux groupes - les bénéficiaires sont plus aisés, plus urbains, plus souvent
-dirigés par une femme -, d'où le recours à l'appariement.
+de $+3{,}2$ points de pourcentage et non significatif. 
 
 \begin{table}[H]
   \centering
@@ -322,15 +291,12 @@ mais son ampleur suit une courbe en cloche : quasi nulle à $k=1$ ($0{,}006$),
 elle croît jusqu'à un
 maximum à $k=4$ ($0{,}058$) puis retombe, jusqu'à $0{,}009$ à $k=6$. La
 significativité épouse la même forme, l'effet n'atteignant le seuil de 10\,\%
-qu'à $k=3$ et $k=4$. Cette structure a un sens économique. Aux seuils bas, la quasi-totalité des
+qu'à $k=3$ et $k=4$. Aux seuils bas, la quasi-totalité des
 enfants est classée pauvre et il ne reste guère de variation à expliquer ; aux
 seuils élevés, ne subsistent que les enfants cumulant six ou sept privations,
 dont la situation relève de déficits structurels qu'un flux monétaire ne
 déplace pas. L'effet se concentre au milieu de la distribution, là où quelques
-privations font basculer un enfant de part et d'autre du seuil. Que le maximum
-coïncide avec le seuil conventionnel de $k=4$ est fortuit, mais rappelle que
-la conclusion vaut pour une zone de la distribution plutôt que pour son
-ensemble.
+privations font basculer un enfant de part et d'autre du seuil.
 
 \begin{table}[H]
   \centering
@@ -351,6 +317,20 @@ ensemble.
 \footnotetext{\textit{Note :} appariement k-NN au niveau enfant, erreurs-types clusterisées par grappe. Seule la définition de la variable de résultat change d'une colonne à l'autre.}
 
 \subsubsection{Effets par dimension}
+L'analyse par dimension (figure~\ref{fig:effets_dim} décompose l'effet d'ensemble sur les sept
+dimensions MODA. Une seule ressort, la nutrition, avec un effet de $0{,}081$,
+significatif au seuil de 5\,\%. La privation alimentaire des enfants de ménages
+bénéficiaires recule 8,1 points plus lentement que celle de leurs témoins
+appariés.
+
+Les six autres dimensions présentent des coefficients faibles, tous positifs
+et tous non significatifs, entre $0{,}012$ pour la santé et $0{,}037$ pour
+l'assainissement.Le
+volet dimensionnel de l'hypothèse H2 est ainsi partiellement validé :
+l'effet des transferts n'est pas uniforme entre dimensions, il se concentre
+sur la nutrition. Les deux autres volets de H2, relatifs au milieu de
+résidence et au sexe de l'enfant, sont examinés en
+section~\ref{sec:discussion}.
 
 \begin{figure}[H]
   \centering
@@ -361,45 +341,3 @@ ensemble.
   {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM.}
 \end{figure}
 
-L'analyse par dimension (figure~\ref{fig:effets_dim} et
-tableau~\ref{tab:effets_dim}) décompose l'effet d'ensemble sur les sept
-dimensions MODA. Une seule ressort, la nutrition, avec un effet de $0{,}081$,
-significatif au seuil de 5\,\%. La privation alimentaire des enfants de ménages
-bénéficiaires recule 8,1 points plus lentement que celle de leurs témoins
-appariés. C'est aussi la dimension la plus directement sensible au budget
-courant du ménage, donc celle où un apport monétaire aurait dû se voir en
-premier : le résultat va à l'encontre de l'effet attendu.
-
-Les six autres dimensions présentent des coefficients faibles, tous positifs
-et tous non significatifs, entre $0{,}012$ pour la santé et $0{,}037$ pour
-l'assainissement. La protection de l'enfant, malgré son contenu directement
-lié à l'absence parentale, ne se distingue pas ($0{,}016$).
-L'effet à la nutrition dépasse donc du double le plus élevé des autres. Le
-volet dimensionnel de l'hypothèse H2 est ainsi partiellement validé :
-l'effet des transferts n'est pas uniforme entre dimensions, il se concentre
-sur la nutrition. Les deux autres volets de H2, relatifs au milieu de
-résidence et au sexe de l'enfant, sont examinés en
-section~\ref{sec:discussion}.
-
-\begin{table}[H]
-  \centering
-  \caption[Impact des transferts par dimension MODA (ATT PSM-DD)]{Impact des transferts par dimension MODA (ATT PSM-DD)\protect\footnotemark}
-  \label{tab:effets_dim}
-  \zebre
-  \begin{tabular}{|l|c|}
-    \hline
-\entete Dimension & ATT \\
-    \hline
-    Nutrition            & \makecell{$0{,}081^{**}$\\$(0{,}039)$} \\ \hline
-    Assainissement       & \makecell{$0{,}037$\\$(0{,}041)$}      \\ \hline
-    Protection           & \makecell{$0{,}016$\\$(0{,}020)$}      \\ \hline
-    Eau                  & \makecell{$0{,}015$\\$(0{,}027)$}      \\ \hline
-    Logement             & \makecell{$0{,}014$\\$(0{,}041)$}      \\ \hline
-    Éducation            & \makecell{$0{,}013$\\$(0{,}017)$}      \\ \hline
-    Santé                & \makecell{$0{,}012$\\$(0{,}013)$}      \\
-    \hline
-  \end{tabular}
-
-  {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM. $^{**}p<0{,}05$.}
-\end{table}
-\footnotetext{\textit{Note :} appariement k-NN au niveau enfant, erreurs-types clusterisées par grappe, entre parenthèses sous le coefficient.}

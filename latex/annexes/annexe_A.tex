@@ -36,25 +36,9 @@ l'EHCVM~I et sur l'EHCVM~II, sans les différencier.
   {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM. Erreurs-types entre parenthèses sous le coefficient. $^{*}p<0{,}10$, $^{**}p<0{,}05$.}
 \end{table}
 
-Cette décomposition montre pourquoi la double différence est indispensable. À
-la période de base, les enfants de ménages bénéficiaires sont significativement
-moins pauvres que ceux de leurs témoins appariés (-$7{,}7$~points,
-significatif au seuil de 5\,\%)~: l'appariement sur les caractéristiques observables ne suffit pas
-à annuler l'écart de niveau. Un chercheur s'arrêtant à l'appariement
-transversal en 2021 conclurait encore à un avantage de 1,9~point en faveur des
-bénéficiaires. Or cet écart résiduel préexiste au traitement~: il ne peut pas
-lui être imputé. La double différence l'élimine en ne retenant que la variation
-de l'écart ($0{,}058 = -0{,}019 - (-0{,}077)$), et renverse le signe apparent
-de la conclusion \parencite{heckman1997,heckman1998}. L'hypothèse H3, selon
-laquelle l'estimateur PSM-DD produit des estimations moins biaisées que les
-approches naïves, est ainsi vérifiée sur nos données.
+
 
 \subsection{Test placebo}
-
-En affectant aléatoirement un faux statut de traitement à 13,3\,\% des
-ménages non bénéficiaires (part observée des traités) et en estimant la
-double différence sur ce pseudo-traitement (200 réplications), on obtient la
-distribution suivante.
 
 \begin{table}[H]
   \centering
@@ -98,9 +82,7 @@ principal ne sont pas contradictoires, elles répondent à deux questions
 différentes. Le placebo ignore la structure de corrélation intra-grappe, alors
 que le test principal en tient compte par des erreurs-types clusterisées~;
 c'est cette correction, prudente et appropriée au plan de sondage, qui élargit
-l'intervalle de confiance. Les deux approches convergent néanmoins ici~: le
-point estimé n'est pas un artefact d'échantillonnage, ce qui renforce la
-présomption d'un effet de sens défavorable sans l'établir au seuil de 5\,\%.
+l'intervalle de confiance.
 
 \subsection{Sensibilité au seuil de dimensions}
 
@@ -138,16 +120,6 @@ cloche, maximale au seuil retenu et retombant de part et d'autre~: il se joue
 au milieu de la distribution, ni chez les enfants faiblement privés ni dans le
 noyau des plus démunis.
 
-\subsection{Résultats de l'appariement avec différentes méthodes}
-
-Le tableau~\ref{tab:psm_methodes} (section~\ref{subsec:psmdd}) confronte
-les méthodes d'appariement~: les $k$ plus proches voisins ($0{,}058$),
-le noyau Epanechnikov ($0{,}055$) et le caliper
-($0{,}047$) donnent des effets d'ampleur voisine, tous
-significatifs à 10\,\% et aucun à 5\,\%. La double différence brute, qui ne
-corrige pas la sélection, donne une valeur plus faible et non significative
-($0{,}032$).
-
 \subsection{Traitement défini par les bénéficiaires stables}
 
 En complément du design principal, l'effet est estimé en comparant les
@@ -160,18 +132,6 @@ défini à la période de base ne se retrouve donc pas chez les bénéficiaires 
 longue date. Ce design a toutefois ses propres limites~: le traitement y est
 déjà en cours à la période de base (pauvreté inférieure de 21~points dès
 2018), si bien que la première vague ne mesure pas un niveau pré-traitement.
-
-Cette définition alternative est enfin déclinée selon le quintile de montant
-annuel reçu en 2018, les quintiles étant construits parmi les ménages
-bénéficiaires stables (tableau~\ref{tab:stables_montant}). Aucun quintile ne
-produit d'effet significatif, mais le profil retrouve celui de l'estimation
-principale~: le coefficient le plus élevé est celui des plus petits montants
-($0{,}101$ dans le premier quintile, jusqu'à 200~000 FCFA par an), les quatre
-autres quintiles restant proches de zéro. Même chez les bénéficiaires de
-longue date, le seul écart de trajectoire qui affleure, sans être établi,
-concerne les ménages recevant les montants les plus faibles~: la lecture
-selon laquelle les petits transferts ne compensent pas le coût du départ
-s'en trouve confortée.
 
 \begin{table}[H]
   \centering
@@ -192,4 +152,3 @@ s'en trouve confortée.
 
   {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM.}
 \end{table}
-\footnotetext{\textit{Note :} double différence, erreurs-types clusterisées par grappe, entre parenthèses sous le coefficient. Quintiles du montant annuel 2018 construits au niveau des ménages bénéficiaires stables~; chaque quintile d'enfants stables (422 à 570 enfants) est comparé à l'ensemble des enfants des ménages jamais bénéficiaires.}
