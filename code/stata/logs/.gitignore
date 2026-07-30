@@ -1,8 +1,6 @@
-# Logs de compilation Stata (régénérés à chaque exécution)
-*.log
+# Logs Stata. On versionne le log principal et les logs horodates produits
+# par la bascule de secours quand tout.log est verrouille.
 *.smcl
-# On garde ce fichier pour préserver le dossier logs/ dans le dépôt
 !.gitignore
-# On VERSIONNE le log principal : il est poussé à chaque run, ce qui permet
-# de relire toute la sortie Stata (ATT, tests, etc.) après un push.
 !tout.log
+!tout_*.log
