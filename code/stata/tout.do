@@ -1214,17 +1214,6 @@ quietly count if ecart_age < 0
 di "  Part avec ecart d'age negatif (erreur de declaration) : " %5.1f 100*r(N)/_N "%"
 quietly drop ecart_age
 
-/* Age du chef en classes */
-gen byte hage_cl = .
-replace  hage_cl = 1 if hage < 35
-replace  hage_cl = 2 if inrange(hage, 35, 49)
-replace  hage_cl = 3 if inrange(hage, 50, 64)
-replace  hage_cl = 4 if hage >= 65 & !missing(hage)
-label define hagecl 1 "Moins de 35 ans" 2 "35-49 ans" ///
-                    3 "50-64 ans" 4 "65 ans ou plus", replace
-label values hage_cl hagecl
-label var hage_cl "Groupe d'age du chef de menage"
-
 di _newline "=== Logit ENFANT — score de propension (EHCVM I, panel d'enfants) ==="
 di "Enfants suivis aux deux vagues : " _N
 
@@ -1233,8 +1222,8 @@ di "Enfants suivis aux deux vagues : " _N
    clusterisees au niveau de la grappe (le traitement varie au niveau
    menage : la correlation intra-grappe couvre aussi l'intra-menage). */
 logit D c.hhsize c.log_pcexp i.milieu i.region ///
-         c.hgender ib2.hage_cl i.heduc i.hmstat i.hcsp ///
-         i.sexe18 ib1.groupe_moda18, vce(cluster grappe) nolog
+         c.hgender c.hage i.heduc i.hmstat i.hcsp ///
+         i.sexe18 c.age18, vce(cluster grappe) nolog
 
 di "Pseudo-R2 McFadden : " %6.3f 1 - e(ll)/e(ll_0)
 
@@ -1269,8 +1258,8 @@ save "$TEMP/pscore_t0.dta", replace
    observable comparable, y compris en genre et en age.
    ============================================================ */
 
-local covbal hhsize log_pcexp i.milieu i.region hgender i.hage_cl ///
-             i.heduc i.hmstat i.hcsp i.sexe18 i.groupe_moda18
+local covbal hhsize log_pcexp i.milieu i.region hgender hage ///
+             i.heduc i.hmstat i.hcsp i.sexe18 age18
 
 /* -- 2a. k-NN ------------------------------------------------ */
 di _newline "=== Appariement k-NN (k=$K_VOISINS, avec remise), niveau enfant ==="
@@ -1695,16 +1684,9 @@ foreach poids_var in weight_knn weight_kernel weight_caliper {
 capture which diff
 if _rc == 0 {
     di _newline "=== Validation croisee : diff (kernel, score logit) ==="
-    quietly gen byte grp_5_14 = (groupe_base == 2)
-    quietly gen byte grp_15_17 = (groupe_base == 3)
-    quietly gen byte hage_35_49 = (hage_cl == 2)
-    quietly gen byte hage_50_64 = (hage_cl == 3)
-    quietly gen byte hage_65p   = (hage_cl == 4)
     diff pauvre_MODA, t(D) p(t) kernel id(enfid) logit ///
-        cov(hhsize log_pcexp milieu hgender heduc hmstat hcsp sexe ///
-            grp_5_14 grp_15_17 hage_35_49 hage_50_64 hage_65p) ///
+        cov(hhsize log_pcexp milieu hgender hage heduc hmstat hcsp sexe age) ///
         support cluster(grappe)
-    quietly drop grp_5_14 grp_15_17 hage_35_49 hage_50_64 hage_65p
     di _newline "  Rappel estimateur maison (kernel) : voir ligne weight_kernel ci-dessus."
 }
 else {
