@@ -1,82 +1,5 @@
-\section{Tendances parallèles et tests complémentaires}
+\section{Tests complémentaires}
 \label{ann:A}
-
-\subsection{Argument de l'appariement}
-
-Le PSM rend l'hypothèse de tendances parallèles plus crédible en sélectionnant
-des enfants non bénéficiaires statistiquement indiscernables des enfants
-bénéficiaires à la période de base, sur les caractéristiques de leur ménage comme sur leur
-propre genre et leur propre âge. Après appariement par les $k$ plus proches
-voisins ($k=4$, avec remise), la différence standardisée moyenne passe de
-11,4\,\% à 2,5\,\% (tableau~\ref{tab:balance}).
-
-\subsection{Appariement seul, sans double différence}
-\label{subsec:psm_sans_dd}
-
-Le tableau~\ref{tab:psmdd_att} de la section~\ref{subsec:psmdd} rapporte, aux
-côtés de l'estimateur retenu, l'écart de pauvreté MODA entre enfants
-bénéficiaires et témoins appariés (poids $k$-NN) estimé séparément sur
-l'EHCVM~I et sur l'EHCVM~II, sans mise en relation des deux dates. Cette
-décomposition montre pourquoi la double différence est indispensable.
-
-À la période de base, les enfants de ménages bénéficiaires sont
-significativement moins pauvres que ceux de leurs témoins appariés
-(-$7{,}7$~points, significatif au seuil de 5\,\%). L'appariement sur les
-caractéristiques observables ne suffit donc pas à annuler l'écart de niveau.
-Un chercheur s'arrêtant à l'appariement transversal en 2021 conclurait encore
-à un avantage de 1,9~point en faveur des bénéficiaires. Or cet écart résiduel
-préexiste au traitement et ne peut pas lui être imputé. La double différence
-l'élimine en ne retenant que la variation de l'écart
-($0{,}058 = -0{,}019 - (-0{,}077)$), et renverse le signe apparent de la
-conclusion. L'estimateur PSM-DD produit
-donc, sur ces données, des estimations moins biaisées que les approches
-naïves.
-
-\subsection{Test placebo}
-
-\begin{table}[H]
-  \centering
-  \caption{Distribution des ATT placebo (200 réplications, faux traitement aléatoire)}
-  \label{tab:placebo}
-  \zebre
-  \begin{tabular}{|l|c|}
-    \hline
-\entete Statistique & Pauvreté MODA \\
-    \hline
-    ATT placebo moyen            & $0{,}001$ \\ \hline
-    Écart-type                   & $0{,}022$ \\ \hline
-    Fraction $|$ATT$|$ $>$ 0,05 & 2,5\,\% \\
-    \hline
-    ATT réel (tableau~\ref{tab:psmdd_att}) & $0{,}058$ \\ \hline
-    Rang dans la distribution placebo      & 99,0\textsuperscript{e} centile \\
-    \hline
-  \end{tabular}
-
-  {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM.}
-\end{table}
-
-\begin{figure}[H]
-  \centering
-  \caption{Distribution des ATT placebo et position de l'ATT réel}
-  \includegraphics[width=0.85\linewidth]{figures/fig_placebo_dd.pdf}
-  \label{fig:placebo_dd}
-
-  {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM.}
-\end{figure}
-
-Le test remplit sa fonction première, la distribution placebo étant bien
-centrée sur zéro (moyenne $0{,}001$, écart-type $0{,}022$), ce qui confirme que
-la procédure d'estimation ne fabrique pas d'effet là où il n'y en a pas, et
-conforte la plausibilité de l'hypothèse de tendances parallèles.
-
-L'effet estimé se situe au 99,0\textsuperscript{e} centile de cette distribution~:
-le point estimé est plus grand que ce que produit presque toute réassignation
-aléatoire du traitement. Cette lecture et la $p$-valeur de $0{,}052$ du test
-principal ne sont pas contradictoires, elles répondent à deux questions
-différentes. Le placebo ignore la structure de corrélation intra-grappe, alors
-que le test principal en tient compte par des erreurs-types clusterisées~;
-c'est cette correction, prudente et appropriée au plan de sondage, qui élargit
-l'intervalle de confiance.
 
 \subsection{Sensibilité au seuil de dimensions}
 
@@ -107,8 +30,8 @@ causale ne dépend pas du seuil retenu est présentée au
 tableau~\ref{tab:sensib_k} de la section~\ref{subsec:sensib_k}, où l'effet est
 ré-estimé à chaque seuil possible, de $k=1$ à $k=7$ dimensions sur sept.
 Abaisser le seuil élargit mécaniquement la population considérée comme pauvre,
-tandis que l'élever la restreint aux enfants cumulant le plus de privations~:
-faire varier $k$ revient donc à déplacer le curseur de la sévérité. L'effet
+tandis que l'élever la restreint aux enfants cumulant le plus de privations,
+si bien que faire varier $k$ revient à déplacer le curseur de la sévérité. L'effet
 garde le même signe sur toute la plage, mais son ampleur suit une courbe en
 cloche, maximale au seuil retenu et retombant de part et d'autre. L'écart se joue
 au milieu de la distribution, ni chez les enfants faiblement privés ni dans le
