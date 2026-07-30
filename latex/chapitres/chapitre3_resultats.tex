@@ -12,25 +12,17 @@ par dimension de la pauvreté.
 
 \subsubsection{Résultats du modèle probit}
 
-Le modèle présente un pseudo-$R^2$ de McFadden de 15,1\,\%. La probabilité qu'un enfant vive dans un
+Le modèle présente un pseudo-$R^2$ de McFadden de 15,1\,\%. La probabilité
+qu'un enfant vive dans un
 ménage bénéficiaire croît avec la dépense par tête ($0{,}58$), la présence
 d'une femme à la tête du ménage ($0{,}51$), la taille du ménage ($0{,}05$) et
-l'âge du chef. Le coefficient de la dépense par tête signale une sélection
-positive : ce sont les ménages les moins contraints qui ont pu financer un
-départ à l'étranger. Celui du chef féminin reflète la configuration migratoire
-typique où l'époux émigré laisse la gestion du ménage à son épouse,
-configuration au c\oe{}ur du canal \og absence parentale \fg{} discuté en
-section~\ref{sec:discussion}. La catégorie socioprofessionnelle du chef
-apporte une information distincte de
-la dépense par tête. À niveau de vie donné, les ménages dirigés par un cadre
+l'âge du chef. À niveau de vie donné, les ménages dirigés par un cadre
 moyen (-$0{,}60$), un travailleur familial (-$0{,}40$) ou un travailleur pour
 compte propre (-$0{,}21$) reçoivent moins souvent des transferts que ceux dont
-le chef est sans emploi, catégorie de référence. Le transfert supplée donc un
-revenu absent plutôt qu'il n'accompagne une position professionnelle établie,
-lecture cohérente avec le motif assurantiel de la nouvelle économie des
-migrations \parencite{stark1985}. Les deux covariables individuelles ne sont
-en revanche pas significatives : ni
-le sexe de l'enfant ($0{,}018$) ni son âge ($0{,}003$) ne prédisent l'appartenance à un ménage bénéficiaire.
+le chef est sans emploi, catégorie de référence. Les deux covariables
+individuelles ne sont en revanche pas significatives, ni
+le sexe de l'enfant ($0{,}018$) ni son âge ($0{,}003$) ne prédisant
+l'appartenance à un ménage bénéficiaire.
 
 \begin{table}[H]
   \centering
@@ -111,13 +103,11 @@ trois algorithmes.
 \end{table}
 \footnotetext{\textit{Note :} niveau enfant, panel de 17\,786 enfants suivis~; seuil conventionnel~: SMD $< 10\,\%$. Les effets fixes région et les modalités d'éducation et d'état matrimonial du chef, omis du tableau, présentent tous une SMD résiduelle inférieure à 7\,\%.}
 
-L'appariement corrige l'essentiel du déséquilibre initial : la différence
-standardisée moyenne passe de 11,4\,\% à 2,5\,\%, et aucune covariable ne
+L'appariement corrige l'essentiel du déséquilibre initial. La différence
+standardisée moyenne passe de 11,4\,\% à 2,5\,\% et aucune covariable ne
 dépasse le seuil conventionnel de 10\,\% \parencite{austin2009}. Les
-covariables individuelles sont équilibrées, le sexe ($0{,}7$\,\%) comme l'âge
-de l'enfant ($1{,}3$\,\%) : chaque enfant traité est comparé à des enfants
-témoins du même profil démographique, donc évalués sur les mêmes dimensions
-MODA.
+covariables individuelles sont équilibrées, le sexe à $0{,}7$\,\% et l'âge
+de l'enfant à $1{,}3$\,\%.
 
 \subsubsection{Comparaison de la qualité des trois appariements}
 
@@ -143,17 +133,13 @@ d'équilibrage des trois algorithmes, selon les critères de
 
   {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM.}
 \end{table}
-Les trois algorithmes satisfont les critères usuels : la différence
+Les trois algorithmes satisfont les critères usuels. La différence
 standardisée moyenne tombe à 2,5\,\% ou moins, le pseudo-$R^2$ passe de 0,151
 à 0,007 ou moins, $B$ reste sous 25\,\% et $R$ dans l'intervalle
 $[0{,}5~;~2]$. Le test joint n'est significatif pour aucune des trois
-méthodes. Le noyau s'équilibre un peu mieux (SMD de 2,0\,\%), le k-NN et le caliper se tenant à 2,5\,\%. Le déséquilibre
-résiduel du k-NN porte sur la taille du ménage et la dépense
-par tête, dont l'effet de niveau est de toute façon éliminé par la double
-différence, celle-ci ne retenant que la variation intra-individuelle. Il
-n'affecterait l'estimation que si ces caractéristiques déterminaient non pas le
-niveau, mais la tendance des privations, hypothèse que le test placebo
-(annexe~\ref{ann:A}) ne corrobore pas.
+méthodes. Le noyau s'équilibre un peu mieux, avec une SMD de 2,0\,\%, le
+k-NN et le caliper se tenant à 2,5\,\%. Le déséquilibre résiduel du k-NN
+porte sur la taille du ménage et la dépense par tête.
 
 \subsection{Impact des transferts sur la pauvreté multidimensionnelle}
 
@@ -209,32 +195,22 @@ différence des deux premières lignes
 \end{table}
 \footnotetext{\textit{Note :} variable de résultat, incidence MODA $\hat{H}$ (7 dimensions, $k=4$). Erreurs-types clusterisées par grappe, entre parenthèses sous le coefficient. Les lignes PSM et PSM-DD reposent sur l'appariement k-NN au niveau enfant ($n = 16\,152$ observations-enfants)~; la DD simple porte sur l'ensemble des enfants des ménages du panel ($n = 53\,679$).}
 
-Le signe positif de l'estimateur retenu appelle une lecture précise. Entre
+Le signe de l'estimateur retenu est positif. Entre
 2018-2019 et 2021-2022, la privation multidimensionnelle des enfants de ménages
 bénéficiaires a reculé plus lentement que celle d'enfants témoins de sexe,
 d'âge et de profil de ménage comparables, l'écart étant de l'ordre de 6 points
-de pourcentage. Deux conclusions s'imposent. D'abord, l'hypothèse H1 n'est pas
-validée, les
-transferts ne réduisant pas la pauvreté multidimensionnelle des enfants sur
-l'horizon observé. Ensuite, la lecture inverse - celle d'un effet défavorable
-- ne peut être affirmée avec la fermeté qu'exige une conclusion causale.
-L'intervalle de confiance à 95\,\% ($[-0{,}1~;~11{,}6]$ points) contient encore
-zéro, et la significativité au seuil de 10\,\% relève d'une présomption plutôt
-que d'une démonstration. Cette présomption est toutefois cohérente sur
-l'ensemble des spécifications, et la section~\ref{sec:discussion} en examine
-les canaux possibles.
+de pourcentage. L'hypothèse H1 n'est donc pas validée. L'intervalle de
+confiance à 95\,\% ($[-0{,}1~;~11{,}6]$ points) contient encore
+zéro et la significativité n'est atteinte qu'au seuil de 10\,\%.
 
-L'hypothèse H3 se trouve du même coup vérifiée. Les trois premières lignes du
-tableau montrent qu'aucune correction prise isolément ne suffit, et que leur
-combinaison change la conclusion plutôt qu'elle ne l'affine. L'annexe~\ref{ann:A}
-détaille cette décomposition.
+L'hypothèse H3 est vérifiée par la progression du tableau, où aucune
+correction prise isolément ne reproduit le résultat de leur combinaison.
 
-La figure~\ref{fig:dd_trajectoires} illustre le mécanisme de la double
-différence. Elle représente l'incidence MODA des enfants bénéficiaires et des
-témoins appariés aux deux vagues, ainsi que le contrefactuel obtenu en
-appliquant la tendance des témoins au niveau initial des bénéficiaires ;
-l'écart entre la trajectoire observée des bénéficiaires et son contrefactuel
-correspond à l'effet estimé.
+La figure~\ref{fig:dd_trajectoires} représente l'incidence MODA des enfants
+bénéficiaires et des témoins appariés aux deux vagues, ainsi que le
+contrefactuel obtenu en appliquant la tendance des témoins au niveau initial
+des bénéficiaires. L'écart entre la trajectoire observée des bénéficiaires et
+son contrefactuel correspond à l'effet estimé.
 
 \begin{figure}[H]
   \centering
@@ -254,9 +230,7 @@ l'effet vaut $0{,}058$ pour le k-NN, $0{,}055$ pour le noyau
 Epanechnikov et $0{,}047$ pour le caliper,
 tous trois significatifs au seuil de 10\,\% et aucun au seuil de 5\,\%. La
 double différence brute, qui ne corrige pas la sélection, donne une valeur
-plus faible et non significative ($0{,}032$) : c'est
-l'appariement qui fait apparaître l'écart de trajectoire, en neutralisant
-l'avantage initial des enfants de ménages bénéficiaires. Une validation
+plus faible et non significative ($0{,}032$). Une validation
 croisée avec une implémentation indépendante du même estimateur, la commande
 \texttt{diff} de \textcite{villa2016}, où le score de propension est
 réestimé par logit, aboutit au même constat~: effet de $0{,}045$,
@@ -294,12 +268,7 @@ mais son ampleur suit une courbe en cloche : quasi nulle à $k=1$ ($0{,}006$),
 elle croît jusqu'à un
 maximum à $k=4$ ($0{,}058$) puis retombe, jusqu'à $0{,}009$ à $k=6$. La
 significativité épouse la même forme, l'effet n'atteignant le seuil de 10\,\%
-qu'à $k=3$ et $k=4$. Aux seuils bas, la quasi-totalité des
-enfants est classée pauvre et il ne reste guère de variation à expliquer ; aux
-seuils élevés, ne subsistent que les enfants cumulant six ou sept privations,
-dont la situation relève de déficits structurels qu'un flux monétaire ne
-déplace pas. L'effet se concentre au milieu de la distribution, là où quelques
-privations font basculer un enfant de part et d'autre du seuil.
+qu'à $k=3$ et $k=4$.
 
 \begin{table}[H]
   \centering
@@ -320,20 +289,16 @@ privations font basculer un enfant de part et d'autre du seuil.
 \footnotetext{\textit{Note :} appariement k-NN au niveau enfant, erreurs-types clusterisées par grappe. Seule la définition de la variable de résultat change d'une colonne à l'autre.}
 
 \subsubsection{Effets par dimension}
-L'analyse par dimension (figure~\ref{fig:effets_dim} décompose l'effet d'ensemble sur les sept
-dimensions MODA. Une seule ressort, la nutrition, avec un effet de $0{,}081$,
+L'analyse par dimension (figure~\ref{fig:effets_dim}) décompose l'effet
+d'ensemble sur les sept
+dimensions MODA. Une seule ressort, la nutrition, avec un effet de $0{,}081$
 significatif au seuil de 5\,\%. La privation alimentaire des enfants de ménages
 bénéficiaires recule 8,1 points plus lentement que celle de leurs témoins
-appariés.
-
-Les six autres dimensions présentent des coefficients faibles, tous positifs
-et tous non significatifs, entre $0{,}012$ pour la santé et $0{,}037$ pour
-l'assainissement.Le
-volet dimensionnel de l'hypothèse H2 est ainsi partiellement validé :
-l'effet des transferts n'est pas uniforme entre dimensions, il se concentre
-sur la nutrition. Les deux autres volets de H2, relatifs au milieu de
-résidence et au sexe de l'enfant, sont examinés en
-section~\ref{sec:discussion}.
+appariés. Les six autres dimensions présentent des coefficients faibles, tous
+positifs et tous non significatifs, entre $0{,}012$ pour la santé et $0{,}037$
+pour l'assainissement. Le
+volet dimensionnel de l'hypothèse H2 est ainsi partiellement validé, l'effet
+des transferts n'étant pas uniforme entre dimensions.
 
 \begin{figure}[H]
   \centering
