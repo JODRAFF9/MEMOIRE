@@ -264,6 +264,20 @@ localisation capte l'accès aux réseaux migratoires, qui varie fortement
 entre régions~; le genre et l'âge de l'enfant répondent à une exigence de
 mesure propre à MODA, exposée ci-après.
 
+La qualité de l'appariement est jugée par la différence de moyennes
+standardisée (SMD). Pour une covariable $x$, elle rapporte l'écart de
+moyennes entre traités et témoins à la dispersion commune de la covariable,
+\begin{equation}
+  \mathrm{SMD}(x) = \frac{\bar{x}_T - \bar{x}_C}
+       {\sqrt{\dfrac{s_T^2 + s_C^2}{2}}} \times 100,
+  \label{eq:smd}
+\end{equation}
+où $\bar{x}_T$ et $\bar{x}_C$ désignent les moyennes de la covariable dans
+les groupes traité et témoin, et $s_T^2$ et $s_C^2$ leurs variances. Exprimée
+en pourcentage de l'écart-type, elle ne dépend pas de l'unité de mesure et se
+compare d'une covariable à l'autre. L'appariement est jugé satisfaisant
+lorsque la SMD résiduelle de chaque covariable reste inférieure à 10\,\%.
+
 \subsubsection{Double différence}
 
 La double différence (DD) \textcite{card1994} exploite la dimension temporelle des deux vagues EHCVM
