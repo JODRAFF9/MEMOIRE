@@ -117,7 +117,8 @@ traitement.
 \subsubsection{Comparaison de la qualité des trois appariements}
 
 Le tableau~\ref{tab:balance_global} confronte les indicateurs synthétiques
-d'équilibrage des trois algorithmes.
+d'équilibrage des trois algorithmes. La comparaison vérifie qu'aucun d'eux ne
+doit sa performance à une restriction excessive de l'échantillon apparié.
 
 \begin{table}[H]
   \centering
@@ -151,10 +152,6 @@ porte sur la taille du ménage et la dépense par tête.
 
 \label{subsec:psmdd}
 
-Le tableau~\ref{tab:psmdd_att} rapporte quatre spécifications, de
-l'appariement transversal appliqué séparément à chaque vague à l'estimateur
-PSM-DD retenu.
-
 \begin{table}[H]
   \centering
   \caption{Impact des transferts sur la pauvreté multidimensionnelle, des estimateurs transversaux au PSM-DD}
@@ -176,7 +173,9 @@ PSM-DD retenu.
   {\footnotesize \textbf{Note :} les lignes PSM et PSM-DD portent sur le support commun ($n = 16\,210$ observations-enfants), la DD simple sur l'ensemble des enfants suivis ($n = 35\,572$).}
 \end{table}
 
-L'appariement transversal donne un écart de $-8{,}1$ points en faveur des
+Le tableau~\ref{tab:psmdd_att} rapporte quatre spécifications, de
+l'appariement transversal appliqué séparément à chaque vague à l'estimateur
+PSM-DD retenu. L'appariement transversal donne un écart de $-8{,}1$ points en faveur des
 enfants bénéficiaires en 2018-2019, significatif au seuil de 1\,\%, réduit à
 $-1{,}7$ point et non significatif en 2021-2022. La double différence sans
 appariement donne $+3{,}5$ points, non significatifs. L'estimateur PSM-DD
@@ -244,7 +243,9 @@ significatif.
 Le tableau~\ref{tab:stables_estim} reprend l'estimation en substituant aux
 bénéficiaires de 2018 les enfants des ménages bénéficiaires stables, recevant
 un transfert aux deux vagues, face aux enfants des ménages jamais
-bénéficiaires.
+bénéficiaires. Ce second design mesure l'effet d'une exposition durable aux
+transferts, au prix d'une première vague qui n'y saisit plus un niveau
+pré-traitement.
 
 \begin{table}[H]
   \centering

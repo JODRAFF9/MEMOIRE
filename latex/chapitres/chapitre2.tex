@@ -15,7 +15,8 @@ combinaison du score de propension (PSM) et de la double différence (DD).
 Les enquêtes harmonisées sur les conditions de vie des ménages (EHCVM) sont
 réalisées dans le cadre du programme statistique de l'UEMOA
 \parencite{ansd2019, ansd2022}. Les deux vagues mobilisées dans ce travail
-reposent sur un plan de sondage aléatoire stratifié à deux degrés :
+reposent sur un plan de sondage aléatoire stratifié à deux degrés, dont les
+trois niveaux se décrivent comme suit.
 
 \begin{itemize}
   \item Strates. Les 14 régions administratives du Sénégal sont chacune
@@ -299,12 +300,11 @@ où $\Delta Y_i = Y_{i,t=2} - Y_{i,t=1}$ est la variation intra-ménage
 de la variable de résultat MODA, calculée directement sur les
 ménages suivis entre les deux vagues.
 
-Le code Stata des principales routines figure en annexe~\ref{ann:B}.
-
 Quelques conventions valent pour l'ensemble des estimations qui suivent. Les
 statistiques descriptives sont pondérées par la pondération de sondage des
 ménages, et toutes les erreurs-types sont clusterisées par grappe, l'unité
-primaire de sondage, puis reportées entre parenthèses sous le coefficient.
+primaire de sondage, puis reportées entre parenthèses sous le coefficient. Le code Stata des
+principales routines figure en annexe~\ref{ann:B}.
 Sauf mention contraire, l'appariement retenu est le plus proche voisin, au
 niveau de l'enfant. La significativité est signalée par $^{*}p<0{,}10$,
 $^{**}p<0{,}05$ et $^{***}p<0{,}01$.
