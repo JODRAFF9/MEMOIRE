@@ -52,16 +52,16 @@ distributions du score entre les deux groupes.
     \quad Taille du ménage                     & \makecell{$0{,}084^{***}$\\$(0{,}011)$} \\ \hline
     \quad Log dépense par tête                 & \makecell{$1{,}044^{***}$\\$(0{,}142)$} \\ \hline
     \quad Milieu rural                         & \makecell{-$0{,}166$\\$(0{,}150)$} \\ \hline
-    Effets fixes région               & Oui \\
+\sousentete    Effets fixes région               & Oui \\
     \hline
     Constante                                  & \makecell{-$17{,}10^{***}$\\$(2{,}006)$} \\
     \hline
     Pseudo-$R^2$ de McFadden                   & $0{,}150$ \\ \hline
-    Observations (enfants, panel suivi, EHCVM~I) & $17\,735$ \\
+    Observations (enfants, EHCVM~I) & $17\,735$ \\
     \hline
   \end{tabular}
 
-  {\footnotesize \textbf{Source :} Calcul de l'auteur, EHCVM. $^{*}p<0{,}10$, $^{**}p<0{,}05$, $^{***}p<0{,}01$~; écarts-types clusterisés par grappe entre parenthèses sous le coefficient.}
+  {\footnotesize \textbf{Source :} Calcul de l'auteur, EHCVM. $^{*}p<0{,}10$, $^{**}p<0{,}05$, $^{***}p<0{,}01$~; écarts-types entre parenthèses}
 \end{table}
 
 \begin{figure}[H]
@@ -177,17 +177,14 @@ Le tableau~\ref{tab:psmdd_att} rapporte quatre spécifications, de
 l'appariement transversal appliqué séparément à chaque vague à l'estimateur
 PSM-DD retenu. Les lignes PSM et PSM-DD y portent sur le support commun, soit
 16\,210 observations-enfants, la double différence simple sur l'ensemble des
-enfants suivis, soit 35\,572 observations. L'appariement transversal donne un écart de $-8{,}1$ points en faveur des
+enfants suivis, soit 35\,572 observations. L'appariement transversal donne un écart de -8,1 points en faveur des
 enfants bénéficiaires en 2018-2019, significatif au seuil de 1\,\%, réduit à
-$-1{,}7$ point et non significatif en 2021-2022. La double différence sans
-appariement donne $+3{,}5$ points, non significatifs. L'estimateur PSM-DD
-donne $+6{,}4$ points, significatifs au seuil de 5\,\%, soit par
-construction la différence des deux premières lignes
-($0{,}064 = -0{,}017 - (-0{,}081)$). La privation multidimensionnelle des
+-1,7 point et non significatif en 2021-2022. La double différence sans
+appariement donne 3,5 points, non significatifs. L'estimateur PSM-DD
+donne 6,4 points, significatifs au seuil de 5\,\%. La privation multidimensionnelle des
 enfants de ménages bénéficiaires a donc reculé plus lentement que celle
 d'enfants témoins de genre, d'âge et de profil de ménage comparables.
-L'hypothèse H1 n'est pas validée. L'intervalle de
-confiance à 95\,\% s'étend de $0{,}7$ à $12{,}2$ points.
+L'hypothèse H1 n'est pas validée.
 
 La figure~\ref{fig:dd_trajectoires} représente l'incidence MODA des enfants
 bénéficiaires et des témoins appariés aux deux vagues, ainsi que le
@@ -198,7 +195,7 @@ son contrefactuel correspond à l'effet estimé.
 \begin{figure}[H]
   \centering
   \caption{Trajectoires des bénéficiaires,
- 	des témoins appariés et contrefactuel (incidence MODA)}
+ 	des témoins appariés et contrefactuel selon l'incidence MODA}
   \includegraphics[width=0.85\linewidth]{figures/fig_dd_trajectoires.pdf}
   \label{fig:dd_trajectoires}
 
@@ -211,15 +208,7 @@ Le tableau~\ref{tab:psm_methodes} examine la stabilité des résultats selon la
 méthode d'appariement retenue. Les trois algorithmes concordent étroitement,
 l'effet valant $0{,}064$ pour le k-NN, $0{,}061$ pour le noyau
 Epanechnikov et $0{,}050$ pour le caliper,
-tous trois significatifs au moins au seuil de 10\,\%. La
-double différence brute, qui ne corrige pas la sélection, donne une valeur
-plus faible et non significative ($0{,}035$). Une validation
-croisée avec une implémentation indépendante du même estimateur, la commande
-\texttt{diff} de \textcite{villa2016}, qui réestime elle-même le score de
-propension, aboutit au même constat, un effet de $0{,}045$
-significatif au seuil de 10\,\% et la même décomposition, avec un écart initial
-significatif en faveur des bénéficiaires et un écart final resserré et non
-significatif.
+tous trois significatifs au moins au seuil de 10\,\%.
 
 \begin{table}[H]
   \centering
@@ -232,8 +221,7 @@ significatif.
     \hline
     k-NN ($k=4$, avec remise)             & $0{,}064^{**}$ \\ \hline
     Noyau Epanechnikov ($h=0{,}06$)       & $0{,}061^{*}$ \\ \hline
-    Caliper ($\varepsilon = 0{,}05$, sans remise) & $0{,}050^{*}$ \\ \hline
-    DD simple                             & $0{,}035$ \\
+    Caliper ($\varepsilon = 0{,}05$, sans remise) & $0{,}050^{*}$ \\
     \hline
   \end{tabular}
 
@@ -246,8 +234,7 @@ Le tableau~\ref{tab:stables_estim} reprend l'estimation en substituant aux
 bénéficiaires de 2018 les enfants des ménages bénéficiaires stables, recevant
 un transfert aux deux vagues, face aux enfants des ménages jamais
 bénéficiaires. Ce second design mesure l'effet d'une exposition durable aux
-transferts, au prix d'une première vague qui n'y saisit plus un niveau
-pré-traitement. Le score de propension y est réestimé sur ce sous-échantillon.
+transferts. Le score de propension y est réestimé sur ce sous-échantillon.
 
 \begin{table}[H]
   \centering
@@ -258,7 +245,7 @@ pré-traitement. Le score de propension y est réestimé sur ce sous-échantillo
     \hline
 \entete Spécification & Coefficient \\
     \hline
-    DD simple (sans appariement) & \makecell{\ATTstaDD\\\ATTstaDDse} \\ \hline
+    DD simple & \makecell{\ATTstaDD\\\ATTstaDDse} \\ \hline
     PSM-DD (k-NN, $k=4$)         & \makecell{\ATTstaPSM\\\ATTstaPSMse} \\
     \hline
   \end{tabular}

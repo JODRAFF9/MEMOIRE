@@ -16,10 +16,7 @@ Le tableau~\ref{tab:stables_estim} montre que l'écart de trajectoire ne se
 retrouve pas chez les bénéficiaires de longue date, quelle que soit la
 correction appliquée. Ni la double différence simple (\ATTstaDD) ni
 l'estimateur PSM-DD (\ATTstaPSM) n'atteignent la significativité, et tous
-deux restent d'ampleur inférieure à l'estimation principale. La lecture
-demande toutefois de la prudence, ce design ayant ses propres limites, le
-traitement y étant déjà en cours dès 2018, si bien que la première vague n'y
-mesure pas un niveau pré-traitement.
+deux restent d'ampleur inférieure à l'estimation principale.
 
 \subsubsection{Sensibilité à la méthode d'appariement et au seuil de privation}
 
@@ -60,14 +57,6 @@ n'est donc pas validé.
 
 \subsubsection{Selon les groupes d'âge}
 
-Les groupes d'âge sont ceux de la période de base et suivent l'enfant aux
-deux vagues. Un enfant de 3 ans en 2018 en a 6 en 2021, et recalculer son groupe
-à chaque vague le ferait changer de sous-groupe en cours de panel, et la
-double différence ne comparerait plus le même enfant à lui-même. Un tiers des
-observations du groupe des 0-4 ans sont dans ce cas. \og 0-4 ans \fg{} se lit
-donc \og âgé de 0 à 4 ans en 2018 \fg{}, ce qui est la lecture pertinente
-puisque c'est l'âge à l'exposition qui importe.
-
 La décomposition livre le coefficient de plus grande ampleur de l'analyse.
 Chez les enfants de 0 à 4 ans, l'effet atteint $0{,}091$ et est significatif au
 seuil de 5\,\%. La privation multidimensionnelle des
@@ -77,27 +66,11 @@ d'ensemble, et il concerne la tranche d'âge sur laquelle les privations pèsent
 le plus lourdement dans la trajectoire ultérieure de l'enfant. Les 5-14 ans
 suivent avec $0{,}056$, significatif au seuil de 10\,\%.
 
-Là encore, le passage du sous-groupe à la comparaison entre sous-groupes
-appelle de la prudence. Le test joint d'égalité des trois effets ne rejette
+Le test joint d'égalité des trois effets ne rejette
 pas l'homogénéité ($p = 0{,}252$), et l'écart des 5-14 ans aux 0-4 ans, de
 3,5 points, n'est pas significatif. Ce que l'on peut affirmer
 est donc que l'effet est établi chez les enfants de 0 à 4 ans et ne l'est pas ailleurs,
-non que son ampleur y soit statistiquement supérieure. Cette nuance tient pour
-partie à la faiblesse des effectifs, avec environ 2\,600 enfants traités
-répartis sur trois tranches, la puissance disponible ne permet pas de
-distinguer des coefficients séparés de quelques points.
-
-Les 15-17 ans échappent en revanche à l'analyse. Un enfant de 15 à 17 ans en
-2018 en a 18 à 20 en 2021 et sort du champ de l'étude. Il ne reste que
-226 enfants dans ce sous-groupe, contre 2\,719 chez les 0-4 ans et
-5\,160 chez les 5-14 ans. Le coefficient obtenu (-$0{,}069$, non significatif)
-ne repose sur rien d'exploitable. C'est une limite intrinsèque du suivi
-individuel sur trois ans, non un résultat. Cette concentration sur les 0 à 4 ans est cohérente avec l'effet observé
-sur la nutrition, seule dimension significative de la décomposition
-(section~\ref{sec:resultats}), les dimensions applicables aux enfants de 0 à 4 ans
-reposant largement sur l'alimentation et le soin quotidien. La convergence
-entre le résultat par âge et le résultat par dimension rend cette lecture plus
-solide que celle des autres sous-groupes.
+non que son ampleur y soit statistiquement supérieure. Les 15-17 ans montrent un coefficient de -$0{,}069$, non significatif.
 
 \subsubsection{Selon le montant des transferts reçus}
 \label{subsec:hetero_montant}
@@ -105,13 +78,12 @@ solide que celle des autres sous-groupes.
 Les trois volets précédents traitent le traitement comme binaire. Or les
 montants reçus varient considérablement d'un ménage à l'autre. La médiane
 s'établit autour de 300\,000 FCFA par an, mais le troisième quartile atteint
-1\,200\,000 FCFA (section~\ref{sec:methodo}). Un transfert de 50\,000 FCFA et
+1\,200\,000 FCFA. Un transfert de 50\,000 FCFA et
 un transfert de deux millions ne desserrent pas la même contrainte
 budgétaire, et rien n'impose que leurs effets soient de même ampleur. Ce
 dernier volet de l'hypothèse H2 examine donc la relation dose-réponse. Les
 quintiles sont construits sur la distribution du montant annuel parmi les
-ménages bénéficiaires, au niveau du ménage afin que le découpage ne soit pas
-déformé par le nombre d'enfants, puis chaque quintile d'enfants traités est
+ménages bénéficiaires, au niveau du ménage puis chaque quintile d'enfants traités est
 comparé à l'ensemble des enfants témoins appariés. Le tableau
 \ref{tab:hetero_montant} rapporte l'effet par quintile ainsi qu'un test continu,
 qui estime la pente de l'effet en fonction du logarithme du montant sur les
@@ -122,18 +94,12 @@ montants, avec $12{,}9$ points de pourcentage dans le premier quintile, jusqu'à
 100~000 FCFA par an, et $9{,}9$ points dans le deuxième, tous deux
 significatifs à 5\,\%. Il disparaît ensuite, les troisième et quatrième
 quintiles ne se distinguent pas, et le cinquième, au-delà de 1,8 million de
-FCFA par an, présente un coefficient négatif et nul en pratique
+FCFA par an, présente un coefficient négatif et non significatif en pratique
 (-$0{,}008$). Le test continu confirme cette structure, la pente de l'effet en fonction du
 logarithme du montant vaut -$0{,}025$, significative au seuil de 10\,\%. Plus le montant est
 élevé, plus l'écart de trajectoire défavorable se réduit, jusqu'à s'annuler
 pour les transferts les plus importants. Le volet de H2 relatif au montant est
-donc validé, et c'est celui pour lequel l'hétérogénéité est la mieux établie.
-Cette lecture éclaire aussi l'effet d'ensemble, qui n'est pas
-uniforme et se trouve porté par les ménages recevant les montants les plus
-faibles. Un transfert de 47~000 FCFA par an, montant médian du
-premier quintile, représente environ un dixième de la dépense annuelle par
-tête d'un ménage bénéficiaire~; un transfert de 3,3 millions, médiane du
-dernier quintile, en représente plusieurs fois le montant.
+donc validé.
 
 \subsection{Interprétation des résultats}
 
@@ -169,10 +135,7 @@ usages d'investissement, achat de terrain, construction ou création
 d'entreprise, demeurent marginaux. Cette structure rend l'absence d'effet
 moins surprenante sans l'expliquer à elle seule, un flux qui finance
 l'ordinaire du ménage ayant peu de raisons de déplacer les seuils de privation
-retenus par l'indice. Que
-la nutrition soit précisément la dimension où l'écart se creuse reste de ce
-point de vue le résultat le plus déroutant de l'étude, puisque c'est celle qui
-dépend le plus directement du budget courant.
+retenus par l'indice.
 
 Le deuxième est la contrainte d'offre. Dans les zones à fort déficit
 d'infrastructures, les transferts monétaires ne se substituent pas aux
@@ -198,8 +161,7 @@ harmonisées sur la diversité alimentaire, la dimension nutrition est
 opérationnalisée par l'échelle d'insécurité alimentaire vécue, seule mesure
 disponible et strictement comparable entre 2018-2019 et 2021-2022~; de même,
 la dimension santé repose sur des indicateurs d'accès aux soins et de
-combustible de cuisson, l'enquête ne relevant pas d'indicateurs d'état de
-santé de l'enfant. La comparabilité inter-temporelle prime ici sur
+combustible de cuisson. La comparabilité inter-temporelle prime ici sur
 l'exhaustivité conceptuelle, condition même de la double différence,
 car un indicateur qui changerait de définition entre les deux vagues produirait
 un effet mesuré sans contenu causal. Ces choix sont documentés indicateur par
@@ -208,13 +170,11 @@ indicateur en annexe~\ref{ann:C}.
 Ce travail comporte par ailleurs deux limites qu'il convient de
 souligner. La première est inhérente à la double différence, dont la validité
 repose sur l'hypothèse de tendances parallèles. Cette hypothèse porte sur une
-trajectoire contrefactuelle inobservable et ne peut jamais être vérifiée
-directement. Deux vagues seulement étant disponibles, il n'existe pas de
+trajectoire contrefactuelle inobservable. Deux vagues seulement étant disponibles, il n'existe pas de
 période pré-traitement antérieure permettant le test usuel de parallélisme
-des tendances passées. L'appariement rend l'hypothèse plus crédible en
+des tendances passées. Toutefois, l'appariement rend l'hypothèse plus crédible en
 sélectionnant des témoins comparables sur les caractéristiques observables à
-la période de base, ce qui renforce la plausibilité de l'hypothèse sans la
-démontrer. Un choc
+la période de base, ce qui renforce la plausibilité de l'hypothèse. Un choc
 affectant différemment les ménages bénéficiaires et leurs témoins entre les
 deux vagues, indépendamment des transferts, resterait indiscernable de
 l'effet estimé.
@@ -226,10 +186,8 @@ deviennent scolarisables et entrent dans le champ de l'indicateur
 d'éducation, inapplicable en 2018, ce qui relève mécaniquement leur incidence
 mesurée. Les enfants d'âge scolaire dépassant 14 ans relèvent de
 l'illettrisme plutôt que de la scolarisation. Les adolescents de 15 à 17 ans
-en 2018 sortent enfin du champ de l'étude, ce qui vide leur sous-groupe de
+en 2018 peuvent sortir enfin du champ de l'étude, ce qui vide leur sous-groupe de
 toute substance. Les groupes d'âge sont figés à la période de base pour que
 la double différence compare toujours le même enfant à lui-même, et ce
 décalage de grille affecte de la même façon les enfants bénéficiaires et
-leurs témoins appariés, de sorte que la différence des différences en
-neutralise l'essentiel. Il reste que l'effet estimé porte sur des enfants
-dont le champ d'évaluation s'est déplacé en cours de panel.
+leurs témoins appariés.
