@@ -1342,16 +1342,20 @@ tab statut_stab, missing
    3. Statistiques descriptives sur le panel
    ============================================================ */
 
-use "$TEMP/panel_vrai.dta", clear
-di _newline "=== Stats descriptives (panel vrai, traitement 2018) ==="
+use "$TEMP/panel_enfants_psm.dta", clear
+di _newline "=== Stats descriptives (enfants suivis, traitement 2018) ==="
 tabstat pauvre_MODA nb_dep pcexp, ///
     by(D) stat(mean n) format(%6.3f)
 
 /* ============================================================
    4. Double Difference brute (sans appariement, reference)
+
+   Champ : enfants suivis, avant restriction au support commun.
    ============================================================ */
 
-di _newline "=== Double Difference brute (sans appariement) ==="
+quietly count if t == 0
+di _newline "=== Double Difference brute (enfants suivis, sans appariement) ==="
+di "  Enfants suivis : " r(N)
 foreach outcome in pauvre_MODA {
     di _newline "--- DD `outcome' ---"
     regress `outcome' i.t##i.D, vce(cluster grappe)
@@ -1415,29 +1419,9 @@ di _newline "  Rappel : ATT_PSM-DD = ATT_PSM(t=1) - ATT_PSM(t=0), par constructi
 
 save "$TEMP/panel_apparie.dta", replace
 
-/* ── Robustesse : agregat menage (design de comparaison) ─────
-   Le design principal apparie les ENFANTS. On verifie ici que la
-   conclusion ne tient pas a ce choix d'unite, en reproduisant la double
-   difference sur l'ensemble des enfants du panel de menages (y compris
-   ceux qui n'apparaissent qu'a une seule vague), sans appariement
-   individuel. Un ecart important entre les deux signalerait un effet de
-   recomposition de l'echantillon plutot qu'un effet du traitement. */
-preserve
-    use "$TEMP/panel_vrai.dta", clear
-    di _newline "=== Robustesse : tous les enfants du panel de menages ==="
-    di "  Observations : " _N
-    regress pauvre_MODA i.t##i.D, vce(cluster grappe)
-    lincom 1.t#1.D
-    di "  ATT agregat menage = " %8.4f r(estimate) ///
-       "  SE = " %8.4f r(se) "  p = " %6.4f r(p)
-restore
-
 /* ── Fig DD : trajectoires beneficiaires vs temoins + contrefactuel ──
-   Illustre visuellement la double difference et permet d'apprecier
-   l'hypothese de tendances paralleles. Les 4 moyennes de cellule sont
-   ponderees par les poids d'appariement k-NN. Le contrefactuel applique
-   la tendance des temoins au niveau initial des beneficiaires ; l'ecart
-   au point observe de 2021 est l'ATT. */
+   Moyennes ponderees par les poids k-NN. Le contrefactuel applique la
+   tendance des temoins au niveau initial des beneficiaires. */
 quietly summarize pauvre_MODA if D==1 & t==0 [aw=weight_knn]
 scalar dd_b0 = r(mean)*100
 quietly summarize pauvre_MODA if D==1 & t==1 [aw=weight_knn]
@@ -1551,11 +1535,7 @@ if _rc == 0 {
     drop fille
 }
 
-/* -- Par sexe du chef de menage -------------------------------
-   Le chef feminin est le predicteur le plus fort du traitement (probit) :
-   la migration de l'epoux laisse souvent la gestion du menage a l'epouse.
-   L'effet des transferts peut donc differer selon que le menage est dirige
-   par un homme ou par une femme. hgender : 1 = homme, 2 = femme. */
+/* -- Par sexe du chef de menage (hgender : 1 homme, 2 femme) --
 di _newline "=== Heterogeneite par sexe du chef de menage ==="
 capture confirm variable hgender
 if _rc == 0 {
@@ -1702,15 +1682,31 @@ foreach poids_var in weight_knn weight_kernel weight_caliper {
     }
 }
 
-/* ── Validation croisee avec la commande diff (Villa 2016) ──────
-   La commande communautaire diff implemente le kernel PSM diff-in-diff de
-   Heckman et al. (1998), soit exactement l'estimateur programme ci-dessus.
-   Le score de propension y est reestime par LOGIT (option logit de diff)
-   sur les covariables passees telles quelles, sans indicatrices ni
-   interactions. Le resultat doit etre proche de la ligne weight_kernel de
-   la comparaison precedente, aux details d'implementation pres (logit vs
-   probit, bande passante 0.06, Epanechnikov).
-   Installation si besoin : ssc install diff */
+/* ── Variable de resultat continue : nombre de privations ──────
+   Le statut binaire perd l'information sur l'intensite. On reestime l'ATT
+   sur nb_dep (0 a 7) avec la DD simple et les trois appariements. */
+di _newline "=== ATT sur le nombre de privations (0-7) ==="
+preserve
+    use "$TEMP/panel_enfants_psm.dta", clear
+    quietly regress nb_dep i.t##i.D, vce(cluster grappe)
+    quietly lincom 1.t#1.D
+    di "  DD simple      : ATT=" %8.4f r(estimate) ///
+       "  SE=" %7.4f r(se) "  p=" %6.4f r(p)
+restore
+foreach poids_var in weight_knn weight_kernel weight_caliper {
+    quietly count if !missing(`poids_var') & `poids_var' > 0
+    if r(N) > 0 {
+        quietly regress nb_dep i.t##i.D [aw=`poids_var'] ///
+            if `poids_var' > 0, vce(cluster grappe)
+        quietly lincom 1.t#1.D
+        di "  `poids_var' : ATT=" %8.4f r(estimate) ///
+           "  SE=" %7.4f r(se) "  p=" %6.4f r(p)
+    }
+}
+
+/* ── Validation croisee : diff (Villa 2016), score logit ───────
+   Implementation independante du kernel PSM-DD. A comparer a la ligne
+   weight_kernel. Installation : ssc install diff */
 capture which diff
 if _rc == 0 {
     di _newline "=== Validation croisee : diff (kernel, score logit) ==="
@@ -1727,10 +1723,11 @@ else {
    8. Robustesse : definition alternative du traitement
       (beneficiaires stables)
 
-   En complement du design principal (entrants, DD canonique avec
+   En complement du design principal (DD canonique avec
    periode pre-traitement observee), l'ATT est aussi estime en
    comparant les beneficiaires STABLES (D_2018=1 et D_2021=1) aux
-   menages jamais beneficiaires, sur les memes menages panel. Ce
+   menages jamais beneficiaires. Le champ reste celui de tout le rapport,
+   les enfants suivis individuellement d'une vague a l'autre. Ce
    design capte l'effet d'une exposition durable aux transferts,
    mais le traitement y est deja en cours a t=0 : la periode de
    base n'est pas une periode pre-traitement, ce qui fragilise
@@ -1738,26 +1735,9 @@ else {
    de comparaison.
    ============================================================ */
 
-use "$TEMP/ids_panel.dta", clear
-tempfile menages_panel
-save `menages_panel'
-
-use "$TEMP/vague_2018.dta", clear
-merge m:1 grappe menage using `menages_panel', keep(match) nogenerate
+use "$TEMP/panel_enfants_psm.dta", clear
 merge m:1 grappe menage using "$TEMP/traitement_stable.dta", ///
-    keepusing(D_2018 D_2021) keep(match) nogenerate
-tempfile alt_t0
-save `alt_t0'
-
-use "$TEMP/vague_2021.dta", clear
-merge m:1 grappe menage using `menages_panel', keep(match) nogenerate
-merge m:1 grappe menage using "$TEMP/traitement_stable.dta", ///
-    keepusing(D_2018 D_2021) keep(match) nogenerate
-tempfile alt_t1
-save `alt_t1'
-
-use `alt_t0', clear
-append using `alt_t1'
+    keepusing(D_2018 D_2021) keep(master match) nogenerate
 
 /* Restreindre aux menages a statut constant : beneficiaires stables
    (D=1 aux deux vagues) et jamais beneficiaires (D=0 aux deux vagues) */
@@ -1779,11 +1759,39 @@ lincom 1.t#1.D_stable_alt
 di "  ATT_DD_stables = " %8.4f r(estimate) ///
    "  SE = " %8.4f r(se) "  p = " %6.4f r(p)
 
-/* ── Heterogeneite de l'effet stables par quintile de montant ──
-   Meme logique que la section 6d : quintiles du montant annuel 2018,
-   construits au niveau des menages beneficiaires STABLES (un menage = un
-   montant), puis chaque quintile d'enfants stables est compare a l'ensemble
-   des enfants jamais beneficiaires. */
+/* ── PSM-DD sur la definition alternative ──────────────────────
+   Meme chaine que le design principal : probit a t=0, appariement k-NN
+   sur support commun, puis DD ponderee. */
+preserve
+    keep if t == 0
+    quietly probit D_stable_alt c.hhsize c.log_pcexp i.milieu i.region ///
+        c.hgender c.hage i.heduc i.hmstat i.hcsp i.sexe c.age, ///
+        vce(cluster grappe)
+    di _newline "  Pseudo-R2 probit (stables) : " %6.3f 1 - e(ll)/e(ll_0)
+    quietly predict pscore_sta if e(sample), pr
+    quietly psmatch2 D_stable_alt, pscore(pscore_sta) neighbor($K_VOISINS) common
+    di _newline "  Balance apres appariement (stables) :"
+    pstest hhsize log_pcexp i.milieu i.region hgender hage ///
+        i.heduc i.hmstat i.hcsp i.sexe age, both
+    rename _weight w_sta
+    keep enfid w_sta
+    tempfile poids_sta
+    save `poids_sta'
+restore
+merge m:1 enfid using `poids_sta', keep(master match) nogenerate
+
+di _newline "--- PSM-DD, beneficiaires stables vs jamais beneficiaires ---"
+quietly count if t == 0 & w_sta > 0 & !missing(w_sta)
+di "  Enfants sur support commun : " r(N)
+regress pauvre_MODA i.t##i.D_stable_alt [aw=w_sta] ///
+    if w_sta > 0 & !missing(w_sta), vce(cluster grappe)
+lincom 1.t#1.D_stable_alt
+di "  ATT_PSMDD_stables = " %8.4f r(estimate) ///
+   "  SE = " %8.4f r(se) "  p = " %6.4f r(p)
+
+/* ── Effet stables par quintile de montant 2018 ────────────────
+   Quintiles construits au niveau des menages stables, chaque quintile
+   compare a l'ensemble des jamais beneficiaires. */
 preserve
     keep if D_stable_alt == 1 & t == 0
     bysort grappe menage: keep if _n == 1
@@ -2333,6 +2341,25 @@ di ">>> Sorties dans : $OUTPUT/tables/ et $OUTPUT/figures/"
 
 /* Joindre poids k-NN au panel vrai */
 use "$TEMP/panel_enfants_psm.dta", clear
+
+/* ── ATT par dimension, trois methodes d'appariement ───────────
+   Verifie que la lecture dimensionnelle ne depend pas de l'algorithme. */
+local dims assai eau logem nutri sante protect educ
+di _newline "=== ATT par dimension, comparaison des trois appariements ==="
+foreach poids_var in weight_knn weight_kernel weight_caliper {
+    di _newline "--- `poids_var' ---"
+    foreach dim of local dims {
+        quietly count if !missing(`poids_var') & `poids_var' > 0
+        if r(N) > 0 {
+            quietly regress dim_`dim' i.t##i.D [aw=`poids_var'] ///
+                if `poids_var' > 0, vce(cluster grappe)
+            quietly lincom 1.t#1.D
+            di "  dim_`dim' : ATT=" %8.4f r(estimate) ///
+               "  SE=" %7.4f r(se) "  p=" %6.4f r(p)
+        }
+    }
+}
+
 keep if !missing(weight_knn) & weight_knn > 0
 
 /* ATT PSM-DD pour chaque dimension (poids d'appariement PSM uniquement,
@@ -2434,8 +2461,8 @@ di _newline "=== Test placebo (200 replications) ==="
 local n_rep 200
 matrix PLA = J(`n_rep', 1, .)   /* col 1 = MODA */
 
-/* Echantillon : menages jamais traites uniquement */
-use "$TEMP/panel_vrai.dta", clear
+/* Echantillon : enfants suivis des menages jamais traites */
+use "$TEMP/panel_enfants_psm.dta", clear
 keep if D == 0
 tempfile never
 save `never'
@@ -2447,10 +2474,9 @@ tempfile liste_men
 save `liste_men'
 quietly count
 local n_men = r(N)
-/* part de faux traites = part observee de traites (entrants) parmi les
-   menages du panel d'analyse, calculee dynamiquement */
+/* part de faux traites = part observee de traites */
 preserve
-    use "$TEMP/panel_vrai.dta", clear
+    use "$TEMP/panel_enfants_psm.dta", clear
     keep if t == 0
     bysort grappe menage: keep if _n == 1
     quietly summarize D

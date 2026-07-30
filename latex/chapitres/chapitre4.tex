@@ -2,24 +2,53 @@
 \label{sec:discussion}
 
 Cette section discute la validité et la portée des résultats présentés à la
-section précédente. Elle comporte quatre volets : les tests de robustesse
-(sensibilité au seuil inter-dimensionnel et au choix de la méthode
-d'appariement), l'analyse de l'hétérogénéité des effets selon le milieu,
-le sexe et l'âge, l'interprétation économique d'un résultat nul, et enfin
-les implications pour les politiques publiques.
+section précédente. Elle comporte quatre volets, à savoir les tests de
+robustesse (définition alternative du traitement, seuil inter-dimensionnel et
+choix de la méthode d'appariement), l'analyse de l'hétérogénéité des effets
+selon le milieu, le sexe et l'âge, l'interprétation économique des résultats,
+et enfin les limites de l'étude.
 
 \subsection{Tests de robustesse}
 
-\subsection{Traitement défini par les bénéficiaires stables}
+\subsubsection{Définition alternative du traitement}
 
 En complément du design principal, l'effet est estimé en comparant les
-bénéficiaires stables (recevant un transfert aux deux vagues,
-2\,604 observations-enfants) aux ménages jamais bénéficiaires
-(23\,580 observations). La double différence donne un effet de $0{,}023$
-(non significatif)~: de même signe que l'estimation principale, mais d'ampleur plus
-faible et non significatif. L'écart de trajectoire observé sur le traitement
-défini à la période de base ne se retrouve donc pas chez les bénéficiaires de
-longue date.
+enfants des ménages bénéficiaires stables, recevant un transfert aux deux
+vagues, à ceux des ménages jamais bénéficiaires. Le champ reste celui de tout
+le rapport, les enfants suivis individuellement d'une vague à l'autre, et
+l'estimation suit les deux mêmes étapes que le design principal. La double
+différence simple donne un effet de \ATTstaDD, l'estimateur PSM-DD un effet
+de \ATTstaPSM. Aucun des deux n'est significatif, et tous deux restent
+d'ampleur inférieure à l'estimation principale. L'écart de trajectoire
+observé sur le traitement défini à la période de base ne se retrouve donc pas
+chez les bénéficiaires de longue date, quelle que soit la correction
+appliquée.
+
+\begin{table}[H]
+  \centering
+  \caption[Définition alternative du traitement, bénéficiaires stables contre jamais bénéficiaires]{Définition alternative du traitement, bénéficiaires stables contre jamais bénéficiaires\protect\footnotemark}
+  \label{tab:stables_estim}
+  \zebre
+  \begin{tabular}{|l|c|}
+    \hline
+\entete Spécification & Coefficient \\
+    \hline
+    DD simple (sans appariement) & \makecell{\ATTstaDD\\\ATTstaDDse} \\ \hline
+    PSM-DD (k-NN, $k=4$)         & \makecell{\ATTstaPSM\\\ATTstaPSMse} \\
+    \hline
+  \end{tabular}
+
+  {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM.}
+\end{table}
+\footnotetext{\textit{Note :} champ des enfants suivis, erreurs-types clusterisées par grappe, entre parenthèses sous le coefficient. Le score de propension de la ligne PSM-DD est réestimé sur ce sous-échantillon.}
+
+Décliné par quintile de montant annuel reçu en 2018, ce design alternatif
+retrouve toutefois le profil de l'estimation principale
+(tableau~\ref{tab:stables_montant}). Seul le quintile des plus petits
+montants affiche un coefficient d'ampleur notable, $0{,}101$, sans qu'il soit
+significatif, les quatre autres restant proches de zéro. Ce design a par
+ailleurs ses propres limites, le traitement y étant déjà en cours dès 2018,
+si bien que la première vague n'y mesure pas un niveau pré-traitement.
 
 \begin{table}[H]
 	\centering
@@ -40,8 +69,9 @@ longue date.
 	
 	{\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM.}
 \end{table}
+\footnotetext{\textit{Note :} double différence, erreurs-types clusterisées par grappe, entre parenthèses sous le coefficient. Quintiles du montant annuel 2018 construits au niveau des ménages bénéficiaires stables, chaque quintile étant comparé à l'ensemble des enfants des ménages jamais bénéficiaires.}
 
-\subsubsection{Sensibilité au traitement et à la méthode d'appariement}
+\subsubsection{Sensibilité à la méthode d'appariement et au seuil de privation}
 
 Le tableau~\ref{tab:psm_methodes} (section~\ref{subsec:psmdd}) documente la
 sensibilité de l'effet estimé à la méthode d'appariement : k-NN ($0{,}058$), noyau Epanechnikov ($0{,}055$) et caliper
@@ -49,19 +79,7 @@ sensibilité de l'effet estimé à la méthode d'appariement : k-NN ($0{,}058$),
 voisine, tous significatifs au seuil de 10\,\% et aucun à 5\,\% : la
 conclusion est robuste au choix algorithmique, et les trois méthodes
 atteignent une qualité d'équilibrage comparable
-(tableau~\ref{tab:balance_global}). La conclusion l'est moins à la définition
-du traitement. En restreignant la comparaison
-aux bénéficiaires durables - recevant un transfert aux deux vagues,
-2\,604 observations-enfants - face aux ménages jamais bénéficiaires
-(23\,580 observations), l'effet tombe à $0{,}023$ et perd toute significativité. Une exposition prolongée aux transferts ne s'accompagne donc
-pas de l'écart de trajectoire observé sur le traitement défini à la période de
-base. Décliné par quintile de montant annuel reçu en 2018, ce design
-alternatif retrouve toutefois le profil de l'estimation principale~: seul le
-quintile des plus petits montants affiche un coefficient d'ampleur notable
-($0{,}101$, non significatif), les autres restant proches de zéro
-(annexe~\ref{ann:A}). Ce design a par ailleurs ses propres limites, le
-traitement y étant déjà en
-cours dès 2018 : la première vague n'y mesure pas un niveau pré-traitement.
+(tableau~\ref{tab:balance_global}).
 
 Enfin, le seuil inter-dimensionnel $k$, que le tableau~\ref{tab:sensib_k}
 (section~\ref{subsec:sensib_k}) fait varier sur toute son étendue, module
@@ -231,7 +249,7 @@ seuls enfants traités.
 
   {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM. $^{*}p<0{,}10$, $^{**}p<0{,}05$.}
 \end{table}
-
+\footnotetext{\textit{Note :} appariement k-NN au niveau enfant, erreurs-types clusterisées par grappe, entre parenthèses sous le coefficient. Les quintiles sont définis sur le montant annuel des transferts parmi les ménages bénéficiaires, chaque quintile étant comparé à l'ensemble des témoins appariés. La pente dose-réponse est le coefficient de l'interaction entre la vague et le logarithme du montant, estimé sur les enfants traités.}
 
 L'effet défavorable se concentre sur les petits
 montants~: $12{,}2$ points de pourcentage dans le premier quintile, jusqu'à
@@ -349,3 +367,36 @@ empirique contrasté. Si certaines
 monétaires de pauvreté \parencite{adams2005,gubert2002}, les effets sur des
 indicateurs multidimensionnels structurels sont moins systématiquement
 établis, en particulier à court terme \parencite{mansuri2006,cortes2007}.
+
+\subsection{Limites de l'étude}
+
+Une précision de mesure s'impose au préalable, qui relève d'un choix assumé
+plutôt que d'une limite. Les deux vagues de l'EHCVM n'offrant pas de variables
+harmonisées sur la diversité alimentaire, la dimension nutrition est
+opérationnalisée par l'échelle d'insécurité alimentaire vécue, seule mesure
+disponible et strictement comparable entre 2018-2019 et 2021-2022~; de même,
+la dimension santé repose sur des indicateurs d'accès aux soins et de
+combustible de cuisson, l'enquête ne relevant pas d'indicateurs d'état de
+santé de l'enfant. Privilégier la comparabilité inter-temporelle sur
+l'exhaustivité conceptuelle est la condition même de la double différence~:
+un indicateur qui changerait de définition entre les deux vagues produirait
+un effet mesuré sans contenu causal. Ces choix sont documentés indicateur par
+indicateur en annexe~\ref{ann:C}.
+
+Notre travail comporte par ailleurs deux limites qu'il convient de souligner.
+La première concerne la définition du traitement~: le passage au
+statut de bénéficiaire coïncide souvent avec le départ en migration récent
+d'un membre du ménage, événement qui affecte lui-même la composition et
+l'organisation du ménage au moment où l'issue est mesurée, si bien que
+l'estimation capte l'effet conjoint du départ et des transferts. La date
+exacte d'entrée dans le statut n'étant pas observée à l'intérieur de la
+fenêtre 2019-2021, la durée d'exposition varie au sein du groupe traité et
+l'effet estimé s'interprète comme un effet de court terme. La variable de
+traitement est par ailleurs déclarée et peut être sujette à des erreurs de
+classification, notamment une sous-déclaration des transferts informels.
+
+La seconde limite tient à la puissance statistique~: avec 756 ménages
+traités sur support commun, l'intervalle de confiance de l'effet reste large
+($[-1{,}1~;~9{,}6]$ points), ce qui ne permet pas d'exclure des effets de
+faible ampleur. L'absence d'effet établi ne doit donc pas se lire comme la
+démonstration d'un effet exactement nul.
