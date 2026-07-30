@@ -1223,7 +1223,7 @@ di "Enfants suivis aux deux vagues : " _N
    menage : la correlation intra-grappe couvre aussi l'intra-menage). */
 logit D c.hhsize c.log_pcexp i.milieu i.region ///
          c.hgender c.hage i.heduc i.hmstat i.hcsp ///
-         i.sexe18 c.age18, vce(cluster grappe) nolog
+         i.sexe18 ib1.groupe_moda18, vce(cluster grappe) nolog
 
 di "Pseudo-R2 McFadden : " %6.3f 1 - e(ll)/e(ll_0)
 
@@ -1259,7 +1259,7 @@ save "$TEMP/pscore_t0.dta", replace
    ============================================================ */
 
 local covbal hhsize log_pcexp i.milieu i.region hgender hage ///
-             i.heduc i.hmstat i.hcsp i.sexe18 age18
+             i.heduc i.hmstat i.hcsp i.sexe18 i.groupe_moda18
 
 /* -- 2a. k-NN ------------------------------------------------ */
 di _newline "=== Appariement k-NN (k=$K_VOISINS, avec remise), niveau enfant ==="
@@ -1684,9 +1684,13 @@ foreach poids_var in weight_knn weight_kernel weight_caliper {
 capture which diff
 if _rc == 0 {
     di _newline "=== Validation croisee : diff (kernel, score logit) ==="
+    quietly gen byte grp_5_14 = (groupe_base == 2)
+    quietly gen byte grp_15_17 = (groupe_base == 3)
     diff pauvre_MODA, t(D) p(t) kernel id(enfid) logit ///
-        cov(hhsize log_pcexp milieu hgender hage heduc hmstat hcsp sexe age) ///
+        cov(hhsize log_pcexp milieu hgender hage heduc hmstat hcsp sexe ///
+            grp_5_14 grp_15_17) ///
         support cluster(grappe)
+    quietly drop grp_5_14 grp_15_17
     di _newline "  Rappel estimateur maison (kernel) : voir ligne weight_kernel ci-dessus."
 }
 else {
