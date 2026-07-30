@@ -1539,7 +1539,7 @@ if _rc == 0 {
     drop fille
 }
 
-/* -- Par genre du chef de menage (hgender : 1 homme, 2 femme) --
+/*-- Par genre du chef de menage (hgender : 1 homme, 2 femme) --*/
 di _newline "=== Heterogeneite par genre du chef de menage ==="
 capture confirm variable hgender
 if _rc == 0 {
