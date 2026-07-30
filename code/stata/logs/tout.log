@@ -4753,77 +4753,337 @@ Linear regression                               Number of obs     =     16,210
 . }
 
 . 
-. /* -- Par genre du chef de menage (hgender : 1 homme, 2 femme) --
-> di _newline "=== Heterogeneite par genre du chef de menage ==="
-> capture confirm variable hgender
-> if _rc == 0 {
->     foreach outcome in pauvre_MODA {
->         foreach h in 1 2 {
->             if `h' == 1 local lab_h "Chef homme"
->             else        local lab_h "Chef femme"
->             quietly count if hgender == `h'
->             if r(N) > 30 {
->                 di "--- `lab_h' — `outcome' ---"
->                 regress `outcome' i.t##i.D [aw=weight_knn] if hgender == `h', ///
+. /*-- Par genre du chef de menage (hgender : 1 homme, 2 femme) --*/
+. di _newline "=== Heterogeneite par genre du chef de menage ==="
+
+=== Heterogeneite par genre du chef de menage ===
+
+. capture confirm variable hgender
+
+. if _rc == 0 {
+.     foreach outcome in pauvre_MODA {
+  2.         foreach h in 1 2 {
+  3.             if `h' == 1 local lab_h "Chef homme"
+  4.             else        local lab_h "Chef femme"
+  5.             quietly count if hgender == `h'
+  6.             if r(N) > 30 {
+  7.                 di "--- `lab_h' — `outcome' ---"
+  8.                 regress `outcome' i.t##i.D [aw=weight_knn] if hgender == `h', ///
 >                     vce(cluster grappe)
->                 lincom 1.t#1.D
->                 di "  ATT = " %8.4f r(estimate) "  p = " %6.4f r(p)
->             }
->         }
->     }
-> 
->     di _newline "Test d'egalite (chef femme vs chef homme) :"
->     gen byte chef_fem = (hgender == 2) if !missing(hgender)
->     foreach outcome in pauvre_MODA {
->         regress `outcome' i.t##i.D##i.chef_fem [aw=weight_knn], vce(cluster grappe)
->         lincom 1.t#1.D#1.chef_fem
->         di "  Diff ATT (chef femme - chef homme) : " %8.4f r(estimate) ///
+  9.                 lincom 1.t#1.D
+ 10.                 di "  ATT = " %8.4f r(estimate) "  p = " %6.4f r(p)
+ 11.             }
+ 12.         }
+ 13.     }
+--- Chef homme — pauvre_MODA ---
+(sum of wgt is 7,261.5)
+
+Linear regression                               Number of obs     =     11,634
+                                                F(3, 560)         =       7.24
+                                                Prob > F          =     0.0001
+                                                R-squared         =     0.0079
+                                                Root MSE          =     .49575
+
+                               (Std. err. adjusted for 561 clusters in grappe)
+------------------------------------------------------------------------------
+             |               Robust
+ pauvre_MODA | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+         1.t |  -.1037723   .0244862    -4.24   0.000    -.1518683   -.0556762
+         1.D |  -.0713075   .0360054    -1.98   0.048    -.1420296   -.0005853
+             |
+         t#D |
+        1 1  |   .0615645   .0347161     1.77   0.077    -.0066253    .1297542
+             |
+       _cons |    .621091   .0220274    28.20   0.000     .5778246    .6643574
+------------------------------------------------------------------------------
+
+ ( 1)  1.t#1.D = 0
+
+------------------------------------------------------------------------------
+ pauvre_MODA | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+         (1) |   .0615645   .0347161     1.77   0.077    -.0066253    .1297542
+------------------------------------------------------------------------------
+  ATT =   0.0616  p = 0.0767
+--- Chef femme — pauvre_MODA ---
+(sum of wgt is 3,290.5)
+
+Linear regression                               Number of obs     =      4,576
+                                                F(3, 399)         =       3.41
+                                                Prob > F          =     0.0176
+                                                R-squared         =     0.0101
+                                                Root MSE          =     .49527
+
+                               (Std. err. adjusted for 400 clusters in grappe)
+------------------------------------------------------------------------------
+             |               Robust
+ pauvre_MODA | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+         1.t |  -.0891552   .0367332    -2.43   0.016      -.16137   -.0169405
+         1.D |  -.1114627   .0472679    -2.36   0.019     -.204388   -.0185374
+             |
+         t#D |
+        1 1  |   .0714337   .0544297     1.31   0.190    -.0355712    .1784386
+             |
+       _cons |   .5317159   .0354721    14.99   0.000     .4619803    .6014514
+------------------------------------------------------------------------------
+
+ ( 1)  1.t#1.D = 0
+
+------------------------------------------------------------------------------
+ pauvre_MODA | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+         (1) |   .0714337   .0544297     1.31   0.190    -.0355712    .1784386
+------------------------------------------------------------------------------
+  ATT =   0.0714  p = 0.1901
+. 
+.     di _newline "Test d'egalite (chef femme vs chef homme) :"
+
+Test d'egalite (chef femme vs chef homme) :
+.     gen byte chef_fem = (hgender == 2) if !missing(hgender)
+.     foreach outcome in pauvre_MODA {
+  2.         regress `outcome' i.t##i.D##i.chef_fem [aw=weight_knn], vce(cluster grappe)
+  3.         lincom 1.t#1.D#1.chef_fem
+  4.         di "  Diff ATT (chef femme - chef homme) : " %8.4f r(estimate) ///
 >            "  p = " %6.4f r(p)
->     }
->     drop chef_fem
-> }
-> 
-> di _newline "=== Heterogeneite par groupe d'age (groupe fige en 2018) ==="
-> foreach g in 1 2 3 {
->     foreach outcome in pauvre_MODA {
->         quietly count if groupe_base == `g'
->         if r(N) > 30 {
->             di "--- Groupe `g' — `outcome' ---"
->             quietly count if groupe_base == `g' & groupe_moda != groupe_base
->             local n_chg = r(N)
->             quietly count if groupe_base == `g'
->             di "  Observations changeant de groupe d'age entre les vagues : " ///
+  5.     }
+(sum of wgt is 10,552)
+
+Linear regression                               Number of obs     =     16,210
+                                                F(7, 577)         =       7.47
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.0167
+                                                Root MSE          =     .49559
+
+                               (Std. err. adjusted for 578 clusters in grappe)
+------------------------------------------------------------------------------
+             |               Robust
+ pauvre_MODA | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+         1.t |  -.1037723   .0244877    -4.24   0.000    -.1518682   -.0556763
+         1.D |  -.0713075   .0360076    -1.98   0.048    -.1420294   -.0005855
+             |
+         t#D |
+        1 1  |   .0615645   .0347183     1.77   0.077    -.0066251     .129754
+             |
+  1.chef_fem |  -.0893751   .0395147    -2.26   0.024    -.1669853    -.011765
+             |
+  t#chef_fem |
+        1 1  |    .014617   .0459461     0.32   0.750     -.075625    .1048591
+             |
+  D#chef_fem |
+        1 1  |  -.0401552     .05625    -0.71   0.476    -.1506349    .0703244
+             |
+t#D#chef_fem |
+      1 1 1  |   .0098692    .064571     0.15   0.879    -.1169537    .1366922
+             |
+       _cons |    .621091   .0220287    28.19   0.000     .5778248    .6643573
+------------------------------------------------------------------------------
+
+ ( 1)  1.t#1.D#1.chef_fem = 0
+
+------------------------------------------------------------------------------
+ pauvre_MODA | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+         (1) |   .0098692    .064571     0.15   0.879    -.1169537    .1366922
+------------------------------------------------------------------------------
+  Diff ATT (chef femme - chef homme) :   0.0099  p = 0.8786
+.     drop chef_fem
+. }
+
+. 
+. di _newline "=== Heterogeneite par groupe d'age (groupe fige en 2018) ==="
+
+=== Heterogeneite par groupe d'age (groupe fige en 2018) ===
+
+. foreach g in 1 2 3 {
+  2.     foreach outcome in pauvre_MODA {
+  3.         quietly count if groupe_base == `g'
+  4.         if r(N) > 30 {
+  5.             di "--- Groupe `g' — `outcome' ---"
+  6.             quietly count if groupe_base == `g' & groupe_moda != groupe_base
+  7.             local n_chg = r(N)
+  8.             quietly count if groupe_base == `g'
+  9.             di "  Observations changeant de groupe d'age entre les vagues : " ///
 >                %5.1f 100*`n_chg'/r(N) "%"
->             regress `outcome' i.t##i.D [aw=weight_knn] if groupe_base == `g', ///
+ 10.             regress `outcome' i.t##i.D [aw=weight_knn] if groupe_base == `g', ///
 >                 vce(cluster grappe)
->             lincom 1.t#1.D
->             di "  ATT = " %8.4f r(estimate) "  p = " %6.4f r(p)
->         }
->     }
-> }
-> 
-> /* Trois groupes : un test joint d'abord (les trois ATT sont-ils egaux ?),
+ 11.             lincom 1.t#1.D
+ 12.             di "  ATT = " %8.4f r(estimate) "  p = " %6.4f r(p)
+ 13.         }
+ 14.     }
+ 15. }
+--- Groupe 1 — pauvre_MODA ---
+  Observations changeant de groupe d'age entre les vagues :  32.1%
+(sum of wgt is 3,538.5)
+
+Linear regression                               Number of obs     =      5,438
+                                                F(3, 533)         =       2.83
+                                                Prob > F          =     0.0377
+                                                R-squared         =     0.0038
+                                                Root MSE          =     .49894
+
+                               (Std. err. adjusted for 534 clusters in grappe)
+------------------------------------------------------------------------------
+             |               Robust
+ pauvre_MODA | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+         1.t |  -.0206156   .0285582    -0.72   0.471    -.0767161    .0354848
+         1.D |  -.0793123   .0397107    -2.00   0.046     -.157321   -.0013037
+             |
+         t#D |
+        1 1  |   .0907514   .0367224     2.47   0.014     .0186129    .1628899
+             |
+       _cons |   .5103078   .0282974    18.03   0.000     .4547198    .5658959
+------------------------------------------------------------------------------
+
+ ( 1)  1.t#1.D = 0
+
+------------------------------------------------------------------------------
+ pauvre_MODA | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+         (1) |   .0907514   .0367224     2.47   0.014     .0186129    .1628899
+------------------------------------------------------------------------------
+  ATT =   0.0908  p = 0.0138
+--- Groupe 2 — pauvre_MODA ---
+  Observations changeant de groupe d'age entre les vagues :  12.3%
+(sum of wgt is 6,749.5)
+
+Linear regression                               Number of obs     =     10,320
+                                                F(3, 565)         =      18.95
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.0176
+                                                Root MSE          =     .49422
+
+                               (Std. err. adjusted for 566 clusters in grappe)
+------------------------------------------------------------------------------
+             |               Robust
+ pauvre_MODA | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+         1.t |   -.140868   .0211293    -6.67   0.000    -.1823697   -.0993664
+         1.D |  -.0905572   .0323229    -2.80   0.005    -.1540449   -.0270694
+             |
+         t#D |
+        1 1  |   .0555094   .0317798     1.75   0.081    -.0069116    .1179304
+             |
+       _cons |   .6400533   .0215887    29.65   0.000     .5976495    .6824572
+------------------------------------------------------------------------------
+
+ ( 1)  1.t#1.D = 0
+
+------------------------------------------------------------------------------
+ pauvre_MODA | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+         (1) |   .0555094   .0317798     1.75   0.081    -.0069116    .1179304
+------------------------------------------------------------------------------
+  ATT =   0.0555  p = 0.0812
+--- Groupe 3 — pauvre_MODA ---
+  Observations changeant de groupe d'age entre les vagues :  12.4%
+(sum of wgt is 264)
+
+Linear regression                               Number of obs     =        452
+                                                F(3, 162)         =       2.67
+                                                Prob > F          =     0.0493
+                                                R-squared         =     0.0248
+                                                Root MSE          =      .4952
+
+                               (Std. err. adjusted for 163 clusters in grappe)
+------------------------------------------------------------------------------
+             |               Robust
+ pauvre_MODA | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+         1.t |  -.0807692   .0631672    -1.28   0.203    -.2055065     .043968
+         1.D |   .1354765   .0870734     1.56   0.122    -.0364687    .3074217
+             |
+         t#D |
+        1 1  |  -.0684845    .104236    -0.66   0.512    -.2743209    .1373519
+             |
+       _cons |   .4615385   .0592329     7.79   0.000     .3445704    .5785066
+------------------------------------------------------------------------------
+
+ ( 1)  1.t#1.D = 0
+
+------------------------------------------------------------------------------
+ pauvre_MODA | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+         (1) |  -.0684845    .104236    -0.66   0.512    -.2743209    .1373519
+------------------------------------------------------------------------------
+  ATT =  -0.0685  p = 0.5121
+
+. 
+. /* Trois groupes : un test joint d'abord (les trois ATT sont-ils egaux ?),
 >    puis les ecarts a la reference 0-4 ans, groupe sur lequel se concentre
 >    l'effet. */
-> di _newline "Test d'egalite des ATT entre groupes d'age :"
-> foreach outcome in pauvre_MODA {
->     regress `outcome' i.t##i.D##ib1.groupe_base [aw=weight_knn], ///
+. di _newline "Test d'egalite des ATT entre groupes d'age :"
+
+Test d'egalite des ATT entre groupes d'age :
+
+. foreach outcome in pauvre_MODA {
+  2.     regress `outcome' i.t##i.D##ib1.groupe_base [aw=weight_knn], ///
 >         vce(cluster grappe)
->     testparm i.t#i.D#i.groupe_base
->     di "  Test joint d'egalite des trois ATT : F = " %6.2f r(F) ///
+  3.     testparm i.t#i.D#i.groupe_base
+  4.     di "  Test joint d'egalite des trois ATT : F = " %6.2f r(F) ///
 >        "  p = " %6.4f r(p)
->     foreach g in 2 3 {
->         if `g' == 2 local lab_g "5-14 ans"
->         else        local lab_g "15-17 ans"
->         capture lincom 1.t#1.D#`g'.groupe_base
->         if _rc == 0 {
->             di "  Diff ATT (`lab_g' - 0-4 ans) : " %8.4f r(estimate) ///
+  5.     foreach g in 2 3 {
+  6.         if `g' == 2 local lab_g "5-14 ans"
+  7.         else        local lab_g "15-17 ans"
+  8.         capture lincom 1.t#1.D#`g'.groupe_base
+  9.         if _rc == 0 {
+ 10.             di "  Diff ATT (`lab_g' - 0-4 ans) : " %8.4f r(estimate) ///
 >                "  p = " %6.4f r(p)
->         }
->     }
-> }
-> 
-> /* -- 6d. Par quintile de montant de transferts --------------
+ 11.         }
+ 12.     }
+ 13. }
+(sum of wgt is 10,552)
+
+Linear regression                               Number of obs     =     16,210
+                                                F(11, 577)        =       9.73
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.0160
+                                                Root MSE          =     .49584
+
+                                  (Std. err. adjusted for 578 clusters in grappe)
+---------------------------------------------------------------------------------
+                |               Robust
+    pauvre_MODA | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+----------------+----------------------------------------------------------------
+            1.t |  -.0206156    .028558    -0.72   0.471    -.0767059    .0354746
+            1.D |  -.0793123   .0397104    -2.00   0.046    -.1573068   -.0013179
+                |
+            t#D |
+           1 1  |   .0907514   .0367221     2.47   0.014      .018626    .1628768
+                |
+    groupe_base |
+      5-14 ans  |   .1297455    .027144     4.78   0.000     .0764325    .1830585
+     15-17 ans  |  -.0487694    .062229    -0.78   0.434    -.1709923    .0734536
+                |
+  t#groupe_base |
+    1#5-14 ans  |  -.1202524   .0281423    -4.27   0.000    -.1755261   -.0649786
+   1#15-17 ans  |  -.0601536    .066844    -0.90   0.369    -.1914407    .0711336
+                |
+  D#groupe_base |
+    1#5-14 ans  |  -.0112448   .0353301    -0.32   0.750    -.0806361    .0581464
+   1#15-17 ans  |   .2147888   .0896624     2.40   0.017     .0386843    .3908933
+                |
+t#D#groupe_base |
+  1#1#5-14 ans  |   -.035242    .034571    -1.02   0.308    -.1031423    .0326583
+ 1#1#15-17 ans  |  -.1592359   .1047419    -1.52   0.129    -.3649577    .0464859
+                |
+          _cons |   .5103078   .0282971    18.03   0.000     .4547299    .5658858
+---------------------------------------------------------------------------------
+
+ ( 1)  1.t#1.D#2.groupe_base = 0
+ ( 2)  1.t#1.D#3.groupe_base = 0
+
+       F(  2,   577) =    1.38
+            Prob > F =    0.2520
+  Test joint d'egalite des trois ATT : F =   1.38  p = 0.2520
+  Diff ATT (5-14 ans - 0-4 ans) :  -0.0352  p = 0.3084
+  Diff ATT (15-17 ans - 0-4 ans) :  -0.1592  p = 0.1290
+
+. 
+. /* -- 6d. Par quintile de montant de transferts --------------
 >    H2 porte aussi sur l'intensite du traitement : un transfert plus eleve
 >    produit-il un effet different ? Les quintiles sont definis sur la
 >    distribution du montant annuel PARMI LES MENAGES BENEFICIAIRES ; chaque
@@ -4831,113 +5091,509 @@ Linear regression                               Number of obs     =     16,210
 >    temoins apparies. Les quintiles sont preferes aux deciles : avec environ
 >    2 600 enfants traites, un decoupage en dix laisserait des sous-groupes
 >    trop petits pour une inference exploitable. */
-> di _newline "=== Heterogeneite par quintile de montant de transferts ==="
-> 
-> /* Quintiles construits au niveau MENAGE beneficiaire (un menage = un
+. di _newline "=== Heterogeneite par quintile de montant de transferts ==="
+
+=== Heterogeneite par quintile de montant de transferts ===
+
+. 
+. /* Quintiles construits au niveau MENAGE beneficiaire (un menage = un
 >    montant), pour que le decoupage ne soit pas deforme par le nombre
 >    d'enfants du menage. */
-> preserve
->     keep if D == 1 & t == 0 & !missing(montant_transf)
->     bysort grappe menage: keep if _n == 1
->     xtile q_montant = montant_transf, nquantiles(5)
->     keep grappe menage q_montant montant_transf
->     tempfile quintiles
->     save `quintiles'
->     di "  Bornes des quintiles de montant annuel (FCFA) :"
->     forvalues q = 1/5 {
->         quietly summarize montant_transf if q_montant == `q', detail
->         di "    Q`q' : " %10.0f r(min) " a " %10.0f r(max) ///
+. preserve
+
+.     keep if D == 1 & t == 0 & !missing(montant_transf)
+(13,587 observations deleted)
+
+.     bysort grappe menage: keep if _n == 1
+(2,014 observations deleted)
+
+.     xtile q_montant = montant_transf, nquantiles(5)
+
+.     keep grappe menage q_montant montant_transf
+
+.     tempfile quintiles
+
+.     save `quintiles'
+file C:\Users\Bmd\AppData\Local\Temp\ST_4710_000014.tmp saved as .dta format
+
+.     di "  Bornes des quintiles de montant annuel (FCFA) :"
+  Bornes des quintiles de montant annuel (FCFA) :
+
+.     forvalues q = 1/5 {
+  2.         quietly summarize montant_transf if q_montant == `q', detail
+  3.         di "    Q`q' : " %10.0f r(min) " a " %10.0f r(max) ///
 >            "  (mediane " %10.0f r(p50) ", n=" %4.0f r(N) " menages)"
->     }
-> restore
-> 
-> merge m:1 grappe menage using `quintiles', ///
+  4.     }
+    Q1 :       5000 a     100000  (mediane      50000, n= 136 menages)
+    Q2 :     110000 a     360000  (mediane     200000, n= 111 menages)
+    Q3 :     380000 a     900000  (mediane     600000, n= 125 menages)
+    Q4 :     920000 a    1800000  (mediane    1280000, n= 116 menages)
+    Q5 :    1824000 a    8400000  (mediane    2700000, n= 121 menages)
+
+. restore
+
+. 
+. merge m:1 grappe menage using `quintiles', ///
 >     keepusing(q_montant) keep(master match) nogenerate
-> 
-> foreach outcome in pauvre_MODA {
->     forvalues q = 1/5 {
->         quietly count if q_montant == `q' & !missing(weight_knn)
->         if r(N) > 30 {
->             di _newline "--- Quintile `q' — `outcome' ---"
->             regress `outcome' i.t##i.D [aw=weight_knn] ///
+
+    Result                      Number of obs
+    -----------------------------------------
+    Not matched                        10,964
+        from master                    10,964  
+        from using                          0  
+
+    Matched                             5,246  
+    -----------------------------------------
+
+. 
+. foreach outcome in pauvre_MODA {
+  2.     forvalues q = 1/5 {
+  3.         quietly count if q_montant == `q' & !missing(weight_knn)
+  4.         if r(N) > 30 {
+  5.             di _newline "--- Quintile `q' — `outcome' ---"
+  6.             regress `outcome' i.t##i.D [aw=weight_knn] ///
 >                 if D == 0 | q_montant == `q', vce(cluster grappe)
->             lincom 1.t#1.D
->             di "  ATT = " %8.4f r(estimate) "  SE = " %8.4f r(se) ///
+  7.             lincom 1.t#1.D
+  8.             di "  ATT = " %8.4f r(estimate) "  SE = " %8.4f r(se) ///
 >                "  p = " %6.4f r(p)
->         }
->     }
-> }
-> 
-> /* Test continu : l'effet varie-t-il avec le logarithme du montant ?
+  9.         }
+ 10.     }
+ 11. }
+
+--- Quintile 1 — pauvre_MODA ---
+(sum of wgt is 6,424)
+
+Linear regression                               Number of obs     =     12,082
+                                                F(3, 569)         =      12.75
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.0180
+                                                Root MSE          =      .4913
+
+                               (Std. err. adjusted for 570 clusters in grappe)
+------------------------------------------------------------------------------
+             |               Robust
+ pauvre_MODA | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+         1.t |  -.0990334   .0195439    -5.07   0.000    -.1374203   -.0606464
+         1.D |    .062937   .0491173     1.28   0.201    -.0335364    .1594104
+             |
+         t#D |
+        1 1  |   .1286501   .0521287     2.47   0.014     .0262619    .2310383
+             |
+       _cons |   .5921152   .0202822    29.19   0.000     .5522781    .6319524
+------------------------------------------------------------------------------
+
+ ( 1)  1.t#1.D = 0
+
+------------------------------------------------------------------------------
+ pauvre_MODA | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+         (1) |   .1286501   .0521287     2.47   0.014     .0262619    .2310383
+------------------------------------------------------------------------------
+  ATT =   0.1287  SE =   0.0521  p = 0.0139
+
+--- Quintile 2 — pauvre_MODA ---
+(sum of wgt is 6,214)
+
+Linear regression                               Number of obs     =     11,872
+                                                F(3, 572)         =       8.74
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.0093
+                                                Root MSE          =     .49537
+
+                               (Std. err. adjusted for 573 clusters in grappe)
+------------------------------------------------------------------------------
+             |               Robust
+ pauvre_MODA | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+         1.t |  -.0990334   .0195438    -5.07   0.000    -.1374198   -.0606469
+         1.D |  -.0078935    .050126    -0.16   0.875     -.106347      .09056
+             |
+         t#D |
+        1 1  |   .0990334   .0415479     2.38   0.017     .0174284    .1806383
+             |
+       _cons |   .5921152   .0202822    29.19   0.000     .5522786    .6319519
+------------------------------------------------------------------------------
+
+ ( 1)  1.t#1.D = 0
+
+------------------------------------------------------------------------------
+ pauvre_MODA | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+         (1) |   .0990334   .0415479     2.38   0.017     .0174284    .1806383
+------------------------------------------------------------------------------
+  ATT =   0.0990  SE =   0.0415  p = 0.0175
+
+--- Quintile 3 — pauvre_MODA ---
+(sum of wgt is 6,392)
+
+Linear regression                               Number of obs     =     12,050
+                                                F(3, 570)         =       9.30
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.0101
+                                                Root MSE          =     .49627
+
+                               (Std. err. adjusted for 571 clusters in grappe)
+------------------------------------------------------------------------------
+             |               Robust
+ pauvre_MODA | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+         1.t |  -.0990334   .0195439    -5.07   0.000    -.1374201   -.0606466
+         1.D |  -.0491045   .0542593    -0.90   0.366     -.155677     .057468
+             |
+         t#D |
+        1 1  |   .0201803   .0468111     0.43   0.667     -.071763    .1121237
+             |
+       _cons |   .5921152   .0202822    29.19   0.000     .5522783    .6319522
+------------------------------------------------------------------------------
+
+ ( 1)  1.t#1.D = 0
+
+------------------------------------------------------------------------------
+ pauvre_MODA | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+         (1) |   .0201803   .0468111     0.43   0.667     -.071763    .1121237
+------------------------------------------------------------------------------
+  ATT =   0.0202  SE =   0.0468  p = 0.6666
+
+--- Quintile 4 — pauvre_MODA ---
+(sum of wgt is 6,234)
+
+Linear regression                               Number of obs     =     11,892
+                                                F(3, 569)         =      16.23
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.0253
+                                                Root MSE          =      .4935
+
+                               (Std. err. adjusted for 570 clusters in grappe)
+------------------------------------------------------------------------------
+             |               Robust
+ pauvre_MODA | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+         1.t |  -.0990334   .0195439    -5.07   0.000    -.1374204   -.0606463
+         1.D |  -.2225954   .0512357    -4.34   0.000    -.3232297   -.1219611
+             |
+         t#D |
+        1 1  |   .0844196   .0604044     1.40   0.163    -.0342232    .2030624
+             |
+       _cons |   .5921152   .0202823    29.19   0.000      .552278    .6319525
+------------------------------------------------------------------------------
+
+ ( 1)  1.t#1.D = 0
+
+------------------------------------------------------------------------------
+ pauvre_MODA | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+         (1) |   .0844196   .0604044     1.40   0.163    -.0342232    .2030624
+------------------------------------------------------------------------------
+  ATT =   0.0844  SE =   0.0604  p = 0.1628
+
+--- Quintile 5 — pauvre_MODA ---
+(sum of wgt is 6,362)
+
+Linear regression                               Number of obs     =     12,020
+                                                F(3, 570)         =      17.27
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.0371
+                                                Root MSE          =     .49069
+
+                               (Std. err. adjusted for 571 clusters in grappe)
+------------------------------------------------------------------------------
+             |               Robust
+ pauvre_MODA | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+         1.t |  -.0990334   .0195439    -5.07   0.000    -.1374201   -.0606466
+         1.D |   -.214583   .0670596    -3.20   0.001    -.3462971   -.0828689
+             |
+         t#D |
+        1 1  |  -.0077806   .0521563    -0.15   0.881    -.1102226    .0946613
+             |
+       _cons |   .5921152   .0202822    29.19   0.000     .5522783    .6319522
+------------------------------------------------------------------------------
+
+ ( 1)  1.t#1.D = 0
+
+------------------------------------------------------------------------------
+ pauvre_MODA | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+         (1) |  -.0077806   .0521563    -0.15   0.881    -.1102226    .0946613
+------------------------------------------------------------------------------
+  ATT =  -0.0078  SE =   0.0522  p = 0.8815
+
+. 
+. /* Test continu : l'effet varie-t-il avec le logarithme du montant ?
 >    Estime sur les seuls enfants traites, la reference etant l'ecart de
 >    trajectoire moyen. Plus puissant que la comparaison par quintiles, qui
 >    decoupe l'information. */
-> di _newline "Effet dose-reponse (montant en logarithme, enfants traites) :"
-> quietly gen double log_montant = log(montant_transf) if montant_transf > 0
-> regress pauvre_MODA i.t##c.log_montant [aw=weight_knn] if D == 1, ///
+. di _newline "Effet dose-reponse (montant en logarithme, enfants traites) :"
+
+Effet dose-reponse (montant en logarithme, enfants traites) :
+
+. quietly gen double log_montant = log(montant_transf) if montant_transf > 0
+
+. regress pauvre_MODA i.t##c.log_montant [aw=weight_knn] if D == 1, ///
 >     vce(cluster grappe)
-> lincom 1.t#c.log_montant
-> di "  Pente dose-reponse = " %8.4f r(estimate) "  SE = " %8.4f r(se) ///
+(sum of wgt is 5,246)
+
+Linear regression                               Number of obs     =      5,246
+                                                F(3, 323)         =      15.89
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.0592
+                                                Root MSE          =     .48508
+
+                                  (Std. err. adjusted for 324 clusters in grappe)
+---------------------------------------------------------------------------------
+                |               Robust
+    pauvre_MODA | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+----------------+----------------------------------------------------------------
+            1.t |   .2904271   .1873744     1.55   0.122    -.0782013    .6590554
+    log_montant |  -.0603742   .0164407    -3.67   0.000    -.0927185   -.0280299
+                |
+t#c.log_montant |
+             1  |  -.0249942   .0143023    -1.75   0.081    -.0531317    .0031433
+                |
+          _cons |   1.295218    .209657     6.18   0.000     .8827521    1.707684
+---------------------------------------------------------------------------------
+
+. lincom 1.t#c.log_montant
+
+ ( 1)  1.t#c.log_montant = 0
+
+------------------------------------------------------------------------------
+ pauvre_MODA | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+         (1) |  -.0249942   .0143023    -1.75   0.081    -.0531317    .0031433
+------------------------------------------------------------------------------
+
+. di "  Pente dose-reponse = " %8.4f r(estimate) "  SE = " %8.4f r(se) ///
 >    "  p = " %6.4f r(p)
-> drop log_montant
-> 
-> /* ============================================================
+  Pente dose-reponse =  -0.0250  SE =   0.0143  p = 0.0815
+
+. drop log_montant
+
+. 
+. /* ============================================================
 >    7. Robustesse
 >    ============================================================ */
-> 
-> di _newline "=== Comparaison des trois methodes d'appariement ==="
-> /* Les trois poids sont deja portes par panel_enfants_psm.dta (niveau enfant) */
-> foreach poids_var in weight_knn weight_kernel weight_caliper {
->     foreach outcome in pauvre_MODA {
->         quietly count if !missing(`poids_var') & `poids_var' > 0
->         if r(N) > 0 {
->             regress `outcome' i.t##i.D [aw=`poids_var'] ///
+. 
+. di _newline "=== Comparaison des trois methodes d'appariement ==="
+
+=== Comparaison des trois methodes d'appariement ===
+
+. /* Les trois poids sont deja portes par panel_enfants_psm.dta (niveau enfant) */
+. foreach poids_var in weight_knn weight_kernel weight_caliper {
+  2.     foreach outcome in pauvre_MODA {
+  3.         quietly count if !missing(`poids_var') & `poids_var' > 0
+  4.         if r(N) > 0 {
+  5.             regress `outcome' i.t##i.D [aw=`poids_var'] ///
 >                 if `poids_var' > 0, vce(cluster grappe)
->             lincom 1.t#1.D
->             di "  `poids_var' — `outcome' : ATT=" %8.4f r(estimate) ///
+  6.             lincom 1.t#1.D
+  7.             di "  `poids_var' — `outcome' : ATT=" %8.4f r(estimate) ///
 >                "  p=" %6.4f r(p)
->         }
->     }
-> }
-> 
-> /* ── Variable de resultat continue : nombre de privations ──────
+  8.         }
+  9.     }
+ 10. }
+(sum of wgt is 10,552)
+
+Linear regression                               Number of obs     =     16,210
+                                                F(3, 577)         =      10.23
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.0079
+                                                Root MSE          =     .49775
+
+                               (Std. err. adjusted for 578 clusters in grappe)
+------------------------------------------------------------------------------
+             |               Robust
+ pauvre_MODA | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+         1.t |  -.0990334    .019543    -5.07   0.000    -.1374175   -.0606492
+         1.D |  -.0811221   .0307452    -2.64   0.009    -.1415083   -.0207359
+             |
+         t#D |
+        1 1  |   .0641585   .0292873     2.19   0.029     .0066356    .1216813
+             |
+       _cons |   .5921152   .0202813    29.20   0.000      .552281    .6319495
+------------------------------------------------------------------------------
+
+ ( 1)  1.t#1.D = 0
+
+------------------------------------------------------------------------------
+ pauvre_MODA | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+         (1) |   .0641585   .0292873     2.19   0.029     .0066356    .1216813
+------------------------------------------------------------------------------
+  weight_knn — pauvre_MODA : ATT=  0.0642  p=0.0289
+(sum of wgt is 8,443.60290663943)
+
+Linear regression                               Number of obs     =     16,210
+                                                F(3, 577)         =       5.84
+                                                Prob > F          =     0.0006
+                                                R-squared         =     0.0044
+                                                Root MSE          =     .49895
+
+                               (Std. err. adjusted for 578 clusters in grappe)
+------------------------------------------------------------------------------
+             |               Robust
+ pauvre_MODA | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+         1.t |  -.0960818   .0238122    -4.03   0.000     -.142851   -.0493127
+         1.D |   -.046104   .0338005    -1.36   0.173    -.1124911     .020283
+             |
+         t#D |
+        1 1  |   .0612069   .0318568     1.92   0.055    -.0013624    .1237763
+             |
+       _cons |   .5570972   .0248179    22.45   0.000     .5083527    .6058417
+------------------------------------------------------------------------------
+
+ ( 1)  1.t#1.D = 0
+
+------------------------------------------------------------------------------
+ pauvre_MODA | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+         (1) |   .0612069   .0318568     1.92   0.055    -.0013624    .1237763
+------------------------------------------------------------------------------
+  weight_kernel — pauvre_MODA : ATT=  0.0612  p=0.0552
+(sum of wgt is 10,028)
+
+Linear regression                               Number of obs     =     10,028
+                                                F(3, 539)         =       6.95
+                                                Prob > F          =     0.0001
+                                                R-squared         =     0.0053
+                                                Root MSE          =     .49865
+
+                               (Std. err. adjusted for 540 clusters in grappe)
+------------------------------------------------------------------------------
+             |               Robust
+ pauvre_MODA | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+         1.t |  -.0814755   .0190705    -4.27   0.000     -.118937   -.0440139
+         1.D |  -.0646736   .0300835    -2.15   0.032    -.1237688   -.0055784
+             |
+         t#D |
+        1 1  |    .050066    .027838     1.80   0.073    -.0046182    .1047502
+             |
+       _cons |   .5715444   .0210664    27.13   0.000     .5301622    .6129266
+------------------------------------------------------------------------------
+
+ ( 1)  1.t#1.D = 0
+
+------------------------------------------------------------------------------
+ pauvre_MODA | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+         (1) |    .050066    .027838     1.80   0.073    -.0046182    .1047502
+------------------------------------------------------------------------------
+  weight_caliper — pauvre_MODA : ATT=  0.0501  p=0.0727
+
+. 
+. /* ── Variable de resultat continue : nombre de privations ──────
 >    Le statut binaire perd l'information sur l'intensite. On reestime l'ATT
 >    sur nb_dep (0 a 7) avec la DD simple et les trois appariements. */
-> di _newline "=== ATT sur le nombre de privations (0-7) ==="
-> preserve
->     use "$TEMP/panel_enfants_psm.dta", clear
->     quietly regress nb_dep i.t##i.D, vce(cluster grappe)
->     quietly lincom 1.t#1.D
->     di "  DD simple      : ATT=" %8.4f r(estimate) ///
+. di _newline "=== ATT sur le nombre de privations (0-7) ==="
+
+=== ATT sur le nombre de privations (0-7) ===
+
+. preserve
+
+.     use "$TEMP/panel_enfants_psm.dta", clear
+
+.     quietly regress nb_dep i.t##i.D, vce(cluster grappe)
+
+.     quietly lincom 1.t#1.D
+
+.     di "  DD simple      : ATT=" %8.4f r(estimate) ///
 >        "  SE=" %7.4f r(se) "  p=" %6.4f r(p)
-> restore
-> foreach poids_var in weight_knn weight_kernel weight_caliper {
->     quietly count if !missing(`poids_var') & `poids_var' > 0
->     if r(N) > 0 {
->         quietly regress nb_dep i.t##i.D [aw=`poids_var'] ///
+  DD simple      : ATT=  0.1782  SE= 0.0799  p=0.0261
+
+. restore
+
+. foreach poids_var in weight_knn weight_kernel weight_caliper {
+  2.     quietly count if !missing(`poids_var') & `poids_var' > 0
+  3.     if r(N) > 0 {
+  4.         quietly regress nb_dep i.t##i.D [aw=`poids_var'] ///
 >             if `poids_var' > 0, vce(cluster grappe)
->         quietly lincom 1.t#1.D
->         di "  `poids_var' : ATT=" %8.4f r(estimate) ///
+  5.         quietly lincom 1.t#1.D
+  6.         di "  `poids_var' : ATT=" %8.4f r(estimate) ///
 >            "  SE=" %7.4f r(se) "  p=" %6.4f r(p)
->     }
-> }
-> 
-> /* ── Validation croisee : diff (Villa 2016), score logit ───────
+  7.     }
+  8. }
+  weight_knn : ATT=  0.1882  SE= 0.0885  p=0.0338
+  weight_kernel : ATT=  0.1900  SE= 0.0940  p=0.0437
+  weight_caliper : ATT=  0.1720  SE= 0.0807  p=0.0336
+
+. 
+. /* ── Validation croisee : diff (Villa 2016), score logit ───────
 >    Implementation independante du kernel PSM-DD. A comparer a la ligne
 >    weight_kernel. Installation : ssc install diff */
-> capture which diff
-> if _rc == 0 {
->     di _newline "=== Validation croisee : diff (kernel, score logit) ==="
->     diff pauvre_MODA, t(D) p(t) kernel id(enfid) logit ///
+. capture which diff
+
+. if _rc == 0 {
+.     di _newline "=== Validation croisee : diff (kernel, score logit) ==="
+
+=== Validation croisee : diff (kernel, score logit) ===
+.     diff pauvre_MODA, t(D) p(t) kernel id(enfid) logit ///
 >         cov(hhsize log_pcexp milieu hgender hage heduc hmstat hcsp sexe age) ///
 >         support cluster(grappe)
->     di _newline "  Rappel estimateur maison (kernel) : voir ligne weight_kernel ci-dessus."
-> }
-> else {
->     di _newline "(!) commande diff absente : ssc install diff pour la validation croisee."
-> }
-> 
-> /* ============================================================
+KERNEL PROPENSITY SCORE MATCHING DIFFERENCE-IN-DIFFERENCES
+    Estimation on common support
+    Matching iterations...
+.....................................................................................................................
+> ...................................................................................................................
+> ...................................................................................................................
+> ...................................................................................................................
+> ...................................................................................................................
+> ...................................................................................................................
+> ...................................................................................................................
+> ...................................................................................................................
+> ...................................................................................................................
+> ...................................................................................................................
+> ...................................................................................................................
+> ...................................................................................................................
+> ...................................................................................................................
+> ...................................................................................................................
+> ...................................................................................................................
+> ...................................................................................................................
+> ...................................................................................................................
+> ...................................................................................................................
+> ...................................................................................................................
+> ...................................................................................................................
+> ...................................................................................................................
+> ...................................................................................................................
+> ..........................................................................................................
+DIFFERENCE-IN-DIFFERENCES ESTIMATION RESULTS
+Number of observations in the DIFF-IN-DIFF: 16174
+            Before         After    
+   Control: 5449           5449        10898
+   Treated: 2638           2638        5276
+            8087           8087
+--------------------------------------------------------
+ Outcome var.   | pauvr~A | S. Err. |   |t|   |  P>|t|
+----------------+---------+---------+---------+---------
+Before          |         |         |         | 
+   Control      | 0.572   |         |         | 
+   Treated      | 0.511   |         |         | 
+   Diff (T-C)   | -0.061  | 0.032   | -1.94   | 0.053*
+After           |         |         |         | 
+   Control      | 0.493   |         |         | 
+   Treated      | 0.476   |         |         | 
+   Diff (T-C)   | -0.017  | 0.030   | 0.55    | 0.580
+                |         |         |         | 
+Diff-in-Diff    | 0.045   | 0.027   | 1.67    | 0.096*
+--------------------------------------------------------
+R-square:    0.01
+* Means and Standard Errors are estimated by linear regression
+**Clustered Std. Errors
+**Inference: *** p<0.01; ** p<0.05; * p<0.1
+.     di _newline "  Rappel estimateur maison (kernel) : voir ligne weight_kernel ci-dessus."
+
+  Rappel estimateur maison (kernel) : voir ligne weight_kernel ci-dessus.
+. }
+
+. else {
+.     di _newline "(!) commande diff absente : ssc install diff pour la validation croisee."
+. }
+
+. 
+. /* ============================================================
 >    8. Robustesse : definition alternative du traitement
 >       (beneficiaires stables)
 > 
@@ -4952,98 +5608,557 @@ Linear regression                               Number of obs     =     16,210
 >    l'interpretation causale canonique de la DD. Fourni ici a titre
 >    de comparaison.
 >    ============================================================ */
-> 
-> use "$TEMP/panel_enfants_psm.dta", clear
-> merge m:1 grappe menage using "$TEMP/traitement_stable.dta", ///
+. 
+. use "$TEMP/panel_enfants_psm.dta", clear
+
+. merge m:1 grappe menage using "$TEMP/traitement_stable.dta", ///
 >     keepusing(D_2018 D_2021) keep(master match) nogenerate
-> 
-> /* Restreindre aux menages a statut constant : beneficiaires stables
+
+    Result                      Number of obs
+    -----------------------------------------
+    Not matched                             0
+    Matched                            35,572  
+    -----------------------------------------
+
+. 
+. /* Restreindre aux menages a statut constant : beneficiaires stables
 >    (D=1 aux deux vagues) et jamais beneficiaires (D=0 aux deux vagues) */
-> keep if D_2018 == D_2021
-> gen byte D_stable_alt = D_2018
-> label var D_stable_alt "1=beneficiaire stable (2 vagues), 0=jamais beneficiaire"
-> 
-> quietly count if D_stable_alt == 1 & t == 0
-> local n_sta = r(N)
-> quietly count if D_stable_alt == 0 & t == 0
-> local n_jam = r(N)
-> di _newline "=== Robustesse : beneficiaires stables vs jamais beneficiaires ==="
-> di "  Beneficiaires stables (D=1 aux 2 vagues) : `n_sta' obs"
-> di "  Jamais beneficiaires (aux 2 vagues)      : `n_jam' obs"
-> 
-> di _newline "--- DD brute, beneficiaires stables vs jamais beneficiaires ---"
-> regress pauvre_MODA i.t##i.D_stable_alt, vce(cluster grappe)
-> lincom 1.t#1.D_stable_alt
-> di "  ATT_DD_stables = " %8.4f r(estimate) ///
+. keep if D_2018 == D_2021
+(5,654 observations deleted)
+
+. gen byte D_stable_alt = D_2018
+
+. label var D_stable_alt "1=beneficiaire stable (2 vagues), 0=jamais beneficiaire"
+
+. 
+. quietly count if D_stable_alt == 1 & t == 0
+
+. local n_sta = r(N)
+
+. quietly count if D_stable_alt == 0 & t == 0
+
+. local n_jam = r(N)
+
+. di _newline "=== Robustesse : beneficiaires stables vs jamais beneficiaires ==="
+
+=== Robustesse : beneficiaires stables vs jamais beneficiaires ===
+
+. di "  Beneficiaires stables (D=1 aux 2 vagues) : `n_sta' obs"
+  Beneficiaires stables (D=1 aux 2 vagues) : 1482 obs
+
+. di "  Jamais beneficiaires (aux 2 vagues)      : `n_jam' obs"
+  Jamais beneficiaires (aux 2 vagues)      : 13477 obs
+
+. 
+. di _newline "--- DD brute, beneficiaires stables vs jamais beneficiaires ---"
+
+--- DD brute, beneficiaires stables vs jamais beneficiaires ---
+
+. regress pauvre_MODA i.t##i.D_stable_alt, vce(cluster grappe)
+
+Linear regression                               Number of obs     =     29,918
+                                                F(3, 578)         =      30.78
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.0208
+                                                Root MSE          =     .47338
+
+                                 (Std. err. adjusted for 579 clusters in grappe)
+--------------------------------------------------------------------------------
+               |               Robust
+   pauvre_MODA | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+---------------+----------------------------------------------------------------
+           1.t |  -.0687839   .0092499    -7.44   0.000    -.0869514   -.0506164
+1.D_stable_alt |  -.2127537   .0384524    -5.53   0.000    -.2882772   -.1372302
+               |
+t#D_stable_alt |
+          1 1  |   .0215504   .0331985     0.65   0.517     -.043654    .0867547
+               |
+         _cons |   .6999332   .0131639    53.17   0.000     .6740783    .7257881
+--------------------------------------------------------------------------------
+
+. lincom 1.t#1.D_stable_alt
+
+ ( 1)  1.t#1.D_stable_alt = 0
+
+------------------------------------------------------------------------------
+ pauvre_MODA | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+         (1) |   .0215504   .0331985     0.65   0.517     -.043654    .0867547
+------------------------------------------------------------------------------
+
+. di "  ATT_DD_stables = " %8.4f r(estimate) ///
 >    "  SE = " %8.4f r(se) "  p = " %6.4f r(p)
-> 
-> /* ── PSM-DD sur la definition alternative ──────────────────────
+  ATT_DD_stables =   0.0216  SE =   0.0332  p = 0.5165
+
+. 
+. /* ── PSM-DD sur la definition alternative ──────────────────────
 >    Meme chaine que le design principal : logit a t=0, appariement k-NN
 >    sur support commun, puis DD ponderee. */
-> preserve
->     keep if t == 0
->     quietly logit D_stable_alt c.hhsize c.log_pcexp i.milieu i.region ///
+. preserve
+
+.     keep if t == 0
+(14,959 observations deleted)
+
+.     quietly logit D_stable_alt c.hhsize c.log_pcexp i.milieu i.region ///
 >         c.hgender c.hage i.heduc i.hmstat i.hcsp i.sexe c.age, ///
 >         vce(cluster grappe)
->     di _newline "  Pseudo-R2 logit (stables) : " %6.3f 1 - e(ll)/e(ll_0)
->     quietly predict pscore_sta if e(sample), pr
->     quietly psmatch2 D_stable_alt, pscore(pscore_sta) neighbor($K_VOISINS) common
->     di _newline "  Balance apres appariement (stables) :"
->     pstest hhsize log_pcexp i.milieu i.region hgender hage ///
+
+.     di _newline "  Pseudo-R2 logit (stables) : " %6.3f 1 - e(ll)/e(ll_0)
+
+  Pseudo-R2 logit (stables) :  0.241
+
+.     quietly predict pscore_sta if e(sample), pr
+
+.     quietly psmatch2 D_stable_alt, pscore(pscore_sta) neighbor($K_VOISINS) common
+
+.     di _newline "  Balance apres appariement (stables) :"
+
+  Balance apres appariement (stables) :
+
+.     pstest hhsize log_pcexp i.milieu i.region hgender hage ///
 >         i.heduc i.hmstat i.hcsp i.sexe age, both
->     rename _weight w_sta
->     keep enfid w_sta
->     tempfile poids_sta
->     save `poids_sta'
-> restore
-> merge m:1 enfid using `poids_sta', keep(master match) nogenerate
-> 
-> di _newline "--- PSM-DD, beneficiaires stables vs jamais beneficiaires ---"
-> quietly count if t == 0 & w_sta > 0 & !missing(w_sta)
-> di "  Enfants sur support commun : " r(N)
-> regress pauvre_MODA i.t##i.D_stable_alt [aw=w_sta] ///
+
+----------------------------------------------------------------------------------------
+                Unmatched |       Mean               %reduct |     t-test    |  V(T)/
+Variable          Matched | Treated Control    %bias  |bias| |    t    p>|t| |  V(C)
+--------------------------+----------------------------------+---------------+----------
+hhsize                 U  | 19.623    12.74     75.1         |  34.02  0.000 |  2.55*
+                       M  | 19.623    18.36     13.8    81.6 |   2.99  0.003 |  0.84*
+                          |                                  |               |
+log_pcexp              U  | 12.897   12.726     32.9         |  12.02  0.000 |  1.00
+                       M  | 12.897   13.015    -22.7    31.0 |  -5.15  0.000 |  0.53*
+                          |                                  |               |
+2.milieu               U  | .48718    .5787    -18.4         |  -6.76  0.000 |     .
+                       M  | .48718   .46255      5.0    73.1 |   1.34  0.180 |     .
+                          |                                  |               |
+2.region               U  | .00472    .0422    -25.0         |  -7.13  0.000 |     .
+                       M  | .00472   .00354      0.8    96.8 |   0.50  0.616 |     .
+                          |                                  |               |
+3.region               U  | .05735    .0636     -2.6         |  -0.94  0.347 |     .
+                       M  | .05735   .05263      2.0    24.4 |   0.56  0.573 |     .
+                          |                                  |               |
+4.region               U  |  .0803   .08463     -1.6         |  -0.57  0.569 |     .
+                       M  |  .0803   .08283     -0.9    41.6 |  -0.25  0.801 |     .
+                          |                                  |               |
+5.region               U  | .10391   .07591      9.8         |   3.80  0.000 |     .
+                       M  | .10391   .09312      3.8    61.5 |   0.99  0.324 |     .
+                          |                                  |               |
+6.region               U  |  .0776   .09269     -5.4         |  -1.91  0.056 |     .
+                       M  |  .0776   .09244     -5.3     1.6 |  -1.45  0.147 |     .
+                          |                                  |               |
+7.region               U  | .09312   .08784      1.8         |   0.68  0.497 |     .
+                       M  | .09312   .11184     -6.5  -254.7 |  -1.68  0.093 |     .
+                          |                                  |               |
+8.region               U  | .08232   .08441     -0.8         |  -0.27  0.784 |     .
+                       M  | .08232   .08957     -2.6  -247.5 |  -0.70  0.481 |     .
+                          |                                  |               |
+9.region               U  | .03644   .07807    -18.0         |  -5.82  0.000 |     .
+                       M  | .03644   .03677     -0.1    99.2 |  -0.05  0.961 |     .
+                          |                                  |               |
+10.region              U  | .03644   .03773     -0.7         |  -0.25  0.804 |     .
+                       M  | .03644   .05854    -11.7 -1609.1 |  -2.83  0.005 |     .
+                          |                                  |               |
+11.region              U  |  .2058   .06085     43.6         |  20.35  0.000 |     .
+                       M  |  .2058    .1444     18.5    57.6 |   4.41  0.000 |     .
+                          |                                  |               |
+12.region              U  | .01889   .09634    -33.7         |  -9.99  0.000 |     .
+                       M  | .01889   .01788      0.4    98.7 |   0.21  0.838 |     .
+                          |                                  |               |
+13.region              U  |  .0135   .05883    -24.5         |  -7.32  0.000 |     .
+                       M  |  .0135   .01603     -1.4    94.4 |  -0.57  0.568 |     .
+                          |                                  |               |
+14.region              U  |  .0722   .05958      5.1         |   1.93  0.054 |     .
+                       M  |  .0722   .05516      6.9   -35.0 |   1.90  0.058 |     .
+                          |                                  |               |
+hgender                U  |  1.305   1.1758     30.6         |  12.13  0.000 |  1.46*
+                       M  |  1.305   1.3564    -12.2    60.2 |  -2.98  0.003 |  0.92
+                          |                                  |               |
+hage                   U  | 55.857   51.679     29.1         |  11.50  0.000 |  1.44*
+                       M  | 55.857   55.547      2.2    92.6 |   0.56  0.577 |  1.14*
+                          |                                  |               |
+2.heduc                U  |      0        0        .         |      .      . |     .
+                       M  |      0        0        .       . |      .      . |     .
+                          |                                  |               |
+3.heduc                U  | .12011   .12691     -2.1         |  -0.75  0.454 |     .
+                       M  | .12011   .19163    -21.7  -951.4 |  -5.39  0.000 |     .
+                          |                                  |               |
+4.heduc                U  | .04791   .04884     -0.4         |  -0.16  0.874 |     .
+                       M  | .04791   .05533     -3.5  -696.2 |  -0.91  0.361 |     .
+                          |                                  |               |
+5.heduc                U  |  .0027   .00537     -4.2         |  -1.37  0.171 |     .
+                       M  |  .0027   .00219      0.8    81.0 |   0.28  0.780 |     .
+                          |                                  |               |
+6.heduc                U  |  .0135   .03005    -11.4         |  -3.64  0.000 |     .
+                       M  |  .0135   .01012      2.3    79.6 |   0.85  0.395 |     .
+                          |                                  |               |
+7.heduc                U  |      0        0        .         |      .      . |     .
+                       M  |      0        0        .       . |      .      . |     .
+                          |                                  |               |
+8.heduc                U  | .02294   .00507     15.2         |   7.93  0.000 |     .
+                       M  | .02294   .01113     10.1    33.9 |   2.49  0.013 |     .
+                          |                                  |               |
+9.heduc                U  | .01484   .02065     -4.4         |  -1.51  0.130 |     .
+                       M  | .01484   .01518     -0.3    94.2 |  -0.08  0.940 |     .
+                          |                                  |               |
+2.hmstat               U  | .36167   .53851    -36.1         | -13.00  0.000 |     .
+                       M  | .36167   .37213     -2.1    94.1 |  -0.59  0.555 |     .
+                          |                                  |               |
+3.hmstat               U  | .51619   .36157     31.5         |  11.71  0.000 |     .
+                       M  | .51619   .49595      4.1    86.9 |   1.10  0.271 |     .
+                          |                                  |               |
+4.hmstat               U  |      0        0        .         |      .      . |     .
+                       M  |      0        0        .       . |      .      . |     .
+                          |                                  |               |
+5.hmstat               U  | .10189   .08075      7.3         |   2.80  0.005 |     .
+                       M  | .10189    .1142     -4.3    41.7 |  -1.08  0.280 |     .
+                          |                                  |               |
+6.hmstat               U  | .00405   .01163     -8.6         |  -2.67  0.008 |     .
+                       M  | .00405   .00405      0.0   100.0 |  -0.00  1.000 |     .
+                          |                                  |               |
+7.hmstat               U  |      0        0        .         |      .      . |     .
+                       M  |      0        0        .       . |      .      . |     .
+                          |                                  |               |
+1.hcsp                 U  | .00742   .00813     -0.8         |  -0.29  0.773 |     .
+                       M  | .00742   .00489      2.9  -258.8 |   0.88  0.379 |     .
+                          |                                  |               |
+2.hcsp                 U  | .02294   .02819     -3.3         |  -1.17  0.243 |     .
+                       M  | .02294   .01383      5.8   -73.7 |   1.85  0.065 |     .
+                          |                                  |               |
+3.hcsp                 U  | .01889    .0478    -16.1         |  -5.10  0.000 |     .
+                       M  | .01889    .0194     -0.3    98.2 |  -0.10  0.920 |     .
+                          |                                  |               |
+4.hcsp                 U  | .04251   .06621    -10.5         |  -3.54  0.000 |     .
+                       M  | .04251   .05601     -6.0    43.1 |  -1.70  0.090 |     .
+                          |                                  |               |
+5.hcsp                 U  | .01147   .02043     -7.2         |  -2.37  0.018 |     .
+                       M  | .01147   .01231     -0.7    90.6 |  -0.21  0.832 |     .
+                          |                                  |               |
+6.hcsp                 U  | .00337   .00306      0.6         |   0.21  0.835 |     .
+                       M  | .00337   .00388     -0.9   -59.8 |  -0.23  0.819 |     .
+                          |                                  |               |
+7.hcsp                 U  |      0        0        .         |      .      . |     .
+                       M  |      0        0        .       . |      .      . |     .
+                          |                                  |               |
+8.hcsp                 U  | .02092   .01931      1.1         |   0.42  0.671 |     .
+                       M  | .02092   .00455     11.7  -919.4 |   3.98  0.000 |     .
+                          |                                  |               |
+9.hcsp                 U  | .46424   .59705    -26.8         |  -9.87  0.000 |     .
+                       M  | .46424   .44754      3.4    87.4 |   0.91  0.362 |     .
+                          |                                  |               |
+10.hcsp                U  | .02159    .0208      0.5         |   0.20  0.840 |     .
+                       M  | .02159   .02885     -5.0  -819.8 |  -1.26  0.208 |     .
+                          |                                  |               |
+2.sexe                 U  |  .5135   .49705      3.3         |   1.20  0.230 |     .
+                       M  |  .5135   .51822     -0.9    71.3 |  -0.26  0.797 |     .
+                          |                                  |               |
+age                    U  | 6.8198     6.69      3.1         |   1.13  0.260 |  0.98
+                       M  | 6.8198   6.6876      3.2    -1.9 |   0.83  0.404 |  0.88*
+                          |                                  |               |
+----------------------------------------------------------------------------------------
+* if variance ratio outside [0.90; 1.11] for U and [0.90; 1.11] for M
+
+-----------------------------------------------------------------------------------
+ Sample    | Ps R2   LR chi2   p>chi2   MeanBias   MedBias      B      R     %Var
+-----------+-----------------------------------------------------------------------
+ Unmatched | 0.243   2349.68    0.000     14.2       7.3     139.9*   1.22     60
+ Matched   | 0.024     98.86    0.000      5.3       3.4      36.5*   1.05     80
+-----------------------------------------------------------------------------------
+* if B>25%, R outside [0.5; 2]
+
+.     rename _weight w_sta
+
+.     keep enfid w_sta
+
+.     tempfile poids_sta
+
+.     save `poids_sta'
+file C:\Users\Bmd\AppData\Local\Temp\ST_4710_000017.tmp saved as .dta format
+
+. restore
+
+. merge m:1 enfid using `poids_sta', keep(master match) nogenerate
+
+    Result                      Number of obs
+    -----------------------------------------
+    Not matched                             0
+    Matched                            29,918  
+    -----------------------------------------
+
+. 
+. di _newline "--- PSM-DD, beneficiaires stables vs jamais beneficiaires ---"
+
+--- PSM-DD, beneficiaires stables vs jamais beneficiaires ---
+
+. quietly count if t == 0 & w_sta > 0 & !missing(w_sta)
+
+. di "  Enfants sur support commun : " r(N)
+  Enfants sur support commun : 4438
+
+. regress pauvre_MODA i.t##i.D_stable_alt [aw=w_sta] ///
 >     if w_sta > 0 & !missing(w_sta), vce(cluster grappe)
-> lincom 1.t#1.D_stable_alt
-> di "  ATT_PSMDD_stables = " %8.4f r(estimate) ///
+(sum of wgt is 5,928)
+
+Linear regression                               Number of obs     =      8,876
+                                                F(3, 513)         =       2.07
+                                                Prob > F          =     0.1033
+                                                R-squared         =     0.0055
+                                                Root MSE          =     .49869
+
+                                 (Std. err. adjusted for 514 clusters in grappe)
+--------------------------------------------------------------------------------
+               |               Robust
+   pauvre_MODA | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+---------------+----------------------------------------------------------------
+           1.t |  -.0391363   .0298884    -1.31   0.191     -.097855    .0195824
+1.D_stable_alt |  -.0565115   .0441364    -1.28   0.201    -.1432218    .0301989
+               |
+t#D_stable_alt |
+          1 1  |  -.0080972    .043476    -0.19   0.852    -.0935101    .0773158
+               |
+         _cons |    .543691   .0298979    18.18   0.000     .4849536    .6024283
+--------------------------------------------------------------------------------
+
+. lincom 1.t#1.D_stable_alt
+
+ ( 1)  1.t#1.D_stable_alt = 0
+
+------------------------------------------------------------------------------
+ pauvre_MODA | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+         (1) |  -.0080972    .043476    -0.19   0.852    -.0935101    .0773158
+------------------------------------------------------------------------------
+
+. di "  ATT_PSMDD_stables = " %8.4f r(estimate) ///
 >    "  SE = " %8.4f r(se) "  p = " %6.4f r(p)
-> 
-> /* ── Effet stables par quintile de montant 2018 ────────────────
+  ATT_PSMDD_stables =  -0.0081  SE =   0.0435  p = 0.8523
+
+. 
+. /* ── Effet stables par quintile de montant 2018 ────────────────
 >    Quintiles construits au niveau des menages stables, chaque quintile
 >    compare a l'ensemble des jamais beneficiaires. */
-> preserve
->     keep if D_stable_alt == 1 & t == 0
->     bysort grappe menage: keep if _n == 1
->     merge 1:1 grappe menage using "$TEMP/montant_2018.dta", ///
+. preserve
+
+.     keep if D_stable_alt == 1 & t == 0
+(28,436 observations deleted)
+
+.     bysort grappe menage: keep if _n == 1
+(1,168 observations deleted)
+
+.     merge 1:1 grappe menage using "$TEMP/montant_2018.dta", ///
 >         keepusing(montant_transf) keep(match) nogenerate
->     xtile q_sta = montant_transf, nquantiles(5)
->     di _newline "  Bornes des quintiles (menages stables, montant 2018, FCFA) :"
->     forvalues q = 1/5 {
->         quietly summarize montant_transf if q_sta == `q', detail
->         di "    Q`q' : " %10.0f r(min) " a " %10.0f r(max) ///
+
+    Result                      Number of obs
+    -----------------------------------------
+    Not matched                             0
+    Matched                               313  
+    -----------------------------------------
+
+.     xtile q_sta = montant_transf, nquantiles(5)
+
+.     di _newline "  Bornes des quintiles (menages stables, montant 2018, FCFA) :"
+
+  Bornes des quintiles (menages stables, montant 2018, FCFA) :
+
+.     forvalues q = 1/5 {
+  2.         quietly summarize montant_transf if q_sta == `q', detail
+  3.         di "    Q`q' : " %10.0f r(min) " a " %10.0f r(max) ///
 >            "  (mediane " %10.0f r(p50) ", n=" %4.0f r(N) " menages)"
->     }
->     keep grappe menage q_sta
->     tempfile quint_sta
->     save `quint_sta'
-> restore
-> merge m:1 grappe menage using `quint_sta', keep(master match) nogenerate
-> 
-> di _newline "=== Robustesse stables : effet par quintile de montant ==="
-> forvalues q = 1/5 {
->     quietly count if q_sta == `q' & t == 0
->     local n_q = r(N)
->     if `n_q' > 0 {
->         regress pauvre_MODA i.t##i.D_stable_alt ///
+  4.     }
+    Q1 :       9999 a     200000  (mediane      60000, n=  65 menages)
+    Q2 :     240000 a     768000  (mediane     504000, n=  61 menages)
+    Q3 :     780000 a    1490000  (mediane    1075000, n=  63 menages)
+    Q4 :    1500000 a    2400000  (mediane    1882750, n=  74 menages)
+    Q5 :    2490000 a    8400000  (mediane    4150000, n=  50 menages)
+
+.     keep grappe menage q_sta
+
+.     tempfile quint_sta
+
+.     save `quint_sta'
+file C:\Users\Bmd\AppData\Local\Temp\ST_4710_000019.tmp saved as .dta format
+
+. restore
+
+. merge m:1 grappe menage using `quint_sta', keep(master match) nogenerate
+
+    Result                      Number of obs
+    -----------------------------------------
+    Not matched                        26,980
+        from master                    26,980  
+        from using                          0  
+
+    Matched                             2,938  
+    -----------------------------------------
+
+. 
+. di _newline "=== Robustesse stables : effet par quintile de montant ==="
+
+=== Robustesse stables : effet par quintile de montant ===
+
+. forvalues q = 1/5 {
+  2.     quietly count if q_sta == `q' & t == 0
+  3.     local n_q = r(N)
+  4.     if `n_q' > 0 {
+  5.         regress pauvre_MODA i.t##i.D_stable_alt ///
 >             if D_stable_alt == 0 | q_sta == `q', vce(cluster grappe)
->         lincom 1.t#1.D_stable_alt
->         di "  Q`q' : ATT = " %8.4f r(estimate) "  SE = " %8.4f r(se) ///
+  6.         lincom 1.t#1.D_stable_alt
+  7.         di "  Q`q' : ATT = " %8.4f r(estimate) "  SE = " %8.4f r(se) ///
 >            "  p = " %6.4f r(p) "  (enfants traites t=0 : `n_q')"
->     }
-> }
-> 
-> di _newline ">>> 05_psm_dd.do termine."
-> 
-> /* ============================================================
+  8.     }
+  9. }
+
+Linear regression                               Number of obs     =     27,548
+                                                F(3, 576)         =      19.65
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.0063
+                                                Root MSE          =     .47115
+
+                                 (Std. err. adjusted for 577 clusters in grappe)
+--------------------------------------------------------------------------------
+               |               Robust
+   pauvre_MODA | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+---------------+----------------------------------------------------------------
+           1.t |  -.0687839     .00925    -7.44   0.000    -.0869516   -.0506161
+1.D_stable_alt |  -.1544787   .0717518    -2.15   0.032    -.2954057   -.0135517
+               |
+t#D_stable_alt |
+          1 1  |   .0957199     .06934     1.38   0.168    -.0404702      .23191
+               |
+         _cons |   .6999332    .013164    53.17   0.000      .674078    .7257885
+--------------------------------------------------------------------------------
+
+ ( 1)  1.t#1.D_stable_alt = 0
+
+------------------------------------------------------------------------------
+ pauvre_MODA | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+         (1) |   .0957199     .06934     1.38   0.168    -.0404702      .23191
+------------------------------------------------------------------------------
+  Q1 : ATT =   0.0957  SE =   0.0693  p = 0.1680  (enfants traites t=0 : 297)
+
+Linear regression                               Number of obs     =     27,580
+                                                F(3, 577)         =      18.96
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.0054
+                                                Root MSE          =     .47086
+
+                                 (Std. err. adjusted for 578 clusters in grappe)
+--------------------------------------------------------------------------------
+               |               Robust
+   pauvre_MODA | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+---------------+----------------------------------------------------------------
+           1.t |  -.0687839   .0092499    -7.44   0.000    -.0869515   -.0506162
+1.D_stable_alt |  -.0449811   .0674419    -0.67   0.505    -.1774427    .0874804
+               |
+t#D_stable_alt |
+          1 1  |   .0144708   .0483933     0.30   0.765    -.0805777    .1095192
+               |
+         _cons |   .6999332    .013164    53.17   0.000     .6740781    .7257883
+--------------------------------------------------------------------------------
+
+ ( 1)  1.t#1.D_stable_alt = 0
+
+------------------------------------------------------------------------------
+ pauvre_MODA | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+         (1) |   .0144708   .0483933     0.30   0.765    -.0805777    .1095192
+------------------------------------------------------------------------------
+  Q2 : ATT =   0.0145  SE =   0.0484  p = 0.7650  (enfants traites t=0 : 313)
+
+Linear regression                               Number of obs     =     27,556
+                                                F(3, 576)         =      26.65
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.0104
+                                                Root MSE          =     .47111
+
+                                 (Std. err. adjusted for 577 clusters in grappe)
+--------------------------------------------------------------------------------
+               |               Robust
+   pauvre_MODA | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+---------------+----------------------------------------------------------------
+           1.t |  -.0687839     .00925    -7.44   0.000    -.0869516   -.0506161
+1.D_stable_alt |  -.2248502   .0696414    -3.23   0.001    -.3616322   -.0880681
+               |
+t#D_stable_alt |
+          1 1  |  -.0109504   .0909597    -0.12   0.904    -.1896035    .1677027
+               |
+         _cons |   .6999332    .013164    53.17   0.000      .674078    .7257885
+--------------------------------------------------------------------------------
+
+ ( 1)  1.t#1.D_stable_alt = 0
+
+------------------------------------------------------------------------------
+ pauvre_MODA | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+         (1) |  -.0109504   .0909597    -0.12   0.904    -.1896035    .1677027
+------------------------------------------------------------------------------
+  Q3 : ATT =  -0.0110  SE =   0.0910  p = 0.9042  (enfants traites t=0 : 301)
+
+Linear regression                               Number of obs     =     27,574
+                                                F(3, 576)         =      41.91
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.0193
+                                                Root MSE          =     .47015
+
+                                 (Std. err. adjusted for 577 clusters in grappe)
+--------------------------------------------------------------------------------
+               |               Robust
+   pauvre_MODA | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+---------------+----------------------------------------------------------------
+           1.t |  -.0687839     .00925    -7.44   0.000    -.0869516   -.0506161
+1.D_stable_alt |  -.4192881   .0557493    -7.52   0.000    -.5287847   -.3097914
+               |
+t#D_stable_alt |
+          1 1  |   .0752355   .0640146     1.18   0.240     -.050495     .200966
+               |
+         _cons |   .6999332    .013164    53.17   0.000      .674078    .7257885
+--------------------------------------------------------------------------------
+
+ ( 1)  1.t#1.D_stable_alt = 0
+
+------------------------------------------------------------------------------
+ pauvre_MODA | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+         (1) |   .0752355   .0640146     1.18   0.240     -.050495     .200966
+------------------------------------------------------------------------------
+  Q4 : ATT =   0.0752  SE =   0.0640  p = 0.2404  (enfants traites t=0 : 310)
+
+Linear regression                               Number of obs     =     27,450
+                                                F(3, 577)         =      28.15
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.0124
+                                                Root MSE          =      .4707
+
+                                 (Std. err. adjusted for 578 clusters in grappe)
+--------------------------------------------------------------------------------
+               |               Robust
+   pauvre_MODA | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+---------------+----------------------------------------------------------------
+           1.t |  -.0687839   .0092499    -7.44   0.000    -.0869515   -.0506162
+1.D_stable_alt |  -.2483203    .114486    -2.17   0.030    -.4731804   -.0234602
+               |
+t#D_stable_alt |
+          1 1  |  -.0884742   .0627793    -1.41   0.159    -.2117781    .0348296
+               |
+         _cons |   .6999332    .013164    53.17   0.000     .6740781    .7257884
+--------------------------------------------------------------------------------
+
+ ( 1)  1.t#1.D_stable_alt = 0
+
+------------------------------------------------------------------------------
+ pauvre_MODA | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+         (1) |  -.0884742   .0627793    -1.41   0.159    -.2117781    .0348296
+------------------------------------------------------------------------------
+  Q5 : ATT =  -0.0885  SE =   0.0628  p = 0.1593  (enfants traites t=0 : 248)
+
+. 
+. di _newline ">>> 05_psm_dd.do termine."
+
+>>> 05_psm_dd.do termine.
+
+. 
+. /* ============================================================
 >    SECTION : 06_STATS_DESC — Statistiques descriptives
 >    Chapitre 3 : profil ménages, pauvreté, privations, comparaison D=0/1
 > 
@@ -5059,85 +6174,145 @@ Linear regression                               Number of obs     =     16,210
 >    (hhweight). Le profil des menages et la balance traites/non-traites
 >    restent sur effectifs bruts.
 >    ============================================================ */
-> 
-> 
-> /* Créer les dossiers de sortie */
-> capture mkdir "$OUTPUT"
-> capture mkdir "$OUTPUT/figures"
-> capture mkdir "$OUTPUT/tables"
-> 
-> /* ============================================================
+. 
+. 
+. /* Créer les dossiers de sortie */
+. capture mkdir "$OUTPUT"
+
+. capture mkdir "$OUTPUT/figures"
+
+. capture mkdir "$OUTPUT/tables"
+
+. 
+. /* ============================================================
 >    1. Caractéristiques générales des ménages
 >    ============================================================ */
-> 
-> di _newline "=== 1. Profil des ménages ==="
-> 
-> foreach annee in 2018 2021 {
->     local tt = cond(`annee' == 2018, 0, 1)
->     use "$TEMP/panel_vrai.dta", clear
->     keep if t == `tt'
->     bysort grappe menage: keep if _n == 1   /* un ménage = une ligne */
-> 
->     drop D
->     merge m:1 grappe menage using "$TEMP/traitement_`annee'.dta", ///
+. 
+. di _newline "=== 1. Profil des ménages ==="
+
+=== 1. Profil des ménages ===
+
+. 
+. foreach annee in 2018 2021 {
+  2.     local tt = cond(`annee' == 2018, 0, 1)
+  3.     use "$TEMP/panel_vrai.dta", clear
+  4.     keep if t == `tt'
+  5.     bysort grappe menage: keep if _n == 1   /* un ménage = une ligne */
+  6. 
+.     drop D
+  7.     merge m:1 grappe menage using "$TEMP/traitement_`annee'.dta", ///
 >         keepusing(D) nogenerate keep(master match)
->     replace D = 0 if missing(D)
-> 
->     /* Taille ménage, âge CM, milieu, transferts */
->     quietly {
->         gen byte chef_f = (hgender == 2)
->         gen byte urbain = (milieu == 1)
->         foreach v in hhsize hage pcexp chef_f urbain D {
->             summarize `v' [aw=hhweight]   /* caracteristiques ponderees (representativite nationale) */
->             if "`v'" == "hhsize" scalar m_hhsize_`annee' = r(mean)
->             if "`v'" == "hage"   scalar m_hage_`annee'   = r(mean)
->             if "`v'" == "pcexp"  scalar m_pcexp_`annee'  = r(mean)
->             if "`v'" == "chef_f" scalar p_chef_f_`annee' = r(mean)*100
->             if "`v'" == "urbain" scalar p_urbain_`annee' = r(mean)*100
->             if "`v'" == "D"      scalar p_D_`annee'      = r(mean)*100
->         }
->         count
->         scalar n_men_`annee' = r(N)
->     }
->     di "`annee' : " n_men_`annee' " ménages"
->     di "  Taille moy : " %5.2f m_hhsize_`annee'
->     di "  PCE moy    : " %12.0f m_pcexp_`annee' " FCFA/an"
->     di "  Chef féminin  : " %5.1f p_chef_f_`annee' "%"
->     di "  Milieu urbain : " %5.1f p_urbain_`annee' "%"
->     di "  Transferts    : " %5.1f p_D_`annee'      "%"
-> }
-> 
-> 
-> /* ============================================================
+  8.     replace D = 0 if missing(D)
+  9. 
+.     /* Taille ménage, âge CM, milieu, transferts */
+.     quietly {
+ 10.         gen byte chef_f = (hgender == 2)
+ 11.         gen byte urbain = (milieu == 1)
+ 12.         foreach v in hhsize hage pcexp chef_f urbain D {
+ 13.             summarize `v' [aw=hhweight]   /* caracteristiques ponderees (representativite nationale) */
+ 14.             if "`v'" == "hhsize" scalar m_hhsize_`annee' = r(mean)
+ 15.             if "`v'" == "hage"   scalar m_hage_`annee'   = r(mean)
+ 16.             if "`v'" == "pcexp"  scalar m_pcexp_`annee'  = r(mean)
+ 17.             if "`v'" == "chef_f" scalar p_chef_f_`annee' = r(mean)*100
+ 18.             if "`v'" == "urbain" scalar p_urbain_`annee' = r(mean)*100
+ 19.             if "`v'" == "D"      scalar p_D_`annee'      = r(mean)*100
+ 20.         }
+ 21.         count
+ 22.         scalar n_men_`annee' = r(N)
+ 23.     }
+ 24.     di "`annee' : " n_men_`annee' " ménages"
+ 25.     di "  Taille moy : " %5.2f m_hhsize_`annee'
+ 26.     di "  PCE moy    : " %12.0f m_pcexp_`annee' " FCFA/an"
+ 27.     di "  Chef féminin  : " %5.1f p_chef_f_`annee' "%"
+ 28.     di "  Milieu urbain : " %5.1f p_urbain_`annee' "%"
+ 29.     di "  Transferts    : " %5.1f p_D_`annee'      "%"
+ 30. }
+(28,341 observations deleted)
+(25,691 observations deleted)
+
+    Result                      Number of obs
+    -----------------------------------------
+    Not matched                             0
+    Matched                             5,691  
+    -----------------------------------------
+(0 real changes made)
+2018 : 5691 ménages
+  Taille moy : 10.16
+  PCE moy    :       515217 FCFA/an
+  Chef féminin  :  26.2%
+  Milieu urbain :  45.9%
+  Transferts    :  13.9%
+(31,382 observations deleted)
+(22,650 observations deleted)
+
+    Result                      Number of obs
+    -----------------------------------------
+    Not matched                             0
+    Matched                             5,691  
+    -----------------------------------------
+(0 real changes made)
+2021 : 5691 ménages
+  Taille moy :  9.38
+  PCE moy    :       565226 FCFA/an
+  Chef féminin  :  28.7%
+  Milieu urbain :  45.9%
+  Transferts    :  16.5%
+
+. 
+. 
+. /* ============================================================
 >    2. Balance traités / non-traités (EHCVM I, t=0)
 >    ============================================================ */
-> 
-> di _newline "=== 2. Balance traites / non-traites (niveau ENFANT) ==="
-> 
-> /* Alimente le tableau de selection de la section 2 : qui recoit des
+. 
+. di _newline "=== 2. Balance traites / non-traites (niveau ENFANT) ==="
+
+=== 2. Balance traites / non-traites (niveau ENFANT) ===
+
+. 
+. /* Alimente le tableau de selection de la section 2 : qui recoit des
 >    transferts ? L'unite est l'enfant, comme dans tout le memoire. */
-> use "$TEMP/panel_enfants_psm.dta", clear
-> keep if t == 0
-> 
-> gen byte chef_f = (hgender == 2)
-> gen byte urbain = (milieu  == 1)
-> gen byte fille  = (sexe == 2)
-> 
-> foreach v in fille age hhsize hage pcexp chef_f urbain {
->     quietly summarize `v' [aw=hhweight] if D == 1
->     local m1 = r(mean)
->     quietly summarize `v' [aw=hhweight] if D == 0
->     local m0 = r(mean)
->     quietly regress `v' D, vce(cluster grappe)
->     di "  " %-8s "`v'" " : D=1 " %10.2f `m1' "  D=0 " %10.2f `m0' ///
+. use "$TEMP/panel_enfants_psm.dta", clear
+
+. keep if t == 0
+(17,786 observations deleted)
+
+. 
+. gen byte chef_f = (hgender == 2)
+
+. gen byte urbain = (milieu  == 1)
+
+. gen byte fille  = (sexe == 2)
+
+. 
+. foreach v in fille age hhsize hage pcexp chef_f urbain {
+  2.     quietly summarize `v' [aw=hhweight] if D == 1
+  3.     local m1 = r(mean)
+  4.     quietly summarize `v' [aw=hhweight] if D == 0
+  5.     local m0 = r(mean)
+  6.     quietly regress `v' D, vce(cluster grappe)
+  7.     di "  " %-8s "`v'" " : D=1 " %10.2f `m1' "  D=0 " %10.2f `m0' ///
 >        "  p=" %6.4f (2*ttail(e(df_r), abs(_b[D]/_se[D])))
-> }
-> quietly count if D == 1
-> di "  Enfants traites : " r(N)
-> quietly count if D == 0
-> di "  Enfants temoins : " r(N)
-> 
-> /* ============================================================
+  8. }
+  fille    : D=1       0.49  D=0       0.50  p=0.5106
+  age      : D=1       6.83  D=0       6.69  p=0.0732
+  hhsize   : D=1      16.77  D=0      12.74  p=0.0000
+  hage     : D=1      53.70  D=0      52.14  p=0.0002
+  pcexp    : D=1  486416.53  D=0  419939.65  p=0.0000
+  chef_f   : D=1       0.34  D=0       0.19  p=0.0000
+  urbain   : D=1       0.51  D=0       0.38  p=0.0024
+
+. quietly count if D == 1
+
+. di "  Enfants traites : " r(N)
+  Enfants traites : 2638
+
+. quietly count if D == 0
+
+. di "  Enfants temoins : " r(N)
+  Enfants temoins : 15148
+
+. 
+. /* ============================================================
 >    2bis. Caracteristiques des transferts etrangers recus :
 >    motifs declares et montants annualises
 > 
@@ -5149,168 +6324,450 @@ Linear regression                               Number of obs     =     16,210
 >    irregulier = montant deja declare sur 12 mois, x1), puis somme
 >    au niveau menage sur l'ensemble de ses transferts etrangers.
 >    ============================================================ */
-> 
-> di _newline "=== 2bis. Motifs et montants des transferts etrangers ==="
-> 
-> foreach annee in 2018 2021 {
-> 
->     if `annee' == 2018 {
->         local base      "$BASE_2018"
->         local fich_det  s13a_2
->         local v_lieu    s13aq14
->         local v_motif   s13aq15
->         local v_montant s13aq17a
->         local v_freq    s13aq17b
->     }
->     else {
->         local base      "$BASE_2021"
->         local fich_det  s13_2
->         local v_lieu    s13q19
->         local v_motif   s13q20
->         local v_montant s13q22a
->         local v_freq    s13q22b
->     }
-> 
->     use "`base'/`fich_det'_me_sen`annee'.dta", clear
->     keep if `v_lieu' >= $CODE_ETRANGER_MIN & !missing(`v_lieu')
-> 
->     quietly count
->     di _newline "-- `annee' : " r(N) " transferts etrangers --"
-> 
->     di "  Repartition des motifs (%):"
->     tab `v_motif'
-> 
->     /* Montant annualise par transfert */
->     gen double mult = .
->     replace mult = 12 if `v_freq' == 1   /* mois       */
->     replace mult = 4  if `v_freq' == 2   /* trimestre  */
->     replace mult = 2  if `v_freq' == 3   /* semestre   */
->     replace mult = 1  if `v_freq' == 4   /* annee      */
->     replace mult = 1  if `v_freq' == 5   /* irregulier : montant sur 12 mois */
->     gen double montant_annuel = `v_montant' * mult
-> 
->     /* Somme au niveau menage */
->     collapse (sum) montant_annuel, by(grappe menage)
->     di "  Montant annuel recu par menage beneficiaire (FCFA) :"
->     summarize montant_annuel, detail
-> }
-> 
-> /* ============================================================
+. 
+. di _newline "=== 2bis. Motifs et montants des transferts etrangers ==="
+
+=== 2bis. Motifs et montants des transferts etrangers ===
+
+. 
+. foreach annee in 2018 2021 {
+  2. 
+.     if `annee' == 2018 {
+  3.         local base      "$BASE_2018"
+  4.         local fich_det  s13a_2
+  5.         local v_lieu    s13aq14
+  6.         local v_motif   s13aq15
+  7.         local v_montant s13aq17a
+  8.         local v_freq    s13aq17b
+  9.     }
+ 10.     else {
+ 11.         local base      "$BASE_2021"
+ 12.         local fich_det  s13_2
+ 13.         local v_lieu    s13q19
+ 14.         local v_motif   s13q20
+ 15.         local v_montant s13q22a
+ 16.         local v_freq    s13q22b
+ 17.     }
+ 18. 
+.     use "`base'/`fich_det'_me_sen`annee'.dta", clear
+ 19.     keep if `v_lieu' >= $CODE_ETRANGER_MIN & !missing(`v_lieu')
+ 20. 
+.     quietly count
+ 21.     di _newline "-- `annee' : " r(N) " transferts etrangers --"
+ 22. 
+.     di "  Repartition des motifs (%):"
+ 23.     tab `v_motif'
+ 24. 
+.     /* Montant annualise par transfert */
+.     gen double mult = .
+ 25.     replace mult = 12 if `v_freq' == 1   /* mois       */
+ 26.     replace mult = 4  if `v_freq' == 2   /* trimestre  */
+ 27.     replace mult = 2  if `v_freq' == 3   /* semestre   */
+ 28.     replace mult = 1  if `v_freq' == 4   /* annee      */
+ 29.     replace mult = 1  if `v_freq' == 5   /* irregulier : montant sur 12 mois */
+ 30.     gen double montant_annuel = `v_montant' * mult
+ 31. 
+.     /* Somme au niveau menage */
+.     collapse (sum) montant_annuel, by(grappe menage)
+ 32.     di "  Montant annuel recu par menage beneficiaire (FCFA) :"
+ 33.     summarize montant_annuel, detail
+ 34. }
+(5,997 observations deleted)
+
+-- 2018 : 2406 transferts etrangers --
+  Repartition des motifs (%):
+
+ 13A.15. Quel est le principal motif du |
+                             transfert? |      Freq.     Percent        Cum.
+----------------------------------------+-----------------------------------
+                   Scolarit�, �ducation |         84        3.49        3.49
+                         Sant�, maladie |        110        4.57        8.06
+                        Soutien courant |      1,605       66.71       74.77
+                   Appui travaux champs |         13        0.54       75.31
+Appui d�marrage d'une entreprise non ag |         15        0.62       75.94
+                        F�te/Ev�nements |        272       11.31       87.24
+                       Achat de terrain |          3        0.12       87.36
+              Construction d'une maison |         17        0.71       88.07
+                     Autre (� pr�ciser) |        287       11.93      100.00
+----------------------------------------+-----------------------------------
+                                  Total |      2,406      100.00
+(2,406 missing values generated)
+(1,039 real changes made)
+(93 real changes made)
+(31 real changes made)
+(274 real changes made)
+(968 real changes made)
+(11 missing values generated)
+  Montant annuel recu par menage beneficiaire (FCFA) :
+
+                    (sum) montant_annuel
+-------------------------------------------------------------
+      Percentiles      Smallest
+ 1%         5000              0
+ 5%        15000              0
+10%        25000              0       Obs               1,584
+25%        60000              0       Sum of wgt.       1,584
+
+50%       300000                      Mean           883179.8
+                        Largest       Std. dev.       1334903
+75%      1200000        8400000
+90%      2400000        8400000       Variance       1.78e+12
+95%      3600000        8700000       Skewness       3.000335
+99%      6100000       1.48e+07       Kurtosis       17.07306
+(7,890 observations deleted)
+
+-- 2021 : 2775 transferts etrangers --
+  Repartition des motifs (%):
+
+  13.20. Quel est le principal motif du |
+                             transfert? |      Freq.     Percent        Cum.
+----------------------------------------+-----------------------------------
+                   Scolarité, éducation |        102        3.68        3.68
+                         Santé, maladie |        179        6.45       10.13
+                        Soutien courant |      1,900       68.47       78.59
+                   Appui travaux champs |         14        0.50       79.10
+Appui/ démarrage d'une entreprise non a |         33        1.19       80.29
+                        Fête/Evènements |        259        9.33       89.62
+                       Achat de terrain |          3        0.11       89.73
+              Construction d'une maison |         20        0.72       90.45
+            Aide à cause de la COVID-19 |          9        0.32       90.77
+                     Autre (à préciser) |        256        9.23      100.00
+----------------------------------------+-----------------------------------
+                                  Total |      2,775      100.00
+(2,775 missing values generated)
+(1,176 real changes made)
+(104 real changes made)
+(28 real changes made)
+(256 real changes made)
+(1,211 real changes made)
+  Montant annuel recu par menage beneficiaire (FCFA) :
+
+                    (sum) montant_annuel
+-------------------------------------------------------------
+      Percentiles      Smallest
+ 1%         5600           2500
+ 5%        20000           3000
+10%        30000           3000       Obs               1,765
+25%        70000           5000       Sum of wgt.       1,765
+
+50%       275000                      Mean           948112.8
+                        Largest       Std. dev.       1572988
+75%      1200000       1.20e+07
+90%      2760000       1.36e+07       Variance       2.47e+12
+95%      3650000       1.44e+07       Skewness       3.379543
+99%      7825000       1.44e+07       Kurtosis       19.09429
+
+. 
+. /* ============================================================
 >    3. Incidence MODA par vague, milieu, groupe d'âge
 >    ============================================================ */
-> 
-> di _newline "=== 3. Incidence pauvreté multidimensionnelle ==="
-> 
-> foreach annee in 2018 2021 {
->     local tt = cond(`annee' == 2018, 0, 1)
->     use "$TEMP/panel_enfants_psm.dta", clear
->     keep if t == `tt'
-> 
->     di _newline "-- MODA `annee' (pondéré hhweight) --"
->     tabstat pauvre_MODA nb_dep [aw=hhweight], ///
+. 
+. di _newline "=== 3. Incidence pauvreté multidimensionnelle ==="
+
+=== 3. Incidence pauvreté multidimensionnelle ===
+
+. 
+. foreach annee in 2018 2021 {
+  2.     local tt = cond(`annee' == 2018, 0, 1)
+  3.     use "$TEMP/panel_enfants_psm.dta", clear
+  4.     keep if t == `tt'
+  5. 
+.     di _newline "-- MODA `annee' (pondéré hhweight) --"
+  6.     tabstat pauvre_MODA nb_dep [aw=hhweight], ///
 >         by(milieu) stat(mean n) format(%6.3f)
->     tabstat pauvre_MODA nb_dep [aw=hhweight], ///
+  7.     tabstat pauvre_MODA nb_dep [aw=hhweight], ///
 >         by(groupe_base) stat(mean n) format(%6.3f)
->     /* Incidence ajustee : H (part de pauvres), A (intensite moyenne parmi les
+  8.     /* Incidence ajustee : H (part de pauvres), A (intensite moyenne parmi les
 >        pauvres = nb_dep/7), M0 = H x A, ponderes par hhweight. */
->     quietly summarize pauvre_MODA [aw=hhweight]
->     local H = r(mean)
->     quietly summarize intensite_moda [aw=hhweight] if pauvre_MODA == 1
->     local A = r(mean)
->     di "  Incidence ajustee `annee' : H=" %5.1f 100*`H' "%  A=" %5.1f 100*`A' ///
+.     quietly summarize pauvre_MODA [aw=hhweight]
+  9.     local H = r(mean)
+ 10.     quietly summarize intensite_moda [aw=hhweight] if pauvre_MODA == 1
+ 11.     local A = r(mean)
+ 12.     di "  Incidence ajustee `annee' : H=" %5.1f 100*`H' "%  A=" %5.1f 100*`A' ///
 >        "%  M0=" %5.3f `H'*`A'
-> }
-> 
-> /* Export tab_moda_age : H par groupe d'âge et vague */
-> clear
-> set obs 6
-> gen str8 annee       = ""
-> gen str12 groupe     = ""
-> gen H_MODA           = .
-> gen n_obs            = .
-> 
-> local r = 0
-> foreach annee in 2018 2021 {
->     local tt = cond(`annee' == 2018, 0, 1)
->     use "$TEMP/panel_enfants_psm.dta", clear
->     keep if t == `tt'
->     foreach g in 1 2 3 {
->         local ++r
->         quietly summarize pauvre_MODA [aw=hhweight] if groupe_base == `g'
->         local hmoda = r(mean)*100
->         /* n_calc = enfants avec un statut MODA calcule ; n_tot = effectif
+ 13. }
+(17,786 observations deleted)
+
+-- MODA 2018 (pondéré hhweight) --
+
+Summary statistics: Mean, N
+Group variable: milieu (Milieu residence)
+
+milieu |  pauvre~A    nb_dep
+-------+--------------------
+Urbain |     0.353     2.998
+       |  7747.000  7747.000
+-------+--------------------
+ Rural |     0.820     4.638
+       |   1.0e+04   1.0e+04
+-------+--------------------
+ Total |     0.635     3.987
+       |   1.8e+04   1.8e+04
+----------------------------
+
+Summary statistics: Mean, N
+Group variable: groupe_base (Groupe d'age MODA a la periode de base (2018))
+
+groupe_base |  pauvre~A    nb_dep
+------------+--------------------
+    0-4 ans |     0.569     3.628
+            |  6169.000  6169.000
+------------+--------------------
+   5-14 ans |     0.673     4.193
+            |   1.1e+04   1.1e+04
+------------+--------------------
+  15-17 ans |     0.583     3.780
+            |   445.000   445.000
+------------+--------------------
+      Total |     0.635     3.987
+            |   1.8e+04   1.8e+04
+---------------------------------
+  Incidence ajustee 2018 : H= 63.5%  A= 70.7%  M0=0.449
+(17,786 observations deleted)
+
+-- MODA 2021 (pondéré hhweight) --
+
+Summary statistics: Mean, N
+Group variable: milieu (Milieu residence)
+
+milieu |  pauvre~A    nb_dep
+-------+--------------------
+Urbain |     0.288     2.831
+       |  7747.000  7747.000
+-------+--------------------
+ Rural |     0.768     4.478
+       |   1.0e+04   1.0e+04
+-------+--------------------
+ Total |     0.578     3.825
+       |   1.8e+04   1.8e+04
+----------------------------
+
+Summary statistics: Mean, N
+Group variable: groupe_base (Groupe d'age MODA a la periode de base (2018))
+
+groupe_base |  pauvre~A    nb_dep
+------------+--------------------
+    0-4 ans |     0.601     3.901
+            |  6169.000  6169.000
+------------+--------------------
+   5-14 ans |     0.567     3.788
+            |   1.1e+04   1.1e+04
+------------+--------------------
+  15-17 ans |     0.522     3.671
+            |   445.000   445.000
+------------+--------------------
+      Total |     0.578     3.825
+            |   1.8e+04   1.8e+04
+---------------------------------
+  Incidence ajustee 2021 : H= 57.8%  A= 70.3%  M0=0.406
+
+. 
+. /* Export tab_moda_age : H par groupe d'âge et vague */
+. clear
+
+. set obs 6
+Number of observations (_N) was 0, now 6.
+
+. gen str8 annee       = ""
+(6 missing values generated)
+
+. gen str12 groupe     = ""
+(6 missing values generated)
+
+. gen H_MODA           = .
+(6 missing values generated)
+
+. gen n_obs            = .
+(6 missing values generated)
+
+. 
+. local r = 0
+
+. foreach annee in 2018 2021 {
+  2.     local tt = cond(`annee' == 2018, 0, 1)
+  3.     use "$TEMP/panel_enfants_psm.dta", clear
+  4.     keep if t == `tt'
+  5.     foreach g in 1 2 3 {
+  6.         local ++r
+  7.         quietly summarize pauvre_MODA [aw=hhweight] if groupe_base == `g'
+  8.         local hmoda = r(mean)*100
+  9.         /* n_calc = enfants avec un statut MODA calcule ; n_tot = effectif
 >            total de la tranche (colonne "Obs." du tableau du rapport) */
->         local nobs  = r(N)
->         quietly count if groupe_base == `g'
->         local ntot  = r(N)
->         local lbl   = cond(`g'==1,"0-4 ans",cond(`g'==2,"5-14 ans","15-17 ans"))
->         di "  `annee' / `lbl' : H=" %5.1f `hmoda' "% (n_calc=`nobs', n_tot=`ntot')"
->     }
-> }
-> 
-> /* ============================================================
+.         local nobs  = r(N)
+ 10.         quietly count if groupe_base == `g'
+ 11.         local ntot  = r(N)
+ 12.         local lbl   = cond(`g'==1,"0-4 ans",cond(`g'==2,"5-14 ans","15-17 ans"))
+ 13.         di "  `annee' / `lbl' : H=" %5.1f `hmoda' "% (n_calc=`nobs', n_tot=`ntot')"
+ 14.     }
+ 15. }
+(17,786 observations deleted)
+  2018 / 0-4 ans : H= 56.9% (n_calc=6169, n_tot=6169)
+  2018 / 5-14 ans : H= 67.3% (n_calc=11172, n_tot=11172)
+  2018 / 15-17 ans : H= 58.3% (n_calc=445, n_tot=445)
+(17,786 observations deleted)
+  2021 / 0-4 ans : H= 60.1% (n_calc=6169, n_tot=6169)
+  2021 / 5-14 ans : H= 56.7% (n_calc=11172, n_tot=11172)
+  2021 / 15-17 ans : H= 52.2% (n_calc=445, n_tot=445)
+
+. 
+. /* ============================================================
 >    4. Taux de privation par dimension
 >    ============================================================ */
-> 
-> di _newline "=== 4. Privation par dimension ==="
-> 
-> foreach annee in 2018 2021 {
->     local tt = cond(`annee' == 2018, 0, 1)
->     use "$TEMP/panel_enfants_psm.dta", clear
->     keep if t == `tt'
->     di _newline "-- Dimensions `annee' --"
->     foreach dim in assai eau logem nutri sante protect educ {
->         quietly summarize dim_`dim' [aw=hhweight]
->         di "  `dim' : " %5.1f r(mean)*100 "%"
->     }
->     di _newline "  -- Dimensions `annee' par tranche d'age --"
->     foreach dim in assai eau logem nutri sante protect educ {
->         quietly tabstat dim_`dim' [aw=hhweight], by(groupe_base) ///
+. 
+. di _newline "=== 4. Privation par dimension ==="
+
+=== 4. Privation par dimension ===
+
+. 
+. foreach annee in 2018 2021 {
+  2.     local tt = cond(`annee' == 2018, 0, 1)
+  3.     use "$TEMP/panel_enfants_psm.dta", clear
+  4.     keep if t == `tt'
+  5.     di _newline "-- Dimensions `annee' --"
+  6.     foreach dim in assai eau logem nutri sante protect educ {
+  7.         quietly summarize dim_`dim' [aw=hhweight]
+  8.         di "  `dim' : " %5.1f r(mean)*100 "%"
+  9.     }
+ 10.     di _newline "  -- Dimensions `annee' par tranche d'age --"
+ 11.     foreach dim in assai eau logem nutri sante protect educ {
+ 12.         quietly tabstat dim_`dim' [aw=hhweight], by(groupe_base) ///
 >             stat(mean n) format(%7.4f) save
->         forvalues g = 1/3 {
->             matrix M = r(Stat`g')
->             local lbl = cond(`g'==1,"0-4 ans",cond(`g'==2,"5-14 ans","15-17 ans"))
->             di "  `dim' / `lbl' : " %5.1f M[1,1]*100 "%   n=" %7.0f M[2,1]
->         }
->     }
->     quietly summarize intensite_moda [aw=hhweight] if pauvre_MODA == 1
->     local A = r(mean)
->     quietly summarize pauvre_MODA [aw=hhweight]
->     di "  Indice ajuste `annee' : H=" %5.1f 100*r(mean) "%  A=" %5.1f 100*`A' ///
+ 13.         forvalues g = 1/3 {
+ 14.             matrix M = r(Stat`g')
+ 15.             local lbl = cond(`g'==1,"0-4 ans",cond(`g'==2,"5-14 ans","15-17 ans"))
+ 16.             di "  `dim' / `lbl' : " %5.1f M[1,1]*100 "%   n=" %7.0f M[2,1]
+ 17.         }
+ 18.     }
+ 19.     quietly summarize intensite_moda [aw=hhweight] if pauvre_MODA == 1
+ 20.     local A = r(mean)
+ 21.     quietly summarize pauvre_MODA [aw=hhweight]
+ 22.     di "  Indice ajuste `annee' : H=" %5.1f 100*r(mean) "%  A=" %5.1f 100*`A' ///
 >        "%  M0=" %5.3f r(mean)*`A'
-> }
-> 
-> 
-> /* ============================================================
+ 23. }
+(17,786 observations deleted)
+
+-- Dimensions 2018 --
+  assai :  51.1%
+  eau :  22.7%
+  logem :  65.2%
+  nutri :  68.1%
+  sante :  97.0%
+  protect :  66.3%
+  educ :  28.4%
+
+  -- Dimensions 2018 par tranche d'age --
+  assai / 0-4 ans :  52.1%   n=   6169
+  assai / 5-14 ans :  50.6%   n=  11172
+  assai / 15-17 ans :  49.0%   n=    445
+  eau / 0-4 ans :  24.6%   n=   6169
+  eau / 5-14 ans :  21.8%   n=  11172
+  eau / 15-17 ans :  17.6%   n=    445
+  logem / 0-4 ans :  66.8%   n=   6169
+  logem / 5-14 ans :  64.2%   n=  11172
+  logem / 15-17 ans :  66.4%   n=    445
+  nutri / 0-4 ans :  67.8%   n=   6169
+  nutri / 5-14 ans :  68.2%   n=  11172
+  nutri / 15-17 ans :  71.1%   n=    445
+  sante / 0-4 ans :  96.9%   n=   6169
+  sante / 5-14 ans :  97.1%   n=  11172
+  sante / 15-17 ans :  99.4%   n=    445
+  protect / 0-4 ans :  54.6%   n=   6169
+  protect / 5-14 ans :  73.6%   n=  11172
+  protect / 15-17 ans :  42.1%   n=    445
+  educ / 0-4 ans :   0.0%   n=   6169
+  educ / 5-14 ans :  43.9%   n=  11172
+  educ / 15-17 ans :  32.3%   n=    445
+  Indice ajuste 2018 : H= 63.5%  A= 70.7%  M0=0.449
+(17,786 observations deleted)
+
+-- Dimensions 2021 --
+  assai :  49.4%
+  eau :  17.3%
+  logem :  53.9%
+  nutri :  62.7%
+  sante :  96.6%
+  protect :  66.9%
+  educ :  35.7%
+
+  -- Dimensions 2021 par tranche d'age --
+  assai / 0-4 ans :  50.6%   n=   6169
+  assai / 5-14 ans :  48.8%   n=  11172
+  assai / 15-17 ans :  46.2%   n=    445
+  eau / 0-4 ans :  18.7%   n=   6169
+  eau / 5-14 ans :  16.6%   n=  11172
+  eau / 15-17 ans :  18.7%   n=    445
+  logem / 0-4 ans :  56.5%   n=   6169
+  logem / 5-14 ans :  52.6%   n=  11172
+  logem / 15-17 ans :  50.2%   n=    445
+  nutri / 0-4 ans :  63.3%   n=   6169
+  nutri / 5-14 ans :  62.2%   n=  11172
+  nutri / 15-17 ans :  68.3%   n=    445
+  sante / 0-4 ans :  97.0%   n=   6169
+  sante / 5-14 ans :  96.3%   n=  11172
+  sante / 15-17 ans :  98.6%   n=    445
+  protect / 0-4 ans :  60.8%   n=   6169
+  protect / 5-14 ans :  70.7%   n=  11172
+  protect / 15-17 ans :  54.1%   n=    445
+  educ / 0-4 ans :  43.1%   n=   6169
+  educ / 5-14 ans :  31.7%   n=  11172
+  educ / 15-17 ans :  30.9%   n=    445
+  Indice ajuste 2021 : H= 57.8%  A= 70.3%  M0=0.406
+
+. 
+. 
+. /* ============================================================
 >    5. Graphiques
 >    ============================================================ */
-> 
-> di _newline "=== 5. Graphiques ==="
-> 
-> /* ── Fig 1 : Évolution de l'incidence MODA, beneficiaires vs
+. 
+. di _newline "=== 5. Graphiques ==="
+
+=== 5. Graphiques ===
+
+. 
+. /* ── Fig 1 : Évolution de l'incidence MODA, beneficiaires vs
 >    non-beneficiaires. Les deux trajectoires rendent visible la logique de
 >    double difference : c'est l'ECART entre les groupes, et son evolution
 >    entre les deux vagues, qui porte l'information sur l'impact. ── */
-> use "$TEMP/panel_enfants_psm.dta", clear
-> forvalues d = 0/1 {
->     foreach tt in 0 1 {
->         quietly summarize pauvre_MODA [aw=hhweight] if D == `d' & t == `tt'
->         scalar H_d`d'_t`tt' = r(mean)*100
->     }
-> }
-> clear
-> set obs 2
-> gen annee = 2018 in 1
-> replace annee = 2021 in 2
-> gen H_benef    = H_d1_t0 in 1
-> replace H_benef = H_d1_t1 in 2
-> gen H_nonbenef = H_d0_t0 in 1
-> replace H_nonbenef = H_d0_t1 in 2
-> gen str12 lbl_b  = subinstr(string(H_benef,    "%3.1f"), ".", ",", 1) + " %"
-> gen str12 lbl_nb = subinstr(string(H_nonbenef, "%3.1f"), ".", ",", 1) + " %"
-> 
-> set dp comma
-> twoway (connected H_nonbenef annee, lcolor(gs9) mcolor(gs9) msymbol(square) ///
+. use "$TEMP/panel_enfants_psm.dta", clear
+
+. forvalues d = 0/1 {
+  2.     foreach tt in 0 1 {
+  3.         quietly summarize pauvre_MODA [aw=hhweight] if D == `d' & t == `tt'
+  4.         scalar H_d`d'_t`tt' = r(mean)*100
+  5.     }
+  6. }
+
+. clear
+
+. set obs 2
+Number of observations (_N) was 0, now 2.
+
+. gen annee = 2018 in 1
+(1 missing value generated)
+
+. replace annee = 2021 in 2
+(1 real change made)
+
+. gen H_benef    = H_d1_t0 in 1
+(1 missing value generated)
+
+. replace H_benef = H_d1_t1 in 2
+(1 real change made)
+
+. gen H_nonbenef = H_d0_t0 in 1
+(1 missing value generated)
+
+. replace H_nonbenef = H_d0_t1 in 2
+(1 real change made)
+
+. gen str12 lbl_b  = subinstr(string(H_benef,    "%3.1f"), ".", ",", 1) + " %"
+
+. gen str12 lbl_nb = subinstr(string(H_nonbenef, "%3.1f"), ".", ",", 1) + " %"
+
+. 
+. set dp comma
+
+. twoway (connected H_nonbenef annee, lcolor(gs9) mcolor(gs9) msymbol(square) ///
 >         lwidth(medthick) mlabel(lbl_nb) mlabcolor(black) mlabpos(6) ///
 >         mlabgap(2) mlabsize(small)) ///
 >        (connected H_benef annee, lcolor(orange) mcolor(orange) msymbol(circle) ///
@@ -5321,41 +6778,65 @@ Linear regression                               Number of obs     =     16,210
 >     ylabel(0(20)100, grid) yscale(range(0 108)) ///
 >     legend(order(1 "Non-bénéficiaires" 2 "Bénéficiaires") pos(6) rows(1)) ///
 >     graphregion(color(white)) plotregion(color(white))
-> set dp period
-> graph export "$OUTPUT/figures/fig_evolution_ipm.pdf", replace
-> di ">>> fig_evolution_ipm.pdf sauvegardé"
-> 
-> /* ── Fig 2 : Distribution du nombre de dimensions en privation ──
+
+. set dp period
+
+. graph export "$OUTPUT/figures/fig_evolution_ipm.pdf", replace
+file code/stata/output/figures/fig_evolution_ipm.pdf saved as PDF format
+
+. di ">>> fig_evolution_ipm.pdf sauvegardé"
+>>> fig_evolution_ipm.pdf sauvegardé
+
+. 
+. /* ── Fig 2 : Distribution du nombre de dimensions en privation ──
 >    Abscisse : nombre exact de dimensions en privation (0 a 7).
 >    Ordonnee  : part des enfants (%), a l'image du rapport ANSD/UNICEF
 >    MODA. Ligne verticale placee apres la barre des 4 dimensions. */
-> tempname distrib
-> matrix `distrib' = J(8, 3, .)
-> foreach annee in 2018 2021 {
->     local tt = cond(`annee' == 2018, 0, 1)
->     use "$TEMP/panel_enfants_psm.dta", clear
->     keep if t == `tt'
->     local col = cond(`annee' == 2018, 2, 3)
->     quietly count if !missing(nb_dep)
->     local n_tot = r(N)
->     forvalues d = 0/7 {
->         quietly count if nb_dep == `d' & !missing(nb_dep)
->         matrix `distrib'[`d' + 1, 1] = `d'
->         matrix `distrib'[`d' + 1, `col'] = r(N) / `n_tot' * 100
->     }
-> }
-> clear
-> svmat `distrib', names(col)
-> rename c1 nb_dim
-> rename c2 pct_2018
-> rename c3 pct_2021
-> gen str8 lbl_18 = subinstr(string(pct_2018, "%3.1f"), ".", ",", 1)
-> gen str8 lbl_21 = subinstr(string(pct_2021, "%3.1f"), ".", ",", 1)
-> gen x_2018 = nb_dim - 0.19
-> gen x_2021 = nb_dim + 0.19
-> 
-> set dp comma
-> graph twoway ///
+. tempname distrib
+
+. matrix `distrib' = J(8, 3, .)
+
+. foreach annee in 2018 2021 {
+  2.     local tt = cond(`annee' == 2018, 0, 1)
+  3.     use "$TEMP/panel_enfants_psm.dta", clear
+  4.     keep if t == `tt'
+  5.     local col = cond(`annee' == 2018, 2, 3)
+  6.     quietly count if !missing(nb_dep)
+  7.     local n_tot = r(N)
+  8.     forvalues d = 0/7 {
+  9.         quietly count if nb_dep == `d' & !missing(nb_dep)
+ 10.         matrix `distrib'[`d' + 1, 1] = `d'
+ 11.         matrix `distrib'[`d' + 1, `col'] = r(N) / `n_tot' * 100
+ 12.     }
+ 13. }
+(17,786 observations deleted)
+(17,786 observations deleted)
+
+. clear
+
+. svmat `distrib', names(col)
+number of observations will be reset to 8
+Press any key to continue, or Break to abort
+Number of observations (_N) was 0, now 8.
+
+. rename c1 nb_dim
+
+. rename c2 pct_2018
+
+. rename c3 pct_2021
+
+. gen str8 lbl_18 = subinstr(string(pct_2018, "%3.1f"), ".", ",", 1)
+
+. gen str8 lbl_21 = subinstr(string(pct_2021, "%3.1f"), ".", ",", 1)
+
+. gen x_2018 = nb_dim - 0.19
+
+. gen x_2021 = nb_dim + 0.19
+
+. 
+. set dp comma
+
+. graph twoway ///
 >     (bar pct_2018 x_2018, barwidth(0.35) color(gs9)) ///
 >     (bar pct_2021 x_2021, barwidth(0.35) color(orange)) ///
 >     (scatter pct_2018 x_2018, msymbol(none) mlabel(lbl_18) ///
@@ -5367,11 +6848,17 @@ Linear regression                               Number of obs     =     16,210
 >     ylabel(0(5)30, grid) ytitle("Part des enfants (%)") ///
 >     legend(order(1 "EHCVM I (2018-19)" 2 "EHCVM II (2021-22)") pos(6) rows(1)) ///
 >     graphregion(color(white)) plotregion(color(white))
-> set dp period
-> graph export "$OUTPUT/figures/fig_distrib_dimensions.pdf", replace
-> di ">>> fig_distrib_dimensions.pdf sauvegardé"
-> 
-> /* ============================================================
+
+. set dp period
+
+. graph export "$OUTPUT/figures/fig_distrib_dimensions.pdf", replace
+file code/stata/output/figures/fig_distrib_dimensions.pdf saved as PDF format
+
+. di ">>> fig_distrib_dimensions.pdf sauvegardé"
+>>> fig_distrib_dimensions.pdf sauvegardé
+
+. 
+. /* ============================================================
 >    COMPARAISON BENEFICIAIRES / NON-BENEFICIAIRES x 2018-2021
 > 
 >    Coeur descriptif de la section : pour chaque dimension MODA et pour
@@ -5381,42 +6868,73 @@ Linear regression                               Number of obs     =     16,210
 >    evolution de cet ecart (double difference descriptive, non ponderee
 >    par l'appariement). Echantillon : enfants suivis, ponderation hhweight.
 >    ============================================================ */
-> 
-> use "$TEMP/panel_enfants_psm.dta", clear
-> 
-> di _newline(2) "=== Privations : beneficiaires vs non-beneficiaires, 2018 et 2021 ==="
-> di "    (enfants suivis, pondere hhweight ; D=1 beneficiaire migrant 2018)"
-> di _newline "  Indicateur          D=0 2018  D=1 2018   Ecart |  D=0 2021  D=1 2021   Ecart |     DD"
-> 
-> foreach v in dim_assai dim_eau dim_logem dim_nutri dim_sante dim_protect ///
+. 
+. use "$TEMP/panel_enfants_psm.dta", clear
+
+. 
+. di _newline(2) "=== Privations : beneficiaires vs non-beneficiaires, 2018 et 2021 ==="
+
+
+=== Privations : beneficiaires vs non-beneficiaires, 2018 et 2021 ===
+
+. di "    (enfants suivis, pondere hhweight ; D=1 beneficiaire migrant 2018)"
+    (enfants suivis, pondere hhweight ; D=1 beneficiaire migrant 2018)
+
+. di _newline "  Indicateur          D=0 2018  D=1 2018   Ecart |  D=0 2021  D=1 2021   Ecart |     DD"
+
+  Indicateur          D=0 2018  D=1 2018   Ecart |  D=0 2021  D=1 2021   Ecart |     DD
+
+. 
+. foreach v in dim_assai dim_eau dim_logem dim_nutri dim_sante dim_protect ///
 >              dim_educ pauvre_MODA {
->     quietly summarize `v' [aw=hhweight] if t == 0 & D == 0
->     local a0 = r(mean)*100
->     quietly summarize `v' [aw=hhweight] if t == 0 & D == 1
->     local a1 = r(mean)*100
->     quietly summarize `v' [aw=hhweight] if t == 1 & D == 0
->     local b0 = r(mean)*100
->     quietly summarize `v' [aw=hhweight] if t == 1 & D == 1
->     local b1 = r(mean)*100
->     local g0 = `a1' - `a0'      /* ecart benef - non benef en 2018 */
->     local g1 = `b1' - `b0'      /* ecart benef - non benef en 2021 */
->     local dd = `g1' - `g0'      /* evolution de l'ecart = DD descriptive */
->     di "  " %-18s "`v'" %9.1f `a0' %10.1f `a1' %8.1f `g0' " |" ///
+  2.     quietly summarize `v' [aw=hhweight] if t == 0 & D == 0
+  3.     local a0 = r(mean)*100
+  4.     quietly summarize `v' [aw=hhweight] if t == 0 & D == 1
+  5.     local a1 = r(mean)*100
+  6.     quietly summarize `v' [aw=hhweight] if t == 1 & D == 0
+  7.     local b0 = r(mean)*100
+  8.     quietly summarize `v' [aw=hhweight] if t == 1 & D == 1
+  9.     local b1 = r(mean)*100
+ 10.     local g0 = `a1' - `a0'      /* ecart benef - non benef en 2018 */
+ 11.     local g1 = `b1' - `b0'      /* ecart benef - non benef en 2021 */
+ 12.     local dd = `g1' - `g0'      /* evolution de l'ecart = DD descriptive */
+ 13.     di "  " %-18s "`v'" %9.1f `a0' %10.1f `a1' %8.1f `g0' " |" ///
 >        %9.1f `b0' %10.1f `b1' %8.1f `g1' " |" %7.1f `dd'
-> }
-> 
-> /* Test de significativite de l'ecart entre groupes, a chaque vague */
-> di _newline "  Test de l'ecart beneficiaires/non-beneficiaires (p-valeurs) :"
-> foreach v in dim_assai dim_eau dim_logem dim_nutri dim_sante dim_protect ///
+ 14. }
+  dim_assai              54.7      30.7   -24.0 |     52.1      34.6   -17.5 |    6.6
+  dim_eau                23.5      18.1    -5.5 |     17.7      15.5    -2.2 |    3.2
+  dim_logem              67.2      54.1   -13.1 |     56.3      40.5   -15.7 |   -2.6
+  dim_nutri              71.8      47.4   -24.4 |     65.2      48.6   -16.7 |    7.8
+  dim_sante              97.6      93.9    -3.7 |     96.5      96.9     0.4 |    4.1
+  dim_protect            65.4      71.1     5.7 |     66.0      71.8     5.8 |    0.1
+  dim_educ               29.0      24.8    -4.2 |     36.7      30.0    -6.7 |   -2.4
+  pauvre_MODA            66.6      46.2   -20.4 |     60.5      42.5   -18.0 |    2.4
+
+. 
+. /* Test de significativite de l'ecart entre groupes, a chaque vague */
+. di _newline "  Test de l'ecart beneficiaires/non-beneficiaires (p-valeurs) :"
+
+  Test de l'ecart beneficiaires/non-beneficiaires (p-valeurs) :
+
+. foreach v in dim_assai dim_eau dim_logem dim_nutri dim_sante dim_protect ///
 >              dim_educ pauvre_MODA {
->     quietly regress `v' D if t == 0, vce(cluster grappe)
->     local p0 = 2*ttail(e(df_r), abs(_b[D]/_se[D]))
->     quietly regress `v' D if t == 1, vce(cluster grappe)
->     local p1 = 2*ttail(e(df_r), abs(_b[D]/_se[D]))
->     di "  " %-18s "`v'" "  2018 : p=" %6.4f `p0' "   2021 : p=" %6.4f `p1'
-> }
-> 
-> /* Meme comparaison declinee par groupe d'age : chaque sous-section du
+  2.     quietly regress `v' D if t == 0, vce(cluster grappe)
+  3.     local p0 = 2*ttail(e(df_r), abs(_b[D]/_se[D]))
+  4.     quietly regress `v' D if t == 1, vce(cluster grappe)
+  5.     local p1 = 2*ttail(e(df_r), abs(_b[D]/_se[D]))
+  6.     di "  " %-18s "`v'" "  2018 : p=" %6.4f `p0' "   2021 : p=" %6.4f `p1'
+  7. }
+  dim_assai           2018 : p=0.0000   2021 : p=0.0000
+  dim_eau             2018 : p=0.0551   2021 : p=0.3899
+  dim_logem           2018 : p=0.0001   2021 : p=0.0000
+  dim_nutri           2018 : p=0.0000   2021 : p=0.0000
+  dim_sante           2018 : p=0.0286   2021 : p=0.8072
+  dim_protect         2018 : p=0.0008   2021 : p=0.0001
+  dim_educ            2018 : p=0.0173   2021 : p=0.0056
+  pauvre_MODA         2018 : p=0.0000   2021 : p=0.0000
+
+. 
+. /* Meme comparaison declinee par groupe d'age : chaque sous-section du
 >    rapport confronte les dimensions et le statut de beneficiaire au sein
 >    d'une tranche d'age. Le groupe est celui de la PERIODE DE BASE : sur un
 >    panel d'enfants suivis, un decoupage sur l'age courant ferait changer les
@@ -5424,223 +6942,475 @@ Linear regression                               Number of obs     =     16,210
 >    porterait plus sur les memes enfants. « 0-4 ans » se lit donc « age de 0 a
 >    4 ans en 2018 », et ces enfants ont 3 a 7 ans en 2021 : dim_educ, nulle
 >    par construction en 2018, devient applicable a une partie d'entre eux. */
-> forvalues g = 1/3 {
->     if `g' == 1 local lbl "0-4 ans"
->     if `g' == 2 local lbl "5-14 ans"
->     if `g' == 3 local lbl "15-17 ans"
->     di _newline(2) "=== Privations par dimension et statut — `lbl' ==="
->     di "  Indicateur          D=0 2018  D=1 2018   Ecart |  D=0 2021  D=1 2021   Ecart |     DD    p18    p21"
->     foreach v in dim_assai dim_eau dim_logem dim_nutri dim_sante dim_protect ///
+. forvalues g = 1/3 {
+  2.     if `g' == 1 local lbl "0-4 ans"
+  3.     if `g' == 2 local lbl "5-14 ans"
+  4.     if `g' == 3 local lbl "15-17 ans"
+  5.     di _newline(2) "=== Privations par dimension et statut — `lbl' ==="
+  6.     di "  Indicateur          D=0 2018  D=1 2018   Ecart |  D=0 2021  D=1 2021   Ecart |     DD    p18    p21"
+  7.     foreach v in dim_assai dim_eau dim_logem dim_nutri dim_sante dim_protect ///
 >                  dim_educ pauvre_MODA {
->         quietly summarize `v' [aw=hhweight] if t == 0 & D == 0 & groupe_base == `g'
->         local a0 = r(mean)*100
->         quietly summarize `v' [aw=hhweight] if t == 0 & D == 1 & groupe_base == `g'
->         local a1 = r(mean)*100
->         quietly summarize `v' [aw=hhweight] if t == 1 & D == 0 & groupe_base == `g'
->         local b0 = r(mean)*100
->         quietly summarize `v' [aw=hhweight] if t == 1 & D == 1 & groupe_base == `g'
->         local b1 = r(mean)*100
->         local g0 = `a1' - `a0'
->         local g1 = `b1' - `b0'
->         local dd = `g1' - `g0'
->         quietly regress `v' D if t == 0 & groupe_base == `g', vce(cluster grappe)
->         local p0 = 2*ttail(e(df_r), abs(_b[D]/_se[D]))
->         quietly regress `v' D if t == 1 & groupe_base == `g', vce(cluster grappe)
->         local p1 = 2*ttail(e(df_r), abs(_b[D]/_se[D]))
->         di "  " %-18s "`v'" %9.1f `a0' %10.1f `a1' %8.1f `g0' " |" ///
+  8.         quietly summarize `v' [aw=hhweight] if t == 0 & D == 0 & groupe_base == `g'
+  9.         local a0 = r(mean)*100
+ 10.         quietly summarize `v' [aw=hhweight] if t == 0 & D == 1 & groupe_base == `g'
+ 11.         local a1 = r(mean)*100
+ 12.         quietly summarize `v' [aw=hhweight] if t == 1 & D == 0 & groupe_base == `g'
+ 13.         local b0 = r(mean)*100
+ 14.         quietly summarize `v' [aw=hhweight] if t == 1 & D == 1 & groupe_base == `g'
+ 15.         local b1 = r(mean)*100
+ 16.         local g0 = `a1' - `a0'
+ 17.         local g1 = `b1' - `b0'
+ 18.         local dd = `g1' - `g0'
+ 19.         quietly regress `v' D if t == 0 & groupe_base == `g', vce(cluster grappe)
+ 20.         local p0 = 2*ttail(e(df_r), abs(_b[D]/_se[D]))
+ 21.         quietly regress `v' D if t == 1 & groupe_base == `g', vce(cluster grappe)
+ 22.         local p1 = 2*ttail(e(df_r), abs(_b[D]/_se[D]))
+ 23.         di "  " %-18s "`v'" %9.1f `a0' %10.1f `a1' %8.1f `g0' " |" ///
 >            %9.1f `b0' %10.1f `b1' %8.1f `g1' " |" %7.1f `dd' ///
 >            %7.3f `p0' %7.3f `p1'
->     }
->     quietly count if groupe_base == `g' & t == 0
->     local n18 = r(N)
->     quietly count if groupe_base == `g' & t == 1
->     di "  Effectifs : `n18' enfants en 2018, " r(N) " en 2021"
-> }
-> 
-> /* Croisement sexe de l'enfant x statut de beneficiaire x vague, pour
+ 24.     }
+ 25.     quietly count if groupe_base == `g' & t == 0
+ 26.     local n18 = r(N)
+ 27.     quietly count if groupe_base == `g' & t == 1
+ 28.     di "  Effectifs : `n18' enfants en 2018, " r(N) " en 2021"
+ 29. }
+
+
+=== Privations par dimension et statut — 0-4 ans ===
+  Indicateur          D=0 2018  D=1 2018   Ecart |  D=0 2021  D=1 2021   Ecart |     DD    p18    p21
+  dim_assai              56.0      29.7   -26.3 |     53.5      34.1   -19.4 |    6.9  0.000  0.000
+  dim_eau                25.6      19.1    -6.4 |     19.1      16.3    -2.7 |    3.7  0.102  0.454
+  dim_logem              69.0      54.3   -14.8 |     58.7      43.9   -14.8 |    0.0  0.000  0.003
+  dim_nutri              72.1      43.3   -28.8 |     65.8      48.8   -17.0 |   11.8  0.000  0.000
+  dim_sante              97.4      93.9    -3.5 |     96.9      97.6     0.7 |    4.2  0.130  0.381
+  dim_protect            53.6      60.3     6.7 |     59.7      67.3     7.6 |    0.9  0.010  0.000
+  dim_educ                0.0       0.0     0.0 |     43.6      40.5    -3.1 |   -3.1      .  0.277
+  pauvre_MODA            60.5      36.7   -23.7 |     62.6      45.7   -16.9 |    6.8  0.000  0.000
+  Effectifs : 6169 enfants en 2018, 6169 en 2021
+
+
+=== Privations par dimension et statut — 5-14 ans ===
+  Indicateur          D=0 2018  D=1 2018   Ecart |  D=0 2021  D=1 2021   Ecart |     DD    p18    p21
+  dim_assai              54.2      30.7   -23.5 |     51.4      34.7   -16.7 |    6.8  0.000  0.000
+  dim_eau                22.6      17.4    -5.2 |     16.8      15.0    -1.8 |    3.4  0.051  0.401
+  dim_logem              66.2      53.4   -12.7 |     55.1      38.7   -16.4 |   -3.7  0.000  0.000
+  dim_nutri              71.6      49.5   -22.1 |     64.8      47.7   -17.1 |    4.9  0.000  0.000
+  dim_sante              97.7      93.7    -3.9 |     96.2      96.5     0.2 |    4.1  0.015  0.936
+  dim_protect            72.9      77.4     4.5 |     70.0      74.6     4.7 |    0.2  0.004  0.001
+  dim_educ               45.0      37.7    -7.3 |     33.0      24.7    -8.3 |   -1.0  0.005  0.005
+  pauvre_MODA            70.4      50.8   -19.6 |     59.6      40.7   -18.9 |    0.7  0.000  0.000
+  Effectifs : 11172 enfants en 2018, 11172 en 2021
+
+
+=== Privations par dimension et statut — 15-17 ans ===
+  Indicateur          D=0 2018  D=1 2018   Ecart |  D=0 2021  D=1 2021   Ecart |     DD    p18    p21
+  dim_assai              49.5      46.1    -3.5 |     47.7      37.8    -9.8 |   -6.4  0.626  0.683
+  dim_eau                17.1      20.1     2.9 |     19.3      15.6    -3.7 |   -6.6  0.709  0.386
+  dim_logem              65.9      69.3     3.3 |     51.4      42.7    -8.7 |  -12.1  0.851  0.126
+  dim_nutri              74.8      49.4   -25.4 |     67.9      70.7     2.8 |   28.2  0.007  0.817
+  dim_sante              99.6      98.1    -1.5 |     98.4     100.0     1.6 |    3.1  0.923  0.160
+  dim_protect            39.9      55.5    15.6 |     53.1      60.3     7.2 |   -8.4  0.276  0.551
+  dim_educ               32.3      32.5     0.3 |     32.5      21.5   -11.0 |  -11.3  0.352  0.070
+  pauvre_MODA            58.1      59.9     1.8 |     53.5      44.6    -8.9 |  -10.7  0.867  0.280
+  Effectifs : 445 enfants en 2018, 445 en 2021
+
+. 
+. /* Croisement sexe de l'enfant x statut de beneficiaire x vague, pour
 >    l'ensemble des enfants puis pour chaque tranche d'age. Alimente le
 >    tableau par sexe de chaque sous-section descriptive. */
-> forvalues g = 0/3 {
->     if `g' == 0 local lbl "Ensemble 0-17 ans"
->     if `g' == 1 local lbl "0-4 ans"
->     if `g' == 2 local lbl "5-14 ans"
->     if `g' == 3 local lbl "15-17 ans"
->     di _newline(2) "=== Incidence MODA par sexe et statut — `lbl' ==="
->     di "  Sexe        D=0 2018  D=1 2018   Ecart |  D=0 2021  D=1 2021   Ecart |     DD    p18    p21      n18     
->  n21"
->     forvalues sx = 1/2 {
->         local slbl = cond(`sx' == 1, "Garcons", "Filles")
->         if `g' == 0 local cond "sexe == `sx'"
->         else        local cond "sexe == `sx' & groupe_base == `g'"
->         quietly summarize pauvre_MODA [aw=hhweight] if t == 0 & D == 0 & `cond'
->         local a0 = r(mean)*100
->         quietly summarize pauvre_MODA [aw=hhweight] if t == 0 & D == 1 & `cond'
->         local a1 = r(mean)*100
->         quietly summarize pauvre_MODA [aw=hhweight] if t == 1 & D == 0 & `cond'
->         local b0 = r(mean)*100
->         quietly summarize pauvre_MODA [aw=hhweight] if t == 1 & D == 1 & `cond'
->         local b1 = r(mean)*100
->         local e0 = `a1' - `a0'
->         local e1 = `b1' - `b0'
->         quietly regress pauvre_MODA D if t == 0 & `cond', vce(cluster grappe)
->         local p0 = 2*ttail(e(df_r), abs(_b[D]/_se[D]))
->         quietly regress pauvre_MODA D if t == 1 & `cond', vce(cluster grappe)
->         local p1 = 2*ttail(e(df_r), abs(_b[D]/_se[D]))
->         quietly count if t == 0 & `cond'
->         local n0 = r(N)
->         quietly count if t == 1 & `cond'
->         di "  " %-10s "`slbl'" %9.1f `a0' %10.1f `a1' %8.1f `e0' " |" ///
+. forvalues g = 0/3 {
+  2.     if `g' == 0 local lbl "Ensemble 0-17 ans"
+  3.     if `g' == 1 local lbl "0-4 ans"
+  4.     if `g' == 2 local lbl "5-14 ans"
+  5.     if `g' == 3 local lbl "15-17 ans"
+  6.     di _newline(2) "=== Incidence MODA par sexe et statut — `lbl' ==="
+  7.     di "  Sexe        D=0 2018  D=1 2018   Ecart |  D=0 2021  D=1 2021   Ecart |     DD    p18    p21      n18  
+>     n21"
+  8.     forvalues sx = 1/2 {
+  9.         local slbl = cond(`sx' == 1, "Garcons", "Filles")
+ 10.         if `g' == 0 local cond "sexe == `sx'"
+ 11.         else        local cond "sexe == `sx' & groupe_base == `g'"
+ 12.         quietly summarize pauvre_MODA [aw=hhweight] if t == 0 & D == 0 & `cond'
+ 13.         local a0 = r(mean)*100
+ 14.         quietly summarize pauvre_MODA [aw=hhweight] if t == 0 & D == 1 & `cond'
+ 15.         local a1 = r(mean)*100
+ 16.         quietly summarize pauvre_MODA [aw=hhweight] if t == 1 & D == 0 & `cond'
+ 17.         local b0 = r(mean)*100
+ 18.         quietly summarize pauvre_MODA [aw=hhweight] if t == 1 & D == 1 & `cond'
+ 19.         local b1 = r(mean)*100
+ 20.         local e0 = `a1' - `a0'
+ 21.         local e1 = `b1' - `b0'
+ 22.         quietly regress pauvre_MODA D if t == 0 & `cond', vce(cluster grappe)
+ 23.         local p0 = 2*ttail(e(df_r), abs(_b[D]/_se[D]))
+ 24.         quietly regress pauvre_MODA D if t == 1 & `cond', vce(cluster grappe)
+ 25.         local p1 = 2*ttail(e(df_r), abs(_b[D]/_se[D]))
+ 26.         quietly count if t == 0 & `cond'
+ 27.         local n0 = r(N)
+ 28.         quietly count if t == 1 & `cond'
+ 29.         di "  " %-10s "`slbl'" %9.1f `a0' %10.1f `a1' %8.1f `e0' " |" ///
 >            %9.1f `b0' %10.1f `b1' %8.1f `e1' " |" %7.1f `e1'-`e0' ///
 >            %7.3f `p0' %7.3f `p1' %9.0f `n0' %9.0f r(N)
->     }
-> }
-> 
-> /* Incidence MODA par quintile de montant recu, pour l'ensemble des enfants
+ 30.     }
+ 31. }
+
+
+=== Incidence MODA par sexe et statut — Ensemble 0-17 ans ===
+  Sexe        D=0 2018  D=1 2018   Ecart |  D=0 2021  D=1 2021   Ecart |     DD    p18    p21      n18      n21
+  Garcons        65.6      46.3   -19.2 |     60.1      42.9   -17.1 |    2.1  0.000  0.000     8914     8941
+  Filles         67.7      46.1   -21.6 |     60.9      42.1   -18.9 |    2.7  0.000  0.000     8872     8845
+
+
+=== Incidence MODA par sexe et statut — 0-4 ans ===
+  Sexe        D=0 2018  D=1 2018   Ecart |  D=0 2021  D=1 2021   Ecart |     DD    p18    p21      n18      n21
+  Garcons        60.1      38.2   -21.9 |     62.1      45.3   -16.8 |    5.1  0.000  0.000     3165     3206
+  Filles         60.9      35.0   -25.8 |     63.1      46.1   -17.0 |    8.9  0.000  0.000     3004     2963
+
+
+=== Incidence MODA par sexe et statut — 5-14 ans ===
+  Sexe        D=0 2018  D=1 2018   Ecart |  D=0 2021  D=1 2021   Ecart |     DD    p18    p21      n18      n21
+  Garcons        69.0      50.8   -18.2 |     59.2      41.6   -17.6 |    0.6  0.000  0.000     5536     5520
+  Filles         71.7      50.8   -20.9 |     60.1      40.0   -20.1 |    0.8  0.000  0.000     5636     5652
+
+
+=== Incidence MODA par sexe et statut — 15-17 ans ===
+  Sexe        D=0 2018  D=1 2018   Ecart |  D=0 2021  D=1 2021   Ecart |     DD    p18    p21      n18      n21
+  Garcons        58.6      55.2    -3.4 |     53.8      42.5   -11.3 |   -7.9  0.325  0.116      213      215
+  Filles         57.5      65.1     7.6 |     53.1      47.2    -5.8 |  -13.4  0.511  0.960      232      230
+
+. 
+. /* Incidence MODA par quintile de montant recu, pour l'ensemble des enfants
 >    puis pour chaque tranche d'age. Les quintiles sont construits sur le
 >    montant annuel des menages beneficiaires, au niveau menage pour que le
 >    decoupage ne soit pas deforme par le nombre d'enfants. Les enfants de
 >    menages non beneficiaires forment la ligne de reference. */
-> capture drop montant_transf
-> capture drop q5_montant
-> merge m:1 grappe menage using "$TEMP/montant_2018.dta", ///
+. capture drop montant_transf
+
+. capture drop q5_montant
+
+. merge m:1 grappe menage using "$TEMP/montant_2018.dta", ///
 >     keepusing(montant_transf) keep(master match) nogenerate
-> 
-> preserve
->     keep if D == 1 & t == 0 & !missing(montant_transf)
->     bysort grappe menage: keep if _n == 1
->     xtile q5_montant = montant_transf, nquantiles(5)
->     keep grappe menage q5_montant
->     tempfile quint_desc
->     save `quint_desc'
-> restore
-> merge m:1 grappe menage using `quint_desc', ///
+
+    Result                      Number of obs
+    -----------------------------------------
+    Not matched                        30,326
+        from master                    30,326  
+        from using                          0  
+
+    Matched                             5,246  
+    -----------------------------------------
+
+. 
+. preserve
+
+.     keep if D == 1 & t == 0 & !missing(montant_transf)
+(32,949 observations deleted)
+
+.     bysort grappe menage: keep if _n == 1
+(2,014 observations deleted)
+
+.     xtile q5_montant = montant_transf, nquantiles(5)
+
+.     keep grappe menage q5_montant
+
+.     tempfile quint_desc
+
+.     save `quint_desc'
+file C:\Users\Bmd\AppData\Local\Temp\ST_4710_00001b.tmp saved as .dta format
+
+. restore
+
+. merge m:1 grappe menage using `quint_desc', ///
 >     keepusing(q5_montant) keep(master match) nogenerate
-> 
-> forvalues g = 0/3 {
->     if `g' == 0 local lbl "Ensemble 0-17 ans"
->     if `g' == 1 local lbl "0-4 ans"
->     if `g' == 2 local lbl "5-14 ans"
->     if `g' == 3 local lbl "15-17 ans"
->     if `g' == 0 local cond "1"
->     else        local cond "groupe_base == `g'"
->     di _newline(2) "=== Incidence MODA par quintile de montant — `lbl' ==="
->     di "  Groupe          H 2018   H 2021      DD       n18      n21"
->     quietly summarize pauvre_MODA [aw=hhweight] if t == 0 & D == 0 & `cond'
->     local r0 = r(mean)*100
->     quietly summarize pauvre_MODA [aw=hhweight] if t == 1 & D == 0 & `cond'
->     local r1 = r(mean)*100
->     quietly count if t == 0 & D == 0 & `cond'
->     local m0 = r(N)
->     quietly count if t == 1 & D == 0 & `cond'
->     di "  " %-14s "Non-benef." %8.1f `r0' %9.1f `r1' %8.1f `r1'-`r0' ///
+
+    Result                      Number of obs
+    -----------------------------------------
+    Not matched                        30,326
+        from master                    30,326  
+        from using                          0  
+
+    Matched                             5,246  
+    -----------------------------------------
+
+. 
+. forvalues g = 0/3 {
+  2.     if `g' == 0 local lbl "Ensemble 0-17 ans"
+  3.     if `g' == 1 local lbl "0-4 ans"
+  4.     if `g' == 2 local lbl "5-14 ans"
+  5.     if `g' == 3 local lbl "15-17 ans"
+  6.     if `g' == 0 local cond "1"
+  7.     else        local cond "groupe_base == `g'"
+  8.     di _newline(2) "=== Incidence MODA par quintile de montant — `lbl' ==="
+  9.     di "  Groupe          H 2018   H 2021      DD       n18      n21"
+ 10.     quietly summarize pauvre_MODA [aw=hhweight] if t == 0 & D == 0 & `cond'
+ 11.     local r0 = r(mean)*100
+ 12.     quietly summarize pauvre_MODA [aw=hhweight] if t == 1 & D == 0 & `cond'
+ 13.     local r1 = r(mean)*100
+ 14.     quietly count if t == 0 & D == 0 & `cond'
+ 15.     local m0 = r(N)
+ 16.     quietly count if t == 1 & D == 0 & `cond'
+ 17.     di "  " %-14s "Non-benef." %8.1f `r0' %9.1f `r1' %8.1f `r1'-`r0' ///
 >        %10.0f `m0' %9.0f r(N)
->     forvalues q = 1/5 {
->         quietly count if q5_montant == `q' & t == 0 & `cond'
->         local n0 = r(N)
->         if `n0' > 0 {
->             quietly summarize pauvre_MODA [aw=hhweight] if t == 0 & q5_montant == `q' & `cond'
->             local a0 = r(mean)*100
->             quietly summarize pauvre_MODA [aw=hhweight] if t == 1 & q5_montant == `q' & `cond'
->             local a1 = r(mean)*100
->             quietly count if t == 1 & q5_montant == `q' & `cond'
->             di "  " %-14s "Quintile `q'" %8.1f `a0' %9.1f `a1' ///
+ 18.     forvalues q = 1/5 {
+ 19.         quietly count if q5_montant == `q' & t == 0 & `cond'
+ 20.         local n0 = r(N)
+ 21.         if `n0' > 0 {
+ 22.             quietly summarize pauvre_MODA [aw=hhweight] if t == 0 & q5_montant == `q' & `cond'
+ 23.             local a0 = r(mean)*100
+ 24.             quietly summarize pauvre_MODA [aw=hhweight] if t == 1 & q5_montant == `q' & `cond'
+ 25.             local a1 = r(mean)*100
+ 26.             quietly count if t == 1 & q5_montant == `q' & `cond'
+ 27.             di "  " %-14s "Quintile `q'" %8.1f `a0' %9.1f `a1' ///
 >                %8.1f (`a1'-`a0')-(`r1'-`r0') %10.0f `n0' %9.0f r(N)
->         }
->     }
-> }
-> 
-> di _newline ">>> 06_stats_desc.do terminé."
-> di ">>> Sorties dans : $OUTPUT/tables/ et $OUTPUT/figures/"
-> 
-> /* ============================================================
+ 28.         }
+ 29.     }
+ 30. }
+
+
+=== Incidence MODA par quintile de montant — Ensemble 0-17 ans ===
+  Groupe          H 2018   H 2021      DD       n18      n21
+  Non-benef.        66.6     60.5    -6.1     15148    15148
+  Quintile 1        65.4     67.2     7.9       574      574
+  Quintile 2        56.6     58.7     8.2       469      469
+  Quintile 3        44.1     39.0     1.0       558      558
+  Quintile 4        33.3     31.7     4.5       479      479
+  Quintile 5        36.2     23.1    -7.0       543      543
+
+
+=== Incidence MODA par quintile de montant — 0-4 ans ===
+  Groupe          H 2018   H 2021      DD       n18      n21
+  Non-benef.        60.5     62.6     2.1      5285     5285
+  Quintile 1        54.4     74.1    17.6       187      187
+  Quintile 2        53.5     64.9     9.3       151      151
+  Quintile 3        33.7     39.3     3.4       205      205
+  Quintile 4        25.9     34.4     6.4       159      159
+  Quintile 5        22.6     25.9     1.2       175      175
+
+
+=== Incidence MODA par quintile de montant — 5-14 ans ===
+  Groupe          H 2018   H 2021      DD       n18      n21
+  Non-benef.        70.4     59.6   -10.7      9485     9485
+  Quintile 1        70.6     64.9     5.0       371      371
+  Quintile 2        57.4     55.2     8.5       305      305
+  Quintile 3        50.2     38.8    -0.7       340      340
+  Quintile 4        37.1     29.8     3.4       308      308
+  Quintile 5        42.4     21.4   -10.3       355      355
+
+
+=== Incidence MODA par quintile de montant — 15-17 ans ===
+  Groupe          H 2018   H 2021      DD       n18      n21
+  Non-benef.        58.1     53.5    -4.6       378      378
+  Quintile 1        77.6     38.6   -34.4        16       16
+  Quintile 2        76.5     69.4    -2.5        13       13
+  Quintile 3        43.9     36.9    -2.4        13       13
+  Quintile 4        37.6     46.7    13.8        12       12
+  Quintile 5        66.1     30.8   -30.7        13       13
+
+. 
+. di _newline ">>> 06_stats_desc.do terminé."
+
+>>> 06_stats_desc.do terminé.
+
+. di ">>> Sorties dans : $OUTPUT/tables/ et $OUTPUT/figures/"
+>>> Sorties dans : code/stata/output/tables/ et code/stata/output/figures/
+
+. 
+. /* ============================================================
 >    SECTION : 07_EFFETS_DIM — ATT PSM-DD par dimension MODA
 >    Génère output/figures/fig_effets_dim.pdf
 >    ============================================================ */
-> 
-> 
-> /* Joindre poids k-NN au panel vrai */
-> use "$TEMP/panel_enfants_psm.dta", clear
-> 
-> /* ── ATT par dimension, trois methodes d'appariement ───────────
+. 
+. 
+. /* Joindre poids k-NN au panel vrai */
+. use "$TEMP/panel_enfants_psm.dta", clear
+
+. 
+. /* ── ATT par dimension, trois methodes d'appariement ───────────
 >    Verifie que la lecture dimensionnelle ne depend pas de l'algorithme. */
-> local dims assai eau logem nutri sante protect educ
-> di _newline "=== ATT par dimension, comparaison des trois appariements ==="
-> foreach poids_var in weight_knn weight_kernel weight_caliper {
->     di _newline "--- `poids_var' ---"
->     foreach dim of local dims {
->         quietly count if !missing(`poids_var') & `poids_var' > 0
->         if r(N) > 0 {
->             quietly regress dim_`dim' i.t##i.D [aw=`poids_var'] ///
+. local dims assai eau logem nutri sante protect educ
+
+. di _newline "=== ATT par dimension, comparaison des trois appariements ==="
+
+=== ATT par dimension, comparaison des trois appariements ===
+
+. foreach poids_var in weight_knn weight_kernel weight_caliper {
+  2.     di _newline "--- `poids_var' ---"
+  3.     foreach dim of local dims {
+  4.         quietly count if !missing(`poids_var') & `poids_var' > 0
+  5.         if r(N) > 0 {
+  6.             quietly regress dim_`dim' i.t##i.D [aw=`poids_var'] ///
 >                 if `poids_var' > 0, vce(cluster grappe)
->             quietly lincom 1.t#1.D
->             di "  dim_`dim' : ATT=" %8.4f r(estimate) ///
+  7.             quietly lincom 1.t#1.D
+  8.             di "  dim_`dim' : ATT=" %8.4f r(estimate) ///
 >                "  SE=" %7.4f r(se) "  p=" %6.4f r(p)
->         }
->     }
-> }
-> 
-> keep if !missing(weight_knn) & weight_knn > 0
-> 
-> /* ATT PSM-DD pour chaque dimension (poids d'appariement PSM uniquement,
+  9.         }
+ 10.     }
+ 11. }
+
+--- weight_knn ---
+  dim_assai : ATT=  0.0457  SE= 0.0440  p=0.2997
+  dim_eau : ATT=  0.0242  SE= 0.0276  p=0.3818
+  dim_logem : ATT=  0.0238  SE= 0.0432  p=0.5825
+  dim_nutri : ATT=  0.0681  SE= 0.0395  p=0.0854
+  dim_sante : ATT=  0.0103  SE= 0.0137  p=0.4519
+  dim_protect : ATT=  0.0114  SE= 0.0196  p=0.5612
+  dim_educ : ATT=  0.0047  SE= 0.0164  p=0.7725
+
+--- weight_kernel ---
+  dim_assai : ATT=  0.0496  SE= 0.0440  p=0.2595
+  dim_eau : ATT=  0.0150  SE= 0.0263  p=0.5680
+  dim_logem : ATT=  0.0204  SE= 0.0415  p=0.6235
+  dim_nutri : ATT=  0.0744  SE= 0.0390  p=0.0569
+  dim_sante : ATT=  0.0145  SE= 0.0132  p=0.2739
+  dim_protect : ATT=  0.0104  SE= 0.0187  p=0.5763
+  dim_educ : ATT= -0.0075  SE= 0.0148  p=0.6112
+
+--- weight_caliper ---
+  dim_assai : ATT=  0.0652  SE= 0.0390  p=0.0956
+  dim_eau : ATT=  0.0181  SE= 0.0272  p=0.5064
+  dim_logem : ATT=  0.0310  SE= 0.0377  p=0.4115
+  dim_nutri : ATT=  0.0577  SE= 0.0376  p=0.1253
+  dim_sante : ATT=  0.0133  SE= 0.0142  p=0.3487
+  dim_protect : ATT= -0.0094  SE= 0.0198  p=0.6347
+  dim_educ : ATT= -0.0063  SE= 0.0176  p=0.7206
+
+. 
+. keep if !missing(weight_knn) & weight_knn > 0
+(19,362 observations deleted)
+
+. 
+. /* ATT PSM-DD pour chaque dimension (poids d'appariement PSM uniquement,
 >    pas de poids d'enquete ; erreurs-types clusterisees au niveau grappe) */
-> local dims    assai eau logem nutri sante protect educ
-> local n_dims  7
-> 
-> matrix ATT  = J(`n_dims', 1, .)
-> matrix LB   = J(`n_dims', 1, .)
-> matrix UB   = J(`n_dims', 1, .)
-> 
-> local i = 0
-> foreach dim of local dims {
->     local ++i
->     quietly regress dim_`dim' i.t##i.D [aw=weight_knn], vce(cluster grappe)
->     quietly lincom 1.t#1.D
->     matrix ATT[`i',1] = r(estimate)
->     matrix LB[`i',1]  = r(estimate) - 1.96*r(se)
->     matrix UB[`i',1]  = r(estimate) + 1.96*r(se)
->     di "  dim_`dim' : ATT=" %8.4f r(estimate) "  SE=" %7.4f r(se) "  p=" %6.4f r(p)
-> }
-> 
-> /* Construire dataset pour le graphique */
-> clear
-> set obs `n_dims'
-> gen ordre = _n
-> gen str12 dim = ""
-> replace dim = "Assainissement" in 1
-> replace dim = "Eau"            in 2
-> replace dim = "Logement"       in 3
-> replace dim = "Nutrition"      in 4
-> replace dim = "Santé"          in 5
-> replace dim = "Protection"     in 6
-> replace dim = "Éducation"      in 7
-> gen att = .
-> gen lb  = .
-> gen ub  = .
-> forvalues i = 1/`n_dims' {
->     replace att = ATT[`i',1]*100 in `i'
->     replace lb  = LB[`i',1]*100  in `i'
->     replace ub  = UB[`i',1]*100  in `i'
-> }
-> 
-> /* Trier par ATT croissant et réaffecter le rang */
-> sort att
-> replace ordre = _n
-> 
-> /* Construire les labels ylabel à partir des valeurs de dim triées */
-> local ylab_str ""
-> forvalues i = 1/`n_dims' {
->     local lbl = dim[`i']
->     local ylab_str `"`ylab_str' `i' "`lbl'""'
-> }
-> 
-> /* Etiquettes de valeur (virgule decimale), placees au-dela des IC */
-> gen str8 lbl_att = subinstr(string(att, "%4.1f"), ".", ",", 1)
-> gen xlbl = ub + 1.2 if att >= 0
-> replace xlbl = lb - 1.2 if att < 0
-> 
-> /* Graphique à barres horizontales avec IC 95 % */
-> set dp comma
-> twoway ///
+. local dims    assai eau logem nutri sante protect educ
+
+. local n_dims  7
+
+. 
+. matrix ATT  = J(`n_dims', 1, .)
+
+. matrix LB   = J(`n_dims', 1, .)
+
+. matrix UB   = J(`n_dims', 1, .)
+
+. 
+. local i = 0
+
+. foreach dim of local dims {
+  2.     local ++i
+  3.     quietly regress dim_`dim' i.t##i.D [aw=weight_knn], vce(cluster grappe)
+  4.     quietly lincom 1.t#1.D
+  5.     matrix ATT[`i',1] = r(estimate)
+  6.     matrix LB[`i',1]  = r(estimate) - 1.96*r(se)
+  7.     matrix UB[`i',1]  = r(estimate) + 1.96*r(se)
+  8.     di "  dim_`dim' : ATT=" %8.4f r(estimate) "  SE=" %7.4f r(se) "  p=" %6.4f r(p)
+  9. }
+  dim_assai : ATT=  0.0457  SE= 0.0440  p=0.2997
+  dim_eau : ATT=  0.0242  SE= 0.0276  p=0.3818
+  dim_logem : ATT=  0.0238  SE= 0.0432  p=0.5825
+  dim_nutri : ATT=  0.0681  SE= 0.0395  p=0.0854
+  dim_sante : ATT=  0.0103  SE= 0.0137  p=0.4519
+  dim_protect : ATT=  0.0114  SE= 0.0196  p=0.5612
+  dim_educ : ATT=  0.0047  SE= 0.0164  p=0.7725
+
+. 
+. /* Construire dataset pour le graphique */
+. clear
+
+. set obs `n_dims'
+Number of observations (_N) was 0, now 7.
+
+. gen ordre = _n
+
+. gen str12 dim = ""
+(7 missing values generated)
+
+. replace dim = "Assainissement" in 1
+variable dim was str12 now str14
+(1 real change made)
+
+. replace dim = "Eau"            in 2
+(1 real change made)
+
+. replace dim = "Logement"       in 3
+(1 real change made)
+
+. replace dim = "Nutrition"      in 4
+(1 real change made)
+
+. replace dim = "Santé"          in 5
+(1 real change made)
+
+. replace dim = "Protection"     in 6
+(1 real change made)
+
+. replace dim = "Éducation"      in 7
+(1 real change made)
+
+. gen att = .
+(7 missing values generated)
+
+. gen lb  = .
+(7 missing values generated)
+
+. gen ub  = .
+(7 missing values generated)
+
+. forvalues i = 1/`n_dims' {
+  2.     replace att = ATT[`i',1]*100 in `i'
+  3.     replace lb  = LB[`i',1]*100  in `i'
+  4.     replace ub  = UB[`i',1]*100  in `i'
+  5. }
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+
+. 
+. /* Trier par ATT croissant et réaffecter le rang */
+. sort att
+
+. replace ordre = _n
+(7 real changes made)
+
+. 
+. /* Construire les labels ylabel à partir des valeurs de dim triées */
+. local ylab_str ""
+
+. forvalues i = 1/`n_dims' {
+  2.     local lbl = dim[`i']
+  3.     local ylab_str `"`ylab_str' `i' "`lbl'""'
+  4. }
+
+. 
+. /* Etiquettes de valeur (virgule decimale), placees au-dela des IC */
+. gen str8 lbl_att = subinstr(string(att, "%4.1f"), ".", ",", 1)
+
+. gen xlbl = ub + 1.2 if att >= 0
+
+. replace xlbl = lb - 1.2 if att < 0
+(0 real changes made)
+
+. 
+. /* Graphique à barres horizontales avec IC 95 % */
+. set dp comma
+
+. twoway ///
 >     (bar att ordre, horizontal barwidth(0.6) color(gs9)) ///
 >     (rcap lb ub ordre, horizontal lcolor(orange) lwidth(medthick) msize(medium)) ///
 >     (scatter ordre xlbl, msymbol(none) mlabel(lbl_att) ///
@@ -5652,13 +7422,21 @@ Linear regression                               Number of obs     =     16,210
 >     xline(0, lcolor(black) lpattern(dash)) ///
 >     legend(off) ///
 >     graphregion(color(white)) plotregion(color(white))
-> 
-> set dp period
-> graph export "$OUTPUT/figures/fig_effets_dim.pdf", replace
-> di ">>> fig_effets_dim.pdf sauvegardé dans $OUTPUT/figures/"
-> di ">>> 07_effets_dim.do terminé."
-> 
-> /* ============================================================
+
+. 
+. set dp period
+
+. graph export "$OUTPUT/figures/fig_effets_dim.pdf", replace
+file code/stata/output/figures/fig_effets_dim.pdf saved as PDF format
+
+. di ">>> fig_effets_dim.pdf sauvegardé dans $OUTPUT/figures/"
+>>> fig_effets_dim.pdf sauvegardé dans code/stata/output/figures/
+
+. di ">>> 07_effets_dim.do terminé."
+>>> 07_effets_dim.do terminé.
+
+. 
+. /* ============================================================
 >    SECTION : 09_PLACEBO — Tests de validite (annexe A)
 > 
 >    1. Test placebo : 200 assignations aleatoires d'un faux
@@ -5669,95 +7447,144 @@ Linear regression                               Number of obs     =     16,210
 > 
 >    Aucune ponderation par poids d'enquete.
 >    ============================================================ */
-> 
-> 
-> /* ============================================================
+. 
+. 
+. /* ============================================================
 >    1. Test placebo (200 replications)
 >    ============================================================ */
-> 
-> di _newline "=== Test placebo (200 replications) ==="
-> 
-> local n_rep 200
-> matrix PLA = J(`n_rep', 1, .)   /* col 1 = MODA */
-> 
-> /* Echantillon : enfants suivis des menages jamais traites */
-> use "$TEMP/panel_enfants_psm.dta", clear
-> keep if D == 0
-> tempfile never
-> save `never'
-> 
-> /* Liste des menages (une ligne par menage) */
-> bysort grappe menage: keep if _n == 1
-> keep grappe menage
-> tempfile liste_men
-> save `liste_men'
-> quietly count
-> local n_men = r(N)
-> /* part de faux traites = part observee de traites */
-> preserve
->     use "$TEMP/panel_enfants_psm.dta", clear
->     keep if t == 0
->     bysort grappe menage: keep if _n == 1
->     quietly summarize D
->     local part_fake = r(mean)
-> restore
-> di "  Part de faux traites appliquee : " %6.4f `part_fake'
-> 
-> forvalues r = 1/`n_rep' {
->     quietly {
->         use `liste_men', clear
->         set seed `=1000+`r''
->         gen u = runiform()
->         sort u
->         gen byte fakeD = (_n <= `part_fake'*`n_men')
->         keep grappe menage fakeD
->         tempfile fake
->         save `fake'
-> 
->         use `never', clear
->         merge m:1 grappe menage using `fake', keep(match) nogenerate
-> 
->         /* DD placebo (moyennes des 4 cellules) */
->         foreach y in pauvre_MODA {
->             summarize `y' if t==1 & fakeD==1
->             local m11 = r(mean)
->             summarize `y' if t==0 & fakeD==1
->             local m01 = r(mean)
->             summarize `y' if t==1 & fakeD==0
->             local m10 = r(mean)
->             summarize `y' if t==0 & fakeD==0
->             local m00 = r(mean)
->             local att = (`m11'-`m01') - (`m10'-`m00')
->             matrix PLA[`r',1] = `att'
->         }
->     }
->     if mod(`r', 50) == 0 di "  replication `r'/`n_rep'"
-> }
-> 
-> /* Statistiques de la distribution placebo */
-> clear
-> svmat PLA, names(col)
-> rename c1 att_moda
-> foreach y in moda {
->     quietly summarize att_`y'
->     di _newline "Placebo `y' : moyenne=" %7.4f r(mean) "  sd=" %6.4f r(sd)
->     quietly count if abs(att_`y') > 0.05
->     di "  fraction |ATT|>0.05 : " %4.1f 100*r(N)/`n_rep' "%"
->     /* Centile de l'ATT reel dans la distribution placebo (rang percentile) */
->     quietly count if !missing(att_`y')
->     local ntot = r(N)
->     quietly count if att_`y' < $ATT_REEL
->     di "  ATT reel (" %6.4f $ATT_REEL ") : rang = " %4.1f 100*r(N)/`ntot' "e centile"
-> }
-> 
-> /* ── Fig placebo : distribution des ATT placebo vs ATT reel ──
+. 
+. di _newline "=== Test placebo (200 replications) ==="
+
+=== Test placebo (200 replications) ===
+
+. 
+. local n_rep 200
+
+. matrix PLA = J(`n_rep', 1, .)   /* col 1 = MODA */
+
+. 
+. /* Echantillon : enfants suivis des menages jamais traites */
+. use "$TEMP/panel_enfants_psm.dta", clear
+
+. keep if D == 0
+(5,276 observations deleted)
+
+. tempfile never
+
+. save `never'
+file C:\Users\Bmd\AppData\Local\Temp\ST_4710_00001c.tmp saved as .dta format
+
+. 
+. /* Liste des menages (une ligne par menage) */
+. bysort grappe menage: keep if _n == 1
+(26,330 observations deleted)
+
+. keep grappe menage
+
+. tempfile liste_men
+
+. save `liste_men'
+file C:\Users\Bmd\AppData\Local\Temp\ST_4710_00001d.tmp saved as .dta format
+
+. quietly count
+
+. local n_men = r(N)
+
+. /* part de faux traites = part observee de traites */
+. preserve
+
+.     use "$TEMP/panel_enfants_psm.dta", clear
+
+.     keep if t == 0
+(17,786 observations deleted)
+
+.     bysort grappe menage: keep if _n == 1
+(13,209 observations deleted)
+
+.     quietly summarize D
+
+.     local part_fake = r(mean)
+
+. restore
+
+. di "  Part de faux traites appliquee : " %6.4f `part_fake'
+  Part de faux traites appliquee : 0.1335
+
+. 
+. forvalues r = 1/`n_rep' {
+  2.     quietly {
+  3.         use `liste_men', clear
+  4.         set seed `=1000+`r''
+  5.         gen u = runiform()
+  6.         sort u
+  7.         gen byte fakeD = (_n <= `part_fake'*`n_men')
+  8.         keep grappe menage fakeD
+  9.         tempfile fake
+ 10.         save `fake'
+ 11. 
+.         use `never', clear
+ 12.         merge m:1 grappe menage using `fake', keep(match) nogenerate
+ 13. 
+.         /* DD placebo (moyennes des 4 cellules) */
+.         foreach y in pauvre_MODA {
+ 14.             summarize `y' if t==1 & fakeD==1
+ 15.             local m11 = r(mean)
+ 16.             summarize `y' if t==0 & fakeD==1
+ 17.             local m01 = r(mean)
+ 18.             summarize `y' if t==1 & fakeD==0
+ 19.             local m10 = r(mean)
+ 20.             summarize `y' if t==0 & fakeD==0
+ 21.             local m00 = r(mean)
+ 22.             local att = (`m11'-`m01') - (`m10'-`m00')
+ 23.             matrix PLA[`r',1] = `att'
+ 24.         }
+ 25.     }
+ 26.     if mod(`r', 50) == 0 di "  replication `r'/`n_rep'"
+ 27. }
+  replication 50/200
+  replication 100/200
+  replication 150/200
+  replication 200/200
+
+. 
+. /* Statistiques de la distribution placebo */
+. clear
+
+. svmat PLA, names(col)
+number of observations will be reset to 200
+Press any key to continue, or Break to abort
+Number of observations (_N) was 0, now 200.
+
+. rename c1 att_moda
+
+. foreach y in moda {
+  2.     quietly summarize att_`y'
+  3.     di _newline "Placebo `y' : moyenne=" %7.4f r(mean) "  sd=" %6.4f r(sd)
+  4.     quietly count if abs(att_`y') > 0.05
+  5.     di "  fraction |ATT|>0.05 : " %4.1f 100*r(N)/`n_rep' "%"
+  6.     /* Centile de l'ATT reel dans la distribution placebo (rang percentile) */
+.     quietly count if !missing(att_`y')
+  7.     local ntot = r(N)
+  8.     quietly count if att_`y' < $ATT_REEL
+  9.     di "  ATT reel (" %6.4f $ATT_REEL ") : rang = " %4.1f 100*r(N)/`ntot' "e centile"
+ 10. }
+
+Placebo moda : moyenne=-0.0010  sd=0.0221
+  fraction |ATT|>0.05 :  3.0%
+  ATT reel (0.0642) : rang = 100.0e centile
+
+. 
+. /* ── Fig placebo : distribution des ATT placebo vs ATT reel ──
 >    Verifie la plausibilite des tendances paralleles : la distribution
 >    placebo doit etre centree sur zero et l'ATT reel doit se situer dans
 >    sa queue. */
-> scalar att_reel = $ATT_REEL   /* ATT PSM-DD principal, sauvegarde en section 5 */
-> local xl_att = scalar(att_reel)
-> set dp comma
-> histogram att_moda, width(0.005) frequency ///
+. scalar att_reel = $ATT_REEL   /* ATT PSM-DD principal, sauvegarde en section 5 */
+
+. local xl_att = scalar(att_reel)
+
+. set dp comma
+
+. histogram att_moda, width(0.005) frequency ///
 >     color(gs9) lcolor(white) ///
 >     xline(0, lcolor(black) lpattern(solid)) ///
 >     xline(`xl_att', lcolor(orange) lpattern(dash) lwidth(medthick)) ///
@@ -5766,50 +7593,66 @@ Linear regression                               Number of obs     =     16,210
 >     xlabel(-0.06 "-0,06" -0.04 "-0,04" -0.02 "-0,02" 0 "0" ///
 >            0.02 "0,02" 0.04 "0,04" 0.06 "0,06" 0.08 "0,08" 0.10 "0,10", grid) ///
 >     graphregion(color(white)) plotregion(color(white))
-> set dp period
-> graph export "$OUTPUT/figures/fig_placebo_dd.pdf", replace
-> di ">>> fig_placebo_dd.pdf sauvegardé"
-> 
-> di _newline ">>> 09_placebo.do termine."
-> 
-> /* ============================================================
+(bin=26, start=-,07290386, width=,005)
+
+. set dp period
+
+. graph export "$OUTPUT/figures/fig_placebo_dd.pdf", replace
+file code/stata/output/figures/fig_placebo_dd.pdf saved as PDF format
+
+. di ">>> fig_placebo_dd.pdf sauvegardé"
+>>> fig_placebo_dd.pdf sauvegardé
+
+. 
+. di _newline ">>> 09_placebo.do termine."
+
+>>> 09_placebo.do termine.
+
+. 
+. /* ============================================================
 >    SECTION FINALE : copie des figures vers le rapport LaTeX
 >    ------------------------------------------------------------
 >    Recopie automatiquement les PDF generes dans output/figures
 >    vers latex/figures, pour que le memoire compile toujours les
 >    dernieres versions sans manipulation manuelle.
 >    ============================================================ */
-> 
-> di _newline ">>> Copie des figures vers latex/figures et Presentation/figures ..."
-> /* Copie dynamique de tous les PDF generes (toute figure future incluse)
+. 
+. di _newline ">>> Copie des figures vers latex/figures et Presentation/figures ..."
+
+>>> Copie des figures vers latex/figures et Presentation/figures ...
+
+. /* Copie dynamique de tous les PDF generes (toute figure future incluse)
 >    vers le rapport ET la presentation Beamer, pour les garder synchronises. */
-> local figs : dir "$OUTPUT/figures" files "*.pdf"
-> foreach f of local figs {
->     foreach dest in "latex/figures" "Presentation/figures" {
->         capture copy "$OUTPUT/figures/`f'" "`dest'/`f'", replace
->         if _rc di "    !! echec copie `f' vers `dest' (rc=" _rc ")"
->     }
->     di "    ok `f'"
-> }
-> /* Graphique de support commun (a la racine de output) */
-> capture copy "$OUTPUT/overlap_panel.pdf" "latex/figures/overlap_panel.pdf", replace
-> capture copy "$OUTPUT/overlap_panel.pdf" "Presentation/figures/overlap.pdf", replace
-> 
-> di _newline ">>> FIN DU PIPELINE COMPLET <<<"
-> 
-> /* Ferme le log, puis recopie vers tout.log si la bascule horodatee a servi,
+. local figs : dir "$OUTPUT/figures" files "*.pdf"
+
+. foreach f of local figs {
+  2.     foreach dest in "latex/figures" "Presentation/figures" {
+  3.         capture copy "$OUTPUT/figures/`f'" "`dest'/`f'", replace
+  4.         if _rc di "    !! echec copie `f' vers `dest' (rc=" _rc ")"
+  5.     }
+  6.     di "    ok `f'"
+  7. }
+    ok fig_carte_nmoda_barres.pdf
+    ok fig_croisement_pauvrete.pdf
+    ok fig_dd_trajectoires.pdf
+    ok fig_distrib_dimensions.pdf
+    ok fig_distrib_nbdep.pdf
+    ok fig_effets_dim.pdf
+    ok fig_evolution_ipm.pdf
+    ok fig_placebo_dd.pdf
+    ok fig_profil_statut.pdf
+
+. /* Graphique de support commun (a la racine de output) */
+. capture copy "$OUTPUT/overlap_panel.pdf" "latex/figures/overlap_panel.pdf", replace
+
+. capture copy "$OUTPUT/overlap_panel.pdf" "Presentation/figures/overlap.pdf", replace
+
+. 
+. di _newline ">>> FIN DU PIPELINE COMPLET <<<"
+
+>>> FIN DU PIPELINE COMPLET <<<
+
+. 
+. /* Ferme le log, puis recopie vers tout.log si la bascule horodatee a servi,
 >    pour que le fichier versionne porte toujours la sortie complete. */
-> capture log close _all
-> if "$LOGFILE" != "code/stata/logs/tout.log" {
->     capture copy "$LOGFILE" "code/stata/logs/tout.log", replace
->     if _rc {
->         di ">>> tout.log verrouille. Pousse plutot $LOGFILE"
->     }
->     else {
->         di ">>> Log recopie vers code/stata/logs/tout.log"
->     }
-> }
-> 
-
-end of do-file
-
+. capture log close _all
