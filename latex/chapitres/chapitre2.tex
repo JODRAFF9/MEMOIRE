@@ -18,14 +18,14 @@ réalisées dans le cadre du programme statistique de l'UEMOA
 reposent sur un plan de sondage aléatoire stratifié à deux degrés :
 
 \begin{itemize}
-  \item Strates : les 14 régions administratives du Sénégal sont chacune
+  \item Strates. Les 14 régions administratives du Sénégal sont chacune
   subdivisées suivant le milieu de résidence (urbain, rural), soit 28 strates.
   Le tirage est indépendant dans chaque strate, ce qui garantit la
   représentativité au niveau région et milieu de résidence;
-  \item Unités primaires : des districts
+  \item Unités primaires. Des districts
   de recensement (DR) issus du RGPHAE 2013 constituent les grappes.
   598 DR ont été sélectionnés (330 urbains, 268 ruraux);
-  \item Unités secondaires : 12 ménages
+  \item Unités secondaires. 12 ménages
   sont enquêtés dans chaque DR.
 \end{itemize}
 
@@ -92,18 +92,18 @@ L'unité d'analyse étant l'enfant, la variable de traitement
 $D_i \in \{0, 1\}$ est attachée à chaque enfant $i$ et vaut 1 si son ménage
 est bénéficiaire de transferts de migrants - tous les enfants d'un même
 ménage partagent donc le même statut. Construit à partir de la section 13
-des deux vagues EHCVM, le statut est défini à la période de base (2018)~: un
+des deux vagues EHCVM, le statut est défini à la période de base (2018). Un
 enfant est traité si son ménage a reçu en 2018 au moins un transfert d'un
 expéditeur résidant hors du Sénégal et ayant déjà vécu dans le ménage, en
 tant qu'ancien membre parti en migration. Le groupe témoin rassemble les
 enfants des ménages ne recevant aucun transfert de ce type~; les transferts
 internes et les envois d'expéditeurs n'ayant jamais appartenu au ménage
 sont écartés. Le tableau~\ref{tab:repart_traitement} donne la répartition
-qui en résulte~: 2\,638 enfants suivis, soit 14,8\,\%, vivent dans un
+qui en résulte. Sur les 17\,786 enfants suivis, 2\,638, soit 14,8\,\%, vivent dans un
 ménage bénéficiaire à la période de base. Le tableau distingue aussi les
-statuts à l'autre vague~: 1\,482 enfants vivent dans un ménage bénéficiaire
+statuts à l'autre vague. Ainsi, 1\,482 enfants vivent dans un ménage bénéficiaire
 stable, recevant un transfert aux deux vagues, et 13\,477 dans un ménage
-jamais bénéficiaire -- les deux groupes que mobilise la définition
+jamais bénéficiaire, les deux groupes que mobilise la définition
 alternative du traitement en robustesse.
 
 \begin{table}[H]
@@ -139,8 +139,8 @@ mesurée ici par l'approche MODA (\emph{Multiple Overlapping Deprivation
 Analysis}), développée par \textcite{deneubourg2012} au sein du bureau de
 recherche de l'UNICEF. Suivant l'adaptation nationale MODA développée
 pour le Sénégal lors d'un atelier participatif rassemblant l'ANSD et les
-ministères sectoriels \parencite{ansd2024}, nous distinguons trois groupes
-d'âge avec des indicateurs adaptés aux droits spécifiques de chaque phase de
+ministères sectoriels \parencite{ansd2024}, l'étude distingue trois groupes
+d'âge, avec des indicateurs adaptés aux droits spécifiques de chaque phase de
 l'enfance. La matrice complète des dimensions, indicateurs, seuils de privation
 et de leur applicabilité par groupe d'âge est détaillée en
 annexe~\ref{ann:C} (tableau~\ref{tab:matrice_nmoda}).
@@ -148,7 +148,7 @@ Les sept dimensions retenues sont l'assainissement, l'eau, le logement, la
 nutrition, la santé, la protection de l'enfant et l'éducation, chacune reposant
 sur des indicateurs comparables entre les deux vagues de l'EHCVM. Au total,
 14 indicateurs alimentent ces dimensions, mais leur champ d'application
-suit l'âge de l'enfant~: 10 concernent les tout-petits de 0-4 ans, 12 les
+suit l'âge de l'enfant. Dix indicateurs concernent les tout-petits de 0-4 ans, 12 les
 enfants d'âge scolaire de 5-14 ans, auxquels s'ajoutent le travail des enfants
 et la non-scolarisation, et les adolescents de 15-17 ans, avec
 l'illettrisme en lieu et place des indicateurs propres à
@@ -176,9 +176,9 @@ d'enfants privés dans au moins $k$ dimensions simultanément :
   H = \frac{1}{n} \sum_{i=1}^{n} \mathbf{1}\left[s_i \geq k\right].
   \label{eq:pk}
 \end{equation}
-Conformément à la méthodologie MODA Sénégal, nous
-retenons qu'un enfant est considéré multidimensionnellement pauvre s'il
-est privé dans au moins 4 des 7 dimensions simultanément ($k = 4$).
+Conformément à la méthodologie MODA Sénégal, un enfant compte comme
+multidimensionnellement pauvre dès lors qu'il
+cumule au moins 4 privations sur les 7 dimensions ($k = 4$).
 
 L'intensité moyenne des privations parmi les enfants pauvres est :
 \begin{equation}
@@ -188,7 +188,7 @@ L'intensité moyenne des privations parmi les enfants pauvres est :
 où $q$ est le nombre d'enfants pauvres. L'indice synthétique $M_0 = H \times A$
 mesure la pauvreté multidimensionnelle ajustée pour l'intensité.
 
-L'approche MODA fournit ainsi la variable d'impact : l'indicateur
+L'approche MODA fournit ainsi la variable d'impact, l'indicateur
 binaire identifiant le statut de pauvreté multidimensionnelle de l'enfant (privé dans au moins $k=4$ dimensions sur 7). Les
 taux de privation par dimension $H_j$ et l'indice ajusté $M_0$
 servent de mesures secondaires, décomposables par milieu, région et groupe
@@ -203,7 +203,7 @@ d'âge.
 
 \subsubsection{Cadre des résultats potentiels}
 
-Pour chaque enfant $i$, on définit deux résultats potentiels : $Y_i(1)$ la
+Pour chaque enfant $i$, on définit deux résultats potentiels, $Y_i(1)$ la
 mesure de pauvreté MODA si le ménage reçoit des transferts, et
 $Y_i(0)$ si le ménage n'en reçoit pas. On observe seulement $Y_i = D_i \cdot
 Y_i(1) + (1 - D_i) \cdot Y_i(0)$. Le paramètre d'intérêt est l'effet moyen
@@ -229,17 +229,17 @@ L'unité $i$ est l'enfant. On pose ainsi $D_i = 1$ si l'enfant $i$
 vit dans un ménage bénéficiaire à la période de base, et le score de propension
 $p(X_i)$ s'interprète comme la probabilité qu'un enfant de caractéristiques
 $X_i$ vive dans un ménage bénéficiaire. Le vecteur $X_i$
-combine à cet effet deux niveaux~: les caractéristiques du ménage à la période
+combine à cet effet deux niveaux, les caractéristiques du ménage à la période
 de base, qui gouvernent la sélection dans le traitement, et celles de l'enfant
 lui-même - son genre et son âge -, qui garantissent que chaque enfant traité
 soit comparé à des enfants évalués sur les mêmes dimensions. Le PSM repose sur deux hypothèses. La première est l'indépendance
-conditionnelle (CIA) : conditionnellement aux covariables observées $X_i$,
+conditionnelle (CIA). Conditionnellement aux covariables observées $X_i$,
 les résultats potentiels sont indépendants du traitement,
 \begin{equation}
   \left(Y_i(0),\, Y_i(1)\right) \perp D_i \mid X_i.
   \label{eq:cia}
 \end{equation}
-La seconde est le support commun : $0 < P(D_i = 1 \mid X_i) < 1$,
+La seconde est le support commun, $0 < P(D_i = 1 \mid X_i) < 1$,
 garantissant que l'appariement est réalisable pour chaque traité.
 Si la CIA est satisfaite pour $X_i$,
 elle l'est aussi pour le score de propension $p(X_i) = P(D_i = 1 \mid X_i)$,
@@ -252,7 +252,7 @@ estimé par un modèle logit
 
 Les covariables $X_i$ du modèle logit sont choisies pour satisfaire
 l'hypothèse d'indépendance conditionnelle tout en évitant d'inclure des
-variables potentiellement affectées par le traitement~: chacune est mesurée
+variables potentiellement affectées par le traitement, chacune étant mesurée
 à la période de base (2018). Elles couvrent le chef de ménage (âge, genre,
 niveau d'éducation, statut matrimonial, catégorie socioprofessionnelle), la
 composition et le niveau de vie du ménage (taille, dépense par tête en
@@ -304,9 +304,8 @@ ménages suivis entre les deux vagues.
 \label{subsec:robustesse}
 
 Les analyses d'hétérogénéité estiment l'impact PSM-DD séparément selon le milieu de résidence, le groupe d'âge, le genre de l'enfant, le genre du chef de ménage, chaque dimension de privation et le quintile de montant reçu.
-La robustesse est vérifiée de trois manières~: par la comparaison des trois
-algorithmes d'appariement, par un test placebo réassignant aléatoirement le
-traitement, et par une définition alternative du traitement. Celle-ci
+La robustesse est vérifiée de deux manières, par la comparaison des trois
+algorithmes d'appariement et par une définition alternative du traitement. Celle-ci
 restreint la comparaison d'enfants des ménages bénéficiaires
 stables face aux enfants des
 ménages jamais bénéficiaires, en excluant ceux qui changent de statut entre
