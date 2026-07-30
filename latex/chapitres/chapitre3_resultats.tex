@@ -157,70 +157,77 @@ niveau, mais la tendance des privations, hypothèse que le test placebo
 
 \subsection{Impact des transferts sur la pauvreté multidimensionnelle}
 
-\subsubsection{Double différence sans appariement}
-
-À titre de référence, nous estimons d'abord un estimateur de double
-différence sans appariement (tableau~\ref{tab:dd_brut}). L'impact estimé est
-de $+3{,}2$ points de pourcentage et non significatif. 
-
-\begin{table}[H]
-  \centering
-  \caption[Estimations par double différence (DD brute, sans appariement)]{Estimations par double différence (DD brute, sans appariement)\protect\footnotemark}
-  \label{tab:dd_brut}
-  \zebre
-  \begin{tabular}{|l|c|}
-    \hline
-\entete Variable de résultat & ATT$_{\text{DD}}$ \\
-    \hline
-    Pauvreté MODA ($\hat{H}_{\text{MODA}}$) & \makecell{$0{,}032$\\$(0{,}023)$} \\
-    \hline
-  \end{tabular}
-
-  {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM. $^{*}p<0{,}10$, $^{**}p<0{,}05$, $^{***}p<0{,}01$.}
-\end{table}
-\footnotetext{\textit{Note :} erreurs-types clusterisées par grappe, entre parenthèses sous le coefficient, $n = 53\,679$~; $\delta$ de $Y_{it} = \alpha + \beta t + \gamma D + \delta(t \times D) + \varepsilon_{it}$.}
-
-\subsubsection{Estimateur par appariement et double différence}
+\subsubsection{Des estimateurs transversaux à l'estimateur PSM-DD}
 \label{subsec:psmdd}
 
-Le tableau~\ref{tab:psmdd_att} rapporte les estimations de l'effet moyen du
-traitement sur les traités par l'estimateur
-PSM-DD de \textcite{heckman1997,heckman1998}, qui combine l'appariement par score
-de propension et la double différence pour éliminer simultanément les biais de
-sélection sur observables et les effets fixes inobservables constants dans le temps.
+Le tableau~\ref{tab:psmdd_att} conduit à l'estimateur retenu par étapes, en
+partant des comparaisons les plus simples. Chaque ligne corrige une source de
+biais que la précédente laissait subsister, et l'écart entre les lignes
+mesure ce que cette correction apporte.
+
+Les deux premières lignes rapportent l'appariement seul, appliqué séparément à
+chaque vague, sans mise en relation des deux dates. Elles répondent à la
+question du niveau. Combien de points séparent, à une date donnée, les enfants
+de ménages bénéficiaires de leurs témoins appariés~? À la période de base,
+l'écart atteint $-7{,}7$ points en faveur des bénéficiaires et il est
+significatif au seuil de 5\,\%. Il tombe à $-1{,}9$ point en 2021-2022 et
+cesse d'être significatif. Un travail qui s'arrêterait là conclurait à un
+avantage des enfants bénéficiaires, alors que cet avantage précède le
+traitement et ne peut donc lui être imputé.
+
+La troisième ligne renverse la perspective. La double différence sans
+appariement met bien en relation les deux dates, et neutralise ainsi tout
+écart de niveau stable dans le temps, mais elle compare des groupes que rien
+n'a rendus comparables. L'effet estimé s'établit à $+3{,}2$ points et n'est
+pas significatif.
+
+La dernière ligne combine les deux corrections, suivant
+\textcite{heckman1997,heckman1998}. L'appariement rend les groupes
+comparables sur les caractéristiques observables, la double différence élimine
+les écarts inobservables constants dans le temps. L'effet estimé s'établit à
+$+5{,}8$ points, significatif au seuil de 10\,\%, et vaut par construction la
+différence des deux premières lignes
+($0{,}058 = -0{,}019 - (-0{,}077)$).
 
 \begin{table}[H]
   \centering
-  \caption[Impact des transferts sur la pauvreté multidimensionnelle : estimateur PSM-DD (ATT)]{Impact des transferts sur la pauvreté multidimensionnelle : estimateur PSM-DD (ATT)\protect\footnotemark}
+  \caption[Impact des transferts sur la pauvreté multidimensionnelle : des estimateurs transversaux au PSM-DD]{Impact des transferts sur la pauvreté multidimensionnelle : des estimateurs transversaux au PSM-DD\protect\footnotemark}
   \label{tab:psmdd_att}
   \zebre
-  \begin{tabular}{|l|c|}
+  \begin{tabular}{|l|c|c|}
     \hline
-\entete Variable de résultat & ATT \\
+\entete Spécification & Biais corrigé & Coefficient \\
     \hline
-    \multicolumn{2}{|c|}{Approche MODA (7 dimensions, $k=4$)} \\ \hline
-    \quad Incidence $\hat{H}_{\text{MODA}}$         & \makecell{$0{,}058^{*}$\\$(0{,}030)$} \\
+    PSM seul, EHCVM~I (2018-19)  & Observables & \makecell{-$0{,}077^{**}$\\$(0{,}031)$} \\ \hline
+    PSM seul, EHCVM~II (2021-22) & Observables & \makecell{-$0{,}019$\\$(0{,}031)$} \\ \hline
+    DD simple (sans appariement) & Inobservables fixes & \makecell{$0{,}032$\\$(0{,}023)$} \\ \hline
+    PSM-DD (estimateur retenu)   & Les deux & \makecell{$0{,}058^{*}$\\$(0{,}030)$} \\
     \hline
   \end{tabular}
 
-  {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM. $^{*}p<0{,}10$.}
+  {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM. $^{*}p<0{,}10$, $^{**}p<0{,}05$.}
 \end{table}
-\footnotetext{\textit{Note :} appariement k-NN au niveau enfant, erreurs-types clusterisées par grappe, entre parenthèses sous le coefficient, $n = 16\,152$ observations-enfants.}
+\footnotetext{\textit{Note :} variable de résultat, incidence MODA $\hat{H}$ (7 dimensions, $k=4$). Erreurs-types clusterisées par grappe, entre parenthèses sous le coefficient. Les lignes PSM et PSM-DD reposent sur l'appariement k-NN au niveau enfant ($n = 16\,152$ observations-enfants)~; la DD simple porte sur l'ensemble des enfants des ménages du panel ($n = 53\,679$).}
 
-L'estimateur PSM-DD donne un effet de $0{,}058$, significatif au seuil de 10\,\%
-et à la limite du seuil de 5\,\%. Le signe est positif : entre
+Le signe positif de l'estimateur retenu appelle une lecture précise. Entre
 2018-2019 et 2021-2022, la privation multidimensionnelle des enfants de ménages
 bénéficiaires a reculé plus lentement que celle d'enfants témoins de sexe,
 d'âge et de profil de ménage comparables, l'écart étant de l'ordre de 6 points
-de pourcentage. Deux conclusions s'imposent. D'abord, l'hypothèse H1 n'est pas validée : les
-transferts ne réduisent pas la pauvreté multidimensionnelle des enfants sur
+de pourcentage. Deux conclusions s'imposent. D'abord, l'hypothèse H1 n'est pas
+validée, les
+transferts ne réduisant pas la pauvreté multidimensionnelle des enfants sur
 l'horizon observé. Ensuite, la lecture inverse - celle d'un effet défavorable
-- ne peut être affirmée avec la fermeté qu'exige une conclusion causale :
-l'intervalle de confiance à 95\,\% ($[-0{,}1~;~11{,}6]$ points) contient encore zéro,
-et la significativité au seuil de 10\,\% relève d'une présomption plutôt que
-d'une démonstration. Cette présomption est toutefois cohérente sur l'ensemble
-des spécifications, et la section~\ref{sec:discussion} en examine les canaux
-possibles.
+- ne peut être affirmée avec la fermeté qu'exige une conclusion causale.
+L'intervalle de confiance à 95\,\% ($[-0{,}1~;~11{,}6]$ points) contient encore
+zéro, et la significativité au seuil de 10\,\% relève d'une présomption plutôt
+que d'une démonstration. Cette présomption est toutefois cohérente sur
+l'ensemble des spécifications, et la section~\ref{sec:discussion} en examine
+les canaux possibles.
+
+L'hypothèse H3 se trouve du même coup vérifiée. Les trois premières lignes du
+tableau montrent qu'aucune correction prise isolément ne suffit, et que leur
+combinaison change la conclusion plutôt qu'elle ne l'affine. L'annexe~\ref{ann:A}
+détaille cette décomposition.
 
 La figure~\ref{fig:dd_trajectoires} illustre le mécanisme de la double
 différence. Elle représente l'incidence MODA des enfants bénéficiaires et des
