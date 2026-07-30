@@ -47,9 +47,9 @@ egen long enfid = group(grappe menage numind_2018)
 \subsection{Estimation du score de propension au niveau enfant}
 
 \begin{verbatim}
-/* Probit ENFANT sur t=0 : probabilite qu'un enfant vive dans un
+/* Logit ENFANT sur t=0 : probabilite qu'un enfant vive dans un
    menage beneficiaire. Covariables du menage + sexe et age de l'enfant. */
-probit D c.hhsize c.log_pcexp i.milieu i.region ///
+logit D c.hhsize c.log_pcexp i.milieu i.region ///
          c.hgender c.hage i.heduc i.hmstat i.hcsp ///
          i.sexe18 c.age18, vce(cluster grappe) nolog
 predict pscore, pr
