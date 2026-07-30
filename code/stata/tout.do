@@ -1483,7 +1483,7 @@ twoway (connected temoin annee, lcolor(gs7) mcolor(gs7) msymbol(square) lwidth(m
     xlabel(2018 2021) xscale(range(2017.7 2021.8)) ///
     xtitle("Vague EHCVM") ytitle("Incidence MODA (H, %)") ///
     ylabel(0(20)100, grid) ///
-    legend(order(2 "Entrants" 1 "Témoins appariés" ///
+    legend(order(2 "Bénéficiaires" 1 "Témoins appariés" ///
                  3 "Contrefactuel (tendances parallèles)") pos(6) rows(2)) ///
     graphregion(color(white)) plotregion(color(white))
 set dp period
@@ -1549,6 +1549,40 @@ if _rc == 0 {
         di "  Diff ATT (filles - garcons) : " %8.4f r(estimate) "  p = " %6.4f r(p)
     }
     drop fille
+}
+
+/* -- Par sexe du chef de menage -------------------------------
+   Le chef feminin est le predicteur le plus fort du traitement (probit) :
+   la migration de l'epoux laisse souvent la gestion du menage a l'epouse.
+   L'effet des transferts peut donc differer selon que le menage est dirige
+   par un homme ou par une femme. hgender : 1 = homme, 2 = femme. */
+di _newline "=== Heterogeneite par sexe du chef de menage ==="
+capture confirm variable hgender
+if _rc == 0 {
+    foreach outcome in pauvre_MODA {
+        foreach h in 1 2 {
+            if `h' == 1 local lab_h "Chef homme"
+            else        local lab_h "Chef femme"
+            quietly count if hgender == `h'
+            if r(N) > 30 {
+                di "--- `lab_h' — `outcome' ---"
+                regress `outcome' i.t##i.D [aw=weight_knn] if hgender == `h', ///
+                    vce(cluster grappe)
+                lincom 1.t#1.D
+                di "  ATT = " %8.4f r(estimate) "  p = " %6.4f r(p)
+            }
+        }
+    }
+
+    di _newline "Test d'egalite (chef femme vs chef homme) :"
+    gen byte chef_fem = (hgender == 2) if !missing(hgender)
+    foreach outcome in pauvre_MODA {
+        regress `outcome' i.t##i.D##i.chef_fem [aw=weight_knn], vce(cluster grappe)
+        lincom 1.t#1.D#1.chef_fem
+        di "  Diff ATT (chef femme - chef homme) : " %8.4f r(estimate) ///
+           "  p = " %6.4f r(p)
+    }
+    drop chef_fem
 }
 
 di _newline "=== Heterogeneite par groupe d'age (groupe fige en 2018) ==="
