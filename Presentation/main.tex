@@ -185,18 +185,17 @@
 \begin{frame}{Contexte général}
   \begin{block}{Place des transferts de migrants dans l'économie sénégalaise}
     \begin{itemize}
-      \item 2\,220 millions de dollars reçus en 2017, soit 1\,242 milliards de FCFA et 12,1\,\% du PIB.
-      \item Première source de devises, devançant l'aide publique au développement et les IDE.
-      \item Europe 65\,\% des envois, Afrique 30\,\% : une migration autant régionale qu'intercontinentale.
-      \item Plus de 3 millions de Sénégalais vivent à l'étranger (diaspora).
+      \item De 233 millions de dollars en 2000 à 2\,220 millions en 2017, soit de 166 à 1\,242 milliards de FCFA.
+      \item 12,1\,\% du PIB : quatrième récepteur d'Afrique subsaharienne (ANSD/OIM, 2018).
+      \item Des montants reçus dont l'ordre de grandeur avoisine le seuil de pauvreté monétaire annuel par tête.
       \pause
     \end{itemize}
   \end{block}
-  \begin{alertblock}{Pauvreté infantile, un défi persistant}
+  \begin{alertblock}{Des privations infantiles d'une ampleur considérable}
     \begin{itemize}
-      \item Près de 65\,\% des enfants souffrent de privations multiples (MODA, EHCVM I).
-      \item Privations cumulées : éducation, santé, eau, assainissement, logement, nutrition, protection.
-      \item La pauvreté monétaire ne suffit pas à capturer toutes ces dimensions.
+      \item 50,7\,\% des enfants de 0 à 17 ans privés dans au moins 4 des 7 domaines de leur bien-être en 2018 (ANSD/UNICEF, 2024).
+      \item Domaines : éducation, santé, nutrition, eau, assainissement, logement, protection.
+      \item Des manques qui échappent largement aux mesures fondées sur le seul revenu du ménage.
     \end{itemize}
   \end{alertblock}
 \end{frame}
@@ -223,22 +222,21 @@
 \begin{frame}{Objectifs et hypothèses}
   \small
   \begin{block}{Objectif général}
-    Évaluer l'impact causal des transferts de migrants sur la pauvreté
+    Évaluer l'impact des transferts de migrants sur la pauvreté
     multidimensionnelle des enfants au Sénégal.
   \end{block}
   \pause
   \begin{block}{Objectifs spécifiques}
     \begin{itemize}
-      \item Mesurer la pauvreté multidimensionnelle des enfants selon l'approche MODA (EHCVM I \& II).
-      \item Analyser son évolution entre 2018-2019 et 2021-2022.
-      \item Estimer l'effet causal des transferts par PSM-Double différence.
+      \item Construire un indice de pauvreté multidimensionnelle adapté aux enfants sénégalais.
+      \item Estimer l'impact des transferts sur cet indice et en analyser l'hétérogénéité.
     \end{itemize}
   \end{block}
   \pause
   \begin{block}{Hypothèses de recherche}
     \begin{enumerate}
       \item[H1] Les transferts réduisent significativement la pauvreté multidimensionnelle des enfants.
-      \item[H2] L'effet est hétérogène selon les dimensions, le milieu, le genre de l'enfant et le montant reçu.
+      \item[H2] L'effet est hétérogène selon les dimensions, le milieu, le genre du chef de ménage et le montant reçu.
     \end{enumerate}
   \end{block}
 \end{frame}
@@ -252,17 +250,17 @@
 \begin{frame}{Canaux de transmission des transferts de migrants}
   \begin{block}{Théories sur les transferts}
     \begin{itemize}
-      \item \textbf{Altruisme} (Lucas \& Stark, 1985) : les migrants soutiennent leur famille par solidarité.
-      \item \textbf{Contrat familial implicite} : les transferts compensent l'investissement consenti dans la migration.
-      \item \textbf{Diversification des risques} : le ménage envoie un membre migrer pour sécuriser les revenus.
+      \item \textbf{Altruisme} (Lucas \& Stark, 1985) : les transferts décroissent avec le revenu du receveur.
+      \item \textbf{Intérêt personnel et échange} (Rapoport \& Docquier, 2006) : préserver un héritage, rembourser la dette du départ.
+      \item \textbf{Diversification du risque et assurance} (Stark \& Bloom, 1985) : les transferts assurent le ménage contre les chocs.
     \end{itemize}
   \end{block}
   \pause
   \begin{block}{Effets empiriques documentés}
     \begin{itemize}
-      \item Réduction de la pauvreté monétaire (Adams \& Page, 2005 ; Acosta et al., 2008).
-      \item Amélioration de la scolarisation et de la santé des enfants (Yang, 2008).
-      \item Effets plus marqués en milieu rural et pour les ménages les plus pauvres.
+      \item Réduction modeste de la pauvreté monétaire, atténuée par les coûts de transaction (Azam \& Gubert, 2006 ; Combes \& Ebeke, 2011).
+      \item Scolarisation et investissement en capital humain (Cox Edwards \& Ureta, 2003 ; Yang, 2008).
+      \item Effets fragiles sur la nutrition, conditionnels au maintien du lien avec le migrant (Davis \& Brazil, 2016).
     \end{itemize}
   \end{block}
 \end{frame}
@@ -277,15 +275,15 @@
       \item Les enfants ont des besoins spécifiques : nutrition, éducation, soins de santé.
     \end{itemize}
   \end{block}
-  \begin{alertblock}{L'approche Alkire-Foster (2011)}
+  \begin{alertblock}{Trois exigences dégagées par la littérature}
     \begin{itemize}
-      \item Identification des privations dans plusieurs dimensions simultanément.
-      \item Double seuil : intra-dimensionnel (seuil de privation) et inter-dimensionnel (seuil de pauvreté $k$).
-      \item Mesure $M_0 = H \times A$ : incidence $\times$ intensité.
+      \item L'enfant individuel comme unité d'analyse, et non le ménage.
+      \item Des indicateurs adaptés à l'âge de l'enfant.
+      \item L'attention aux privations superposées plutôt qu'à chaque manque isolé.
     \end{itemize}
   \end{alertblock}
   \begin{block}{Lacune dans la littérature}
-    Peu d'études combinent PSM et double différence pour identifier l'effet causal
+    Peu d'études combinent PSM et double différence pour identifier l'effet
     des transferts sur la pauvreté multidimensionnelle des enfants au Sénégal.
   \end{block}
 \end{frame}
@@ -321,16 +319,16 @@
       Motif principal & 2018 & 2021 \\
       \midrule
       Soutien courant            & 66,7\,\% & 68,5\,\% \\
+      Fêtes et évènements        & 11,3\,\% & 9,3\,\% \\
       Santé, maladie             & 4,6\,\%  & 6,5\,\% \\
       Scolarité, éducation       & 3,5\,\%  & 3,7\,\% \\
-      Construction d'une maison  & 0,7\,\%  & 0,7\,\% \\
-      Autres motifs              & 24,5\,\% & 20,7\,\% \\
+      Autres motifs              & 13,9\,\% & 12,0\,\% \\
       \bottomrule
     \end{tabular}
   \end{block}
   \begin{alertblock}{Montants annuels reçus par ménage bénéficiaire}
-    Médiane $\approx$ 300\,000 FCFA/an ; moyenne $\approx$ 900\,000 FCFA/an
-    (forte dispersion) : une ressource loin d'être marginale.
+    Médiane $\approx$ 300\,000 FCFA/an, troisième quartile à 1\,200\,000 :
+    une ressource loin d'être marginale, très inégalement répartie.
   \end{alertblock}
   \begin{block}{Implication méthodologique}
     Deux tiers des transferts relèvent du soutien courant, non affecté :
@@ -443,7 +441,7 @@
   \end{columns}
 \end{frame}
 
-\begin{frame}[label=privations-dim]{Incidence MODA par groupe d'âge, par genre et statut du ménage}
+\begin{frame}[label=privations-dim]{Incidence MODA par groupe d'âge, par genre du chef et statut du ménage}
   \scriptsize
   \begin{table}
     \centering
@@ -457,16 +455,16 @@
       5-14 ans  & 70,4 & 50,8 & 59,6 & 40,7 & $+0{,}7$ \\
       15-17 ans & 58,1 & 59,9 & 53,5 & 44,6 & $-10{,}7$ \\
       \midrule
-      Garçons   & 65,6 & 46,3 & 60,1 & 42,9 & $+2{,}1$ \\
-      Filles    & 67,7 & 46,1 & 60,9 & 42,1 & $+2{,}7$ \\
+      Chef homme & 68,3 & 50,0 & 61,9 & 46,0 & $+2{,}3$ \\
+      Chef femme & 59,3 & 38,7 & 54,2 & 35,6 & $+2{,}1$ \\
       \bottomrule
     \end{tabular}
   \end{table}
-  \begin{alertblock}{L'écart se referme chez les tout-petits}
+  \begin{alertblock}{L'écart se referme chez les 0-4 ans}
     Chez les 0-4 ans, l'avantage des bénéficiaires passe de 23,7 à
-    16,9 points ; chez les 5-14 ans il ne bouge pas. Le genre ne sépare rien :
-    $+2{,}7$ points chez les filles contre $+2{,}1$ chez les garçons. Le
-    descriptif annonce le résultat causal.
+    16,9 points ; chez les 5-14 ans il ne bouge pas. Le genre du chef ne
+    sépare rien, $+2{,}3$ points sous un chef homme contre $+2{,}1$ sous un
+    chef femme. Le descriptif annonce le résultat de l'estimation.
   \end{alertblock}
   \begin{block}{Lecture}
     Groupes d'âge figés en 2018, mêmes enfants aux deux vagues. Le
@@ -492,12 +490,12 @@
       \begin{block}{Équilibre après appariement ($k$-NN, $k=4$)}
         \begin{itemize}
           \item Logit au niveau enfant : 17\,735 enfants suivis
-                aux deux vagues (pseudo-$R^2 = 0{,}151$), covariables du
+                aux deux vagues (pseudo-$R^2 = 0{,}150$), covariables du
                 ménage ainsi que genre et âge de l'enfant.
           \item Différence standardisée moyenne : 11,4\,\% avant,
-                2,5\,\% après appariement ; le test joint de nullité des
+                2,4\,\% après appariement ; le test joint de nullité des
                 covariables n'est plus rejeté.
-          \item Panel apparié : 16\,152 observations-enfants.
+          \item Panel apparié : 16\,210 observations-enfants.
         \end{itemize}
       \end{block}
     \end{column}
@@ -516,26 +514,23 @@
       \toprule
       Spécification & ATT \\
       \midrule
-      DD brute (sans appariement)      & \makecell{$0{,}032$\\(0,023)} \\
-      PSM-DD, k-NN ($k=4$)             & \makecell{$0{,}058^{*}$\\(0,030)} \\
-      PSM-DD, noyau Epanechnikov       & \makecell{$0{,}055^{*}$\\(0,031)} \\
-      PSM-DD, caliper                  & \makecell{$0{,}047^{*}$\\(0,027)} \\
+      DD brute (sans appariement)      & \makecell{$0{,}035$\\(0,025)} \\
+      PSM-DD, k-NN ($k=4$)             & \makecell{$0{,}064^{**}$\\(0,029)} \\
+      PSM-DD, noyau Epanechnikov       & $0{,}061^{*}$ \\
+      PSM-DD, caliper                  & $0{,}050^{*}$ \\
       \bottomrule
     \end{tabular}
-    {\scriptsize Écarts-types entre parenthèses. $^{*}p<0{,}10$.}
+    {\scriptsize Écarts-types entre parenthèses. $^{*}p<0{,}10$, $^{**}p<0{,}05$.}
   \end{table}
-  \begin{alertblock}{Résultat central, pas de réduction et présomption d'effet défavorable}
+  \begin{alertblock}{Résultat central, pas de réduction}
     Sur 2018-2021, la pauvreté multidimensionnelle des enfants des ménages
     bénéficiaires recule plus lentement que celle des témoins appariés
-    ($+5{,}8$ pp). Significatif à 10\,\%, pas à 5\,\% : H1 est rejetée,
-    l'effet inverse est suggéré sans être démontré. Les trois appariements
-    concordent (0,047 à 0,058).
+    ($+6{,}4$ pp, significatif à 5\,\%) : H1 est rejetée. Les trois
+    appariements concordent (0,050 à 0,064).
   \end{alertblock}
   \begin{block}{Lecture}
     L'effet n'est pas diffus : il n'est établi que sur la nutrition, chez les
-    0-4 ans et sur les petits montants. Les transferts étant indissociables du
-    départ d'un adulte, le coût de l'absence en donne une lecture partielle,
-    sans suffire à porter l'écart.
+    0-4 ans et sur les plus faibles montants reçus.
   \end{block}
 \end{frame}
 
@@ -549,13 +544,13 @@
     \begin{column}{0.43\textwidth}
       \begin{alertblock}{Un seul effet sectoriel significatif}
         \begin{itemize}
-          \item Nutrition : $+8{,}1$ pp, significative à 5\,\%, seule
-                dimension significative -- et celle qui dépend le plus
+          \item Nutrition : $+6{,}8$ pp, significative à 10\,\%, seule
+                dimension significative, et celle qui dépend le plus
                 directement du budget courant.
-          \item Assainissement : $+3{,}7$ pp, même sens,
+          \item Assainissement : $+4{,}6$ pp, même sens,
                 sans atteindre la significativité.
           \item Les cinq autres dimensions restent comprises entre
-                $+1{,}2$ et $+1{,}6$ pp, toutes non significatives.
+                $+0{,}5$ et $+2{,}4$ pp, toutes non significatives.
         \end{itemize}
       \end{alertblock}
     \end{column}
@@ -563,12 +558,11 @@
   \begin{block}{Lecture}
     Aucun test d'égalité ne conclut à un effet différencié, ni entre
     milieux, ni selon le genre, ni entre tranches d'âge.
-    L'effet n'est établi que chez les 0-4 ans ($+7{,}9$ pp, significatif à
-    5\,\%), les
-    plus dépendants du temps de soin : effet par âge et effet nutrition se
-    répondent. Chez les filles, il est plus élevé que chez les garçons
-    ($0{,}064$ contre $0{,}052$) sans que l'écart soit tranchable, mais le
-    descriptif va dans le même sens.
+    L'effet n'est établi que chez les 0-4 ans ($+9{,}1$ pp, significatif à
+    5\,\%), dont les besoins reposent le plus directement sur
+    l'alimentation et le soin quotidien : effet par âge et effet nutrition se
+    répondent. Selon le genre du chef de ménage, $0{,}062$ sous un chef homme
+    contre $0{,}071$ sous un chef femme, écart non significatif.
   \end{block}
 \end{frame}
 
@@ -582,11 +576,11 @@
       \toprule
       Quintile de montant annuel & ATT \\
       \midrule
-      Q1 (jusqu'à 100~000 FCFA)  & \makecell{$0{,}122^{**}$\\(0,052)}  \\
-      Q2 (110~000 à 360~000)     & \makecell{$0{,}093^{**}$\\(0,042)}  \\
-      Q3 (380~000 à 900~000)     & \makecell{$0{,}014$\\(0,047)}  \\
-      Q4 (920~000 à 1~800~000)   & \makecell{$0{,}078$\\(0,061)}  \\
-      Q5 (au-delà de 1~824~000)  & \makecell{$-0{,}014$\\(0,053)} \\
+      Q1 (jusqu'à 100~000 FCFA)  & \makecell{$0{,}129^{**}$\\(0,052)}  \\
+      Q2 (110~000 à 360~000)     & \makecell{$0{,}099^{**}$\\(0,042)}  \\
+      Q3 (380~000 à 900~000)     & \makecell{$0{,}020$\\(0,047)}  \\
+      Q4 (920~000 à 1~800~000)   & \makecell{$0{,}084$\\(0,060)}  \\
+      Q5 (au-delà de 1~824~000)  & \makecell{$-0{,}008$\\(0,052)} \\
       \midrule
       Pente dose-réponse (log du montant) & \makecell{$-0{,}025^{*}$\\(0,014)} \\
       \bottomrule
@@ -595,8 +589,8 @@
   \end{table}
   \begin{alertblock}{Le volet de H2 le mieux établi}
     L'effet défavorable se concentre sur les petits montants et disparaît
-    au-delà. Là où l'apport monétaire reste faible, il ne compense pas le coût
-    du départ de l'adulte ; au-delà d'un certain seuil, il l'équilibre.
+    au-delà : l'écart de trajectoire décroît avec le montant reçu jusqu'à
+    s'annuler pour les transferts les plus élevés.
   \end{alertblock}
   \begin{block}{Réserve}
     Le montant n'est pas assigné aléatoirement parmi les bénéficiaires :
@@ -614,23 +608,22 @@
   \begin{block}{Sensibilité des résultats}
     \begin{itemize}
       \item Méthodes d'appariement (k-NN, noyau, caliper) : effet de
-            $0{,}047$ à $0{,}058$, tous significatifs à 10\,\%.
+            $0{,}050$ à $0{,}064$, k-NN significatif à 5\,\%, noyau et
+            caliper à 10\,\%.
       \item Seuil $k$, testé de 1 à 7 : ampleur en courbe de cloche,
-            maximale à $k=4$ et significative seulement à $k=3$ et $k=4$ --
-            l'effet se joue au milieu de la distribution des privations,
-            pas dans son noyau.
-      \item Sans appariement, sur tous les enfants des ménages du panel :
-            $0{,}032$, non significatif -- même signe, ampleur atténuée, l'avantage
-            initial des bénéficiaires n'étant pas corrigé.
-      \item Test placebo (200 assignations aléatoires) : distribution
-            centrée sur zéro, effet réel au 99,0\textsuperscript{e} centile.
+            maximale à $k=4$ et significative seulement à $k=2$, $k=3$ et
+            $k=4$ : l'effet se joue au milieu de la distribution des
+            privations, pas dans son noyau.
+      \item Sans appariement, sur tous les enfants suivis :
+            $0{,}035$, non significatif, même signe et ampleur atténuée,
+            l'avantage initial des bénéficiaires n'étant pas corrigé.
     \end{itemize}
   \end{block}
   \begin{alertblock}{Définition alternative, les bénéficiaires stables}
     Enfants des ménages bénéficiaires aux deux vagues face aux jamais
-    bénéficiaires : l'effet tombe à $0{,}023$ et perd sa significativité,
-    l'écart de trajectoire ne se retrouvant pas chez les bénéficiaires de
-    longue date, quel que soit le montant reçu. Mais le traitement y est déjà
+    bénéficiaires : la DD tombe à $0{,}022$ et le PSM-DD à $-0{,}008$, tous
+    deux non significatifs, l'écart de trajectoire ne se retrouvant pas chez
+    les bénéficiaires de longue date. Mais le traitement y est déjà
     en cours dès 2018, donc pas de vraie période pré-traitement.
   \end{alertblock}
 \end{frame}
@@ -644,8 +637,8 @@
       \toprule
       Hyp. & Énoncé & Résultat & Décision \\
       \midrule
-      H1 & Réduction de la pauvreté & ATT MODA $= 0{,}058$, significatif à 10\,\% et de signe défavorable : pas de réduction & Rejetée \\[4pt]
-      H2 & Hétérogénéité des effets  & Aucun test d'égalité concluant (milieu, genre, âge) ; effet établi seulement sur la nutrition et chez les 0-4 ans (5\,\%) ; gradient selon le montant & Partiellement \\[4pt]
+      H1 & Réduction de la pauvreté & ATT MODA $= 0{,}064$, significatif à 5\,\% et de signe défavorable : pas de réduction & Rejetée \\[4pt]
+      H2 & Hétérogénéité des effets  & Aucun test d'égalité concluant (milieu, genre du chef, âge) ; effet établi seulement sur la nutrition (10\,\%) et chez les 0-4 ans (5\,\%) ; gradient selon le montant & Partiellement \\[4pt]
       \bottomrule
     \end{tabular}
   \end{table}
@@ -666,14 +659,14 @@
       \item L'incidence MODA recule de 63,5\,\% (2018) à 57,8\,\% (2021) :
             amélioration réelle mais la pauvreté reste massive.
       \pause
-      \item Recevoir des transferts ne réduit pas, à trois ans, la
+      \item Les transferts ne réduisent pas, à trois ans, la
             pauvreté multidimensionnelle des enfants : l'effet est de
-            $+0{,}058$, significatif à 10\,\%, de signe défavorable et stable aux
+            $+0{,}064$, significatif à 5\,\%, de signe défavorable et stable aux
             trois appariements.
       \pause
       \item Il n'est établi que sur la nutrition, chez les 0-4 ans et sur les
-            plus faibles montants reçus : le coût du départ de l'adulte pèse sur
-            les plus dépendants, et l'argent ne le compense pas.
+            plus faibles montants reçus, là où l'apport monétaire est trop
+            faible pour peser sur les conditions de vie de l'enfant.
     \end{enumerate}
   \end{block}
 \end{frame}
@@ -681,20 +674,19 @@
 \subsection{Recommandations}
 
 \begin{frame}{Recommandations de politique économique}
-  \begin{block}{Faciliter et orienter les transferts}
+  \begin{block}{Cibler là où l'écart se concentre}
     \begin{itemize}
-      \item Réduire les coûts de transaction des envois de fonds formels.
-      \item Encourager le fléchage des transferts vers l'éducation et la santé des enfants.
-      \item Développer des produits d'épargne liés aux transferts pour les ménages ruraux.
+      \item Sécurité alimentaire des enfants en priorité dans les zones d'émigration.
+      \item Appui ciblé aux enfants de 0 à 4 ans des ménages bénéficiaires.
+      \item Accompagner en priorité les ménages recevant les plus faibles montants.
     \end{itemize}
   \end{block}
   \pause
-  \begin{block}{Renforcer les politiques sociales complémentaires}
+  \begin{block}{Améliorer les conditions de conversion des transferts}
     \begin{itemize}
-      \item Accompagner les ménages nouvellement bénéficiaires dans la durée
-            (inclusion financière, appui à l'investissement dans l'habitat).
-      \item Améliorer l'offre de services publics (écoles, centres de santé) dans les zones d'émigration.
-      \item Renforcer les systèmes de collecte de données sur les migrations et les transferts.
+      \item Réduire les coûts de transaction des envois formels.
+      \item Compléter les transferts par l'offre publique de services de base (eau, assainissement, santé).
+      \item Orienter les usages vers le capital humain et renforcer le suivi statistique des transferts.
     \end{itemize}
   \end{block}
 \end{frame}
@@ -712,11 +704,11 @@
   \end{block}
   \begin{alertblock}{Limites de l'étude}
     \begin{itemize}
-      \item L'estimation capte l'effet conjoint du départ du migrant et des transferts ;
-            durée d'exposition variable au sein des bénéficiaires (effet de court terme).
-      \item Effet significatif à 10\,\% seulement : intervalle de confiance
-            à 95\,\% large ($[-0{,}1 ; 11{,}6]$ pp), présomption plutôt que
-            démonstration.
+      \item Hypothèse de tendances parallèles impossible à tester
+            directement, deux vagues seulement étant disponibles.
+      \item Vieillissement des enfants entre les deux enquêtes, chaque
+            enfant étant évalué sur la grille de son âge courant à chaque
+            vague.
     \end{itemize}
   \end{alertblock}
   \pause
@@ -724,7 +716,7 @@
     \begin{itemize}
       \item Analyser les mécanismes de transmission (dépenses en éducation, santé, logement).
       \item Étendre l'analyse aux autres pays de l'UEMOA couverts par l'EHCVM.
-      \item Intégrer la dimension genre de l'enfant et du chef de ménage.
+      \item Intégrer la durée d'exposition aux transferts et leurs usages effectifs.
     \end{itemize}
   \end{block}
 \end{frame}
@@ -754,28 +746,28 @@
 % ============================================================
 \appendix
 
-\begin{frame}[label=matrice-nmoda]{Matrice MODA complète : indicateurs, âges, sources et seuils}
+\begin{frame}[label=matrice-nmoda]{Matrice MODA complète, indicateurs, âges et seuils}
   \centering
   \resizebox{\textwidth}{!}{%
   \renewcommand{\arraystretch}{1.15}
-  \begin{tabular}{llcccll}
+  \begin{tabular}{llcccl}
     \toprule
-    Dimension & Indicateur & 0-4 & 5-14 & 15-17 & Module source & Seuil de privation \\
+    Dimension & Indicateur & 0-4 & 5-14 & 15-17 & Seuil de privation \\
     \midrule
-    Assainissement & Toilettes non améliorées & \checkmark & \checkmark & \checkmark & Ménage (habitat) & Non conformes aux normes JMP \\
-                   & Partage des toilettes    & \checkmark & \checkmark & \checkmark & Ménage (habitat) & Installation partagée \\
-    Eau            & Source non améliorée     & \checkmark & \checkmark & \checkmark & Ménage (habitat) & Source non améliorée et ménage ne traitant pas son eau \\
-                   & Temps d'accès $\geq 30$ min & \checkmark & \checkmark & \checkmark & Ménage (habitat) & 30 min ou plus (aller et temps à la source) \\
-    Logement       & Gestion des ordures      & \checkmark & \checkmark & \checkmark & Ménage (habitat) & Évacuation non saine \\
-                   & Surpeuplement            & \checkmark & \checkmark & \checkmark & Ménage (habitat) & Au moins 4 personnes par pièce \\
-    Nutrition      & Sécurité alimentaire     & \checkmark & \checkmark & \checkmark & Ménage (sécu. alim.) & Insécurité alimentaire (FIES) \\
-    Santé          & Combustible solide       & \checkmark & \checkmark & \checkmark & Ménage (habitat) & Bois, charbon ou déchets \\
-                   & Accès à une structure de santé & \checkmark & \checkmark & \checkmark & Communauté (services) & Pas d'accès à pied à un hôpital ou centre de santé \\
-    Protection     & Absence d'acte de naissance & \checkmark & \checkmark & - & Individu (état civil) & Enfant non enregistré \\
-                   & Travail des enfants      & -          & \checkmark & - & Individu (emploi) & Travail éco. ou domestique $\geq$ 1h \\
-                   & Séparation parentale     & \checkmark & \checkmark & \checkmark & Individu (parenté) & Sans ses deux parents biologiques \\
-    Éducation      & Non-scolarisation        & -          & \checkmark & - & Individu (éducation) & Enfant non scolarisé \\
-                   & Illettrisme              & -          & -          & \checkmark & Individu (éducation) & Ne sait ni lire ni écrire \\
+    Assainissement & Toilettes non améliorées & \checkmark & \checkmark & \checkmark & Latrines rudimentaires, toilettes publiques ou aucune toilette \\
+                   & Partage des toilettes    & \checkmark & \checkmark & \checkmark & Toilettes partagées avec un autre ménage \\
+    Eau            & Source non améliorée     & \checkmark & \checkmark & \checkmark & Source non améliorée à l'une ou l'autre saison, eau non traitée \\
+                   & Temps d'accès $\geq 30$ min & \checkmark & \checkmark & \checkmark & 30 min ou plus, trajet aller et temps à la source \\
+    Logement       & Gestion des ordures      & \checkmark & \checkmark & \checkmark & Ordures brûlées, dépotoir sauvage ou autre évacuation \\
+                   & Surpeuplement            & \checkmark & \checkmark & \checkmark & Au moins 4 personnes par pièce occupée \\
+    Nutrition      & Sécurité alimentaire     & \checkmark & \checkmark & \checkmark & Au moins une des huit situations de l'échelle FIES \\
+    Santé          & Combustible solide       & \checkmark & \checkmark & \checkmark & Cuisine au bois, au charbon ou aux déchets animaux \\
+                   & Accès à une structure de santé & \checkmark & \checkmark & \checkmark & Pas d'hôpital ni de centre de santé accessible à pied \\
+    Protection     & Absence d'acte de naissance & \checkmark & \checkmark & - & Enfant déclaré sans acte de naissance \\
+                   & Travail des enfants      & -          & \checkmark & - & Activité économique ou travail domestique d'au moins 1h \\
+                   & Séparation parentale     & \checkmark & \checkmark & \checkmark & Père ou mère biologique absent du ménage \\
+    Éducation      & Non-scolarisation        & -          & \checkmark & - & Enfant non scolarisé \\
+                   & Illettrisme              & -          & -          & \checkmark & Ne sait ni lire ni écrire \\
     \bottomrule
   \end{tabular}}
 
