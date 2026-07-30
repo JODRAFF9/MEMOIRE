@@ -229,7 +229,9 @@
       [rounded corners=6pt] (sw) rectangle (ne);
   \end{scope}%
 }
-\AddToShipoutPictureBG{%
+% Cadre reserve a la page de garde : \AddToShipoutPictureBG* (etoile)
+% ne s'applique qu'a la page courante, au moment de l'inclusion.
+\newcommand{\ensaecadrepage}{%
   \AtPageLowerLeft{%
     \begin{tikzpicture}[overlay, line cap=round, line join=round]
       \coordinate (SW) at (15pt,15pt);
@@ -382,6 +384,7 @@
 
 
 % ── Page de garde ────────────────────────────────────────────
+\AddToShipoutPictureBG*{\ensaecadrepage}
 \input{styles/pagedeGarde}
 
 % ── Pages liminaires (numérotation romaine) ──────────────────
