@@ -2557,15 +2557,28 @@ foreach g in ens 1 2 3 {
     replace lbl = "Éducation"      if dm == "educ"
     /* education non applicable aux 0-4 ans */
     if "`g'" == "1" drop if dm == "educ"
-    set dp comma
-    graph hbar (asis) dim_0 dim_1, over(lbl, sort(ordre)) ///
-        bar(1, color(gs9)) bar(2, color(orange)) ///
+    sort ordre
+    gen pos  = _n
+    gen pos0 = pos - 0.19
+    gen pos1 = pos + 0.19
+    /* Etiquettes en toutes lettres, virgule decimale garantie */
+    gen str8 l0 = subinstr(string(dim_0, "%3.1f"), ".", ",", 1)
+    gen str8 l1 = subinstr(string(dim_1, "%3.1f"), ".", ",", 1)
+    local ylab ""
+    forvalues i = 1/`=_N' {
+        local ylab `ylab' `i' "`=lbl[`i']'"
+    }
+    twoway (bar dim_0 pos0, horizontal barwidth(0.36) color(gs9)) ///
+           (bar dim_1 pos1, horizontal barwidth(0.36) color(orange)) ///
+           (scatter pos0 dim_0, msymbol(none) mlabel(l0) ///
+                mlabcolor(black) mlabsize(vsmall) mlabpos(3)) ///
+           (scatter pos1 dim_1, msymbol(none) mlabel(l1) ///
+                mlabcolor(black) mlabsize(vsmall) mlabpos(3)), ///
+        ylabel(`ylab', angle(0) nogrid) yscale(reverse) ytitle("") ///
+        xlabel(0(20)100, grid) xtitle("Taux de privation (%)") ///
         legend(order(1 "EHCVM I (2018-19)" 2 "EHCVM II (2021-22)") ///
                pos(6) rows(1) region(color(white))) ///
-        ytitle("Taux de privation (%)") ylabel(0(20)100, grid) ///
-        blabel(bar, format(%3.1f) size(vsmall)) ///
         graphregion(color(white)) plotregion(color(white))
-    set dp period
     local suf = cond("`g'"=="ens","ensemble", ///
         cond("`g'"=="1","0_4", cond("`g'"=="2","5_14","15_17")))
     graph export "$OUTPUT/figures/fig_dim_`suf'.pdf", replace
