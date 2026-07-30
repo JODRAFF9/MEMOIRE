@@ -13,30 +13,24 @@ voisins ($k=4$, avec remise), la différence standardisée moyenne passe de
 \subsection{Appariement seul, sans double différence}
 \label{subsec:psm_sans_dd}
 
-Pour illustrer concrètement l'apport de la double différence par rapport à un
-appariement transversal seul, l'écart de pauvreté MODA entre ménages
-bénéficiaires et témoins appariés (poids $k$-NN) est estimé séparément sur
-l'EHCVM~I et sur l'EHCVM~II, sans les différencier.
+Le tableau~\ref{tab:psmdd_att} de la section~\ref{subsec:psmdd} rapporte, aux
+côtés de l'estimateur retenu, l'écart de pauvreté MODA entre enfants
+bénéficiaires et témoins appariés (poids $k$-NN) estimé séparément sur
+l'EHCVM~I et sur l'EHCVM~II, sans mise en relation des deux dates. Cette
+décomposition montre pourquoi la double différence est indispensable.
 
-\begin{table}[H]
-  \centering
-  \caption{Comparaison du PSM seul (transversal) et du PSM-DD}
-  \label{tab:psm_sans_dd}
-  \zebre
-  \begin{tabular}{|l|c|}
-    \hline
-\entete Spécification & Coefficient \\
-    \hline
-    PSM seul, EHCVM~I (écart initial)  & \makecell{-$0{,}077^{**}$\\$(0{,}031)$} \\ \hline
-    PSM seul, EHCVM~II (écart final)   & \makecell{-$0{,}019$\\$(0{,}031)$} \\ \hline
-    PSM-DD (référence, tableau~\ref{tab:psmdd_att}) & \makecell{$0{,}058^{*}$\\$(0{,}030)$} \\
-    \hline
-  \end{tabular}
-
-  {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM. Erreurs-types entre parenthèses sous le coefficient. $^{*}p<0{,}10$, $^{**}p<0{,}05$.}
-\end{table}
-
-
+À la période de base, les enfants de ménages bénéficiaires sont
+significativement moins pauvres que ceux de leurs témoins appariés
+(-$7{,}7$~points, significatif au seuil de 5\,\%). L'appariement sur les
+caractéristiques observables ne suffit donc pas à annuler l'écart de niveau.
+Un chercheur s'arrêtant à l'appariement transversal en 2021 conclurait encore
+à un avantage de 1,9~point en faveur des bénéficiaires. Or cet écart résiduel
+préexiste au traitement et ne peut pas lui être imputé. La double différence
+l'élimine en ne retenant que la variation de l'écart
+($0{,}058 = -0{,}019 - (-0{,}077)$), et renverse le signe apparent de la
+conclusion \parencite{heckman1997,heckman1998}. L'hypothèse H3, selon laquelle
+l'estimateur PSM-DD produit des estimations moins biaisées que les approches
+naïves, est ainsi vérifiée sur nos données.
 
 \subsection{Test placebo}
 
