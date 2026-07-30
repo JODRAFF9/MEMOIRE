@@ -322,6 +322,12 @@
 % ── Saut de page avant chaque \section ─────────────────────
 \usepackage{etoolbox}
 \pretocmd{\section}{\clearpage}{}{}
+% \sautunefois neutralise le prochain \clearpage seulement, ce qui permet
+% d'enchainer une annexe sans desactiver ses sauts de page internes.
+\newcommand{\sautunefois}{%
+  \let\vraiclearpage\clearpage
+  \def\clearpage{\let\clearpage\vraiclearpage}%
+}
 
 % ── Annexes ─────────────────────────────────────────────────
 \usepackage{pdflscape}
@@ -439,6 +445,7 @@
   \renewcommand{\ensaebandeaunum}[1]{\ensaetetesection{#1}{\thesection}}
   {\let\clearpage\relax \input{annexes/annexe_A}}
   {\let\clearpage\relax \input{annexes/annexe_motifs}}
+  \sautunefois
   \input{annexes/annexe_C}
 \end{appendices}
 
