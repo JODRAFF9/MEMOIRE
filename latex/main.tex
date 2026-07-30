@@ -138,6 +138,9 @@
 \titlespacing*{\subsection}{0pt}{8pt}{4pt}
 \titlespacing*{\subsubsection}{0pt}{6pt}{3pt}
 
+\newif\ifensaeenchaine
+\ensaeenchainefalse
+
 % En-tete de section : titre centre, souligne d'un bandeau epais dont la
 % pastille numerotee marque l'extremite droite. #1 = titre, #2 = numero
 % (vide pour une section non numerotee, la pastille n'est alors pas tracee).
@@ -148,7 +151,13 @@
   % « avant » de titlespacing etant une glue, il est jete en haut de page
   % et n'a aucun effet sur un titre qui ouvre la page. Seul un \vspace*
   % (etoile) survit au saut de page : c'est lui qui remonte le titre.
-  \vspace*{-1.5cm}%
+  % Un titre qui ouvre la page doit remonter sous l'en-tete vide ; un titre
+  % enchaine a la suite d'un texte doit au contraire s'en ecarter.
+  \ifensaeenchaine
+    \vspace{1.8cm}\global\ensaeenchainefalse
+  \else
+    \vspace*{-1.5cm}%
+  \fi
   % Le titre est confine a 78 % de la largeur : un intitule long passe a la
   % ligne au lieu de venir buter sur la pastille, qui occupe la droite.
   {\centering
@@ -327,6 +336,7 @@
 \newcommand{\sautunefois}{%
   \let\vraiclearpage\clearpage
   \def\clearpage{\let\clearpage\vraiclearpage}%
+  \global\ensaeenchainetrue
 }
 
 % ── Annexes ─────────────────────────────────────────────────
@@ -443,8 +453,10 @@
 \begin{appendices}
   % La pastille porte la lettre de l'annexe, le titre reste seul
   \renewcommand{\ensaebandeaunum}[1]{\ensaetetesection{#1}{\thesection}}
-  {\let\clearpage\relax \input{annexes/annexe_A}}
-  {\let\clearpage\relax \input{annexes/annexe_motifs}}
+  \sautunefois
+  \input{annexes/annexe_A}
+  \sautunefois
+  \input{annexes/annexe_motifs}
   \sautunefois
   \input{annexes/annexe_C}
 \end{appendices}
