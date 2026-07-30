@@ -438,7 +438,7 @@
   % La pastille porte la lettre de l'annexe, le titre reste seul
   \renewcommand{\ensaebandeaunum}[1]{\ensaetetesection{#1}{\thesection}}
   {\let\clearpage\relax \input{annexes/annexe_A}}
-  \input{annexes/annexe_motifs}
+  {\let\clearpage\relax \input{annexes/annexe_motifs}}
   \input{annexes/annexe_C}
 \end{appendices}
 
