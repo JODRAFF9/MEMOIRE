@@ -243,13 +243,14 @@ La seconde est le support commun : $0 < P(D_i = 1 \mid X_i) < 1$,
 garantissant que l'appariement est réalisable pour chaque traité.
 \textcite{rosenbaum1983} ont montré que si la CIA est satisfaite pour $X_i$,
 elle l'est aussi pour le score de propension $p(X_i) = P(D_i = 1 \mid X_i)$,
-estimé par un modèle probit :
+estimé par un modèle logit
 \begin{equation}
-  p(X_i) = \Phi\left(X_i'\hat{\beta}\right).
+  p(X_i) = \frac{\exp\left(X_i'\hat{\beta}\right)}
+                {1 + \exp\left(X_i'\hat{\beta}\right)}.
   \label{eq:probit}
 \end{equation}
 
-Les covariables $X_i$ du modèle probit sont choisies pour satisfaire
+Les covariables $X_i$ du modèle logit sont choisies pour satisfaire
 l'hypothèse d'indépendance conditionnelle tout en évitant d'inclure des
 variables potentiellement affectées par le traitement~: chacune est mesurée
 à la période de base (2018). Elles couvrent le chef de ménage (âge, sexe,

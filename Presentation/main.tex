@@ -363,9 +363,9 @@
 \begin{frame}{PSM + Double différence : principe (2/2)}
   \small
   \begin{block}{Étape 1 - Appariement par score de propension (PSM)}
-    Estimation du score de propension par probit :
+    Estimation du score de propension par logit :
     \begin{equation*}
-      p(X_i) = P(D_i = 1 \mid X_i) = \Phi(X_i'\beta)
+      p(X_i) = P(D_i = 1 \mid X_i) = \frac{\exp(X_i'\beta)}{1+\exp(X_i'\beta)}
     \end{equation*}
     Appariement par $k$-plus proches voisins ($k=4$) et vérification du support commun.
   \end{block}
@@ -491,7 +491,7 @@
     \begin{column}{0.46\textwidth}
       \begin{block}{Équilibre après appariement ($k$-NN, $k=4$)}
         \begin{itemize}
-          \item Probit au niveau enfant : 17\,735 enfants suivis
+          \item Logit au niveau enfant : 17\,735 enfants suivis
                 aux deux vagues (pseudo-$R^2 = 0{,}151$), covariables du
                 ménage ainsi que sexe et âge de l'enfant.
           \item Différence standardisée moyenne : 11,4\,\% avant,

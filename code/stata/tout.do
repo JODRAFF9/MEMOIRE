@@ -1128,7 +1128,7 @@ save "$TEMP/panel_complet.dta", replace
 
    Strategie :
      1. Panel d'enfants suivis entre les deux vagues (cle preload)
-        puis probit au NIVEAU ENFANT sur t=0 -> score de propension
+        puis logit au NIVEAU ENFANT sur t=0 -> score de propension
      2. Verification equilibre (SMD) sur les covariables menage ET enfant
      3. Appariement PSM (k-NN, kernel, caliper) au niveau enfant
      4. DD brute (sans appariement, reference)
@@ -1210,14 +1210,14 @@ quietly count if ecart_age < 0
 di "  Part avec ecart d'age negatif (erreur de declaration) : " %5.1f 100*r(N)/_N "%"
 quietly drop ecart_age
 
-di _newline "=== Probit ENFANT — score de propension (EHCVM I, panel d'enfants) ==="
+di _newline "=== Logit ENFANT — score de propension (EHCVM I, panel d'enfants) ==="
 di "Enfants suivis aux deux vagues : " _N
 
-/* ── 1b. Probit au niveau enfant ─────────────────────────────
+/* ── 1b. Logit au niveau enfant ──────────────────────────────
    Covariables du menage a t=0 + sexe et age de l'enfant. Erreurs-types
    clusterisees au niveau de la grappe (le traitement varie au niveau
    menage : la correlation intra-grappe couvre aussi l'intra-menage). */
-probit D c.hhsize c.log_pcexp i.milieu i.region ///
+logit D c.hhsize c.log_pcexp i.milieu i.region ///
          c.hgender c.hage i.heduc i.hmstat i.hcsp ///
          i.sexe18 c.age18, vce(cluster grappe) nolog
 
@@ -1760,14 +1760,14 @@ di "  ATT_DD_stables = " %8.4f r(estimate) ///
    "  SE = " %8.4f r(se) "  p = " %6.4f r(p)
 
 /* ── PSM-DD sur la definition alternative ──────────────────────
-   Meme chaine que le design principal : probit a t=0, appariement k-NN
+   Meme chaine que le design principal : logit a t=0, appariement k-NN
    sur support commun, puis DD ponderee. */
 preserve
     keep if t == 0
-    quietly probit D_stable_alt c.hhsize c.log_pcexp i.milieu i.region ///
+    quietly logit D_stable_alt c.hhsize c.log_pcexp i.milieu i.region ///
         c.hgender c.hage i.heduc i.hmstat i.hcsp i.sexe c.age, ///
         vce(cluster grappe)
-    di _newline "  Pseudo-R2 probit (stables) : " %6.3f 1 - e(ll)/e(ll_0)
+    di _newline "  Pseudo-R2 logit (stables) : " %6.3f 1 - e(ll)/e(ll_0)
     quietly predict pscore_sta if e(sample), pr
     quietly psmatch2 D_stable_alt, pscore(pscore_sta) neighbor($K_VOISINS) common
     di _newline "  Balance apres appariement (stables) :"

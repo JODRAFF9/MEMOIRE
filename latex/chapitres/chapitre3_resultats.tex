@@ -10,7 +10,7 @@ par dimension de la pauvreté.
 
 \subsection{Estimation du score de propension}
 
-\subsubsection{Résultats du modèle probit}
+\subsubsection{Résultats du modèle logit}
 
 Le modèle présente un pseudo-$R^2$ de McFadden de 15,1\,\%. La probabilité
 qu'un enfant vive dans un
@@ -26,7 +26,7 @@ l'appartenance à un ménage bénéficiaire.
 
 \begin{table}[H]
   \centering
-  \caption{Modèle probit pour l'estimation du score de propension (EHCVM I, 2018-2019)}
+  \caption{Modèle logit pour l'estimation du score de propension (EHCVM I, 2018-2019)}
   \label{tab:probit}
   \zebre
   \begin{tabular}{|l|c|}
@@ -186,14 +186,14 @@ différence des deux premières lignes
     \hline
     PSM seul, EHCVM~I (2018-19)  & Observables & \makecell{-$0{,}077^{**}$\\$(0{,}031)$} \\ \hline
     PSM seul, EHCVM~II (2021-22) & Observables & \makecell{-$0{,}019$\\$(0{,}031)$} \\ \hline
-    DD simple (sans appariement) & Inobservables fixes & \makecell{$0{,}032$\\$(0{,}023)$} \\ \hline
+    DD simple (sans appariement) & Inobservables fixes & \makecell{$0{,}035$\\$(0{,}025)$} \\ \hline
     PSM-DD (estimateur retenu)   & Les deux & \makecell{$0{,}058^{*}$\\$(0{,}030)$} \\
     \hline
   \end{tabular}
 
   {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM. $^{*}p<0{,}10$, $^{**}p<0{,}05$.}
 \end{table}
-\footnotetext{\textit{Note :} variable de résultat, incidence MODA $\hat{H}$ (7 dimensions, $k=4$). Erreurs-types clusterisées par grappe, entre parenthèses sous le coefficient. Les lignes PSM et PSM-DD reposent sur l'appariement k-NN au niveau enfant ($n = 16\,152$ observations-enfants)~; la DD simple porte sur l'ensemble des enfants des ménages du panel ($n = 53\,679$).}
+\footnotetext{\textit{Note :} variable de résultat, incidence MODA $\hat{H}$ (7 dimensions, $k=4$). Erreurs-types clusterisées par grappe, entre parenthèses sous le coefficient. Les lignes PSM et PSM-DD reposent sur l'appariement k-NN au niveau enfant ($n = 16\,152$ observations-enfants)~; la DD simple porte sur l'ensemble des enfants suivis, avant restriction au support commun ($n = 35\,572$).}
 
 Le signe de l'estimateur retenu est positif. Entre
 2018-2019 et 2021-2022, la privation multidimensionnelle des enfants de ménages
@@ -227,7 +227,7 @@ l'effet vaut $0{,}058$ pour le k-NN, $0{,}055$ pour le noyau
 Epanechnikov et $0{,}047$ pour le caliper,
 tous trois significatifs au seuil de 10\,\% et aucun au seuil de 5\,\%. La
 double différence brute, qui ne corrige pas la sélection, donne une valeur
-plus faible et non significative ($0{,}032$). Une validation
+plus faible et non significative ($0{,}035$). Une validation
 croisée avec une implémentation indépendante du même estimateur, la commande
 \texttt{diff} de \textcite{villa2016}, où le score de propension est
 réestimé par logit, aboutit au même constat~: effet de $0{,}045$,
@@ -247,7 +247,7 @@ significatif).
     k-NN ($k=4$, avec remise)             & $0{,}058^{*}$ \\ \hline
     Noyau Epanechnikov ($h=0{,}06$)       & $0{,}055^{*}$ \\ \hline
     Caliper ($\varepsilon = 0{,}05$, sans remise) & $0{,}047^{*}$ \\ \hline
-    DD brute (sans appariement)           & $0{,}032$ \\
+    DD simple (sans appariement)          & $0{,}035$ \\
     \hline
   \end{tabular}
 
