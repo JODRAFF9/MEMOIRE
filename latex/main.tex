@@ -469,9 +469,14 @@
 \printbibliography[heading=none]
 
 % ── Table des matières complète ──────────────────────────────
+% Profondeur limitee aux sous-sections et interligne simple pour tenir
+% sur deux pages.
 \clearpage
 \phantomsection
 \addcontentsline{toc}{section}{Table des matières}
+\setcounter{tocdepth}{2}
+\begin{singlespace}
 \tableofcontents
+\end{singlespace}
 
 \end{document}
