@@ -27,7 +27,7 @@ l'appartenance à un ménage bénéficiaire.
 \begin{table}[H]
   \centering
   \caption{Modèle logit pour l'estimation du score de propension (EHCVM I, 2018-2019)}
-  \label{tab:probit}
+  \label{tab:logit}
   \zebre
   \begin{tabular}{|l|c|}
     \hline
@@ -208,11 +208,11 @@ tous trois significatifs au seuil de 10\,\% et aucun au seuil de 5\,\%. La
 double différence brute, qui ne corrige pas la sélection, donne une valeur
 plus faible et non significative ($0{,}035$). Une validation
 croisée avec une implémentation indépendante du même estimateur, la commande
-\texttt{diff} de \textcite{villa2016}, où le score de propension est
-réestimé par logit, aboutit au même constat~: effet de $0{,}045$,
-significatif au seuil de 10\,\%, avec la même décomposition (écart initial
-significatif en faveur des bénéficiaires, écart final resserré et non
-significatif).
+\texttt{diff} de \textcite{villa2016}, qui réestime elle-même le score de
+propension, aboutit au même constat, un effet de $0{,}045$
+significatif au seuil de 10\,\% et la même décomposition, avec un écart initial
+significatif en faveur des bénéficiaires et un écart final resserré et non
+significatif.
 
 \begin{table}[H]
   \centering
