@@ -12,47 +12,48 @@ par dimension de la pauvreté.
 
 \subsubsection{Résultats du modèle logit}
 
-Le modèle présente un pseudo-$R^2$ de McFadden de 15,1\,\%. La probabilité
+Le modèle présente un pseudo-$R^2$ de McFadden de 15,0\,\%. La probabilité
 qu'un enfant vive dans un
-ménage bénéficiaire croît avec la dépense par tête ($0{,}58$), la présence
-d'une femme à la tête du ménage ($0{,}51$), la taille du ménage ($0{,}05$) et
-l'âge du chef. À niveau de vie donné, les ménages dirigés par un cadre
-moyen (-$0{,}60$), un travailleur familial (-$0{,}40$) ou un travailleur pour
-compte propre (-$0{,}21$) reçoivent moins souvent des transferts que ceux dont
+ménage bénéficiaire croît avec la dépense par tête ($1{,}04$), la présence
+d'une femme à la tête du ménage ($0{,}92$) et la taille du ménage ($0{,}08$).
+À niveau de vie donné, les ménages dirigés par un cadre
+moyen (-$1{,}10$), un ouvrier non qualifié (-$0{,}60$), un travailleur
+familial (-$0{,}66$) ou un travailleur pour
+compte propre (-$0{,}38$) reçoivent moins souvent des transferts que ceux dont
 le chef est sans emploi, catégorie de référence. Les deux covariables
 individuelles ne sont en revanche pas significatives, ni
-le genre de l'enfant ($0{,}018$) ni son âge ($0{,}003$) ne prédisant
+le genre de l'enfant ($0{,}037$) ni son âge ($0{,}007$) ne prédisant
 l'appartenance à un ménage bénéficiaire.
 
 \begin{table}[H]
   \centering
   \caption{Modèle logit pour l'estimation du score de propension (EHCVM I, 2018-2019)}
   \label{tab:logit}
-  \zebre
   \begin{tabular}{|l|c|}
     \hline
 \entete Variable & Coefficient \\
     \hline
     Caractéristiques de l'enfant & \\ \hline
-    \quad Genre féminin                         & \makecell{$0{,}018$\\$(0{,}024)$} \\ \hline
-    \quad Âge de l'enfant (années)             & \makecell{$0{,}003$\\$(0{,}003)$} \\ \hline
+    \quad Genre féminin                        & \makecell{$0{,}037$\\$(0{,}044)$} \\ \hline
+    \quad Âge de l'enfant (années)             & \makecell{$0{,}007$\\$(0{,}006)$} \\ \hline
     Caractéristiques du chef de ménage & \\ \hline
-    \quad Âge du chef (années)                 & \makecell{$0{,}005^{**}$\\$(0{,}003)$} \\ \hline
-    \quad Chef féminin                         & \makecell{$0{,}513^{***}$\\$(0{,}090)$} \\ \hline
-    \quad CSP, cadre moyen                    & \makecell{-$0{,}597^{***}$\\$(0{,}204)$} \\ \hline
-    \quad CSP, travailleur familial           & \makecell{-$0{,}396^{**}$\\$(0{,}193)$} \\ \hline
-    \quad CSP, compte propre                  & \makecell{-$0{,}213^{***}$\\$(0{,}075)$} \\ \hline
-    \quad Éducation, secondaire gén.~2        & \makecell{-$0{,}420^{**}$\\$(0{,}195)$} \\ \hline
-    \quad Divorcé(e)                           & \makecell{-$1{,}082^{***}$\\$(0{,}385)$} \\ \hline
+    \quad Âge du chef (années)                 & \makecell{$0{,}004$\\$(0{,}005)$} \\ \hline
+    \quad Chef féminin                         & \makecell{$0{,}917^{***}$\\$(0{,}164)$} \\ \hline
+    \quad CSP, cadre moyen                     & \makecell{-$1{,}099^{***}$\\$(0{,}385)$} \\ \hline
+    \quad CSP, ouvrier non qualifié            & \makecell{-$0{,}601^{*}$\\$(0{,}362)$} \\ \hline
+    \quad CSP, travailleur familial            & \makecell{-$0{,}658^{*}$\\$(0{,}346)$} \\ \hline
+    \quad CSP, compte propre                   & \makecell{-$0{,}382^{***}$\\$(0{,}137)$} \\ \hline
+    \quad Éducation, postsecondaire            & \makecell{$1{,}063^{**}$\\$(0{,}502)$} \\ \hline
+    \quad Divorcé(e)                           & \makecell{-$1{,}903^{**}$\\$(0{,}751)$} \\ \hline
     Caractéristiques du ménage & \\ \hline
-    \quad Taille du ménage                     & \makecell{$0{,}048^{***}$\\$(0{,}006)$} \\ \hline
-    \quad Log dépense par tête                 & \makecell{$0{,}583^{***}$\\$(0{,}074)$} \\ \hline
-    \quad Milieu rural                         & \makecell{-$0{,}093$\\$(0{,}079)$} \\ \hline
+    \quad Taille du ménage                     & \makecell{$0{,}084^{***}$\\$(0{,}011)$} \\ \hline
+    \quad Log dépense par tête                 & \makecell{$1{,}044^{***}$\\$(0{,}142)$} \\ \hline
+    \quad Milieu rural                         & \makecell{-$0{,}166$\\$(0{,}150)$} \\ \hline
     Effets fixes région               & Oui \\
     \hline
-    Constante                                  & \makecell{-$9{,}95^{***}$\\$(1{,}031)$} \\
+    Constante                                  & \makecell{-$17{,}10^{***}$\\$(2{,}006)$} \\
     \hline
-    Pseudo-$R^2$ de McFadden                   & $0{,}151$ \\ \hline
+    Pseudo-$R^2$ de McFadden                   & $0{,}150$ \\ \hline
     Observations (enfants, panel suivi, EHCVM~I) & $17\,735$ \\
     \hline
   \end{tabular}
@@ -88,13 +89,13 @@ trois algorithmes.
     \hline
 \entete Variable & Moyenne traités & Moyenne témoins & SMD (\%) & T-stat & $P>|t|$ \\
     \hline
-    Genre de l'enfant (\% filles) & 0,505  & 0,501  & 0,7   & 0,25  & 0,799 \\ \hline
-    Âge de l'enfant (années)     & 6,878  & 6,825  & 1,3   & 0,45  & 0,650 \\ \hline
-    Taille du ménage             & 17,276 & 16,456 & 9,4   & 2,95  & 0,003 \\ \hline
-    Log dépense par tête         & 12,888 & 12,940 & -10,1 & -3,22 & 0,001 \\ \hline
-    Genre du chef de ménage       & 1,300  & 1,321  & -5,1  & -1,69 & 0,091 \\ \hline
-    Âge du chef (années)         & 54,794 & 54,578 & 1,5   & 0,53  & 0,595 \\ \hline
-    Milieu rural (\%)            & 0,470  & 0,457  & 2,8   & 1,01  & 0,314 \\
+    Genre de l'enfant (\% filles) & 0,505  & 0,502  & 0,6   & 0,21  & 0,836 \\ \hline
+    Âge de l'enfant (années)     & 6,878  & 6,795  & 2,0   & 0,71  & 0,478 \\ \hline
+    Taille du ménage             & 17,276 & 16,542 & 8,5   & 2,59  & 0,010 \\ \hline
+    Log dépense par tête         & 12,888 & 12,943 & -10,7 & -3,45 & 0,001 \\ \hline
+    Genre du chef de ménage       & 1,300  & 1,324  & -5,8  & -1,94 & 0,052 \\ \hline
+    Âge du chef (années)         & 54,794 & 54,437 & 2,5   & 0,87  & 0,384 \\ \hline
+    Milieu rural (\%)            & 0,470  & 0,454  & 3,4   & 1,23  & 0,219 \\
     \hline
   \end{tabular}%
   }
@@ -104,10 +105,12 @@ trois algorithmes.
 \footnotetext{\textit{Note :} niveau enfant, panel de 17\,786 enfants suivis~; seuil conventionnel~: SMD $< 10\,\%$. Les effets fixes région et les modalités d'éducation et d'état matrimonial du chef, omis du tableau, présentent tous une SMD résiduelle inférieure à 7\,\%.}
 
 L'appariement corrige l'essentiel du déséquilibre initial. La différence
-standardisée moyenne passe de 11,4\,\% à 2,5\,\% et aucune covariable ne
-dépasse le seuil conventionnel de 10\,\%. Les
-covariables individuelles sont équilibrées, le genre à $0{,}7$\,\% et l'âge
-de l'enfant à $1{,}3$\,\%.
+standardisée moyenne passe de 11,4\,\% à 2,4\,\%. Les
+covariables individuelles sont équilibrées, le genre à $0{,}6$\,\% et l'âge
+de l'enfant à $2{,}0$\,\%. Deux covariables de ménage conservent un
+déséquilibre résiduel, la taille du ménage ($8{,}5$\,\%) et le log de la
+dépense par tête (-$10{,}7$\,\%), les deux déterminants les plus forts du
+traitement.
 
 \subsubsection{Comparaison de la qualité des trois appariements}
 
@@ -124,25 +127,25 @@ d'équilibrage des trois algorithmes.
 \entete Échantillon & Pseudo-$R^2$ & $p$ (LR $\chi^2$) & SMD moy. (\%) & $B$ (\%) & $R$ \\
     \hline
     Avant appariement            & 0,151 & 0,000 & 11,4 & 103,6 & 1,25 \\ \hline
-    k-NN ($k=4$)                 & 0,006 & 0,330 & 2,5  & 18,1  & 1,15 \\ \hline
-    Noyau Epanechnikov           & 0,003 & 0,967 & 2,0  & 13,8  & 1,39 \\ \hline
-    Caliper ($\varepsilon = 0{,}05$) & 0,007 & 0,235 & 2,5 & 19,0 & 1,24 \\
+    k-NN ($k=4$)                 & 0,005 & 0,551 & 2,4  & 17,0  & 1,04 \\ \hline
+    Noyau Epanechnikov           & 0,003 & 0,964 & 2,0  & 13,9  & 1,30 \\ \hline
+    Caliper ($\varepsilon = 0{,}05$) & 0,002 & 1,000 & 1,6 & 11,5 & 0,97 \\
     \hline
   \end{tabular}
 
   {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM.}
 \end{table}
+\footnotetext{\textit{Note :} $B$ = différence standardisée des indices de propension linéaires, $R$ = rapport de leurs variances. Un appariement est jugé satisfaisant lorsque $B < 25\,\%$ et $R \in [0{,}5~;~2]$.}
 Les trois algorithmes satisfont les critères usuels. La différence
-standardisée moyenne tombe à 2,5\,\% ou moins, le pseudo-$R^2$ passe de 0,151
-à 0,007 ou moins, $B$ reste sous 25\,\% et $R$ dans l'intervalle
+standardisée moyenne tombe à 2,4\,\% ou moins, le pseudo-$R^2$ passe de 0,151
+à 0,005 ou moins, $B$ reste sous 25\,\% et $R$ dans l'intervalle
 $[0{,}5~;~2]$. Le test joint n'est significatif pour aucune des trois
-méthodes. Le noyau s'équilibre un peu mieux, avec une SMD de 2,0\,\%, le
-k-NN et le caliper se tenant à 2,5\,\%. Le déséquilibre résiduel du k-NN
+méthodes. Le caliper s'équilibre le mieux, avec une SMD de 1,6\,\%, devant
+le noyau à 2,0\,\% et le k-NN à 2,4\,\%. Le déséquilibre résiduel du k-NN
 porte sur la taille du ménage et la dépense par tête.
 
 \subsection{Impact des transferts sur la pauvreté multidimensionnelle}
 
-\subsubsection{Des estimateurs transversaux à l'estimateur PSM-DD}
 \label{subsec:psmdd}
 
 Le tableau~\ref{tab:psmdd_att} rapporte quatre spécifications, de
@@ -158,29 +161,28 @@ PSM-DD retenu.
     \hline
 \entete Spécification & Coefficient \\
     \hline
-    PSM seul, EHCVM~I (2018-19)  & \makecell{-$0{,}077^{**}$\\$(0{,}031)$} \\ \hline
-    PSM seul, EHCVM~II (2021-22) & \makecell{-$0{,}019$\\$(0{,}031)$} \\ \hline
-    DD simple (sans appariement) & \makecell{$0{,}035$\\$(0{,}025)$} \\ \hline
-    PSM-DD (estimateur retenu)   & \makecell{$0{,}058^{*}$\\$(0{,}030)$} \\
+    PSM seul, EHCVM~I (2018-19)  & \makecell{-$0{,}081^{***}$\\$(0{,}031)$} \\ \hline
+    PSM seul, EHCVM~II (2021-22) & \makecell{-$0{,}017$\\$(0{,}031)$} \\ \hline
+    DD simple                    & \makecell{$0{,}035$\\$(0{,}025)$} \\ \hline
+    PSM-DD                       & \makecell{$0{,}064^{**}$\\$(0{,}029)$} \\
     \hline
   \end{tabular}
 
   {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM. $^{*}p<0{,}10$, $^{**}p<0{,}05$.}
 \end{table}
-\footnotetext{\textit{Note :} variable de résultat, incidence MODA (7 dimensions, $k=4$). Erreurs-types clusterisées par grappe, entre parenthèses sous le coefficient. Les lignes PSM et PSM-DD reposent sur l'appariement k-NN au niveau enfant ($n = 16\,152$ observations-enfants)~; la DD simple porte sur l'ensemble des enfants suivis, avant restriction au support commun ($n = 35\,572$).}
+\footnotetext{\textit{Note :} variable de résultat, incidence MODA (7 dimensions, $k=4$). Erreurs-types clusterisées par grappe, entre parenthèses sous le coefficient. Les lignes PSM et PSM-DD reposent sur l'appariement k-NN au niveau enfant ($n = 16\,210$ observations-enfants)~; la DD simple porte sur l'ensemble des enfants suivis, avant restriction au support commun ($n = 35\,572$).}
 
-L'appariement transversal donne un écart de $-7{,}7$ points en faveur des
-enfants bénéficiaires en 2018-2019, significatif au seuil de 5\,\%, réduit à
-$-1{,}9$ point et non significatif en 2021-2022. La double différence sans
+L'appariement transversal donne un écart de $-8{,}1$ points en faveur des
+enfants bénéficiaires en 2018-2019, significatif au seuil de 1\,\%, réduit à
+$-1{,}7$ point et non significatif en 2021-2022. La double différence sans
 appariement donne $+3{,}5$ points, non significatifs. L'estimateur PSM-DD
-donne $+5{,}8$ points, significatifs au seuil de 10\,\%, soit par
+donne $+6{,}4$ points, significatifs au seuil de 5\,\%, soit par
 construction la différence des deux premières lignes
-($0{,}058 = -0{,}019 - (-0{,}077)$). La privation multidimensionnelle des
+($0{,}064 = -0{,}017 - (-0{,}081)$). La privation multidimensionnelle des
 enfants de ménages bénéficiaires a donc reculé plus lentement que celle
 d'enfants témoins de genre, d'âge et de profil de ménage comparables.
 L'hypothèse H1 n'est pas validée. L'intervalle de
-confiance à 95\,\% ($[-0{,}1~;~11{,}6]$ points) contient encore
-zéro et la significativité n'est atteinte qu'au seuil de 10\,\%.
+confiance à 95\,\% s'étend de $0{,}7$ à $12{,}2$ points.
 
 La figure~\ref{fig:dd_trajectoires} représente l'incidence MODA des enfants
 bénéficiaires et des témoins appariés aux deux vagues, ainsi que le
@@ -202,9 +204,9 @@ son contrefactuel correspond à l'effet estimé.
 
 Le tableau~\ref{tab:psm_methodes} examine la stabilité des résultats selon la
 méthode d'appariement retenue. Les trois algorithmes concordent étroitement :
-l'effet vaut $0{,}058$ pour le k-NN, $0{,}055$ pour le noyau
-Epanechnikov et $0{,}047$ pour le caliper,
-tous trois significatifs au seuil de 10\,\% et aucun au seuil de 5\,\%. La
+l'effet vaut $0{,}064$ pour le k-NN, $0{,}061$ pour le noyau
+Epanechnikov et $0{,}050$ pour le caliper,
+tous trois significatifs au moins au seuil de 10\,\%. La
 double différence brute, qui ne corrige pas la sélection, donne une valeur
 plus faible et non significative ($0{,}035$). Une validation
 croisée avec une implémentation indépendante du même estimateur, la commande
@@ -223,16 +225,63 @@ significatif.
     \hline
 \entete Méthode d'appariement & ATT (MODA) \\
     \hline
-    k-NN ($k=4$, avec remise)             & $0{,}058^{*}$ \\ \hline
-    Noyau Epanechnikov ($h=0{,}06$)       & $0{,}055^{*}$ \\ \hline
-    Caliper ($\varepsilon = 0{,}05$, sans remise) & $0{,}047^{*}$ \\ \hline
-    DD simple (sans appariement)          & $0{,}035$ \\
+    k-NN ($k=4$, avec remise)             & $0{,}064^{**}$ \\ \hline
+    Noyau Epanechnikov ($h=0{,}06$)       & $0{,}061^{*}$ \\ \hline
+    Caliper ($\varepsilon = 0{,}05$, sans remise) & $0{,}050^{*}$ \\ \hline
+    DD simple                             & $0{,}035$ \\
     \hline
   \end{tabular}
 
-  {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM. $^{*}p<0{,}10$.}
+  {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM. $^{*}p<0{,}10$, $^{**}p<0{,}05$.}
 \end{table}
 \footnotetext{\textit{Note :} erreurs-types clusterisées par grappe, appariement au niveau enfant.}
+
+\subsubsection{Définition alternative du traitement}
+
+Le tableau~\ref{tab:stables_estim} reprend l'estimation en substituant aux
+bénéficiaires de 2018 les enfants des ménages bénéficiaires stables, recevant
+un transfert aux deux vagues, face aux enfants des ménages jamais
+bénéficiaires. Le tableau~\ref{tab:stables_montant} décline ce design par
+quintile de montant annuel reçu en 2018.
+
+\begin{table}[H]
+  \centering
+  \caption[Définition alternative du traitement, bénéficiaires stables contre jamais bénéficiaires]{Définition alternative du traitement, bénéficiaires stables contre jamais bénéficiaires\protect\footnotemark}
+  \label{tab:stables_estim}
+  \zebre
+  \begin{tabular}{|l|c|}
+    \hline
+\entete Spécification & Coefficient \\
+    \hline
+    DD simple (sans appariement) & \makecell{\ATTstaDD\\\ATTstaDDse} \\ \hline
+    PSM-DD (k-NN, $k=4$)         & \makecell{\ATTstaPSM\\\ATTstaPSMse} \\
+    \hline
+  \end{tabular}
+
+  {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM.}
+\end{table}
+\footnotetext{\textit{Note :} champ des enfants suivis, erreurs-types clusterisées par grappe, entre parenthèses sous le coefficient. Le score de propension de la ligne PSM-DD est réestimé sur ce sous-échantillon.}
+
+\begin{table}[H]
+	\centering
+	\caption[Effet par quintile de montant annuel reçu en 2018 chez les bénéficiaires stables]{Effet par quintile de montant annuel reçu en 2018 chez les bénéficiaires stables\protect\footnotemark}
+	\label{tab:stables_montant}
+	\zebre
+	\begin{tabular}{|l|c|}
+		\hline
+		\entete Quintile de montant (2018) & ATT (DD) \\
+		\hline
+		Q1 (jusqu'à 200~000 FCFA)  & \makecell{$0{,}096$\\$(0{,}069)$} \\ \hline
+		Q2 (220~000 à 763~000)     & \makecell{$0{,}015$\\$(0{,}048)$} \\ \hline
+		Q3 (768~000 à 1~400~000)   & \makecell{-$0{,}011$\\$(0{,}091)$} \\ \hline
+		Q4 (1~450~000 à 2~400~000) & \makecell{$0{,}075$\\$(0{,}064)$} \\ \hline
+		Q5 (au-delà de 2~490~000)  & \makecell{-$0{,}089$\\$(0{,}063)$} \\
+		\hline
+	\end{tabular}
+	
+	{\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM.}
+\end{table}
+\footnotetext{\textit{Note :} double différence, erreurs-types clusterisées par grappe, entre parenthèses sous le coefficient. Quintiles du montant annuel 2018 construits au niveau des ménages bénéficiaires stables, chaque quintile étant comparé à l'ensemble des enfants des ménages jamais bénéficiaires.}
 
 \subsubsection{Sensibilité au seuil de privation \texorpdfstring{$k$}{k}}
 \label{subsec:sensib_k}
@@ -240,11 +289,11 @@ significatif.
 Le seuil $k=4$ dimensions sur sept retenu pour déclarer un enfant pauvre est
 une convention. Le tableau~\ref{tab:sensib_k} réestime l'effet à chaque seuil
 possible, de $k=1$ à $k=7$. Le signe de l'effet est positif à tous les seuils,
-mais son ampleur suit une courbe en cloche, quasi nulle à $k=1$ ($0{,}006$),
+mais son ampleur suit une courbe en cloche, quasi nulle à $k=1$ ($0{,}007$),
 elle croît jusqu'à un
-maximum à $k=4$ ($0{,}058$) puis retombe, jusqu'à $0{,}009$ à $k=6$. La
+maximum à $k=4$ ($0{,}064$) puis retombe, jusqu'à $0{,}010$ à $k=6$. La
 significativité épouse la même forme, l'effet n'atteignant le seuil de 10\,\%
-qu'à $k=3$ et $k=4$.
+qu'à $k=2$, $k=3$ et $k=4$.
 
 \begin{table}[H]
   \centering
@@ -255,8 +304,8 @@ qu'à $k=3$ et $k=4$.
     \hline
 \entete Seuil $k$ & 1 & 2 & 3 & 4 & 5 & 6 & 7 \\
     \hline
-    ATT & $0{,}006$ & $0{,}022$ & $0{,}048^{*}$ & $0{,}058^{*}$ & $0{,}031$ & $0{,}009$ & $0{,}014$ \\ \hline
-    Écart-type & $(0{,}006)$ & $(0{,}014)$ & $(0{,}026)$ & $(0{,}030)$ & $(0{,}028)$ & $(0{,}021)$ & $(0{,}011)$ \\
+    ATT & $0{,}007$ & $0{,}023^{*}$ & $0{,}043^{*}$ & $0{,}064^{**}$ & $0{,}031$ & $0{,}010$ & $0{,}010$ \\ \hline
+    Écart-type & $(0{,}006)$ & $(0{,}014)$ & $(0{,}026)$ & $(0{,}029)$ & $(0{,}028)$ & $(0{,}022)$ & $(0{,}011)$ \\
     \hline
   \end{tabular}
 
@@ -267,12 +316,12 @@ qu'à $k=3$ et $k=4$.
 \subsubsection{Effets par dimension}
 L'analyse par dimension (figure~\ref{fig:effets_dim}) décompose l'effet
 d'ensemble sur les sept
-dimensions MODA. Une seule ressort, la nutrition, avec un effet de $0{,}081$
-significatif au seuil de 5\,\%. La privation alimentaire des enfants de ménages
-bénéficiaires recule 8,1 points plus lentement que celle de leurs témoins
+dimensions MODA. Une seule ressort, la nutrition, avec un effet de $0{,}068$
+significatif au seuil de 10\,\%. La privation alimentaire des enfants de ménages
+bénéficiaires recule 6,8 points plus lentement que celle de leurs témoins
 appariés. Les six autres dimensions présentent des coefficients faibles, tous
-positifs et tous non significatifs, entre $0{,}012$ pour la santé et $0{,}037$
-pour l'assainissement. Le
+positifs et tous non significatifs, entre $0{,}005$ pour l'éducation et
+$0{,}046$ pour l'assainissement. Le
 volet dimensionnel de l'hypothèse H2 est ainsi partiellement validé, l'effet
 des transferts n'étant pas uniforme entre dimensions.
 
@@ -285,3 +334,65 @@ des transferts n'étant pas uniforme entre dimensions.
   {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM.}
 \end{figure}
 
+\subsection{Hétérogénéité des effets}
+
+Le tableau~\ref{tab:heterogeneite} rapporte l'effet estimé séparément selon
+le milieu de résidence, le genre du chef de ménage et le groupe d'âge de
+l'enfant, avec pour chaque dimension le test formel d'égalité des
+coefficients. Le tableau~\ref{tab:hetero_montant} décline l'effet par
+quintile de montant annuel reçu et rapporte la pente dose-réponse.
+
+\begin{table}[H]
+  \centering
+  \caption[Hétérogénéité des effets par milieu de résidence, genre du chef de ménage et âge (PSM-DD)]{Hétérogénéité des effets par milieu de résidence, genre du chef de ménage et âge (PSM-DD)\protect\footnotemark}
+  \label{tab:heterogeneite}
+  \zebre
+  \begin{tabular}{|l|c|}
+    \hline
+\entete Sous-groupe & ATT (MODA) \\
+    \hline
+    \multicolumn{2}{|c|}{Par milieu de résidence} \\ \hline
+    \quad Milieu urbain & $0{,}069^{*}$ \\ \hline
+    \quad Milieu rural  & $0{,}059$     \\ \hline
+    \quad Test d'égalité ($p$-valeur) & 0,863 \\
+    \hline
+    \multicolumn{2}{|c|}{Par genre du chef de ménage} \\ \hline
+    \quad Homme & \ATTchefH \\ \hline
+    \quad Femme & \ATTchefF \\ \hline
+    \quad Test d'égalité ($p$-valeur) & \PchefEg \\
+    \hline
+    \multicolumn{2}{|c|}{Par groupe d'âge} \\ \hline
+    \quad 0-4 ans   & $0{,}091^{**}$ \\ \hline
+    \quad 5-14 ans  & $0{,}056^{*}$  \\ \hline
+    \quad 15-17 ans & -$0{,}069$     \\ \hline
+    \quad Test d'égalité ($p$-valeur) & 0,252 \\
+    \hline
+  \end{tabular}
+
+  {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM.}
+\end{table}
+\footnotetext{\textit{Note :} erreurs-types clusterisées par grappe, poids d'appariement k-NN au niveau enfant. Les groupes d'âge sont ceux de la période de base, l'enfant conservant son groupe aux deux vagues. $^{*}p<0{,}10$, $^{**}p<0{,}05$.}
+
+\begin{table}[H]
+  \centering
+  \caption[Hétérogénéité de l'effet selon le montant annuel des transferts]{Hétérogénéité de l'effet selon le montant annuel des transferts\protect\footnotemark}
+  \label{tab:hetero_montant}
+  \zebre
+  \begin{tabular}{|l|c|}
+    \hline
+\entete Quintile de montant & ATT \\
+    \hline
+    Q1 (jusqu'à 100~000 FCFA)  & \makecell{$0{,}129^{**}$\\$(0{,}052)$} \\ \hline
+    Q2 (110~000 à 360~000)     & \makecell{$0{,}099^{**}$\\$(0{,}042)$} \\ \hline
+    Q3 (380~000 à 900~000)     & \makecell{$0{,}020$\\$(0{,}047)$}      \\ \hline
+    Q4 (920~000 à 1~800~000)   & \makecell{$0{,}084$\\$(0{,}060)$}      \\ \hline
+    Q5 (au-delà de 1~824~000)  & \makecell{-$0{,}008$\\$(0{,}052)$}     \\
+    \hline
+    \hline
+    Pente dose-réponse (log du montant) & \makecell{-$0{,}025^{*}$\\$(0{,}014)$} \\
+    \hline
+  \end{tabular}
+
+  {\footnotesize \textit{Source :} Calcul de l'auteur, EHCVM. $^{*}p<0{,}10$, $^{**}p<0{,}05$.}
+\end{table}
+\footnotetext{\textit{Note :} appariement k-NN au niveau enfant, erreurs-types clusterisées par grappe, entre parenthèses sous le coefficient. Les quintiles sont définis sur le montant annuel des transferts parmi les ménages bénéficiaires, chaque quintile étant comparé à l'ensemble des témoins appariés. La pente dose-réponse est le coefficient de l'interaction entre la vague et le logarithme du montant, estimé sur les enfants traités.}
