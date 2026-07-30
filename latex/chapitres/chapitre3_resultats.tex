@@ -102,11 +102,10 @@ trois algorithmes.
   }
 
   {\footnotesize \textbf{Source :} Calcul de l'auteur, EHCVM.}
-
-  {\footnotesize \textbf{Note :} l'appariement est jugé satisfaisant en deçà d'une SMD de 10\,\%. Les effets fixes région et les modalités d'éducation et d'état matrimonial du chef, omis du tableau, présentent tous une SMD résiduelle inférieure à 7\,\%.}
 \end{table}
 
-L'appariement corrige l'essentiel du déséquilibre initial. La différence
+L'appariement est jugé satisfaisant en deçà d'une différence standardisée de
+10\,\%. Il corrige l'essentiel du déséquilibre initial. La différence
 standardisée moyenne passe de 11,4\,\% à 2,4\,\%. Les
 covariables individuelles sont équilibrées, le genre à $0{,}6$\,\% et l'âge
 de l'enfant à $2{,}0$\,\%. Deux covariables de ménage conservent un
@@ -137,10 +136,12 @@ doit sa performance à une restriction excessive de l'échantillon apparié.
   \end{tabular}
 
   {\footnotesize \textbf{Source :} Calcul de l'auteur, EHCVM.}
-
-  {\footnotesize \textbf{Note :} $B$ = différence standardisée des indices de propension linéaires, $R$ = rapport de leurs variances. Un appariement est jugé satisfaisant lorsque $B < 25\,\%$ et $R \in [0{,}5~;~2]$.}
 \end{table}
-Les trois algorithmes satisfont les critères usuels. La différence
+
+Le tableau retient deux indicateurs, la différence standardisée des indices de
+propension linéaires, notée $B$, et le rapport de leurs variances, noté $R$, un
+appariement étant jugé satisfaisant lorsque $B$ reste sous 25\,\% et $R$ dans
+l'intervalle $[0{,}5~;~2]$. Les trois algorithmes satisfont les critères usuels. La différence
 standardisée moyenne tombe à 2,4\,\% ou moins, le pseudo-$R^2$ passe de 0,151
 à 0,005 ou moins, $B$ reste sous 25\,\% et $R$ dans l'intervalle
 $[0{,}5~;~2]$. Le test joint n'est significatif pour aucune des trois
@@ -169,13 +170,13 @@ porte sur la taille du ménage et la dépense par tête.
   \end{tabular}
 
   {\footnotesize \textbf{Source :} Calcul de l'auteur, EHCVM. $^{*}p<0{,}10$, $^{**}p<0{,}05$.}
-
-  {\footnotesize \textbf{Note :} les lignes PSM et PSM-DD portent sur le support commun ($n = 16\,210$ observations-enfants), la DD simple sur l'ensemble des enfants suivis ($n = 35\,572$).}
 \end{table}
 
 Le tableau~\ref{tab:psmdd_att} rapporte quatre spécifications, de
 l'appariement transversal appliqué séparément à chaque vague à l'estimateur
-PSM-DD retenu. L'appariement transversal donne un écart de $-8{,}1$ points en faveur des
+PSM-DD retenu. Les lignes PSM et PSM-DD y portent sur le support commun, soit
+16\,210 observations-enfants, la double différence simple sur l'ensemble des
+enfants suivis, soit 35\,572 observations. L'appariement transversal donne un écart de $-8{,}1$ points en faveur des
 enfants bénéficiaires en 2018-2019, significatif au seuil de 1\,\%, réduit à
 $-1{,}7$ point et non significatif en 2021-2022. La double différence sans
 appariement donne $+3{,}5$ points, non significatifs. L'estimateur PSM-DD
@@ -245,7 +246,7 @@ bénéficiaires de 2018 les enfants des ménages bénéficiaires stables, receva
 un transfert aux deux vagues, face aux enfants des ménages jamais
 bénéficiaires. Ce second design mesure l'effet d'une exposition durable aux
 transferts, au prix d'une première vague qui n'y saisit plus un niveau
-pré-traitement.
+pré-traitement. Le score de propension y est réestimé sur ce sous-échantillon.
 
 \begin{table}[H]
   \centering
@@ -262,8 +263,6 @@ pré-traitement.
   \end{tabular}
 
   {\footnotesize \textbf{Source :} Calcul de l'auteur, EHCVM.}
-
-  {\footnotesize \textbf{Note :} le score de propension de la ligne PSM-DD est réestimé sur ce sous-échantillon.}
 \end{table}
 
 \subsubsection{Sensibilité au seuil de privation \texorpdfstring{$k$}{k}}
@@ -293,8 +292,6 @@ qu'à $k=2$, $k=3$ et $k=4$.
   \end{tabular}
 
   {\footnotesize \textbf{Source :} Calcul de l'auteur, EHCVM. $^{*}p<0{,}10$.}
-
-  {\footnotesize \textbf{Note :} seule la définition de la variable de résultat change d'une colonne à l'autre.}
 \end{table}
 
 \subsubsection{Effets par dimension}
@@ -354,8 +351,6 @@ quintile de montant annuel reçu et rapporte la pente dose-réponse.
   \end{tabular}
 
   {\footnotesize \textbf{Source :} Calcul de l'auteur, EHCVM.}
-
-  {\footnotesize \textbf{Note :} les groupes d'âge sont ceux de la période de base, l'enfant conservant son groupe aux deux vagues.}
 \end{table}
 
 \begin{table}[H]
@@ -379,6 +374,4 @@ quintile de montant annuel reçu et rapporte la pente dose-réponse.
   \end{tabular}
 
   {\footnotesize \textbf{Source :} Calcul de l'auteur, EHCVM. $^{*}p<0{,}10$, $^{**}p<0{,}05$.}
-
-  {\footnotesize \textbf{Note :} les quintiles sont définis sur le montant annuel des transferts parmi les ménages bénéficiaires, chaque quintile étant comparé à l'ensemble des témoins appariés. La pente dose-réponse est le coefficient de l'interaction entre la vague et le logarithme du montant, estimé sur les enfants traités.}
 \end{table}
