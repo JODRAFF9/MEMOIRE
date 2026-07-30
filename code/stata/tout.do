@@ -2531,7 +2531,7 @@ di _newline ">>> 09_placebo.do termine."
    Barres horizontales, une paire par dimension (EHCVM I vs II),
    ponderees par hhweight. Remplace les tableaux du chapitre 3. */
 use "$TEMP/panel_enfants_psm.dta", clear
-foreach g in ens 1 2 {
+foreach g in ens 1 2 3 {
     preserve
     if "`g'" != "ens" keep if groupe_base == `g'
     collapse (mean) dim_assai dim_eau dim_logem dim_nutri dim_sante ///
@@ -2566,7 +2566,8 @@ foreach g in ens 1 2 {
         blabel(bar, format(%3.1f) size(vsmall)) ///
         graphregion(color(white)) plotregion(color(white))
     set dp period
-    local suf = cond("`g'"=="ens","ensemble", cond("`g'"=="1","0_4","5_14"))
+    local suf = cond("`g'"=="ens","ensemble", ///
+        cond("`g'"=="1","0_4", cond("`g'"=="2","5_14","15_17")))
     graph export "$OUTPUT/figures/fig_dim_`suf'.pdf", replace
     di ">>> fig_dim_`suf'.pdf sauvegardé"
     restore
