@@ -26,14 +26,18 @@
    ============================================================ */
 cd "C:\Users\Bmd\Documents\ISE\Cours\ISE3\Memoire"
 capture log close _all
-/* Si un ancien log est verrouille par un autre programme (r(608)),
-   on bascule sur un nom horodate plutot que d'echouer */
-capture log using "code/stata/logs/tout.log", replace text
+/* Si tout.log est verrouille par un autre programme (r(608)), on bascule sur
+   un nom horodate. $LOGFILE retient le fichier reellement ouvert, recopie
+   vers tout.log en fin de script. */
+global LOGFILE "code/stata/logs/tout.log"
+capture log using "$LOGFILE", replace text
 if _rc {
     local horodate = subinstr("`c(current_date)'_`c(current_time)'", ":", "-", .)
     local horodate = subinstr("`horodate'", " ", "_", .)
-    log using "code/stata/logs/tout_`horodate'.log", replace text
+    global LOGFILE "code/stata/logs/tout_`horodate'.log"
+    log using "$LOGFILE", replace text
 }
+di ">>> Log ouvert : $LOGFILE"
 
 di _newline(2) ">>> DEBUT DU PIPELINE COMPLET <<<"
 di "$(date)"
@@ -1133,7 +1137,7 @@ save "$TEMP/panel_complet.dta", replace
      3. Appariement PSM (k-NN, kernel, caliper) au niveau enfant
      4. DD brute (sans appariement, reference)
      5. PSM-DD sur le panel d'enfants apparie (Heckman et al. 1997/1998)
-     6. Heterogeneite (milieu, sexe, age)
+     6. Heterogeneite (milieu, genre, age)
      7. Robustesse (seuil k, methodes d'appariement, agregat menage)
 
    Traitement : defini a la periode de base (2018), transfert d'un
@@ -1200,7 +1204,7 @@ drop if missing(D) | missing(log_pcexp) | missing(hhsize) ///
    satisfaire. */
 di _newline "--- Validation de l'appariement individuel ---"
 quietly count if sexe18 == sexe21
-di "  Concordance du sexe entre vagues : " %5.1f 100*r(N)/_N "%"
+di "  Concordance du genre entre vagues : " %5.1f 100*r(N)/_N "%"
 quietly gen int ecart_age = age21 - age18
 quietly summarize ecart_age, detail
 di "  Ecart d'age : mediane " %4.1f r(p50) "  moyenne " %5.2f r(mean)
@@ -1214,7 +1218,7 @@ di _newline "=== Logit ENFANT — score de propension (EHCVM I, panel d'enfants)
 di "Enfants suivis aux deux vagues : " _N
 
 /* ── 1b. Logit au niveau enfant ──────────────────────────────
-   Covariables du menage a t=0 + sexe et age de l'enfant. Erreurs-types
+   Covariables du menage a t=0 + genre et age de l'enfant. Erreurs-types
    clusterisees au niveau de la grappe (le traitement varie au niveau
    menage : la correlation intra-grappe couvre aussi l'intra-menage). */
 logit D c.hhsize c.log_pcexp i.milieu i.region ///
@@ -1251,7 +1255,7 @@ save "$TEMP/pscore_t0.dta", replace
      c. Caliper (epsilon=CALIPER, sans remise)
 
    Chaque enfant traite est apparie a des enfants temoins de profil
-   observable comparable, y compris en sexe et en age.
+   observable comparable, y compris en genre et en age.
    ============================================================ */
 
 local covbal hhsize log_pcexp i.milieu i.region hgender hage ///
@@ -1505,7 +1509,7 @@ foreach outcome in pauvre_MODA {
 }
 drop urban
 
-di _newline "=== Heterogeneite par sexe ==="
+di _newline "=== Heterogeneite par genre ==="
 capture confirm variable sexe
 if _rc == 0 {
     foreach outcome in pauvre_MODA {
@@ -1535,8 +1539,8 @@ if _rc == 0 {
     drop fille
 }
 
-/* -- Par sexe du chef de menage (hgender : 1 homme, 2 femme) --
-di _newline "=== Heterogeneite par sexe du chef de menage ==="
+/* -- Par genre du chef de menage (hgender : 1 homme, 2 femme) --
+di _newline "=== Heterogeneite par genre du chef de menage ==="
 capture confirm variable hgender
 if _rc == 0 {
     foreach outcome in pauvre_MODA {
@@ -2578,7 +2582,16 @@ capture copy "$OUTPUT/overlap_panel.pdf" "Presentation/figures/overlap.pdf", rep
 
 di _newline ">>> FIN DU PIPELINE COMPLET <<<"
 
-/* Ferme le log pour que code/stata/logs/tout.log soit complet et libere
-   (il est versionne : pousse-le pour que toute la sortie soit relisible). */
+/* Ferme le log, puis recopie vers tout.log si la bascule horodatee a servi,
+   pour que le fichier versionne porte toujours la sortie complete. */
 capture log close _all
+if "$LOGFILE" != "code/stata/logs/tout.log" {
+    capture copy "$LOGFILE" "code/stata/logs/tout.log", replace
+    if _rc {
+        di ">>> tout.log verrouille. Pousse plutot $LOGFILE"
+    }
+    else {
+        di ">>> Log recopie vers code/stata/logs/tout.log"
+    }
+}
 
