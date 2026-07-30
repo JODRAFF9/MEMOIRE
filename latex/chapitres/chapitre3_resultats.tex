@@ -249,7 +249,13 @@ tous trois significatifs au seuil de 10\,\% et aucun au seuil de 5\,\%. La
 double différence brute, qui ne corrige pas la sélection, donne une valeur
 plus faible et non significative ($0{,}032$) : c'est
 l'appariement qui fait apparaître l'écart de trajectoire, en neutralisant
-l'avantage initial des enfants de ménages bénéficiaires.
+l'avantage initial des enfants de ménages bénéficiaires. Une validation
+croisée avec une implémentation indépendante du même estimateur, la commande
+\texttt{diff} de \textcite{villa2016}, où le score de propension est
+réestimé par logit, aboutit au même constat~: effet de $0{,}045$,
+significatif au seuil de 10\,\%, avec la même décomposition (écart initial
+significatif en faveur des bénéficiaires, écart final resserré et non
+significatif).
 
 \begin{table}[H]
   \centering
