@@ -149,10 +149,11 @@ Les sept dimensions retenues sont l'assainissement, l'eau, le logement, la
 nutrition, la santé, la protection de l'enfant et l'éducation, chacune reposant
 sur des indicateurs comparables entre les deux vagues de l'EHCVM. Au total,
 14 indicateurs alimentent ces dimensions, mais leur champ d'application
-suit l'âge de l'enfant. Dix indicateurs concernent les enfants de 0 à 4 ans,
-12 les enfants d'âge scolaire de 5 à 14 ans, auxquels s'ajoutent le travail
-des enfants et la non-scolarisation, et les adolescents de 15 à 17 ans, avec
-l'illettrisme en lieu et place des indicateurs propres aux 0 à 4 ans.
+suit l'âge de l'enfant. Onze indicateurs concernent les enfants de 0 à 4 ans,
+13 les enfants d'âge scolaire de 5 à 14 ans, qui y ajoutent le travail des
+enfants et la non-scolarisation, et 11 les adolescents de 15 à 17 ans, pour
+lesquels l'illettrisme remplace l'acte de naissance et les indicateurs
+scolaires.
 
 Pour chaque enfant $i$ et chaque dimension $j \in \{1, \ldots, 7\}$, la variable
 de privation est $d_{ij} = \mathbf{1}[\text{privé dans au moins un indicateur
@@ -264,6 +265,20 @@ localisation capte l'accès aux réseaux migratoires, qui varie fortement
 entre régions~; le genre et l'âge de l'enfant répondent à une exigence de
 mesure propre à MODA, exposée ci-après.
 
+La qualité de l'appariement est jugée par la différence de moyennes
+standardisée (SMD). Pour une covariable $x$, elle rapporte l'écart de
+moyennes entre traités et témoins à la dispersion commune de la covariable,
+\begin{equation}
+  \mathrm{SMD}(x) = \frac{\bar{x}_T - \bar{x}_C}
+       {\sqrt{\dfrac{s_T^2 + s_C^2}{2}}} \times 100,
+  \label{eq:smd}
+\end{equation}
+où $\bar{x}_T$ et $\bar{x}_C$ désignent les moyennes de la covariable dans
+les groupes traité et témoin, et $s_T^2$ et $s_C^2$ leurs variances. Exprimée
+en pourcentage de l'écart-type, elle ne dépend pas de l'unité de mesure et se
+compare d'une covariable à l'autre. L'appariement est jugé satisfaisant
+lorsque la SMD résiduelle de chaque covariable reste inférieure à 10\,\%.
+
 \subsubsection{Double différence}
 
 La double différence (DD) \textcite{card1994} exploite la dimension temporelle des deux vagues EHCVM
@@ -302,7 +317,8 @@ statistiques descriptives sont pondérées par la pondération de sondage des
 ménages, et toutes les erreurs-types sont clusterisées par grappe, l'unité
 primaire de sondage, puis reportées entre parenthèses sous le coefficient.
 Sauf mention contraire, l'appariement retenu est le plus proche voisin, au
-niveau de l'enfant.
+niveau de l'enfant. La significativité est signalée par $^{*}p<0{,}10$,
+$^{**}p<0{,}05$ et $^{***}p<0{,}01$.
 
 \subsubsection{Analyses d'hétérogénéité et de robustesse}
 \label{subsec:robustesse}
