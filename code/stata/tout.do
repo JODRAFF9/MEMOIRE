@@ -2527,6 +2527,51 @@ di ">>> fig_placebo_dd.pdf sauvegardé"
 
 di _newline ">>> 09_placebo.do termine."
 
+/* ── Fig : taux de privation par dimension, ensemble et par groupe ──
+   Barres horizontales, une paire par dimension (EHCVM I vs II),
+   ponderees par hhweight. Remplace les tableaux du chapitre 3. */
+use "$TEMP/panel_enfants_psm.dta", clear
+foreach g in ens 1 2 {
+    preserve
+    if "`g'" != "ens" keep if groupe_base == `g'
+    collapse (mean) dim_assai dim_eau dim_logem dim_nutri dim_sante ///
+             dim_protect dim_educ [aw=hhweight], by(t)
+    reshape long dim_, i(t) j(dm) string
+    replace dim_ = 100*dim_
+    reshape wide dim_, i(dm) j(t)
+    gen byte ordre = .
+    replace ordre = 1 if dm == "assai"
+    replace ordre = 2 if dm == "eau"
+    replace ordre = 3 if dm == "logem"
+    replace ordre = 4 if dm == "nutri"
+    replace ordre = 5 if dm == "sante"
+    replace ordre = 6 if dm == "protect"
+    replace ordre = 7 if dm == "educ"
+    gen str22 lbl = ""
+    replace lbl = "Assainissement" if dm == "assai"
+    replace lbl = "Eau"            if dm == "eau"
+    replace lbl = "Logement"       if dm == "logem"
+    replace lbl = "Nutrition"      if dm == "nutri"
+    replace lbl = "Santé"          if dm == "sante"
+    replace lbl = "Protection"     if dm == "protect"
+    replace lbl = "Éducation"      if dm == "educ"
+    /* education non applicable aux 0-4 ans */
+    if "`g'" == "1" drop if dm == "educ"
+    set dp comma
+    graph hbar (asis) dim_0 dim_1, over(lbl, sort(ordre)) ///
+        bar(1, color(gs9)) bar(2, color(orange)) ///
+        legend(order(1 "EHCVM I (2018-19)" 2 "EHCVM II (2021-22)") ///
+               pos(6) rows(1) region(color(white))) ///
+        ytitle("Taux de privation (%)") ylabel(0(20)100, grid) ///
+        blabel(bar, format(%3.1f) size(vsmall)) ///
+        graphregion(color(white)) plotregion(color(white))
+    set dp period
+    local suf = cond("`g'"=="ens","ensemble", cond("`g'"=="1","0_4","5_14"))
+    graph export "$OUTPUT/figures/fig_dim_`suf'.pdf", replace
+    di ">>> fig_dim_`suf'.pdf sauvegardé"
+    restore
+}
+
 /* ============================================================
    SECTION FINALE : copie des figures vers le rapport LaTeX
    ------------------------------------------------------------
