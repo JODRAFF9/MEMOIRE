@@ -79,7 +79,7 @@ trois algorithmes.
 
 \begin{table}[H]
   \centering
-  \caption[Diagnostic post-appariement de l'équilibrage des covariables (méthode k-NN, niveau enfant)]{Diagnostic post-appariement de l'équilibrage des covariables (méthode k-NN, niveau enfant)\protect\footnotemark}
+  \caption{Diagnostic post-appariement de l'équilibrage des covariables (méthode k-NN, niveau enfant)}
   \label{tab:balance}
   \zebre
   \small
@@ -100,8 +100,9 @@ trois algorithmes.
   }
 
   {\footnotesize \textbf{Source :} Calcul de l'auteur, EHCVM.}
+
+  {\footnotesize \textbf{Note :} niveau enfant, panel de 17\,786 enfants suivis~; seuil conventionnel~: SMD $< 10\,\%$. Les effets fixes région et les modalités d'éducation et d'état matrimonial du chef, omis du tableau, présentent tous une SMD résiduelle inférieure à 7\,\%.}
 \end{table}
-\footnotetext{\textbf{Note :} niveau enfant, panel de 17\,786 enfants suivis~; seuil conventionnel~: SMD $< 10\,\%$. Les effets fixes région et les modalités d'éducation et d'état matrimonial du chef, omis du tableau, présentent tous une SMD résiduelle inférieure à 7\,\%.}
 
 L'appariement corrige l'essentiel du déséquilibre initial. La différence
 standardisée moyenne passe de 11,4\,\% à 2,4\,\%. Les
@@ -118,7 +119,7 @@ d'équilibrage des trois algorithmes.
 
 \begin{table}[H]
   \centering
-  \caption[Qualité de l'appariement selon les trois algorithmes]{Qualité de l'appariement selon les trois algorithmes\protect\footnotemark}
+  \caption{Qualité de l'appariement selon les trois algorithmes}
   \label{tab:balance_global}
   \zebre
   \begin{tabular}{|l|c|c|c|c|c|}
@@ -133,8 +134,9 @@ d'équilibrage des trois algorithmes.
   \end{tabular}
 
   {\footnotesize \textbf{Source :} Calcul de l'auteur, EHCVM.}
+
+  {\footnotesize \textbf{Note :} $B$ = différence standardisée des indices de propension linéaires, $R$ = rapport de leurs variances. Un appariement est jugé satisfaisant lorsque $B < 25\,\%$ et $R \in [0{,}5~;~2]$.}
 \end{table}
-\footnotetext{\textbf{Note :} $B$ = différence standardisée des indices de propension linéaires, $R$ = rapport de leurs variances. Un appariement est jugé satisfaisant lorsque $B < 25\,\%$ et $R \in [0{,}5~;~2]$.}
 Les trois algorithmes satisfont les critères usuels. La différence
 standardisée moyenne tombe à 2,4\,\% ou moins, le pseudo-$R^2$ passe de 0,151
 à 0,005 ou moins, $B$ reste sous 25\,\% et $R$ dans l'intervalle
@@ -153,7 +155,7 @@ PSM-DD retenu.
 
 \begin{table}[H]
   \centering
-  \caption[Impact des transferts sur la pauvreté multidimensionnelle, des estimateurs transversaux au PSM-DD]{Impact des transferts sur la pauvreté multidimensionnelle, des estimateurs transversaux au PSM-DD\protect\footnotemark}
+  \caption{Impact des transferts sur la pauvreté multidimensionnelle, des estimateurs transversaux au PSM-DD}
   \label{tab:psmdd_att}
   \zebre
   \begin{tabular}{|l|c|}
@@ -168,8 +170,9 @@ PSM-DD retenu.
   \end{tabular}
 
   {\footnotesize \textbf{Source :} Calcul de l'auteur, EHCVM. $^{*}p<0{,}10$, $^{**}p<0{,}05$.}
+
+  {\footnotesize \textbf{Note :} variable de résultat, incidence MODA (7 dimensions, $k=4$). Erreurs-types clusterisées par grappe, entre parenthèses sous le coefficient. Les lignes PSM et PSM-DD reposent sur l'appariement k-NN au niveau enfant ($n = 16\,210$ observations-enfants)~; la DD simple porte sur l'ensemble des enfants suivis, avant restriction au support commun ($n = 35\,572$).}
 \end{table}
-\footnotetext{\textbf{Note :} variable de résultat, incidence MODA (7 dimensions, $k=4$). Erreurs-types clusterisées par grappe, entre parenthèses sous le coefficient. Les lignes PSM et PSM-DD reposent sur l'appariement k-NN au niveau enfant ($n = 16\,210$ observations-enfants)~; la DD simple porte sur l'ensemble des enfants suivis, avant restriction au support commun ($n = 35\,572$).}
 
 L'appariement transversal donne un écart de $-8{,}1$ points en faveur des
 enfants bénéficiaires en 2018-2019, significatif au seuil de 1\,\%, réduit à
@@ -217,7 +220,7 @@ significatif.
 
 \begin{table}[H]
   \centering
-  \caption[Sensibilité de l'ATT PSM-DD au choix de la méthode d'appariement]{Sensibilité de l'ATT PSM-DD au choix de la méthode d'appariement\protect\footnotemark}
+  \caption{Sensibilité de l'ATT PSM-DD au choix de la méthode d'appariement}
   \label{tab:psm_methodes}
   \zebre
   \begin{tabular}{|l|c|}
@@ -232,8 +235,9 @@ significatif.
   \end{tabular}
 
   {\footnotesize \textbf{Source :} Calcul de l'auteur, EHCVM. $^{*}p<0{,}10$, $^{**}p<0{,}05$.}
+
+  {\footnotesize \textbf{Note :} erreurs-types clusterisées par grappe, appariement au niveau enfant.}
 \end{table}
-\footnotetext{\textbf{Note :} erreurs-types clusterisées par grappe, appariement au niveau enfant.}
 
 \subsubsection{Sensibilité à la définition du traitement}
 
@@ -244,7 +248,7 @@ bénéficiaires.
 
 \begin{table}[H]
   \centering
-  \caption[Sensibilité à la définition du traitement, bénéficiaires stables contre jamais bénéficiaires]{Sensibilité à la définition du traitement, bénéficiaires stables contre jamais bénéficiaires\protect\footnotemark}
+  \caption{Sensibilité à la définition du traitement, bénéficiaires stables contre jamais bénéficiaires}
   \label{tab:stables_estim}
   \zebre
   \begin{tabular}{|l|c|}
@@ -257,8 +261,9 @@ bénéficiaires.
   \end{tabular}
 
   {\footnotesize \textbf{Source :} Calcul de l'auteur, EHCVM.}
+
+  {\footnotesize \textbf{Note :} champ des enfants suivis, erreurs-types clusterisées par grappe, entre parenthèses sous le coefficient. Le score de propension de la ligne PSM-DD est réestimé sur ce sous-échantillon.}
 \end{table}
-\footnotetext{\textbf{Note :} champ des enfants suivis, erreurs-types clusterisées par grappe, entre parenthèses sous le coefficient. Le score de propension de la ligne PSM-DD est réestimé sur ce sous-échantillon.}
 
 \subsubsection{Sensibilité au seuil de privation \texorpdfstring{$k$}{k}}
 \label{subsec:sensib_k}
@@ -274,7 +279,7 @@ qu'à $k=2$, $k=3$ et $k=4$.
 
 \begin{table}[H]
   \centering
-  \caption[Sensibilité de l'ATT PSM-DD au seuil inter-dimensionnel $k$]{Sensibilité de l'ATT PSM-DD au seuil inter-dimensionnel $k$\protect\footnotemark}
+  \caption{Sensibilité de l'ATT PSM-DD au seuil inter-dimensionnel $k$}
   \label{tab:sensib_k}
   \zebre
   \begin{tabular}{|l|c|c|c|c|c|c|c|}
@@ -287,8 +292,9 @@ qu'à $k=2$, $k=3$ et $k=4$.
   \end{tabular}
 
   {\footnotesize \textbf{Source :} Calcul de l'auteur, EHCVM. $^{*}p<0{,}10$.}
+
+  {\footnotesize \textbf{Note :} appariement k-NN au niveau enfant, erreurs-types clusterisées par grappe. Seule la définition de la variable de résultat change d'une colonne à l'autre.}
 \end{table}
-\footnotetext{\textbf{Note :} appariement k-NN au niveau enfant, erreurs-types clusterisées par grappe. Seule la définition de la variable de résultat change d'une colonne à l'autre.}
 
 \subsubsection{Effets par dimension}
 L'analyse par dimension (figure~\ref{fig:effets_dim}) décompose l'effet
@@ -321,7 +327,7 @@ quintile de montant annuel reçu et rapporte la pente dose-réponse.
 
 \begin{table}[H]
   \centering
-  \caption[Hétérogénéité des effets par milieu de résidence, genre du chef de ménage et âge (PSM-DD)]{Hétérogénéité des effets par milieu de résidence, genre du chef de ménage et âge (PSM-DD)\protect\footnotemark}
+  \caption{Hétérogénéité des effets par milieu de résidence, genre du chef de ménage et âge (PSM-DD)}
   \label{tab:heterogeneite}
   \zebre
   \begin{tabular}{|l|c|}
@@ -347,12 +353,13 @@ quintile de montant annuel reçu et rapporte la pente dose-réponse.
   \end{tabular}
 
   {\footnotesize \textbf{Source :} Calcul de l'auteur, EHCVM.}
+
+  {\footnotesize \textbf{Note :} erreurs-types clusterisées par grappe, poids d'appariement k-NN au niveau enfant. Les groupes d'âge sont ceux de la période de base, l'enfant conservant son groupe aux deux vagues. $^{*}p<0{,}10$, $^{**}p<0{,}05$.}
 \end{table}
-\footnotetext{\textbf{Note :} erreurs-types clusterisées par grappe, poids d'appariement k-NN au niveau enfant. Les groupes d'âge sont ceux de la période de base, l'enfant conservant son groupe aux deux vagues. $^{*}p<0{,}10$, $^{**}p<0{,}05$.}
 
 \begin{table}[H]
   \centering
-  \caption[Hétérogénéité de l'effet selon le montant annuel des transferts]{Hétérogénéité de l'effet selon le montant annuel des transferts\protect\footnotemark}
+  \caption{Hétérogénéité de l'effet selon le montant annuel des transferts}
   \label{tab:hetero_montant}
   \zebre
   \begin{tabular}{|l|c|}
@@ -371,5 +378,6 @@ quintile de montant annuel reçu et rapporte la pente dose-réponse.
   \end{tabular}
 
   {\footnotesize \textbf{Source :} Calcul de l'auteur, EHCVM. $^{*}p<0{,}10$, $^{**}p<0{,}05$.}
+
+  {\footnotesize \textbf{Note :} appariement k-NN au niveau enfant, erreurs-types clusterisées par grappe, entre parenthèses sous le coefficient. Les quintiles sont définis sur le montant annuel des transferts parmi les ménages bénéficiaires, chaque quintile étant comparé à l'ensemble des témoins appariés. La pente dose-réponse est le coefficient de l'interaction entre la vague et le logarithme du montant, estimé sur les enfants traités.}
 \end{table}
-\footnotetext{\textbf{Note :} appariement k-NN au niveau enfant, erreurs-types clusterisées par grappe, entre parenthèses sous le coefficient. Les quintiles sont définis sur le montant annuel des transferts parmi les ménages bénéficiaires, chaque quintile étant comparé à l'ensemble des témoins appariés. La pente dose-réponse est le coefficient de l'interaction entre la vague et le logarithme du montant, estimé sur les enfants traités.}
