@@ -7474,7 +7474,7 @@ file code/stata/output/figures/fig_placebo_dd.pdf saved as PDF format
 >    ponderees par hhweight. Remplace les tableaux du chapitre 3. */
 . use "$TEMP/panel_enfants_psm.dta", clear
 
-. foreach g in ens 1 2 {
+. foreach g in ens 1 2 3 {
   2.     preserve
   3.     if "`g'" != "ens" keep if groupe_base == `g'
   4.     collapse (mean) dim_assai dim_eau dim_logem dim_nutri dim_sante ///
@@ -7509,7 +7509,8 @@ file code/stata/output/figures/fig_placebo_dd.pdf saved as PDF format
 >         blabel(bar, format(%3.1f) size(vsmall)) ///
 >         graphregion(color(white)) plotregion(color(white))
  27.     set dp period
- 28.     local suf = cond("`g'"=="ens","ensemble", cond("`g'"=="1","0_4","5_14"))
+ 28.     local suf = cond("`g'"=="ens","ensemble", ///
+>         cond("`g'"=="1","0_4", cond("`g'"=="2","5_14","15_17")))
  29.     graph export "$OUTPUT/figures/fig_dim_`suf'.pdf", replace
  30.     di ">>> fig_dim_`suf'.pdf sauvegardé"
  31.     restore
@@ -7634,6 +7635,46 @@ xij variables:
 (1 real change made)
 file code/stata/output/figures/fig_dim_5_14.pdf saved as PDF format
 >>> fig_dim_5_14.pdf sauvegardé
+(34,682 observations deleted)
+(j = assai eau educ logem nutri protect sante)
+
+Data                               Wide   ->   Long
+-----------------------------------------------------------------------------
+Number of observations                2   ->   14          
+Number of variables                   8   ->   3           
+j variable (7 values)                     ->   dm
+xij variables:
+        dim_assai dim_eau ... dim_sante   ->   dim_
+-----------------------------------------------------------------------------
+(14 real changes made)
+(j = 0 1)
+
+Data                               Long   ->   Wide
+-----------------------------------------------------------------------------
+Number of observations               14   ->   7           
+Number of variables                   3   ->   3           
+j variable (2 values)                 t   ->   (dropped)
+xij variables:
+                                   dim_   ->   dim_0 dim_1
+-----------------------------------------------------------------------------
+(7 missing values generated)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(7 missing values generated)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+file code/stata/output/figures/fig_dim_15_17.pdf saved as PDF format
+>>> fig_dim_15_17.pdf sauvegardé
 
 . 
 . /* ============================================================
@@ -7663,6 +7704,7 @@ file code/stata/output/figures/fig_dim_5_14.pdf saved as PDF format
     ok fig_croisement_pauvrete.pdf
     ok fig_dd_trajectoires.pdf
     ok fig_dim_0_4.pdf
+    ok fig_dim_15_17.pdf
     ok fig_dim_5_14.pdf
     ok fig_dim_ensemble.pdf
     ok fig_distrib_dimensions.pdf
