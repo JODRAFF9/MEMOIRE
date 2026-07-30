@@ -231,7 +231,7 @@ $p(X_i)$ s'interprète comme la probabilité qu'un enfant de caractéristiques
 $X_i$ vive dans un ménage bénéficiaire. Le vecteur $X_i$
 combine à cet effet deux niveaux~: les caractéristiques du ménage à la période
 de base, qui gouvernent la sélection dans le traitement, et celles de l'enfant
-lui-même - son sexe et son âge -, qui garantissent que chaque enfant traité
+lui-même - son genre et son âge -, qui garantissent que chaque enfant traité
 soit comparé à des enfants évalués sur les mêmes dimensions. Le PSM repose sur deux hypothèses. La première est l'indépendance
 conditionnelle (CIA) : conditionnellement aux covariables observées $X_i$,
 les résultats potentiels sont indépendants du traitement,
@@ -253,18 +253,18 @@ estimé par un modèle logit
 Les covariables $X_i$ du modèle logit sont choisies pour satisfaire
 l'hypothèse d'indépendance conditionnelle tout en évitant d'inclure des
 variables potentiellement affectées par le traitement~: chacune est mesurée
-à la période de base (2018). Elles couvrent le chef de ménage (âge, sexe,
+à la période de base (2018). Elles couvrent le chef de ménage (âge, genre,
 niveau d'éducation, statut matrimonial, catégorie socioprofessionnelle), la
 composition et le niveau de vie du ménage (taille, dépense par tête en
 logarithme), la localisation (milieu de résidence, région) et l'enfant
-lui-même (sexe, âge). Les caractéristiques du chef et du ménage sont les
+lui-même (genre, âge). Les caractéristiques du chef et du ménage sont les
 déterminants que les cadres théoriques de la revue de littérature
 (section~\ref{sec:revue}) assignent à la décision de migrer et d'envoyer
 des fonds~; la dépense par tête initiale est en outre indispensable à
 l'indépendance conditionnelle, le niveau de vie déterminant conjointement le
 statut de traitement et la trajectoire ultérieure de pauvreté~; la
 localisation capte l'accès aux réseaux migratoires, qui varie fortement
-entre régions~; le sexe et l'âge de l'enfant répondent à une exigence de
+entre régions~; le genre et l'âge de l'enfant répondent à une exigence de
 mesure propre à MODA, exposée ci-après. Cette spécification rejoint celle de
 la littérature empirique sur les déterminants des transferts en Afrique
 \parencite{adams2005, gubert2002, azam2006, combes2011}.
@@ -305,7 +305,7 @@ ménages suivis entre les deux vagues.
 \subsubsection{Analyses d'hétérogénéité et de robustesse}
 \label{subsec:robustesse}
 
-Les analyses d'hétérogénéité estiment l'impact PSM-DD séparément selon le milieu de résidence, le groupe d'âge, le sexe de l'enfant, le sexe du chef de ménage, chaque dimension de privation et le quintile de montant reçu.
+Les analyses d'hétérogénéité estiment l'impact PSM-DD séparément selon le milieu de résidence, le groupe d'âge, le genre de l'enfant, le genre du chef de ménage, chaque dimension de privation et le quintile de montant reçu.
 La robustesse est vérifiée de trois manières~: par la comparaison des trois
 algorithmes d'appariement, par un test placebo réassignant aléatoirement le
 traitement, et par une définition alternative du traitement. Celle-ci
