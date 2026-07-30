@@ -5,8 +5,8 @@ Cette section discute la validité et la portée des résultats présentés à l
 section précédente. Elle comporte quatre volets, à savoir les tests de
 robustesse (définition alternative du traitement, seuil inter-dimensionnel et
 choix de la méthode d'appariement), l'analyse de l'hétérogénéité des effets
-selon le milieu, le genre et l'âge, l'interprétation économique des résultats,
-et enfin les limites de l'étude.
+selon le milieu, le genre du chef de ménage et l'âge, l'interprétation
+économique des résultats, et enfin les limites de l'étude.
 
 \subsection{Tests de robustesse}
 
@@ -94,12 +94,13 @@ plus démunis.
 \subsubsection{Selon le milieu de résidence}
 
 L'impact des transferts est susceptible de varier selon le milieu de
-résidence, le genre et l'âge de l'enfant. Le tableau~\ref{tab:heterogeneite}
-rapporte les effets estimés pour chacun de ces sous-groupes.
+résidence, le genre du chef de ménage et l'âge de l'enfant. Le
+tableau~\ref{tab:heterogeneite} rapporte les effets estimés pour chacun de ces
+sous-groupes.
 
 \begin{table}[H]
   \centering
-  \caption[Hétérogénéité des effets par milieu de résidence, genre et âge (PSM-DD)]{Hétérogénéité des effets par milieu de résidence, genre et âge (PSM-DD)\protect\footnotemark}
+  \caption[Hétérogénéité des effets par milieu de résidence, genre du chef de ménage et âge (PSM-DD)]{Hétérogénéité des effets par milieu de résidence, genre du chef de ménage et âge (PSM-DD)\protect\footnotemark}
   \label{tab:heterogeneite}
   \zebre
   \begin{tabular}{|l|c|}
@@ -111,10 +112,10 @@ rapporte les effets estimés pour chacun de ces sous-groupes.
     \quad Milieu rural  & $0{,}027$      \\ \hline
     \quad Test d'égalité ($p$-valeur) & 0,336 \\
     \hline
-    \multicolumn{2}{|c|}{Par genre de l'enfant} \\ \hline
-    \quad Garçons & $0{,}052$      \\ \hline
-    \quad Filles  & $0{,}064^{**}$ \\ \hline
-    \quad Test d'égalité ($p$-valeur) & 0,719 \\
+    \multicolumn{2}{|c|}{Par genre du chef de ménage} \\ \hline
+    \quad Chef homme & \ATTchefH \\ \hline
+    \quad Chef femme & \ATTchefF \\ \hline
+    \quad Test d'égalité ($p$-valeur) & \PchefEg \\
     \hline
     \multicolumn{2}{|c|}{Par groupe d'âge} \\ \hline
     \quad 0-4 ans   & $0{,}079^{**}$ \\ \hline
@@ -136,32 +137,14 @@ conclure que l'effet diffère selon le milieu. Le volet géographique de
 l'hypothèse H2 n'est donc pas validé, même si la lecture des deux
 sous-groupes pris isolément invite à surveiller le milieu urbain.
 
-\subsubsection{Selon le genre de l'enfant}
+\subsubsection{Selon le genre du chef de ménage}
 
-L'effet est significatif chez les filles ($0{,}064$) et ne l'est
-pas chez les garçons ($0{,}052$). L'écart entre les deux
-coefficients est cependant faible, de l'ordre d'un point de pourcentage, très
-inférieur aux erreurs-types de chacun, et le test d'égalité ne le distingue
-pas du bruit ($1{,}2$ point en faveur des filles). La
-différence de significativité tient
-davantage à la précision d'estimation qu'à une différence d'ampleur. Il serait
-imprudent d'en conclure que les transferts affectent les filles et épargnent
-les garçons sur la seule foi de ces deux coefficients. Selon la spécification
-retenue pour l'appariement, c'est d'ailleurs tantôt l'un tantôt l'autre qui
-franchit le seuil de 5\,\%, et avec environ 2\,600 enfants traités répartis
-en huit sous-groupes, la puissance disponible ne permet pas de trancher un
-écart de cette taille.
-
-Le versant descriptif ne dit pas autre chose (section~\ref{sec:stats}).
-L'avantage de niveau des enfants de ménages bénéficiaires est un peu plus
-large chez les filles que chez les garçons en 2018, 21,6 points contre 19,2,
-et il se resserre dans les mêmes proportions pour les deux genres, la double
-différence descriptive vaut 2,7 points chez les filles et 2,1 chez les
-garçons. Les deux lectures convergent donc, mais vers une absence de
-différence, le genre de l'enfant ne séparant ni les niveaux ni les
-trajectoires, et le volet de H2 qui s'y rapporte n'est pas validé. La seule
-tranche où le descriptif fait apparaître un écart entre genres est celle des
-0 à 4 ans, avec 8,9 points chez les filles contre 5,1 chez les garçons.
+Le genre du chef de ménage est le prédicteur le plus fort du traitement, la
+migration de l'époux laissant souvent la gestion du ménage à l'épouse. L'effet
+des transferts peut donc différer selon que le ménage est dirigé par un homme
+ou par une femme. L'estimation donne \ATTchefH pour les ménages dirigés par un
+homme et \ATTchefF pour ceux dirigés par une femme, et le test d'égalité
+conclut à \PchefEg. Le volet de H2 qui s'y rapporte est ainsi \StatutChef.
 
 \subsubsection{Selon les groupes d'âge}
 
