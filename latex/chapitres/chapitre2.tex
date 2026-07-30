@@ -43,7 +43,7 @@ vague à l'autre grâce à l'identifiant de 2018 préchargé dans le questionnai
 de l'EHCVM~II, qui relie chaque
 personne à elle-même. Le
 tableau~\ref{tab:panelhh} donne la répartition des ménages selon leur statut
-de suivi.
+de suivi, et le tableau~\ref{tab:suivienf} celle des enfants.
 
 \begin{table}[H]
   \centering
@@ -90,8 +90,8 @@ de suivi.
 
 L'unité d'analyse étant l'enfant, la variable de traitement
 $D_i \in \{0, 1\}$ est attachée à chaque enfant $i$ et vaut 1 si son ménage
-est bénéficiaire de transferts de migrants - tous les enfants d'un même
-ménage partagent donc le même statut. Construit à partir de la section 13
+est bénéficiaire de transferts de migrants, tous les enfants d'un même
+ménage partageant donc le même statut. Construit à partir de la section 13
 des deux vagues EHCVM, le statut est défini à la période de base (2018). Un
 enfant est traité si son ménage a reçu en 2018 au moins un transfert d'un
 expéditeur résidant hors du Sénégal et ayant déjà vécu dans le ménage, en
@@ -230,7 +230,7 @@ $p(X_i)$ s'interprète comme la probabilité qu'un enfant de caractéristiques
 $X_i$ vive dans un ménage bénéficiaire. Le vecteur $X_i$
 combine à cet effet deux niveaux, les caractéristiques du ménage à la période
 de base, qui gouvernent la sélection dans le traitement, et celles de l'enfant
-lui-même - son genre et son âge -, qui garantissent que chaque enfant traité
+lui-même, son genre et son âge, qui garantissent que chaque enfant traité
 soit comparé à des enfants évalués sur les mêmes dimensions. Le PSM repose sur deux hypothèses. La première est l'indépendance
 conditionnelle (CIA). Conditionnellement aux covariables observées $X_i$,
 les résultats potentiels sont indépendants du traitement,
@@ -298,6 +298,8 @@ le temps (DD) :
 où $\Delta Y_i = Y_{i,t=2} - Y_{i,t=1}$ est la variation intra-ménage
 de la variable de résultat MODA, calculée directement sur les
 ménages suivis entre les deux vagues.
+
+Le code Stata des principales routines figure en annexe~\ref{ann:B}.
 
 Quelques conventions valent pour l'ensemble des estimations qui suivent. Les
 statistiques descriptives sont pondérées par la pondération de sondage des
