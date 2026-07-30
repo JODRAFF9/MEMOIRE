@@ -1509,37 +1509,7 @@ foreach outcome in pauvre_MODA {
 }
 drop urban
 
-di _newline "=== Heterogeneite par genre ==="
-capture confirm variable sexe
-if _rc == 0 {
-    foreach outcome in pauvre_MODA {
-        foreach s in 1 2 {
-            if `s' == 1 local lab_s "Garcons"
-            else        local lab_s "Filles"
-            quietly count if sexe == `s'
-            if r(N) > 30 {
-                di "--- `lab_s' — `outcome' ---"
-                regress `outcome' i.t##i.D [aw=weight_knn] if sexe == `s', ///
-                    vce(cluster grappe)
-                lincom 1.t#1.D
-                di "  ATT = " %8.4f r(estimate) "  p = " %6.4f r(p)
-            }
-        }
-    }
-
-    /* Les ATT separes peuvent differer sans que l'ecart soit distinguable
-       du bruit : le test formel est la triple interaction. */
-    di _newline "Test d'egalite (garcons vs filles) :"
-    gen byte fille = (sexe == 2) if !missing(sexe)
-    foreach outcome in pauvre_MODA {
-        regress `outcome' i.t##i.D##i.fille [aw=weight_knn], vce(cluster grappe)
-        lincom 1.t#1.D#1.fille
-        di "  Diff ATT (filles - garcons) : " %8.4f r(estimate) "  p = " %6.4f r(p)
-    }
-    drop fille
-}
-
-/* -- Par genre du chef de menage (hgender : 1 homme, 2 femme) --
+/* -- Par genre du chef de menage (hgender : 1 homme, 2 femme) -- */
 di _newline "=== Heterogeneite par genre du chef de menage ==="
 capture confirm variable hgender
 if _rc == 0 {
@@ -2243,15 +2213,15 @@ forvalues g = 1/3 {
     di "  Effectifs : `n18' enfants en 2018, " r(N) " en 2021"
 }
 
-/* Croisement sexe de l'enfant x statut de beneficiaire x vague, pour
+/* Croisement genre de l'enfant x statut de beneficiaire x vague, pour
    l'ensemble des enfants puis pour chaque tranche d'age. Alimente le
-   tableau par sexe de chaque sous-section descriptive. */
+   tableau par genre de chaque sous-section descriptive. */
 forvalues g = 0/3 {
     if `g' == 0 local lbl "Ensemble 0-17 ans"
     if `g' == 1 local lbl "0-4 ans"
     if `g' == 2 local lbl "5-14 ans"
     if `g' == 3 local lbl "15-17 ans"
-    di _newline(2) "=== Incidence MODA par sexe et statut — `lbl' ==="
+    di _newline(2) "=== Incidence MODA par genre et statut — `lbl' ==="
     di "  Sexe        D=0 2018  D=1 2018   Ecart |  D=0 2021  D=1 2021   Ecart |     DD    p18    p21      n18      n21"
     forvalues sx = 1/2 {
         local slbl = cond(`sx' == 1, "Garcons", "Filles")
