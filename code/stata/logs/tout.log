@@ -7469,6 +7469,173 @@ file code/stata/output/figures/fig_placebo_dd.pdf saved as PDF format
 >>> 09_placebo.do termine.
 
 . 
+. /* ── Fig : taux de privation par dimension, ensemble et par groupe ──
+>    Barres horizontales, une paire par dimension (EHCVM I vs II),
+>    ponderees par hhweight. Remplace les tableaux du chapitre 3. */
+. use "$TEMP/panel_enfants_psm.dta", clear
+
+. foreach g in ens 1 2 {
+  2.     preserve
+  3.     if "`g'" != "ens" keep if groupe_base == `g'
+  4.     collapse (mean) dim_assai dim_eau dim_logem dim_nutri dim_sante ///
+>              dim_protect dim_educ [aw=hhweight], by(t)
+  5.     reshape long dim_, i(t) j(dm) string
+  6.     replace dim_ = 100*dim_
+  7.     reshape wide dim_, i(dm) j(t)
+  8.     gen byte ordre = .
+  9.     replace ordre = 1 if dm == "assai"
+ 10.     replace ordre = 2 if dm == "eau"
+ 11.     replace ordre = 3 if dm == "logem"
+ 12.     replace ordre = 4 if dm == "nutri"
+ 13.     replace ordre = 5 if dm == "sante"
+ 14.     replace ordre = 6 if dm == "protect"
+ 15.     replace ordre = 7 if dm == "educ"
+ 16.     gen str22 lbl = ""
+ 17.     replace lbl = "Assainissement" if dm == "assai"
+ 18.     replace lbl = "Eau"            if dm == "eau"
+ 19.     replace lbl = "Logement"       if dm == "logem"
+ 20.     replace lbl = "Nutrition"      if dm == "nutri"
+ 21.     replace lbl = "Santé"          if dm == "sante"
+ 22.     replace lbl = "Protection"     if dm == "protect"
+ 23.     replace lbl = "Éducation"      if dm == "educ"
+ 24.     /* education non applicable aux 0-4 ans */
+.     if "`g'" == "1" drop if dm == "educ"
+ 25.     set dp comma
+ 26.     graph hbar (asis) dim_0 dim_1, over(lbl, sort(ordre)) ///
+>         bar(1, color(gs9)) bar(2, color(orange)) ///
+>         legend(order(1 "EHCVM I (2018-19)" 2 "EHCVM II (2021-22)") ///
+>                pos(6) rows(1) region(color(white))) ///
+>         ytitle("Taux de privation (%)") ylabel(0(20)100, grid) ///
+>         blabel(bar, format(%3.1f) size(vsmall)) ///
+>         graphregion(color(white)) plotregion(color(white))
+ 27.     set dp period
+ 28.     local suf = cond("`g'"=="ens","ensemble", cond("`g'"=="1","0_4","5_14"))
+ 29.     graph export "$OUTPUT/figures/fig_dim_`suf'.pdf", replace
+ 30.     di ">>> fig_dim_`suf'.pdf sauvegardé"
+ 31.     restore
+ 32. }
+(j = assai eau educ logem nutri protect sante)
+
+Data                               Wide   ->   Long
+-----------------------------------------------------------------------------
+Number of observations                2   ->   14          
+Number of variables                   8   ->   3           
+j variable (7 values)                     ->   dm
+xij variables:
+        dim_assai dim_eau ... dim_sante   ->   dim_
+-----------------------------------------------------------------------------
+(14 real changes made)
+(j = 0 1)
+
+Data                               Long   ->   Wide
+-----------------------------------------------------------------------------
+Number of observations               14   ->   7           
+Number of variables                   3   ->   3           
+j variable (2 values)                 t   ->   (dropped)
+xij variables:
+                                   dim_   ->   dim_0 dim_1
+-----------------------------------------------------------------------------
+(7 missing values generated)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(7 missing values generated)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+file code/stata/output/figures/fig_dim_ensemble.pdf saved as PDF format
+>>> fig_dim_ensemble.pdf sauvegardé
+(23,234 observations deleted)
+(j = assai eau educ logem nutri protect sante)
+
+Data                               Wide   ->   Long
+-----------------------------------------------------------------------------
+Number of observations                2   ->   14          
+Number of variables                   8   ->   3           
+j variable (7 values)                     ->   dm
+xij variables:
+        dim_assai dim_eau ... dim_sante   ->   dim_
+-----------------------------------------------------------------------------
+(13 real changes made)
+(j = 0 1)
+
+Data                               Long   ->   Wide
+-----------------------------------------------------------------------------
+Number of observations               14   ->   7           
+Number of variables                   3   ->   3           
+j variable (2 values)                 t   ->   (dropped)
+xij variables:
+                                   dim_   ->   dim_0 dim_1
+-----------------------------------------------------------------------------
+(7 missing values generated)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(7 missing values generated)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 observation deleted)
+file code/stata/output/figures/fig_dim_0_4.pdf saved as PDF format
+>>> fig_dim_0_4.pdf sauvegardé
+(13,228 observations deleted)
+(j = assai eau educ logem nutri protect sante)
+
+Data                               Wide   ->   Long
+-----------------------------------------------------------------------------
+Number of observations                2   ->   14          
+Number of variables                   8   ->   3           
+j variable (7 values)                     ->   dm
+xij variables:
+        dim_assai dim_eau ... dim_sante   ->   dim_
+-----------------------------------------------------------------------------
+(14 real changes made)
+(j = 0 1)
+
+Data                               Long   ->   Wide
+-----------------------------------------------------------------------------
+Number of observations               14   ->   7           
+Number of variables                   3   ->   3           
+j variable (2 values)                 t   ->   (dropped)
+xij variables:
+                                   dim_   ->   dim_0 dim_1
+-----------------------------------------------------------------------------
+(7 missing values generated)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(7 missing values generated)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+file code/stata/output/figures/fig_dim_5_14.pdf saved as PDF format
+>>> fig_dim_5_14.pdf sauvegardé
+
+. 
 . /* ============================================================
 >    SECTION FINALE : copie des figures vers le rapport LaTeX
 >    ------------------------------------------------------------
@@ -7495,6 +7662,9 @@ file code/stata/output/figures/fig_placebo_dd.pdf saved as PDF format
     ok fig_carte_nmoda_barres.pdf
     ok fig_croisement_pauvrete.pdf
     ok fig_dd_trajectoires.pdf
+    ok fig_dim_0_4.pdf
+    ok fig_dim_5_14.pdf
+    ok fig_dim_ensemble.pdf
     ok fig_distrib_dimensions.pdf
     ok fig_distrib_nbdep.pdf
     ok fig_effets_dim.pdf
