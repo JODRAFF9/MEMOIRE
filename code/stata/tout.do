@@ -1509,41 +1509,7 @@ foreach outcome in pauvre_MODA {
 }
 drop urban
 
-<<<<<<< HEAD
-di _newline "=== Heterogeneite par genre ==="
-capture confirm variable sexe
-if _rc == 0 {
-    foreach outcome in pauvre_MODA {
-        foreach s in 1 2 {
-            if `s' == 1 local lab_s "Garcons"
-            else        local lab_s "Filles"
-            quietly count if sexe == `s'
-            if r(N) > 30 {
-                di "--- `lab_s' — `outcome' ---"
-                regress `outcome' i.t##i.D [aw=weight_knn] if sexe == `s', ///
-                    vce(cluster grappe)
-                lincom 1.t#1.D
-                di "  ATT = " %8.4f r(estimate) "  p = " %6.4f r(p)
-            }
-        }
-    }
-
-    /* Les ATT separes peuvent differer sans que l'ecart soit distinguable
-       du bruit : le test formel est la triple interaction. */
-    di _newline "Test d'egalite (garcons vs filles) :"
-    gen byte fille = (sexe == 2) if !missing(sexe)
-    foreach outcome in pauvre_MODA {
-        regress `outcome' i.t##i.D##i.fille [aw=weight_knn], vce(cluster grappe)
-        lincom 1.t#1.D#1.fille
-        di "  Diff ATT (filles - garcons) : " %8.4f r(estimate) "  p = " %6.4f r(p)
-    }
-    drop fille
-}
-
-/*-- Par genre du chef de menage (hgender : 1 homme, 2 femme) --*/
-=======
 /* -- Par genre du chef de menage (hgender : 1 homme, 2 femme) -- */
->>>>>>> 2e674b08312ad5721619cc1f7144eded9e1c8125
 di _newline "=== Heterogeneite par genre du chef de menage ==="
 capture confirm variable hgender
 if _rc == 0 {
