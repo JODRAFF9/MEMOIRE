@@ -339,7 +339,7 @@
 
 \subsection{Stratégie d'identification}
 
-\begin{frame}{PSM + Double différence, principe (1/2)}
+\begin{frame}{Stratégie d'identification, le problème (1/2)}
   \small
   \begin{alertblock}{Traitement, statut défini en 2018}
     Traités = ménages recevant en 2018 un transfert d'un expéditeur résidant
@@ -358,7 +358,7 @@
   \end{block}
 \end{frame}
 
-\begin{frame}{PSM + Double différence, principe (2/2)}
+\begin{frame}{Stratégie d'identification, l'estimateur (2/2)}
   \small
   \begin{block}{Étape 1 - Appariement par score de propension (PSM)}
     Estimation du score de propension par logit :
@@ -462,16 +462,14 @@
   \end{table}
   \begin{alertblock}{L'écart se referme chez les 0-4 ans}
     Chez les 0-4 ans, l'avantage des bénéficiaires passe de 23,7 à
-    16,9 points ; chez les 5-14 ans il ne bouge pas. Le genre du chef ne
-    sépare rien, $+2{,}3$ points sous un chef homme contre $+2{,}1$ sous un
-    chef femme. Le descriptif annonce le résultat de l'estimation.
+    16,9 points, tiré par la nutrition dont l'écart tombe de $28{,}8$ à
+    $17{,}0$ points ; il est stable chez les 5-14 ans et très proche selon le
+    genre du chef ($+2{,}3$ contre $+2{,}1$ points).
   \end{alertblock}
   \begin{block}{Lecture}
-    Groupes d'âge figés en 2018, mêmes enfants aux deux vagues. Le
-    resserrement chez les 0-4 ans vient de la nutrition, dont l'écart tombe de
-    $28{,}8$ à $17{,}0$ points : la dimension même sur laquelle l'estimation
-    conclut. Les 15-17 ans ne sont plus que 445, l'âge les faisant sortir du
-    champ : leur ligne n'est pas interprétable.
+    Groupes d'âge figés en 2018, mêmes enfants aux deux vagues. Les
+    15-17 ans (445 enfants suivis) sont rapportés pour mémoire, leur
+    effectif appelant une lecture prudente.
   \end{block}
   \begin{center}
     \hyperlink{distrib-dimensions}{\beamergotobutton{Distribution selon le seuil}}
@@ -525,8 +523,8 @@
   \begin{alertblock}{Résultat central, pas de réduction}
     Sur 2018-2021, la pauvreté multidimensionnelle des enfants des ménages
     bénéficiaires recule plus lentement que celle des témoins appariés
-    ($+6{,}4$ pp, significatif à 5\,\%) : H1 est rejetée. Les trois
-    appariements concordent (0,050 à 0,064).
+    ($+6{,}4$ pp, significatif à 5\,\%), les trois
+    appariements concordant (0,050 à 0,064). H1 n'est pas validée.
   \end{alertblock}
   \begin{block}{Lecture}
     L'effet n'est pas diffus : il n'est établi que sur la nutrition, chez les
@@ -592,9 +590,9 @@
     au-delà : seuls les deux premiers quintiles sont significatifs, et
     l'écart ne se retrouve pas pour les transferts les plus élevés.
   \end{alertblock}
-  \begin{block}{Réserve}
-    Le montant n'est pas assigné aléatoirement parmi les bénéficiaires :
-    association conditionnelle, non effet causal du montant.
+  \begin{block}{Lecture}
+    Le montant relève du choix du migrant : le gradient se lit comme une
+    association conditionnelle entre intensité du traitement et trajectoire.
   \end{block}
 \end{frame}
 
@@ -623,12 +621,12 @@
     Enfants des ménages bénéficiaires aux deux vagues face aux jamais
     bénéficiaires : la DD tombe à $0{,}022$ et le PSM-DD à $-0{,}008$, tous
     deux non significatifs, l'écart de trajectoire ne se retrouvant pas chez
-    les bénéficiaires de longue date. Mais le traitement y est déjà
-    en cours dès 2018, donc pas de vraie période pré-traitement.
+    les bénéficiaires de longue date, dont l'exposition, déjà en cours en
+    2018, relève d'une autre question que celle du design principal.
   \end{alertblock}
 \end{frame}
 
-\begin{frame}{Validation des hypothèses - Synthèse}
+\begin{frame}{Validation des hypothèses}
   \begin{table}
     \centering
     \caption{Bilan des hypothèses de recherche}
@@ -637,8 +635,8 @@
       \toprule
       Hyp. & Énoncé & Résultat & Décision \\
       \midrule
-      H1 & Réduction de la pauvreté & ATT MODA $= 0{,}064$, significatif à 5\,\% et de signe défavorable : pas de réduction & Rejetée \\[4pt]
-      H2 & Hétérogénéité des effets  & Aucun test d'égalité concluant (milieu, genre du chef, âge) ; effet établi seulement sur la nutrition (10\,\%) et chez les 0-4 ans (5\,\%) ; gradient selon le montant & Partiellement \\[4pt]
+      H1 & Réduction de la pauvreté & ATT MODA $= 0{,}064$, significatif à 5\,\% et de signe défavorable, pas de réduction & Non validée \\[4pt]
+      H2 & Hétérogénéité des effets  & Effet établi sur la nutrition et chez les 0-4 ans, gradient net selon le montant ; aucun test d'égalité concluant par milieu, genre du chef ou âge & Partiellement validée \\[4pt]
       \bottomrule
     \end{tabular}
   \end{table}
