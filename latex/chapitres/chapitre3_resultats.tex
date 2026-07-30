@@ -23,7 +23,9 @@ compte propre (-$0{,}38$) reçoivent moins souvent des transferts que ceux dont
 le chef est sans emploi, catégorie de référence. Les deux covariables
 individuelles ne sont en revanche pas significatives, ni
 le genre de l'enfant ($0{,}037$) ni son âge ($0{,}007$) ne prédisant
-l'appartenance à un ménage bénéficiaire.
+l'appartenance à un ménage bénéficiaire. Le tableau~\ref{tab:logit} rassemble
+ces coefficients et la figure~\ref{fig:support} montre le recouvrement des
+distributions du score entre les deux groupes.
 
 \begin{table}[H]
   \centering
@@ -205,8 +207,8 @@ son contrefactuel correspond à l'effet estimé.
 \subsubsection{Robustesse au choix de la méthode d'appariement}
 
 Le tableau~\ref{tab:psm_methodes} examine la stabilité des résultats selon la
-méthode d'appariement retenue. Les trois algorithmes concordent étroitement :
-l'effet vaut $0{,}064$ pour le k-NN, $0{,}061$ pour le noyau
+méthode d'appariement retenue. Les trois algorithmes concordent étroitement,
+l'effet valant $0{,}064$ pour le k-NN, $0{,}061$ pour le noyau
 Epanechnikov et $0{,}050$ pour le caliper,
 tous trois significatifs au moins au seuil de 10\,\%. La
 double différence brute, qui ne corrige pas la sélection, donne une valeur
@@ -267,7 +269,7 @@ bénéficiaires.
 \label{subsec:sensib_k}
 
 Le seuil $k=4$ dimensions sur sept retenu pour déclarer un enfant pauvre est
-une convention. Le tableau~\ref{tab:sensib_k} réestime l'effet à chaque seuil
+une convention, dont l'annexe~\ref{ann:A} donne la distribution sous-jacente. Le tableau~\ref{tab:sensib_k} réestime l'effet à chaque seuil
 possible, de $k=1$ à $k=7$. Le signe de l'effet est positif à tous les seuils,
 mais son ampleur suit une courbe en cloche, quasi nulle à $k=1$ ($0{,}007$),
 elle croît jusqu'à un
