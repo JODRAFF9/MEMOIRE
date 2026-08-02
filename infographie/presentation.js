@@ -382,7 +382,7 @@ async function main() {
         const x = 7.28 + i * 1.72;
         s.addText(g[0], {
           x, y: 4.9, w: 1.6, h: 0.3, align: "center", margin: 0,
-          fontFace: POLICE, fontSize: 12.5, bold: true, color: C.orange,
+          fontFace: POLICE, fontSize: 12.5, bold: true, color: C.encre,
         });
         s.addText(g[1], {
           x, y: 5.22, w: 1.6, h: 0.3, align: "center", margin: 0,
@@ -746,7 +746,7 @@ async function main() {
       });
       s.addText("+" + vg(d[1]), {
         x: 6.65, y, w: 0.7, h: 0.32, align: "right", margin: 0, valign: "middle",
-        fontFace: POLICE, fontSize: 12, bold: true, color: d[2] ? C.orange : C.encre2,
+        fontFace: POLICE, fontSize: 12, bold: true, color: C.encre,
       });
       if (d[2]) {
         s.addText("*", {
@@ -814,7 +814,7 @@ async function main() {
       const y = 2.78 + i * 0.66;
       s.addText(r[0], {
         x: 1.05, y, w: 0.42, h: 0.42, margin: 0, valign: "middle",
-        fontFace: POLICE, fontSize: 13, bold: true, color: r[3] ? C.orange : C.encre2,
+        fontFace: POLICE, fontSize: 13, bold: true, color: C.encre,
       });
       s.addText(r[1], {
         x: 1.5, y, w: 1.62, h: 0.42, margin: 0, valign: "middle",
@@ -828,7 +828,7 @@ async function main() {
       s.addText((r[2] >= 0 ? "+" : "−") + vg(Math.abs(r[2])), {
         x: ZERO + (r[2] >= 0 ? w + 0.08 : 0.12), y, w: 0.7, h: 0.42,
         align: "left", margin: 0, valign: "middle",
-        fontFace: POLICE, fontSize: 12, bold: true, color: r[3] ? C.orange : C.encre2,
+        fontFace: POLICE, fontSize: 12, bold: true, color: C.encre,
       });
       if (r[3]) {
         s.addText("**", {

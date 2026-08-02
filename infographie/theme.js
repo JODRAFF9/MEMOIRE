@@ -117,7 +117,7 @@ async function pastille(s, x, y, d, couleur, Icone) {
 function stat(s, x, y, w, valeur, libelle, couleur, taille) {
   s.addText(valeur, {
     x, y, w, h: (taille || 40) / 72 + 0.16, margin: 0, align: "center", valign: "middle",
-    fontFace: POLICE, fontSize: taille || 40, bold: true, color: couleur || C.bleufonce,
+    fontFace: POLICE, fontSize: taille || 40, bold: true, color: C.bleufonce,
   });
   s.addText(libelle, {
     x, y: y + (taille || 40) / 72 + 0.18, w, h: 0.42, margin: 0, align: "center",
