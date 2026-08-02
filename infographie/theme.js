@@ -89,9 +89,10 @@ function slideSection(pres, numero, titre, resume) {
 
 /* ── Carte blanche a coins arrondis ── */
 function carte(pres, s, x, y, w, h, teinte) {
+  if (!teinte) return; /* sans teinte explicite, on laisse respirer le fond blanc */
   s.addShape(pres.ShapeType.roundRect, {
     x, y, w, h, rectRadius: 0.06,
-    fill: { color: teinte || C.carte }, line: { type: "none" }, shadow: ombre(0.10),
+    fill: { color: teinte }, line: { type: "none" },
   });
 }
 
