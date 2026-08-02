@@ -8,20 +8,20 @@ const sharp = require("sharp");
 
 /* ── Palette : bleu dominant, orange en accent (paire validee CVD) ── */
 const C = {
-  bleu: "41639E",
-  bleufonce: "1E2B4A",
-  bleunuit: "16213D",
+  bleu: "4444AD",
+  bleufonce: "191970",
+  bleunuit: "101038",
   orange: "D96F2B",
-  or: "C98A24",
-  teal: "3E8C9A",
+  or: "6E6ECB",
+  teal: "2A2A80",
   encre: "1D2433",
   encre2: "4A5468",
   muet: "8A93A5",
-  surface: "FBFAF8",
-  carte: "FFFFFF",
+  surface: "FFFFFF",
+  carte: "F4F5FA",
   rose: "F7EAE4",
-  bleupale: "E5EEF4",
-  grispale: "E8EBF0",
+  bleupale: "E7E7F3",
+  grispale: "E2E3EC",
 };
 
 const POLICE = "Calibri";
@@ -40,7 +40,7 @@ async function png(Icone, couleur, taille = 320) {
 
 /* ── Ombre portee : objet neuf a chaque appel (pptxgenjs mute en place) ── */
 const ombre = (op = 0.16) => ({
-  type: "outer", color: "1E2B4A", opacity: op, blur: 10, offset: 2, angle: 90,
+  type: "outer", color: "13134F", opacity: op, blur: 10, offset: 2, angle: 90,
 });
 
 /* ── Diapositive de contenu : fond clair, titre, pied ── */
@@ -65,10 +65,10 @@ function slideSection(pres, numero, titre, resume) {
   const s = pres.addSlide();
   s.background = { color: C.bleunuit };
   s.addShape(pres.ShapeType.ellipse, {
-    x: 10.4, y: -1.5, w: 5.2, h: 5.2, fill: { color: "24365E" }, line: { type: "none" },
+    x: 10.4, y: -1.5, w: 5.2, h: 5.2, fill: { color: "23236B" }, line: { type: "none" },
   });
   s.addShape(pres.ShapeType.ellipse, {
-    x: -1.6, y: 4.8, w: 4.4, h: 4.4, fill: { color: "24365E" }, line: { type: "none" },
+    x: -1.6, y: 4.8, w: 4.4, h: 4.4, fill: { color: "23236B" }, line: { type: "none" },
   });
   s.addText(numero, {
     x: 1.1, y: 2.44, w: 1.4, h: 1.32, margin: 0, align: "left", valign: "middle",
@@ -81,7 +81,7 @@ function slideSection(pres, numero, titre, resume) {
   if (resume) {
     s.addText(resume, {
       x: 2.65, y: 3.58, w: 9.0, h: 0.5, margin: 0, valign: "top",
-      fontFace: POLICE, fontSize: 14, color: "AFC0DA", lineSpacing: 18,
+      fontFace: POLICE, fontSize: 14, color: "B7B7DB", lineSpacing: 18,
     });
   }
   return s;
@@ -91,7 +91,7 @@ function slideSection(pres, numero, titre, resume) {
 function carte(pres, s, x, y, w, h, teinte) {
   s.addShape(pres.ShapeType.roundRect, {
     x, y, w, h, rectRadius: 0.06,
-    fill: { color: teinte || C.carte }, line: { type: "none" }, shadow: ombre(0.13),
+    fill: { color: teinte || C.carte }, line: { type: "none" }, shadow: ombre(0.10),
   });
 }
 
@@ -127,9 +127,10 @@ function pied(s, texte, numero) {
     });
   }
   s.addText(String(numero), {
-    x: 12.0, y: 7.06, w: 0.75, h: 0.26, margin: 0, align: "right",
+    x: 11.9, y: 7.06, w: 0.4, h: 0.26, margin: 0, align: "right",
     fontFace: POLICE, fontSize: 9.5, color: C.muet,
   });
+  s.addImage({ path: "logos/logo_ensae_new.png", x: 12.45, y: 6.95, w: 0.42, h: 0.42 });
 }
 
 /* ── Virgule decimale garantie ── */
