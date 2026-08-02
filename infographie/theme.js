@@ -95,15 +95,22 @@ function carte(pres, s, x, y, w, h, teinte) {
   });
 }
 
-/* ── Pastille circulaire coloree portant une icone ── */
+/* ── Eclaircissement d'une teinte vers le blanc ── */
+function eclaircir(hex, part) {
+  const v = [0, 2, 4].map((i) => parseInt(hex.slice(i, i + 2), 16));
+  return v.map((c) => Math.round(c + (255 - c) * part).toString(16).padStart(2, "0")).join("").toUpperCase();
+}
+
+/* ── Pastille : icone saturee sur un disque de la meme teinte, eclairci ── */
 async function pastille(s, x, y, d, couleur, Icone) {
-  const pres = s._pres || null;
   s.addShape("ellipse", {
     x, y, w: d, h: d,
-    fill: { color: couleur }, line: { color: "FFFFFF", width: 2.5 }, shadow: ombre(0.18),
+    fill: { color: eclaircir(couleur, 0.84) },
+    line: { color: eclaircir(couleur, 0.64), width: 1.25 },
+    shadow: ombre(0.08),
   });
   const t = d * 0.46;
-  s.addImage({ data: await png(Icone, "FFFFFF", 320), x: x + (d - t) / 2, y: y + (d - t) / 2, w: t, h: t });
+  s.addImage({ data: await png(Icone, couleur, 320), x: x + (d - t) / 2, y: y + (d - t) / 2, w: t, h: t });
 }
 
 /* ── Grand nombre avec son libelle ── */
