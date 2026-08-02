@@ -25,8 +25,8 @@ async function main() {
   {
     const s = p.addSlide();
     s.background = { color: C.bleunuit };
-    s.addShape(p.ShapeType.ellipse, { x: 9.6, y: -2.2, w: 6.4, h: 6.4, fill: { color: "24365E" }, line: { type: "none" } });
-    s.addShape(p.ShapeType.ellipse, { x: -2.4, y: 4.2, w: 5.6, h: 5.6, fill: { color: "24365E" }, line: { type: "none" } });
+    s.addShape(p.ShapeType.ellipse, { x: 9.6, y: -2.2, w: 6.4, h: 6.4, fill: { color: "312E81" }, line: { type: "none" } });
+    s.addShape(p.ShapeType.ellipse, { x: -2.4, y: 4.2, w: 5.6, h: 5.6, fill: { color: "312E81" }, line: { type: "none" } });
 
     s.addShape(p.ShapeType.roundRect, {
       x: 0.62, y: 0.45, w: 1.35, h: 1.35, rectRadius: 0.1,
@@ -41,11 +41,11 @@ async function main() {
 
     s.addText("RÉPUBLIQUE DU SÉNÉGAL", {
       x: 0, y: 0.55, w: 13.33, h: 0.3, align: "center", margin: 0,
-      fontFace: POLICE, fontSize: 12, bold: true, color: "8FA6CC", charSpacing: 2,
+      fontFace: POLICE, fontSize: 12, bold: true, color: "A5B4FC", charSpacing: 2,
     });
     s.addText("École nationale de la statistique et de l'analyse économique Pierre Ndiaye", {
       x: 0, y: 0.88, w: 13.33, h: 0.3, align: "center", margin: 0,
-      fontFace: POLICE, fontSize: 12.5, color: "AFC0DA",
+      fontFace: POLICE, fontSize: 12.5, color: "A5B4FC",
     });
 
     s.addText("Impact des transferts de migrants sur la pauvreté\nmultidimensionnelle des enfants au Sénégal", {
@@ -64,7 +64,7 @@ async function main() {
     ].forEach((b) => {
       s.addText(b.t, {
         x: b.x, y: 4.62, w: 3.7, h: 0.28, align: "center", margin: 0,
-        fontFace: POLICE, fontSize: 11, color: "8FA6CC",
+        fontFace: POLICE, fontSize: 11, color: "A5B4FC",
       });
       s.addText(b.n, {
         x: b.x, y: 4.90, w: 3.7, h: 0.32, align: "center", margin: 0,
@@ -72,13 +72,13 @@ async function main() {
       });
       s.addText(b.r, {
         x: b.x - 0.2, y: 5.24, w: 4.1, h: 0.4, align: "center", margin: 0,
-        fontFace: POLICE, fontSize: 10.5, color: "AFC0DA", lineSpacing: 13,
+        fontFace: POLICE, fontSize: 10.5, color: "A5B4FC", lineSpacing: 13,
       });
     });
 
     s.addText("Août 2026", {
       x: 0, y: 6.35, w: 13.33, h: 0.32, align: "center", margin: 0,
-      fontFace: POLICE, fontSize: 13, color: "8FA6CC",
+      fontFace: POLICE, fontSize: 13, color: "A5B4FC",
     });
     n++;
   }
@@ -679,7 +679,7 @@ async function main() {
       });
     });
     s.addShape(p.ShapeType.rect, {
-      x: 5.05, y: BASE, w: 3.5, h: 0.02, fill: { color: "CFD4DD" }, line: { type: "none" },
+      x: 5.05, y: BASE, w: 3.5, h: 0.02, fill: { color: "CBD5E1" }, line: { type: "none" },
     });
     s.addText("La pauvreté a reculé près de trois fois moins vite chez les bénéficiaires.", {
       x: 3.6, y: 6.05, w: 5.55, h: 0.34, align: "center", margin: 0,
@@ -834,7 +834,7 @@ async function main() {
       }
     });
     s.addShape(p.ShapeType.rect, {
-      x: ZERO, y: 2.72, w: 0.015, h: 3.35, fill: { color: "B9C0CC" }, line: { type: "none" },
+      x: ZERO, y: 2.72, w: 0.015, h: 3.35, fill: { color: "CBD5E1" }, line: { type: "none" },
     });
 
     carte(p, s, 8.6, 1.95, 4.03, 2.05, C.bleufonce);
@@ -1107,8 +1107,8 @@ async function main() {
   {
     const s = p.addSlide();
     s.background = { color: C.bleunuit };
-    s.addShape(p.ShapeType.ellipse, { x: 9.8, y: -2.0, w: 6.0, h: 6.0, fill: { color: "24365E" }, line: { type: "none" } });
-    s.addShape(p.ShapeType.ellipse, { x: -2.2, y: 4.4, w: 5.2, h: 5.2, fill: { color: "24365E" }, line: { type: "none" } });
+    s.addShape(p.ShapeType.ellipse, { x: 9.8, y: -2.0, w: 6.0, h: 6.0, fill: { color: "312E81" }, line: { type: "none" } });
+    s.addShape(p.ShapeType.ellipse, { x: -2.2, y: 4.4, w: 5.2, h: 5.2, fill: { color: "312E81" }, line: { type: "none" } });
     s.addText("Merci de votre attention", {
       x: 1.0, y: 2.75, w: 11.33, h: 1.0, align: "center", margin: 0, valign: "middle",
       fontFace: POLICE, fontSize: 42, bold: true, color: "FFFFFF",
@@ -1119,7 +1119,7 @@ async function main() {
     });
     s.addText("ENSAE Pierre Ndiaye   ·   Août 2026", {
       x: 1.0, y: 4.35, w: 11.33, h: 0.32, align: "center", margin: 0,
-      fontFace: POLICE, fontSize: 12.5, color: "8FA6CC",
+      fontFace: POLICE, fontSize: 12.5, color: "A5B4FC",
     });
     n++;
   }

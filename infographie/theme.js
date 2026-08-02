@@ -6,22 +6,24 @@ const React = require("react");
 const { renderToStaticMarkup } = require("react-dom/server");
 const sharp = require("sharp");
 
-/* ── Palette : bleu dominant, orange en accent (paire validee CVD) ── */
+/* ── Palette : indigo dominant, ambre en accent. La paire porteuse
+   #4F46E5 / #D97706 passe les six controles, separation daltonienne
+   comprise ; le cyan et le rose ne servent qu'aux pastilles.        ── */
 const C = {
-  bleu: "41639E",
-  bleufonce: "1E2B4A",
-  bleunuit: "16213D",
-  orange: "D96F2B",
-  or: "C98A24",
-  teal: "3E8C9A",
-  encre: "1D2433",
-  encre2: "4A5468",
-  muet: "8A93A5",
-  surface: "FFFFFF",
-  carte: "F4F5FA",
-  rose: "F7EAE4",
-  bleupale: "E5EEF4",
-  grispale: "E3E7EE",
+  bleu: "4F46E5",       /* indigo 600  - couleur dominante, marques de donnees */
+  bleufonce: "312E81",  /* indigo 900  - titres et ombres */
+  bleunuit: "1E1B4B",   /* indigo 950  - panneaux sombres */
+  orange: "D97706",     /* ambre 600   - accent unique */
+  or: "0891B2",         /* cyan 600    - pastilles */
+  teal: "DB2777",       /* rose 600    - pastilles */
+  encre: "0F172A",      /* ardoise 900 - texte principal */
+  encre2: "475569",     /* ardoise 600 - texte secondaire */
+  muet: "94A3B8",       /* ardoise 400 - sources et numeros */
+  surface: "FFFFFF",    /* fond des diapositives de contenu */
+  carte: "F8FAFC",      /* ardoise 50  - teinte de carte */
+  rose: "FEF3C7",       /* ambre 100   - encadre de mise en valeur */
+  bleupale: "EEF2FF",   /* indigo 50   - encadre secondaire */
+  grispale: "E2E8F0",   /* ardoise 200 - barres de reference */
 };
 
 const POLICE = "Calibri";
@@ -40,7 +42,7 @@ async function png(Icone, couleur, taille = 320) {
 
 /* ── Ombre portee : objet neuf a chaque appel (pptxgenjs mute en place) ── */
 const ombre = (op = 0.16) => ({
-  type: "outer", color: "1E2B4A", opacity: op, blur: 10, offset: 2, angle: 90,
+  type: "outer", color: "312E81", opacity: op, blur: 10, offset: 2, angle: 90,
 });
 
 /* ── Diapositive de contenu : fond clair, titre, pied ── */
@@ -65,10 +67,10 @@ function slideSection(pres, numero, titre, resume) {
   const s = pres.addSlide();
   s.background = { color: C.bleunuit };
   s.addShape(pres.ShapeType.ellipse, {
-    x: 10.4, y: -1.5, w: 5.2, h: 5.2, fill: { color: "24365E" }, line: { type: "none" },
+    x: 10.4, y: -1.5, w: 5.2, h: 5.2, fill: { color: "312E81" }, line: { type: "none" },
   });
   s.addShape(pres.ShapeType.ellipse, {
-    x: -1.6, y: 4.8, w: 4.4, h: 4.4, fill: { color: "24365E" }, line: { type: "none" },
+    x: -1.6, y: 4.8, w: 4.4, h: 4.4, fill: { color: "312E81" }, line: { type: "none" },
   });
   s.addText(numero, {
     x: 1.1, y: 2.44, w: 1.4, h: 1.32, margin: 0, align: "left", valign: "middle",
@@ -81,7 +83,7 @@ function slideSection(pres, numero, titre, resume) {
   if (resume) {
     s.addText(resume, {
       x: 2.65, y: 3.58, w: 9.0, h: 0.5, margin: 0, valign: "top",
-      fontFace: POLICE, fontSize: 14, color: "AFC0DA", lineSpacing: 18,
+      fontFace: POLICE, fontSize: 14, color: "A5B4FC", lineSpacing: 18,
     });
   }
   return s;
