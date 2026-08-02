@@ -25,8 +25,19 @@ async function main() {
   {
     const s = p.addSlide();
     s.background = { color: C.bleunuit };
-    s.addShape(p.ShapeType.ellipse, { x: 9.6, y: -2.2, w: 6.4, h: 6.4, fill: { color: "24365E" }, line: { type: "none" } });
-    s.addShape(p.ShapeType.ellipse, { x: -2.4, y: 4.2, w: 5.6, h: 5.6, fill: { color: "24365E" }, line: { type: "none" } });
+    s.addShape(p.ShapeType.ellipse, { x: 9.6, y: -2.2, w: 6.4, h: 6.4, fill: { color: "23236B" }, line: { type: "none" } });
+    s.addShape(p.ShapeType.ellipse, { x: -2.4, y: 4.2, w: 5.6, h: 5.6, fill: { color: "23236B" }, line: { type: "none" } });
+
+    s.addShape(p.ShapeType.roundRect, {
+      x: 0.62, y: 0.45, w: 1.35, h: 1.35, rectRadius: 0.1,
+      fill: { color: "FFFFFF" }, line: { type: "none" }, shadow: ombre(0.22),
+    });
+    s.addImage({ path: "logos/logo_ensae_new.png", x: 0.75, y: 0.58, w: 1.09, h: 1.09 });
+    s.addShape(p.ShapeType.roundRect, {
+      x: 11.36, y: 0.45, w: 1.35, h: 1.35, rectRadius: 0.1,
+      fill: { color: "FFFFFF" }, line: { type: "none" }, shadow: ombre(0.22),
+    });
+    s.addImage({ path: "logos/logo_ansd.jpg", x: 11.49, y: 0.67, w: 1.09, h: 0.91 });
 
     s.addText("RÉPUBLIQUE DU SÉNÉGAL", {
       x: 0, y: 0.55, w: 13.33, h: 0.3, align: "center", margin: 0,
@@ -34,7 +45,7 @@ async function main() {
     });
     s.addText("École nationale de la statistique et de l'analyse économique Pierre Ndiaye", {
       x: 0, y: 0.88, w: 13.33, h: 0.3, align: "center", margin: 0,
-      fontFace: POLICE, fontSize: 12.5, color: "AFC0DA",
+      fontFace: POLICE, fontSize: 12.5, color: "B7B7DB",
     });
 
     s.addText("Impact des transferts de migrants sur la pauvreté\nmultidimensionnelle des enfants au Sénégal", {
@@ -61,7 +72,7 @@ async function main() {
       });
       s.addText(b.r, {
         x: b.x - 0.2, y: 5.24, w: 4.1, h: 0.4, align: "center", margin: 0,
-        fontFace: POLICE, fontSize: 10.5, color: "AFC0DA", lineSpacing: 13,
+        fontFace: POLICE, fontSize: 10.5, color: "B7B7DB", lineSpacing: 13,
       });
     });
 
@@ -233,7 +244,7 @@ async function main() {
       { h: "H2", t: "Leur impact est hétérogène selon les dimensions, le milieu, le genre du chef de ménage, l'âge de l'enfant et le montant reçu." },
     ].forEach((b, i) => {
       const y = 2.9 + i * 1.72;
-      carte(p, s, 7.15, y, 5.2, 1.5, C.surface);
+      carte(p, s, 7.15, y, 5.2, 1.5, C.bleupale);
       s.addText(b.h, {
         x: 7.4, y: y + 0.25, w: 0.75, h: 0.45, margin: 0, valign: "middle",
         fontFace: POLICE, fontSize: 22, bold: true, color: C.orange,
@@ -1102,8 +1113,8 @@ async function main() {
   {
     const s = p.addSlide();
     s.background = { color: C.bleunuit };
-    s.addShape(p.ShapeType.ellipse, { x: 9.8, y: -2.0, w: 6.0, h: 6.0, fill: { color: "24365E" }, line: { type: "none" } });
-    s.addShape(p.ShapeType.ellipse, { x: -2.2, y: 4.4, w: 5.2, h: 5.2, fill: { color: "24365E" }, line: { type: "none" } });
+    s.addShape(p.ShapeType.ellipse, { x: 9.8, y: -2.0, w: 6.0, h: 6.0, fill: { color: "23236B" }, line: { type: "none" } });
+    s.addShape(p.ShapeType.ellipse, { x: -2.2, y: 4.4, w: 5.2, h: 5.2, fill: { color: "23236B" }, line: { type: "none" } });
     s.addText("Merci de votre attention", {
       x: 1.0, y: 2.75, w: 11.33, h: 1.0, align: "center", margin: 0, valign: "middle",
       fontFace: POLICE, fontSize: 42, bold: true, color: "FFFFFF",
