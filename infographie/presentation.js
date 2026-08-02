@@ -6,7 +6,7 @@
    ============================================================ */
 const pptxgen = require("pptxgenjs");
 const T = require("./theme");
-const { C, POLICE, png, ombre, slideContenu, slideSection, carte, pastille, stat, pied, vg } = T;
+const { C, POLICE, png, ombre, slideContenu, carte, pastille, stat, pied, vg } = T;
 const I = require("react-icons/fa6");
 
 const SRC = "Source : calcul de l'auteur, EHCVM I (2018-2019) et EHCVM II (2021-2022).";
@@ -121,7 +121,6 @@ async function main() {
   /* ============================================================
      3. Section 1
      ============================================================ */
-  { slideSection(p, "01", "Contexte et problématique", "Une ressource privée massive, des privations infantiles persistantes."); n++; }
 
   /* ============================================================
      4. Contexte : les deux réalités
@@ -260,7 +259,6 @@ async function main() {
   /* ============================================================
      7. Section 2 : revue
      ============================================================ */
-  { slideSection(p, "02", "Revue de la littérature", "Trois enseignements : la sélection, la diversité des canaux, la lacune à combler."); n++; }
 
   /* ============================================================
      8. Canaux et effets documentés
@@ -333,7 +331,6 @@ async function main() {
   /* ============================================================
      9. Section 3 : méthodologie
      ============================================================ */
-  { slideSection(p, "03", "Cadre méthodologique", "Mesurer la pauvreté par l'approche MODA, identifier l'effet par PSM et double différence."); n++; }
 
   /* ============================================================
      10. L'indice MODA
@@ -499,7 +496,6 @@ async function main() {
   /* ============================================================
      13. Section 4 : résultats
      ============================================================ */
-  { slideSection(p, "04", "Résultats empiriques", "Un effet qui ne va pas dans le sens attendu, et qui se localise précisément."); n++; }
 
   /* ============================================================
      14. État des lieux
@@ -872,7 +868,6 @@ async function main() {
   /* ============================================================
      19. Section 5 : robustesse
      ============================================================ */
-  { slideSection(p, "05", "Robustesse et discussion", "Ce que le résultat supporte, et ce qu'il ne prouve pas."); n++; }
 
   /* ============================================================
      20. Robustesse
@@ -1038,7 +1033,6 @@ async function main() {
   /* ============================================================
      24. Section 6 : conclusion
      ============================================================ */
-  { slideSection(p, "06", "Conclusion et recommandations", "Ce que l'étude établit, et ce qu'il faut en faire."); n++; }
 
   /* ============================================================
      25. Conclusion
