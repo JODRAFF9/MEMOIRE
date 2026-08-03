@@ -11,18 +11,18 @@
 \usetheme{Antibes}
 \useoutertheme{tree}
 
-% -- Palette orange brulee (sans bleu) ----------------------
-\definecolor{presvert}{RGB}{178,76,27}   % orange brulee (couleur principale)
-\definecolor{presvertc}{RGB}{214,124,70} % orange clair
-\definecolor{presor}{RGB}{120,53,20}     % brun brule (accents)
-\definecolor{presnuit}{RGB}{25,25,112}   % bleu nuit (details et libelles)
-% Remappage des anciens noms vers la palette orange brulee : tout le
-% diaporama adopte ainsi une charte orange brulee, sans bleu.
-\colorlet{marron}{presvert}
-\colorlet{marronmed}{presvert!80}
+% -- Palette bleu UNICEF ------------------------------------
+\definecolor{presvert}{RGB}{28,171,226}  % bleu UNICEF (couleur principale)
+\definecolor{presvertc}{RGB}{111,203,236}% bleu UNICEF clair
+\definecolor{presor}{RGB}{14,110,150}    % bleu profond (petits textes et accents)
+\definecolor{presnuit}{RGB}{28,171,226}  % rappel de la teinte de marque
+% Les aplats portant du texte blanc sont legerement assombris : le bleu de
+% marque, tres lumineux, ne contraste pas assez a sa valeur nominale.
+\colorlet{marron}{presor}
+\colorlet{marronmed}{presvert!88!black}
 \colorlet{dore}{presor}
 \colorlet{dorepale}{presvertc!22}
-\colorlet{mybronze}{presvert}
+\colorlet{mybronze}{presvert!88!black}
 
 \setbeamercolor{structure}{fg=mybronze}
 \setbeamercolor{palette primary}{bg=black, fg=white}
@@ -78,20 +78,20 @@
     \vspace{0.22cm}
     % -- auteur / encadreur --
     \begin{minipage}[t]{0.43\paperwidth}\centering
-      {\scriptsize\color{presnuit}\bfseries Présenté par :}\\[2pt]
+      {\scriptsize\color{presor}\bfseries Présenté par :}\\[2pt]
       {\small Sié Rachid \textsc{Traoré}}\\[1pt]
       {\scriptsize\itshape Élève ingénieur statisticien économiste}
     \end{minipage}\hfill
     \begin{minipage}[t]{0.43\paperwidth}\centering
-      {\scriptsize\color{presnuit}\bfseries Sous la direction de :}\\[2pt]
+      {\scriptsize\color{presor}\bfseries Sous la direction de :}\\[2pt]
       {\small Mamadou Abdoulaye \textsc{Diallo}}\\[1pt]
       {\scriptsize\itshape Chercheur postdoctoral en économie appliquée, ISE}
     \end{minipage}\par
     \vspace{0.22cm}
     % -- date (pastille) --
     \begin{tikzpicture}
-      \node[draw=presnuit,fill=presnuit!8,rounded corners=4pt,
-            inner xsep=12pt,inner ysep=4pt,text=presnuit,font=\small\bfseries]
+      \node[draw=presnuit,fill=presnuit!12,rounded corners=4pt,
+            inner xsep=12pt,inner ysep=4pt,text=presor,font=\small\bfseries]
         {\insertdate};
     \end{tikzpicture}
   \end{center}%
@@ -117,7 +117,7 @@
 
 % -- Légendes numérotées ------------------------------------
 \setbeamertemplate{caption}[numbered]
-\setbeamercolor{caption name}{fg=presnuit}
+\setbeamercolor{caption name}{fg=presvert}
 
 % -- Blocs avec coins arrondis ------------------------------
 \setbeamertemplate{blocks}[rounded][shadow=false]
@@ -349,7 +349,7 @@
       hexa/.style   = {regular polygon, regular polygon sides=6, draw=presnuit,
                        line width=1pt, fill=presvert, text=white, inner sep=0pt,
                        minimum size=1.05cm, font=\normalsize},
-      etiq/.style   = {below=1mm, font=\scriptsize, text=presnuit}
+      etiq/.style   = {below=1mm, font=\scriptsize, text=presor}
     ]
     \node[hexa] (d1) at (0,0)      {\faShower};      \node[etiq] at (d1.south) {Assainissement};
     \node[hexa] (d2) at (2.6,0)    {\faTint};        \node[etiq] at (d2.south) {Eau};
