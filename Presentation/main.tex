@@ -353,11 +353,6 @@
     dans un ménage non bénéficiaire. Le score de propension et l'appariement
     sont estimés à ce niveau.
   \end{block}
-  \begin{alertblock}{Covariables du modèle de propension}
-    Ménage : âge, genre, éducation, statut matrimonial et catégorie
-    socioprofessionnelle du chef, taille, dépense par tête, milieu et région.
-    Enfant : genre et âge.
-  \end{alertblock}
 \end{frame}
 
 \subsection{Mesure de la pauvreté multidimensionnelle}
@@ -396,7 +391,7 @@
 
 \subsection{Stratégie d'identification}
 
-\begin{frame}{Stratégie d'identification, le problème (1/3)}
+\begin{frame}{Stratégie d'identification, le problème (1/4)}
   \footnotesize
   \begin{alertblock}{Traitement, statut défini en 2018}
     Traités : ménages recevant en 2018 un transfert d'un expéditeur vivant hors
@@ -417,7 +412,7 @@
   \end{block}
 \end{frame}
 
-\begin{frame}{Stratégie d'identification, les deux briques (2/3)}
+\begin{frame}{Stratégie d'identification, le score de propension (2/4)}
   \footnotesize
   \begin{block}{Appariement par score de propension (PSM)}
     \vspace{-0.35cm}
@@ -426,10 +421,16 @@
     \end{equation*}
     \vspace{-0.35cm}
 
-    Appariement aux $k=4$ plus proches voisins, sur le support commun. Corrige
-    l'observable, laisse subsister l'inobservable.
+    Le vecteur $X_i$ retient, du côté du ménage, l'âge, le genre, l'éducation,
+    le statut matrimonial et la catégorie socioprofessionnelle du chef, la
+    taille, la dépense par tête, le milieu et la région ; du côté de l'enfant,
+    le genre et l'âge. Appariement aux $k=4$ plus proches voisins, sur le
+    support commun.
   \end{block}
+\end{frame}
 
+\begin{frame}{Stratégie d'identification, la double différence (3/4)}
+  \footnotesize
   \begin{block}{Double différence (DD)}
     \vspace{-0.35cm}
     \begin{equation*}
@@ -444,7 +445,7 @@
   \end{block}
 \end{frame}
 
-\begin{frame}{Stratégie d'identification, l'estimateur retenu (3/3)}
+\begin{frame}{Stratégie d'identification, l'estimateur retenu (4/4)}
   \footnotesize
   \begin{alertblock}{PSM-double différence}
     \vspace{-0.35cm}
