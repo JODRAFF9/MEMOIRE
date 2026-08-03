@@ -165,22 +165,42 @@
 \newcommand{\chiffre}[1]{{\bfseries\large #1}}
 
 % -- Bandeau a onglet ----------------------------------------
-% [#1] cote de l'intitule, g a gauche ou d a droite (g par defaut)
+% [#1] motif : g onglet a gauche, d a droite, c centre, p pleine
+% largeur. Sans argument, les quatre motifs se succedent, le compteur
+% repartant a zero au debut de chaque cadre.
 % #2 teinte, #3 largeur, #4 intitule, #5 corps.
 % La largeur est donnee en fraction de \linewidth : le bandeau s'adapte
 % ainsi a la colonne qui le contient.
-\newcommand{\bandeau}[5][g]{%
+\newcounter{bandeaumotif}
+\newcommand{\bandeau}[5][a]{%
+  \ifstrequal{#1}{a}{%
+    \ifcase\numexpr\value{bandeaumotif}\relax
+      \def\bandeaucote{g}\or\def\bandeaucote{d}%
+      \or\def\bandeaucote{c}\else\def\bandeaucote{p}\fi
+    \stepcounter{bandeaumotif}%
+    \ifnum\value{bandeaumotif}>3 \setcounter{bandeaumotif}{0}\fi
+  }{\def\bandeaucote{#1}}%
   \begin{tikzpicture}
     \node[fill=#2!8, rounded corners=4pt, text width=#3, align=justify,
           inner sep=8pt, font=\footnotesize, anchor=north west] (corps) at (0,0) {#5};
     % \ifstrequal vient d'etoolbox, que beamer charge deja
-    \ifstrequal{#1}{d}{%
+    \ifstrequal{\bandeaucote}{p}{%
+      % pleine largeur : l'intitule couvre tout le panneau
       \node[fill=#2, rounded corners=4pt, text=white, minimum height=0.6cm,
-            inner xsep=12pt, font=\footnotesize\bfseries, anchor=south east]
-        (tete) at ([yshift=1pt]corps.north east) {#4};}{%
-      \node[fill=#2, rounded corners=4pt, text=white, minimum height=0.6cm,
-            inner xsep=12pt, font=\footnotesize\bfseries, anchor=south west]
-        (tete) at ([yshift=1pt]corps.north west) {#4};}
+            text width=#3, inner sep=8pt, align=left,
+            font=\footnotesize\bfseries, anchor=south west]
+        (tete) at ([yshift=1pt]corps.north west) {#4};}{%
+      \ifstrequal{\bandeaucote}{c}{%
+        \node[fill=#2, rounded corners=4pt, text=white, minimum height=0.6cm,
+              inner xsep=12pt, font=\footnotesize\bfseries, anchor=south]
+          (tete) at ([yshift=1pt]corps.north) {#4};}{%
+        \ifstrequal{\bandeaucote}{d}{%
+          \node[fill=#2, rounded corners=4pt, text=white, minimum height=0.6cm,
+                inner xsep=12pt, font=\footnotesize\bfseries, anchor=south east]
+            (tete) at ([yshift=1pt]corps.north east) {#4};}{%
+          \node[fill=#2, rounded corners=4pt, text=white, minimum height=0.6cm,
+                inner xsep=12pt, font=\footnotesize\bfseries, anchor=south west]
+            (tete) at ([yshift=1pt]corps.north west) {#4};}}}
     % filet de rappel sous l'intitule, dans la teinte assombrie
     \draw[#2!62!black, line width=1.6pt, line cap=round]
       ([xshift=1pt]tete.south west) -- ([xshift=-1pt]tete.south east);
@@ -250,7 +270,7 @@
   {\color{presorange}#1}~{\color{presvert}\bfseries #2}\par\smallskip}
 
 % -- Justification des textes --------------------------------
-\AtBeginEnvironment{frame}{\justifying}
+\AtBeginEnvironment{frame}{\justifying\setcounter{bandeaumotif}{0}}
 \addtobeamertemplate{block begin}{}{\justifying}
 \addtobeamertemplate{block alerted begin}{}{\justifying}
 \addtobeamertemplate{block example begin}{}{\justifying}
@@ -361,7 +381,7 @@
   \small
   \bandeau{presvert}{0.93\linewidth}{Théorie néoclassique de la migration}{%
     L'individu migre si la valeur actualisée des gains attendus à destination, nette des coûts du déplacement, excède ses gains d'origine, la décision se fondant sur le revenu espéré plutôt qu'effectif (Sjaastad, 1962 ; Harris \& Todaro, 1970). Les envois de fonds sont, dans cette optique, le rendement de l'investissement migratoire.}
-  \bandeau[d]{presvert}{0.93\linewidth}{Théorie des réseaux migratoires}{%
+  \bandeau{presvert}{0.93\linewidth}{Théorie des réseaux migratoires}{%
     Les liens de parenté, d'amitié ou de communauté d'origine forment un capital social qui abaisse les coûts et les risques du départ : le migrant installé héberge le nouvel arrivant, l'informe et lui trouve un emploi (Massey, 1993). Chaque migration facilite ainsi les suivantes.}
   \bandeau{presorange}{0.93\linewidth}{Conséquence pour l'identification}{%
     Un ménage ne reçoit des transferts que si l'un des siens a pu émigrer, et il ne le peut que s'il dispose d'un réseau. Or l'accès au réseau dépend de l'histoire migratoire de la famille, de la richesse initiale et des relations sociales du ménage. Les bénéficiaires diffèrent donc des autres avant même le premier franc reçu.}
@@ -422,7 +442,7 @@
     dimensions que mesure l'indice.}
 
   \smallskip
-  \bandeau[d]{dimeau}{0.93\linewidth}{Pour l'effet attendu sur la pauvreté monétaire}{%
+  \bandeau{dimeau}{0.93\linewidth}{Pour l'effet attendu sur la pauvreté monétaire}{%
     La littérature établit une réduction modeste, atténuée par les coûts de
     transaction (Azam \& Gubert, 2006 ; Combes \& Ebeke, 2011). L'ampleur reste
     une question empirique.}
