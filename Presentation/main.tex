@@ -149,6 +149,9 @@
 \usetikzlibrary{positioning,arrows.meta,shapes,shapes.geometric}
 % Icones vectorielles des dimensions du bien-etre (compatible XeLaTeX)
 \usepackage{fontawesome5}
+% Repli sur un glyphe ancien si la version installee ne fournit pas le robinet :
+% \providecommand ne definit la commande que si le paquet ne l'a pas deja fait.
+\providecommand{\faFaucet}{\faTint}
 
 % -- Justification des textes --------------------------------
 \AtBeginEnvironment{frame}{\justifying}
@@ -352,7 +355,7 @@
       etiq/.style   = {below=1mm, font=\scriptsize, text=presor}
     ]
     \node[hexa] (d1) at (0,0)      {\faShower};      \node[etiq] at (d1.south) {Assainissement};
-    \node[hexa] (d2) at (2.6,0)    {\faTint};        \node[etiq] at (d2.south) {Eau};
+    \node[hexa] (d2) at (2.6,0)    {\faFaucet};      \node[etiq] at (d2.south) {Eau};
     \node[hexa] (d3) at (5.2,0)    {\faHome};        \node[etiq] at (d3.south) {Logement};
     \node[hexa] (d4) at (7.8,0)    {\faLeaf};        \node[etiq] at (d4.south) {Nutrition};
     \node[hexa] (d5) at (1.3,-1.85) {\faHeartbeat};   \node[etiq] at (d5.south) {Santé};
