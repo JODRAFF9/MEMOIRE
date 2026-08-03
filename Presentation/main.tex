@@ -501,35 +501,31 @@
   \small
   \centering
   \begin{tikzpicture}[
-      vague/.style  = {rounded corners=5pt, draw=#1, line width=1pt, fill=#1!8,
-                       minimum width=4.6cm, minimum height=1.75cm, anchor=north west},
-      vague/.default = presvert,
-      titre/.style  = {font=\small\bfseries, anchor=north west},
-      detail/.style = {font=\scriptsize, text=presgris, anchor=north west,
-                       text width=3.3cm, align=left}
+      vague/.style  = {rounded corners=6pt, draw=presvert, line width=1.1pt,
+                       fill=presvert!8, minimum width=4.7cm, minimum height=2.0cm,
+                       anchor=north west},
+      titre/.style  = {font=\small\bfseries, text=presvert, anchor=north},
+      detail/.style = {font=\scriptsize, text=presgris, anchor=north,
+                       text width=4.1cm, align=center}
     ]
-    \node[vague=presvert] (v1) at (0,0) {};
-    \node[text=presvert, font=\Large] at ([shift={(0.55,-0.62)}]v1.north west) {\faCalendarAlt};
-    \node[titre, text=presvert] at ([shift={(1.15,-0.18)}]v1.north west) {EHCVM I};
-    \node[detail] at ([shift={(1.15,-0.55)}]v1.north west)
+    \node[vague] (v1) at (0,0) {};
+    \node[titre] at ([yshift=-0.22cm]v1.north) {EHCVM I};
+    \node[detail] at ([yshift=-0.68cm]v1.north)
       {Première vague harmonisée UEMOA au Sénégal};
-    \node[font=\scriptsize\bfseries, text=presvert, anchor=south east]
-      at ([shift={(-0.2,0.12)}]v1.south east) {2018-2019};
+    \node[font=\scriptsize\bfseries, text=presvert, anchor=south]
+      at ([yshift=0.14cm]v1.south) {2018-2019};
 
-    \node[vague=presvert] (v2) at (5.2,0) {};
-    \node[text=presvert, font=\Large] at ([shift={(0.55,-0.62)}]v2.north west) {\faCalendarAlt};
-    \node[titre, text=presvert] at ([shift={(1.15,-0.18)}]v2.north west) {EHCVM II};
-    \node[detail] at ([shift={(1.15,-0.55)}]v2.north west)
+    \node[vague] (v2) at (6.4,0) {};
+    \node[titre] at ([yshift=-0.22cm]v2.north) {EHCVM II};
+    \node[detail] at ([yshift=-0.68cm]v2.north)
       {Deuxième vague, mêmes ménages réinterrogés};
-    \node[font=\scriptsize\bfseries, text=presvert, anchor=south east]
-      at ([shift={(-0.2,0.12)}]v2.south east) {2021-2022};
+    \node[font=\scriptsize\bfseries, text=presvert, anchor=south]
+      at ([yshift=0.14cm]v2.south) {2021-2022};
 
-    \draw[presorange, line width=1.1pt, -{Stealth[length=2.5mm]}]
-      ([xshift=1mm]v1.east) -- ([xshift=-1mm]v2.west);
-    \node[font=\scriptsize\bfseries, text=presorange, anchor=south]
-      at ([yshift=1.5mm]$(v1.east)!0.5!(v2.west)$) {6\,127};
-    \node[font=\scriptsize, text=presorange, anchor=north]
-      at ([yshift=-1.5mm]$(v1.east)!0.5!(v2.west)$) {ménages};
+    \draw[presorange, line width=1.2pt, -{Stealth[length=3mm]}]
+      ([xshift=2mm]v1.east) -- ([xshift=-2mm]v2.west);
+    \node[font=\scriptsize\bfseries, text=presorange, anchor=south, align=center]
+      at ([yshift=2mm]$(v1.east)!0.5!(v2.west)$) {6\,127\\ménages};
   \end{tikzpicture}
 
   \smallskip
@@ -588,11 +584,11 @@
   \centering
   \begin{tikzpicture}[
       groupe/.style = {rounded corners=5pt, draw=#1, line width=1pt, fill=#1!8,
-                       minimum width=4.6cm, minimum height=1.75cm, anchor=north west},
+                       minimum width=4.7cm, minimum height=1.9cm, anchor=north west},
       groupe/.default = presvert,
       titre/.style  = {font=\small\bfseries, anchor=north west},
       detail/.style = {font=\scriptsize, text=presgris, anchor=north west,
-                       text width=3.3cm, align=left}
+                       text width=3.4cm, align=left}
     ]
     % groupe traite
     \node[groupe=presorange] (t) at (0,0) {};
@@ -604,7 +600,7 @@
       at ([shift={(-0.2,0.12)}]t.south east) {2\,638 enfants};
 
     % groupe temoin
-    \node[groupe=presgris] (c) at (5.2,0) {};
+    \node[groupe=presgris] (c) at (5.4,0) {};
     \node[text=presgris, font=\Large] at ([shift={(0.55,-0.62)}]c.north west) {\faHome};
     \node[titre, text=presgris] at ([shift={(1.15,-0.18)}]c.north west) {Témoins};
     \node[detail] at ([shift={(1.15,-0.55)}]c.north west)
@@ -614,9 +610,9 @@
 
     % ligne de temps
     \draw[presvert, line width=1pt, -{Stealth[length=2.5mm]}]
-      (0,-2.25) -- (9.8,-2.25);
-    \node[font=\scriptsize\bfseries, text=presvert, anchor=north] at (0.6,-2.35) {2018};
-    \node[font=\scriptsize\bfseries, text=presvert, anchor=north] at (9.2,-2.35) {2021};
+      (0,-2.4) -- (10.1,-2.4);
+    \node[font=\scriptsize\bfseries, text=presvert, anchor=north] at (0.6,-2.5) {2018};
+    \node[font=\scriptsize\bfseries, text=presvert, anchor=north] at (9.5,-2.5) {2021};
   \end{tikzpicture}
 
   \smallskip
@@ -903,11 +899,11 @@
   \centering
   \begin{tikzpicture}[
       groupe/.style = {rounded corners=5pt, draw=#1, line width=1pt, fill=#1!8,
-                       minimum width=4.6cm, minimum height=1.75cm, anchor=north west},
+                       minimum width=4.7cm, minimum height=1.9cm, anchor=north west},
       groupe/.default = presvert,
       titre/.style  = {font=\small\bfseries, anchor=north west},
       detail/.style = {font=\scriptsize, text=presgris, anchor=north west,
-                       text width=3.3cm, align=left}
+                       text width=3.4cm, align=left}
     ]
     \node[groupe=presorange] (t) at (0,0) {};
     \node[text=presorange, font=\Large] at ([shift={(0.55,-0.62)}]t.north west) {\faHandHoldingUsd};
@@ -917,7 +913,7 @@
     \node[font=\scriptsize\bfseries, text=presorange, anchor=south east]
       at ([shift={(-0.2,0.12)}]t.south east) {1\,482 enfants};
 
-    \node[groupe=presgris] (c) at (5.2,0) {};
+    \node[groupe=presgris] (c) at (5.4,0) {};
     \node[text=presgris, font=\Large] at ([shift={(0.55,-0.62)}]c.north west) {\faHome};
     \node[titre, text=presgris] at ([shift={(1.15,-0.18)}]c.north west) {Jamais bénéficiaires};
     \node[detail] at ([shift={(1.15,-0.55)}]c.north west)
@@ -926,9 +922,9 @@
       at ([shift={(-0.2,0.12)}]c.south east) {13\,477 enfants};
 
     \draw[presvert, line width=1pt, -{Stealth[length=2.5mm]}]
-      (0,-2.25) -- (9.8,-2.25);
-    \node[font=\scriptsize\bfseries, text=presvert, anchor=north] at (0.6,-2.35) {2018};
-    \node[font=\scriptsize\bfseries, text=presvert, anchor=north] at (9.2,-2.35) {2021};
+      (0,-2.4) -- (10.1,-2.4);
+    \node[font=\scriptsize\bfseries, text=presvert, anchor=north] at (0.6,-2.5) {2018};
+    \node[font=\scriptsize\bfseries, text=presvert, anchor=north] at (9.5,-2.5) {2021};
   \end{tikzpicture}
 
   \smallskip
