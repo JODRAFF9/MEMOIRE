@@ -292,6 +292,33 @@
 \section[Méthodologie]{Cadre méthodologique}
 % ============================================================
 
+\subsection{Données EHCVM}
+
+\begin{frame}{Données EHCVM I et II}
+  \begin{block}{Source et période}
+    \begin{itemize}
+      \item \textbf{EHCVM I (2018-2019)} : première vague harmonisée UEMOA au Sénégal.
+      \item \textbf{EHCVM II (2021-2022)} : deuxième vague permettant de constituer un panel.
+      \item \textbf{Panel vrai} : 6\,127 ménages suivis entre les deux vagues.
+      \item \textbf{Traitement} : ménages bénéficiaires en 2018 d'un transfert
+            de migrant issu du ménage, comparés aux non-bénéficiaires.
+    \end{itemize}
+  \end{block}
+  \begin{block}{Population cible et unité d'analyse}
+    Enfants de 0 à 17 ans suivis individuellement d'une vague à l'autre par
+    l'identifiant préchargé du questionnaire 2021, soit 17\,786 enfants :
+    2\,638 dans un ménage bénéficiaire en 2018 (dont 1\,482 bénéficiaires
+    stables aux deux vagues) et 15\,148 dans un ménage non bénéficiaire
+    (dont 13\,477 jamais bénéficiaires). Le score de propension et
+    l'appariement sont estimés à ce niveau.
+  \end{block}
+  \begin{alertblock}{Covariables du modèle de propension}
+    Ménage : âge, genre, niveau d'éducation, statut matrimonial et catégorie
+    socioprofessionnelle du chef ; taille du ménage ; dépense par tête ;
+    milieu de résidence ; région. Enfant : genre et âge.
+  \end{alertblock}
+\end{frame}
+
 \subsection{Mesure de la pauvreté multidimensionnelle}
 
 \begin{frame}{MODA en 7 dimensions et 3 groupes d'âge}
@@ -376,33 +403,6 @@
         - \sum_{j\in\mathcal{C}} w_{ij}\,\Delta Y_j\Bigr]
     \end{equation*}
     Contrôle simultané des biais observables (PSM) et des effets fixes inobservés (DD).
-  \end{alertblock}
-\end{frame}
-
-\subsection{Données EHCVM}
-
-\begin{frame}{Données EHCVM I et II}
-  \begin{block}{Source et période}
-    \begin{itemize}
-      \item \textbf{EHCVM I (2018-2019)} : première vague harmonisée UEMOA au Sénégal.
-      \item \textbf{EHCVM II (2021-2022)} : deuxième vague permettant de constituer un panel.
-      \item \textbf{Panel vrai} : 6\,127 ménages suivis entre les deux vagues.
-      \item \textbf{Traitement} : ménages bénéficiaires en 2018 d'un transfert
-            de migrant issu du ménage, comparés aux non-bénéficiaires.
-    \end{itemize}
-  \end{block}
-  \begin{block}{Population cible et unité d'analyse}
-    Enfants de 0 à 17 ans suivis individuellement d'une vague à l'autre par
-    l'identifiant préchargé du questionnaire 2021, soit 17\,786 enfants :
-    2\,638 dans un ménage bénéficiaire en 2018 (dont 1\,482 bénéficiaires
-    stables aux deux vagues) et 15\,148 dans un ménage non bénéficiaire
-    (dont 13\,477 jamais bénéficiaires). Le score de propension et
-    l'appariement sont estimés à ce niveau.
-  \end{block}
-  \begin{alertblock}{Covariables du modèle de propension}
-    Ménage : âge, genre, niveau d'éducation, statut matrimonial et catégorie
-    socioprofessionnelle du chef ; taille du ménage ; dépense par tête ;
-    milieu de résidence ; région. Enfant : genre et âge.
   \end{alertblock}
 \end{frame}
 
