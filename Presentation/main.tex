@@ -16,6 +16,8 @@
 \definecolor{presvertc}{RGB}{111,203,236}% bleu UNICEF clair
 \definecolor{presor}{RGB}{14,110,150}    % bleu profond (petits textes et accents)
 \definecolor{presnuit}{RGB}{28,171,226}  % rappel de la teinte de marque
+\definecolor{presgris}{RGB}{110,116,126} % gris ardoise (notes et legendes)
+\definecolor{presorange}{RGB}{242,106,33}% orange UNICEF (puces et accents)
 % Les aplats portant du texte blanc sont legerement assombris : le bleu de
 % marque, tres lumineux, ne contraste pas assez a sa valeur nominale.
 \colorlet{marron}{presor}
@@ -80,12 +82,12 @@
     \begin{minipage}[t]{0.43\paperwidth}\centering
       {\scriptsize\color{presor}\bfseries Présenté par :}\\[2pt]
       {\small Sié Rachid \textsc{Traoré}}\\[1pt]
-      {\scriptsize\itshape Élève ingénieur statisticien économiste}
+      {\scriptsize\itshape\color{presgris} Élève ingénieur statisticien économiste}
     \end{minipage}\hfill
     \begin{minipage}[t]{0.43\paperwidth}\centering
       {\scriptsize\color{presor}\bfseries Sous la direction de :}\\[2pt]
       {\small Mamadou Abdoulaye \textsc{Diallo}}\\[1pt]
-      {\scriptsize\itshape Chercheur postdoctoral en économie appliquée, ISE}
+      {\scriptsize\itshape\color{presgris} Chercheur postdoctoral en économie appliquée, ISE}
     \end{minipage}\par
     \vspace{0.22cm}
     % -- date (pastille) --
@@ -117,14 +119,15 @@
 
 % -- Légendes numérotées ------------------------------------
 \setbeamertemplate{caption}[numbered]
-\setbeamercolor{caption name}{fg=presvert}
+\setbeamercolor{caption name}{fg=presorange}
+\setbeamercolor{caption}{fg=presgris}
 
 % -- Blocs avec coins arrondis ------------------------------
 \setbeamertemplate{blocks}[rounded][shadow=false]
 
 % -- Puces --------------------------------------------------
-\setbeamertemplate{itemize item}{\color{marron}$\blacktriangleright$}
-\setbeamertemplate{itemize subitem}{\color{dore}$\triangleright$}
+\setbeamertemplate{itemize item}{\color{presorange}$\blacktriangleright$}
+\setbeamertemplate{itemize subitem}{\color{presorange!75}$\triangleright$}
 
 % -- Packages -----------------------------------------------
 % Compilation avec XeLaTeX : fontspec gere l'Unicode nativement
@@ -205,17 +208,17 @@
                         font=\bfseries\footnotesize, minimum size=0.6cm, inner sep=0pt}
     ]
     \node[carte] (a) at (0,0)     {~\\[0.3cm]\textbf{\small Introduction}\\[2pt]
-                                   {\scriptsize Contexte, problématique et objectifs}};
+                                   {\scriptsize\color{presgris} Contexte, problématique et objectifs}};
     \node[carte] (b) at (4.3,0)   {~\\[0.3cm]\textbf{\small Revue de la littérature}\\[2pt]
-                                   {\scriptsize Canaux de transmission et lacune à combler}};
+                                   {\scriptsize\color{presgris} Canaux de transmission et lacune à combler}};
     \node[carte] (c) at (8.6,0)   {~\\[0.3cm]\textbf{\small Cadre méthodologique}\\[2pt]
-                                   {\scriptsize Données, mesure MODA et identification}};
+                                   {\scriptsize\color{presgris} Données, mesure MODA et identification}};
     \node[carte] (d) at (0,-2.75) {~\\[0.3cm]\textbf{\small Résultats empiriques}\\[2pt]
-                                   {\scriptsize Effet moyen, dimensions et montants}};
+                                   {\scriptsize\color{presgris} Effet moyen, dimensions et montants}};
     \node[carte] (e) at (4.3,-2.75){~\\[0.3cm]\textbf{\small Robustesse et discussion}\\[2pt]
-                                   {\scriptsize Ce qui tient et comment le lire}};
+                                   {\scriptsize\color{presgris} Ce qui tient et comment le lire}};
     \node[carte] (f) at (8.6,-2.75){~\\[0.3cm]\textbf{\small Conclusion}\\[2pt]
-                                   {\scriptsize Enseignements et recommandations}};
+                                   {\scriptsize\color{presgris} Enseignements et recommandations}};
     \foreach \n/\i in {a/1, b/2, c/3, d/4, e/5, f/6}
       \node[pastille] at ([shift={(0.52,-0.5)}]\n.north west) {\i};
   \end{tikzpicture}
@@ -463,7 +466,7 @@
     \begin{column}{0.50\textwidth}
       \centering
       \includegraphics[width=\linewidth,height=0.42\textheight,keepaspectratio]{figures/fig_distrib_dimensions.pdf}\\[-2pt]
-      {\scriptsize Le trait en pointillé marque le seuil $k=4$.}
+      {\scriptsize\color{presgris} Le trait en pointillé marque le seuil $k=4$.}
     \end{column}
   \end{columns}
 \end{frame}
@@ -553,7 +556,7 @@
       \bottomrule
     \end{tabular}
     \par\smallskip
-    {\scriptsize $^{*}p<0{,}10$, $^{**}p<0{,}05$.}
+    {\scriptsize\color{presgris} $^{*}p<0{,}10$, $^{**}p<0{,}05$.}
   \end{table}
   \begin{alertblock}{Résultat central, pas de réduction}
     Sur 2018-2021, la pauvreté multidimensionnelle des enfants des ménages
@@ -616,7 +619,7 @@
       \bottomrule
     \end{tabular}
     \par\smallskip
-    {\scriptsize $^{*}p<0{,}10$, $^{**}p<0{,}05$.}
+    {\scriptsize\color{presgris} $^{*}p<0{,}10$, $^{**}p<0{,}05$.}
   \end{table}
   \begin{alertblock}{Le volet de H2 le mieux établi}
     L'effet défavorable se concentre sur les petits montants : seuls les deux
@@ -674,7 +677,7 @@
       \bottomrule
     \end{tabular}
     \par\smallskip
-    {\scriptsize $^{**}p<0{,}05$. L'hétérogénéité n'est établie ni par milieu,
+    {\scriptsize\color{presgris} $^{**}p<0{,}05$. L'hétérogénéité n'est établie ni par milieu,
      ni par genre du chef, ni par tranche d'âge.}
   \end{table}
 \end{frame}
@@ -834,7 +837,7 @@
   \end{tabular}}
 
   \smallskip
-  {\scriptsize \checkmark~= applicable au groupe d'âge~; -~= non applicable.
+  {\scriptsize\color{presgris} \checkmark~= applicable au groupe d'âge~; -~= non applicable.
    Deux indicateurs officiels sont écartés~: la diversité alimentaire, non
    comparable entre vagues, et le NEET des 15-17 ans, dont la mesure capte la
    seule absence d'emploi.
