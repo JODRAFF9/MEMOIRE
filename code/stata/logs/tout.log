@@ -1074,7 +1074,7 @@ Nouveau Ménage |        993       13.95       13.95
 .     tempfile id_2021
 
 .     save `id_2021'
-file C:\Users\Bmd\AppData\Local\Temp\ST_4710_000002.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_4b20_000002.tmp saved as .dta format
 
 . restore
 
@@ -1235,7 +1235,7 @@ Autre pays hors Afrique |        227        2.13       69.75
 .     tempfile etrangers
 
 .     save `etrangers'
-file C:\Users\Bmd\AppData\Local\Temp\ST_4710_000003.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_4b20_000003.tmp saved as .dta format
 
 . 
 .     /* Fusionner sur la liste exhaustive des menages */
@@ -1387,7 +1387,7 @@ file code/stata/temp/montant_2018.dta saved
 .     tempfile etrangers
 
 .     save `etrangers'
-file C:\Users\Bmd\AppData\Local\Temp\ST_4710_000004.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_4b20_000004.tmp saved as .dta format
 
 . 
 .     /* Fusionner sur la liste exhaustive des menages */
@@ -2052,7 +2052,7 @@ file code/stata/temp/traitement_2021.dta saved
 (0 observations deleted)
 (1,722 missing values generated)
 (1,722 real changes made)
-file C:\Users\Bmd\AppData\Local\Temp\ST_4710_000006.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_4b20_000006.tmp saved as .dta format
   CSP du chef 2018 :
 
                    Categorie |
@@ -2105,7 +2105,7 @@ Sans emploi ou non renseigne |      1,722       24.06       24.06
     Not matched                             0
     Matched                            33,844  
     -----------------------------------------
-file C:\Users\Bmd\AppData\Local\Temp\ST_4710_000008.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_4b20_000008.tmp saved as .dta format
 
     Result                      Number of obs
     -----------------------------------------
@@ -2114,7 +2114,7 @@ file C:\Users\Bmd\AppData\Local\Temp\ST_4710_000008.tmp saved as .dta format
     -----------------------------------------
 (4 missing values generated)
 (9,059 observations deleted)
-file C:\Users\Bmd\AppData\Local\Temp\ST_4710_00000a.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_4b20_00000a.tmp saved as .dta format
 
     Result                      Number of obs
     -----------------------------------------
@@ -2124,21 +2124,21 @@ file C:\Users\Bmd\AppData\Local\Temp\ST_4710_00000a.tmp saved as .dta format
 
     Matched                            24,955  
     -----------------------------------------
-file C:\Users\Bmd\AppData\Local\Temp\ST_4710_00000c.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_4b20_00000c.tmp saved as .dta format
 
     Result                      Number of obs
     -----------------------------------------
     Not matched                             0
     Matched                            33,844  
     -----------------------------------------
-file C:\Users\Bmd\AppData\Local\Temp\ST_4710_00000e.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_4b20_00000e.tmp saved as .dta format
 
     Result                      Number of obs
     -----------------------------------------
     Not matched                             0
     Matched                            33,844  
     -----------------------------------------
-file C:\Users\Bmd\AppData\Local\Temp\ST_4710_00000g.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_4b20_00000g.tmp saved as .dta format
 
     Result                      Number of obs
     -----------------------------------------
@@ -2234,7 +2234,7 @@ file code/stata/temp/enfants_dep_2018.dta saved
 (0 observations deleted)
 (1,326 missing values generated)
 (1,326 real changes made)
-file C:\Users\Bmd\AppData\Local\Temp\ST_4710_00000i.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_4b20_00000i.tmp saved as .dta format
   CSP du chef 2021 :
 
                    Categorie |
@@ -2290,7 +2290,7 @@ Sans emploi ou non renseigne |      1,326       18.62       18.62
     Not matched                             0
     Matched                            31,033  
     -----------------------------------------
-file C:\Users\Bmd\AppData\Local\Temp\ST_4710_00000k.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_4b20_00000k.tmp saved as .dta format
 
     Result                      Number of obs
     -----------------------------------------
@@ -2298,21 +2298,21 @@ file C:\Users\Bmd\AppData\Local\Temp\ST_4710_00000k.tmp saved as .dta format
     Matched                            31,033  
     -----------------------------------------
 (14,304 observations deleted)
-file C:\Users\Bmd\AppData\Local\Temp\ST_4710_00000m.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_4b20_00000m.tmp saved as .dta format
 
     Result                      Number of obs
     -----------------------------------------
     Not matched                             0
     Matched                            31,033  
     -----------------------------------------
-file C:\Users\Bmd\AppData\Local\Temp\ST_4710_00000o.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_4b20_00000o.tmp saved as .dta format
 
     Result                      Number of obs
     -----------------------------------------
     Not matched                             0
     Matched                            31,033  
     -----------------------------------------
-file C:\Users\Bmd\AppData\Local\Temp\ST_4710_00000q.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_4b20_00000q.tmp saved as .dta format
 (16,493 observations deleted)
 file code/stata/temp/lien_individus.dta saved
 
@@ -2326,7 +2326,7 @@ file code/stata/temp/lien_individus.dta saved
     Not matched                             0
     Matched                            31,033  
     -----------------------------------------
-file C:\Users\Bmd\AppData\Local\Temp\ST_4710_00000t.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_4b20_00000t.tmp saved as .dta format
 
     Result                      Number of obs
     -----------------------------------------
@@ -2584,7 +2584,7 @@ Duplicates in terms of grappe menage
 . tempfile id2018
 
 . save `id2018'
-file C:\Users\Bmd\AppData\Local\Temp\ST_4710_00000u.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_4b20_00000u.tmp saved as .dta format
 
 . 
 . use "$TEMP/vague_2021.dta", clear
@@ -2621,7 +2621,7 @@ Duplicates in terms of grappe menage
 . tempfile ids_panel
 
 . save `ids_panel'
-file C:\Users\Bmd\AppData\Local\Temp\ST_4710_00000v.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_4b20_00000v.tmp saved as .dta format
 
 . save "$TEMP/ids_panel.dta", replace   /* liste complete de tous les menages
 >     suivis, reutilisee par l'analyse de robustesse "beneficiaires stables" */
@@ -2649,7 +2649,7 @@ Menages vraiment suivis (presences dans les 2 vagues) : 5691
 . tempfile panel_t0
 
 . save `panel_t0'
-file C:\Users\Bmd\AppData\Local\Temp\ST_4710_00000w.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_4b20_00000w.tmp saved as .dta format
 
 . 
 . use "$TEMP/vague_2021.dta", clear
@@ -2665,7 +2665,7 @@ file C:\Users\Bmd\AppData\Local\Temp\ST_4710_00000w.tmp saved as .dta format
 . tempfile panel_t1
 
 . save `panel_t1'
-file C:\Users\Bmd\AppData\Local\Temp\ST_4710_00000x.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_4b20_00000x.tmp saved as .dta format
 
 . 
 . use `panel_t0', clear
@@ -3170,7 +3170,7 @@ file code/stata/temp/panel_complet.dta saved
 . tempfile enf18_psm
 
 . save `enf18_psm'
-file C:\Users\Bmd\AppData\Local\Temp\ST_4710_000011.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_4b20_000011.tmp saved as .dta format
 
 . 
 . use "$TEMP/enfants_dep_2021.dta", clear
@@ -4974,7 +4974,7 @@ t#D#groupe_base |
 .     tempfile quintiles
 
 .     save `quintiles'
-file C:\Users\Bmd\AppData\Local\Temp\ST_4710_000014.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_4b20_000014.tmp saved as .dta format
 
 .     di "  Bornes des quintiles de montant annuel (FCFA) :"
   Bornes des quintiles de montant annuel (FCFA) :
@@ -5732,7 +5732,7 @@ age                    U  | 6.8198     6.69      3.1         |   1.13  0.260 |  
 .     tempfile poids_sta
 
 .     save `poids_sta'
-file C:\Users\Bmd\AppData\Local\Temp\ST_4710_000017.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_4b20_000017.tmp saved as .dta format
 
 . restore
 
@@ -5835,7 +5835,7 @@ t#D_stable_alt |
 .     tempfile quint_sta
 
 .     save `quint_sta'
-file C:\Users\Bmd\AppData\Local\Temp\ST_4710_000019.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_4b20_000019.tmp saved as .dta format
 
 . restore
 
@@ -6628,14 +6628,14 @@ Number of observations (_N) was 0, now 2.
 . set dp comma
 
 . twoway (connected H_nonbenef annee, lcolor(gs9) mcolor(gs9) msymbol(square) ///
->         lwidth(medthick) mlabel(lbl_nb) mlabcolor(black) mlabpos(6) ///
+>         lwidth(medthick) mlabel(lbl_nb) mlabcolor(black) mlabpos(12) ///
 >         mlabgap(2) mlabsize(small)) ///
 >        (connected H_benef annee, lcolor(orange) mcolor(orange) msymbol(circle) ///
 >         lwidth(medthick) mlabel(lbl_b) mlabcolor(black) mlabpos(12) ///
 >         mlabgap(2) mlabsize(small)), ///
 >     xlabel(2018 2021) xscale(range(2017.7 2021.3)) xtitle("Vague EHCVM") ///
 >     ytitle("Incidence MODA H (%)") ///
->     ylabel(0(20)100, grid) yscale(range(0 108)) ///
+>     ylabel(40(5)70, grid) yscale(range(38 72)) ///
 >     legend(order(1 "Non-bénéficiaires" 2 "Bénéficiaires") pos(6) rows(1)) ///
 >     graphregion(color(white)) plotregion(color(white))
 
@@ -6975,7 +6975,7 @@ file code/stata/output/figures/fig_distrib_dimensions.pdf saved as PDF format
 .     tempfile quint_desc
 
 .     save `quint_desc'
-file C:\Users\Bmd\AppData\Local\Temp\ST_4710_00001b.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_4b20_00001b.tmp saved as .dta format
 
 . restore
 
@@ -7332,7 +7332,7 @@ file code/stata/output/figures/fig_effets_dim.pdf saved as PDF format
 . tempfile never
 
 . save `never'
-file C:\Users\Bmd\AppData\Local\Temp\ST_4710_00001c.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_4b20_00001c.tmp saved as .dta format
 
 . 
 . /* Liste des menages (une ligne par menage) */
@@ -7344,7 +7344,7 @@ file C:\Users\Bmd\AppData\Local\Temp\ST_4710_00001c.tmp saved as .dta format
 . tempfile liste_men
 
 . save `liste_men'
-file C:\Users\Bmd\AppData\Local\Temp\ST_4710_00001d.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_4b20_00001d.tmp saved as .dta format
 
 . quietly count
 
