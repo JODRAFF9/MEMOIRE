@@ -512,14 +512,14 @@
     \centering
     \caption{Effet moyen sur les traités (ATT), pauvreté MODA}
     \renewcommand{\arraystretch}{1.25}
-    \begin{tabular}{@{}lccc@{}}
+    \begin{tabular}{@{}lcc@{}}
       \toprule
-      Spécification & ATT & Écart-type & Significativité \\
+      Spécification & ATT & Écart-type \\
       \midrule
-      DD brute (sans appariement) & $0{,}035$ & $(0{,}025)$ & \\
-      PSM-DD, k-NN ($k=4$)        & $0{,}064$ & $(0{,}029)$ & $^{**}$ \\
-      PSM-DD, noyau Epanechnikov  & $0{,}061$ & $(0{,}032)$ & $^{*}$ \\
-      PSM-DD, caliper             & $0{,}050$ & $(0{,}028)$ & $^{*}$ \\
+      DD brute (sans appariement) & $0{,}035$          & $(0{,}025)$ \\
+      PSM-DD, k-NN ($k=4$)        & $0{,}064^{**}$     & $(0{,}029)$ \\
+      PSM-DD, noyau Epanechnikov  & $0{,}061^{*}$      & $(0{,}032)$ \\
+      PSM-DD, caliper             & $0{,}050^{*}$      & $(0{,}028)$ \\
       \bottomrule
     \end{tabular}
     \par\smallskip
@@ -572,17 +572,17 @@
   \begin{table}
     \centering
     \renewcommand{\arraystretch}{1.15}
-    \begin{tabular}{@{}lccc@{}}
+    \begin{tabular}{@{}lcc@{}}
       \toprule
-      Quintile de montant annuel & ATT & Écart-type & Significativité \\
+      Quintile de montant annuel & ATT & Écart-type \\
       \midrule
-      Q1 (jusqu'à 100~000 FCFA)  & $0{,}129$  & $(0{,}052)$ & $^{**}$ \\
-      Q2 (110~000 à 360~000)     & $0{,}099$  & $(0{,}042)$ & $^{**}$ \\
-      Q3 (380~000 à 900~000)     & $0{,}020$  & $(0{,}047)$ &         \\
-      Q4 (920~000 à 1~800~000)   & $0{,}084$  & $(0{,}060)$ &         \\
-      Q5 (au-delà de 1~824~000)  & $-0{,}008$ & $(0{,}052)$ &         \\
+      Q1 (jusqu'à 100~000 FCFA)  & $0{,}129^{**}$ & $(0{,}052)$ \\
+      Q2 (110~000 à 360~000)     & $0{,}099^{**}$ & $(0{,}042)$ \\
+      Q3 (380~000 à 900~000)     & $0{,}020$      & $(0{,}047)$ \\
+      Q4 (920~000 à 1~800~000)   & $0{,}084$      & $(0{,}060)$ \\
+      Q5 (au-delà de 1~824~000)  & $-0{,}008$     & $(0{,}052)$ \\
       \midrule
-      Pente dose-réponse (log du montant) & $-0{,}025$ & $(0{,}014)$ & $^{*}$ \\
+      Pente dose-réponse (log du montant) & $-0{,}025^{*}$ & $(0{,}014)$ \\
       \bottomrule
     \end{tabular}
     \par\smallskip
