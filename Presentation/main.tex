@@ -156,12 +156,27 @@
 \usepackage{multirow}
 \usepackage{ragged2e}
 \usepackage{tikz}
-\usetikzlibrary{positioning,arrows.meta,shapes,shapes.geometric,calc}
+\usetikzlibrary{positioning,arrows.meta,shapes,shapes.geometric,shapes.symbols,calc}
 % Icones vectorielles des dimensions du bien-etre (compatible XeLaTeX)
 \usepackage{fontawesome5}
 
 % -- Mise en valeur d'un chiffre par la police, sans couleur --
 \newcommand{\chiffre}[1]{{\bfseries\large #1}}
+
+% -- Bandeau en forme de ruban -------------------------------
+% #1 teinte, #2 largeur, #3 intitule, #4 corps
+\newcommand{\bandeau}[4]{%
+  \begin{tikzpicture}
+    \node[fill=#1, text=white, minimum height=0.62cm, inner xsep=12pt,
+          font=\small\bfseries, anchor=north west] (tete) at (0,0) {#3};
+    % replis lateraux, qui donnent l'aspect d'un ruban
+    \fill[#1!62!black] ([xshift=-0.32cm]tete.north west)
+      -- (tete.north west) -- (tete.south west) -- cycle;
+    \fill[#1!62!black] ([xshift=0.32cm]tete.north east)
+      -- (tete.north east) -- (tete.south east) -- cycle;
+    \node[fill=#1!8, text width=#2, align=justify, inner sep=9pt,
+          font=\small, anchor=north west] at (tete.south west) {#4};
+  \end{tikzpicture}}
 
 % -- Semis de pastilles decoratif ----------------------------
 % #1 coin d'ancrage, #2 et #3 les deplacements signes vers l'interieur
@@ -412,21 +427,22 @@
 \end{frame}
 
 \begin{frame}{Ce que ces motivations impliquent}
-  \small
-  \begin{alertblock}{Pour la destination des fonds}
+  \centering
+  \bandeau{dimnutri}{10.6cm}{Pour la destination des fonds}{%
     Selon la motivation dominante, les transferts financent l'ordinaire du
     ménage ou un investissement de long terme. Rien ne garantit qu'ils aillent
-    aux dimensions du bien-être de l'enfant que mesure l'indice.
-  \end{alertblock}
-  \begin{block}{Pour l'effet attendu sur la pauvreté monétaire}
+    aux dimensions du bien-être de l'enfant que mesure l'indice.}
+
+  \smallskip
+  \bandeau{dimeau}{10.6cm}{Pour l'effet attendu sur la pauvreté monétaire}{%
     La littérature établit une réduction modeste, atténuée par les coûts de
     transaction (Azam \& Gubert, 2006 ; Combes \& Ebeke, 2011). L'ampleur reste
-    donc une question empirique, y compris sur données monétaires.
-  \end{block}
-  \begin{block}{Pour l'identification}
+    une question empirique.}
+
+  \smallskip
+  \bandeau{dimsante}{10.6cm}{Pour l'identification}{%
     Les trois motivations supposent un migrant, donc un réseau. Le fait de
-    recevoir n'est jamais le fruit du hasard.
-  \end{block}
+    recevoir n'est jamais le fruit du hasard.}
 \end{frame}
 
 \begin{frame}{Effets documentés des transferts sur les enfants}
