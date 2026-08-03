@@ -216,8 +216,8 @@
 % #1 icone, #2 tranche d'age, #3 nombre d'indicateurs
 \newcommand{\groupeage}[3]{%
   \begin{tikzpicture}[baseline=(socle.base)]
-    \node[text=presvert, inner sep=0pt, font=\Huge] (silhouette) {#1};
-    \node[below=2.2mm of silhouette, font=\footnotesize\bfseries, text=presor] (socle) {#2};
+    \node[text=presvert, inner sep=0pt, font=\LARGE] (silhouette) {#1};
+    \node[below=1.6mm of silhouette, font=\footnotesize\bfseries, text=presor] (socle) {#2};
     \node[below=0.4mm of socle, font=\scriptsize, text=presgris] {#3 indicateurs};
   \end{tikzpicture}}
 
@@ -485,7 +485,7 @@
   \begin{tikzpicture}[
       hexa/.style   = {regular polygon, regular polygon sides=6, draw=#1!60!black,
                        line width=1pt, fill=#1, text=white, inner sep=0pt,
-                       minimum size=1.05cm, font=\normalsize},
+                       minimum size=0.95cm, font=\small},
       hexa/.default = presvert,
       etiq/.style   = {below=1mm, font=\scriptsize, text=presor}
     ]
@@ -493,32 +493,27 @@
     \node[hexa=dimeau]    (d2) at (2.6,0)    {\faTint};      \node[etiq] at (d2.south) {Eau};
     \node[hexa=dimlogem]  (d3) at (5.2,0)    {\faHome};      \node[etiq] at (d3.south) {Logement};
     \node[hexa=dimnutri]  (d4) at (7.8,0)    {\faLeaf};      \node[etiq] at (d4.south) {Nutrition};
-    \node[hexa=dimsante]  (d5) at (1.3,-1.85) {\faHeartbeat}; \node[etiq] at (d5.south) {Santé};
-    \node[hexa=dimprotec] (d6) at (3.9,-1.85) {\faIdCard};    \node[etiq] at (d6.south) {Protection};
-    \node[hexa=dimeduc]   (d7) at (6.5,-1.85) {\faBook};      \node[etiq] at (d7.south) {Éducation};
+    \node[hexa=dimsante]  (d5) at (1.3,-1.62) {\faHeartbeat}; \node[etiq] at (d5.south) {Santé};
+    \node[hexa=dimprotec] (d6) at (3.9,-1.62) {\faIdCard};    \node[etiq] at (d6.south) {Protection};
+    \node[hexa=dimeduc]   (d7) at (6.5,-1.62) {\faBook};      \node[etiq] at (d7.south) {Éducation};
   \end{tikzpicture}
 
-  \medskip
+  \smallskip
   \groupeage{\faChild}{0 à 4 ans}{11}\hspace{1.6cm}
   \groupeage{\faRunning}{5 à 14 ans}{13}\hspace{1.6cm}
   \groupeage{\faMale}{15 à 17 ans}{11}
-  \medskip
-  \begin{alertblock}{Double seuil MODA}
-    \begin{minipage}[c]{0.20\linewidth}
-      \centering
-      \begin{tikzpicture}
-        \node[circle, fill=presorange, text=white, minimum size=1.15cm,
-              inner sep=0pt, font=\Large\bfseries] {$k=4$};
-      \end{tikzpicture}
-    \end{minipage}%
-    \begin{minipage}[c]{0.78\linewidth}
-      Intra-dimension, l'enfant est privé dès un indicateur.
-      Inter-dimensions, il est pauvre dès \chiffre{quatre dimensions sur sept}.
-    \end{minipage}
-  \end{alertblock}
-  \begin{center}
-    \hyperlink{matrice-nmoda}{\beamergotobutton{Voir la matrice MODA complète}}
-  \end{center}
+  \smallskip
+
+  \begin{tikzpicture}[baseline=(pastille.base)]
+    \node[circle, fill=presorange, text=white, minimum size=0.85cm,
+          inner sep=0pt, font=\small\bfseries] (pastille) {$k=4$};
+  \end{tikzpicture}\hspace{2mm}%
+  \begin{minipage}[c]{0.70\linewidth}
+    \footnotesize
+    \textbf{\color{presorange}Double seuil.} Privé dans une dimension dès un
+    indicateur, pauvre dès quatre dimensions sur sept.
+  \end{minipage}\hfill
+  \hyperlink{matrice-nmoda}{\beamergotobutton{Matrice}}
 \end{frame}
 
 \subsection{Stratégie d'identification}
