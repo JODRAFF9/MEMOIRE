@@ -253,29 +253,28 @@
 % -- Plan ----------------------------------------------------
 \begin{frame}{Plan de la présentation}
   \semis{south east}{-3.6}{3.0}{0.16}{101}%
-  \vspace{0.15cm}
+  \vspace{0.2cm}
   \centering
   \begin{tikzpicture}[
-      carte/.style   = {rounded corners=7pt, fill=dorepale, anchor=north west,
-                        minimum width=3.95cm, minimum height=2.45cm,
-                        text width=3.35cm, align=flush left, inner sep=7pt},
-      pastille/.style= {circle, fill=presnuit, text=white, anchor=center,
-                        font=\bfseries\footnotesize, minimum size=0.6cm, inner sep=0pt}
+      numero/.style = {font=\fontsize{42}{42}\selectfont\bfseries, text=presvert!22,
+                       anchor=north west},
+      titre/.style  = {font=\small\bfseries, text=presvert, anchor=north west},
+      resume/.style = {font=\scriptsize, text=presgris, anchor=north west,
+                       text width=3.5cm, align=left}
     ]
-    \node[carte] (a) at (0,0)     {~\\[0.3cm]\textbf{\small Introduction}\\[2pt]
-                                   {\scriptsize\color{presgris} Contexte, problématique et objectifs}};
-    \node[carte] (b) at (4.3,0)   {~\\[0.3cm]\textbf{\small Revue de la littérature}\\[2pt]
-                                   {\scriptsize\color{presgris} Canaux de transmission et lacune à combler}};
-    \node[carte] (c) at (8.6,0)   {~\\[0.3cm]\textbf{\small Cadre méthodologique}\\[2pt]
-                                   {\scriptsize\color{presgris} Données, mesure MODA et identification}};
-    \node[carte] (d) at (0,-2.75) {~\\[0.3cm]\textbf{\small Résultats empiriques}\\[2pt]
-                                   {\scriptsize\color{presgris} Effet moyen, dimensions et montants}};
-    \node[carte] (e) at (4.3,-2.75){~\\[0.3cm]\textbf{\small Robustesse et discussion}\\[2pt]
-                                   {\scriptsize\color{presgris} Ce qui tient et comment le lire}};
-    \node[carte] (f) at (8.6,-2.75){~\\[0.3cm]\textbf{\small Conclusion}\\[2pt]
-                                   {\scriptsize\color{presgris} Enseignements et recommandations}};
-    \foreach \n/\i in {a/1, b/2, c/3, d/4, e/5, f/6}
-      \node[pastille] at ([shift={(0.52,-0.5)}]\n.north west) {\i};
+    \foreach \i/\x/\y/\t/\r in {%
+      1/0/0/{Introduction}/{Contexte, problématique et objectifs},
+      2/4.2/0/{Revue de la littérature}/{Motivations, effets documentés et lacune},
+      3/8.4/0/{Cadre méthodologique}/{Données, mesure MODA et identification},
+      4/0/-2.9/{Résultats empiriques}/{Effet moyen, dimensions et montants},
+      5/4.2/-2.9/{Robustesse et discussion}/{Ce qui tient et comment le lire},
+      6/8.4/-2.9/{Conclusion}/{Enseignements et recommandations}}
+      {
+        \node[numero] at (\x,\y) {\i};
+        \node[titre]  at (\x+0.95,\y-0.28) {\t};
+        \node[resume] at (\x+0.95,\y-0.82) {\r};
+        \draw[presorange, line width=1pt] (\x+0.98,\y-0.72) -- (\x+1.55,\y-0.72);
+      }
   \end{tikzpicture}
 \end{frame}
 
