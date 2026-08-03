@@ -61,25 +61,10 @@
 
 \makeatletter
 \setbeamertemplate{title page}{%
+  % Semis de pastilles en fond de l'angle superieur droit.
+  \semis{north east}{-5.4}{-6.2}{0.28}{2026}%
   \begin{tikzpicture}[remember picture,overlay]
     \fill[presvert!6] (current page.south west) rectangle (current page.north east);
-    % semis de pastilles dans l'angle superieur droit, en fond
-    % La graine fixe garantit un motif identique d'une compilation a l'autre.
-    \begin{scope}
-      \clip ([xshift=-5.4cm,yshift=-0.95cm]current page.north east)
-            rectangle ([yshift=-6.2cm]current page.north east);
-      \pgfmathsetseed{2026}
-      \foreach \couleur/\nb in {presvert/150, presvertc/110, presorange/45} {
-        \foreach \i in {1,...,\nb} {
-          \pgfmathsetmacro{\dx}{-5.4 + rnd*5.4}
-          \pgfmathsetmacro{\dy}{-0.95 - rnd*5.25}
-          \pgfmathsetmacro{\rayon}{0.035 + rnd*0.10}
-          \fill[\couleur, opacity=0.28]
-            ([xshift=\dx cm, yshift=\dy cm]current page.north east)
-            circle (\rayon cm);
-        }
-      }
-    \end{scope}
     % bandeau superieur bleu ENSAE
     \fill[presvert] (current page.north west) rectangle ([yshift=-0.95cm]current page.north east);
     \node[anchor=west,text=white,font=\scriptsize\bfseries]
@@ -178,6 +163,26 @@
 % -- Mise en valeur d'un chiffre par la police, sans couleur --
 \newcommand{\chiffre}[1]{{\bfseries\large #1}}
 
+% -- Semis de pastilles decoratif ----------------------------
+% #1 coin d'ancrage, #2 et #3 les deplacements signes vers l'interieur
+% de la page, en centimetres, #4 opacite, #5 graine aleatoire.
+\newcommand{\semis}[5]{%
+  \begin{tikzpicture}[remember picture, overlay]
+    \begin{scope}
+      \clip ([xshift=#2 cm]current page.#1) rectangle ([yshift=#3 cm]current page.#1);
+      \pgfmathsetseed{#5}
+      \foreach \couleur/\nb in {presvert/130, presvertc/95, presorange/40} {
+        \foreach \i in {1,...,\nb} {
+          \pgfmathsetmacro{\dx}{rnd*(#2)}
+          \pgfmathsetmacro{\dy}{rnd*(#3)}
+          \pgfmathsetmacro{\rayon}{0.035 + rnd*0.10}
+          \fill[\couleur, opacity=#4]
+            ([xshift=\dx cm, yshift=\dy cm]current page.#1) circle (\rayon cm);
+        }
+      }
+    \end{scope}
+  \end{tikzpicture}}
+
 % -- Logo de groupe d'age ------------------------------------
 % #1 icone, #2 tranche d'age, #3 nombre d'indicateurs
 \newcommand{\groupeage}[3]{%
@@ -218,6 +223,7 @@
 
 % -- Plan ----------------------------------------------------
 \begin{frame}{Plan de la présentation}
+  \semis{south east}{-3.6}{3.0}{0.16}{101}%
   \vspace{0.15cm}
   \centering
   \begin{tikzpicture}[
@@ -855,6 +861,7 @@
 \subsection{Conclusion générale}
 
 \begin{frame}{Conclusion générale}
+  \semis{south west}{3.2}{2.6}{0.14}{202}%
   \rubrique{Principaux apports}
   \begin{enumerate}
       \item Mesure de la pauvreté multidimensionnelle des enfants sur deux
@@ -938,6 +945,8 @@
 \setbeamertemplate{headline}{}
 \setbeamertemplate{footline}{}
 \begin{frame}[noframenumbering]
+  \semis{north east}{-4.6}{-4.4}{0.24}{303}%
+  \semis{south west}{4.2}{3.8}{0.20}{404}%
   \begin{center}
     \vspace{1.5cm}
     {\Huge\textcolor{marron}{\textbf{Merci de votre attention}}}\\[1cm]
