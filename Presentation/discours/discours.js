@@ -233,7 +233,7 @@ corps.push(attaque("Mesurer la pauvreté d'un enfant par le seul revenu ne suffi
 corps.push(dire(
   "Le troisième enseignement est une lacune. Les travaux existants raisonnent le plus souvent au niveau " +
   "du ménage et sur des indicateurs monétaires. Aucune étude recensée ne combine, en Afrique de l'Ouest, " +
-  "une mesure multidimensionnelle de la pauvreté infantile et une identification sur données de panel. " +
+  "une mesure multidimensionnelle de la pauvreté infantile et une identification sur données de suivi. " +
   "C'est précisément l'espace que ce mémoire occupe."
 ));
 
@@ -246,8 +246,8 @@ corps.push(repere(8, "Données EHCVM I et II", "1 min 30"));
 corps.push(attaque("J'en viens aux données."));
 corps.push(dire(
   "Le travail repose sur les deux vagues de l'Enquête harmonisée sur les conditions de vie des ménages : " +
-  "la première de 2018-2019, la seconde de 2021-2022. Leur appariement donne un panel de 6 127 ménages " +
-  "suivis d'une vague à l'autre."
+  "la première de 2018-2019, la seconde de 2021-2022. Leur appariement permet de suivre 6 127 ménages " +
+  "d'une vague à l'autre."
 ));
 corps.push(dire(
   "L'unité d'analyse n'est pas le ménage mais l'enfant. Grâce à l'identifiant préchargé du questionnaire " +
@@ -356,7 +356,7 @@ corps.push(dire(
   "ce qui suit. Le logit est estimé sur 17 735 enfants. La différence standardisée moyenne entre traités " +
   "et témoins passe de 11,4 pour cent avant appariement à 2,4 pour cent après, très en deçà du seuil " +
   "usuel de 10 pour cent, et le test joint de nullité des covariables n'est plus rejeté. " +
-  "Le panel apparié compte 16 210 observations-enfants sur le support commun."
+  "L'échantillon apparié compte 16 210 observations-enfants sur le support commun."
 ));
 corps.push(geste("Ne pas s'attarder : le jury retient surtout que l'équilibre est atteint."));
 
