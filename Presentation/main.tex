@@ -633,9 +633,37 @@
     Le vecteur $X_i$ retient, du côté du ménage, l'âge, le genre, l'éducation,
     le statut matrimonial et la catégorie socioprofessionnelle du chef, la
     taille, la dépense par tête, le milieu et la région ; du côté de l'enfant,
-    le genre et l'âge. Appariement aux quatre plus proches voisins, sur le
-    support commun.
+    le genre et l'âge.
   \end{block}
+
+  \smallskip
+  \centering
+  \begin{tikzpicture}[
+      methode/.style = {rounded corners=5pt, draw=#1, line width=1pt, fill=#1!8,
+                        minimum width=3.5cm, minimum height=1.55cm, anchor=north west},
+      methode/.default = presvert,
+      nom/.style     = {font=\small\bfseries, anchor=north, text width=3.2cm,
+                        align=center},
+      param/.style   = {font=\scriptsize, text=presgris, anchor=north,
+                        text width=3.2cm, align=center}
+    ]
+    \node[methode=presorange] (m1) at (0,0) {};
+    \node[nom, text=presorange] at ([yshift=-0.22cm]m1.north) {$k$ plus proches voisins};
+    \node[param] at ([yshift=-0.9cm]m1.north) {$k=4$, avec remise};
+
+    \node[methode=presvert] (m2) at (3.85,0) {};
+    \node[nom, text=presvert] at ([yshift=-0.22cm]m2.north) {Noyau};
+    \node[param] at ([yshift=-0.9cm]m2.north) {Epanechnikov, fenêtre $h = 0{,}06$};
+
+    \node[methode=dimeau] (m3) at (7.7,0) {};
+    \node[nom, text=dimeau] at ([yshift=-0.22cm]m3.north) {Caliper};
+    \node[param] at ([yshift=-0.9cm]m3.north) {rayon $0{,}05$, sans remise};
+  \end{tikzpicture}
+
+  \smallskip
+  {\footnotesize L'appariement se fait sur le support commun. Le $k$ plus
+   proches voisins fournit l'estimation principale, les deux autres servent
+   de contrôle.}
 \end{frame}
 
 \begin{frame}{Stratégie d'identification, la double différence (3/4)}
