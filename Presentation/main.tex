@@ -63,6 +63,23 @@
 \setbeamertemplate{title page}{%
   \begin{tikzpicture}[remember picture,overlay]
     \fill[presvert!6] (current page.south west) rectangle (current page.north east);
+    % semis de pastilles dans l'angle superieur droit, en fond
+    % La graine fixe garantit un motif identique d'une compilation a l'autre.
+    \begin{scope}
+      \clip ([xshift=-5.4cm,yshift=-0.95cm]current page.north east)
+            rectangle ([yshift=-6.2cm]current page.north east);
+      \pgfmathsetseed{2026}
+      \foreach \couleur/\nb in {presvert/150, presvertc/110, presorange/45} {
+        \foreach \i in {1,...,\nb} {
+          \pgfmathsetmacro{\dx}{-5.4 + rnd*5.4}
+          \pgfmathsetmacro{\dy}{-0.95 - rnd*5.25}
+          \pgfmathsetmacro{\rayon}{0.035 + rnd*0.10}
+          \fill[\couleur, opacity=0.28]
+            ([xshift=\dx cm, yshift=\dy cm]current page.north east)
+            circle (\rayon cm);
+        }
+      }
+    \end{scope}
     % bandeau superieur bleu ENSAE
     \fill[presvert] (current page.north west) rectangle ([yshift=-0.95cm]current page.north east);
     \node[anchor=west,text=white,font=\scriptsize\bfseries]
