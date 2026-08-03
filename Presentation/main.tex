@@ -382,7 +382,7 @@
     L'effet moyen du traitement sur les traités (ATT) :
     \vspace{-0.25cm}
     \begin{equation*}
-      \tau_{ATT} = \mathbb{E}[Y_i(1) - Y_i(0) \mid D_i = 1]
+      \tau_{\text{ATT}} = \mathbb{E}[Y_i(1) - Y_i(0) \mid D_i = 1]
     \end{equation*}
 
     Le contrefactuel $Y_i(0)$ est inobservable, d'où le recours à un estimateur adapté.
@@ -400,7 +400,7 @@
     Le vecteur $X_i$ retient, du côté du ménage, l'âge, le genre, l'éducation,
     le statut matrimonial et la catégorie socioprofessionnelle du chef, la
     taille, la dépense par tête, le milieu et la région ; du côté de l'enfant,
-    le genre et l'âge. Appariement aux $k=4$ plus proches voisins, sur le
+    le genre et l'âge. Appariement aux quatre plus proches voisins, sur le
     support commun.
   \end{block}
 \end{frame}
@@ -410,7 +410,7 @@
   \begin{block}{Double différence (DD)}
     \vspace{-0.2cm}
     \begin{equation*}
-      \hat{\tau}_{DD}
+      \hat{\tau}_{\text{DD}}
       = \bigl(\overline{Y}_{T,t_2}-\overline{Y}_{T,t_1}\bigr)
       - \bigl(\overline{Y}_{C,t_2}-\overline{Y}_{C,t_1}\bigr)
     \end{equation*}
@@ -425,7 +425,7 @@
   \begin{alertblock}{PSM-double différence}
     \vspace{-0.2cm}
     \begin{equation*}
-      \hat{\tau}_{PSM\text{-}DD}
+      \hat{\tau}_{\text{PSM-DD}}
       = \frac{1}{n_T}\sum_{i\in\mathcal{T}}
         \Bigl[\underbrace{Y_{i,t_2}-Y_{i,t_1}}_{\Delta Y_i}
         - \sum_{j\in\mathcal{C}} w_{ij}\,\Delta Y_j\Bigr]
@@ -529,7 +529,7 @@
       \includegraphics[width=\linewidth]{figures/overlap.pdf}
     \end{column}
     \begin{column}{0.46\textwidth}
-      \begin{block}{Équilibre après appariement ($k$-NN, $k=4$)}
+      \begin{block}{Équilibre après appariement (k-NN, $k=4$)}
         \begin{itemize}
           \item Logit au niveau enfant : 17\,735 enfants suivis
                 aux deux vagues (pseudo-$R^2 = 0{,}150$), covariables du
