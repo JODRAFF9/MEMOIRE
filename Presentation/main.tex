@@ -168,14 +168,14 @@
 \newcommand{\bandeau}[4]{%
   \begin{tikzpicture}
     \node[fill=#1, text=white, minimum height=0.62cm, inner xsep=12pt,
-          font=\small\bfseries, anchor=north west] (tete) at (0,0) {#3};
+          font=\footnotesize\bfseries, anchor=north west] (tete) at (0,0) {#3};
     % replis lateraux, qui donnent l'aspect d'un ruban
     \fill[#1!62!black] ([xshift=-0.32cm]tete.north west)
       -- (tete.north west) -- (tete.south west) -- cycle;
     \fill[#1!62!black] ([xshift=0.32cm]tete.north east)
       -- (tete.north east) -- (tete.south east) -- cycle;
-    \node[fill=#1!8, text width=#2, align=justify, inner sep=9pt,
-          font=\small, anchor=north west] at (tete.south west) {#4};
+    \node[fill=#1!8, text width=#2, align=justify, inner sep=8pt,
+          font=\footnotesize, anchor=north west] at (tete.south west) {#4};
   \end{tikzpicture}}
 
 % -- Semis de pastilles decoratif ----------------------------
@@ -383,7 +383,7 @@
   \centering
   \begin{tikzpicture}[
       motif/.style  = {rounded corners=6pt, draw=#1, line width=1.1pt, fill=#1!8,
-                       minimum width=3.85cm, minimum height=3.5cm, anchor=north west},
+                       minimum width=3.85cm, minimum height=3.2cm, anchor=north west},
       motif/.default = presvert,
       titre/.style  = {font=\small\bfseries, anchor=north, text width=3.45cm,
                        align=center},
@@ -401,7 +401,7 @@
     \node[source] at ([yshift=0.15cm]a.south) {Lucas \& Stark, 1985};
 
     % interet personnel et echange
-    \node[motif=dimeduc] (b) at (4.2,-1.15) {};
+    \node[motif=dimeduc] (b) at (4.2,-0.9) {};
     \node[text=dimeduc, font=\LARGE] at ([yshift=-0.55cm]b.north) {\faHandshake};
     \node[titre, text=dimeduc] at ([yshift=-1.0cm]b.north) {Intérêt et échange};
     \node[detail] at ([yshift=-1.55cm]b.north)
@@ -410,7 +410,7 @@
     \node[source] at ([yshift=0.15cm]b.south) {Rapoport \& Docquier, 2006};
 
     % diversification du risque
-    \node[motif=dimeau] (c) at (8.4,-2.3) {};
+    \node[motif=dimeau] (c) at (8.4,-1.8) {};
     \node[text=dimeau, font=\LARGE] at ([yshift=-0.55cm]c.north) {\faUmbrella};
     \node[titre, text=dimeau] at ([yshift=-1.0cm]c.north) {Assurance};
     \node[detail] at ([yshift=-1.55cm]c.north)
@@ -429,9 +429,9 @@
 \begin{frame}{Ce que ces motivations impliquent}
   \centering
   \bandeau{dimnutri}{10.6cm}{Pour la destination des fonds}{%
-    Selon la motivation dominante, les transferts financent l'ordinaire du
-    ménage ou un investissement de long terme. Rien ne garantit qu'ils aillent
-    aux dimensions du bien-être de l'enfant que mesure l'indice.}
+    Selon la motivation dominante, les transferts financent l'ordinaire ou un
+    investissement de long terme. Rien ne garantit qu'ils aillent aux
+    dimensions que mesure l'indice.}
 
   \smallskip
   \bandeau{dimeau}{10.6cm}{Pour l'effet attendu sur la pauvreté monétaire}{%
@@ -957,7 +957,7 @@
   \centering
   \begin{tikzpicture}[
       etape/.style  = {rounded corners=6pt, draw=#1, line width=1.1pt, fill=#1!8,
-                       minimum width=4.0cm, minimum height=2.7cm},
+                       minimum width=4.0cm, minimum height=2.2cm},
       etape/.default = presvert,
       titre/.style  = {font=\small\bfseries, anchor=north, text width=3.6cm,
                        align=center},
@@ -965,22 +965,22 @@
                        text width=3.55cm, align=center}
     ]
     % noyau de la question
-    \node[circle, fill=presvert, text=white, minimum size=2.1cm, inner sep=1pt,
+    \node[circle, fill=presvert, text=white, minimum size=1.8cm, inner sep=1pt,
           font=\scriptsize\bfseries, align=center] (coeur) at (0,0)
       {Pourquoi\\l'effet ne\\se voit pas};
 
     % trois mecanismes disposes autour du noyau
-    \node[etape=dimnutri] (a) at (-4.3,1.35) {};
+    \node[etape=dimnutri] (a) at (-4.3,0.95) {};
     \node[titre, text=dimnutri] at ([yshift=-0.3cm]a.north) {L'usage des fonds};
     \node[detail] at ([yshift=-0.85cm]a.north)
       {68,5 \% en soutien courant, moins d'un dixième en santé ou scolarité};
 
-    \node[etape=dimsante] (b) at (4.3,1.35) {};
+    \node[etape=dimsante] (b) at (4.3,0.95) {};
     \node[titre, text=dimsante] at ([yshift=-0.3cm]b.north) {La contrainte d'offre};
     \node[detail] at ([yshift=-0.85cm]b.north)
       {Eau, assainissement et soins relèvent de l'investissement collectif};
 
-    \node[etape=dimeau] (c) at (0,-2.85) {};
+    \node[etape=dimeau] (c) at (0,-2.05) {};
     \node[titre, text=dimeau] at ([yshift=-0.3cm]c.north) {La marge de l'effet};
     \node[detail] at ([yshift=-0.85cm]c.north)
       {L'écart se joue au milieu de la distribution des privations};
