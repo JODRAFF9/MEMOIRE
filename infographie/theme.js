@@ -51,12 +51,12 @@ function slideContenu(pres, titre, chapeau) {
   s.background = { color: C.surface };
   s.addText(titre, {
     x: 0.6, y: 0.38, w: 12.1, h: 0.58, margin: 0, valign: "middle",
-    fontFace: POLICE, fontSize: 27, bold: true, color: C.bleufonce,
+    fontFace: POLICE, fontSize: 30, bold: true, color: C.bleufonce,
   });
   if (chapeau) {
     s.addText(chapeau, {
       x: 0.6, y: 0.98, w: 12.1, h: 0.52, margin: 0, valign: "top",
-      fontFace: POLICE, fontSize: 13, color: C.encre2, lineSpacing: 17,
+      fontFace: POLICE, fontSize: 14, color: C.encre2, lineSpacing: 17,
     });
   }
   return s;
@@ -123,8 +123,8 @@ function stat(s, x, y, w, valeur, libelle, couleur, taille) {
     fontFace: POLICE, fontSize: taille || 40, bold: true, color: C.bleufonce,
   });
   s.addText(libelle, {
-    x, y: y + (taille || 40) / 72 + 0.18, w, h: 0.42, margin: 0, align: "center",
-    fontFace: POLICE, fontSize: 10.5, color: C.encre2, lineSpacing: 13.5,
+    x, y: y + (taille || 40) / 72 + 0.18, w, h: 0.62, margin: 0, align: "center",
+    fontFace: POLICE, fontSize: 12, color: C.encre2, lineSpacing: 13.5,
   });
 }
 
@@ -133,12 +133,12 @@ function pied(s, texte, numero) {
   if (texte) {
     s.addText(texte, {
       x: 0.6, y: 7.06, w: 9.0, h: 0.26, margin: 0,
-      fontFace: POLICE, fontSize: 9, color: C.muet,
+      fontFace: POLICE, fontSize: 10, color: C.muet,
     });
   }
   s.addText(String(numero), {
     x: 11.9, y: 7.06, w: 0.4, h: 0.26, margin: 0, align: "right",
-    fontFace: POLICE, fontSize: 9.5, color: C.muet,
+    fontFace: POLICE, fontSize: 10, color: C.muet,
   });
   s.addImage({ path: "logos/logo_ensae_new.png", x: 12.45, y: 6.95, w: 0.42, h: 0.42 });
 }
