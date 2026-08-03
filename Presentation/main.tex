@@ -397,7 +397,7 @@
 \subsection{Stratégie d'identification}
 
 \begin{frame}{Stratégie d'identification, le problème (1/3)}
-  \small
+  \footnotesize
   \begin{alertblock}{Traitement, statut défini en 2018}
     Traités : ménages recevant en 2018 un transfert d'un expéditeur vivant hors
     du Sénégal et ayant déjà vécu dans le ménage. Témoins : ménages non
@@ -407,53 +407,63 @@
 
   \begin{block}{Problème du biais de sélection}
     L'effet moyen du traitement sur les traités (ATT) :
+    \vspace{-0.25cm}
     \begin{equation*}
       \tau_{ATT} = \mathbb{E}[Y_i(1) - Y_i(0) \mid D_i = 1]
     \end{equation*}
-    $Y_i(0)$ (contrefactuel) est inobservable $\Rightarrow$ nécessité d'un estimateur adapté.
+    \vspace{-0.35cm}
+
+    Le contrefactuel $Y_i(0)$ est inobservable, d'où le recours à un estimateur adapté.
   \end{block}
 \end{frame}
 
 \begin{frame}{Stratégie d'identification, les deux briques (2/3)}
-  \small
+  \footnotesize
   \begin{block}{Appariement par score de propension (PSM)}
-    Un logit estime la probabilité d'être bénéficiaire à la période de base :
+    \vspace{-0.35cm}
     \begin{equation*}
       p(X_i) = P(D_i = 1 \mid X_i) = \frac{\exp(X_i'\beta)}{1+\exp(X_i'\beta)}
     \end{equation*}
-    Chaque traité est apparié à ses $k$ plus proches voisins ($k=4$), sur le
-    support commun. Le PSM corrige la sélection sur les caractéristiques
-    observables, mais laisse subsister ce qui ne s'observe pas.
+    \vspace{-0.35cm}
+
+    Appariement aux $k=4$ plus proches voisins, sur le support commun. Corrige
+    l'observable, laisse subsister l'inobservable.
   \end{block}
 
   \begin{block}{Double différence (DD)}
+    \vspace{-0.35cm}
     \begin{equation*}
       \hat{\tau}_{DD}
       = \bigl(\overline{Y}_{T,t_2}-\overline{Y}_{T,t_1}\bigr)
       - \bigl(\overline{Y}_{C,t_2}-\overline{Y}_{C,t_1}\bigr)
     \end{equation*}
-    La comparaison des trajectoires élimine les déterminants inobservés stables
-    dans le temps, mais suppose des groupes comparables au départ.
+    \vspace{-0.35cm}
+
+    Élimine les déterminants inobservés stables, mais suppose des groupes
+    comparables au départ.
   \end{block}
 \end{frame}
 
 \begin{frame}{Stratégie d'identification, l'estimateur retenu (3/3)}
-  \small
+  \footnotesize
   \begin{alertblock}{PSM-double différence}
+    \vspace{-0.35cm}
     \begin{equation*}
       \hat{\tau}_{PSM\text{-}DD}
       = \frac{1}{n_T}\sum_{i\in\mathcal{T}}
         \Bigl[\underbrace{Y_{i,t_2}-Y_{i,t_1}}_{\Delta Y_i}
         - \sum_{j\in\mathcal{C}} w_{ij}\,\Delta Y_j\Bigr]
     \end{equation*}
-    La double différence est calculée sur les seuls enfants appariés, chaque
-    témoin entrant avec le poids $w_{ij}$ que lui donne l'appariement.
+    \vspace{-0.35cm}
+
+    La double différence porte sur les seuls enfants appariés, chaque témoin
+    entrant avec son poids $w_{ij}$.
   \end{alertblock}
 
   \begin{block}{Ce que la combinaison apporte}
     Les deux limites se compensent : l'appariement rend les groupes comparables
-    sur les caractéristiques observables, la double différence neutralise les
-    déterminants inobservés stables. L'estimateur suit Heckman et al. (1997, 1998).
+    sur l'observable, la double différence neutralise l'inobservable stable
+    (Heckman et al., 1997).
   \end{block}
 \end{frame}
 
