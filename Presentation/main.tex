@@ -384,7 +384,6 @@
     \begin{equation*}
       \tau_{ATT} = \mathbb{E}[Y_i(1) - Y_i(0) \mid D_i = 1]
     \end{equation*}
-    \vspace{-0.35cm}
 
     Le contrefactuel $Y_i(0)$ est inobservable, d'où le recours à un estimateur adapté.
   \end{block}
@@ -393,11 +392,10 @@
 \begin{frame}{Stratégie d'identification, le score de propension (2/4)}
   \footnotesize
   \begin{block}{Appariement par score de propension (PSM)}
-    \vspace{-0.35cm}
+    \vspace{-0.2cm}
     \begin{equation*}
       p(X_i) = P(D_i = 1 \mid X_i) = \frac{\exp(X_i'\beta)}{1+\exp(X_i'\beta)}
     \end{equation*}
-    \vspace{-0.35cm}
 
     Le vecteur $X_i$ retient, du côté du ménage, l'âge, le genre, l'éducation,
     le statut matrimonial et la catégorie socioprofessionnelle du chef, la
@@ -410,13 +408,12 @@
 \begin{frame}{Stratégie d'identification, la double différence (3/4)}
   \footnotesize
   \begin{block}{Double différence (DD)}
-    \vspace{-0.35cm}
+    \vspace{-0.2cm}
     \begin{equation*}
       \hat{\tau}_{DD}
       = \bigl(\overline{Y}_{T,t_2}-\overline{Y}_{T,t_1}\bigr)
       - \bigl(\overline{Y}_{C,t_2}-\overline{Y}_{C,t_1}\bigr)
     \end{equation*}
-    \vspace{-0.35cm}
 
     Élimine les déterminants inobservés stables, mais suppose des groupes
     comparables au départ.
@@ -426,14 +423,13 @@
 \begin{frame}{Stratégie d'identification, l'estimateur retenu (4/4)}
   \footnotesize
   \begin{alertblock}{PSM-double différence}
-    \vspace{-0.35cm}
+    \vspace{-0.2cm}
     \begin{equation*}
       \hat{\tau}_{PSM\text{-}DD}
       = \frac{1}{n_T}\sum_{i\in\mathcal{T}}
         \Bigl[\underbrace{Y_{i,t_2}-Y_{i,t_1}}_{\Delta Y_i}
         - \sum_{j\in\mathcal{C}} w_{ij}\,\Delta Y_j\Bigr]
     \end{equation*}
-    \vspace{-0.35cm}
 
     La double différence porte sur les seuls enfants appariés, chaque témoin
     entrant avec son poids $w_{ij}$.
