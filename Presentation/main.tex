@@ -18,6 +18,14 @@
 \definecolor{presnuit}{RGB}{28,171,226}  % rappel de la teinte de marque
 \definecolor{presgris}{RGB}{110,116,126} % gris ardoise (notes et legendes)
 \definecolor{presorange}{RGB}{242,106,33}% orange UNICEF (puces et accents)
+% Une teinte par dimension du bien-etre, toutes accordees au bleu de marque
+\definecolor{dimassain}{RGB}{ 90,101,166}
+\definecolor{dimeau}{RGB}{ 28,171,226}
+\definecolor{dimlogem}{RGB}{212,106, 45}
+\definecolor{dimnutri}{RGB}{ 92,167, 90}
+\definecolor{dimsante}{RGB}{198, 71, 71}
+\definecolor{dimprotec}{RGB}{146, 96,166}
+\definecolor{dimeduc}{RGB}{201,152, 48}
 % Les aplats portant du texte blanc sont legerement assombris : le bleu de
 % marque, tres lumineux, ne contraste pas assez a sa valeur nominale.
 \colorlet{marron}{presor}
@@ -322,27 +330,71 @@
   \end{block}
 \end{frame}
 
+\begin{frame}{Ce que les transferts changent pour les enfants}
+  \footnotesize
+  \begin{block}{Éducation et travail des enfants}
+    \begin{itemize}
+      \setlength{\itemsep}{1pt}
+      \item Scolarisation en hausse et travail des enfants en baisse au Salvador
+            et aux Philippines (Cox Edwards \& Ureta, 2003 ; Yang, 2008).
+      \item Effet passant par la levée des contraintes de liquidité en Équateur
+            (Calero, Bedi \& Sparrow, 2009), mais gains annulés par l'absence
+            du parent au Pakistan (Mansuri, 2006) et au Salvador (Acosta, 2011).
+      \item Effets mitigés selon le membre parti et la durée d'absence
+            (Bucheli, Bohara \& Fontenla, 2018).
+    \end{itemize}
+  \end{block}
+  \begin{block}{Santé et nutrition}
+    \begin{itemize}
+      \setlength{\itemsep}{1pt}
+      \item Mortalité infantile en recul et poids à la naissance en hausse au
+            Mexique (Hildebrandt \& McKenzie, 2005).
+      \item Dépenses de santé accrues dans les ménages receveurs
+            (Amuedo-Dorantes \& Pozo, 2011), effets fragiles sur la nutrition
+            (Davis \& Brazil, 2016).
+    \end{itemize}
+  \end{block}
+  \begin{alertblock}{Au Sénégal et dans la sous-région}
+    Fonction d'assurance des transferts dans la région de Kayes
+    (Gubert, 2002), effets sur le marché du travail et le capital humain au
+    Sénégal (Ndiaye, Niang \& Dedehouanou, 2016), recul modeste de la pauvreté
+    monétaire (Azam \& Gubert, 2006 ; Combes \& Ebeke, 2011).
+  \end{alertblock}
+\end{frame}
+
 \subsection{Pauvreté multidimensionnelle des enfants}
 
-\begin{frame}{Approche multidimensionnelle de la pauvreté infantile}
-  \small
-  \begin{block}{Limites de l'approche monétaire}
+\begin{frame}{De la pauvreté monétaire à la pauvreté multidimensionnelle}
+  \footnotesize
+  \begin{block}{Fondements}
     \begin{itemize}
-      \item Le revenu/la consommation ne capturent pas toutes les privations des enfants.
-      \item Les enfants ont des besoins spécifiques : nutrition, éducation, soins de santé.
+      \setlength{\itemsep}{1pt}
+      \item La privation relative se définit par rapport aux conditions de vie
+            jugées normales dans une société (Townsend, 1979).
+      \item L'approche par les capabilités déplace l'évaluation du revenu vers
+            ce que la personne peut réellement être et faire (Sen, 1985, 1999).
+      \item Première mesure internationale de la pauvreté infantile en huit
+            privations sévères (Gordon \emph{et al.}, 2003 ; UNICEF, 2007).
     \end{itemize}
   \end{block}
-  \begin{alertblock}{Trois exigences dégagées par la littérature}
+  \begin{block}{Trois exigences dégagées par cette littérature}
     \begin{itemize}
-      \item L'enfant individuel comme unité d'analyse, et non le ménage.
-      \item Des indicateurs adaptés à l'âge de l'enfant.
-      \item L'attention aux privations superposées plutôt qu'à chaque manque isolé.
+      \setlength{\itemsep}{1pt}
+      \item L'enfant individuel comme unité d'analyse, et non le ménage
+            (Roelen \& Gassmann, 2008).
+      \item Des indicateurs adaptés à l'âge, et l'attention aux privations
+            superposées plutôt qu'à chaque manque isolé
+            (de Neubourg \emph{et al.}, 2012).
+      \item Une déclinaison nationale de ces principes pour le Sénégal
+            (ANSD/UNICEF, 2024).
     \end{itemize}
+  \end{block}
+  \begin{alertblock}{{\color{presorange}\faExclamationTriangle}~~La lacune que ce mémoire comble}
+    Les travaux sur les transferts raisonnent au niveau du ménage et sur des
+    indicateurs monétaires ; ceux sur la pauvreté infantile sont descriptifs.
+    Aucun ne combine mesure multidimensionnelle de l'enfant et identification
+    sur panel en Afrique de l'Ouest.
   \end{alertblock}
-  \begin{block}{Lacune dans la littérature}
-    Peu d'études combinent PSM et double différence pour identifier l'effet
-    des transferts sur la pauvreté multidimensionnelle des enfants au Sénégal.
-  \end{block}
 \end{frame}
 
 % ============================================================
@@ -379,18 +431,19 @@
   \centering
   \vspace{-0.15cm}
   \begin{tikzpicture}[
-      hexa/.style   = {regular polygon, regular polygon sides=6, draw=presnuit,
-                       line width=1pt, fill=presvert, text=white, inner sep=0pt,
+      hexa/.style   = {regular polygon, regular polygon sides=6, draw=#1!60!black,
+                       line width=1pt, fill=#1, text=white, inner sep=0pt,
                        minimum size=1.05cm, font=\normalsize},
+      hexa/.default = presvert,
       etiq/.style   = {below=1mm, font=\scriptsize, text=presor}
     ]
-    \node[hexa] (d1) at (0,0)      {\faShower};      \node[etiq] at (d1.south) {Assainissement};
-    \node[hexa] (d2) at (2.6,0)    {\faTint};        \node[etiq] at (d2.south) {Eau};
-    \node[hexa] (d3) at (5.2,0)    {\faHome};        \node[etiq] at (d3.south) {Logement};
-    \node[hexa] (d4) at (7.8,0)    {\faLeaf};        \node[etiq] at (d4.south) {Nutrition};
-    \node[hexa] (d5) at (1.3,-1.85) {\faHeartbeat};   \node[etiq] at (d5.south) {Santé};
-    \node[hexa] (d6) at (3.9,-1.85) {\faIdCard};      \node[etiq] at (d6.south) {Protection};
-    \node[hexa] (d7) at (6.5,-1.85) {\faBook};        \node[etiq] at (d7.south) {Éducation};
+    \node[hexa=dimassain] (d1) at (0,0)      {\faShower};    \node[etiq] at (d1.south) {Assainissement};
+    \node[hexa=dimeau]    (d2) at (2.6,0)    {\faTint};      \node[etiq] at (d2.south) {Eau};
+    \node[hexa=dimlogem]  (d3) at (5.2,0)    {\faHome};      \node[etiq] at (d3.south) {Logement};
+    \node[hexa=dimnutri]  (d4) at (7.8,0)    {\faLeaf};      \node[etiq] at (d4.south) {Nutrition};
+    \node[hexa=dimsante]  (d5) at (1.3,-1.85) {\faHeartbeat}; \node[etiq] at (d5.south) {Santé};
+    \node[hexa=dimprotec] (d6) at (3.9,-1.85) {\faIdCard};    \node[etiq] at (d6.south) {Protection};
+    \node[hexa=dimeduc]   (d7) at (6.5,-1.85) {\faBook};      \node[etiq] at (d7.south) {Éducation};
   \end{tikzpicture}
 
   \medskip
