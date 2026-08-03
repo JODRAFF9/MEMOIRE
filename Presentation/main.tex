@@ -834,12 +834,43 @@
 \end{frame}
 
 \begin{frame}{Sensibilité à la définition du traitement}
-  \small
-  \begin{alertblock}{Bénéficiaires stables aux deux vagues}
-    Chez les bénéficiaires des deux vagues, la DD tombe à $0{,}022$ et le
-    PSM-DD à $-0{,}008$, tous deux non significatifs. L'exposition de ces
-    ménages, déjà en cours en 2018, relève d'une autre question que le design
-    principal.
+  \footnotesize
+  \centering
+  \begin{tikzpicture}[
+      groupe/.style = {rounded corners=5pt, draw=#1, line width=1pt, fill=#1!8,
+                       minimum width=4.6cm, minimum height=1.75cm, anchor=north west},
+      groupe/.default = presvert,
+      titre/.style  = {font=\small\bfseries, anchor=north west},
+      detail/.style = {font=\scriptsize, text=presgris, anchor=north west,
+                       text width=3.3cm, align=left}
+    ]
+    \node[groupe=presorange] (t) at (0,0) {};
+    \node[text=presorange, font=\Large] at ([shift={(0.55,-0.62)}]t.north west) {\faHandHoldingUsd};
+    \node[titre, text=presorange] at ([shift={(1.15,-0.18)}]t.north west) {Bénéficiaires stables};
+    \node[detail] at ([shift={(1.15,-0.55)}]t.north west)
+      {Ménage recevant un transfert aux deux vagues};
+    \node[font=\scriptsize\bfseries, text=presorange, anchor=south east]
+      at ([shift={(-0.2,0.12)}]t.south east) {1\,482 enfants};
+
+    \node[groupe=presgris] (c) at (5.2,0) {};
+    \node[text=presgris, font=\Large] at ([shift={(0.55,-0.62)}]c.north west) {\faHome};
+    \node[titre, text=presgris] at ([shift={(1.15,-0.18)}]c.north west) {Jamais bénéficiaires};
+    \node[detail] at ([shift={(1.15,-0.55)}]c.north west)
+      {Ménage ne recevant aucun transfert, ni en 2018 ni en 2021};
+    \node[font=\scriptsize\bfseries, text=presgris, anchor=south east]
+      at ([shift={(-0.2,0.12)}]c.south east) {13\,477 enfants};
+
+    \draw[presvert, line width=1pt, -{Stealth[length=2.5mm]}]
+      (0,-2.25) -- (9.8,-2.25);
+    \node[font=\scriptsize\bfseries, text=presvert, anchor=north] at (0.6,-2.35) {2018};
+    \node[font=\scriptsize\bfseries, text=presvert, anchor=north] at (9.2,-2.35) {2021};
+  \end{tikzpicture}
+
+  \smallskip
+  \begin{alertblock}{Résultat sous cette définition}
+    La DD tombe à $0{,}022$ et le PSM-DD à $-0{,}008$, tous deux non
+    significatifs. L'exposition de ces ménages, déjà en cours en 2018, relève
+    d'une autre question que le design principal.
   \end{alertblock}
   \begin{block}{Synthèse des tests}
     Le signe et l'ordre de grandeur résistent au choix de l'algorithme comme
