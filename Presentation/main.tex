@@ -164,28 +164,26 @@
 % -- Mise en valeur d'un chiffre par la police, sans couleur --
 \newcommand{\chiffre}[1]{{\bfseries\large #1}}
 
-% -- Bandeau en forme de ruban -------------------------------
+% -- Bandeau a onglet ----------------------------------------
 % [#1] cote de l'intitule, g a gauche ou d a droite (g par defaut)
 % #2 teinte, #3 largeur, #4 intitule, #5 corps.
 % La largeur est donnee en fraction de \linewidth : le bandeau s'adapte
 % ainsi a la colonne qui le contient.
 \newcommand{\bandeau}[5][g]{%
   \begin{tikzpicture}
-    \node[fill=#2!8, text width=#3, align=justify, inner sep=8pt,
-          font=\footnotesize, anchor=north west] (corps) at (0,0) {#5};
+    \node[fill=#2!8, rounded corners=4pt, text width=#3, align=justify,
+          inner sep=8pt, font=\footnotesize, anchor=north west] (corps) at (0,0) {#5};
     % \ifstrequal vient d'etoolbox, que beamer charge deja
     \ifstrequal{#1}{d}{%
-      \node[fill=#2, text=white, minimum height=0.62cm, inner xsep=12pt,
-            font=\footnotesize\bfseries, anchor=south east] (tete)
-        at (corps.north east) {#4};}{%
-      \node[fill=#2, text=white, minimum height=0.62cm, inner xsep=12pt,
-            font=\footnotesize\bfseries, anchor=south west] (tete)
-        at (corps.north west) {#4};}
-    % replis lateraux, qui donnent l'aspect d'un ruban
-    \fill[#2!62!black] ([xshift=-0.32cm]tete.north west)
-      -- (tete.north west) -- (tete.south west) -- cycle;
-    \fill[#2!62!black] ([xshift=0.32cm]tete.north east)
-      -- (tete.north east) -- (tete.south east) -- cycle;
+      \node[fill=#2, rounded corners=4pt, text=white, minimum height=0.6cm,
+            inner xsep=12pt, font=\footnotesize\bfseries, anchor=south east]
+        (tete) at ([yshift=1pt]corps.north east) {#4};}{%
+      \node[fill=#2, rounded corners=4pt, text=white, minimum height=0.6cm,
+            inner xsep=12pt, font=\footnotesize\bfseries, anchor=south west]
+        (tete) at ([yshift=1pt]corps.north west) {#4};}
+    % filet de rappel sous l'intitule, dans la teinte assombrie
+    \draw[#2!62!black, line width=1.6pt, line cap=round]
+      ([xshift=1pt]tete.south west) -- ([xshift=-1pt]tete.south east);
   \end{tikzpicture}}
 
 % -- Semis de pastilles decoratif ----------------------------
