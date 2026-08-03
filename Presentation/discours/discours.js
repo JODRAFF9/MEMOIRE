@@ -91,7 +91,7 @@ corps.push(
     spacing: { after: 120 },
     alignment: AlignmentType.CENTER,
     children: [new TextRun({
-      text: "Durée visée : 20 minutes  ·  31 diapositives",
+      text: "Durée visée : 19 minutes  ·  31 diapositives",
       font: POLICE, size: 22, italics: true, color: "6E747E",
     })],
   }),
@@ -333,16 +333,7 @@ corps.push(dire(
   "au voisinage du mode."
 ));
 
-corps.push(repere(15, "Disparités régionales", "45 s"));
-corps.push(attaque("Cette moyenne nationale recouvre des écarts considérables."));
-corps.push(dire(
-  "Cette moyenne nationale recouvre des écarts considérables. En 2021, l'incidence va de 16,7 pour cent " +
-  "à Dakar à 78,1 pour cent à Kolda, soit un rapport de un à cinq. Les régions du sud et de l'est " +
-  "concentrent les privations. Le recul est général sur la période, à deux exceptions près, Thiès et " +
-  "Kaolack, où l'incidence progresse."
-));
-
-corps.push(repere(16, "Ventilation par sous-groupe", "45 s"));
+corps.push(repere(15, "Ventilation par sous-groupe", "45 s"));
 corps.push(attaque("Un fait ressort de la ventilation par sous-groupe."));
 corps.push(dire(
   "Par groupe d'âge et par genre du chef de ménage, un fait ressort : les enfants des ménages bénéficiaires " +
@@ -351,14 +342,14 @@ corps.push(dire(
   "et c'est exactement ce que l'appariement doit corriger."
 ));
 
-corps.push(repere(17, "Incidence selon le statut", "30 s"));
+corps.push(repere(16, "Incidence selon le statut", "30 s"));
 corps.push(attaque("Voici la même incidence, décomposée par statut."));
 corps.push(dire(
   "La courbe décompose l'incidence d'ensemble selon le statut du ménage. Les deux groupes reculent, " +
   "mais l'écart de départ est manifeste et il ne se referme pas."
 ));
 
-corps.push(repere(18, "Qualité de l'appariement", "1 min"));
+corps.push(repere(17, "Qualité de l'appariement", "1 min"));
 corps.push(attaque("Un mot sur la qualité de l'appariement, dont tout dépend."));
 corps.push(dire(
   "Avant de commenter l'effet, un mot sur la qualité de l'appariement, dont dépend la crédibilité de tout " +
@@ -369,7 +360,7 @@ corps.push(dire(
 ));
 corps.push(geste("Ne pas s'attarder : le jury retient surtout que l'équilibre est atteint."));
 
-corps.push(repere(19, "Le résultat central", "2 min"));
+corps.push(repere(18, "Le résultat central", "2 min"));
 corps.push(attaque("J'en viens au résultat central, et je vais l'énoncer sans détour."));
 corps.push(dire(
   "J'en viens au résultat central, et je vais l'énoncer sans détour."
@@ -388,7 +379,7 @@ corps.push(dire(
   "améliorées plus lentement que celles de leurs témoins."
 ));
 
-corps.push(repere(20, "Effets par dimension", "1 min"));
+corps.push(repere(19, "Effets par dimension", "1 min"));
 corps.push(attaque("Cet effet n'est pas diffus : il se localise."));
 corps.push(dire(
   "L'effet n'est pas diffus, il se localise. Sur les sept dimensions, une seule ressort : la nutrition, " +
@@ -405,7 +396,7 @@ corps.push(dire(
   "significativité de leur effet, non par une ampleur supérieure."
 ));
 
-corps.push(repere(21, "Effet selon le montant", "1 min"));
+corps.push(repere(20, "Effet selon le montant", "1 min"));
 corps.push(attaque("Dernier volet, l'intensité du traitement."));
 corps.push(dire(
   "Dernier volet, l'intensité du traitement. L'écart défavorable se concentre sur les plus faibles " +
@@ -425,7 +416,7 @@ corps.push(dire(
    ============================================================ */
 corps.push(titre("Cinquième temps · Robustesse et discussion"));
 
-corps.push(repere(22, "Tests de robustesse", "1 min"));
+corps.push(repere(21, "Tests de robustesse", "1 min"));
 corps.push(attaque("Ce résultat a été mis à l'épreuve de trois façons."));
 corps.push(dire(
   "Le résultat a été mis à l'épreuve de trois façons. Le choix de la méthode d'appariement, d'abord : " +
@@ -436,7 +427,7 @@ corps.push(dire(
   "pas dans son noyau. Enfin, une implémentation indépendante du même estimateur retrouve le résultat."
 ));
 
-corps.push(repere(23, "Sensibilité à la définition du traitement", "45 s"));
+corps.push(repere(22, "Sensibilité à la définition du traitement", "45 s"));
 corps.push(attaque("Un test mérite d'être signalé, car il nuance la portée du résultat."));
 corps.push(dire(
   "Un test mérite d'être signalé, car il nuance la portée du résultat. Si l'on restreint les traités aux " +
@@ -446,7 +437,7 @@ corps.push(dire(
   "résistent à l'algorithme comme au seuil, mais la définition du traitement les fait disparaître."
 ));
 
-corps.push(repere(24, "Mécanismes d'interprétation", "1 min 30"));
+corps.push(repere(23, "Mécanismes d'interprétation", "1 min 30"));
 corps.push(attaque("Comment expliquer qu'une ressource de cette ampleur ne réduise pas les privations ?"));
 corps.push(dire(
   "Comment expliquer qu'une ressource de cette ampleur ne réduise pas les privations ? Trois mécanismes " +
@@ -469,7 +460,7 @@ corps.push(dire(
   "de déficits structurels qu'aucun flux monétaire privé ne déplace en trois ans."
 ));
 
-corps.push(repere(25, "Validation des hypothèses", "30 s"));
+corps.push(repere(24, "Validation des hypothèses", "30 s"));
 corps.push(attaque("Que deviennent alors mes deux hypothèses ?"));
 corps.push(dire(
   "Au terme de ce parcours, la première hypothèse n'est pas validée : l'effet est de signe défavorable et " +
@@ -483,7 +474,7 @@ corps.push(dire(
    ============================================================ */
 corps.push(titre("Sixième temps · Conclusion et recommandations"));
 
-corps.push(repere(26, "Conclusion générale", "1 min"));
+corps.push(repere(25, "Conclusion générale", "1 min"));
 corps.push(attaque("Quatre apports se dégagent de ce travail."));
 corps.push(dire(
   "Quatre apports se dégagent. Une mesure de la pauvreté multidimensionnelle des enfants sur deux vagues " +
@@ -493,7 +484,7 @@ corps.push(dire(
   "la nutrition, les 0 à 4 ans et les plus faibles montants reçus."
 ));
 
-corps.push(repere(27, "Recommandations", "1 min 30"));
+corps.push(repere(26, "Recommandations", "1 min 30"));
 corps.push(attaque("Les recommandations suivent l'ordre de ces faits."));
 corps.push(dire(
   "Les recommandations suivent l'ordre de ces faits."
@@ -512,7 +503,7 @@ corps.push(dire(
   "collectif, il le suppose."
 ));
 
-corps.push(repere(28, "Limites de l'étude", "1 min"));
+corps.push(repere(27, "Limites de l'étude", "1 min"));
 corps.push(attaque("Ce travail a ses limites, et je préfère les énoncer moi-même."));
 corps.push(dire(
   "Ce travail a ses limites, et je préfère les énoncer moi-même. L'hypothèse de tendances parallèles " +
@@ -524,7 +515,7 @@ corps.push(dire(
   "un effet mesuré sans contenu causal."
 ));
 
-corps.push(repere(29, "Perspectives", "30 s"));
+corps.push(repere(28, "Perspectives", "30 s"));
 corps.push(attaque("Trois prolongements me semblent utiles."));
 corps.push(dire(
   "Trois prolongements me semblent utiles : analyser les mécanismes de transmission à travers les dépenses " +
