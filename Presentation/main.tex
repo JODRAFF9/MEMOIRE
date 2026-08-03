@@ -155,6 +155,7 @@
 \usepackage{colortbl}
 \usepackage{multirow}
 \usepackage{ragged2e}
+\usepackage{etoolbox}
 \usepackage{tikz}
 \usetikzlibrary{positioning,arrows.meta,shapes,shapes.geometric,shapes.symbols,calc}
 % Icones vectorielles des dimensions du bien-etre (compatible XeLaTeX)
@@ -164,20 +165,27 @@
 \newcommand{\chiffre}[1]{{\bfseries\large #1}}
 
 % -- Bandeau en forme de ruban -------------------------------
-% #1 teinte, #2 largeur, #3 intitule, #4 corps.
+% [#1] cote de l'intitule, g a gauche ou d a droite (g par defaut)
+% #2 teinte, #3 largeur, #4 intitule, #5 corps.
 % La largeur est donnee en fraction de \linewidth : le bandeau s'adapte
 % ainsi a la colonne qui le contient.
-\newcommand{\bandeau}[4]{%
+\newcommand{\bandeau}[5][g]{%
   \begin{tikzpicture}
-    \node[fill=#1, text=white, minimum height=0.62cm, inner xsep=12pt,
-          font=\footnotesize\bfseries, anchor=north west] (tete) at (0,0) {#3};
+    \node[fill=#2!8, text width=#3, align=justify, inner sep=8pt,
+          font=\footnotesize, anchor=north west] (corps) at (0,0) {#5};
+    % \ifstrequal vient d'etoolbox, que beamer charge deja
+    \ifstrequal{#1}{d}{%
+      \node[fill=#2, text=white, minimum height=0.62cm, inner xsep=12pt,
+            font=\footnotesize\bfseries, anchor=south east] (tete)
+        at (corps.north east) {#4};}{%
+      \node[fill=#2, text=white, minimum height=0.62cm, inner xsep=12pt,
+            font=\footnotesize\bfseries, anchor=south west] (tete)
+        at (corps.north west) {#4};}
     % replis lateraux, qui donnent l'aspect d'un ruban
-    \fill[#1!62!black] ([xshift=-0.32cm]tete.north west)
+    \fill[#2!62!black] ([xshift=-0.32cm]tete.north west)
       -- (tete.north west) -- (tete.south west) -- cycle;
-    \fill[#1!62!black] ([xshift=0.32cm]tete.north east)
+    \fill[#2!62!black] ([xshift=0.32cm]tete.north east)
       -- (tete.north east) -- (tete.south east) -- cycle;
-    \node[fill=#1!8, text width=#2, align=justify, inner sep=8pt,
-          font=\footnotesize, anchor=north west] at (tete.south west) {#4};
   \end{tikzpicture}}
 
 % -- Semis de pastilles decoratif ----------------------------
@@ -355,7 +363,7 @@
   \small
   \bandeau{presvert}{0.93\linewidth}{Théorie néoclassique de la migration}{%
     L'individu migre si la valeur actualisée des gains attendus à destination, nette des coûts du déplacement, excède ses gains d'origine, la décision se fondant sur le revenu espéré plutôt qu'effectif (Sjaastad, 1962 ; Harris \& Todaro, 1970). Les envois de fonds sont, dans cette optique, le rendement de l'investissement migratoire.}
-  \bandeau{presvert}{0.93\linewidth}{Théorie des réseaux migratoires}{%
+  \bandeau[d]{presvert}{0.93\linewidth}{Théorie des réseaux migratoires}{%
     Les liens de parenté, d'amitié ou de communauté d'origine forment un capital social qui abaisse les coûts et les risques du départ : le migrant installé héberge le nouvel arrivant, l'informe et lui trouve un emploi (Massey, 1993). Chaque migration facilite ainsi les suivantes.}
   \bandeau{presorange}{0.93\linewidth}{Conséquence pour l'identification}{%
     Un ménage ne reçoit des transferts que si l'un des siens a pu émigrer, et il ne le peut que s'il dispose d'un réseau. Or l'accès au réseau dépend de l'histoire migratoire de la famille, de la richesse initiale et des relations sociales du ménage. Les bénéficiaires diffèrent donc des autres avant même le premier franc reçu.}
@@ -416,7 +424,7 @@
     dimensions que mesure l'indice.}
 
   \smallskip
-  \bandeau{dimeau}{0.93\linewidth}{Pour l'effet attendu sur la pauvreté monétaire}{%
+  \bandeau[d]{dimeau}{0.93\linewidth}{Pour l'effet attendu sur la pauvreté monétaire}{%
     La littérature établit une réduction modeste, atténuée par les coûts de
     transaction (Azam \& Gubert, 2006 ; Combes \& Ebeke, 2011). L'ampleur reste
     une question empirique.}
