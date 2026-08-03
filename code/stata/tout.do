@@ -2067,14 +2067,14 @@ gen str12 lbl_nb = subinstr(string(H_nonbenef, "%3.1f"), ".", ",", 1) + " %"
 
 set dp comma
 twoway (connected H_nonbenef annee, lcolor(gs9) mcolor(gs9) msymbol(square) ///
-        lwidth(medthick) mlabel(lbl_nb) mlabcolor(black) mlabpos(6) ///
+        lwidth(medthick) mlabel(lbl_nb) mlabcolor(black) mlabpos(12) ///
         mlabgap(2) mlabsize(small)) ///
        (connected H_benef annee, lcolor(orange) mcolor(orange) msymbol(circle) ///
         lwidth(medthick) mlabel(lbl_b) mlabcolor(black) mlabpos(12) ///
         mlabgap(2) mlabsize(small)), ///
     xlabel(2018 2021) xscale(range(2017.7 2021.3)) xtitle("Vague EHCVM") ///
     ytitle("Incidence MODA H (%)") ///
-    ylabel(0(20)100, grid) yscale(range(0 108)) ///
+    ylabel(40(5)70, grid) yscale(range(38 72)) ///
     legend(order(1 "Non-bénéficiaires" 2 "Bénéficiaires") pos(6) rows(1)) ///
     graphregion(color(white)) plotregion(color(white))
 set dp period
