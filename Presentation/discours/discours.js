@@ -185,7 +185,7 @@ corps.push(dire(
    ============================================================ */
 corps.push(titre("Deuxième temps · Revue de la littérature"));
 
-corps.push(repere(5, "Pourquoi l'on migre", "1 min 15"));
+corps.push(repere(5, "Théories de la migration", "1 min 15"));
 corps.push(attaque("Un mot d'abord sur la migration elle-même."));
 corps.push(dire(
   "Un mot d'abord sur la migration elle-même, car la décision de migrer et celle d'envoyer des fonds " +
@@ -228,7 +228,7 @@ corps.push(dire(
   "sont fragiles et conditionnels au maintien du lien avec le migrant."
 ));
 
-corps.push(repere(7, "Approche multidimensionnelle", "1 min"));
+corps.push(repere(7, "Mesure multidimensionnelle", "1 min"));
 corps.push(attaque("Mesurer la pauvreté d'un enfant par le seul revenu ne suffit pas."));
 corps.push(dire(
   "Le troisième enseignement est une lacune. Les travaux existants raisonnent le plus souvent au niveau " +
@@ -351,7 +351,7 @@ corps.push(dire(
   "et c'est exactement ce que l'appariement doit corriger."
 ));
 
-corps.push(repere(17, "Évolution par statut", "30 s"));
+corps.push(repere(17, "Incidence selon le statut", "30 s"));
 corps.push(attaque("Voici la même incidence, décomposée par statut."));
 corps.push(dire(
   "La courbe décompose l'incidence d'ensemble selon le statut du ménage. Les deux groupes reculent, " +
@@ -436,7 +436,7 @@ corps.push(dire(
   "pas dans son noyau. Enfin, une implémentation indépendante du même estimateur retrouve le résultat."
 ));
 
-corps.push(repere(23, "La définition alternative", "45 s"));
+corps.push(repere(23, "Sensibilité à la définition du traitement", "45 s"));
 corps.push(attaque("Un test mérite d'être signalé, car il nuance la portée du résultat."));
 corps.push(dire(
   "Un test mérite d'être signalé, car il nuance la portée du résultat. Si l'on restreint les traités aux " +
@@ -446,7 +446,7 @@ corps.push(dire(
   "résistent à l'algorithme comme au seuil, mais la définition du traitement les fait disparaître."
 ));
 
-corps.push(repere(24, "Comment comprendre ce résultat", "1 min 30"));
+corps.push(repere(24, "Mécanismes d'interprétation", "1 min 30"));
 corps.push(attaque("Comment expliquer qu'une ressource de cette ampleur ne réduise pas les privations ?"));
 corps.push(dire(
   "Comment expliquer qu'une ressource de cette ampleur ne réduise pas les privations ? Trois mécanismes " +
