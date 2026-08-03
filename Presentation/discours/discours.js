@@ -23,6 +23,13 @@ const repere = (n, titre, duree) =>
     tabStops: [{ type: TabStopType.RIGHT, position: TabStopPosition.MAX }],
   });
 
+/* ── Phrase d'attaque : ce par quoi on ouvre la diapositive ── */
+const attaque = (texte) =>
+  new Paragraph({
+    spacing: { before: 60, after: 200 },
+    children: [new TextRun({ text: texte, font: POLICE, size: 30, bold: true, color: "0E6E96" })],
+  });
+
 /* ── Paragraphe de discours ── */
 const dire = (texte) =>
   new Paragraph({
@@ -96,6 +103,7 @@ corps.push(
    ============================================================ */
 corps.push(titre("Ouverture"));
 corps.push(repere("de titre", "Page de garde", "30 s"));
+corps.push(attaque("Monsieur le Président du jury, mesdames et messieurs, bonjour."));
 corps.push(dire(
   "Monsieur le Président du jury, Madame et Messieurs les membres du jury, Monsieur le Directeur de mémoire, " +
   "mesdames et messieurs, bonjour."
@@ -109,6 +117,7 @@ corps.push(dire(
 corps.push(geste("Marquer un temps. Passer à la diapositive du plan."));
 
 corps.push(repere(1, "Plan de la présentation", "30 s"));
+corps.push(attaque("Mon exposé suivra six temps."));
 corps.push(dire(
   "Mon exposé suivra six temps. Je poserai d'abord le contexte et la question de recherche. " +
   "Je situerai ensuite le travail dans la littérature. Je présenterai le cadre méthodologique, " +
@@ -123,6 +132,7 @@ corps.push(dire(
 corps.push(titre("Premier temps · Contexte et problématique"));
 
 corps.push(repere(2, "Contexte général", "2 min"));
+corps.push(attaque("Deux réalités coexistent au Sénégal."));
 corps.push(dire(
   "Deux réalités coexistent au Sénégal, et c'est de leur rencontre que naît ce travail."
 ));
@@ -144,6 +154,7 @@ corps.push(dire(
 corps.push(geste("Insister sur le contraste entre les deux blocs avant d'enchaîner."));
 
 corps.push(repere(3, "Problématique", "1 min"));
+corps.push(attaque("D'où la question qui structure ce mémoire."));
 corps.push(dire(
   "D'où la question qui structure ce mémoire : dans quelle mesure les transferts de migrants réduisent-ils " +
   "la pauvreté multidimensionnelle des enfants au Sénégal ?"
@@ -157,6 +168,7 @@ corps.push(dire(
 ));
 
 corps.push(repere(4, "Objectifs et hypothèses", "1 min"));
+corps.push(attaque("Cette question se décline en deux objectifs et deux hypothèses."));
 corps.push(dire(
   "L'objectif général est d'évaluer cet impact. Il se décline en deux objectifs spécifiques : " +
   "construire un indice de pauvreté multidimensionnelle adapté aux enfants sénégalais, puis estimer " +
@@ -174,6 +186,7 @@ corps.push(dire(
 corps.push(titre("Deuxième temps · Revue de la littérature"));
 
 corps.push(repere(5, "Pourquoi l'on migre", "1 min 15"));
+corps.push(attaque("Un mot d'abord sur la migration elle-même."));
 corps.push(dire(
   "Un mot d'abord sur la migration elle-même, car la décision de migrer et celle d'envoyer des fonds " +
   "sont indissociables. La théorie néoclassique explique la migration par un calcul d'investissement : " +
@@ -198,6 +211,7 @@ corps.push(dire(
 corps.push(geste("C'est le point charnière de l'exposé : le dire lentement."));
 
 corps.push(repere(6, "Canaux de transmission", "1 min 30"));
+corps.push(attaque("Pourquoi les migrants transfèrent-ils, et avec quels effets ?"));
 corps.push(dire(
   "La littérature apporte trois enseignements."
 ));
@@ -215,6 +229,7 @@ corps.push(dire(
 ));
 
 corps.push(repere(7, "Approche multidimensionnelle", "1 min"));
+corps.push(attaque("Mesurer la pauvreté d'un enfant par le seul revenu ne suffit pas."));
 corps.push(dire(
   "Le troisième enseignement est une lacune. Les travaux existants raisonnent le plus souvent au niveau " +
   "du ménage et sur des indicateurs monétaires. Aucune étude recensée ne combine, en Afrique de l'Ouest, " +
@@ -228,6 +243,7 @@ corps.push(dire(
 corps.push(titre("Troisième temps · Cadre méthodologique"));
 
 corps.push(repere(8, "Données EHCVM I et II", "1 min 30"));
+corps.push(attaque("J'en viens aux données."));
 corps.push(dire(
   "Le travail repose sur les deux vagues de l'Enquête harmonisée sur les conditions de vie des ménages : " +
   "la première de 2018-2019, la seconde de 2021-2022. Leur appariement donne un panel de 6 127 ménages " +
@@ -241,6 +257,7 @@ corps.push(dire(
 ));
 
 corps.push(repere(9, "MODA en 7 dimensions", "1 min 30"));
+corps.push(attaque("Comment mesure-t-on cette pauvreté ?"));
 corps.push(dire(
   "La pauvreté est mesurée par l'approche MODA, développée par l'UNICEF et reprise par l'ANSD. " +
   "Sept dimensions du bien-être de l'enfant sont retenues : l'assainissement, l'eau, le logement, " +
@@ -256,6 +273,7 @@ corps.push(dire(
 corps.push(geste("Signaler du geste le bouton de renvoi vers l'annexe."));
 
 corps.push(repere(10, "Le problème d'identification", "1 min 30"));
+corps.push(attaque("J'en viens au cœur méthodologique du travail."));
 corps.push(dire(
   "J'en viens à la stratégie d'identification, qui est le cœur méthodologique du travail."
 ));
@@ -271,6 +289,7 @@ corps.push(dire(
 ));
 
 corps.push(repere(11, "Le score de propension", "1 min"));
+corps.push(attaque("Première brique, l'appariement."));
 corps.push(dire(
   "Première brique, l'appariement par score de propension. Un modèle logit estime, pour chaque enfant, " +
   "la probabilité de vivre dans un ménage bénéficiaire, à partir des caractéristiques du chef de ménage, " +
@@ -281,6 +300,7 @@ corps.push(dire(
 ));
 
 corps.push(repere(12, "La double différence", "1 min"));
+corps.push(attaque("Seconde brique, la double différence."));
 corps.push(dire(
   "Seconde brique, la double différence. Elle compare l'évolution des bénéficiaires entre 2018 et 2021 " +
   "à celle des témoins sur la même période. Ce faisant, elle élimine tous les déterminants inobservés qui " +
@@ -289,6 +309,7 @@ corps.push(dire(
 ));
 
 corps.push(repere(13, "L'estimateur retenu", "1 min"));
+corps.push(attaque("L'estimateur retenu combine les deux."));
 corps.push(dire(
   "L'estimateur retenu combine les deux, suivant Heckman et ses coauteurs : la double différence est " +
   "calculée sur les seuls enfants appariés, chaque témoin entrant avec le poids que lui donne l'appariement. " +
@@ -302,6 +323,7 @@ corps.push(dire(
 corps.push(titre("Quatrième temps · Résultats empiriques"));
 
 corps.push(repere(14, "État des lieux", "1 min"));
+corps.push(attaque("Avant l'effet des transferts, un état des lieux."));
 corps.push(dire(
   "Avant l'effet des transferts, un état des lieux. L'incidence de la pauvreté multidimensionnelle recule " +
   "de 63,5 pour cent en 2018 à 57,8 pour cent en 2021. Mais l'intensité, c'est-à-dire le nombre moyen de " +
@@ -312,6 +334,7 @@ corps.push(dire(
 ));
 
 corps.push(repere(15, "Disparités régionales", "45 s"));
+corps.push(attaque("Cette moyenne nationale recouvre des écarts considérables."));
 corps.push(dire(
   "Cette moyenne nationale recouvre des écarts considérables. En 2021, l'incidence va de 16,7 pour cent " +
   "à Dakar à 78,1 pour cent à Kolda, soit un rapport de un à cinq. Les régions du sud et de l'est " +
@@ -320,6 +343,7 @@ corps.push(dire(
 ));
 
 corps.push(repere(16, "Ventilation par sous-groupe", "45 s"));
+corps.push(attaque("Un fait ressort de la ventilation par sous-groupe."));
 corps.push(dire(
   "Par groupe d'âge et par genre du chef de ménage, un fait ressort : les enfants des ménages bénéficiaires " +
   "partent d'un niveau nettement plus favorable. Chez les 0 à 4 ans, leur avantage passe de 23,7 à " +
@@ -328,12 +352,14 @@ corps.push(dire(
 ));
 
 corps.push(repere(17, "Évolution par statut", "30 s"));
+corps.push(attaque("Voici la même incidence, décomposée par statut."));
 corps.push(dire(
   "La courbe décompose l'incidence d'ensemble selon le statut du ménage. Les deux groupes reculent, " +
   "mais l'écart de départ est manifeste et il ne se referme pas."
 ));
 
 corps.push(repere(18, "Qualité de l'appariement", "1 min"));
+corps.push(attaque("Un mot sur la qualité de l'appariement, dont tout dépend."));
 corps.push(dire(
   "Avant de commenter l'effet, un mot sur la qualité de l'appariement, dont dépend la crédibilité de tout " +
   "ce qui suit. Le logit est estimé sur 17 735 enfants. La différence standardisée moyenne entre traités " +
@@ -344,6 +370,7 @@ corps.push(dire(
 corps.push(geste("Ne pas s'attarder : le jury retient surtout que l'équilibre est atteint."));
 
 corps.push(repere(19, "Le résultat central", "2 min"));
+corps.push(attaque("J'en viens au résultat central, et je vais l'énoncer sans détour."));
 corps.push(dire(
   "J'en viens au résultat central, et je vais l'énoncer sans détour."
 ));
@@ -362,6 +389,7 @@ corps.push(dire(
 ));
 
 corps.push(repere(20, "Effets par dimension", "1 min"));
+corps.push(attaque("Cet effet n'est pas diffus : il se localise."));
 corps.push(dire(
   "L'effet n'est pas diffus, il se localise. Sur les sept dimensions, une seule ressort : la nutrition, " +
   "avec 6,8 points, significative à 10 pour cent, et c'est précisément la dimension qui dépend le plus " +
@@ -378,6 +406,7 @@ corps.push(dire(
 ));
 
 corps.push(repere(21, "Effet selon le montant", "1 min"));
+corps.push(attaque("Dernier volet, l'intensité du traitement."));
 corps.push(dire(
   "Dernier volet, l'intensité du traitement. L'écart défavorable se concentre sur les plus faibles " +
   "montants : seuls les deux premiers quintiles sont significatifs, à 12,9 et 9,9 points. Il ne se " +
@@ -397,6 +426,7 @@ corps.push(dire(
 corps.push(titre("Cinquième temps · Robustesse et discussion"));
 
 corps.push(repere(22, "Tests de robustesse", "1 min"));
+corps.push(attaque("Ce résultat a été mis à l'épreuve de trois façons."));
 corps.push(dire(
   "Le résultat a été mis à l'épreuve de trois façons. Le choix de la méthode d'appariement, d'abord : " +
   "les trois algorithmes donnent un effet de 0,050 à 0,064, tous significatifs au moins à 10 pour cent. " +
@@ -407,6 +437,7 @@ corps.push(dire(
 ));
 
 corps.push(repere(23, "La définition alternative", "45 s"));
+corps.push(attaque("Un test mérite d'être signalé, car il nuance la portée du résultat."));
 corps.push(dire(
   "Un test mérite d'être signalé, car il nuance la portée du résultat. Si l'on restreint les traités aux " +
   "bénéficiaires des deux vagues, l'effet tombe à 0,022 en double différence et à moins 0,008 avec " +
@@ -416,6 +447,7 @@ corps.push(dire(
 ));
 
 corps.push(repere(24, "Comment comprendre ce résultat", "1 min 30"));
+corps.push(attaque("Comment expliquer qu'une ressource de cette ampleur ne réduise pas les privations ?"));
 corps.push(dire(
   "Comment expliquer qu'une ressource de cette ampleur ne réduise pas les privations ? Trois mécanismes " +
   "me paraissent devoir être avancés."
@@ -438,6 +470,7 @@ corps.push(dire(
 ));
 
 corps.push(repere(25, "Validation des hypothèses", "30 s"));
+corps.push(attaque("Que deviennent alors mes deux hypothèses ?"));
 corps.push(dire(
   "Au terme de ce parcours, la première hypothèse n'est pas validée : l'effet est de signe défavorable et " +
   "aucune réduction n'est observée sur l'horizon. La seconde est partiellement validée : l'effet est bien " +
@@ -451,6 +484,7 @@ corps.push(dire(
 corps.push(titre("Sixième temps · Conclusion et recommandations"));
 
 corps.push(repere(26, "Conclusion générale", "1 min"));
+corps.push(attaque("Quatre apports se dégagent de ce travail."));
 corps.push(dire(
   "Quatre apports se dégagent. Une mesure de la pauvreté multidimensionnelle des enfants sur deux vagues " +
   "de l'EHCVM, selon l'approche MODA. Le constat d'un recul réel de l'incidence, de 63,5 à 57,8 pour cent, " +
@@ -460,6 +494,7 @@ corps.push(dire(
 ));
 
 corps.push(repere(27, "Recommandations", "1 min 30"));
+corps.push(attaque("Les recommandations suivent l'ordre de ces faits."));
 corps.push(dire(
   "Les recommandations suivent l'ordre de ces faits."
 ));
@@ -478,6 +513,7 @@ corps.push(dire(
 ));
 
 corps.push(repere(28, "Limites de l'étude", "1 min"));
+corps.push(attaque("Ce travail a ses limites, et je préfère les énoncer moi-même."));
 corps.push(dire(
   "Ce travail a ses limites, et je préfère les énoncer moi-même. L'hypothèse de tendances parallèles " +
   "n'est pas testable directement, deux vagues seulement étant disponibles ; l'appariement sur les niveaux " +
@@ -489,6 +525,7 @@ corps.push(dire(
 ));
 
 corps.push(repere(29, "Perspectives", "30 s"));
+corps.push(attaque("Trois prolongements me semblent utiles."));
 corps.push(dire(
   "Trois prolongements me semblent utiles : analyser les mécanismes de transmission à travers les dépenses " +
   "d'éducation, de santé et de logement ; intégrer la durée d'exposition aux transferts et leurs usages " +
@@ -501,6 +538,7 @@ corps.push(dire(
    ============================================================ */
 corps.push(titre("Clôture"));
 corps.push(repere("finale", "Merci de votre attention", "20 s"));
+corps.push(attaque("Je vous remercie de votre attention."));
 corps.push(dire(
   "Je vous remercie de votre attention et je me tiens à votre disposition pour vos questions."
 ));
