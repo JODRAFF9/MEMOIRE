@@ -183,6 +183,35 @@
     \end{scope}
   \end{tikzpicture}}
 
+% -- Semis leger, pose dans un coin de chaque diapositive ----
+\newcommand{\semiscoin}[5]{%
+  \begin{tikzpicture}[remember picture, overlay]
+    \begin{scope}
+      \clip ([xshift=#2 cm]current page.#1) rectangle ([yshift=#3 cm]current page.#1);
+      \pgfmathsetseed{#5}
+      \foreach \couleur/\nb in {presvert/34, presvertc/26, presorange/12} {
+        \foreach \i in {1,...,\nb} {
+          \pgfmathsetmacro{\dx}{rnd*(#2)}
+          \pgfmathsetmacro{\dy}{rnd*(#3)}
+          \pgfmathsetmacro{\rayon}{0.03 + rnd*0.075}
+          \fill[\couleur, opacity=#4]
+            ([xshift=\dx cm, yshift=\dy cm]current page.#1) circle (\rayon cm);
+        }
+      }
+    \end{scope}
+  \end{tikzpicture}}
+
+% Le motif est pose en fond de chaque diapositive, alternativement dans
+% l'angle inferieur droit et dans l'angle inferieur gauche. La graine
+% suit le numero de diapositive : le semis varie d'une diapositive a
+% l'autre, mais reste identique d'une compilation a l'autre.
+\addtobeamertemplate{background}{}{%
+  \ifodd\value{framenumber}
+    \semiscoin{south east}{-2.4}{2.0}{0.13}{\number\value{framenumber}}%
+  \else
+    \semiscoin{south west}{2.4}{2.0}{0.13}{\number\value{framenumber}}%
+  \fi}
+
 % -- Logo de groupe d'age ------------------------------------
 % #1 icone, #2 tranche d'age, #3 nombre d'indicateurs
 \newcommand{\groupeage}[3]{%
