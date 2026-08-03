@@ -141,7 +141,9 @@
 \usepackage{multirow}
 \usepackage{ragged2e}
 \usepackage{tikz}
-\usetikzlibrary{positioning,arrows.meta,shapes}
+\usetikzlibrary{positioning,arrows.meta,shapes,shapes.geometric}
+% Icones vectorielles des dimensions du bien-etre (compatible XeLaTeX)
+\usepackage{fontawesome5}
 
 % -- Justification des textes --------------------------------
 \AtBeginEnvironment{frame}{\justifying}
@@ -338,10 +340,26 @@
 \subsection{Mesure de la pauvreté multidimensionnelle}
 
 \begin{frame}{MODA en 7 dimensions et 3 groupes d'âge}
+  \centering
+  \begin{tikzpicture}[
+      hexa/.style   = {regular polygon, regular polygon sides=6, draw=presvert,
+                       line width=1pt, fill=presvert, text=white, inner sep=0pt,
+                       minimum size=1.05cm, font=\normalsize},
+      etiq/.style   = {below=1mm, font=\scriptsize, text=presor}
+    ]
+    \node[hexa] (d1) at (0,0)      {\faShower};      \node[etiq] at (d1.south) {Assainissement};
+    \node[hexa] (d2) at (2.6,0)    {\faTint};        \node[etiq] at (d2.south) {Eau};
+    \node[hexa] (d3) at (5.2,0)    {\faHome};        \node[etiq] at (d3.south) {Logement};
+    \node[hexa] (d4) at (7.8,0)    {\faAppleAlt};    \node[etiq] at (d4.south) {Nutrition};
+    \node[hexa] (d5) at (1.3,-2.1) {\faHeartbeat};   \node[etiq] at (d5.south) {Santé};
+    \node[hexa] (d6) at (3.9,-2.1) {\faShieldAlt};   \node[etiq] at (d6.south) {Protection};
+    \node[hexa] (d7) at (6.5,-2.1) {\faBook};        \node[etiq] at (d7.south) {Éducation};
+  \end{tikzpicture}
+
+  \smallskip
   \begin{block}{Méthodologie MODA (ANSD/UNICEF)}
-    Sept dimensions du bien-être de l'enfant : assainissement, eau, logement,
-    nutrition, santé, protection et éducation. Quatorze indicateurs, déclinés
-    selon le groupe d'âge (0-4, 5-14, 15-17 ans). Le détail figure en annexe.
+    Quatorze indicateurs, déclinés selon le groupe d'âge (0-4, 5-14,
+    15-17 ans). Le détail figure en annexe.
   \end{block}
   \begin{alertblock}{Double seuil MODA}
     Union intra-dimension (privé si privé dans au moins un indicateur) ;
