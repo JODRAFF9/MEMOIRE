@@ -169,7 +169,30 @@
 
 % -- Plan ----------------------------------------------------
 \begin{frame}{Plan de la présentation}
-  \tableofcontents[hideallsubsections]
+  \vspace{0.15cm}
+  \centering
+  \begin{tikzpicture}[
+      carte/.style   = {rounded corners=7pt, fill=dorepale, anchor=north west,
+                        minimum width=3.95cm, minimum height=2.45cm,
+                        text width=3.35cm, align=flush left, inner sep=7pt},
+      pastille/.style= {circle, fill=presvert, text=white, anchor=center,
+                        font=\bfseries\footnotesize, minimum size=0.6cm, inner sep=0pt}
+    ]
+    \node[carte] (a) at (0,0)     {~\\[0.3cm]\textbf{\small Introduction}\\[2pt]
+                                   {\scriptsize Contexte, problématique et objectifs}};
+    \node[carte] (b) at (4.3,0)   {~\\[0.3cm]\textbf{\small Revue de la littérature}\\[2pt]
+                                   {\scriptsize Canaux de transmission et lacune à combler}};
+    \node[carte] (c) at (8.6,0)   {~\\[0.3cm]\textbf{\small Cadre méthodologique}\\[2pt]
+                                   {\scriptsize Données, mesure MODA et identification}};
+    \node[carte] (d) at (0,-2.75) {~\\[0.3cm]\textbf{\small Résultats empiriques}\\[2pt]
+                                   {\scriptsize Effet moyen, dimensions et montants}};
+    \node[carte] (e) at (4.3,-2.75){~\\[0.3cm]\textbf{\small Robustesse et discussion}\\[2pt]
+                                   {\scriptsize Ce qui tient et comment le lire}};
+    \node[carte] (f) at (8.6,-2.75){~\\[0.3cm]\textbf{\small Conclusion}\\[2pt]
+                                   {\scriptsize Enseignements et recommandations}};
+    \foreach \n/\i in {a/1, b/2, c/3, d/4, e/5, f/6}
+      \node[pastille] at ([shift={(0.52,-0.5)}]\n.north west) {\i};
+  \end{tikzpicture}
 \end{frame}
 
 % ============================================================
