@@ -156,7 +156,7 @@
 \usepackage{multirow}
 \usepackage{ragged2e}
 \usepackage{tikz}
-\usetikzlibrary{positioning,arrows.meta,shapes,shapes.geometric}
+\usetikzlibrary{positioning,arrows.meta,shapes,shapes.geometric,calc}
 % Icones vectorielles des dimensions du bien-etre (compatible XeLaTeX)
 \usepackage{fontawesome5}
 
@@ -457,17 +457,40 @@
 
 \begin{frame}{Données EHCVM I et II}
   \small
-  \begin{block}{{\color{presorange}\faDatabase}~~Source et période}
-    \begin{itemize}
-      \setlength{\itemsep}{3pt}
-      \item[{\color{presvert}\faCalendarAlt}] \textbf{EHCVM I (2018-2019)} :
-            première vague harmonisée UEMOA au Sénégal.
-      \item[{\color{presvert}\faCalendarAlt}] \textbf{EHCVM II (2021-2022)} :
-            deuxième vague, qui permet de suivre les mêmes ménages.
-      \item[{\color{presvert}\faUsers}] \textbf{Ménages suivis} : \chiffre{6\,127} ménages
-            retrouvés aux deux vagues.
-    \end{itemize}
-  \end{block}
+  \centering
+  \begin{tikzpicture}[
+      vague/.style  = {rounded corners=5pt, draw=#1, line width=1pt, fill=#1!8,
+                       minimum width=4.6cm, minimum height=1.75cm, anchor=north west},
+      vague/.default = presvert,
+      titre/.style  = {font=\small\bfseries, anchor=north west},
+      detail/.style = {font=\scriptsize, text=presgris, anchor=north west,
+                       text width=3.3cm, align=left}
+    ]
+    \node[vague=presvert] (v1) at (0,0) {};
+    \node[text=presvert, font=\Large] at ([shift={(0.55,-0.62)}]v1.north west) {\faCalendarAlt};
+    \node[titre, text=presvert] at ([shift={(1.15,-0.18)}]v1.north west) {EHCVM I};
+    \node[detail] at ([shift={(1.15,-0.55)}]v1.north west)
+      {Première vague harmonisée UEMOA au Sénégal};
+    \node[font=\scriptsize\bfseries, text=presvert, anchor=south east]
+      at ([shift={(-0.2,0.12)}]v1.south east) {2018-2019};
+
+    \node[vague=presvert] (v2) at (5.2,0) {};
+    \node[text=presvert, font=\Large] at ([shift={(0.55,-0.62)}]v2.north west) {\faCalendarAlt};
+    \node[titre, text=presvert] at ([shift={(1.15,-0.18)}]v2.north west) {EHCVM II};
+    \node[detail] at ([shift={(1.15,-0.55)}]v2.north west)
+      {Deuxième vague, mêmes ménages réinterrogés};
+    \node[font=\scriptsize\bfseries, text=presvert, anchor=south east]
+      at ([shift={(-0.2,0.12)}]v2.south east) {2021-2022};
+
+    \draw[presorange, line width=1.1pt, -{Stealth[length=2.5mm]}]
+      ([xshift=1mm]v1.east) -- ([xshift=-1mm]v2.west);
+    \node[font=\scriptsize\bfseries, text=presorange, anchor=south]
+      at ([yshift=1.5mm]$(v1.east)!0.5!(v2.west)$) {6\,127};
+    \node[font=\scriptsize, text=presorange, anchor=north]
+      at ([yshift=-1.5mm]$(v1.east)!0.5!(v2.west)$) {ménages};
+  \end{tikzpicture}
+
+  \smallskip
   \begin{block}{{\color{presorange}\faUsers}~~Population cible et unité d'analyse}
     Enfants de 0 à 17 ans suivis individuellement d'une vague à l'autre, soit
     \chiffre{17\,786} enfants : 2\,638 dans un ménage bénéficiaire en 2018 et 15\,148
