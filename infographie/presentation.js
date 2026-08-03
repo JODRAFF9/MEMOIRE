@@ -41,11 +41,11 @@ async function main() {
 
     s.addText("RÉPUBLIQUE DU SÉNÉGAL", {
       x: 0, y: 0.55, w: 13.33, h: 0.3, align: "center", margin: 0,
-      fontFace: POLICE, fontSize: 12, bold: true, color: "A5B4FC", charSpacing: 2,
+      fontFace: POLICE, fontSize: 13.5, bold: true, color: "A5B4FC", charSpacing: 2,
     });
     s.addText("École nationale de la statistique et de l'analyse économique Pierre Ndiaye", {
       x: 0, y: 0.88, w: 13.33, h: 0.3, align: "center", margin: 0,
-      fontFace: POLICE, fontSize: 12.5, color: "A5B4FC",
+      fontFace: POLICE, fontSize: 14, color: "A5B4FC",
     });
 
     s.addText("Impact des transferts de migrants sur la pauvreté\nmultidimensionnelle des enfants au Sénégal", {
@@ -64,7 +64,7 @@ async function main() {
     ].forEach((b) => {
       s.addText(b.t, {
         x: b.x, y: 4.62, w: 3.7, h: 0.28, align: "center", margin: 0,
-        fontFace: POLICE, fontSize: 11, color: "A5B4FC",
+        fontFace: POLICE, fontSize: 13, color: "A5B4FC",
       });
       s.addText(b.n, {
         x: b.x, y: 4.90, w: 3.7, h: 0.32, align: "center", margin: 0,
@@ -72,13 +72,13 @@ async function main() {
       });
       s.addText(b.r, {
         x: b.x - 0.2, y: 5.24, w: 4.1, h: 0.4, align: "center", margin: 0,
-        fontFace: POLICE, fontSize: 10.5, color: "A5B4FC", lineSpacing: 13,
+        fontFace: POLICE, fontSize: 12, color: "A5B4FC", lineSpacing: 13,
       });
     });
 
     s.addText("Août 2026", {
       x: 0, y: 6.35, w: 13.33, h: 0.32, align: "center", margin: 0,
-      fontFace: POLICE, fontSize: 13, color: "A5B4FC",
+      fontFace: POLICE, fontSize: 14, color: "A5B4FC",
     });
     n++;
   }
@@ -112,7 +112,7 @@ async function main() {
       });
       s.addText(it.d, {
         x: x + 0.32, y: y + 1.70, w: 3.15, h: 0.3, margin: 0,
-        fontFace: POLICE, fontSize: 11, color: C.encre2,
+        fontFace: POLICE, fontSize: 13, color: C.encre2,
       });
     }
     pied(s, null, ++n);
@@ -139,7 +139,7 @@ async function main() {
     s.addText(
       "À l'échelle des ménages, les montants reçus avoisinent le seuil de pauvreté monétaire annuel par tête.",
       { x: 1.0, y: 4.55, w: 5.25, h: 0.6, margin: 0, valign: "top",
-        fontFace: POLICE, fontSize: 12.5, color: C.encre2, lineSpacing: 17 }
+        fontFace: POLICE, fontSize: 14, color: C.encre2, lineSpacing: 17 }
     );
     s.addText("Source : ANSD et OIM, profil migratoire 2018.", {
       x: 1.0, y: 5.85, w: 5.25, h: 0.26, margin: 0, fontFace: POLICE, fontSize: 9.5, color: C.muet,
@@ -157,7 +157,7 @@ async function main() {
     s.addText(
       "Ces manques échappent aux mesures fondées sur le seul revenu : un enfant peut vivre au-dessus du seuil monétaire et rester déscolarisé.",
       { x: 7.15, y: 4.55, w: 5.2, h: 0.75, margin: 0, valign: "top",
-        fontFace: POLICE, fontSize: 12.5, color: C.encre2, lineSpacing: 17 }
+        fontFace: POLICE, fontSize: 14, color: C.encre2, lineSpacing: 17 }
     );
     s.addText("Source : ANSD et UNICEF, 2024.", {
       x: 7.15, y: 5.85, w: 5.2, h: 0.26, margin: 0, fontFace: POLICE, fontSize: 9.5, color: C.muet,
@@ -193,7 +193,7 @@ async function main() {
       });
       s.addText(b.d, {
         x: x + 0.3, y: 4.6, w: 3.2, h: 1.6, margin: 0, valign: "top",
-        fontFace: POLICE, fontSize: 12, color: C.encre2, lineSpacing: 16.5,
+        fontFace: POLICE, fontSize: 13.5, color: C.encre2, lineSpacing: 16.5,
       });
     });
     for (let i = 0; i < blocs.length; i++) {
@@ -224,11 +224,11 @@ async function main() {
       });
       s.addText(String(i + 1), {
         x: 1.05, y: 3.87 + i * 1.12, w: 0.36, h: 0.32, align: "center", margin: 0,
-        fontFace: POLICE, fontSize: 13, bold: true, color: "FFFFFF",
+        fontFace: POLICE, fontSize: 14, bold: true, color: "FFFFFF",
       });
       s.addText(t, {
         x: 1.58, y: 3.82 + i * 1.12, w: 4.65, h: 0.85, margin: 0, valign: "top",
-        fontFace: POLICE, fontSize: 12.5, color: C.encre2, lineSpacing: 17,
+        fontFace: POLICE, fontSize: 14, color: C.encre2, lineSpacing: 17,
       });
     });
 
@@ -250,7 +250,7 @@ async function main() {
       });
       s.addText(b.t, {
         x: 8.2, y: y + 0.2, w: 3.95, h: 1.15, margin: 0, valign: "middle",
-        fontFace: POLICE, fontSize: 12, color: C.encre, lineSpacing: 16.5,
+        fontFace: POLICE, fontSize: 13.5, color: C.encre, lineSpacing: 16.5,
       });
     });
     pied(s, null, ++n);
@@ -275,21 +275,21 @@ async function main() {
       { t: "Intérêt personnel et échange", d: "Préserver un héritage, rembourser la dette du départ.", r: "Rapoport & Docquier, 2006" },
       { t: "Diversification du risque", d: "Les transferts assurent le ménage contre les chocs.", r: "Stark & Bloom, 1985" },
     ].forEach((b, i) => {
-      const y = 2.32 + i * 1.32;
+      const y = 2.32 + i * 1.45;
       s.addShape(p.ShapeType.ellipse, {
-        x: 1.05, y: y + 0.08, w: 0.3, h: 0.3, fill: { color: C.bleu }, line: { type: "none" },
+        x: 1.05, y: y + 0.1, w: 0.3, h: 0.3, fill: { color: C.bleu }, line: { type: "none" },
       });
       s.addText(b.t, {
         x: 1.55, y: y, w: 4.7, h: 0.32, margin: 0,
         fontFace: POLICE, fontSize: 14, bold: true, color: C.encre,
       });
       s.addText(b.d, {
-        x: 1.55, y: y + 0.34, w: 4.7, h: 0.36, margin: 0,
-        fontFace: POLICE, fontSize: 12, color: C.encre2, lineSpacing: 16,
+        x: 1.55, y: y + 0.34, w: 4.7, h: 0.46, margin: 0,
+        fontFace: POLICE, fontSize: 13.5, color: C.encre2, lineSpacing: 16,
       });
       s.addText(b.r, {
-        x: 1.55, y: y + 0.72, w: 4.7, h: 0.26, margin: 0,
-        fontFace: POLICE, fontSize: 10.5, italic: true, color: C.muet,
+        x: 1.55, y: y + 0.84, w: 4.7, h: 0.3, margin: 0,
+        fontFace: POLICE, fontSize: 12, italic: true, color: C.muet,
       });
     });
 
@@ -306,24 +306,24 @@ async function main() {
       { ic: I.FaUtensils, c: C.orange, t: "Nutrition",
         d: "Effets fragiles, liés au maintien du lien.", r: "Davis & Brazil, 2016" },
     ].forEach((b, i) => {
-      const y = 2.32 + i * 1.32;
+      const y = 2.32 + i * 1.45;
       s.addText(b.t, {
         x: 8.35, y: y, w: 4.0, h: 0.32, margin: 0,
         fontFace: POLICE, fontSize: 14, bold: true, color: C.encre,
       });
       s.addText(b.d, {
-        x: 8.35, y: y + 0.34, w: 4.0, h: 0.36, margin: 0,
-        fontFace: POLICE, fontSize: 12, color: C.encre2, lineSpacing: 16,
+        x: 8.35, y: y + 0.34, w: 4.0, h: 0.46, margin: 0,
+        fontFace: POLICE, fontSize: 13.5, color: C.encre2, lineSpacing: 16,
       });
       s.addText(b.r, {
-        x: 8.35, y: y + 0.72, w: 4.0, h: 0.26, margin: 0,
-        fontFace: POLICE, fontSize: 10.5, italic: true, color: C.muet,
+        x: 8.35, y: y + 0.84, w: 4.0, h: 0.3, margin: 0,
+        fontFace: POLICE, fontSize: 12, italic: true, color: C.muet,
       });
     });
     for (let i = 0; i < 3; i++) {
       const ics = [I.FaMoneyBillTransfer, I.FaGraduationCap, I.FaUtensils];
       const cs = [C.bleu, C.or, C.orange];
-      await pastille(s, 7.2, 2.32 + i * 1.32 + 0.06, 0.82, cs[i], ics[i]);
+      await pastille(s, 7.2, 2.32 + i * 1.45 + 0.06, 0.82, cs[i], ics[i]);
     }
     pied(s, null, ++n);
   }
@@ -353,7 +353,7 @@ async function main() {
       await pastille(s, x + 0.36, 2.2, 0.9, dims[i].c, dims[i].ic);
       s.addText(dims[i].t, {
         x: x + 0.05, y: 3.24, w: 1.52, h: 0.42, align: "center", margin: 0, valign: "top",
-        fontFace: POLICE, fontSize: 11.5, bold: true, color: C.encre, lineSpacing: 14,
+        fontFace: POLICE, fontSize: 13, bold: true, color: C.encre, lineSpacing: 14,
       });
     }
 
@@ -366,7 +366,7 @@ async function main() {
       "Intra-dimension, l'enfant est privé s'il l'est dans au moins un indicateur de la dimension.\n" +
       "Inter-dimensions, il est pauvre s'il cumule au moins quatre des sept dimensions.",
       { x: 1.05, y: 4.85, w: 5.4, h: 1.1, margin: 0, valign: "top",
-        fontFace: POLICE, fontSize: 12, color: C.encre2, lineSpacing: 17 }
+        fontFace: POLICE, fontSize: 13.5, color: C.encre2, lineSpacing: 17 }
     );
 
     carte(p, s, 6.95, 4.22, 5.68, 2.15);
@@ -379,16 +379,16 @@ async function main() {
         const x = 7.28 + i * 1.72;
         s.addText(g[0], {
           x, y: 4.9, w: 1.6, h: 0.3, align: "center", margin: 0,
-          fontFace: POLICE, fontSize: 12.5, bold: true, color: C.encre,
+          fontFace: POLICE, fontSize: 14, bold: true, color: C.encre,
         });
         s.addText(g[1], {
           x, y: 5.22, w: 1.6, h: 0.3, align: "center", margin: 0,
-          fontFace: POLICE, fontSize: 11.5, color: C.encre2,
+          fontFace: POLICE, fontSize: 13, color: C.encre2,
         });
       });
     s.addText("L'illettrisme remplace chez les adolescents les indicateurs propres aux 0 à 4 ans.", {
       x: 7.28, y: 5.62, w: 5.05, h: 0.5, margin: 0, valign: "top",
-      fontFace: POLICE, fontSize: 11, color: C.encre2, lineSpacing: 15,
+      fontFace: POLICE, fontSize: 13, color: C.encre2, lineSpacing: 15,
     });
     pied(s, "Matrice complète des indicateurs et des seuils en annexe du mémoire.", ++n);
   }
@@ -419,10 +419,10 @@ async function main() {
       fontFace: POLICE, fontSize: 15, bold: true, color: C.encre,
     });
     s.addText(
-      "L'enfant dont le ménage a reçu, en 2018, un transfert d'un expéditeur résidant hors du Sénégal et ayant déjà vécu dans le ménage. " +
-      "Le statut est figé à la période de base : il ne peut pas être affecté par l'évolution ultérieure des privations.",
-      { x: 1.05, y: 5.15, w: 5.25, h: 1.05, margin: 0, valign: "top",
-        fontFace: POLICE, fontSize: 12, color: C.encre2, lineSpacing: 16.5 }
+      "L'enfant dont le ménage a reçu, en 2018, un transfert d'un expéditeur vivant hors du Sénégal et ayant déjà vécu dans le ménage. " +
+      "Le statut, figé en 2018, ne peut pas dépendre de l'évolution des privations.",
+      { x: 1.05, y: 5.1, w: 5.4, h: 1.2, margin: 0, valign: "top",
+        fontFace: POLICE, fontSize: 13.5, color: C.encre2, lineSpacing: 16.5 }
     );
 
     carte(p, s, 6.85, 3.85, 5.78, 2.5);
@@ -436,7 +436,7 @@ async function main() {
       const y = 5.13 + i * 0.30;
       s.addText(m[0], {
         x: 7.18, y, w: 1.85, h: 0.26, margin: 0,
-        fontFace: POLICE, fontSize: 11, color: C.encre2,
+        fontFace: POLICE, fontSize: 13, color: C.encre2,
       });
       s.addShape(p.ShapeType.roundRect, {
         x: 9.12, y: y + 0.05, w: (m[1] / 68.5) * 2.55, h: 0.16, rectRadius: 0.02,
@@ -444,7 +444,7 @@ async function main() {
       });
       s.addText(vg(m[1]) + " %", {
         x: 11.78, y, w: 0.62, h: 0.26, align: "right", margin: 0,
-        fontFace: POLICE, fontSize: 11, bold: true, color: C.encre,
+        fontFace: POLICE, fontSize: 13, bold: true, color: C.encre,
       });
     });
     pied(s, SRC, ++n);
@@ -455,15 +455,15 @@ async function main() {
      ============================================================ */
   {
     const s = slideContenu(p, "Stratégie d'identification",
-      "Les ménages bénéficiaires diffèrent des autres : une comparaison directe attribuerait aux transferts des écarts préexistants.");
+      "Les ménages bénéficiaires diffèrent des autres avant même le premier franc reçu.");
 
     const etapes = [
       { n: "1", ic: I.FaMagnifyingGlass, c: C.bleu, t: "Score de propension",
-        d: "Un logit estime, pour chaque enfant, la probabilité de vivre dans un ménage bénéficiaire, à partir des caractéristiques du ménage à la période de base." },
+        d: "Un logit donne à chaque enfant sa probabilité d'être dans un ménage bénéficiaire en 2018." },
       { n: "2", ic: I.FaUsers, c: C.teal, t: "Appariement",
-        d: "Chaque enfant traité est comparé à des enfants témoins de score voisin, donc de genre, d'âge et de profil de ménage comparables." },
+        d: "Chaque enfant traité est comparé à des témoins de score, d'âge et de profil voisins." },
       { n: "3", ic: I.FaScaleBalanced, c: C.orange, t: "Double différence",
-        d: "L'écart de trajectoire entre 2018 et 2021 élimine ce qui, dans les différences restantes, est inobservable mais stable dans le temps." },
+        d: "L'écart de trajectoire 2018-2021 élimine ce qui est inobservable mais stable." },
     ];
     for (let i = 0; i < etapes.length; i++) {
       const e = etapes[i];
@@ -480,15 +480,15 @@ async function main() {
       });
       s.addText(e.d, {
         x: x + 0.3, y: 3.56, w: 3.2, h: 1.5, margin: 0, valign: "top",
-        fontFace: POLICE, fontSize: 11.5, color: C.encre2, lineSpacing: 16,
+        fontFace: POLICE, fontSize: 13, color: C.encre2, lineSpacing: 16,
       });
     }
 
     carte(p, s, 0.72, 5.48, 11.91, 0.95, C.bleufonce);
     s.addText(
-      "L'estimateur retenu, PSM-double différence (Heckman et al., 1997, 1998), corrige simultanément la sélection sur les caractéristiques observables et les effets fixes inobservables.",
+      "PSM-double différence (Heckman et al., 1997) : sélection observable et effets fixes corrigés ensemble.",
       { x: 1.1, y: 5.6, w: 11.15, h: 0.72, margin: 0, valign: "middle", align: "center",
-        fontFace: POLICE, fontSize: 13, color: "FFFFFF", lineSpacing: 18 }
+        fontFace: POLICE, fontSize: 14, color: "FFFFFF", lineSpacing: 18 }
     );
     pied(s, null, ++n);
   }
@@ -518,7 +518,7 @@ async function main() {
       s.addText(h, {
         x: 1.05 + [0, 1.9, 3.15, 4.4][j], y: 2.72, w: [1.85, 1.2, 1.2, 1.2][j], h: 0.3,
         align: j === 0 ? "left" : "center", margin: 0,
-        fontFace: POLICE, fontSize: 11, bold: true, color: C.muet,
+        fontFace: POLICE, fontSize: 13, bold: true, color: C.muet,
       });
     });
     lignes.forEach((l, i) => {
@@ -537,7 +537,7 @@ async function main() {
     });
     s.addText("Enfants de 0 à 17 ans suivis aux deux vagues, seuil de quatre dimensions.", {
       x: 1.05, y: 5.55, w: 5.25, h: 0.5, margin: 0, valign: "top",
-      fontFace: POLICE, fontSize: 11, color: C.encre2, lineSpacing: 15,
+      fontFace: POLICE, fontSize: 13, color: C.encre2, lineSpacing: 15,
     });
 
     carte(p, s, 6.85, 1.95, 5.78, 4.4);
@@ -553,13 +553,13 @@ async function main() {
       const y = 2.85 + i * 1.55;
       s.addText(g.t, {
         x: 7.18, y, w: 2.5, h: 0.3, margin: 0,
-        fontFace: POLICE, fontSize: 12.5, bold: true, color: C.encre,
+        fontFace: POLICE, fontSize: 14, bold: true, color: C.encre,
       });
       g.v.forEach((val, j) => {
         const yy = y + 0.38 + j * 0.42;
         s.addText(j === 0 ? "2018-19" : "2021-22", {
           x: 7.18, y: yy, w: 0.95, h: 0.28, margin: 0,
-          fontFace: POLICE, fontSize: 10.5, color: C.muet,
+          fontFace: POLICE, fontSize: 12, color: C.muet,
         });
         s.addShape(p.ShapeType.roundRect, {
           x: 8.2, y: yy + 0.05, w: (val / 70) * 3.1, h: 0.2, rectRadius: 0.02,
@@ -568,13 +568,13 @@ async function main() {
         });
         s.addText(vg(val) + " %", {
           x: 11.62, y: yy, w: 0.78, h: 0.28, align: "right", margin: 0,
-          fontFace: POLICE, fontSize: 11.5, bold: true, color: C.encre,
+          fontFace: POLICE, fontSize: 13, bold: true, color: C.encre,
         });
       });
     });
     s.addText("Les enfants de ménages bénéficiaires partent d'un niveau plus favorable : cet avantage précède le traitement.", {
       x: 7.18, y: 5.5, w: 5.15, h: 0.6, margin: 0, valign: "top",
-      fontFace: POLICE, fontSize: 11, color: C.encre2, lineSpacing: 15,
+      fontFace: POLICE, fontSize: 13, color: C.encre2, lineSpacing: 15,
     });
     pied(s, SRC, ++n);
   }
@@ -613,7 +613,7 @@ async function main() {
       const y = 4.68 + Math.floor(i / 3) * 0.78;
       s.addText(c0[0], {
         x, y, w: 1.75, h: 0.28, margin: 0,
-        fontFace: POLICE, fontSize: 11, color: C.encre2,
+        fontFace: POLICE, fontSize: 13, color: C.encre2,
       });
       s.addShape(p.ShapeType.roundRect, {
         x, y: y + 0.3, w: Math.max(0.04, (c0[1] / 50) * 1.55), h: 0.14, rectRadius: 0.02,
@@ -625,7 +625,7 @@ async function main() {
       });
       s.addText(vg(c0[1]) + "  →  " + vg(c0[2]), {
         x: x + 1.8, y: y + 0.28, w: 1.5, h: 0.36, margin: 0, valign: "middle",
-        fontFace: POLICE, fontSize: 11, bold: true, color: C.encre,
+        fontFace: POLICE, fontSize: 13, bold: true, color: C.encre,
       });
     });
     pied(s, "Gris : avant appariement ; vert : après appariement. " + SRC, ++n);
@@ -649,7 +649,7 @@ async function main() {
     s.addText(
       "d'écart de trajectoire défavorable aux enfants des ménages bénéficiaires, significatif au seuil de 5 %.",
       { x: 1.05, y: 3.85, w: 2.94, h: 1.0, align: "center", margin: 0, valign: "top",
-        fontFace: POLICE, fontSize: 12.5, color: "D5DEEC", lineSpacing: 17 }
+        fontFace: POLICE, fontSize: 14, color: "D5DEEC", lineSpacing: 17 }
     );
     s.addText("H1 n'est pas validée", {
       x: 0.9, y: 5.5, w: 3.24, h: 0.4, align: "center", margin: 0, valign: "middle",
@@ -675,15 +675,15 @@ async function main() {
       });
       s.addText(b.t, {
         x: b.x - 0.35, y: BASE + 0.1, w: 1.6, h: 0.55, align: "center", margin: 0, valign: "top",
-        fontFace: POLICE, fontSize: 11.5, bold: true, color: C.encre2, lineSpacing: 14,
+        fontFace: POLICE, fontSize: 13, bold: true, color: C.encre2, lineSpacing: 14,
       });
     });
     s.addShape(p.ShapeType.rect, {
       x: 5.05, y: BASE, w: 3.5, h: 0.02, fill: { color: "CBD5E1" }, line: { type: "none" },
     });
     s.addText("La pauvreté a reculé près de trois fois moins vite chez les bénéficiaires.", {
-      x: 3.6, y: 6.05, w: 5.55, h: 0.34, align: "center", margin: 0,
-      fontFace: POLICE, fontSize: 11, color: C.encre2,
+      x: 3.3, y: 6.18, w: 6.0, h: 0.46, align: "center", margin: 0,
+      fontFace: POLICE, fontSize: 13, color: C.encre2,
     });
 
     carte(p, s, 9.28, 1.42, 3.35, 4.95);
@@ -696,7 +696,7 @@ async function main() {
       const y = 2.2 + i * 0.72;
       s.addText(r[0], {
         x: 9.55, y, w: 1.95, h: 0.5, margin: 0, valign: "middle",
-        fontFace: POLICE, fontSize: 11, color: C.encre2, lineSpacing: 14,
+        fontFace: POLICE, fontSize: 13, color: C.encre2, lineSpacing: 14,
       });
       s.addText(r[1] + r[2], {
         x: 11.55, y, w: 0.85, h: 0.5, align: "right", margin: 0, valign: "middle",
@@ -708,7 +708,7 @@ async function main() {
     });
     s.addText("Le résultat ne tient pas au choix de l'algorithme. La double différence sans appariement, qui ne corrige pas l'avantage initial, donne le même signe atténué.", {
       x: 9.55, y: 5.2, w: 2.85, h: 1.05, margin: 0, valign: "top",
-      fontFace: POLICE, fontSize: 10.5, color: C.encre2, lineSpacing: 14,
+      fontFace: POLICE, fontSize: 12, color: C.encre2, lineSpacing: 14,
     });
     pied(s, "** significatif à 5 %, * à 10 %. " + SRC, ++n);
   }
@@ -734,7 +734,7 @@ async function main() {
       const y = 2.72 + i * 0.5;
       s.addText(d[0], {
         x: 1.05, y, w: 1.6, h: 0.32, margin: 0, valign: "middle",
-        fontFace: POLICE, fontSize: 11.5, bold: d[2], color: d[2] ? C.encre : C.encre2,
+        fontFace: POLICE, fontSize: 13, bold: d[2], color: d[2] ? C.encre : C.encre2,
       });
       s.addShape(p.ShapeType.roundRect, {
         x: 2.75, y: y + 0.06, w: (d[1] / 6.8) * 3.75, h: 0.2, rectRadius: 0.025,
@@ -742,7 +742,7 @@ async function main() {
       });
       s.addText("+" + vg(d[1]), {
         x: 6.65, y, w: 0.7, h: 0.32, align: "right", margin: 0, valign: "middle",
-        fontFace: POLICE, fontSize: 12, bold: true, color: C.encre,
+        fontFace: POLICE, fontSize: 13.5, bold: true, color: C.encre,
       });
       if (d[2]) {
         s.addText("*", {
@@ -758,9 +758,9 @@ async function main() {
       x: 9.5, y: 2.28, w: 2.85, h: 0.5, margin: 0, valign: "middle",
       fontFace: POLICE, fontSize: 14, bold: true, color: C.encre, lineSpacing: 17,
     });
-    s.addText("Significatif à 5 %. Effet par âge et effet par dimension se répondent : les besoins des plus jeunes passent d'abord par l'alimentation.", {
-      x: 8.5, y: 3.2, w: 3.85, h: 0.7, margin: 0, valign: "top",
-      fontFace: POLICE, fontSize: 11, color: C.encre2, lineSpacing: 14.5,
+    s.addText("Significatif à 5 %. Les besoins des plus jeunes passent d'abord par l'alimentation.", {
+      x: 8.5, y: 3.18, w: 3.85, h: 0.75, margin: 0, valign: "top",
+      fontFace: POLICE, fontSize: 13, color: C.encre2, lineSpacing: 14.5,
     });
 
     carte(p, s, 8.2, 4.3, 4.43, 2.05);
@@ -773,11 +773,11 @@ async function main() {
         const y = 5.0 + i * 0.42;
         s.addText(t[0], {
           x: 8.5, y, w: 2.6, h: 0.3, margin: 0,
-          fontFace: POLICE, fontSize: 11.5, color: C.encre2,
+          fontFace: POLICE, fontSize: 13, color: C.encre2,
         });
         s.addText(t[1], {
           x: 11.2, y, w: 1.15, h: 0.3, align: "right", margin: 0,
-          fontFace: POLICE, fontSize: 11.5, bold: true, color: C.encre,
+          fontFace: POLICE, fontSize: 13, bold: true, color: C.encre,
         });
       });
     s.addText("Les sous-groupes se distinguent par la significativité de leur effet, non par une ampleur supérieure.", {
@@ -810,11 +810,11 @@ async function main() {
       const y = 2.78 + i * 0.66;
       s.addText(r[0], {
         x: 1.05, y, w: 0.42, h: 0.42, margin: 0, valign: "middle",
-        fontFace: POLICE, fontSize: 13, bold: true, color: C.encre,
+        fontFace: POLICE, fontSize: 14, bold: true, color: C.encre,
       });
       s.addText(r[1], {
         x: 1.5, y, w: 1.62, h: 0.42, margin: 0, valign: "middle",
-        fontFace: POLICE, fontSize: 10.5, color: C.muet,
+        fontFace: POLICE, fontSize: 12, color: C.muet,
       });
       const w = Math.abs(r[2]) / 12.9 * 3.9;
       s.addShape(p.ShapeType.roundRect, {
@@ -824,12 +824,12 @@ async function main() {
       s.addText((r[2] >= 0 ? "+" : "−") + vg(Math.abs(r[2])), {
         x: ZERO + (r[2] >= 0 ? w + 0.08 : 0.12), y, w: 0.7, h: 0.42,
         align: "left", margin: 0, valign: "middle",
-        fontFace: POLICE, fontSize: 12, bold: true, color: C.encre,
+        fontFace: POLICE, fontSize: 13.5, bold: true, color: C.encre,
       });
       if (r[3]) {
         s.addText("**", {
           x: (ZERO + w + 0.80), y, w: 0.3, h: 0.42, margin: 0, valign: "middle",
-          fontFace: POLICE, fontSize: 13, bold: true, color: C.orange,
+          fontFace: POLICE, fontSize: 14, bold: true, color: C.orange,
         });
       }
     });
@@ -843,12 +843,12 @@ async function main() {
       fontFace: POLICE, fontSize: 34, bold: true, color: "FFFFFF",
     });
     s.addText("pente dose-réponse, significative à 10 %", {
-      x: 8.85, y: 2.82, w: 3.55, h: 0.3, align: "center", margin: 0,
-      fontFace: POLICE, fontSize: 11.5, bold: true, color: C.orange,
+      x: 8.75, y: 2.78, w: 3.75, h: 0.46, align: "center", margin: 0,
+      fontFace: POLICE, fontSize: 13, bold: true, color: C.orange,
     });
     s.addText("Plus le montant reçu est élevé, plus l'écart de trajectoire tend à se réduire.", {
-      x: 8.85, y: 3.2, w: 3.55, h: 0.62, align: "center", margin: 0, valign: "top",
-      fontFace: POLICE, fontSize: 11, color: "D5DEEC", lineSpacing: 14.5,
+      x: 8.8, y: 3.32, w: 3.65, h: 0.62, align: "center", margin: 0, valign: "top",
+      fontFace: POLICE, fontSize: 13, color: "D5DEEC", lineSpacing: 14.5,
     });
 
     carte(p, s, 8.6, 4.3, 4.03, 2.05);
@@ -857,10 +857,10 @@ async function main() {
       fontFace: POLICE, fontSize: 14, bold: true, color: C.encre,
     });
     s.addText(
-      "Le profil n'est pas strictement monotone, le quatrième quintile remontant sans être significatif. " +
-      "Le montant relevant du choix du migrant, le gradient se lit comme une association conditionnelle.",
+      "Le profil n'est pas strictement monotone. Le montant relevant du migrant, " +
+      "le gradient se lit comme une association conditionnelle.",
       { x: 8.9, y: 4.95, w: 3.45, h: 1.3, margin: 0, valign: "top",
-        fontFace: POLICE, fontSize: 11, color: C.encre2, lineSpacing: 14.5 }
+        fontFace: POLICE, fontSize: 13, color: C.encre2, lineSpacing: 14.5 }
     );
     pied(s, "** significatif à 5 %. " + SRC, ++n);
   }
@@ -891,16 +891,16 @@ async function main() {
       carte(p, s, x, y, 5.78, 2.15);
       await pastille(s, x + 0.3, y + 0.32, 0.85, t.c, t.ic);
       s.addText(t.t, {
-        x: x + 1.32, y: y + 0.3, w: 2.98, h: 0.42, margin: 0, valign: "middle",
+        x: x + 1.32, y: y + 0.28, w: 2.75, h: 0.46, margin: 0, valign: "middle",
         fontFace: POLICE, fontSize: 15, bold: true, color: C.encre,
       });
       s.addText(t.ok, {
-        x: x + 4.4, y: y + 0.32, w: 1.15, h: 0.36, align: "right", margin: 0, valign: "middle",
-        fontFace: POLICE, fontSize: 11, bold: true, color: t.c,
+        x: x + 4.18, y: y + 0.28, w: 1.35, h: 0.46, align: "right", margin: 0, valign: "middle",
+        fontFace: POLICE, fontSize: 13, bold: true, color: t.c,
       });
       s.addText(t.d, {
         x: x + 0.3, y: y + 1.3, w: 5.2, h: 0.7, margin: 0, valign: "top",
-        fontFace: POLICE, fontSize: 12, color: C.encre2, lineSpacing: 16.5,
+        fontFace: POLICE, fontSize: 13.5, color: C.encre2, lineSpacing: 16.5,
       });
     }
     carte(p, s, 0.72, 6.52, 11.91, 0.0001, C.surface);
@@ -928,11 +928,11 @@ async function main() {
       });
       s.addText(b.e, {
         x: 1.75, y: y + 0.95, w: 3.4, h: 0.95, margin: 0, valign: "top",
-        fontFace: POLICE, fontSize: 12, italic: true, color: C.encre2, lineSpacing: 16,
+        fontFace: POLICE, fontSize: 13.5, italic: true, color: C.encre2, lineSpacing: 16,
       });
       s.addText(b.r, {
         x: 5.5, y: y + 0.42, w: 5.05, h: 1.45, margin: 0, valign: "middle",
-        fontFace: POLICE, fontSize: 12.5, color: C.encre, lineSpacing: 17,
+        fontFace: POLICE, fontSize: 14, color: C.encre, lineSpacing: 17,
       });
       s.addText(b.d, {
         x: 10.75, y: y + 0.85, w: 1.65, h: 0.55, align: "center", margin: 0, valign: "middle",
@@ -951,14 +951,14 @@ async function main() {
      ============================================================ */
   {
     const s = slideContenu(p, "Comment comprendre ce résultat",
-      "Le résultat ne dit pas que les transferts appauvrissent les enfants : il dit que les conditions de vie s'améliorent plus lentement chez les bénéficiaires.");
+      "Les conditions de vie ne reculent pas : elles progressent plus lentement chez les bénéficiaires.");
     const mec = [
       { ic: I.FaMoneyBillTransfer, c: C.or, t: "L'usage des fonds",
-        d: "68,5 % des transferts relèvent du soutien courant, moins d'un dixième va explicitement à la santé ou à la scolarité. Un flux qui finance l'ordinaire déplace peu les seuils de privation." },
+        d: "68,5 % en soutien courant, moins d'un dixième en santé ou scolarité. Financer l'ordinaire déplace peu les seuils." },
       { ic: I.FaFaucet, c: C.bleu, t: "La contrainte d'offre",
-        d: "L'eau, l'assainissement et l'accès aux soins supposent des investissements collectifs. Le pouvoir d'achat supplémentaire ne les crée pas : la privation en santé touche 97 % des enfants aux deux vagues." },
+        d: "Eau, assainissement et soins supposent des investissements collectifs. La privation en santé touche 97 % des enfants." },
       { ic: I.FaChartLine, c: C.teal, t: "La marge sur laquelle l'effet opère",
-        d: "La sensibilité au seuil montre que l'écart se joue au milieu de la distribution des privations. Le noyau des enfants les plus démunis relève de déficits qu'aucun flux privé ne déplace en trois ans." },
+        d: "L'écart se joue au milieu de la distribution. Les plus démunis relèvent de déficits qu'aucun flux privé ne comble." },
     ];
     for (let i = 0; i < mec.length; i++) {
       const m = mec[i];
@@ -971,7 +971,7 @@ async function main() {
       });
       s.addText(m.d, {
         x: x + 0.3, y: 3.95, w: 3.2, h: 2.2, margin: 0, valign: "top",
-        fontFace: POLICE, fontSize: 11.5, color: C.encre2, lineSpacing: 16,
+        fontFace: POLICE, fontSize: 13, color: C.encre2, lineSpacing: 16,
       });
     }
     pied(s, null, ++n);
@@ -989,8 +989,8 @@ async function main() {
       fontFace: POLICE, fontSize: 17, bold: true, color: C.encre,
     });
     [
-      { t: "Tendances parallèles", d: "L'hypothèse n'est pas testable directement, deux vagues seulement étant disponibles. L'appariement sur les niveaux initiaux la rend plus crédible." },
-      { t: "Vieillissement des enfants", d: "Chaque enfant est évalué sur la grille de son âge courant à chaque vague. Les groupes d'âge figés à la période de base neutralisent l'essentiel de cet effet." },
+      { t: "Tendances parallèles", d: "Deux vagues seulement, donc pas de test direct. L'appariement sur les niveaux initiaux la rend crédible." },
+      { t: "Vieillissement des enfants", d: "Chaque enfant est évalué sur la grille de son âge. Les groupes figés en 2018 neutralisent l'essentiel." },
     ].forEach((l, i) => {
       const y = 3.0 + i * 1.72;
       s.addText(l.t, {
@@ -999,7 +999,7 @@ async function main() {
       });
       s.addText(l.d, {
         x: 1.05, y: y + 0.36, w: 5.25, h: 1.2, margin: 0, valign: "top",
-        fontFace: POLICE, fontSize: 12, color: C.encre2, lineSpacing: 16.5,
+        fontFace: POLICE, fontSize: 13.5, color: C.encre2, lineSpacing: 16.5,
       });
     });
 
@@ -1020,11 +1020,11 @@ async function main() {
       });
       s.addText(String(i + 1), {
         x: 7.18, y: y + 0.07, w: 0.32, h: 0.3, align: "center", margin: 0,
-        fontFace: POLICE, fontSize: 12, bold: true, color: "FFFFFF",
+        fontFace: POLICE, fontSize: 13.5, bold: true, color: "FFFFFF",
       });
       s.addText(t, {
         x: 7.68, y, w: 4.6, h: 0.9, margin: 0, valign: "top",
-        fontFace: POLICE, fontSize: 12, color: C.encre2, lineSpacing: 16.5,
+        fontFace: POLICE, fontSize: 13.5, color: C.encre2, lineSpacing: 16.5,
       });
     });
     pied(s, null, ++n);
@@ -1060,11 +1060,11 @@ async function main() {
       });
       s.addText(b.u, {
         x: x + 0.15, y: 4.38, w: 2.45, h: 0.3, align: "center", margin: 0,
-        fontFace: POLICE, fontSize: 12, bold: true, color: C.encre,
+        fontFace: POLICE, fontSize: 13.5, bold: true, color: C.encre,
       });
       s.addText(b.t, {
         x: x + 0.22, y: 4.8, w: 2.32, h: 1.35, align: "center", margin: 0, valign: "top",
-        fontFace: POLICE, fontSize: 11.5, color: C.encre2, lineSpacing: 16,
+        fontFace: POLICE, fontSize: 13, color: C.encre2, lineSpacing: 16,
       });
     });
     pied(s, null, ++n);
@@ -1075,14 +1075,14 @@ async function main() {
      ============================================================ */
   {
     const s = slideContenu(p, "Recommandations de politique économique",
-      "Elles suivent l'ordre des faits établis, de la dimension et du groupe d'âge sur lesquels l'écart se concentre jusqu'aux conditions de conversion des transferts.");
+      "Elles suivent l'ordre des faits établis, de la dimension touchée aux conditions de conversion.");
     const recos = [
       { ic: I.FaBasketShopping, c: C.or, t: "Sécurité alimentaire et enfants de 0 à 4 ans",
-        d: "Filets sociaux, cantines scolaires et suivi nutritionnel en priorité dans les communes d'émigration, sans écarter les ménages bénéficiaires au motif qu'ils reçoivent une ressource extérieure." },
+        d: "Filets sociaux, cantines et suivi nutritionnel dans les communes d'émigration, bénéficiaires compris." },
       { ic: I.FaFaucet, c: C.bleu, t: "Compléter par l'offre publique de services",
-        d: "L'eau, l'assainissement et la santé relèvent d'investissements collectifs que le pouvoir d'achat privé ne remplace pas. Cibler prioritairement les communes rurales d'émigration." },
+        d: "Eau, assainissement et santé relèvent de l'offre publique, en priorité dans les communes rurales." },
       { ic: I.FaHandHoldingDollar, c: C.teal, t: "Cibler les petits montants, réduire les coûts",
-        d: "Accompagner les ménages qui reçoivent le moins, et réduire les coûts de transaction des envois formels pour accroître les fonds réellement disponibles." },
+        d: "Accompagner les ménages qui reçoivent le moins et réduire les coûts des envois formels." },
     ];
     for (let i = 0; i < recos.length; i++) {
       const r = recos[i];
@@ -1095,7 +1095,7 @@ async function main() {
       });
       s.addText(r.d, {
         x: 5.9, y: y + 0.2, w: 6.4, h: 0.95, margin: 0, valign: "middle",
-        fontFace: POLICE, fontSize: 12, color: C.encre2, lineSpacing: 16.5,
+        fontFace: POLICE, fontSize: 13.5, color: C.encre2, lineSpacing: 16.5,
       });
     }
     pied(s, null, ++n);
@@ -1119,7 +1119,7 @@ async function main() {
     });
     s.addText("ENSAE Pierre Ndiaye   ·   Août 2026", {
       x: 1.0, y: 4.35, w: 11.33, h: 0.32, align: "center", margin: 0,
-      fontFace: POLICE, fontSize: 12.5, color: "A5B4FC",
+      fontFace: POLICE, fontSize: 14, color: "A5B4FC",
     });
     n++;
   }
