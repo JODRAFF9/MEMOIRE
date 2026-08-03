@@ -153,6 +153,9 @@
 % \providecommand ne definit la commande que si le paquet ne l'a pas deja fait.
 \providecommand{\faFaucet}{\faTint}
 
+% -- Mise en valeur d'un chiffre par la police, sans couleur --
+\newcommand{\chiffre}[1]{{\bfseries\large #1}}
+
 % -- Titre de rubrique sans bandeau --------------------------
 \newcommand{\rubrique}[2][]{%
   \par\medskip\noindent
@@ -219,15 +222,15 @@
 \begin{frame}{Contexte général}
   \begin{block}{{\color{presorange}\faHandHoldingUsd}~~Place des transferts de migrants dans l'économie sénégalaise}
     \begin{itemize}
-      \item De 233 millions de dollars en 2000 à 2\,220 millions en 2017, soit de 166 à 1\,242 milliards de FCFA.
-      \item 12,1\,\% du PIB : quatrième récepteur d'Afrique subsaharienne (ANSD/OIM, 2018).
+      \item De 233 millions de dollars en 2000 à \chiffre{2\,220 millions} en 2017, soit de 166 à 1\,242 milliards de FCFA.
+      \item \chiffre{12,1\,\%} du PIB : quatrième récepteur d'Afrique subsaharienne (ANSD/OIM, 2018).
       \item Des montants reçus dont l'ordre de grandeur avoisine le seuil de pauvreté monétaire annuel par tête.
       \pause
     \end{itemize}
   \end{block}
   \begin{alertblock}{{\color{presorange}\faChild}~~Des privations infantiles d'une ampleur considérable}
     \begin{itemize}
-      \item 50,7\,\% des enfants de 0 à 17 ans privés dans au moins 4 des 7 domaines de leur bien-être en 2018 (ANSD/UNICEF, 2024).
+      \item \chiffre{50,7\,\%} des enfants de 0 à 17 ans privés dans au moins 4 des 7 domaines de leur bien-être en 2018 (ANSD/UNICEF, 2024).
       \item Domaines : éducation, santé, nutrition, eau, assainissement, logement, protection.
       \item Des manques qui échappent largement aux mesures fondées sur le seul revenu du ménage.
     \end{itemize}
@@ -335,13 +338,13 @@
             première vague harmonisée UEMOA au Sénégal.
       \item[{\color{presvert}\faCalendarAlt}] \textbf{EHCVM II (2021-2022)} :
             deuxième vague, qui permet de constituer un panel.
-      \item[{\color{presvert}\faUsers}] \textbf{Panel vrai} : 6\,127 ménages
+      \item[{\color{presvert}\faUsers}] \textbf{Panel vrai} : \chiffre{6\,127} ménages
             suivis entre les deux vagues.
     \end{itemize}
   \end{block}
   \begin{block}{Population cible et unité d'analyse}
     Enfants de 0 à 17 ans suivis individuellement d'une vague à l'autre, soit
-    17\,786 enfants : 2\,638 dans un ménage bénéficiaire en 2018 et 15\,148
+    \chiffre{17\,786} enfants : 2\,638 dans un ménage bénéficiaire en 2018 et 15\,148
     dans un ménage non bénéficiaire. Le score de propension et l'appariement
     sont estimés à ce niveau.
   \end{block}
@@ -501,7 +504,7 @@
     \begin{column}{0.36\textwidth}
       \small
       \begin{block}{Lecture}
-        En 2021, l'incidence va de 16,7\,\% à Dakar à 78,1\,\% à Kolda, soit un
+        En 2021, l'incidence va de \chiffre{16,7\,\%} à Dakar à \chiffre{78,1\,\%} à Kolda, soit un
         rapport de un à cinq. Les régions du sud et de l'est concentrent les
         privations.
       \end{block}
@@ -603,7 +606,7 @@
   \begin{alertblock}{Résultat central, pas de réduction}
     {\color{presorange}\faArrowUp}~Sur 2018-2021, la pauvreté
     multidimensionnelle des enfants des ménages bénéficiaires recule plus
-    lentement que celle des témoins appariés ($+6{,}4$ pp, significatif à
+    lentement que celle des témoins appariés (\chiffre{$+6{,}4$ pp}, significatif à
     5\,\%), les trois appariements concordant (0,050 à 0,064). H1 n'est pas
     validée.
   \end{alertblock}
@@ -716,13 +719,13 @@
 \begin{frame}{Comment comprendre ce résultat}
   \small
   \rubrique[\faHandHoldingUsd]{L'usage des fonds}
-  68,5\,\% des transferts relèvent du soutien courant, moins d'un dixième va
+  \chiffre{68,5\,\%} des transferts relèvent du soutien courant, moins d'un dixième va
   explicitement à la santé ou à la scolarité. Un flux qui finance l'ordinaire
   a peu de raisons de déplacer les seuils de privation.
 
   \rubrique[\faHeartbeat]{La contrainte d'offre}
   L'eau, l'assainissement et l'accès aux soins supposent des investissements
-  collectifs. La privation en santé touche 97\,\% des enfants aux deux vagues,
+  collectifs. La privation en santé touche \chiffre{97\,\%} des enfants aux deux vagues,
   sans écart notable entre bénéficiaires et témoins en 2021 ($p = 0{,}807$).
 
   \rubrique[\faChartLine]{La marge sur laquelle l'effet opère}
@@ -764,12 +767,12 @@
       \item Mesure de la pauvreté multidimensionnelle des enfants sur deux
             vagues EHCVM selon l'approche MODA (7 dimensions, $k=4$).
       \pause
-      \item L'incidence MODA recule de 63,5\,\% (2018) à 57,8\,\% (2021) :
+      \item L'incidence MODA recule de \chiffre{63,5\,\%} (2018) à \chiffre{57,8\,\%} (2021) :
             amélioration réelle mais la pauvreté reste massive.
       \pause
       \item Les transferts ne réduisent pas, à trois ans, la
             pauvreté multidimensionnelle des enfants : l'effet est de
-            $+0{,}064$, significatif à 5\,\%, de signe défavorable et stable aux
+            \chiffre{$+0{,}064$}, significatif à 5\,\%, de signe défavorable et stable aux
             trois appariements.
       \pause
       \item Il n'est établi que sur la nutrition, chez les 0-4 ans et sur les
