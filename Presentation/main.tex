@@ -352,34 +352,6 @@
   \end{center}
 \end{frame}
 
-\begin{frame}{Le traitement, les transferts de migrants en pratique}
-  \footnotesize
-  \begin{block}{Motifs déclarés des transferts étrangers (EHCVM I / II, \% des transferts)}
-    \centering\smallskip
-    \renewcommand{\arraystretch}{1.15}
-    \begin{tabular*}{0.72\linewidth}{@{\extracolsep{\fill}}lcc@{}}
-      \toprule
-      Motif principal & 2018 & 2021 \\
-      \midrule
-      Soutien courant            & 66,7\,\% & 68,5\,\% \\
-      Fêtes et évènements        & 11,3\,\% & 9,3\,\% \\
-      Santé, maladie             & 4,6\,\%  & 6,5\,\% \\
-      Scolarité, éducation       & 3,5\,\%  & 3,7\,\% \\
-      Autres motifs              & 13,9\,\% & 12,0\,\% \\
-      \bottomrule
-    \end{tabular*}
-  \end{block}
-  \begin{alertblock}{Montants annuels reçus par ménage bénéficiaire}
-    Médiane $\approx$ 600\,000 FCFA/an, troisième quartile à 1\,280\,000 :
-    une ressource loin d'être marginale, très inégalement répartie.
-  \end{alertblock}
-  \begin{block}{Implication méthodologique}
-    Deux tiers des transferts relèvent du soutien courant, non affecté :
-    l'argent étant fongible, on mesure l'effet sur les privations
-    effectives des enfants plutôt que sur l'affectation déclarée des fonds.
-  \end{block}
-\end{frame}
-
 \subsection{Stratégie d'identification}
 
 \begin{frame}{Stratégie d'identification, le problème (1/2)}
@@ -621,7 +593,7 @@
 
 \subsection{Tests de robustesse}
 
-\begin{frame}{Tests de robustesse}
+\begin{frame}[label=discussion-usage]{Tests de robustesse}
   \begin{block}{Sensibilité des résultats}
     \begin{itemize}
       \item Méthodes d'appariement (k-NN, noyau, caliper) : effet de
@@ -642,6 +614,9 @@
     ménages, déjà en cours en 2018, relève d'une autre question que le design
     principal.
   \end{alertblock}
+  \begin{center}
+    \hyperlink{motifs-transferts}{\beamergotobutton{Motifs et montants des transferts}}
+  \end{center}
 \end{frame}
 
 \begin{frame}{Validation des hypothèses}
@@ -762,6 +737,37 @@
 % ANNEXE : matrice MODA complète + distributions spatiales
 % ============================================================
 \appendix
+
+\begin{frame}[label=motifs-transferts]{Le traitement, les transferts de migrants en pratique}
+  \footnotesize
+  \begin{block}{Motifs déclarés des transferts étrangers (EHCVM I / II, \% des transferts)}
+    \centering\smallskip
+    \renewcommand{\arraystretch}{1.15}
+    \begin{tabular*}{0.72\linewidth}{@{\extracolsep{\fill}}lcc@{}}
+      \toprule
+      Motif principal & 2018 & 2021 \\
+      \midrule
+      Soutien courant            & 66,7\,\% & 68,5\,\% \\
+      Fêtes et évènements        & 11,3\,\% & 9,3\,\% \\
+      Santé, maladie             & 4,6\,\%  & 6,5\,\% \\
+      Scolarité, éducation       & 3,5\,\%  & 3,7\,\% \\
+      Autres motifs              & 13,9\,\% & 12,0\,\% \\
+      \bottomrule
+    \end{tabular*}
+  \end{block}
+  \begin{alertblock}{Montants annuels reçus par ménage bénéficiaire}
+    Médiane $\approx$ 600\,000 FCFA/an, troisième quartile à 1\,280\,000 :
+    une ressource loin d'être marginale, très inégalement répartie.
+  \end{alertblock}
+  \begin{block}{Implication méthodologique}
+    Deux tiers des transferts relèvent du soutien courant, non affecté :
+    l'argent étant fongible, on mesure l'effet sur les privations
+    effectives des enfants plutôt que sur l'affectation déclarée des fonds.
+  \end{block}
+  \begin{center}
+    \hyperlink{discussion-usage}{\beamerreturnbutton{Retour}}
+  \end{center}
+\end{frame}
 
 \begin{frame}[label=matrice-nmoda]{Matrice MODA complète, indicateurs, âges et seuils}
   \centering
