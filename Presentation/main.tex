@@ -340,8 +340,9 @@
 \begin{frame}{Le traitement, les transferts de migrants en pratique}
   \footnotesize
   \begin{block}{Motifs déclarés des transferts étrangers (EHCVM I / II, \% des transferts)}
-    \centering\smallskip
-    \begin{tabular}{lcc}
+    \smallskip
+    \renewcommand{\arraystretch}{1.15}
+    \begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}lcc@{}}
       \toprule
       Motif principal & 2018 & 2021 \\
       \midrule
@@ -351,7 +352,7 @@
       Scolarité, éducation       & 3,5\,\%  & 3,7\,\% \\
       Autres motifs              & 13,9\,\% & 12,0\,\% \\
       \bottomrule
-    \end{tabular}
+    \end{tabular*}
   \end{block}
   \begin{alertblock}{Montants annuels reçus par ménage bénéficiaire}
     Médiane $\approx$ 300\,000 FCFA/an, troisième quartile à 1\,200\,000 :
@@ -507,18 +508,19 @@
   \begin{table}
     \centering
     \caption{Effet moyen sur les traités (ATT), pauvreté MODA}
-    \renewcommand{\arraystretch}{1.1}
-    \begin{tabular}{lc}
+    \renewcommand{\arraystretch}{1.25}
+    \begin{tabular}{@{}lccc@{}}
       \toprule
-      Spécification & ATT \\
+      Spécification & ATT & Écart-type & Significativité \\
       \midrule
-      DD brute (sans appariement)      & \makecell{$0{,}035$\\(0,025)} \\
-      PSM-DD, k-NN ($k=4$)             & \makecell{$0{,}064^{**}$\\(0,029)} \\
-      PSM-DD, noyau Epanechnikov       & $0{,}061^{*}$ \\
-      PSM-DD, caliper                  & $0{,}050^{*}$ \\
+      DD brute (sans appariement) & $0{,}035$ & $(0{,}025)$ & \\
+      PSM-DD, k-NN ($k=4$)        & $0{,}064$ & $(0{,}029)$ & $^{**}$ \\
+      PSM-DD, noyau Epanechnikov  & $0{,}061$ & $(0{,}032)$ & $^{*}$ \\
+      PSM-DD, caliper             & $0{,}050$ & $(0{,}028)$ & $^{*}$ \\
       \bottomrule
     \end{tabular}
-    {\scriptsize Écarts-types entre parenthèses. $^{*}p<0{,}10$, $^{**}p<0{,}05$.}
+    \par\smallskip
+    {\scriptsize $^{*}p<0{,}10$, $^{**}p<0{,}05$.}
   \end{table}
   \begin{alertblock}{Résultat central, pas de réduction}
     Sur 2018-2021, la pauvreté multidimensionnelle des enfants des ménages
@@ -554,13 +556,11 @@
     \end{column}
   \end{columns}
   \begin{block}{Lecture}
-    Aucun test d'égalité ne conclut à un effet différencié, ni entre
-    milieux, ni selon le genre, ni entre tranches d'âge.
-    L'effet n'est établi que chez les 0-4 ans ($+9{,}1$ pp, significatif à
-    5\,\%), dont les besoins reposent le plus directement sur
-    l'alimentation et le soin quotidien : effet par âge et effet nutrition se
-    répondent. Selon le genre du chef de ménage, $0{,}062$ sous un chef homme
-    contre $0{,}071$ sous un chef femme, écart non significatif.
+    Aucun test d'égalité ne conclut à un effet différencié, ni entre milieux,
+    ni selon le genre du chef, ni entre tranches d'âge. L'effet n'est établi
+    que chez les 0-4 ans ($+9{,}1$ pp, significatif à 5\,\%), dont les besoins
+    reposent le plus directement sur l'alimentation : effet par âge et effet
+    nutrition se répondent.
   \end{block}
 \end{frame}
 
@@ -569,31 +569,29 @@
   \small
   \begin{table}
     \centering
-    \renewcommand{\arraystretch}{1.1}
-    \begin{tabular}{lc}
+    \renewcommand{\arraystretch}{1.15}
+    \begin{tabular}{@{}lccc@{}}
       \toprule
-      Quintile de montant annuel & ATT \\
+      Quintile de montant annuel & ATT & Écart-type & Significativité \\
       \midrule
-      Q1 (jusqu'à 100~000 FCFA)  & \makecell{$0{,}129^{**}$\\(0,052)}  \\
-      Q2 (110~000 à 360~000)     & \makecell{$0{,}099^{**}$\\(0,042)}  \\
-      Q3 (380~000 à 900~000)     & \makecell{$0{,}020$\\(0,047)}  \\
-      Q4 (920~000 à 1~800~000)   & \makecell{$0{,}084$\\(0,060)}  \\
-      Q5 (au-delà de 1~824~000)  & \makecell{$-0{,}008$\\(0,052)} \\
+      Q1 (jusqu'à 100~000 FCFA)  & $0{,}129$  & $(0{,}052)$ & $^{**}$ \\
+      Q2 (110~000 à 360~000)     & $0{,}099$  & $(0{,}042)$ & $^{**}$ \\
+      Q3 (380~000 à 900~000)     & $0{,}020$  & $(0{,}047)$ &         \\
+      Q4 (920~000 à 1~800~000)   & $0{,}084$  & $(0{,}060)$ &         \\
+      Q5 (au-delà de 1~824~000)  & $-0{,}008$ & $(0{,}052)$ &         \\
       \midrule
-      Pente dose-réponse (log du montant) & \makecell{$-0{,}025^{*}$\\(0,014)} \\
+      Pente dose-réponse (log du montant) & $-0{,}025$ & $(0{,}014)$ & $^{*}$ \\
       \bottomrule
     \end{tabular}
-    {\scriptsize Écarts-types entre parenthèses. $^{*}p<0{,}10$, $^{**}p<0{,}05$.}
+    \par\smallskip
+    {\scriptsize $^{*}p<0{,}10$, $^{**}p<0{,}05$.}
   \end{table}
   \begin{alertblock}{Le volet de H2 le mieux établi}
-    L'effet défavorable se concentre sur les petits montants et disparaît
-    au-delà : seuls les deux premiers quintiles sont significatifs, et
-    l'écart ne se retrouve pas pour les transferts les plus élevés.
+    L'effet défavorable se concentre sur les petits montants : seuls les deux
+    premiers quintiles sont significatifs et l'écart ne se retrouve pas pour
+    les transferts les plus élevés. Le montant relevant du choix du migrant,
+    le gradient se lit comme une association conditionnelle.
   \end{alertblock}
-  \begin{block}{Lecture}
-    Le montant relève du choix du migrant : le gradient se lit comme une
-    association conditionnelle entre intensité du traitement et trajectoire.
-  \end{block}
 \end{frame}
 
 % ============================================================
@@ -630,13 +628,14 @@
   \begin{table}
     \centering
     \caption{Bilan des hypothèses de recherche}
-    \renewcommand{\arraystretch}{2}
-    \begin{tabular}{c p{3.5cm} p{5.5cm} c}
+    \small
+    \renewcommand{\arraystretch}{1.3}
+    \begin{tabular}{@{}c >{\RaggedRight}p{3.2cm} >{\RaggedRight}p{6.4cm} l@{}}
       \toprule
       Hyp. & Énoncé & Résultat & Décision \\
       \midrule
-      H1 & Réduction de la pauvreté & ATT MODA $= 0{,}064$, significatif à 5\,\% et de signe défavorable, pas de réduction & Non validée \\[4pt]
-      H2 & Hétérogénéité des effets  & Effet établi sur la nutrition et chez les 0-4 ans, gradient net selon le montant ; aucun test d'égalité concluant par milieu, genre du chef ou âge & Partiellement validée \\[4pt]
+      H1 & Réduction de la pauvreté & ATT MODA de $0{,}064$, significatif à 5\,\% et de signe défavorable & Non validée \\[6pt]
+      H2 & Hétérogénéité des effets & Effet établi sur la nutrition et chez les 0-4 ans, gradient net selon le montant, aucun test d'égalité concluant & Partiellement validée \\
       \bottomrule
     \end{tabular}
   \end{table}
