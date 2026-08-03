@@ -368,12 +368,12 @@
   \centering
   \begin{tikzpicture}[
       motif/.style  = {rounded corners=6pt, draw=#1, line width=1.1pt, fill=#1!8,
-                       minimum width=3.5cm, minimum height=3.9cm, anchor=north west},
+                       minimum width=3.85cm, minimum height=3.9cm, anchor=north west},
       motif/.default = presvert,
-      titre/.style  = {font=\small\bfseries, anchor=north, text width=3.1cm,
+      titre/.style  = {font=\small\bfseries, anchor=north, text width=3.45cm,
                        align=center},
       detail/.style = {font=\scriptsize, text=presgris, anchor=north,
-                       text width=3.0cm, align=center},
+                       text width=3.4cm, align=center},
       source/.style = {font=\scriptsize\itshape, text=presgris, anchor=south}
     ]
     % altruisme
@@ -386,7 +386,7 @@
     \node[source] at ([yshift=0.15cm]a.south) {Lucas \& Stark, 1985};
 
     % interet personnel et echange
-    \node[motif=dimeduc] (b) at (3.9,0) {};
+    \node[motif=dimeduc] (b) at (4.2,-0.7) {};
     \node[text=dimeduc, font=\LARGE] at ([yshift=-0.65cm]b.north) {\faHandshake};
     \node[titre, text=dimeduc] at ([yshift=-1.15cm]b.north) {Intérêt et échange};
     \node[detail] at ([yshift=-1.75cm]b.north)
@@ -395,7 +395,7 @@
     \node[source] at ([yshift=0.15cm]b.south) {Rapoport \& Docquier, 2006};
 
     % diversification du risque
-    \node[motif=dimeau] (c) at (7.8,0) {};
+    \node[motif=dimeau] (c) at (8.4,-1.4) {};
     \node[text=dimeau, font=\LARGE] at ([yshift=-0.65cm]c.north) {\faUmbrella};
     \node[titre, text=dimeau] at ([yshift=-1.15cm]c.north) {Assurance};
     \node[detail] at ([yshift=-1.75cm]c.north)
