@@ -365,20 +365,62 @@
   \end{alertblock}
 \end{frame}
 
-\begin{frame}{Canaux de transmission des transferts de migrants}
-  \begin{block}{Théories sur les transferts}
-    \begin{itemize}
-      \item \textbf{Altruisme} (Lucas \& Stark, 1985) : les transferts décroissent avec le revenu du receveur.
-      \item \textbf{Intérêt personnel et échange} (Rapoport \& Docquier, 2006) : préserver un héritage, rembourser la dette du départ.
-      \item \textbf{Diversification du risque et assurance} (Stark \& Bloom, 1985) : les transferts assurent le ménage contre les chocs.
-    \end{itemize}
+\begin{frame}{Pourquoi les migrants transfèrent}
+  \centering
+  \begin{tikzpicture}[
+      motif/.style  = {rounded corners=6pt, draw=#1, line width=1.1pt, fill=#1!8,
+                       minimum width=3.5cm, minimum height=3.9cm, anchor=north west},
+      motif/.default = presvert,
+      titre/.style  = {font=\small\bfseries, anchor=north, text width=3.1cm,
+                       align=center},
+      detail/.style = {font=\scriptsize, text=presgris, anchor=north,
+                       text width=3.0cm, align=center},
+      source/.style = {font=\scriptsize\itshape, text=presgris, anchor=south}
+    ]
+    % altruisme
+    \node[motif=dimsante] (a) at (0,0) {};
+    \node[text=dimsante, font=\LARGE] at ([yshift=-0.65cm]a.north) {\faHeart};
+    \node[titre, text=dimsante] at ([yshift=-1.15cm]a.north) {Altruisme};
+    \node[detail] at ([yshift=-1.75cm]a.north)
+      {Le migrant intègre le bien-être des siens dans son utilité : les
+       transferts décroissent avec le revenu du receveur};
+    \node[source] at ([yshift=0.15cm]a.south) {Lucas \& Stark, 1985};
+
+    % interet personnel et echange
+    \node[motif=dimeduc] (b) at (3.9,0) {};
+    \node[text=dimeduc, font=\LARGE] at ([yshift=-0.65cm]b.north) {\faHandshake};
+    \node[titre, text=dimeduc] at ([yshift=-1.15cm]b.north) {Intérêt et échange};
+    \node[detail] at ([yshift=-1.75cm]b.north)
+      {Le transfert préserve un héritage ou rembourse la dette du départ : il
+       suit la capacité à rendre, non le besoin};
+    \node[source] at ([yshift=0.15cm]b.south) {Rapoport \& Docquier, 2006};
+
+    % diversification du risque
+    \node[motif=dimeau] (c) at (7.8,0) {};
+    \node[text=dimeau, font=\LARGE] at ([yshift=-0.65cm]c.north) {\faUmbrella};
+    \node[titre, text=dimeau] at ([yshift=-1.15cm]c.north) {Assurance};
+    \node[detail] at ([yshift=-1.75cm]c.north)
+      {Le ménage place un membre sur un marché du travail décorrélé du sien :
+       les transferts couvrent les chocs};
+    \node[source] at ([yshift=0.15cm]c.south) {Stark \& Bloom, 1985};
+  \end{tikzpicture}
+\end{frame}
+
+\begin{frame}{Ce que ces motivations impliquent}
+  \small
+  \begin{alertblock}{Pour la destination des fonds}
+    Selon la motivation dominante, les transferts financent l'ordinaire du
+    ménage ou un investissement de long terme. Rien ne garantit qu'ils aillent
+    aux dimensions du bien-être de l'enfant que mesure l'indice.
+  \end{alertblock}
+  \begin{block}{Pour l'effet attendu sur la pauvreté monétaire}
+    La littérature établit une réduction modeste, atténuée par les coûts de
+    transaction (Azam \& Gubert, 2006 ; Combes \& Ebeke, 2011). L'ampleur reste
+    donc une question empirique, y compris sur données monétaires.
   \end{block}
-  \begin{block}{Effets empiriques documentés}
-    \begin{itemize}
-      \item Réduction modeste de la pauvreté monétaire, atténuée par les coûts de transaction (Azam \& Gubert, 2006 ; Combes \& Ebeke, 2011).
-      \item Scolarisation et investissement en capital humain (Cox Edwards \& Ureta, 2003 ; Yang, 2008).
-      \item Effets fragiles sur la nutrition, conditionnels au maintien du lien avec le migrant (Davis \& Brazil, 2016).
-    \end{itemize}
+  \begin{block}{Pour l'identification}
+    Les trois motivations supposent un migrant, donc un réseau. Le fait de
+    recevoir n'est jamais le fruit du hasard.
   \end{block}
 \end{frame}
 
@@ -459,35 +501,31 @@
   \small
   \centering
   \begin{tikzpicture}[
-      vague/.style  = {rounded corners=5pt, draw=#1, line width=1pt, fill=#1!8,
-                       minimum width=4.6cm, minimum height=1.75cm, anchor=north west},
-      vague/.default = presvert,
-      titre/.style  = {font=\small\bfseries, anchor=north west},
-      detail/.style = {font=\scriptsize, text=presgris, anchor=north west,
-                       text width=3.3cm, align=left}
+      vague/.style  = {rounded corners=6pt, draw=presvert, line width=1.1pt,
+                       fill=presvert!8, minimum width=4.7cm, minimum height=2.0cm,
+                       anchor=north west},
+      titre/.style  = {font=\small\bfseries, text=presvert, anchor=north},
+      detail/.style = {font=\scriptsize, text=presgris, anchor=north,
+                       text width=4.1cm, align=center}
     ]
-    \node[vague=presvert] (v1) at (0,0) {};
-    \node[text=presvert, font=\Large] at ([shift={(0.55,-0.62)}]v1.north west) {\faCalendarAlt};
-    \node[titre, text=presvert] at ([shift={(1.15,-0.18)}]v1.north west) {EHCVM I};
-    \node[detail] at ([shift={(1.15,-0.55)}]v1.north west)
+    \node[vague] (v1) at (0,0) {};
+    \node[titre] at ([yshift=-0.22cm]v1.north) {EHCVM I};
+    \node[detail] at ([yshift=-0.68cm]v1.north)
       {Première vague harmonisée UEMOA au Sénégal};
-    \node[font=\scriptsize\bfseries, text=presvert, anchor=south east]
-      at ([shift={(-0.2,0.12)}]v1.south east) {2018-2019};
+    \node[font=\scriptsize\bfseries, text=presvert, anchor=south]
+      at ([yshift=0.14cm]v1.south) {2018-2019};
 
-    \node[vague=presvert] (v2) at (5.2,0) {};
-    \node[text=presvert, font=\Large] at ([shift={(0.55,-0.62)}]v2.north west) {\faCalendarAlt};
-    \node[titre, text=presvert] at ([shift={(1.15,-0.18)}]v2.north west) {EHCVM II};
-    \node[detail] at ([shift={(1.15,-0.55)}]v2.north west)
+    \node[vague] (v2) at (6.4,0) {};
+    \node[titre] at ([yshift=-0.22cm]v2.north) {EHCVM II};
+    \node[detail] at ([yshift=-0.68cm]v2.north)
       {Deuxième vague, mêmes ménages réinterrogés};
-    \node[font=\scriptsize\bfseries, text=presvert, anchor=south east]
-      at ([shift={(-0.2,0.12)}]v2.south east) {2021-2022};
+    \node[font=\scriptsize\bfseries, text=presvert, anchor=south]
+      at ([yshift=0.14cm]v2.south) {2021-2022};
 
-    \draw[presorange, line width=1.1pt, -{Stealth[length=2.5mm]}]
-      ([xshift=1mm]v1.east) -- ([xshift=-1mm]v2.west);
-    \node[font=\scriptsize\bfseries, text=presorange, anchor=south]
-      at ([yshift=1.5mm]$(v1.east)!0.5!(v2.west)$) {6\,127};
-    \node[font=\scriptsize, text=presorange, anchor=north]
-      at ([yshift=-1.5mm]$(v1.east)!0.5!(v2.west)$) {ménages};
+    \draw[presorange, line width=1.2pt, -{Stealth[length=3mm]}]
+      ([xshift=2mm]v1.east) -- ([xshift=-2mm]v2.west);
+    \node[font=\scriptsize\bfseries, text=presorange, anchor=south, align=center]
+      at ([yshift=2mm]$(v1.east)!0.5!(v2.west)$) {6\,127\\ménages};
   \end{tikzpicture}
 
   \smallskip
@@ -546,11 +584,11 @@
   \centering
   \begin{tikzpicture}[
       groupe/.style = {rounded corners=5pt, draw=#1, line width=1pt, fill=#1!8,
-                       minimum width=4.6cm, minimum height=1.75cm, anchor=north west},
+                       minimum width=4.7cm, minimum height=1.9cm, anchor=north west},
       groupe/.default = presvert,
       titre/.style  = {font=\small\bfseries, anchor=north west},
       detail/.style = {font=\scriptsize, text=presgris, anchor=north west,
-                       text width=3.3cm, align=left}
+                       text width=3.4cm, align=left}
     ]
     % groupe traite
     \node[groupe=presorange] (t) at (0,0) {};
@@ -562,7 +600,7 @@
       at ([shift={(-0.2,0.12)}]t.south east) {2\,638 enfants};
 
     % groupe temoin
-    \node[groupe=presgris] (c) at (5.2,0) {};
+    \node[groupe=presgris] (c) at (5.4,0) {};
     \node[text=presgris, font=\Large] at ([shift={(0.55,-0.62)}]c.north west) {\faHome};
     \node[titre, text=presgris] at ([shift={(1.15,-0.18)}]c.north west) {Témoins};
     \node[detail] at ([shift={(1.15,-0.55)}]c.north west)
@@ -572,9 +610,9 @@
 
     % ligne de temps
     \draw[presvert, line width=1pt, -{Stealth[length=2.5mm]}]
-      (0,-2.25) -- (9.8,-2.25);
-    \node[font=\scriptsize\bfseries, text=presvert, anchor=north] at (0.6,-2.35) {2018};
-    \node[font=\scriptsize\bfseries, text=presvert, anchor=north] at (9.2,-2.35) {2021};
+      (0,-2.4) -- (10.1,-2.4);
+    \node[font=\scriptsize\bfseries, text=presvert, anchor=north] at (0.6,-2.5) {2018};
+    \node[font=\scriptsize\bfseries, text=presvert, anchor=north] at (9.5,-2.5) {2021};
   \end{tikzpicture}
 
   \smallskip
@@ -861,11 +899,11 @@
   \centering
   \begin{tikzpicture}[
       groupe/.style = {rounded corners=5pt, draw=#1, line width=1pt, fill=#1!8,
-                       minimum width=4.6cm, minimum height=1.75cm, anchor=north west},
+                       minimum width=4.7cm, minimum height=1.9cm, anchor=north west},
       groupe/.default = presvert,
       titre/.style  = {font=\small\bfseries, anchor=north west},
       detail/.style = {font=\scriptsize, text=presgris, anchor=north west,
-                       text width=3.3cm, align=left}
+                       text width=3.4cm, align=left}
     ]
     \node[groupe=presorange] (t) at (0,0) {};
     \node[text=presorange, font=\Large] at ([shift={(0.55,-0.62)}]t.north west) {\faHandHoldingUsd};
@@ -875,7 +913,7 @@
     \node[font=\scriptsize\bfseries, text=presorange, anchor=south east]
       at ([shift={(-0.2,0.12)}]t.south east) {1\,482 enfants};
 
-    \node[groupe=presgris] (c) at (5.2,0) {};
+    \node[groupe=presgris] (c) at (5.4,0) {};
     \node[text=presgris, font=\Large] at ([shift={(0.55,-0.62)}]c.north west) {\faHome};
     \node[titre, text=presgris] at ([shift={(1.15,-0.18)}]c.north west) {Jamais bénéficiaires};
     \node[detail] at ([shift={(1.15,-0.55)}]c.north west)
@@ -884,9 +922,9 @@
       at ([shift={(-0.2,0.12)}]c.south east) {13\,477 enfants};
 
     \draw[presvert, line width=1pt, -{Stealth[length=2.5mm]}]
-      (0,-2.25) -- (9.8,-2.25);
-    \node[font=\scriptsize\bfseries, text=presvert, anchor=north] at (0.6,-2.35) {2018};
-    \node[font=\scriptsize\bfseries, text=presvert, anchor=north] at (9.2,-2.35) {2021};
+      (0,-2.4) -- (10.1,-2.4);
+    \node[font=\scriptsize\bfseries, text=presvert, anchor=north] at (0.6,-2.5) {2018};
+    \node[font=\scriptsize\bfseries, text=presvert, anchor=north] at (9.5,-2.5) {2021};
   \end{tikzpicture}
 
   \smallskip
