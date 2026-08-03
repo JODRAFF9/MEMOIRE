@@ -2078,6 +2078,7 @@ twoway (connected H_nonbenef annee, lcolor(gs9) mcolor(gs9) msymbol(square) ///
     legend(order(1 "Non-bénéficiaires" 2 "Bénéficiaires") pos(6) rows(1)) ///
     graphregion(color(white)) plotregion(color(white))
 set dp period
+graph display, scale(1.35)   /* texte agrandi pour la projection */
 graph export "$OUTPUT/figures/fig_evolution_ipm.pdf", replace
 di ">>> fig_evolution_ipm.pdf sauvegardé"
 
@@ -2124,6 +2125,7 @@ graph twoway ///
     legend(order(1 "EHCVM I (2018-19)" 2 "EHCVM II (2021-22)") pos(6) rows(1)) ///
     graphregion(color(white)) plotregion(color(white))
 set dp period
+graph display, scale(1.35)   /* texte agrandi pour la projection */
 graph export "$OUTPUT/figures/fig_distrib_dimensions.pdf", replace
 di ">>> fig_distrib_dimensions.pdf sauvegardé"
 
@@ -2409,6 +2411,7 @@ twoway ///
     graphregion(color(white)) plotregion(color(white))
 
 set dp period
+graph display, scale(1.35)   /* texte agrandi pour la projection */
 graph export "$OUTPUT/figures/fig_effets_dim.pdf", replace
 di ">>> fig_effets_dim.pdf sauvegardé dans $OUTPUT/figures/"
 di ">>> 07_effets_dim.do terminé."
