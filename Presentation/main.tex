@@ -157,9 +157,8 @@
 % #1 icone, #2 tranche d'age, #3 nombre d'indicateurs
 \newcommand{\groupeage}[3]{%
   \begin{tikzpicture}[baseline=(socle.base)]
-    \node[circle, fill=presvert, text=white, minimum size=0.92cm,
-          inner sep=0pt, font=\large] (rond) {#1};
-    \node[below=1.2mm of rond, font=\footnotesize\bfseries, text=presor] (socle) {#2};
+    \node[text=presvert, inner sep=0pt, font=\Huge] (silhouette) {#1};
+    \node[below=2.2mm of silhouette, font=\footnotesize\bfseries, text=presor] (socle) {#2};
     \node[below=0.4mm of socle, font=\scriptsize, text=presgris] {#3 indicateurs};
   \end{tikzpicture}}
 
@@ -375,9 +374,9 @@
   \end{tikzpicture}
 
   \medskip
-  \groupeage{\faChild}{0 à 4 ans}{11}\hspace{1.4cm}
-  \groupeage{\faGraduationCap}{5 à 14 ans}{13}\hspace{1.4cm}
-  \groupeage{\faUserGraduate}{15 à 17 ans}{11}
+  \groupeage{\faChild}{0 à 4 ans}{11}\hspace{1.6cm}
+  \groupeage{\faRunning}{5 à 14 ans}{13}\hspace{1.6cm}
+  \groupeage{\faMale}{15 à 17 ans}{11}
   \medskip
   \begin{alertblock}{Double seuil MODA}
     Privé dans une dimension dès un indicateur ; pauvre dès quatre dimensions
