@@ -164,7 +164,9 @@
 \newcommand{\chiffre}[1]{{\bfseries\large #1}}
 
 % -- Bandeau en forme de ruban -------------------------------
-% #1 teinte, #2 largeur, #3 intitule, #4 corps
+% #1 teinte, #2 largeur, #3 intitule, #4 corps.
+% La largeur est donnee en fraction de \linewidth : le bandeau s'adapte
+% ainsi a la colonne qui le contient.
 \newcommand{\bandeau}[4]{%
   \begin{tikzpicture}
     \node[fill=#1, text=white, minimum height=0.62cm, inner xsep=12pt,
@@ -319,20 +321,14 @@
 \subsection{Problématique et objectifs}
 
 \begin{frame}{Problématique}
-  \begin{block}{Question de recherche}
-    \justifying
-    \large
-    \textit{Dans quelle mesure les transferts de migrants réduisent-ils
-    la pauvreté multidimensionnelle des enfants au Sénégal ?}
-  \end{block}
+  \bandeau{presvert}{0.93\linewidth}{Question de recherche}{%
+    \justifying \large \textit{Dans quelle mesure les transferts de migrants réduisent-ils la pauvreté multidimensionnelle des enfants au Sénégal ?}}
 \end{frame}
 
 \begin{frame}{Objectifs et hypothèses}
   \small
-  \begin{block}{Objectif général}
-    {\color{presorange}\faBullseye}~Évaluer l'impact des transferts de
-    migrants sur la pauvreté multidimensionnelle des enfants au Sénégal.
-  \end{block}
+  \bandeau{presvert}{0.93\linewidth}{Objectif général}{%
+    {\color{presorange}\faBullseye}~Évaluer l'impact des transferts de migrants sur la pauvreté multidimensionnelle des enfants au Sénégal.}
   \begin{block}{Objectifs spécifiques}
     \begin{itemize}
       \item[{\color{presvert}\faBullseye}] Construire un indice de pauvreté
@@ -357,26 +353,12 @@
 
 \begin{frame}{Théories de la migration et sélection des bénéficiaires}
   \small
-  \begin{block}{Théorie néoclassique de la migration}
-    L'individu migre si la valeur actualisée des gains attendus à destination,
-    nette des coûts du déplacement, excède ses gains d'origine, la décision se
-    fondant sur le revenu espéré plutôt qu'effectif (Sjaastad, 1962 ;
-    Harris \& Todaro, 1970). Les envois de fonds sont, dans cette optique,
-    le rendement de l'investissement migratoire.
-  \end{block}
-  \begin{block}{Théorie des réseaux migratoires}
-    Les liens de parenté, d'amitié ou de communauté d'origine forment un
-    capital social qui abaisse les coûts et les risques du départ : le migrant
-    installé héberge le nouvel arrivant, l'informe et lui trouve un emploi
-    (Massey, 1993). Chaque migration facilite ainsi les suivantes.
-  \end{block}
-  \begin{alertblock}{Conséquence pour l'identification}
-    Un ménage ne reçoit des transferts que si l'un des siens a pu émigrer, et
-    il ne le peut que s'il dispose d'un réseau. Or l'accès au réseau dépend de
-    l'histoire migratoire de la famille, de la richesse initiale et des
-    relations sociales du ménage. Les bénéficiaires diffèrent donc des autres
-    avant même le premier franc reçu.
-  \end{alertblock}
+  \bandeau{presvert}{0.93\linewidth}{Théorie néoclassique de la migration}{%
+    L'individu migre si la valeur actualisée des gains attendus à destination, nette des coûts du déplacement, excède ses gains d'origine, la décision se fondant sur le revenu espéré plutôt qu'effectif (Sjaastad, 1962 ; Harris \& Todaro, 1970). Les envois de fonds sont, dans cette optique, le rendement de l'investissement migratoire.}
+  \bandeau{presvert}{0.93\linewidth}{Théorie des réseaux migratoires}{%
+    Les liens de parenté, d'amitié ou de communauté d'origine forment un capital social qui abaisse les coûts et les risques du départ : le migrant installé héberge le nouvel arrivant, l'informe et lui trouve un emploi (Massey, 1993). Chaque migration facilite ainsi les suivantes.}
+  \bandeau{presorange}{0.93\linewidth}{Conséquence pour l'identification}{%
+    Un ménage ne reçoit des transferts que si l'un des siens a pu émigrer, et il ne le peut que s'il dispose d'un réseau. Or l'accès au réseau dépend de l'histoire migratoire de la famille, de la richesse initiale et des relations sociales du ménage. Les bénéficiaires diffèrent donc des autres avant même le premier franc reçu.}
 \end{frame}
 
 \begin{frame}{Pourquoi les migrants transfèrent}
@@ -428,19 +410,19 @@
 
 \begin{frame}{Ce que ces motivations impliquent}
   \centering
-  \bandeau{dimnutri}{10.6cm}{Pour la destination des fonds}{%
+  \bandeau{dimnutri}{0.93\linewidth}{Pour la destination des fonds}{%
     Selon la motivation dominante, les transferts financent l'ordinaire ou un
     investissement de long terme. Rien ne garantit qu'ils aillent aux
     dimensions que mesure l'indice.}
 
   \smallskip
-  \bandeau{dimeau}{10.6cm}{Pour l'effet attendu sur la pauvreté monétaire}{%
+  \bandeau{dimeau}{0.93\linewidth}{Pour l'effet attendu sur la pauvreté monétaire}{%
     La littérature établit une réduction modeste, atténuée par les coûts de
     transaction (Azam \& Gubert, 2006 ; Combes \& Ebeke, 2011). L'ampleur reste
     une question empirique.}
 
   \smallskip
-  \bandeau{dimsante}{10.6cm}{Pour l'identification}{%
+  \bandeau{dimsante}{0.93\linewidth}{Pour l'identification}{%
     Les trois motivations supposent un migrant, donc un réseau. Le fait de
     recevoir n'est jamais le fruit du hasard.}
 \end{frame}
@@ -469,12 +451,8 @@
             (Davis \& Brazil, 2016).
     \end{itemize}
   \end{block}
-  \begin{alertblock}{Au Sénégal et dans la sous-région}
-    Fonction d'assurance des transferts dans la région de Kayes
-    (Gubert, 2002), effets sur le marché du travail et le capital humain au
-    Sénégal (Ndiaye, Niang \& Dedehouanou, 2016), recul modeste de la pauvreté
-    monétaire (Azam \& Gubert, 2006 ; Combes \& Ebeke, 2011).
-  \end{alertblock}
+  \bandeau{presorange}{0.93\linewidth}{Au Sénégal et dans la sous-région}{%
+    Fonction d'assurance des transferts dans la région de Kayes (Gubert, 2002), effets sur le marché du travail et le capital humain au Sénégal (Ndiaye, Niang \& Dedehouanou, 2016), recul modeste de la pauvreté monétaire (Azam \& Gubert, 2006 ; Combes \& Ebeke, 2011).}
 \end{frame}
 
 \subsection{Pauvreté multidimensionnelle des enfants}
@@ -504,12 +482,8 @@
             (ANSD/UNICEF, 2024).
     \end{itemize}
   \end{block}
-  \begin{alertblock}{La lacune que ce mémoire comble}
-    Les travaux sur les transferts raisonnent au niveau du ménage et sur des
-    indicateurs monétaires ; ceux sur la pauvreté infantile sont descriptifs.
-    Aucun ne combine mesure multidimensionnelle de l'enfant et identification
-    sur données de suivi en Afrique de l'Ouest.
-  \end{alertblock}
+  \bandeau{presorange}{0.93\linewidth}{La lacune que ce mémoire comble}{%
+    Les travaux sur les transferts raisonnent au niveau du ménage et sur des indicateurs monétaires ; ceux sur la pauvreté infantile sont descriptifs. Aucun ne combine mesure multidimensionnelle de l'enfant et identification sur données de suivi en Afrique de l'Ouest.}
 \end{frame}
 
 % ============================================================
@@ -550,12 +524,11 @@
   \end{tikzpicture}
 
   \smallskip
-  \begin{block}{{\color{presorange}\faUsers}~~Population cible et unité d'analyse}
+  \bandeau{presvert}{0.93\linewidth}{Population cible et unité d'analyse}{%
     Enfants de 0 à 17 ans suivis individuellement d'une vague à l'autre, soit
-    \chiffre{17\,786} enfants : 2\,638 dans un ménage bénéficiaire en 2018 et 15\,148
-    dans un ménage non bénéficiaire. Le score de propension et l'appariement
-    sont estimés à ce niveau.
-  \end{block}
+    \chiffre{17\,786} enfants : 2\,638 dans un ménage bénéficiaire en 2018 et
+    15\,148 dans un ménage non bénéficiaire. Le score de propension et
+    l'appariement sont estimés à ce niveau.}
 \end{frame}
 
 \subsection{Mesure de la pauvreté multidimensionnelle}
@@ -695,11 +668,8 @@
     entrant avec son poids $w_{ij}$.
   \end{alertblock}
 
-  \begin{block}{Apport de la combinaison}
-    Les deux limites se compensent : l'appariement rend les groupes comparables
-    sur l'observable, la double différence neutralise l'inobservable stable
-    (Heckman et al., 1997).
-  \end{block}
+  \bandeau{presvert}{0.93\linewidth}{Apport de la combinaison}{%
+    Les deux limites se compensent : l'appariement rend les groupes comparables sur l'observable, la double différence neutralise l'inobservable stable (Heckman et al., 1997).}
 \end{frame}
 
 % ============================================================
@@ -724,11 +694,8 @@
           \bottomrule
         \end{tabular}
       \end{block}
-      \begin{block}{Lecture}
-        La pauvreté recule nettement en incidence, mais l'intensité reste
-        quasi stable : les enfants pauvres cumulent toujours près de 5
-        privations sur 7.
-      \end{block}
+      \bandeau{presvert}{0.93\linewidth}{Lecture}{%
+    La pauvreté recule nettement en incidence, mais l'intensité reste quasi stable : les enfants pauvres cumulent toujours près de 5 privations sur 7.}
     \end{column}
     \begin{column}{0.50\textwidth}
       \centering
@@ -757,11 +724,8 @@
       \bottomrule
     \end{tabular}
   \end{table}
-  \begin{alertblock}{L'écart se referme chez les 0-4 ans}
-    L'avantage des bénéficiaires passe de 23,7 à 16,9 points, tiré par la
-    nutrition. Les 15-17 ans, 445 enfants suivis, appellent une lecture
-    prudente.
-  \end{alertblock}
+  \bandeau{presorange}{0.93\linewidth}{L'écart se referme chez les 0-4 ans}{%
+    L'avantage des bénéficiaires passe de 23,7 à 16,9 points, tiré par la nutrition. Les 15-17 ans, 445 enfants suivis, appellent une lecture prudente.}
 \end{frame}
 
 \begin{frame}{Évolution de l'incidence selon le statut du ménage}
@@ -814,12 +778,8 @@
     \par\smallskip
     {\scriptsize\color{presgris} $^{*}p<0{,}10$, $^{**}p<0{,}05$.}
   \end{table}
-  \begin{alertblock}{Résultat central}
-    {\color{presorange}\faArrowUp}~Sur 2018-2021, la pauvreté
-    multidimensionnelle des enfants des ménages bénéficiaires recule plus
-    lentement que celle des témoins appariés (\chiffre{$+6{,}4$ pp}, significatif à
-    5\,\%), les trois appariements concordant, de 0,050 à 0,064.
-  \end{alertblock}
+  \bandeau{presorange}{0.93\linewidth}{Résultat central}{%
+    {\color{presorange}\faArrowUp}~Sur 2018-2021, la pauvreté multidimensionnelle des enfants des ménages bénéficiaires recule plus lentement que celle des témoins appariés (\chiffre{$+6{,}4$ pp}, significatif à 5\,\%), les trois appariements concordant, de 0,050 à 0,064.}
 \end{frame}
 
 \begin{frame}{Effets par dimension de la pauvreté}
@@ -830,19 +790,12 @@
       \includegraphics[width=\linewidth,height=0.56\textheight,keepaspectratio]{figures/fig_effets_dim.pdf}
     \end{column}
     \begin{column}{0.36\textwidth}
-      \begin{alertblock}{Un seul effet sectoriel significatif}
-        La nutrition est la seule dimension significative, et celle qui dépend
-        le plus directement du budget courant du ménage. Les six autres vont
-        dans le même sens sans atteindre la significativité.
-      \end{alertblock}
+      \bandeau{presorange}{0.93\linewidth}{Un seul effet sectoriel significatif}{%
+    La nutrition est la seule dimension significative, et celle qui dépend le plus directement du budget courant du ménage. Les six autres vont dans le même sens sans atteindre la significativité.}
     \end{column}
   \end{columns}
-  \begin{block}{Lecture}
-    Aucun test d'égalité ne conclut, ni entre milieux, ni selon le genre du
-    chef, ni entre tranches d'âge. L'effet n'est établi que chez les 0-4 ans
-    ($+9{,}1$ pp, significatif à 5\,\%) : effet par âge et effet nutrition se
-    répondent.
-  \end{block}
+  \bandeau{presvert}{0.93\linewidth}{Lecture}{%
+    Aucun test d'égalité ne conclut, ni entre milieux, ni selon le genre du chef, ni entre tranches d'âge. L'effet n'est établi que chez les 0-4 ans ($+9{,}1$ pp, significatif à 5\,\%) : effet par âge et effet nutrition se répondent.}
 \end{frame}
 
 
@@ -867,12 +820,8 @@
     \par\smallskip
     {\scriptsize\color{presgris} $^{*}p<0{,}10$, $^{**}p<0{,}05$.}
   \end{table}
-  \begin{alertblock}{Gradient selon l'intensité du traitement}
-    L'effet défavorable se concentre sur les petits montants : seuls les deux
-    premiers quintiles sont significatifs et l'écart ne se retrouve pas pour
-    les transferts les plus élevés. Le montant relevant du choix du migrant,
-    le gradient se lit comme une association conditionnelle.
-  \end{alertblock}
+  \bandeau{presorange}{0.93\linewidth}{Gradient selon l'intensité du traitement}{%
+    L'effet défavorable se concentre sur les petits montants : seuls les deux premiers quintiles sont significatifs et l'écart ne se retrouve pas pour les transferts les plus élevés. Le montant relevant du choix du migrant, le gradient se lit comme une association conditionnelle.}
 \end{frame}
 
 % ============================================================
@@ -934,18 +883,12 @@
   \smallskip
   \begin{columns}[T]
     \begin{column}{0.475\textwidth}
-      \begin{alertblock}{Résultat sous cette définition}
-        La DD tombe à $0{,}022$ et le PSM-DD à $-0{,}008$, tous deux non
-        significatifs. L'exposition de ces ménages, déjà en cours en 2018,
-        relève d'une autre question que le design principal.
-      \end{alertblock}
+      \bandeau{presorange}{0.93\linewidth}{Résultat sous cette définition}{%
+    La DD tombe à $0{,}022$ et le PSM-DD à $-0{,}008$, tous deux non significatifs. L'exposition de ces ménages, déjà en cours en 2018, relève d'une autre question que le design principal.}
     \end{column}
     \begin{column}{0.475\textwidth}
-      \begin{block}{Synthèse des tests}
-        Le signe et l'ordre de grandeur résistent au choix de l'algorithme
-        comme au choix du seuil. Seule la définition du traitement les fait
-        disparaître, ce qui délimite la portée du résultat.
-      \end{block}
+      \bandeau{presvert}{0.93\linewidth}{Synthèse des tests}{%
+    Le signe et l'ordre de grandeur résistent au choix de l'algorithme comme au choix du seuil. Seule la définition du traitement les fait disparaître, ce qui délimite la portée du résultat.}
     \end{column}
   \end{columns}
   \begin{center}
@@ -1077,11 +1020,8 @@
             évalué sur la grille de son âge courant.
     \end{itemize}
   \end{alertblock}
-  \begin{block}{Choix de mesure}
-    Nutrition et santé reposent sur les seuls indicateurs comparables entre les
-    deux vagues. Un indicateur redéfini entre 2018 et 2021 produirait un effet
-    sans contenu causal.
-  \end{block}
+  \bandeau{presvert}{0.93\linewidth}{Choix de mesure}{%
+    Nutrition et santé reposent sur les seuls indicateurs comparables entre les deux vagues. Un indicateur redéfini entre 2018 et 2021 produirait un effet sans contenu causal.}
 \end{frame}
 
 \begin{frame}{Perspectives de recherche}
@@ -1140,15 +1080,10 @@
       \bottomrule
     \end{tabular*}
   \end{block}
-  \begin{alertblock}{Montants annuels reçus par ménage bénéficiaire}
-    Médiane $\approx$ 600\,000 FCFA/an, troisième quartile à 1\,280\,000 :
-    une ressource loin d'être marginale, très inégalement répartie.
-  \end{alertblock}
-  \begin{block}{Implication méthodologique}
-    Deux tiers des transferts relèvent du soutien courant, non affecté :
-    l'argent étant fongible, on mesure l'effet sur les privations
-    effectives des enfants plutôt que sur l'affectation déclarée des fonds.
-  \end{block}
+  \bandeau{presorange}{0.93\linewidth}{Montants annuels reçus par ménage bénéficiaire}{%
+    Médiane $\approx$ 600\,000 FCFA/an, troisième quartile à 1\,280\,000 : une ressource loin d'être marginale, très inégalement répartie.}
+  \bandeau{presvert}{0.93\linewidth}{Implication méthodologique}{%
+    Deux tiers des transferts relèvent du soutien courant, non affecté : l'argent étant fongible, on mesure l'effet sur les privations effectives des enfants plutôt que sur l'affectation déclarée des fonds.}
   \begin{center}
     \hyperlink{discussion-usage}{\beamerreturnbutton{Retour}}
   \end{center}
