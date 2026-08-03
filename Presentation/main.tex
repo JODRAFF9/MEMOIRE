@@ -520,12 +520,43 @@
 
 \begin{frame}{Stratégie d'identification, le problème (1/4)}
   \footnotesize
-  \begin{alertblock}{Traitement, statut défini en 2018}
-    Traités : ménages recevant en 2018 un transfert d'un expéditeur vivant hors
-    du Sénégal et ayant déjà vécu dans le ménage. Témoins : ménages non
-    bénéficiaires. Le statut, figé en 2018, ne peut pas dépendre de l'évolution
-    ultérieure des privations.
-  \end{alertblock}
+  \centering
+  \begin{tikzpicture}[
+      groupe/.style = {rounded corners=5pt, draw=#1, line width=1pt, fill=#1!8,
+                       minimum width=4.6cm, minimum height=1.75cm, anchor=north west},
+      groupe/.default = presvert,
+      titre/.style  = {font=\small\bfseries, anchor=north west},
+      detail/.style = {font=\scriptsize, text=presgris, anchor=north west,
+                       text width=3.3cm, align=left}
+    ]
+    % groupe traite
+    \node[groupe=presorange] (t) at (0,0) {};
+    \node[text=presorange, font=\Large] at ([shift={(0.55,-0.62)}]t.north west) {\faHandHoldingUsd};
+    \node[titre, text=presorange] at ([shift={(1.15,-0.18)}]t.north west) {Traités};
+    \node[detail] at ([shift={(1.15,-0.55)}]t.north west)
+      {Ménage recevant en 2018 un transfert d'un ancien membre vivant hors du Sénégal};
+    \node[font=\scriptsize\bfseries, text=presorange, anchor=south east]
+      at ([shift={(-0.2,0.12)}]t.south east) {2\,638 enfants};
+
+    % groupe temoin
+    \node[groupe=presgris] (c) at (5.2,0) {};
+    \node[text=presgris, font=\Large] at ([shift={(0.55,-0.62)}]c.north west) {\faHome};
+    \node[titre, text=presgris] at ([shift={(1.15,-0.18)}]c.north west) {Témoins};
+    \node[detail] at ([shift={(1.15,-0.55)}]c.north west)
+      {Ménage ne recevant aucun transfert de ce type en 2018};
+    \node[font=\scriptsize\bfseries, text=presgris, anchor=south east]
+      at ([shift={(-0.2,0.12)}]c.south east) {15\,148 enfants};
+
+    % ligne de temps
+    \draw[presvert, line width=1pt, -{Stealth[length=2.5mm]}]
+      (0,-2.25) -- (9.8,-2.25);
+    \node[font=\scriptsize\bfseries, text=presvert, anchor=north] at (0.6,-2.35) {2018};
+    \node[font=\scriptsize\bfseries, text=presvert, anchor=north] at (9.2,-2.35) {2021};
+    \node[font=\scriptsize, text=presgris, anchor=north] at (4.9,-2.35)
+      {statut figé à la période de base, insensible à l'évolution des privations};
+  \end{tikzpicture}
+
+  \smallskip
 
   \begin{block}{Problème du biais de sélection}
     L'effet moyen du traitement sur les traités (ATT) :
