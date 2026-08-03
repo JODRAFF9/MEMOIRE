@@ -396,7 +396,7 @@
 
 \subsection{Stratégie d'identification}
 
-\begin{frame}{Stratégie d'identification, le problème (1/2)}
+\begin{frame}{Stratégie d'identification, le problème (1/3)}
   \small
   \begin{alertblock}{Traitement, statut défini en 2018}
     Traités : ménages recevant en 2018 un transfert d'un expéditeur vivant hors
@@ -414,25 +414,47 @@
   \end{block}
 \end{frame}
 
-\begin{frame}{Stratégie d'identification, l'estimateur (2/2)}
+\begin{frame}{Stratégie d'identification, les deux briques (2/3)}
   \small
-  \begin{block}{Étape 1 - Appariement par score de propension (PSM)}
-    Estimation du score de propension par logit :
+  \begin{block}{Appariement par score de propension (PSM)}
+    Un logit estime la probabilité d'être bénéficiaire à la période de base :
     \begin{equation*}
       p(X_i) = P(D_i = 1 \mid X_i) = \frac{\exp(X_i'\beta)}{1+\exp(X_i'\beta)}
     \end{equation*}
-    Appariement par $k$-plus proches voisins ($k=4$) et vérification du support commun.
+    Chaque traité est apparié à ses $k$ plus proches voisins ($k=4$), sur le
+    support commun. Le PSM corrige la sélection sur les caractéristiques
+    observables, mais laisse subsister ce qui ne s'observe pas.
   \end{block}
 
-  \begin{alertblock}{Étape 2 - Double différence (DD) après appariement}
+  \begin{block}{Double différence (DD)}
+    \begin{equation*}
+      \hat{\tau}_{DD}
+      = \bigl(\overline{Y}_{T,t_2}-\overline{Y}_{T,t_1}\bigr)
+      - \bigl(\overline{Y}_{C,t_2}-\overline{Y}_{C,t_1}\bigr)
+    \end{equation*}
+    La comparaison des trajectoires élimine les déterminants inobservés stables
+    dans le temps, mais suppose des groupes comparables au départ.
+  \end{block}
+\end{frame}
+
+\begin{frame}{Stratégie d'identification, l'estimateur retenu (3/3)}
+  \small
+  \begin{alertblock}{PSM-double différence}
     \begin{equation*}
       \hat{\tau}_{PSM\text{-}DD}
       = \frac{1}{n_T}\sum_{i\in\mathcal{T}}
         \Bigl[\underbrace{Y_{i,t_2}-Y_{i,t_1}}_{\Delta Y_i}
         - \sum_{j\in\mathcal{C}} w_{ij}\,\Delta Y_j\Bigr]
     \end{equation*}
-    Contrôle simultané des biais observables (PSM) et des effets fixes inobservés (DD).
+    La double différence est calculée sur les seuls enfants appariés, chaque
+    témoin entrant avec le poids $w_{ij}$ que lui donne l'appariement.
   \end{alertblock}
+
+  \begin{block}{Ce que la combinaison apporte}
+    Les deux limites se compensent : l'appariement rend les groupes comparables
+    sur les caractéristiques observables, la double différence neutralise les
+    déterminants inobservés stables. L'estimateur suit Heckman et al. (1997, 1998).
+  \end{block}
 \end{frame}
 
 % ============================================================
