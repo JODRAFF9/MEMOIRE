@@ -504,8 +504,17 @@
   \groupeage{\faMale}{15 à 17 ans}{11}
   \medskip
   \begin{alertblock}{Double seuil MODA}
-    Privé dans une dimension dès un indicateur ; pauvre dès quatre dimensions
-    sur sept.
+    \begin{minipage}[c]{0.20\linewidth}
+      \centering
+      \begin{tikzpicture}
+        \node[circle, fill=presorange, text=white, minimum size=1.15cm,
+              inner sep=0pt, font=\Large\bfseries] {$k=4$};
+      \end{tikzpicture}
+    \end{minipage}%
+    \begin{minipage}[c]{0.78\linewidth}
+      Intra-dimension, l'enfant est privé dès un indicateur.
+      Inter-dimensions, il est pauvre dès \chiffre{quatre dimensions sur sept}.
+    \end{minipage}
   \end{alertblock}
   \begin{center}
     \hyperlink{matrice-nmoda}{\beamergotobutton{Voir la matrice MODA complète}}
@@ -618,7 +627,7 @@
     \begin{column}{0.50\textwidth}
       \centering
       \includegraphics[width=\linewidth,height=0.48\textheight,keepaspectratio]{figures/fig_distrib_dimensions.pdf}\\[-2pt]
-      {\scriptsize\color{presgris} Le trait en pointillé marque le seuil $k=4$.}
+      {\scriptsize\color{presgris} Le trait en pointillé marque le seuil retenu, \textbf{$k=4$}.}
     \end{column}
   \end{columns}
 \end{frame}
