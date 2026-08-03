@@ -368,7 +368,7 @@
   \centering
   \begin{tikzpicture}[
       motif/.style  = {rounded corners=6pt, draw=#1, line width=1.1pt, fill=#1!8,
-                       minimum width=3.85cm, minimum height=3.9cm, anchor=north west},
+                       minimum width=3.85cm, minimum height=3.5cm, anchor=north west},
       motif/.default = presvert,
       titre/.style  = {font=\small\bfseries, anchor=north, text width=3.45cm,
                        align=center},
@@ -378,30 +378,36 @@
     ]
     % altruisme
     \node[motif=dimsante] (a) at (0,0) {};
-    \node[text=dimsante, font=\LARGE] at ([yshift=-0.65cm]a.north) {\faHeart};
-    \node[titre, text=dimsante] at ([yshift=-1.15cm]a.north) {Altruisme};
-    \node[detail] at ([yshift=-1.75cm]a.north)
+    \node[text=dimsante, font=\LARGE] at ([yshift=-0.55cm]a.north) {\faHeart};
+    \node[titre, text=dimsante] at ([yshift=-1.0cm]a.north) {Altruisme};
+    \node[detail] at ([yshift=-1.55cm]a.north)
       {Le migrant intègre le bien-être des siens dans son utilité : les
        transferts décroissent avec le revenu du receveur};
     \node[source] at ([yshift=0.15cm]a.south) {Lucas \& Stark, 1985};
 
     % interet personnel et echange
-    \node[motif=dimeduc] (b) at (4.2,-0.7) {};
-    \node[text=dimeduc, font=\LARGE] at ([yshift=-0.65cm]b.north) {\faHandshake};
-    \node[titre, text=dimeduc] at ([yshift=-1.15cm]b.north) {Intérêt et échange};
-    \node[detail] at ([yshift=-1.75cm]b.north)
+    \node[motif=dimeduc] (b) at (4.2,-1.15) {};
+    \node[text=dimeduc, font=\LARGE] at ([yshift=-0.55cm]b.north) {\faHandshake};
+    \node[titre, text=dimeduc] at ([yshift=-1.0cm]b.north) {Intérêt et échange};
+    \node[detail] at ([yshift=-1.55cm]b.north)
       {Le transfert préserve un héritage ou rembourse la dette du départ : il
        suit la capacité à rendre, non le besoin};
     \node[source] at ([yshift=0.15cm]b.south) {Rapoport \& Docquier, 2006};
 
     % diversification du risque
-    \node[motif=dimeau] (c) at (8.4,-1.4) {};
-    \node[text=dimeau, font=\LARGE] at ([yshift=-0.65cm]c.north) {\faUmbrella};
-    \node[titre, text=dimeau] at ([yshift=-1.15cm]c.north) {Assurance};
-    \node[detail] at ([yshift=-1.75cm]c.north)
+    \node[motif=dimeau] (c) at (8.4,-2.3) {};
+    \node[text=dimeau, font=\LARGE] at ([yshift=-0.55cm]c.north) {\faUmbrella};
+    \node[titre, text=dimeau] at ([yshift=-1.0cm]c.north) {Assurance};
+    \node[detail] at ([yshift=-1.55cm]c.north)
       {Le ménage place un membre sur un marché du travail décorrélé du sien :
        les transferts couvrent les chocs};
     \node[source] at ([yshift=0.15cm]c.south) {Stark \& Bloom, 1985};
+
+    % marches d'escalier tracees sous les trois cartouches
+    \draw[presvert!35, line width=1.4pt, line cap=round, line join=round]
+      ([yshift=-2mm]a.south west) -- ([yshift=-2mm]a.south east)
+      -- ([yshift=-2mm]a.south east |- b.south) -- ([yshift=-2mm]b.south east)
+      -- ([yshift=-2mm]b.south east |- c.south) -- ([yshift=-2mm]c.south east);
   \end{tikzpicture}
 \end{frame}
 
@@ -932,21 +938,41 @@
 \end{frame}
 
 \begin{frame}{Mécanismes d'interprétation du résultat}
-  \small
-  \rubrique[\faHandHoldingUsd]{L'usage des fonds}
-  \chiffre{68,5\,\%} des transferts relèvent du soutien courant, moins d'un dixième va
-  explicitement à la santé ou à la scolarité. Un flux qui finance l'ordinaire
-  a peu de raisons de déplacer les seuils de privation.
+  \centering
+  \begin{tikzpicture}[
+      etape/.style  = {rounded corners=6pt, draw=#1, line width=1.1pt, fill=#1!8,
+                       minimum width=4.0cm, minimum height=2.7cm},
+      etape/.default = presvert,
+      titre/.style  = {font=\small\bfseries, anchor=north, text width=3.6cm,
+                       align=center},
+      detail/.style = {font=\scriptsize, text=presgris, anchor=north,
+                       text width=3.55cm, align=center}
+    ]
+    % noyau de la question
+    \node[circle, fill=presvert, text=white, minimum size=2.1cm, inner sep=1pt,
+          font=\scriptsize\bfseries, align=center] (coeur) at (0,0)
+      {Pourquoi\\l'effet ne\\se voit pas};
 
-  \rubrique[\faHeartbeat]{La contrainte d'offre}
-  L'eau, l'assainissement et l'accès aux soins supposent des investissements
-  collectifs. La privation en santé touche \chiffre{97\,\%} des enfants aux deux vagues,
-  sans écart notable entre bénéficiaires et témoins en 2021 ($p = 0{,}807$).
+    % trois mecanismes disposes autour du noyau
+    \node[etape=dimnutri] (a) at (-4.3,1.35) {};
+    \node[titre, text=dimnutri] at ([yshift=-0.3cm]a.north) {L'usage des fonds};
+    \node[detail] at ([yshift=-0.85cm]a.north)
+      {68,5 \% en soutien courant, moins d'un dixième en santé ou scolarité};
 
-  \rubrique[\faChartLine]{La marge sur laquelle l'effet opère}
-  L'écart se joue au milieu de la distribution des privations. Le noyau des
-  enfants les plus démunis relève de déficits qu'aucun flux privé ne déplace
-  en trois ans.
+    \node[etape=dimsante] (b) at (4.3,1.35) {};
+    \node[titre, text=dimsante] at ([yshift=-0.3cm]b.north) {La contrainte d'offre};
+    \node[detail] at ([yshift=-0.85cm]b.north)
+      {Eau, assainissement et soins relèvent de l'investissement collectif};
+
+    \node[etape=dimeau] (c) at (0,-2.85) {};
+    \node[titre, text=dimeau] at ([yshift=-0.3cm]c.north) {La marge de l'effet};
+    \node[detail] at ([yshift=-0.85cm]c.north)
+      {L'écart se joue au milieu de la distribution des privations};
+
+    \draw[presvert!45, line width=1.1pt] (coeur) -- (a);
+    \draw[presvert!45, line width=1.1pt] (coeur) -- (b);
+    \draw[presvert!45, line width=1.1pt] (coeur) -- (c);
+  \end{tikzpicture}
 \end{frame}
 
 \begin{frame}{Validation des hypothèses}
