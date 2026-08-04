@@ -225,7 +225,7 @@ corps.push(dire(
 corps.push(dire(
   "Le deuxième porte sur les effets établis. Sur la pauvreté monétaire, le recul est modeste et atténué " +
   "par les coûts de transaction. Sur l'éducation, la scolarisation progresse. Sur la nutrition, les effets " +
-  "sont fragiles et conditionnels au maintien du lien avec le migrant."
+  "ne se confirment pas d'une étude à l'autre et dépendent du maintien du lien avec le migrant."
 ));
 
 corps.push(repere(7, "Mesure multidimensionnelle", "1 min"));
