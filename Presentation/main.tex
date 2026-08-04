@@ -404,23 +404,13 @@
 \section[Revue]{Revue de la littérature}
 % ============================================================
 
-\subsection{Transferts de migrants et bien-être}
+\subsection{Transferts, bien-être et mesure de la pauvreté}
 
-\begin{frame}{Théories de la migration et sélection des bénéficiaires}
-  \small
-  \bandeau{presvert}{0.93\linewidth}{Théorie néoclassique de la migration}{%
-    L'individu migre si la valeur actualisée des gains attendus à destination, nette des coûts du déplacement, excède ses gains d'origine, la décision se fondant sur le revenu espéré plutôt qu'effectif (Sjaastad, 1962 ; Harris \& Todaro, 1970). Les envois de fonds sont, dans cette optique, le rendement de l'investissement migratoire.}
-  \bandeau{presvert}{0.93\linewidth}{Théorie des réseaux migratoires}{%
-    Les liens de parenté, d'amitié ou de communauté d'origine forment un capital social qui abaisse les coûts et les risques du départ : le migrant installé héberge le nouvel arrivant, l'informe et lui trouve un emploi (Massey, 1993). Chaque migration facilite ainsi les suivantes.}
-  \bandeau{presorange}{0.93\linewidth}{Conséquence pour l'identification}{%
-    Un ménage ne reçoit des transferts que si l'un des siens a pu émigrer, et il ne le peut que s'il dispose d'un réseau. Or l'accès au réseau dépend de l'histoire migratoire de la famille, de la richesse initiale et des relations sociales du ménage. Les bénéficiaires diffèrent donc des autres avant même le premier franc reçu.}
-\end{frame}
-
-\begin{frame}{Pourquoi les migrants transfèrent}
+\begin{frame}{Pourquoi les migrants transfèrent, et ce que cela implique}
   \centering
   \begin{tikzpicture}[
       motif/.style  = {rounded corners=6pt, draw=#1, line width=1.1pt, fill=#1!8,
-                       minimum width=3.85cm, minimum height=3.2cm, anchor=north west},
+                       minimum width=3.85cm, minimum height=2.95cm, anchor=north west},
       motif/.default = presvert,
       titre/.style  = {font=\small\bfseries, anchor=north, text width=3.45cm,
                        align=center},
@@ -430,30 +420,30 @@
     ]
     % altruisme
     \node[motif=dimsante] (a) at (0,0) {};
-    \node[text=dimsante, font=\LARGE] at ([yshift=-0.55cm]a.north) {\faHeart};
-    \node[titre, text=dimsante] at ([yshift=-1.0cm]a.north) {Altruisme};
-    \node[detail] at ([yshift=-1.55cm]a.north)
+    \node[text=dimsante, font=\LARGE] at ([yshift=-0.5cm]a.north) {\faHeart};
+    \node[titre, text=dimsante] at ([yshift=-0.95cm]a.north) {Altruisme};
+    \node[detail] at ([yshift=-1.5cm]a.north)
       {Le migrant intègre le bien-être des siens dans son utilité : les
        transferts décroissent avec le revenu du receveur};
-    \node[source] at ([yshift=0.15cm]a.south) {Lucas \& Stark, 1985};
+    \node[source] at ([yshift=0.12cm]a.south) {Lucas \& Stark, 1985};
 
     % interet personnel et echange
-    \node[motif=dimeduc] (b) at (4.2,-0.9) {};
-    \node[text=dimeduc, font=\LARGE] at ([yshift=-0.55cm]b.north) {\faHandshake};
-    \node[titre, text=dimeduc] at ([yshift=-1.0cm]b.north) {Intérêt et échange};
-    \node[detail] at ([yshift=-1.55cm]b.north)
+    \node[motif=dimeduc] (b) at (4.2,-0.75) {};
+    \node[text=dimeduc, font=\LARGE] at ([yshift=-0.5cm]b.north) {\faHandshake};
+    \node[titre, text=dimeduc] at ([yshift=-0.95cm]b.north) {Intérêt et échange};
+    \node[detail] at ([yshift=-1.5cm]b.north)
       {Le transfert préserve un héritage ou rembourse la dette du départ : il
        suit la capacité à rendre, non le besoin};
-    \node[source] at ([yshift=0.15cm]b.south) {Rapoport \& Docquier, 2006};
+    \node[source] at ([yshift=0.12cm]b.south) {Rapoport \& Docquier, 2006};
 
     % diversification du risque
-    \node[motif=dimeau] (c) at (8.4,-1.8) {};
-    \node[text=dimeau, font=\LARGE] at ([yshift=-0.55cm]c.north) {\faUmbrella};
-    \node[titre, text=dimeau] at ([yshift=-1.0cm]c.north) {Assurance};
-    \node[detail] at ([yshift=-1.55cm]c.north)
+    \node[motif=dimeau] (c) at (8.4,-1.5) {};
+    \node[text=dimeau, font=\LARGE] at ([yshift=-0.5cm]c.north) {\faUmbrella};
+    \node[titre, text=dimeau] at ([yshift=-0.95cm]c.north) {Assurance};
+    \node[detail] at ([yshift=-1.5cm]c.north)
       {Le ménage place un membre sur un marché du travail décorrélé du sien :
        les transferts couvrent les chocs};
-    \node[source] at ([yshift=0.15cm]c.south) {Stark \& Bloom, 1985};
+    \node[source] at ([yshift=0.12cm]c.south) {Stark \& Bloom, 1985};
 
     % marches d'escalier tracees sous les trois cartouches
     \draw[presvert!35, line width=1.4pt, line cap=round, line join=round]
@@ -461,84 +451,41 @@
       -- ([yshift=-2mm]a.south east |- b.south) -- ([yshift=-2mm]b.south east)
       -- ([yshift=-2mm]b.south east |- c.south) -- ([yshift=-2mm]c.south east);
   \end{tikzpicture}
-\end{frame}
-
-\begin{frame}{Ce que ces motivations impliquent}
-  \centering
-  \bandeau{dimnutri}{0.93\linewidth}{Pour la destination des fonds}{%
-    Selon la motivation dominante, les transferts financent l'ordinaire ou un
-    investissement de long terme. Rien ne garantit qu'ils aillent aux
-    dimensions que mesure l'indice.}
 
   \smallskip
-  \bandeau{dimeau}{0.93\linewidth}{Pour l'effet attendu sur la pauvreté monétaire}{%
-    La littérature établit une réduction modeste, atténuée par les coûts de
-    transaction (Azam \& Gubert, 2006 ; Combes \& Ebeke, 2011). L'ampleur reste
-    une question empirique.}
+  \bandeau{presorange}{0.93\linewidth}{Conséquence pour l'identification}{%
+    Les trois motivations supposent un migrant, donc un réseau, et l'accès au
+    réseau dépend de l'histoire migratoire, de la richesse initiale et des
+    relations sociales du ménage (Massey, 1993). Les bénéficiaires diffèrent
+    donc des autres avant même le premier franc reçu.}
+\end{frame}
+
+\begin{frame}{Ce que la littérature établit, et ce qu'elle laisse de côté}
+  \bandeau{presvert}{0.93\linewidth}{Effets des transferts sur les enfants}{%
+    Scolarisation en hausse et travail des enfants en baisse au Salvador et aux
+    Philippines (Cox Edwards \& Ureta, 2003 ; Yang, 2008), par la levée des
+    contraintes de liquidité (Calero \emph{et al.}, 2009) — mais gains annulés
+    par l'absence du parent (Mansuri, 2006 ; Acosta, 2011). Côté santé,
+    mortalité infantile en recul au Mexique (Hildebrandt \& McKenzie, 2005),
+    effets fragiles sur la nutrition (Davis \& Brazil, 2016). Au Sénégal :
+    fonction d'assurance (Gubert, 2002), effets sur le capital humain
+    (Ndiaye \emph{et al.}, 2016), recul modeste de la pauvreté monétaire
+    (Azam \& Gubert, 2006 ; Combes \& Ebeke, 2011).}
 
   \smallskip
-  \bandeau{dimsante}{0.93\linewidth}{Pour l'identification}{%
-    Les trois motivations supposent un migrant, donc un réseau. Le fait de
-    recevoir n'est jamais le fruit du hasard.}
-\end{frame}
+  \bandeau{dimeduc}{0.93\linewidth}{Mesurer la pauvreté de l'enfant, pas celle du ménage}{%
+    L'approche par les capabilités déplace l'évaluation du revenu vers ce que
+    la personne peut être et faire (Sen, 1985) ; la mesure prend l'enfant pour
+    unité d'analyse (Roelen \& Gassmann, 2008), avec des indicateurs adaptés à
+    l'âge et l'attention aux privations superposées (de Neubourg \emph{et al.},
+    2012 ; ANSD/UNICEF, 2024).}
 
-\begin{frame}{Effets documentés des transferts sur les enfants}
-  \footnotesize
-  \begin{block}{Éducation et travail des enfants}
-    \begin{itemize}
-      \setlength{\itemsep}{1pt}
-      \item Scolarisation en hausse et travail des enfants en baisse au Salvador
-            et aux Philippines (Cox Edwards \& Ureta, 2003 ; Yang, 2008).
-      \item Effet passant par la levée des contraintes de liquidité en Équateur
-            (Calero, Bedi \& Sparrow, 2009), mais gains annulés par l'absence
-            du parent au Pakistan (Mansuri, 2006) et au Salvador (Acosta, 2011).
-      \item Effets mitigés selon le membre parti et la durée d'absence
-            (Bucheli, Bohara \& Fontenla, 2018).
-    \end{itemize}
-  \end{block}
-  \begin{block}{Santé et nutrition}
-    \begin{itemize}
-      \setlength{\itemsep}{1pt}
-      \item Mortalité infantile en recul et poids à la naissance en hausse au
-            Mexique (Hildebrandt \& McKenzie, 2005).
-      \item Dépenses de santé accrues dans les ménages receveurs
-            (Amuedo-Dorantes \& Pozo, 2011), effets fragiles sur la nutrition
-            (Davis \& Brazil, 2016).
-    \end{itemize}
-  \end{block}
-  \bandeau{presorange}{0.93\linewidth}{Au Sénégal et dans la sous-région}{%
-    Fonction d'assurance des transferts dans la région de Kayes (Gubert, 2002), effets sur le marché du travail et le capital humain au Sénégal (Ndiaye, Niang \& Dedehouanou, 2016), recul modeste de la pauvreté monétaire (Azam \& Gubert, 2006 ; Combes \& Ebeke, 2011).}
-\end{frame}
-
-\subsection{Pauvreté multidimensionnelle des enfants}
-
-\begin{frame}{De la pauvreté monétaire à la pauvreté multidimensionnelle}
-  \footnotesize
-  \begin{block}{Fondements théoriques}
-    \begin{itemize}
-      \setlength{\itemsep}{1pt}
-      \item La privation relative se définit par rapport aux conditions de vie
-            jugées normales dans une société (Townsend, 1979).
-      \item L'approche par les capabilités déplace l'évaluation du revenu vers
-            ce que la personne peut réellement être et faire (Sen, 1985, 1999).
-      \item Première mesure internationale de la pauvreté infantile en huit
-            privations sévères (Gordon \emph{et al.}, 2003 ; UNICEF, 2007).
-    \end{itemize}
-  \end{block}
-  \begin{block}{Exigences méthodologiques qui en découlent}
-    \begin{itemize}
-      \setlength{\itemsep}{1pt}
-      \item L'enfant individuel comme unité d'analyse, et non le ménage
-            (Roelen \& Gassmann, 2008).
-      \item Des indicateurs adaptés à l'âge, et l'attention aux privations
-            superposées plutôt qu'à chaque manque isolé
-            (de Neubourg \emph{et al.}, 2012).
-      \item Une déclinaison nationale de ces principes pour le Sénégal
-            (ANSD/UNICEF, 2024).
-    \end{itemize}
-  \end{block}
+  \smallskip
   \bandeau{presorange}{0.93\linewidth}{La lacune que ce mémoire comble}{%
-    Les travaux sur les transferts raisonnent au niveau du ménage et sur des indicateurs monétaires ; ceux sur la pauvreté infantile sont descriptifs. Aucun ne combine mesure multidimensionnelle de l'enfant et identification sur données de suivi en Afrique de l'Ouest.}
+    Les travaux sur les transferts raisonnent au niveau du ménage et sur des
+    indicateurs monétaires ; ceux sur la pauvreté infantile sont descriptifs.
+    Aucun ne combine mesure multidimensionnelle de l'enfant et identification
+    sur données de suivi en Afrique de l'Ouest.}
 \end{frame}
 
 % ============================================================
@@ -628,7 +575,7 @@
 
 \subsection{Stratégie d'identification}
 
-\begin{frame}{Stratégie d'identification, le problème (1/4)}
+\begin{frame}{Stratégie d'identification, le problème (1/2)}
   \footnotesize
   \centering
   \begin{tikzpicture}[
@@ -665,37 +612,36 @@
   \end{tikzpicture}
 
   \smallskip
-
-  \begin{block}{Problème du biais de sélection}
-    L'effet moyen du traitement sur les traités (ATT) :
-    \vspace{-0.25cm}
-    \begin{equation*}
-      \tau_{\text{ATT}} = \mathbb{E}[Y_i(1) - Y_i(0) \mid D_i = 1]
-    \end{equation*}
-
-    Le contrefactuel $Y_i(0)$ est inobservable, d'où le recours à un estimateur adapté.
+  \begin{block}{Deux biais, deux réponses partielles}
+    \begin{columns}[T]
+      \begin{column}{0.48\linewidth}
+        \centering
+        \vspace{-0.2cm}
+        \begin{equation*}
+          \tau_{\text{ATT}} = \mathbb{E}[Y_i(1) - Y_i(0) \mid D_i = 1]
+        \end{equation*}
+        {\scriptsize Le contrefactuel $Y_i(0)$ est inobservable.}
+      \end{column}
+      \begin{column}{0.48\linewidth}
+        \centering
+        \vspace{-0.2cm}
+        \begin{equation*}
+          \hat{\tau}_{\text{DD}}
+          = \Delta\overline{Y}_{T} - \Delta\overline{Y}_{C}
+        \end{equation*}
+        {\scriptsize Neutralise l'inobservable stable, mais suppose des groupes
+         comparables au départ.}
+      \end{column}
+    \end{columns}
   \end{block}
 \end{frame}
 
-\begin{frame}{Stratégie d'identification, le score de propension (2/4)}
+\begin{frame}{Stratégie d'identification, l'estimateur retenu (2/2)}
   \footnotesize
-  \begin{block}{Appariement par score de propension (PSM)}
-    \vspace{-0.2cm}
-    \begin{equation*}
-      p(X_i) = P(D_i = 1 \mid X_i) = \frac{\exp(X_i'\beta)}{1+\exp(X_i'\beta)}
-    \end{equation*}
-
-    Le vecteur $X_i$ retient, du côté du ménage, l'âge, le genre, l'éducation,
-    le statut matrimonial et la catégorie socioprofessionnelle du chef, la
-    taille, la dépense par tête, le milieu et la région ; du côté de l'enfant,
-    le genre et l'âge.
-  \end{block}
-
-  \smallskip
   \centering
   \begin{tikzpicture}[
       methode/.style = {rounded corners=5pt, draw=#1, line width=1pt, fill=#1!8,
-                        minimum width=3.5cm, minimum height=1.55cm, anchor=north west},
+                        minimum width=3.5cm, minimum height=1.5cm, anchor=north west},
       methode/.default = presvert,
       nom/.style     = {font=\small\bfseries, anchor=north, text width=3.2cm,
                         align=center},
@@ -703,56 +649,37 @@
                         text width=3.2cm, align=center}
     ]
     \node[methode=presorange] (m1) at (0,0) {};
-    \node[nom, text=presorange] at ([yshift=-0.22cm]m1.north) {$k$ plus proches voisins};
-    \node[param] at ([yshift=-0.9cm]m1.north) {$k=4$, avec remise};
+    \node[nom, text=presorange] at ([yshift=-0.2cm]m1.north) {$k$ plus proches voisins};
+    \node[param] at ([yshift=-0.88cm]m1.north) {$k=4$, avec remise};
 
     \node[methode=presvert] (m2) at (3.85,0) {};
-    \node[nom, text=presvert] at ([yshift=-0.22cm]m2.north) {Noyau};
-    \node[param] at ([yshift=-0.9cm]m2.north) {Epanechnikov, fenêtre $h = 0{,}06$};
+    \node[nom, text=presvert] at ([yshift=-0.2cm]m2.north) {Noyau};
+    \node[param] at ([yshift=-0.88cm]m2.north) {Epanechnikov, fenêtre $h = 0{,}06$};
 
     \node[methode=dimeau] (m3) at (7.7,0) {};
-    \node[nom, text=dimeau] at ([yshift=-0.22cm]m3.north) {Caliper};
-    \node[param] at ([yshift=-0.9cm]m3.north) {rayon $0{,}05$, sans remise};
+    \node[nom, text=dimeau] at ([yshift=-0.2cm]m3.north) {Caliper};
+    \node[param] at ([yshift=-0.88cm]m3.north) {rayon $0{,}05$, sans remise};
   \end{tikzpicture}
 
   \smallskip
-  {\footnotesize L'appariement se fait sur le support commun. Le $k$ plus
-   proches voisins fournit l'estimation principale, les deux autres servent
-   de contrôle.}
-\end{frame}
+  {\scriptsize Score de propension logit
+   $p(X_i) = \exp(X_i'\beta)/\bigl(1+\exp(X_i'\beta)\bigr)$, appariement sur le
+   support commun. Le $k$ plus proches voisins fournit l'estimation principale,
+   les deux autres servent de contrôle.}
 
-\begin{frame}{Stratégie d'identification, la double différence (3/4)}
-  \footnotesize
-  \begin{block}{Double différence (DD)}
-    \vspace{-0.2cm}
-    \begin{equation*}
-      \hat{\tau}_{\text{DD}}
-      = \bigl(\overline{Y}_{T,t_2}-\overline{Y}_{T,t_1}\bigr)
-      - \bigl(\overline{Y}_{C,t_2}-\overline{Y}_{C,t_1}\bigr)
-    \end{equation*}
-
-    Élimine les déterminants inobservés stables, mais suppose des groupes
-    comparables au départ.
-  \end{block}
-\end{frame}
-
-\begin{frame}{Stratégie d'identification, l'estimateur retenu (4/4)}
-  \footnotesize
+  \smallskip
   \begin{alertblock}{PSM-double différence}
     \vspace{-0.2cm}
     \begin{equation*}
       \hat{\tau}_{\text{PSM-DD}}
       = \frac{1}{n_T}\sum_{i\in\mathcal{T}}
-        \Bigl[\underbrace{Y_{i,t_2}-Y_{i,t_1}}_{\Delta Y_i}
-        - \sum_{j\in\mathcal{C}} w_{ij}\,\Delta Y_j\Bigr]
+        \Bigl[\Delta Y_i - \sum_{j\in\mathcal{C}} w_{ij}\,\Delta Y_j\Bigr]
     \end{equation*}
 
-    La double différence porte sur les seuls enfants appariés, chaque témoin
-    entrant avec son poids $w_{ij}$.
+    Les deux limites se compensent : l'appariement rend les groupes comparables
+    sur l'observable, la double différence neutralise l'inobservable stable
+    (Heckman \emph{et al.}, 1997).
   \end{alertblock}
-
-  \bandeau{presvert}{0.93\linewidth}{Apport de la combinaison}{%
-    Les deux limites se compensent : l'appariement rend les groupes comparables sur l'observable, la double différence neutralise l'inobservable stable (Heckman et al., 1997).}
 \end{frame}
 
 % ============================================================
@@ -763,60 +690,64 @@
 
 \begin{frame}{État des lieux de la pauvreté multidimensionnelle des enfants}
   \begin{columns}[T]
-    \begin{column}{0.48\textwidth}
-      \begin{block}{Résultats MODA ($k=4$), ensemble des enfants}
-        \centering\smallskip\footnotesize
-        \setlength{\tabcolsep}{5pt}
-        \begin{tabular}{@{}lccc@{}}
-          \toprule
-          \rowcolor{presvert!88!black}
-          \color{white}Indicateur & \color{white}2018-19 & \color{white}2021-22 & \color{white}$\Delta$ \\
-          \midrule
-          \rowcolor{presvert!7}
-          Incidence     & 63,5\,\% & 57,8\,\% & $-5{,}7$ pp \\
-          Intensité     & 70,7\,\% & 70,3\,\% & $-0{,}4$ pp \\
-          \rowcolor{presvert!7}
-          Indice ajusté & 0,449    & 0,406    & $-0{,}043$ \\
-          \bottomrule
-        \end{tabular}
-      \end{block}
-      \bandeau{presvert}{0.93\linewidth}{Lecture}{%
-    La pauvreté recule nettement en incidence, mais l'intensité reste quasi stable : les enfants pauvres cumulent toujours près de 5 privations sur 7.}
-    \end{column}
-    \begin{column}{0.50\textwidth}
+    \begin{column}{0.53\textwidth}
+      \scriptsize
       \centering
-      \includegraphics[width=\linewidth,height=0.48\textheight,keepaspectratio]{figures/fig_distrib_dimensions.pdf}\\[-2pt]
-      {\scriptsize\color{presgris} Le trait en pointillé marque le seuil retenu, \textbf{$k=4$}.}
+      \renewcommand{\arraystretch}{1.15}
+      \setlength{\tabcolsep}{4pt}
+      \begin{tabular}{lcccc}
+        \toprule
+        \rowcolor{presvert!88!black}
+        & \multicolumn{2}{c}{\color{white}EHCVM I (2018-19)} & \multicolumn{2}{c}{\color{white}EHCVM II (2021-22)} \\
+        \rowcolor{presvert!88!black}
+        \color{white}Sous-groupe & \color{white}Non-bénéf. & \color{white}Bénéf. & \color{white}Non-bénéf. & \color{white}Bénéf. \\
+        \midrule
+        \rowcolor{presvert!7}
+        0-4 ans   & 60,5 & 36,7 & 62,6 & 45,7 \\
+        5-14 ans  & 70,4 & 50,8 & 59,6 & 40,7 \\
+        \rowcolor{presvert!7}
+        15-17 ans & 58,1 & 59,9 & 53,5 & 44,6 \\
+        \midrule
+        Chef homme & 68,3 & 50,0 & 61,9 & 46,0 \\
+        \rowcolor{presvert!7}
+        Chef femme & 59,3 & 38,7 & 54,2 & 35,6 \\
+        \bottomrule
+      \end{tabular}
+
+      \smallskip
+      \bandeau{presorange}{0.95\linewidth}{L'écart se referme chez les 0-4 ans}{%
+        L'avantage des bénéficiaires passe de 23,7 à 16,9 points, tiré par la
+        nutrition. Les 15-17 ans, 445 enfants suivis, appellent une lecture
+        prudente.}
+    \end{column}
+    \begin{column}{0.45\textwidth}
+      \scriptsize
+      \centering
+      \renewcommand{\arraystretch}{1.15}
+      \setlength{\tabcolsep}{5pt}
+      \begin{tabular}{@{}lccc@{}}
+        \toprule
+        \rowcolor{presvert!88!black}
+        \color{white}Ensemble & \color{white}2018-19 & \color{white}2021-22 & \color{white}$\Delta$ \\
+        \midrule
+        \rowcolor{presvert!7}
+        Incidence     & 63,5\,\% & 57,8\,\% & $-5{,}7$ pp \\
+        Intensité     & 70,7\,\% & 70,3\,\% & $-0{,}4$ pp \\
+        \rowcolor{presvert!7}
+        Indice ajusté & 0,449    & 0,406    & $-0{,}043$ \\
+        \bottomrule
+      \end{tabular}
+
+      \smallskip
+      \bandeau{presvert}{0.95\linewidth}{Lecture}{%
+        La pauvreté recule nettement en incidence, mais l'intensité reste quasi
+        stable : les enfants pauvres cumulent toujours près de 5 privations
+        sur 7.}
+
+      \smallskip
+      \hyperlink{distrib-dimensions}{\beamergotobutton{Distribution des privations}}
     \end{column}
   \end{columns}
-\end{frame}
-
-\begin{frame}{Incidence MODA par groupe d'âge, par genre du chef et statut du ménage}
-  \scriptsize
-  \begin{table}
-    \centering
-    \renewcommand{\arraystretch}{1.15}
-    \begin{tabular}{lcccc}
-      \toprule
-      \rowcolor{presvert!88!black}
-      & \multicolumn{2}{c}{\color{white}EHCVM I (2018-19)} & \multicolumn{2}{c}{\color{white}EHCVM II (2021-22)} \\
-      \rowcolor{presvert!88!black}
-      \color{white}Sous-groupe & \color{white}Non-bénéf. & \color{white}Bénéf. & \color{white}Non-bénéf. & \color{white}Bénéf. \\
-      \midrule
-      \rowcolor{presvert!7}
-      0-4 ans   & 60,5 & 36,7 & 62,6 & 45,7 \\
-      5-14 ans  & 70,4 & 50,8 & 59,6 & 40,7 \\
-      \rowcolor{presvert!7}
-      15-17 ans & 58,1 & 59,9 & 53,5 & 44,6 \\
-      \midrule
-      Chef homme & 68,3 & 50,0 & 61,9 & 46,0 \\
-      \rowcolor{presvert!7}
-      Chef femme & 59,3 & 38,7 & 54,2 & 35,6 \\
-      \bottomrule
-    \end{tabular}
-  \end{table}
-  \bandeau{presorange}{0.93\linewidth}{L'écart se referme chez les 0-4 ans}{%
-    L'avantage des bénéficiaires passe de 23,7 à 16,9 points, tiré par la nutrition. Les 15-17 ans, 445 enfants suivis, appellent une lecture prudente.}
 \end{frame}
 
 \begin{frame}{Évolution de l'incidence selon le statut du ménage}
@@ -930,21 +861,39 @@
 
 \subsection{Tests de robustesse}
 
-\begin{frame}[label=discussion-usage]{Tests de robustesse}
+\begin{frame}[label=discussion-usage]{Tests de robustesse et bilan des hypothèses}
+  \footnotesize
   \begin{block}{Sensibilité des résultats}
     \begin{itemize}
+      \setlength{\itemsep}{1pt}
       \item Méthodes d'appariement (k-NN, noyau, caliper) : effet de
             $0{,}050$ à $0{,}064$, k-NN significatif à 5\,\%, noyau et
             caliper à 10\,\%.
-      \item Seuil $k$, testé de 1 à 7 : ampleur en courbe de cloche,
-            maximale à $k=4$ et significative seulement à $k=2$, $k=3$ et
-            $k=4$ : l'effet se joue au milieu de la distribution des
-            privations, pas dans son noyau.
-      \item Sans appariement, sur tous les enfants suivis :
-            $0{,}035$, non significatif, même signe et ampleur atténuée,
-            l'avantage initial des bénéficiaires n'étant pas corrigé.
+      \item Seuil $k$, testé de 1 à 7 : ampleur en courbe de cloche, maximale
+            à $k=4$ et significative seulement de $k=2$ à $k=4$ : l'effet se
+            joue au milieu de la distribution des privations.
+      \item Sans appariement, sur tous les enfants suivis : $0{,}035$, non
+            significatif, même signe et ampleur atténuée.
     \end{itemize}
   \end{block}
+
+  \centering
+  \renewcommand{\arraystretch}{1.35}
+  \setlength{\tabcolsep}{9pt}
+  \begin{tabular}{@{}clll@{}}
+    \toprule
+    \rowcolor{presvert!88!black}
+    \color{white}Hyp. & \color{white}Énoncé & \color{white}Résultat & \color{white}Décision \\
+    \midrule
+    \rowcolor{presorange!16}
+    H1 & Réduction de la pauvreté & ATT de $0{,}064^{**}$ & Non validée \\
+    \rowcolor{presvert!10}
+    H2 & Hétérogénéité des effets & Nutrition et 0-4 ans & Partiellement validée \\
+    \bottomrule
+  \end{tabular}
+  \par\smallskip
+  {\scriptsize\color{presgris} $^{**}p<0{,}05$. L'hétérogénéité n'est établie ni
+   par milieu, ni par genre du chef, ni par tranche d'âge.}
 \end{frame}
 
 \begin{frame}{Sensibilité à la définition du traitement}
@@ -1034,29 +983,6 @@
   \end{tikzpicture}
 \end{frame}
 
-\begin{frame}{Validation des hypothèses}
-  \begin{table}
-    \centering
-    \caption{Bilan des hypothèses de recherche}
-    \footnotesize
-    \renewcommand{\arraystretch}{1.6}
-    \setlength{\tabcolsep}{10pt}
-    \begin{tabular}{@{}clll@{}}
-      \toprule
-      \rowcolor{presvert!88!black}
-      \color{white}Hyp. & \color{white}Énoncé & \color{white}Résultat & \color{white}Décision \\
-      \midrule
-      \rowcolor{presorange!16}
-      H1 & Réduction de la pauvreté & ATT de $0{,}064^{**}$ & Non validée \\
-      \rowcolor{presvert!10}
-      H2 & Hétérogénéité des effets & Nutrition et 0-4 ans & Partiellement validée \\
-      \bottomrule
-    \end{tabular}
-    \par\smallskip
-    {\scriptsize\color{presgris} $^{**}p<0{,}05$. L'hétérogénéité n'est établie ni par milieu,
-     ni par genre du chef, ni par tranche d'âge.}
-  \end{table}
-\end{frame}
 
 % ============================================================
 \section[Conclusion]{Conclusion et recommandations}
@@ -1112,33 +1038,40 @@
 
 \subsection{Limites et perspectives}
 
-\begin{frame}{Limites de l'étude}
-  \small
-  \begin{alertblock}{Limites du dispositif}
-    \begin{itemize}
-      \item Tendances parallèles non testables directement, deux vagues
-            seulement étant disponibles. L'appariement sur les niveaux
-            initiaux rend l'hypothèse plus crédible.
-      \item Vieillissement des enfants entre les deux enquêtes, chacun étant
-            évalué sur la grille de son âge courant.
-    \end{itemize}
-  \end{alertblock}
-  \bandeau{presvert}{0.93\linewidth}{Choix de mesure}{%
-    Nutrition et santé reposent sur les seuls indicateurs comparables entre les deux vagues. Un indicateur redéfini entre 2018 et 2021 produirait un effet sans contenu causal.}
-\end{frame}
+\begin{frame}{Limites et perspectives}
+  \footnotesize
+  \begin{columns}[T]
+    \begin{column}{0.48\linewidth}
+      \begin{alertblock}{Limites du dispositif}
+        \begin{itemize}
+          \setlength{\itemsep}{1pt}
+          \item Tendances parallèles non testables directement, deux vagues
+                seulement étant disponibles. L'appariement sur les niveaux
+                initiaux rend l'hypothèse plus crédible.
+          \item Vieillissement des enfants entre les deux enquêtes, chacun
+                étant évalué sur la grille de son âge courant.
+        \end{itemize}
+      \end{alertblock}
+    \end{column}
+    \begin{column}{0.48\linewidth}
+      \begin{block}{Prolongements envisagés}
+        \begin{itemize}
+          \setlength{\itemsep}{1pt}
+          \item Analyser les mécanismes de transmission, à travers les dépenses
+                d'éducation, de santé et de logement.
+          \item Intégrer la durée d'exposition aux transferts et leurs usages
+                effectifs, que le statut binaire ne capte pas.
+          \item Étendre l'analyse aux autres pays de l'UEMOA couverts par
+                l'EHCVM, dont le questionnaire est harmonisé.
+        \end{itemize}
+      \end{block}
+    \end{column}
+  \end{columns}
 
-\begin{frame}{Perspectives de recherche}
-  \small
-  \begin{block}{Prolongements envisagés}
-    \begin{itemize}
-      \item Analyser les mécanismes de transmission, à travers les dépenses
-            d'éducation, de santé et de logement.
-      \item Intégrer la durée d'exposition aux transferts et leurs usages
-            effectifs, que le statut binaire ne capte pas.
-      \item Étendre l'analyse aux autres pays de l'UEMOA couverts par l'EHCVM,
-            dont le questionnaire est harmonisé.
-    \end{itemize}
-  \end{block}
+  \bandeau{presvert}{0.93\linewidth}{Choix de mesure}{%
+    Nutrition et santé reposent sur les seuls indicateurs comparables entre les
+    deux vagues. Un indicateur redéfini entre 2018 et 2021 produirait un effet
+    sans contenu causal.}
 \end{frame}
 
 % -- Diapositive de clôture ----------------------------------
@@ -1165,6 +1098,12 @@
 % ANNEXE : matrice MODA complète + distributions spatiales
 % ============================================================
 \appendix
+
+\begin{frame}[label=distrib-dimensions]{Distribution des privations cumulées par enfant}
+  \centering
+  \includegraphics[width=0.78\linewidth,height=0.62\textheight,keepaspectratio]{figures/fig_distrib_dimensions.pdf}\\[2pt]
+  {\scriptsize\color{presgris} Le trait en pointillé marque le seuil retenu, \textbf{$k=4$}.}
+\end{frame}
 
 \begin{frame}[label=motifs-transferts]{Le traitement, les transferts de migrants en pratique}
   \footnotesize
