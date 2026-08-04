@@ -355,20 +355,34 @@
 \subsection{Contexte et motivation}
 
 \begin{frame}{Contexte général}
-  \begin{block}{{\color{presorange}\faHandHoldingUsd}~~Place des transferts de migrants dans l'économie sénégalaise}
-    \begin{itemize}
-      \item De 233 millions de dollars en 2000 à \chiffre{2\,220 millions} en 2017, soit de 166 à 1\,242 milliards de FCFA.
-      \item \chiffre{12,1\,\%} du PIB : quatrième récepteur d'Afrique subsaharienne (ANSD/OIM, 2018).
-      \item Des montants reçus dont l'ordre de grandeur avoisine le seuil de pauvreté monétaire annuel par tête.
-    \end{itemize}
-  \end{block}
-  \begin{alertblock}{{\color{presorange}\faChild}~~Des privations infantiles d'une ampleur considérable}
-    \begin{itemize}
-      \item \chiffre{50,7\,\%} des enfants de 0 à 17 ans privés dans au moins 4 des 7 domaines de leur bien-être en 2018 (ANSD/UNICEF, 2024).
-      \item Domaines : éducation, santé, nutrition, eau, assainissement, logement, protection.
-      \item Des manques qui échappent largement aux mesures fondées sur le seul revenu du ménage.
-    \end{itemize}
-  \end{alertblock}
+  % les deux panneaux sont decales en escalier : le second est rentre
+  % de 0,12\textwidth et un filet relie la marche
+  \noindent\begin{minipage}{0.88\textwidth}
+    \begin{block}{{\color{presorange}\faHandHoldingUsd}~~Place des transferts de migrants dans l'économie sénégalaise}
+      \begin{itemize}
+        \item De 233 millions de dollars en 2000 à \chiffre{2\,220 millions} en 2017, soit de 166 à 1\,242 milliards de FCFA.
+        \item \chiffre{12,1\,\%} du PIB : quatrième récepteur d'Afrique subsaharienne (ANSD/OIM, 2018).
+        \item Des montants reçus dont l'ordre de grandeur avoisine le seuil de pauvreté monétaire annuel par tête.
+      \end{itemize}
+    \end{block}
+  \end{minipage}
+
+  \nointerlineskip
+  \noindent\hspace*{0.055\textwidth}%
+  \begin{tikzpicture}[baseline=0pt]
+    \draw[presvert!45, line width=1.4pt, line cap=round, line join=round]
+      (0,0.30) -- (0,-0.16) -- (0.62,-0.16);
+  \end{tikzpicture}
+
+  \noindent\hspace*{0.12\textwidth}\begin{minipage}{0.88\textwidth}
+    \begin{alertblock}{{\color{presorange}\faChild}~~Des privations infantiles d'une ampleur considérable}
+      \begin{itemize}
+        \item \chiffre{50,7\,\%} des enfants de 0 à 17 ans privés dans au moins 4 des 7 domaines de leur bien-être en 2018 (ANSD/UNICEF, 2024).
+        \item Domaines : éducation, santé, nutrition, eau, assainissement, logement, protection.
+        \item Des manques qui échappent largement aux mesures fondées sur le seul revenu du ménage.
+      \end{itemize}
+    \end{alertblock}
+  \end{minipage}
 \end{frame}
 
 \subsection{Problématique et objectifs}
