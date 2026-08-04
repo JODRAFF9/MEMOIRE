@@ -169,7 +169,7 @@
 % de 0,7 pt vers le bas et la droite, puis une seconde fois par-dessus.
 % \rlap ne consomme aucune largeur : la composition reste identique.
 \newcommand{\ombretexte}[1]{%
-  \rlap{\kern0.7pt\raisebox{-0.7pt}{\color{black!55}#1}}#1}
+  \leavevmode\rlap{\kern0.7pt\raisebox{-0.7pt}{\color{black!55}#1}}#1}
 
 % Le titre de diapositive recoit l'ombre sans que le gabarit du theme
 % soit remplace : seul le texte du titre est enrobe dans le modele
@@ -364,12 +364,12 @@
                        text width=3.5cm, align=left, inner sep=0pt}
     ]
     \foreach \i/\x/\y/\t/\r in {%
-      1/0/0/{Introduction}/{Contexte, problématique et objectifs},
-      2/4.2/0/{Revue de la littérature}/{Motivations, effets documentés et lacune},
-      3/8.4/0/{Cadre méthodologique}/{Données, mesure MODA et identification},
-      4/0/-2.9/{Résultats empiriques}/{Effet moyen, dimensions et montants},
-      5/4.2/-2.9/{Robustesse et discussion}/{Ce qui tient et comment le lire},
-      6/8.4/-2.9/{Conclusion}/{Enseignements et recommandations}}
+      1/0/0/{Introduction}/{Contexte, problématique\\et objectifs},
+      2/4.2/0/{Revue de la littérature}/{Motivations, effets\\documentés et lacune},
+      3/8.4/0/{Cadre méthodologique}/{Données, mesure MODA\\et identification},
+      4/0/-2.9/{Résultats empiriques}/{Effet moyen, dimensions\\et montants},
+      5/4.2/-2.9/{Robustesse et discussion}/{Ce qui tient et\\comment le lire},
+      6/8.4/-2.9/{Conclusion}/{Enseignements et\\recommandations}}
       {
         \node[numero] at (\x,\y) {\i};
         \node[titre]  at (\x+0.95,\y-0.28) {\t};
@@ -468,8 +468,8 @@
     \node[text=dimsante, font=\LARGE] at ([yshift=-0.5cm]a.north) {\faHeart};
     \node[titre, text=dimsante] at ([yshift=-0.95cm]a.north) {Altruisme};
     \node[detail] at ([yshift=-1.5cm]a.north)
-      {Le migrant intègre le bien-être des siens dans son utilité : les
-       transferts décroissent avec le revenu du receveur};
+      {Le migrant intègre le bien-être des siens : le transfert décroît
+       avec le revenu reçu};
     \node[source] at ([yshift=0.12cm]a.south) {Lucas \& Stark, 1985};
 
     % interet personnel et echange
@@ -477,8 +477,8 @@
     \node[text=dimeduc, font=\LARGE] at ([yshift=-0.5cm]b.north) {\faHandshake};
     \node[titre, text=dimeduc] at ([yshift=-0.95cm]b.north) {Intérêt et échange};
     \node[detail] at ([yshift=-1.5cm]b.north)
-      {Le transfert préserve un héritage ou rembourse la dette du départ : il
-       suit la capacité à rendre, non le besoin};
+      {Le transfert préserve un héritage ou rembourse la dette du
+       départ};
     \node[source] at ([yshift=0.12cm]b.south) {Rapoport \& Docquier, 2006};
 
     % diversification du risque
@@ -486,8 +486,8 @@
     \node[text=dimeau, font=\LARGE] at ([yshift=-0.5cm]c.north) {\faUmbrella};
     \node[titre, text=dimeau] at ([yshift=-0.95cm]c.north) {Assurance};
     \node[detail] at ([yshift=-1.5cm]c.north)
-      {Le ménage place un membre sur un marché du travail décorrélé du sien :
-       les transferts couvrent les chocs};
+      {Un membre placé sur un marché décorrélé : les transferts couvrent
+       les chocs};
     \node[source] at ([yshift=0.12cm]c.south) {Stark \& Bloom, 1985};
 
     % marches d'escalier tracees sous les trois cartouches
