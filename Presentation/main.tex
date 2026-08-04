@@ -336,16 +336,21 @@
 \date{Août 2026}
 
 % ============================================================
+% -- Ombre portee sur le titre de la page de garde ------------
+% L'enrobage se fait ici, et non dans le cadre de garde : beamer relit
+% le corps d'un cadre avec ses propres catcodes, si bien qu'un
+% \makeatletter pose a l'interieur reste sans effet et laisse
+% apparaitre le nom de la macro auxiliaire.
+\makeatletter
+\let\memoire@titreoriginal\inserttitle
+\renewcommand{\inserttitle}{\ombretexte{\memoire@titreoriginal}}
+\makeatother
+
 \begin{document}
 % ============================================================
 
 % -- Page de garde (sans en-tête) ----------------------------
 \begin{frame}[plain,noframenumbering]
-  % l'ombre est posee sur le seul titre, en enrobant \inserttitle
-  \makeatletter
-  \let\memoire@titre\inserttitle
-  \renewcommand{\inserttitle}{\ombretexte{\memoire@titre}}
-  \makeatother
   \titlepage
 \end{frame}
 
