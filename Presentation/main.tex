@@ -459,7 +459,7 @@
   \centering
   \begin{tikzpicture}[
       motif/.style  = {relief, rounded corners=6pt, draw=#1, line width=1.1pt, fill=#1!8,
-                       minimum width=3.85cm, minimum height=2.8cm, anchor=north west},
+                       minimum width=3.85cm, minimum height=3.05cm, anchor=north west},
       motif/.default = presvert,
       titre/.style  = {font=\small\bfseries, anchor=north, text width=3.45cm,
                        align=center},
@@ -468,10 +468,10 @@
       source/.style = {font=\scriptsize\itshape, text=presgris, anchor=south}
     ]
     % altruisme
-    \node[motif=dimsante] (a) at (0,0) {};
-    \node[text=dimsante, font=\LARGE] at ([yshift=-0.5cm]a.north) {\faUsers};
-    \node[titre, text=dimsante] at ([yshift=-0.95cm]a.north) {Altruisme};
-    \node[detail] at ([yshift=-1.5cm]a.north)
+    \node[motif=dimnutri] (a) at (0,0) {};
+    \node[text=dimnutri, font=\LARGE] at ([yshift=-0.5cm]a.north) {\faUsers};
+    \node[titre, text=dimnutri] at ([yshift=-0.95cm]a.north) {Altruisme};
+    \node[detail] at ([yshift=-1.45cm]a.north)
       {Le migrant intègre le bien-être des siens : le transfert décroît
        avec le revenu reçu};
     \node[source] at ([yshift=0.12cm]a.south) {Lucas \& Stark, 1985};
@@ -480,7 +480,7 @@
     \node[motif=dimeduc] (b) at (4.2,-0.6) {};
     \node[text=dimeduc, font=\LARGE] at ([yshift=-0.5cm]b.north) {\faHandshake};
     \node[titre, text=dimeduc] at ([yshift=-0.95cm]b.north) {Intérêt et échange};
-    \node[detail] at ([yshift=-1.5cm]b.north)
+    \node[detail] at ([yshift=-1.45cm]b.north)
       {Le transfert préserve un héritage ou rembourse la dette du
        départ};
     \node[source] at ([yshift=0.12cm]b.south) {Rapoport \& Docquier, 2006};
@@ -489,7 +489,7 @@
     \node[motif=dimeau] (c) at (8.4,-1.2) {};
     \node[text=dimeau, font=\LARGE] at ([yshift=-0.5cm]c.north) {\faUmbrella};
     \node[titre, text=dimeau] at ([yshift=-0.95cm]c.north) {Assurance};
-    \node[detail] at ([yshift=-1.5cm]c.north)
+    \node[detail] at ([yshift=-1.45cm]c.north)
       {Un membre placé sur un marché décorrélé : les transferts couvrent
        les chocs};
     \node[source] at ([yshift=0.12cm]c.south) {Stark \& Bloom, 1985};
