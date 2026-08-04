@@ -347,38 +347,17 @@
 
 % ============================================================
 % -- Frame d'appel a l'ouverture de chaque section ------------
-% Les six entrees du plan sont rappelees ; celle qui s'ouvre est seule
-% en couleur, les autres restent en gris. Le cadre ne porte pas de
-% numero, pour ne pas gonfler le compteur du pied de page.
+% Le seul titre de la section qui s'ouvre, en grand, precede de son
+% numero. Le cadre ne porte pas de numero, pour ne pas gonfler le
+% compteur du pied de page.
 \AtBeginSection[]{%
   \begin{frame}[plain,noframenumbering]
     \semis{south east}{-3.4}{2.8}{0.14}{707}%
     \vfill
     \centering
-    \begin{tikzpicture}[
-        numero/.style = {font=\Large\bfseries, anchor=east},
-        nom/.style    = {font=\small, anchor=west, text width=6.2cm}
-      ]
-      \foreach \i/\t [count=\r] in {%
-        1/{Introduction},
-        2/{Revue de la littérature},
-        3/{Cadre méthodologique},
-        4/{Résultats empiriques},
-        5/{Robustesse et discussion},
-        6/{Conclusion et recommandations}}
-        {
-          \ifnum\i=\thesection\relax
-            \node[numero, text=presorange] at (0,-0.72*\r) {\i};
-            \node[nom, text=presor, font=\small\bfseries]
-              at (0.45,-0.72*\r) {\t};
-            \draw[presorange, line width=1.4pt, line cap=round]
-              (0.5,-0.72*\r-0.3) -- (2.3,-0.72*\r-0.3);
-          \else
-            \node[numero, text=presgris!45] at (0,-0.72*\r) {\i};
-            \node[nom, text=presgris!75] at (0.45,-0.72*\r) {\t};
-          \fi
-        }
-    \end{tikzpicture}
+    {\color{presvert!35}\fontsize{56}{56}\selectfont\bfseries \thesection}\\[0.35cm]
+    {\color{presor}\LARGE\bfseries \insertsection}\\[0.35cm]
+    {\color{presorange}\rule{2.2cm}{1.6pt}}
     \vfill
   \end{frame}}
 
