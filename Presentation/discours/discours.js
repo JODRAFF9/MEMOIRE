@@ -107,7 +107,7 @@ corps.push(attaque("Monsieur le Président du jury, mesdames et messieurs, bonjo
 corps.push(dire(
   "Je vous remercie de votre présence. Je vais vous présenter les résultats de mon mémoire de fin d'études, " +
   "consacré à l'impact des transferts de migrants sur la pauvreté multidimensionnelle des enfants au Sénégal. " +
-  "Ce travail a été mené sous la direction de Monsieur Mamadou Abdoulaye Diallo, que je remercie pour son " +
+  "Ce travail a été mené sous la direction du Docteur Mamadou Abdoulaye Diallo, que je remercie pour son " +
   "accompagnement."
 ));
 corps.push(geste("Marquer un temps. Passer à la diapositive du plan."));
