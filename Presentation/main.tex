@@ -55,57 +55,62 @@
 \setbeamercolor{subitem}{fg=marronmed}
 
 
-% -- Page de garde personnalisée avec TikZ ------------------
+% -- Page de garde ------------------------------------------
+% Fond blanc, un seul bandeau, le titre pose librement et de larges
+% respirations entre les quatre blocs : republique, ecole, titre,
+% signatures.
 \setbeamercolor{author}{fg=black}
 \setbeamercolor{institute}{fg=gray!70!black}
 
 \makeatletter
 \setbeamertemplate{title page}{%
-  % Semis de pastilles en fond de l'angle superieur droit.
-  \semis{north east}{-5.4}{-6.2}{0.28}{2026}%
+  \semis{south east}{-5.2}{5.8}{0.20}{2026}%
   \begin{tikzpicture}[remember picture,overlay]
-    \fill[presvert!6] (current page.south west) rectangle (current page.north east);
-    % bandeau superieur bleu ENSAE
-    \fill[presvert] (current page.north west) rectangle ([yshift=-0.95cm]current page.north east);
+    % bandeau superieur, seul aplat de la page
+    \fill[presvert] (current page.north west)
+      rectangle ([yshift=-0.85cm]current page.north east);
     \node[anchor=west,text=white,font=\scriptsize\bfseries]
-      at ([xshift=0.55cm,yshift=-0.48cm]current page.north west) {Présentation du mémoire};
+      at ([xshift=0.9cm,yshift=-0.43cm]current page.north west)
+      {République du Sénégal\ \ \textbullet\ \ Un Peuple, Un But, Une Foi};
     \node[anchor=east,text=white,font=\scriptsize\bfseries]
-      at ([xshift=-0.55cm,yshift=-0.48cm]current page.north east) {ENSAE Pierre Ndiaye};
+      at ([xshift=-0.9cm,yshift=-0.43cm]current page.north east)
+      {ENSAE Pierre Ndiaye};
   \end{tikzpicture}%
 
   \begin{center}
-    \vspace{0.48cm}
-    {\footnotesize\scshape République du Sénégal}\\[1pt]
-    {\tiny Un Peuple - Un But - Une Foi}\\[5pt]
-    % -- structure d'accueil --
-    \includegraphics[height=1.15cm]{figures/logo_ensae_new.png}\\[3pt]
-    {\scriptsize\color{presvert}Ecole nationale de la statistique \\ et de l'analyse économique}\par
-    \vspace{0.26cm}
-    % -- encadre titre (bleu ENSAE, lisere cyan) --
-    \begin{tikzpicture}
-      \node[fill=presvert,draw=presvertc,line width=0.8pt,rounded corners=8pt,
-            inner xsep=14pt,inner ysep=8pt,text width=0.80\paperwidth,align=center,
-            text=white,font=\large\bfseries] {\inserttitle};
-    \end{tikzpicture}\par
-    \vspace{0.22cm}
-    % -- auteur / encadreur --
-    \begin{minipage}[t]{0.43\paperwidth}\centering
-      {\scriptsize\color{presor}\bfseries Présenté par :}\\[2pt]
-      {\small Sié Rachid \textsc{Traoré}}\\[1pt]
+    \vspace{1.05cm}
+
+    % -- ecole : le logo et le nom sur une meme ligne --------
+    \includegraphics[height=1.05cm]{figures/logo_ensae_new.png}\hspace{0.35cm}%
+    \raisebox{0.28cm}{\parbox{5.4cm}{\raggedright\scriptsize\color{presor}
+      \textbf{École nationale de la statistique\\ et de l'analyse économique}}}
+
+    \vspace{0.95cm}
+
+    % -- titre, pose librement, souligne d'un filet ----------
+    {\color{presor}\Large\bfseries
+     \parbox{0.86\paperwidth}{\centering
+       \hyphenpenalty=10000\exhyphenpenalty=10000\relax
+       \inserttitle}\par}
+    \vspace{0.38cm}
+    {\color{presorange}\rule{2.6cm}{1.6pt}}
+
+    \vspace{0.8cm}
+
+    % -- signatures ------------------------------------------
+    \begin{minipage}[t]{0.42\paperwidth}\centering
+      {\scriptsize\color{presgris}Présenté par}\\[3pt]
+      {\normalsize\bfseries Sié Rachid \textsc{Traoré}}\\[2pt]
       {\scriptsize\itshape\color{presgris} Élève ingénieur statisticien économiste}
     \end{minipage}\hfill
-    \begin{minipage}[t]{0.43\paperwidth}\centering
-      {\scriptsize\color{presor}\bfseries Sous la direction de :}\\[2pt]
-      {\small Mamadou Abdoulaye \textsc{Diallo}}\\[1pt]
+    \begin{minipage}[t]{0.42\paperwidth}\centering
+      {\scriptsize\color{presgris}Sous la direction de}\\[3pt]
+      {\normalsize\bfseries Mamadou Abdoulaye \textsc{Diallo}}\\[2pt]
       {\scriptsize\itshape\color{presgris} Chercheur postdoctoral en économie appliquée, ISE}
     \end{minipage}\par
-    \vspace{0.22cm}
-    % -- date (pastille) --
-    \begin{tikzpicture}
-      \node[draw=presnuit,fill=presnuit!12,rounded corners=4pt,
-            inner xsep=12pt,inner ysep=4pt,text=presor,font=\small\bfseries]
-        {\insertdate};
-    \end{tikzpicture}
+
+    \vspace{0.75cm}
+    {\small\color{presvert}\bfseries\insertdate}
   \end{center}%
 }
 \makeatother
