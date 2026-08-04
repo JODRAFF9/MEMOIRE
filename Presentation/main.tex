@@ -625,7 +625,7 @@
   \centering
   \begin{tikzpicture}[
       indice/.style  = {relief, rounded corners=6pt, draw=#1, line width=1.1pt,
-                        fill=#1!8, minimum width=3.5cm, minimum height=3.4cm,
+                        fill=#1!8, minimum width=3.5cm, minimum height=3.7cm,
                         anchor=north west},
       indice/.default = presvert,
       lettre/.style  = {font=\LARGE\bfseries, anchor=north},
@@ -638,22 +638,23 @@
     \node[lettre, text=presvert] at ([yshift=-0.18cm]h.north) {$H$};
     \node[nom, text=presvert]    at ([yshift=-1.02cm]h.north) {Incidence};
     \node[form] at ([yshift=-1.5cm]h.north) {$\displaystyle H = \frac{q}{n}$};
-    \node[glose] at ([yshift=-2.42cm]h.north)
-      {Part des enfants privés dans au moins $k$ dimensions};
+    \node[glose] at ([yshift=-2.38cm]h.north)
+      {$q$ enfants privés dans au moins $k$ dimensions, sur $n$ enfants};
 
     \node[indice=dimeduc] (a) at (3.85,0) {};
     \node[lettre, text=dimeduc] at ([yshift=-0.18cm]a.north) {$A$};
     \node[nom, text=dimeduc]    at ([yshift=-1.02cm]a.north) {Intensité};
     \node[form] at ([yshift=-1.5cm]a.north)
-      {$\displaystyle A = \frac{1}{q}\sum_{i} c_i(k)$};
-    \node[glose] at ([yshift=-2.42cm]a.north)
-      {Privations cumulées en moyenne par enfant pauvre};
+      {$\displaystyle A = \frac{1}{q\,d}\sum_{i=1}^{q} c_i(k)$};
+    \node[glose] at ([yshift=-2.38cm]a.north)
+      {$c_i(k)$ : privations de l'enfant $i$, censurées sous le seuil ;
+       $d = 7$ dimensions};
 
     \node[indice=presorange] (m) at (7.7,0) {};
     \node[lettre, text=presorange] at ([yshift=-0.18cm]m.north) {$M_0$};
     \node[nom, text=presorange]    at ([yshift=-1.02cm]m.north) {Indice ajusté};
     \node[form] at ([yshift=-1.62cm]m.north) {$\displaystyle M_0 = H \times A$};
-    \node[glose] at ([yshift=-2.42cm]m.north)
+    \node[glose] at ([yshift=-2.38cm]m.north)
       {Sensible au nombre de pauvres et à ce qu'ils cumulent};
   \end{tikzpicture}
 
