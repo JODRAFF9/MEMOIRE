@@ -165,10 +165,11 @@
 \newcommand{\chiffre}[1]{{\bfseries\large #1}}
 
 % -- Bandeau a onglet ----------------------------------------
-% [#1] modele de titre : o onglet plein, b barre pleine largeur,
-% f titre souligne d'un filet, p titre precede d'une pastille. Sans
-% argument, les quatre modeles se succedent, le compteur repartant a
-% zero au debut de chaque cadre. L'intitule reste toujours aligne a
+% [#1] modele de titre : o onglet plein, f titre souligne d'un filet,
+% r ruban a replis lateraux, p titre precede d'une pastille, b barre
+% pleine largeur. Sans argument, les cinq modeles se succedent, le
+% compteur repartant a zero au debut de chaque cadre. L'intitule est
+% toujours aligne a
 % gauche sur le corps : seule sa mise en forme change.
 % #2 teinte, #3 largeur, #4 intitule, #5 corps.
 % La largeur est donnee en fraction de \linewidth : le bandeau s'adapte
@@ -178,9 +179,10 @@
   \ifstrequal{#1}{a}{%
     \ifcase\numexpr\value{bandeaumotif}\relax
       \def\bandeaucote{o}\or\def\bandeaucote{f}%
-      \or\def\bandeaucote{p}\else\def\bandeaucote{b}\fi
+      \or\def\bandeaucote{r}\or\def\bandeaucote{p}%
+      \else\def\bandeaucote{b}\fi
     \stepcounter{bandeaumotif}%
-    \ifnum\value{bandeaumotif}>3 \setcounter{bandeaumotif}{0}\fi
+    \ifnum\value{bandeaumotif}>4 \setcounter{bandeaumotif}{0}\fi
   }{\def\bandeaucote{#1}}%
   \begin{tikzpicture}
     \node[fill=#2!8, rounded corners=4pt, text width=#3, align=justify,
@@ -201,6 +203,17 @@
           (tete) at ([yshift=3pt]corps.north west) {#4};
         \draw[#2!62!black, line width=1.6pt, line cap=round]
           ([yshift=1pt]corps.north west) -- ([yshift=1pt]corps.north east);}{%
+        \ifstrequal{\bandeaucote}{r}{%
+          % ruban : onglet a angles vifs, flanque de deux replis. Il est
+          % rentre de 0,32 cm pour que les replis tombent sur le bord du
+          % panneau sans deborder de la colonne.
+          \node[fill=#2, text=white, minimum height=0.62cm, inner xsep=12pt,
+                font=\footnotesize\bfseries, anchor=south west]
+            (tete) at ([xshift=0.32cm]corps.north west) {#4};
+          \fill[#2!62!black] ([xshift=-0.32cm]tete.north west)
+            -- (tete.north west) -- (tete.south west) -- cycle;
+          \fill[#2!62!black] ([xshift=0.32cm]tete.north east)
+            -- (tete.north east) -- (tete.south east) -- cycle;}{%
         \ifstrequal{\bandeaucote}{p}{%
           % pastille pleine puis intitule dans la teinte
           \node[text=#2!70!black, minimum height=0.5cm, inner ysep=3pt,
@@ -212,7 +225,7 @@
                 inner xsep=12pt, font=\footnotesize\bfseries, anchor=south west]
             (tete) at ([yshift=1pt]corps.north west) {#4};
           \draw[#2!62!black, line width=1.6pt, line cap=round]
-            ([xshift=1pt]tete.south west) -- ([xshift=-1pt]tete.south east);}}}
+            ([xshift=1pt]tete.south west) -- ([xshift=-1pt]tete.south east);}}}}
   \end{tikzpicture}}
 
 % -- Semis de pastilles decoratif ----------------------------
