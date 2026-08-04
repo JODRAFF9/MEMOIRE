@@ -157,7 +157,10 @@
 \usepackage{ragged2e}
 \usepackage{etoolbox}
 \usepackage{tikz}
-\usetikzlibrary{positioning,arrows.meta,shapes,shapes.geometric,shapes.symbols,calc}
+\usetikzlibrary{positioning,arrows.meta,shapes,shapes.geometric,shapes.symbols,calc,shadows.blur}
+% Relief commun aux cartouches : une ombre portee tres douce
+\tikzset{relief/.style={blur shadow={shadow blur steps=8, shadow xshift=0.6pt,
+                                     shadow yshift=-0.9pt, shadow opacity=22}}}
 % Icones vectorielles des dimensions du bien-etre (compatible XeLaTeX)
 \usepackage{fontawesome5}
 
@@ -176,7 +179,7 @@
 % ainsi a la colonne qui le contient.
 \newcommand{\bandeau}[5][r]{%
   \begin{tikzpicture}
-    \node[fill=#2!8, rounded corners=4pt, text width=#3, align=justify,
+    \node[relief, fill=#2!8, rounded corners=4pt, text width=#3, align=justify,
           inner sep=8pt, font=\footnotesize, anchor=north west] (corps) at (0,0) {#5};
     % \ifstrequal vient d'etoolbox, que beamer charge deja
     \ifstrequal{#1}{b}{%
@@ -221,8 +224,13 @@
             -- ([xshift=-0.34cm]tete.south west) -- cycle;
           \fill[#2!58!black] (tete.north east) -- (tete.south east)
             -- ([xshift=0.34cm]tete.south east) -- cycle;
-          % banderole a extremites droites, posee par-dessus les replis
-          \fill[#2] (tete.north west) rectangle (tete.south east);
+          % banderole a extremites droites, posee par-dessus les replis.
+          % Un degrade vertical et un filet clair sur l'arete haute lui
+          % donnent du relief.
+          \shade[top color=#2!72, bottom color=#2]
+            (tete.north west) rectangle (tete.south east);
+          \draw[white, opacity=0.30, line width=0.7pt]
+            ([yshift=-0.4pt]tete.north west) -- ([yshift=-0.4pt]tete.north east);
           \node[minimum height=0.64cm, inner xsep=15pt, text=white,
                 font=\footnotesize\bfseries, anchor=south west] at (ancre) {#4};}}}}
   \end{tikzpicture}}
@@ -423,7 +431,7 @@
 \begin{frame}{Pourquoi les migrants transfèrent, et ce que cela implique}
   \centering
   \begin{tikzpicture}[
-      motif/.style  = {rounded corners=6pt, draw=#1, line width=1.1pt, fill=#1!8,
+      motif/.style  = {relief, rounded corners=6pt, draw=#1, line width=1.1pt, fill=#1!8,
                        minimum width=3.85cm, minimum height=2.95cm, anchor=north west},
       motif/.default = presvert,
       titre/.style  = {font=\small\bfseries, anchor=north, text width=3.45cm,
@@ -554,7 +562,7 @@
   \centering
   \vspace{-0.15cm}
   \begin{tikzpicture}[
-      hexa/.style   = {regular polygon, regular polygon sides=6, draw=#1!60!black,
+      hexa/.style   = {relief, regular polygon, regular polygon sides=6, draw=#1!60!black,
                        line width=1pt, fill=#1, text=white, inner sep=0pt,
                        minimum size=0.95cm, font=\small},
       hexa/.default = presvert,
@@ -593,7 +601,7 @@
   \footnotesize
   \centering
   \begin{tikzpicture}[
-      groupe/.style = {rounded corners=5pt, draw=#1, line width=1pt, fill=#1!8,
+      groupe/.style = {relief, rounded corners=5pt, draw=#1, line width=1pt, fill=#1!8,
                        minimum width=4.7cm, minimum height=1.9cm, anchor=north west},
       groupe/.default = presvert,
       titre/.style  = {font=\small\bfseries, anchor=north west},
@@ -654,7 +662,7 @@
   \footnotesize
   \centering
   \begin{tikzpicture}[
-      methode/.style = {rounded corners=5pt, draw=#1, line width=1pt, fill=#1!8,
+      methode/.style = {relief, rounded corners=5pt, draw=#1, line width=1pt, fill=#1!8,
                         minimum width=3.5cm, minimum height=1.5cm, anchor=north west},
       methode/.default = presvert,
       nom/.style     = {font=\small\bfseries, anchor=north, text width=3.2cm,
@@ -914,7 +922,7 @@
   \footnotesize
   \centering
   \begin{tikzpicture}[
-      groupe/.style = {rounded corners=5pt, draw=#1, line width=1pt, fill=#1!8,
+      groupe/.style = {relief, rounded corners=5pt, draw=#1, line width=1pt, fill=#1!8,
                        minimum width=4.7cm, minimum height=1.9cm, anchor=north west},
       groupe/.default = presvert,
       titre/.style  = {font=\small\bfseries, anchor=north west},
