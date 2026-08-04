@@ -40,12 +40,12 @@
 \setbeamercolor{palette tertiary}{bg=black, fg=white}
 \setbeamercolor{palette quaternary}{bg=mybronze, fg=white}
 \setbeamercolor{titlelike}{parent=palette secondary}
-
+\setbeamercolor{headline}{bg=black, fg=white}
 \setbeamercolor{frametitle}{bg=mybronze, fg=white}
 \setbeamercolor{title}{fg=white}
 \setbeamercolor{subtitle}{fg=dorepale}
-
-
+\setbeamercolor{section in head/foot}{bg=black, fg=white}
+\setbeamercolor{subsection in head/foot}{bg=mybronze, fg=white}
 \setbeamercolor{block title}{bg=mybronze, fg=white}
 \setbeamercolor{block body}{bg=dorepale, fg=black}
 \setbeamercolor{block title alerted}{bg=marronmed, fg=white}
@@ -110,34 +110,22 @@
 }
 \makeatother
 
-% -- En-tete : l'arborescence de navigation est supprimee ----
-\setbeamertemplate{headline}{}
-
-% -- Pied de page : un filet fin et deux mentions discretes ---
+% -- Pied de page --------------------------------------------
 \setbeamertemplate{footline}{%
-  \hbox{%
-    \begin{beamercolorbox}[wd=\paperwidth,ht=2.6ex,dp=1.4ex]{}%
-      \hspace{0.9cm}%
-      {\color{presgris}\tiny Sié Rachid TRAORÉ\ \ \textbullet\ \ ENSAE Pierre Ndiaye}%
-      \hfill
-      {\color{presvert}\tiny\bfseries \insertframenumber}%
-      \hspace{0.9cm}%
-    \end{beamercolorbox}}%
-  \vspace{1mm}}
-
-% -- Marges du texte, plus genereuses ------------------------
-\setbeamersize{text margin left=0.9cm, text margin right=0.9cm}
+  \leavevmode%
+  \begin{beamercolorbox}[wd=.33\paperwidth,ht=2.25ex,dp=1ex,left]{palette secondary}%
+    \hspace{0.3cm}\tiny Diapositive~\insertframenumber/\inserttotalframenumber%
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.34\paperwidth,ht=2.25ex,dp=1ex,center]{palette secondary}%
+    \tiny\insertshortauthor%
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.33\paperwidth,ht=2.25ex,dp=1ex,right]{palette secondary}%
+    \tiny ENSAE Pierre Ndiaye\hspace{0.3cm}
+  \end{beamercolorbox}%
+}
 
 % -- Symboles de navigation supprimés -----------------------
 \setbeamertemplate{navigation symbols}{}
-
-% -- Bandeau de titre : hauteur fixe et retrait aligne --------
-\setbeamertemplate{frametitle}{%
-  \nointerlineskip
-  \begin{beamercolorbox}[wd=\paperwidth, ht=1.05cm, dp=0pt]{frametitle}%
-    \vbox to 1.05cm{\vfill\hspace{0.9cm}\insertframetitle\vfill}%
-  \end{beamercolorbox}%
-  \vspace{0.35cm}}
 
 % -- Légendes numérotées ------------------------------------
 \setbeamertemplate{caption}[numbered]
