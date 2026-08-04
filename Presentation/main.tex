@@ -454,7 +454,7 @@
   \centering
   \begin{tikzpicture}[
       motif/.style  = {relief, rounded corners=6pt, draw=#1, line width=1.1pt, fill=#1!8,
-                       minimum width=3.85cm, minimum height=2.95cm, anchor=north west},
+                       minimum width=3.85cm, minimum height=2.8cm, anchor=north west},
       motif/.default = presvert,
       titre/.style  = {font=\small\bfseries, anchor=north, text width=3.45cm,
                        align=center},
@@ -472,7 +472,7 @@
     \node[source] at ([yshift=0.12cm]a.south) {Lucas \& Stark, 1985};
 
     % interet personnel et echange
-    \node[motif=dimeduc] (b) at (4.2,-0.75) {};
+    \node[motif=dimeduc] (b) at (4.2,-0.6) {};
     \node[text=dimeduc, font=\LARGE] at ([yshift=-0.5cm]b.north) {\faHandshake};
     \node[titre, text=dimeduc] at ([yshift=-0.95cm]b.north) {Intérêt et échange};
     \node[detail] at ([yshift=-1.5cm]b.north)
@@ -481,7 +481,7 @@
     \node[source] at ([yshift=0.12cm]b.south) {Rapoport \& Docquier, 2006};
 
     % diversification du risque
-    \node[motif=dimeau] (c) at (8.4,-1.5) {};
+    \node[motif=dimeau] (c) at (8.4,-1.2) {};
     \node[text=dimeau, font=\LARGE] at ([yshift=-0.5cm]c.north) {\faUmbrella};
     \node[titre, text=dimeau] at ([yshift=-0.95cm]c.north) {Assurance};
     \node[detail] at ([yshift=-1.5cm]c.north)
@@ -496,12 +496,10 @@
       -- ([yshift=-2mm]b.south east |- c.south) -- ([yshift=-2mm]c.south east);
   \end{tikzpicture}
 
-  \smallskip
   \bandeau{presorange}{0.93\linewidth}{Conséquence pour l'identification}{%
-    Les trois motivations supposent un migrant, donc un réseau, et l'accès au
-    réseau dépend de l'histoire migratoire, de la richesse initiale et des
-    relations sociales du ménage (Massey, 1993). Les bénéficiaires diffèrent
-    donc des autres avant même le premier franc reçu.}
+    Les trois motivations supposent un migrant, donc un réseau, dont l'accès
+    dépend de l'histoire migratoire et de la richesse du ménage (Massey, 1993).
+    Les bénéficiaires diffèrent des autres avant même le premier franc reçu.}
 \end{frame}
 
 \begin{frame}{Ce que la littérature établit, et ce qu'elle laisse de côté}
