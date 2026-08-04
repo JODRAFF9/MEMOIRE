@@ -78,19 +78,14 @@
   \end{tikzpicture}%
 
   \begin{center}
-    \vspace{1.05cm}
+    \vspace{0.75cm}
 
-    % -- ecole : le logo et le nom sur une meme ligne --------
-    % un tableau a deux cellules : sa largeur epouse le contenu, sinon
-    % l'ensemble se centre sur une boite a moitie vide et parait decale
-    \begin{tabular}{@{}m{1.15cm}@{\hspace{0.35cm}}l@{}}
-      \includegraphics[height=1.05cm]{figures/logo_ensae_new.png} &
-      \shortstack[l]{%
-        {\scriptsize\color{presor}\textbf{École nationale de la statistique}}\\[1pt]
-        {\scriptsize\color{presor}\textbf{et de l'analyse économique}}}
-    \end{tabular}
+    % -- ecole : le nom sous le logo -------------------------
+    \includegraphics[height=1.05cm]{figures/logo_ensae_new.png}\\[6pt]
+    {\scriptsize\color{presor}\bfseries École nationale de la Statistique\\[1pt]
+     et de l'Analyse Économique Pierre Ndiaye}
 
-    \vspace{0.95cm}
+    \vspace{0.7cm}
 
     % -- titre, pose librement, souligne d'un filet ----------
     {\color{presor}\Large\bfseries
@@ -100,7 +95,7 @@
     \vspace{0.38cm}
     {\color{presorange}\rule{2.6cm}{1.6pt}}
 
-    \vspace{0.8cm}
+    \vspace{0.65cm}
 
     % -- signatures ------------------------------------------
     \begin{minipage}[t]{0.42\paperwidth}\centering
@@ -114,7 +109,7 @@
       {\scriptsize\itshape\color{presgris} Chercheur postdoctoral en économie appliquée, ISE}
     \end{minipage}\par
 
-    \vspace{0.75cm}
+    \vspace{0.6cm}
     {\small\color{presvert}\bfseries\insertdate}
   \end{center}%
 }
