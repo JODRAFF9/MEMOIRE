@@ -215,14 +215,12 @@
                 font=\footnotesize\bfseries, anchor=south west]
             (tete) at (ancre) {#4};
           % replis : deux triangles rectangles. Le cote vertical est
-          % partage avec l'extremite de la banderole et se prolonge de
-          % 0,22 cm sous elle ; l'angle droit est en bas, cote interieur.
-          \fill[#2!58!black] (tete.north west)
-            -- ([yshift=-0.22cm]tete.south west)
-            -- ([xshift=-0.34cm, yshift=-0.22cm]tete.south west) -- cycle;
-          \fill[#2!58!black] (tete.north east)
-            -- ([yshift=-0.22cm]tete.south east)
-            -- ([xshift=0.34cm, yshift=-0.22cm]tete.south east) -- cycle;
+          % partage avec l'extremite de la banderole, la base repose sur
+          % le bas de la banderole et l'angle droit est a l'interieur.
+          \fill[#2!58!black] (tete.north west) -- (tete.south west)
+            -- ([xshift=-0.34cm]tete.south west) -- cycle;
+          \fill[#2!58!black] (tete.north east) -- (tete.south east)
+            -- ([xshift=0.34cm]tete.south east) -- cycle;
           % banderole a extremites droites, posee par-dessus les replis
           \fill[#2] (tete.north west) rectangle (tete.south east);
           \node[minimum height=0.64cm, inner xsep=15pt, text=white,
