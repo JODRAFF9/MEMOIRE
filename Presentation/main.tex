@@ -81,9 +81,14 @@
     \vspace{1.05cm}
 
     % -- ecole : le logo et le nom sur une meme ligne --------
-    \includegraphics[height=1.05cm]{figures/logo_ensae_new.png}\hspace{0.35cm}%
-    \raisebox{0.28cm}{\parbox{5.4cm}{\raggedright\scriptsize\color{presor}
-      \textbf{École nationale de la statistique\\ et de l'analyse économique}}}
+    % un tableau a deux cellules : sa largeur epouse le contenu, sinon
+    % l'ensemble se centre sur une boite a moitie vide et parait decale
+    \begin{tabular}{@{}m{1.15cm}@{\hspace{0.35cm}}l@{}}
+      \includegraphics[height=1.05cm]{figures/logo_ensae_new.png} &
+      \shortstack[l]{%
+        {\scriptsize\color{presor}\textbf{École nationale de la statistique}}\\[1pt]
+        {\scriptsize\color{presor}\textbf{et de l'analyse économique}}}
+    \end{tabular}
 
     \vspace{0.95cm}
 
