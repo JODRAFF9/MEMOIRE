@@ -214,13 +214,20 @@
           \node[minimum height=0.64cm, inner xsep=15pt, opacity=0,
                 font=\footnotesize\bfseries, anchor=south west]
             (tete) at (ancre) {#4};
-          % replis : le bord vertical est a l'exterieur, la pointe rentre
-          % sous la banderole, qui recouvre ensuite leur base
-          \fill[#2!62!black] ([xshift=-0.34cm]tete.north west)
-            -- ([xshift=-0.34cm]tete.south west) -- (tete.north west) -- cycle;
-          \fill[#2!62!black] ([xshift=0.34cm]tete.north east)
-            -- ([xshift=0.34cm]tete.south east) -- (tete.north east) -- cycle;
-          % banderole a extremites droites
+          % replis : ils partent du haut de la banderole, debordent de
+          % 0,34 cm vers l'exterieur, descendent 0,20 cm sous elle et
+          % leur bord exterieur est entaille en queue d'aronde
+          \fill[#2!58!black] (tete.north west)
+            -- ([xshift=-0.34cm]tete.north west)
+            -- ([xshift=-0.20cm, yshift=-0.10cm]tete.west)
+            -- ([xshift=-0.34cm, yshift=-0.20cm]tete.south west)
+            -- ([yshift=-0.20cm]tete.south west) -- cycle;
+          \fill[#2!58!black] (tete.north east)
+            -- ([xshift=0.34cm]tete.north east)
+            -- ([xshift=0.20cm, yshift=-0.10cm]tete.east)
+            -- ([xshift=0.34cm, yshift=-0.20cm]tete.south east)
+            -- ([yshift=-0.20cm]tete.south east) -- cycle;
+          % banderole a extremites droites, posee par-dessus les replis
           \fill[#2] (tete.north west) rectangle (tete.south east);
           \node[minimum height=0.64cm, inner xsep=15pt, text=white,
                 font=\footnotesize\bfseries, anchor=south west] at (ancre) {#4};}}}}
