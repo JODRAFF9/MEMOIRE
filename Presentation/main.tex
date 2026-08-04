@@ -620,6 +620,51 @@
    appliquée aux fichiers EHCVM.}
 \end{frame}
 
+\begin{frame}{Les trois indices calculés}
+  \footnotesize
+  \centering
+  \begin{tikzpicture}[
+      indice/.style  = {relief, rounded corners=6pt, draw=#1, line width=1.1pt,
+                        fill=#1!8, minimum width=3.5cm, minimum height=3.0cm,
+                        anchor=north west},
+      indice/.default = presvert,
+      lettre/.style  = {font=\LARGE\bfseries, anchor=north},
+      nom/.style     = {font=\small\bfseries, anchor=north},
+      form/.style    = {anchor=north, text width=3.2cm, align=center},
+      valeur/.style  = {font=\scriptsize\bfseries, text=presgris, anchor=south}
+    ]
+    \node[indice=presvert] (h) at (0,0) {};
+    \node[lettre, text=presvert] at ([yshift=-0.2cm]h.north) {$H$};
+    \node[nom, text=presvert]    at ([yshift=-1.05cm]h.north) {Incidence};
+    \node[form] at ([yshift=-1.5cm]h.north)
+      {$\displaystyle H = \frac{q}{n}$\\[2pt]
+       {\scriptsize Part des enfants privés dans au moins $k=4$ dimensions}};
+    \node[valeur] at ([yshift=0.12cm]h.south) {63,5\,\% $\rightarrow$ 57,8\,\%};
+
+    \node[indice=dimeduc] (a) at (3.85,0) {};
+    \node[lettre, text=dimeduc] at ([yshift=-0.2cm]a.north) {$A$};
+    \node[nom, text=dimeduc]    at ([yshift=-1.05cm]a.north) {Intensité};
+    \node[form] at ([yshift=-1.5cm]a.north)
+      {$\displaystyle A = \frac{1}{q}\sum_{i} c_i(k)$\\[2pt]
+       {\scriptsize Nombre moyen de privations parmi les enfants pauvres}};
+    \node[valeur] at ([yshift=0.12cm]a.south) {70,7\,\% $\rightarrow$ 70,3\,\%};
+
+    \node[indice=presorange] (m) at (7.7,0) {};
+    \node[lettre, text=presorange] at ([yshift=-0.2cm]m.north) {$M_0$};
+    \node[nom, text=presorange]    at ([yshift=-1.05cm]m.north) {Indice ajusté};
+    \node[form] at ([yshift=-1.5cm]m.north)
+      {$\displaystyle M_0 = H \times A$\\[2pt]
+       {\scriptsize Sensible au nombre de pauvres et à ce qu'ils cumulent}};
+    \node[valeur] at ([yshift=0.12cm]m.south) {0,449 $\rightarrow$ 0,406};
+  \end{tikzpicture}
+
+  \bandeau{presvert}{0.93\linewidth}{Ce que mesure chacun}{%
+    Entre les deux vagues, $H$ recule de 5,7 points tandis que $A$ ne bouge
+    quasiment pas : il y a moins d'enfants pauvres, mais ceux qui le restent
+    cumulent toujours près de cinq privations sur sept. $M_0$, produit des deux,
+    ne recule donc que de 0,043 (Alkire \& Foster, 2011).}
+\end{frame}
+
 \subsection{Stratégie d'identification}
 
 \begin{frame}{Stratégie d'identification, le problème (1/2)}
