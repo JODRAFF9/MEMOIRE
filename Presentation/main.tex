@@ -454,7 +454,7 @@
   \centering
   \begin{tikzpicture}[
       motif/.style  = {relief, rounded corners=6pt, draw=#1, line width=1.1pt, fill=#1!8,
-                       minimum width=3.85cm, minimum height=2.95cm, anchor=north west},
+                       minimum width=3.85cm, minimum height=2.8cm, anchor=north west},
       motif/.default = presvert,
       titre/.style  = {font=\small\bfseries, anchor=north, text width=3.45cm,
                        align=center},
@@ -472,7 +472,7 @@
     \node[source] at ([yshift=0.12cm]a.south) {Lucas \& Stark, 1985};
 
     % interet personnel et echange
-    \node[motif=dimeduc] (b) at (4.2,-0.75) {};
+    \node[motif=dimeduc] (b) at (4.2,-0.6) {};
     \node[text=dimeduc, font=\LARGE] at ([yshift=-0.5cm]b.north) {\faHandshake};
     \node[titre, text=dimeduc] at ([yshift=-0.95cm]b.north) {Intérêt et échange};
     \node[detail] at ([yshift=-1.5cm]b.north)
@@ -481,7 +481,7 @@
     \node[source] at ([yshift=0.12cm]b.south) {Rapoport \& Docquier, 2006};
 
     % diversification du risque
-    \node[motif=dimeau] (c) at (8.4,-1.5) {};
+    \node[motif=dimeau] (c) at (8.4,-1.2) {};
     \node[text=dimeau, font=\LARGE] at ([yshift=-0.5cm]c.north) {\faUmbrella};
     \node[titre, text=dimeau] at ([yshift=-0.95cm]c.north) {Assurance};
     \node[detail] at ([yshift=-1.5cm]c.north)
@@ -496,32 +496,24 @@
       -- ([yshift=-2mm]b.south east |- c.south) -- ([yshift=-2mm]c.south east);
   \end{tikzpicture}
 
-  \smallskip
   \bandeau{presorange}{0.93\linewidth}{Conséquence pour l'identification}{%
-    Les trois motivations supposent un migrant, donc un réseau, et l'accès au
-    réseau dépend de l'histoire migratoire, de la richesse initiale et des
-    relations sociales du ménage (Massey, 1993). Les bénéficiaires diffèrent
-    donc des autres avant même le premier franc reçu.}
+    Les trois motivations supposent un migrant, donc un réseau, dont l'accès
+    dépend de l'histoire migratoire et de la richesse du ménage (Massey, 1993).
+    Les bénéficiaires diffèrent des autres avant même le premier franc reçu.}
 \end{frame}
 
 \begin{frame}{Ce que la littérature établit, et ce qu'elle laisse de côté}
   \bandeau{presvert}{0.93\linewidth}{Effets des transferts sur les enfants}{%
     Scolarisation en hausse et travail des enfants en baisse (Cox Edwards \&
-    Ureta, 2003 ; Yang, 2008), par la levée des contraintes de liquidité
-    (Calero \emph{et al.}, 2009), mais gains annulés par l'absence du parent
-    (Mansuri, 2006 ; Acosta, 2011). Côté santé, mortalité infantile en recul
-    (Hildebrandt \& McKenzie, 2005), effets fragiles sur la nutrition
-    (Davis \& Brazil, 2016). Au Sénégal, fonction d'assurance (Gubert, 2002)
-    et recul modeste de la pauvreté monétaire (Azam \& Gubert, 2006).}
-
-  \smallskip
+    Ureta, 2003 ; Yang, 2008), mais gains annulés par l'absence du parent
+    (Mansuri, 2006 ; Acosta, 2011). Mortalité infantile en recul (Hildebrandt
+    \& McKenzie, 2005), effets fragiles sur la nutrition (Davis \& Brazil,
+    2016). Au Sénégal, fonction d'assurance (Gubert, 2002).}
   \bandeau{dimeduc}{0.93\linewidth}{Mesurer la pauvreté de l'enfant, pas celle du ménage}{%
     L'approche par les capabilités déplace l'évaluation du revenu vers ce que
     la personne peut être et faire (Sen, 1985) ; la mesure prend l'enfant pour
-    unité d'analyse, avec des indicateurs adaptés à l'âge et l'attention aux
-    privations superposées (Roelen \& Gassmann, 2008 ; ANSD/UNICEF, 2024).}
-
-  \smallskip
+    unité d'analyse, avec des indicateurs adaptés à l'âge (Roelen \& Gassmann,
+    2008 ; ANSD/UNICEF, 2024).}
   \bandeau{presorange}{0.93\linewidth}{La lacune que ce mémoire comble}{%
     Aucun travail ne combine mesure multidimensionnelle de l'enfant et
     identification sur données de suivi en Afrique de l'Ouest.}
