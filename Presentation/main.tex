@@ -164,7 +164,11 @@
 % Icones vectorielles des dimensions du bien-etre (compatible XeLaTeX)
 \usepackage{fontawesome5}
 
-% -- Ombre portee sur du texte -------------------------------
+% -- Ombre portee sur du texte d'une seule ligne -------------
+% A reserver aux textes qui ne se replient pas : \rlap compose la copie
+% grise sans largeur, elle ne peut donc pas se couper en lignes et
+% deborderait a droite. Le titre de la page de garde, qui tient sur deux
+% lignes, en est exclu pour cette raison.
 % Le glyphe est imprime une premiere fois en gris translucide, decale
 % de 0,7 pt vers le bas et la droite, puis une seconde fois par-dessus.
 % \rlap ne consomme aucune largeur : la composition reste identique.
@@ -336,16 +340,6 @@
 \date{Août 2026}
 
 % ============================================================
-% -- Ombre portee sur le titre de la page de garde ------------
-% L'enrobage se fait ici, et non dans le cadre de garde : beamer relit
-% le corps d'un cadre avec ses propres catcodes, si bien qu'un
-% \makeatletter pose a l'interieur reste sans effet et laisse
-% apparaitre le nom de la macro auxiliaire.
-\makeatletter
-\let\memoire@titreoriginal\inserttitle
-\renewcommand{\inserttitle}{\ombretexte{\memoire@titreoriginal}}
-\makeatother
-
 \begin{document}
 % ============================================================
 
