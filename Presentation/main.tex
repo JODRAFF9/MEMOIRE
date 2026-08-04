@@ -427,7 +427,7 @@
 
 \begin{frame}{Problématique}
   \bandeau{presvert}{0.93\linewidth}{Question de recherche}{%
-    \justifying \large \textit{Dans quelle mesure les transferts de migrants réduisent-ils la pauvreté multidimensionnelle des enfants au Sénégal ?}}
+    \justifying \large \textit{Dans quelle mesure, les transferts de migrants influencent-ils la pauvreté multidimensionnelle des enfants au Sénégal ?}}
 \end{frame}
 
 \begin{frame}{Objectifs et hypothèses}
@@ -607,13 +607,59 @@
     \textbf{\color{presorange}Double seuil.} Privé dans une dimension dès un
     indicateur, pauvre dès quatre dimensions sur sept.
   \end{minipage}\hfill
-  \hyperlink{matrice-nmoda}{\beamergotobutton{Matrice}}
-
+  
   \smallskip
   {\scriptsize\color{presgris} MODA, \emph{Multiple Overlapping Deprivation
    Analysis}, est une méthodologie de l'UNICEF (de Neubourg \emph{et al.},
    2012), déclinée pour le Sénégal par l'ANSD et l'UNICEF (2024). Elle est ici
    appliquée aux fichiers EHCVM.}
+\end{frame}
+
+
+\begin{frame}[label=matrice-nmoda,noframenumbering]{Matrice MODA complète, indicateurs, âges et seuils}
+	\centering
+	\resizebox{\textwidth}{!}{%
+		\renewcommand{\arraystretch}{1.15}
+		\begin{tabular}{llcccl}
+			\toprule
+			\rowcolor{presvert!88!black}
+			\color{white}Dimension & \color{white}Indicateur & \color{white}0-4 &
+			\color{white}5-14 & \color{white}15-17 & \color{white}Seuil de privation \\
+			\midrule
+			\rowcolor{dimassain!12}
+			\color{dimassain}\textbf{Assainissement} & Toilettes non améliorées & \checkmark & \checkmark & \checkmark & Latrines rudimentaires, toilettes publiques ou aucune toilette \\
+			\rowcolor{dimassain!12}
+			& Partage des toilettes    & \checkmark & \checkmark & \checkmark & Toilettes partagées avec un autre ménage \\
+			\rowcolor{dimeau!12}
+			\color{dimeau}\textbf{Eau}            & Source non améliorée     & \checkmark & \checkmark & \checkmark & Source non améliorée à l'une ou l'autre saison, eau non traitée \\
+			\rowcolor{dimeau!12}
+			& Temps d'accès $\geq 30$ min & \checkmark & \checkmark & \checkmark & 30 min ou plus, trajet aller et temps à la source \\
+			\rowcolor{dimlogem!12}
+			\color{dimlogem}\textbf{Logement}       & Gestion des ordures      & \checkmark & \checkmark & \checkmark & Ordures brûlées, dépotoir sauvage ou autre évacuation \\
+			\rowcolor{dimlogem!12}
+			& Surpeuplement            & \checkmark & \checkmark & \checkmark & Au moins 4 personnes par pièce occupée \\
+			\rowcolor{dimnutri!12}
+			\color{dimnutri}\textbf{Nutrition}      & Sécurité alimentaire     & \checkmark & \checkmark & \checkmark & Au moins une des huit situations de l'échelle FIES \\
+			\rowcolor{dimsante!12}
+			\color{dimsante}\textbf{Santé}          & Combustible solide       & \checkmark & \checkmark & \checkmark & Cuisine au bois, au charbon ou aux déchets animaux \\
+			\rowcolor{dimsante!12}
+			& Accès à une structure de santé & \checkmark & \checkmark & \checkmark & Pas d'hôpital ni de centre de santé accessible à pied \\
+			\rowcolor{dimprotec!12}
+			\color{dimprotec}\textbf{Protection}     & Absence d'acte de naissance & \checkmark & \checkmark & - & Enfant déclaré sans acte de naissance \\
+			\rowcolor{dimprotec!12}
+			& Travail des enfants      & -          & \checkmark & - & Activité économique ou travail domestique d'au moins 1h \\
+			\rowcolor{dimprotec!12}
+			& Séparation parentale     & \checkmark & \checkmark & \checkmark & Père ou mère biologique absent du ménage \\
+			\rowcolor{dimeduc!12}
+			\color{dimeduc}\textbf{Éducation}      & Non-scolarisation        & -          & \checkmark & - & Enfant non scolarisé \\
+			\rowcolor{dimeduc!12}
+			& Illettrisme              & -          & -          & \checkmark & Ne sait ni lire ni écrire \\
+			\bottomrule
+	\end{tabular}}
+	
+	\smallskip
+	{\scriptsize\color{presgris} \checkmark~= applicable~; -~= non applicable.
+		\textit{Source :} adaptation de l'ANSD/UNICEF (2024) aux fichiers EHCVM.}
 \end{frame}
 
 \begin{frame}{Les trois indices calculés}
@@ -775,6 +821,31 @@
 % ============================================================
 \section[Résultats]{Résultats empiriques}
 % ============================================================
+\subsection{Motifs des transferts de migrants}
+
+\begin{frame}[label=motifs-transferts,noframenumbering]{Motifs de transferts de migrants en pratique}
+	\footnotesize
+	\centering
+	{\footnotesize\color{presor}\textbf{Motifs déclarés des transferts étrangers
+			(EHCVM I / II, \% des transferts)}}\smallskip
+	\renewcommand{\arraystretch}{1.15}
+	\setlength{\tabcolsep}{14pt}
+	\begin{tabular}{@{}lcc@{}}
+		\toprule
+		\rowcolor{presvert!88!black}
+		\color{white}Motif principal & \color{white}2018 & \color{white}2021 \\
+		\midrule
+		\rowcolor{presorange!16}
+		Soutien courant            & 66,7\,\% & 68,5\,\% \\
+		Fêtes et évènements        & 11,3\,\% & 9,3\,\% \\
+		\rowcolor{presvert!7}
+		Santé, maladie             & 4,6\,\%  & 6,5\,\% \\
+		Scolarité, éducation       & 3,5\,\%  & 3,7\,\% \\
+		\rowcolor{presvert!7}
+		Autres motifs              & 13,9\,\% & 12,0\,\% \\
+		\bottomrule
+	\end{tabular}
+\end{frame}
 
 \subsection{État de la pauvreté multidimensionnelle}
 
@@ -833,9 +904,6 @@
         La pauvreté recule nettement en incidence, mais l'intensité reste quasi
         stable : les enfants pauvres cumulent toujours près de 5 privations
         sur 7.}
-
-      \smallskip
-      \hyperlink{distrib-dimensions}{\beamergotobutton{Distribution des privations}}
     \end{column}
   \end{columns}
 \end{frame}
@@ -899,6 +967,8 @@
   \bandeau{presorange}{0.93\linewidth}{Résultat central}{%
     {\color{presorange}\faArrowUp}~Sur 2018-2021, la pauvreté multidimensionnelle des enfants des ménages bénéficiaires recule plus lentement que celle des témoins appariés (\chiffre{$+6{,}4$ pp}, significatif à 5\,\%), les trois appariements concordant, de 0,050 à 0,064.}
 \end{frame}
+
+
 
 \begin{frame}{Effets par dimension de la pauvreté}
   \small
@@ -1100,9 +1170,9 @@
   \end{enumerate}
 \end{frame}
 
-\subsection{Recommandations}
+\subsection{Implications}
 
-\begin{frame}{Recommandations de politique économique}
+\begin{frame}{Implications de politique économique}
   \begin{block}{Cibler les marges où l'écart se concentre}
     \begin{itemize}
       \setlength{\itemsep}{2pt}
@@ -1127,44 +1197,6 @@
   \end{block}
 \end{frame}
 
-\subsection{Limites et perspectives}
-
-\begin{frame}{Limites et perspectives}
-  \footnotesize
-  \begin{columns}[T]
-    \begin{column}{0.48\linewidth}
-      \begin{alertblock}{Limites du dispositif}
-        \begin{itemize}
-          \setlength{\itemsep}{1pt}
-          \item Tendances parallèles non testables directement, deux vagues
-                seulement étant disponibles. L'appariement sur les niveaux
-                initiaux rend l'hypothèse plus crédible.
-          \item Vieillissement des enfants entre les deux enquêtes, chacun
-                étant évalué sur la grille de son âge courant.
-        \end{itemize}
-      \end{alertblock}
-    \end{column}
-    \begin{column}{0.48\linewidth}
-      \begin{block}{Prolongements envisagés}
-        \begin{itemize}
-          \setlength{\itemsep}{1pt}
-          \item Analyser les mécanismes de transmission, à travers les dépenses
-                d'éducation, de santé et de logement.
-          \item Intégrer la durée d'exposition aux transferts et leurs usages
-                effectifs, que le statut binaire ne capte pas.
-          \item Étendre l'analyse aux autres pays de l'UEMOA couverts par
-                l'EHCVM, dont le questionnaire est harmonisé.
-        \end{itemize}
-      \end{block}
-    \end{column}
-  \end{columns}
-
-  \bandeau{presvert}{0.93\linewidth}{Choix de mesure}{%
-    Nutrition et santé reposent sur les seuls indicateurs comparables entre les
-    deux vagues. Un indicateur redéfini entre 2018 et 2021 produirait un effet
-    sans contenu causal.}
-\end{frame}
-
 % -- Diapositive de clôture ----------------------------------
 \begingroup
 \setbeamertemplate{headline}{}
@@ -1179,8 +1211,7 @@
       \draw[presvertc,line width=3pt,line cap=round]
         (0,0) .. controls (2,0.55) and (3,-0.55) .. (5,0)
               .. controls (7,0.55) and (8,-0.35) .. (9.6,0.1);
-    \end{tikzpicture}\\[0.8cm]
-    {\large\textit{Questions et échanges}}\\[1cm]
+    \end{tikzpicture}
   \end{center}
 \end{frame}
 \endgroup
@@ -1191,89 +1222,4 @@
 \appendix
 % Les annexes portent noframenumbering : le compteur du pied de page
 % s'arrete a la derniere diapositive du corps.
-
-
-\begin{frame}[label=distrib-dimensions,noframenumbering]{Distribution des privations cumulées par enfant}
-  \centering
-  \includegraphics[width=0.78\linewidth,height=0.62\textheight,keepaspectratio]{figures/fig_distrib_dimensions.pdf}\\[2pt]
-  {\scriptsize\color{presgris} Le trait en pointillé marque le seuil retenu, \textbf{$k=4$}.}
-
-  \smallskip
-  \hfill\hyperlink{etat-des-lieux}{\beamerreturnbutton{Retour}}
-\end{frame}
-
-\begin{frame}[label=motifs-transferts,noframenumbering]{Le traitement, les transferts de migrants en pratique}
-  \footnotesize
-  \centering
-  {\footnotesize\color{presor}\textbf{Motifs déclarés des transferts étrangers
-   (EHCVM I / II, \% des transferts)}}\smallskip
-    \renewcommand{\arraystretch}{1.15}
-    \setlength{\tabcolsep}{14pt}
-    \begin{tabular}{@{}lcc@{}}
-      \toprule
-      \rowcolor{presvert!88!black}
-      \color{white}Motif principal & \color{white}2018 & \color{white}2021 \\
-      \midrule
-      \rowcolor{presorange!16}
-      Soutien courant            & 66,7\,\% & 68,5\,\% \\
-      Fêtes et évènements        & 11,3\,\% & 9,3\,\% \\
-      \rowcolor{presvert!7}
-      Santé, maladie             & 4,6\,\%  & 6,5\,\% \\
-      Scolarité, éducation       & 3,5\,\%  & 3,7\,\% \\
-      \rowcolor{presvert!7}
-      Autres motifs              & 13,9\,\% & 12,0\,\% \\
-      \bottomrule
-    \end{tabular}
-
-  \smallskip
-  \hfill\hyperlink{discussion-usage}{\beamerreturnbutton{Retour}}
-\end{frame}
-
-\begin{frame}[label=matrice-nmoda,noframenumbering]{Matrice MODA complète, indicateurs, âges et seuils}
-  \centering
-  \resizebox{\textwidth}{!}{%
-  \renewcommand{\arraystretch}{1.15}
-  \begin{tabular}{llcccl}
-    \toprule
-    \rowcolor{presvert!88!black}
-    \color{white}Dimension & \color{white}Indicateur & \color{white}0-4 &
-    \color{white}5-14 & \color{white}15-17 & \color{white}Seuil de privation \\
-    \midrule
-    \rowcolor{dimassain!12}
-    \color{dimassain}\textbf{Assainissement} & Toilettes non améliorées & \checkmark & \checkmark & \checkmark & Latrines rudimentaires, toilettes publiques ou aucune toilette \\
-    \rowcolor{dimassain!12}
-                   & Partage des toilettes    & \checkmark & \checkmark & \checkmark & Toilettes partagées avec un autre ménage \\
-    \rowcolor{dimeau!12}
-    \color{dimeau}\textbf{Eau}            & Source non améliorée     & \checkmark & \checkmark & \checkmark & Source non améliorée à l'une ou l'autre saison, eau non traitée \\
-    \rowcolor{dimeau!12}
-                   & Temps d'accès $\geq 30$ min & \checkmark & \checkmark & \checkmark & 30 min ou plus, trajet aller et temps à la source \\
-    \rowcolor{dimlogem!12}
-    \color{dimlogem}\textbf{Logement}       & Gestion des ordures      & \checkmark & \checkmark & \checkmark & Ordures brûlées, dépotoir sauvage ou autre évacuation \\
-    \rowcolor{dimlogem!12}
-                   & Surpeuplement            & \checkmark & \checkmark & \checkmark & Au moins 4 personnes par pièce occupée \\
-    \rowcolor{dimnutri!12}
-    \color{dimnutri}\textbf{Nutrition}      & Sécurité alimentaire     & \checkmark & \checkmark & \checkmark & Au moins une des huit situations de l'échelle FIES \\
-    \rowcolor{dimsante!12}
-    \color{dimsante}\textbf{Santé}          & Combustible solide       & \checkmark & \checkmark & \checkmark & Cuisine au bois, au charbon ou aux déchets animaux \\
-    \rowcolor{dimsante!12}
-                   & Accès à une structure de santé & \checkmark & \checkmark & \checkmark & Pas d'hôpital ni de centre de santé accessible à pied \\
-    \rowcolor{dimprotec!12}
-    \color{dimprotec}\textbf{Protection}     & Absence d'acte de naissance & \checkmark & \checkmark & - & Enfant déclaré sans acte de naissance \\
-    \rowcolor{dimprotec!12}
-                   & Travail des enfants      & -          & \checkmark & - & Activité économique ou travail domestique d'au moins 1h \\
-    \rowcolor{dimprotec!12}
-                   & Séparation parentale     & \checkmark & \checkmark & \checkmark & Père ou mère biologique absent du ménage \\
-    \rowcolor{dimeduc!12}
-    \color{dimeduc}\textbf{Éducation}      & Non-scolarisation        & -          & \checkmark & - & Enfant non scolarisé \\
-    \rowcolor{dimeduc!12}
-                   & Illettrisme              & -          & -          & \checkmark & Ne sait ni lire ni écrire \\
-    \bottomrule
-  \end{tabular}}
-
-  \smallskip
-  {\scriptsize\color{presgris} \checkmark~= applicable~; -~= non applicable.
-   \textit{Source :} adaptation de l'ANSD/UNICEF (2024) aux fichiers EHCVM.}\\[0.15cm]
-  \hyperlink{moda-dimensions}{\beamerreturnbutton{Retour}}
-\end{frame}
-
 \end{document}
