@@ -110,7 +110,14 @@ corps.push(dire(
   "Ce travail a été mené sous la direction du Docteur Mamadou Abdoulaye Diallo, que je remercie pour son " +
   "accompagnement."
 ));
-corps.push(geste("Marquer un temps. Passer à la diapositive du plan."));
+corps.push(dire(
+  "Pour planter le décor : chaque année, plus de 1 200 milliards de francs CFA entrent au Sénégal " +
+  "par les transferts des migrants, soit 12,1 % du produit intérieur brut : le quatrième récepteur " +
+  "d'Afrique subsaharienne. Dans le même temps, un enfant sénégalais sur deux est privé " +
+  "dans au moins quatre des sept domaines qui font son bien-être. Deux faits massifs, que rien " +
+  "n'oblige à relier. C'est pourtant ce lien que mon travail met à l'épreuve."
+));
+corps.push(geste("Marquer un temps après « met à l'épreuve ». Passer à la diapositive du plan."));
 
 corps.push(repere(1, "Plan de la présentation", "30 s"));
 corps.push(attaque("Mon exposé suivra six temps."));
