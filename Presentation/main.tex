@@ -417,7 +417,6 @@
         \setlength{\itemsep}{1pt}
         \item \chiffre{50,7\,\%} des enfants de 0 à 17 ans privés dans au moins 4 des 7 domaines de leur bien-être en 2018 (ANSD/UNICEF, 2024).
         \item Domaines : éducation, santé, nutrition, eau, assainissement, logement, protection.
-        \item Des manques qui échappent largement aux mesures fondées sur le seul revenu du ménage.
       \end{itemize}
     \end{alertblock}
   \end{minipage}
@@ -456,7 +455,7 @@
 
 \subsection{Transferts, bien-être et mesure de la pauvreté}
 
-\begin{frame}{Pourquoi les migrants transfèrent, et ce que cela implique}
+\begin{frame}{Théorie sur la motivation des transferts de migrants}
   \centering
   \begin{tikzpicture}[
       motif/.style  = {relief, rounded corners=6pt, draw=#1, line width=1.1pt, fill=#1!8,
@@ -501,30 +500,23 @@
       -- ([yshift=-2mm]a.south east |- b.south) -- ([yshift=-2mm]b.south east)
       -- ([yshift=-2mm]b.south east |- c.south) -- ([yshift=-2mm]c.south east);
   \end{tikzpicture}
-
-  \bandeau{presorange}{0.93\linewidth}{Conséquence pour l'identification}{%
-    Les trois motivations supposent un migrant, donc un réseau, dont l'accès
-    dépend de l'histoire migratoire et de la richesse du ménage (Massey, 1993).
-    Les bénéficiaires diffèrent des autres avant même le premier franc reçu.}
 \end{frame}
 
-\begin{frame}{Ce que la littérature établit, et ce qu'elle laisse de côté}
+\begin{frame}{Travaux empiriques}
   \bandeau{presvert}{0.93\linewidth}{Effets des transferts sur les enfants}{%
-    Les transferts améliorent la scolarisation et réduisent le travail des
-    enfants (Cox Edwards \& Ureta, 2003 ; Yang, 2008), mais l'absence du parent
-    annule ces gains (Mansuri, 2006 ; Acosta, 2011). Ils font reculer la
-    mortalité infantile (Hildebrandt \& McKenzie, 2005), alors que leurs effets
-    sur la nutrition restent fragiles (Davis \& Brazil, 2016). Au Sénégal, ils
-    jouent surtout un rôle d'assurance (Gubert, 2002).}
+    Scolarisation en hausse et travail des enfants en baisse (Cox Edwards \&
+    Ureta, 2003 ; Yang, 2008), mais gains annulés par l'absence du parent
+    (Mansuri, 2006 ; Acosta, 2011). Mortalité infantile en recul (Hildebrandt
+    \& McKenzie, 2005), effets fragiles sur la nutrition (Davis \& Brazil,
+    2016). Au Sénégal, fonction d'assurance (Gubert, 2002).}
   \bandeau{dimeduc}{0.93\linewidth}{Mesurer la pauvreté de l'enfant, pas celle du ménage}{%
     L'approche par les capabilités déplace l'évaluation du revenu vers ce que
     la personne peut être et faire (Sen, 1985) ; la mesure prend l'enfant pour
     unité d'analyse, avec des indicateurs adaptés à l'âge (Roelen \& Gassmann,
     2008 ; ANSD/UNICEF, 2024).}
   \bandeau{presorange}{0.93\linewidth}{La lacune que ce mémoire comble}{%
-    Aucun travail ne combine une mesure multidimensionnelle de la pauvreté de
-    l'enfant et une identification sur données de suivi, en Afrique de
-    l'Ouest.}
+    Aucun travail ne combine mesure multidimensionnelle de l'enfant et
+    identification sur données de suivi en Afrique de l'Ouest.}
 \end{frame}
 
 % ============================================================
@@ -533,7 +525,7 @@
 
 \subsection{Données EHCVM}
 
-\begin{frame}{Données EHCVM I et II}
+\begin{frame}{Source de données}
   \small
   \centering
   \begin{tikzpicture}[
@@ -568,13 +560,12 @@
   \bandeau{presvert}{0.93\linewidth}{Population cible et unité d'analyse}{%
     Enfants de 0 à 17 ans suivis individuellement d'une vague à l'autre, soit
     \chiffre{17\,786} enfants : 2\,638 dans un ménage bénéficiaire en 2018 et
-    15\,148 dans un ménage non bénéficiaire. Le score de propension et
-    l'appariement sont estimés à ce niveau.}
+    15\,148 dans un ménage non bénéficiaire.}
 \end{frame}
 
 \subsection{Mesure de la pauvreté multidimensionnelle}
 
-\begin{frame}[label=moda-dimensions]{MODA en 7 dimensions et 3 groupes d'âge}
+\begin{frame}[label=moda-dimensions]{Présentation de l'approche MODA Multiple Overlapping Deprivation Analysis}
   \small
   \centering
   \vspace{-0.15cm}
@@ -611,10 +602,6 @@
   \end{minipage}\hfill
   
   \smallskip
-  {\scriptsize\color{presgris} MODA, \emph{Multiple Overlapping Deprivation
-   Analysis}, est une méthodologie de l'UNICEF (de Neubourg \emph{et al.},
-   2012), déclinée pour le Sénégal par l'ANSD et l'UNICEF (2024). Elle est ici
-   appliquée aux fichiers EHCVM.}
 \end{frame}
 
 
@@ -664,7 +651,7 @@
 		\textit{Source :} adaptation de l'ANSD/UNICEF (2024) aux fichiers EHCVM.}
 \end{frame}
 
-\begin{frame}{Les trois indices calculés}
+\begin{frame}{Trois indices calculés}
   \footnotesize
   \centering
   % Les trois cartouches occupent exactement la largeur du texte :
@@ -703,12 +690,6 @@
     \node[glose] at ([yshift=-2.42cm]m.north)
       {Sensible au nombre de pauvres et à ce qu'ils cumulent};
   \end{tikzpicture}
-
-  \bandeau{presvert}{0.93\linewidth}{Ce que mesure chacun}{%
-    $H$ compte les enfants pauvres, ceux qui cumulent au moins $k = 4$
-    privations sur 7 ; $A$ mesure la part de privations que chacun d'eux
-    supporte. $M_0$, produit des deux, ne recule donc que si le nombre de
-    pauvres baisse ou si leurs privations s'allègent (Alkire \& Foster, 2011).}
 \end{frame}
 
 \subsection{Stratégie d'identification}
