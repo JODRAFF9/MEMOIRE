@@ -214,15 +214,14 @@
           \node[minimum height=0.64cm, inner xsep=15pt, opacity=0,
                 font=\footnotesize\bfseries, anchor=south west]
             (tete) at (ancre) {#4};
-          % replis : deux triangles qui retombent de part et d'autre
+          % replis : le bord vertical est a l'exterieur, la pointe rentre
+          % sous la banderole, qui recouvre ensuite leur base
           \fill[#2!62!black] ([xshift=-0.34cm]tete.north west)
-            -- (tete.north west) -- (tete.south west) -- cycle;
+            -- ([xshift=-0.34cm]tete.south west) -- (tete.north west) -- cycle;
           \fill[#2!62!black] ([xshift=0.34cm]tete.north east)
-            -- (tete.north east) -- (tete.south east) -- cycle;
-          % banderole, entaillee en chevron a chaque extremite
-          \fill[#2] (tete.north west) -- (tete.north east)
-            -- ([xshift=-0.22cm]tete.east) -- (tete.south east)
-            -- (tete.south west) -- ([xshift=0.22cm]tete.west) -- cycle;
+            -- ([xshift=0.34cm]tete.south east) -- (tete.north east) -- cycle;
+          % banderole a extremites droites
+          \fill[#2] (tete.north west) rectangle (tete.south east);
           \node[minimum height=0.64cm, inner xsep=15pt, text=white,
                 font=\footnotesize\bfseries, anchor=south west] at (ancre) {#4};}}}}
   \end{tikzpicture}}
