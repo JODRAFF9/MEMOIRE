@@ -164,8 +164,25 @@
 % Icones vectorielles des dimensions du bien-etre (compatible XeLaTeX)
 \usepackage{fontawesome5}
 
+% -- Ombre portee sur du texte -------------------------------
+% Le glyphe est imprime une premiere fois en gris translucide, decale
+% de 0,7 pt vers le bas et la droite, puis une seconde fois par-dessus.
+% \rlap ne consomme aucune largeur : la composition reste identique.
+\newcommand{\ombretexte}[1]{%
+  \rlap{\kern0.7pt\raisebox{-0.7pt}{\color{black!55}#1}}#1}
+
+% Le titre de diapositive recoit l'ombre sans que le gabarit du theme
+% soit remplace : seul le texte du titre est enrobe dans le modele
+% d'Antibes deja en place.
+\makeatletter
+\ifcsdef{beamer@@tmpl@frametitle}{%
+  \patchcmd{\beamer@@tmpl@frametitle}{\insertframetitle}
+    {\ombretexte{\insertframetitle}}{}{}%
+}{}
+\makeatother
+
 % -- Mise en valeur d'un chiffre par la police, sans couleur --
-\newcommand{\chiffre}[1]{{\bfseries\large #1}}
+\newcommand{\chiffre}[1]{{\bfseries\large\ombretexte{#1}}}
 
 % -- Bandeau en ruban ----------------------------------------
 % [#1] modele de titre. Par defaut r, le ruban a replis lateraux :
@@ -232,7 +249,8 @@
           \draw[white, opacity=0.30, line width=0.7pt]
             ([yshift=-0.4pt]tete.north west) -- ([yshift=-0.4pt]tete.north east);
           \node[minimum height=0.64cm, inner xsep=15pt, text=white,
-                font=\footnotesize\bfseries, anchor=south west] at (ancre) {#4};}}}}
+                font=\footnotesize\bfseries, anchor=south west]
+            at (ancre) {\ombretexte{#4}};}}}}
   \end{tikzpicture}}
 
 % -- Semis de pastilles decoratif ----------------------------
@@ -323,6 +341,11 @@
 
 % -- Page de garde (sans en-tête) ----------------------------
 \begin{frame}[plain,noframenumbering]
+  % l'ombre est posee sur le seul titre, en enrobant \inserttitle
+  \makeatletter
+  \let\memoire@titre\inserttitle
+  \renewcommand{\inserttitle}{\ombretexte{\memoire@titre}}
+  \makeatother
   \titlepage
 \end{frame}
 
