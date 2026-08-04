@@ -89,7 +89,9 @@
 
     % -- titre, pose librement, souligne d'un filet ----------
     {\color{presor}\Large\bfseries
-     \parbox{0.86\paperwidth}{\centering\inserttitle}\par}
+     \parbox{0.86\paperwidth}{\centering
+       \hyphenpenalty=10000\exhyphenpenalty=10000\relax
+       \inserttitle}\par}
     \vspace{0.38cm}
     {\color{presorange}\rule{2.6cm}{1.6pt}}
 
