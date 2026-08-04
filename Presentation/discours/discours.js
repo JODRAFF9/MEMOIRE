@@ -103,9 +103,9 @@ corps.push(
    ============================================================ */
 corps.push(titre("Ouverture"));
 corps.push(repere("de titre", "Page de garde", "30 s"));
-corps.push(attaque("Monsieur le Président du jury, mesdames et messieurs, bonjour."));
+corps.push(attaque("Très chers membres du jury, distingués membres de l'auditoire, je vous salue."));
 corps.push(dire(
-  "Je vous remercie de votre présence. Je vais vous présenter les résultats de mon mémoire de fin d'études, " +
+  "C'est un réel plaisir de vous présenter aujourd'hui les résultats de mon mémoire de fin d'études, " +
   "consacré à l'impact des transferts de migrants sur la pauvreté multidimensionnelle des enfants au Sénégal. " +
   "Ce travail a été mené sous la direction du Docteur Mamadou Abdoulaye Diallo, que je remercie pour son " +
   "accompagnement."
