@@ -164,31 +164,22 @@
 % -- Mise en valeur d'un chiffre par la police, sans couleur --
 \newcommand{\chiffre}[1]{{\bfseries\large #1}}
 
-% -- Bandeau a onglet ----------------------------------------
-% [#1] modele de titre : o onglet plein, f titre souligne d'un filet,
-% r ruban a replis lateraux, p titre precede d'une pastille, b barre
-% pleine largeur. Sans argument, les cinq modeles se succedent, le
-% compteur repartant a zero au debut de chaque cadre. L'intitule est
-% toujours aligne a
-% gauche sur le corps : seule sa mise en forme change.
+% -- Bandeau en ruban ----------------------------------------
+% [#1] modele de titre. Par defaut r, le ruban a replis lateraux :
+% l'intitule est porte par une banderole aux extremites entaillees en
+% chevron, que flanquent deux replis dans la teinte assombrie. Les
+% autres modeles restent disponibles a la demande : o onglet arrondi,
+% f titre souligne d'un filet, p titre precede d'une pastille, b barre
+% pleine largeur.
 % #2 teinte, #3 largeur, #4 intitule, #5 corps.
 % La largeur est donnee en fraction de \linewidth : le bandeau s'adapte
 % ainsi a la colonne qui le contient.
-\newcounter{bandeaumotif}
-\newcommand{\bandeau}[5][a]{%
-  \ifstrequal{#1}{a}{%
-    \ifcase\numexpr\value{bandeaumotif}\relax
-      \def\bandeaucote{o}\or\def\bandeaucote{f}%
-      \or\def\bandeaucote{r}\or\def\bandeaucote{p}%
-      \else\def\bandeaucote{b}\fi
-    \stepcounter{bandeaumotif}%
-    \ifnum\value{bandeaumotif}>4 \setcounter{bandeaumotif}{0}\fi
-  }{\def\bandeaucote{#1}}%
+\newcommand{\bandeau}[5][r]{%
   \begin{tikzpicture}
     \node[fill=#2!8, rounded corners=4pt, text width=#3, align=justify,
           inner sep=8pt, font=\footnotesize, anchor=north west] (corps) at (0,0) {#5};
     % \ifstrequal vient d'etoolbox, que beamer charge deja
-    \ifstrequal{\bandeaucote}{b}{%
+    \ifstrequal{#1}{b}{%
       % barre pleine largeur : l'intitule couvre tout le panneau
       \node[fill=#2, rounded corners=4pt, text=white, minimum height=0.6cm,
             text width=#3, inner sep=8pt, align=left,
@@ -196,36 +187,44 @@
         (tete) at ([yshift=1pt]corps.north west) {#4};
       \draw[#2!62!black, line width=1.6pt, line cap=round]
         ([xshift=1pt]tete.south west) -- ([xshift=-1pt]tete.south east);}{%
-      \ifstrequal{\bandeaucote}{f}{%
+      \ifstrequal{#1}{f}{%
         % intitule nu, souligne d'un filet courant sur toute la largeur
         \node[text=#2!70!black, minimum height=0.5cm, inner xsep=8pt,
               inner ysep=3pt, font=\footnotesize\bfseries, anchor=south west]
           (tete) at ([yshift=3pt]corps.north west) {#4};
         \draw[#2!62!black, line width=1.6pt, line cap=round]
           ([yshift=1pt]corps.north west) -- ([yshift=1pt]corps.north east);}{%
-        \ifstrequal{\bandeaucote}{r}{%
-          % ruban : onglet a angles vifs, flanque de deux replis. Il est
-          % rentre de 0,32 cm pour que les replis tombent sur le bord du
-          % panneau sans deborder de la colonne.
-          \node[fill=#2, text=white, minimum height=0.62cm, inner xsep=12pt,
-                font=\footnotesize\bfseries, anchor=south west]
-            (tete) at ([xshift=0.32cm]corps.north west) {#4};
-          \fill[#2!62!black] ([xshift=-0.32cm]tete.north west)
-            -- (tete.north west) -- (tete.south west) -- cycle;
-          \fill[#2!62!black] ([xshift=0.32cm]tete.north east)
-            -- (tete.north east) -- (tete.south east) -- cycle;}{%
-        \ifstrequal{\bandeaucote}{p}{%
+        \ifstrequal{#1}{p}{%
           % pastille pleine puis intitule dans la teinte
           \node[text=#2!70!black, minimum height=0.5cm, inner ysep=3pt,
                 inner xsep=0pt, font=\footnotesize\bfseries, anchor=south west]
             (tete) at ([xshift=22pt, yshift=4pt]corps.north west) {#4};
           \fill[#2] ([xshift=-14pt]tete.west) circle (4.6pt);}{%
-          % onglet plein arrondi, ancre sur le bord gauche du corps
+        \ifstrequal{#1}{o}{%
+          % onglet plein aux quatre coins arrondis
           \node[fill=#2, rounded corners=4pt, text=white, minimum height=0.6cm,
                 inner xsep=12pt, font=\footnotesize\bfseries, anchor=south west]
             (tete) at ([yshift=1pt]corps.north west) {#4};
           \draw[#2!62!black, line width=1.6pt, line cap=round]
-            ([xshift=1pt]tete.south west) -- ([xshift=-1pt]tete.south east);}}}}
+            ([xshift=1pt]tete.south west) -- ([xshift=-1pt]tete.south east);}{%
+          % ruban. Un premier noeud, invisible, ne sert qu'a mesurer
+          % l'intitule ; la banderole et les replis sont ensuite traces,
+          % puis le texte est repose par-dessus.
+          \coordinate (ancre) at ([xshift=0.34cm]corps.north west);
+          \node[minimum height=0.64cm, inner xsep=15pt, opacity=0,
+                font=\footnotesize\bfseries, anchor=south west]
+            (tete) at (ancre) {#4};
+          % replis : deux triangles qui retombent de part et d'autre
+          \fill[#2!62!black] ([xshift=-0.34cm]tete.north west)
+            -- (tete.north west) -- (tete.south west) -- cycle;
+          \fill[#2!62!black] ([xshift=0.34cm]tete.north east)
+            -- (tete.north east) -- (tete.south east) -- cycle;
+          % banderole, entaillee en chevron a chaque extremite
+          \fill[#2] (tete.north west) -- (tete.north east)
+            -- ([xshift=-0.22cm]tete.east) -- (tete.south east)
+            -- (tete.south west) -- ([xshift=0.22cm]tete.west) -- cycle;
+          \node[minimum height=0.64cm, inner xsep=15pt, text=white,
+                font=\footnotesize\bfseries, anchor=south west] at (ancre) {#4};}}}}
   \end{tikzpicture}}
 
 % -- Semis de pastilles decoratif ----------------------------
