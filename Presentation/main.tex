@@ -625,44 +625,43 @@
   \centering
   \begin{tikzpicture}[
       indice/.style  = {relief, rounded corners=6pt, draw=#1, line width=1.1pt,
-                        fill=#1!8, minimum width=3.5cm, minimum height=3.0cm,
+                        fill=#1!8, minimum width=3.5cm, minimum height=3.7cm,
                         anchor=north west},
       indice/.default = presvert,
       lettre/.style  = {font=\LARGE\bfseries, anchor=north},
       nom/.style     = {font=\small\bfseries, anchor=north},
-      form/.style    = {anchor=north, text width=3.2cm, align=center},
-      valeur/.style  = {font=\scriptsize\bfseries, text=presgris, anchor=south}
+      form/.style    = {anchor=north},
+      glose/.style   = {font=\scriptsize, text=presgris, anchor=north,
+                        text width=3.15cm, align=center}
     ]
     \node[indice=presvert] (h) at (0,0) {};
-    \node[lettre, text=presvert] at ([yshift=-0.2cm]h.north) {$H$};
-    \node[nom, text=presvert]    at ([yshift=-1.05cm]h.north) {Incidence};
-    \node[form] at ([yshift=-1.5cm]h.north)
-      {$\displaystyle H = \frac{q}{n}$\\[2pt]
-       {\scriptsize Part des enfants privés dans au moins $k=4$ dimensions}};
-    \node[valeur] at ([yshift=0.12cm]h.south) {63,5\,\% $\rightarrow$ 57,8\,\%};
+    \node[lettre, text=presvert] at ([yshift=-0.18cm]h.north) {$H$};
+    \node[nom, text=presvert]    at ([yshift=-1.02cm]h.north) {Incidence};
+    \node[form] at ([yshift=-1.5cm]h.north) {$\displaystyle H = \frac{q}{n}$};
+    \node[glose] at ([yshift=-2.38cm]h.north)
+      {$q$ enfants privés dans au moins $k$ dimensions, sur $n$ enfants};
 
     \node[indice=dimeduc] (a) at (3.85,0) {};
-    \node[lettre, text=dimeduc] at ([yshift=-0.2cm]a.north) {$A$};
-    \node[nom, text=dimeduc]    at ([yshift=-1.05cm]a.north) {Intensité};
+    \node[lettre, text=dimeduc] at ([yshift=-0.18cm]a.north) {$A$};
+    \node[nom, text=dimeduc]    at ([yshift=-1.02cm]a.north) {Intensité};
     \node[form] at ([yshift=-1.5cm]a.north)
-      {$\displaystyle A = \frac{1}{q}\sum_{i} c_i(k)$\\[2pt]
-       {\scriptsize Nombre moyen de privations parmi les enfants pauvres}};
-    \node[valeur] at ([yshift=0.12cm]a.south) {70,7\,\% $\rightarrow$ 70,3\,\%};
+      {$\displaystyle A = \frac{1}{q\,d}\sum_{i=1}^{q} c_i(k)$};
+    \node[glose] at ([yshift=-2.38cm]a.north)
+      {$c_i(k)$ : privations de l'enfant $i$, censurées sous le seuil ;
+       $d = 7$ dimensions};
 
     \node[indice=presorange] (m) at (7.7,0) {};
-    \node[lettre, text=presorange] at ([yshift=-0.2cm]m.north) {$M_0$};
-    \node[nom, text=presorange]    at ([yshift=-1.05cm]m.north) {Indice ajusté};
-    \node[form] at ([yshift=-1.5cm]m.north)
-      {$\displaystyle M_0 = H \times A$\\[2pt]
-       {\scriptsize Sensible au nombre de pauvres et à ce qu'ils cumulent}};
-    \node[valeur] at ([yshift=0.12cm]m.south) {0,449 $\rightarrow$ 0,406};
+    \node[lettre, text=presorange] at ([yshift=-0.18cm]m.north) {$M_0$};
+    \node[nom, text=presorange]    at ([yshift=-1.02cm]m.north) {Indice ajusté};
+    \node[form] at ([yshift=-1.62cm]m.north) {$\displaystyle M_0 = H \times A$};
+    \node[glose] at ([yshift=-2.38cm]m.north)
+      {Sensible au nombre de pauvres et à ce qu'ils cumulent};
   \end{tikzpicture}
 
   \bandeau{presvert}{0.93\linewidth}{Ce que mesure chacun}{%
-    Entre les deux vagues, $H$ recule de 5,7 points tandis que $A$ ne bouge
-    quasiment pas : il y a moins d'enfants pauvres, mais ceux qui le restent
-    cumulent toujours près de cinq privations sur sept. $M_0$, produit des deux,
-    ne recule donc que de 0,043 (Alkire \& Foster, 2011).}
+    $H$ compte les enfants pauvres, $A$ mesure ce que chacun d'eux cumule.
+    $M_0$, produit des deux, ne recule donc que si le nombre de pauvres baisse
+    ou si leurs privations s'allègent (Alkire \& Foster, 2011).}
 \end{frame}
 
 \subsection{Stratégie d'identification}
