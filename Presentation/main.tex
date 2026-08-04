@@ -292,7 +292,11 @@
   {\color{presorange}#1}~{\color{presvert}\bfseries #2}\par\smallskip}
 
 % -- Justification des textes --------------------------------
-\AtBeginEnvironment{frame}{\justifying\setcounter{bandeaumotif}{0}}
+% Le compteur de modeles n'est pas remis a zero au debut d'un cadre :
+% il court sur toute la presentation, de sorte que deux bandeaux qui se
+% suivent, meme sur deux diapositives differentes, n'ont pas le meme
+% habillage de titre.
+\AtBeginEnvironment{frame}{\justifying}
 \addtobeamertemplate{block begin}{}{\justifying}
 \addtobeamertemplate{block alerted begin}{}{\justifying}
 \addtobeamertemplate{block example begin}{}{\justifying}
