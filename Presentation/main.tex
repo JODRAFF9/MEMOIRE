@@ -1041,8 +1041,17 @@
 
 \begin{frame}{Hétérogénéité de l'effet selon les sous-groupes}
   \centering
+  % rappel des cinq axes sur lesquels l'heterogeneite est testee
+  {\scriptsize\color{presgris}Testée sur :
+   \textbf{\color{presor}les sept dimensions}\ \ \textbullet\ \
+   \textbf{\color{presor}le milieu}\ \ \textbullet\ \
+   \textbf{\color{presor}le genre du chef}\ \ \textbullet\ \
+   \textbf{\color{presor}l'âge de l'enfant}\ \ \textbullet\ \
+   \textbf{\color{presor}le montant reçu}}
+
+  \smallskip
   \scriptsize
-  \renewcommand{\arraystretch}{1.15}
+  \renewcommand{\arraystretch}{1.08}
   \setlength{\tabcolsep}{10pt}
   \begin{tabular}{@{}lc@{}}
     \toprule
@@ -1150,7 +1159,7 @@
    par milieu, ni par genre du chef, ni par tranche d'âge.
 \end{frame}
 
-\begin{frame}{Sensibilité à la définition du traitement}
+\begin{frame}{Une définition alternative du traitement}
   \footnotesize
   \centering
   \begin{tikzpicture}[
@@ -1184,6 +1193,16 @@
   \end{tikzpicture}
 
   \smallskip
+  \bandeau{presvert}{0.93\linewidth}{Pourquoi la tester}{%
+    Le traitement retenu est figé en 2018 : un ménage bénéficiaire cette
+    année-là le reste dans l'analyse, même s'il ne reçoit plus rien en 2021.
+    Une définition plus stricte ne retient que les ménages qui reçoivent aux
+    deux vagues, et les compare à ceux qui n'ont jamais reçu.}
+\end{frame}
+
+\begin{frame}{Sensibilité à la définition du traitement}
+  \footnotesize
+  \vfill
   \begin{columns}[T]
     \begin{column}{0.475\textwidth}
       \bandeau{presorange}{0.93\linewidth}{Résultat sous cette définition}{%
@@ -1194,6 +1213,7 @@
     Le signe et l'ordre de grandeur résistent au choix de l'algorithme comme au choix du seuil. Seule la définition du traitement les fait disparaître, ce qui délimite la portée du résultat.}
     \end{column}
   \end{columns}
+  \vfill
 \end{frame}
 
 \begin{frame}{Discussion}
