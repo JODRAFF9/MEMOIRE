@@ -559,92 +559,65 @@
 \section[Méthodologie]{Cadre méthodologique}
 % ============================================================
 
-\subsection{Vue d'ensemble de la démarche}
+\subsection{Données et traitement}
 
-\begin{frame}{Les six étapes du traitement}
-  \centering
-  \vspace{0.1cm}
-  % Escalier : une marche par etape. Les pastilles montent vers la
-  % droite, l'intitule est pose a droite de chacune.
-  \begin{tikzpicture}[
-      marche/.style = {rounded corners=3pt, draw=#1!70!black, line width=0.9pt,
-                       fill=#1, text=white, minimum size=0.72cm,
-                       font=\small\bfseries, inner sep=0pt, anchor=north west},
-      marche/.default = presvert,
-      nom/.style    = {font=\small\bfseries, anchor=north west, text=presor},
-      glose/.style  = {font=\scriptsize, anchor=north west, text=presgris,
-                       text width=6.0cm}
-    ]
-    \foreach \i/\c/\t/\g [count=\r from 0] in {%
-      1/presvertc/{Données}/{EHCVM I  et EHCVM II},
-      2/presvert/{Identification des enfants suivis}/{L'identifiant préchargé de 2021 retrouve chaque enfant d'une vague à l'autre},
-      3/dimeau/{Calcul de l'indice MODA}/{Quatorze indicateurs, sept dimensions, seuil de privation à $k=4$},
-      4/dimeduc/{Calcul du score}/{Un logit estime la probabilité de vivre dans un ménage bénéficiaire},
-      5/dimlogem/{Appariement}/{Chaque enfant traité est apparié selon les trois méthodes d'appariement},
-      6/presorange/{Estimation par PSM-DD}/{}}
-      {
-        \node[marche=\c] (m\i) at (0.62*\r, 0.98*\r) {\i};
-        \node[nom]   at ([xshift=0.9cm, yshift=0.02cm]m\i.north east) {\t};
-        \node[glose] at ([xshift=0.9cm, yshift=-0.42cm]m\i.north east) {\g};
-      }
-    % marches tracees d'une pastille a la suivante, en montant
-    \foreach \i [evaluate=\i as \j using int(\i+1)] in {1,...,5}
-      \draw[presvert!30, line width=1.2pt, line cap=round, line join=round]
-        (m\i.north west) -- (m\i.north west |- m\j.south west)
-        -- (m\j.south west);
-  \end{tikzpicture}
-\end{frame}
-
-\subsection{Données EHCVM}
-
-\begin{frame}{Ce qu'il faut savoir sur les données}
-  \small
+\begin{frame}{Données, échantillon et variable de traitement}
+  \footnotesize
   \centering
   \begin{tikzpicture}[
-      vague/.style  = {rounded corners=6pt, draw=presvert, line width=1.1pt,
-                       fill=presvert!8, minimum width=4.7cm, minimum height=2.0cm,
+      vague/.style  = {relief, rounded corners=6pt, draw=presvert, line width=1.1pt,
+                       fill=presvert!8, minimum width=4.0cm, minimum height=1.5cm,
                        anchor=north west},
-      titre/.style  = {font=\small\bfseries, text=presvert, anchor=north},
+      groupe/.style = {relief, rounded corners=5pt, draw=#1, line width=1pt, fill=#1!8,
+                       minimum width=4.9cm, minimum height=1.6cm, anchor=north west},
+      groupe/.default = presvert,
+      titre/.style  = {font=\small\bfseries, anchor=north},
       detail/.style = {font=\scriptsize, text=presgris, anchor=north,
-                       text width=4.1cm, align=center}
+                       text width=4.4cm, align=center}
     ]
     \node[vague] (v1) at (0,0) {};
-    \node[titre] at ([yshift=-0.22cm]v1.north) {EHCVM I};
-    \node[detail] at ([yshift=-0.68cm]v1.north)
-      {Première vague harmonisée UEMOA au Sénégal};
-    \node[font=\scriptsize\bfseries, text=presvert, anchor=south]
-      at ([yshift=0.14cm]v1.south) {2018-2019};
+    \node[titre, text=presvert] at ([yshift=-0.18cm]v1.north) {EHCVM I};
+    \node[detail] at ([yshift=-0.66cm]v1.north) {2018-2019};
 
-    \node[vague] (v2) at (6.4,0) {};
-    \node[titre] at ([yshift=-0.22cm]v2.north) {EHCVM II};
-    \node[detail] at ([yshift=-0.68cm]v2.north)
-      {Deuxième vague, mêmes ménages réinterrogés};
-    \node[font=\scriptsize\bfseries, text=presvert, anchor=south]
-      at ([yshift=0.14cm]v2.south) {2021-2022};
+    \node[vague] (v2) at (6.8,0) {};
+    \node[titre, text=presvert] at ([yshift=-0.18cm]v2.north) {EHCVM II};
+    \node[detail] at ([yshift=-0.66cm]v2.north) {2021-2022};
 
     \draw[presorange, line width=1.2pt, -{Stealth[length=3mm]}]
       ([xshift=2mm]v1.east) -- ([xshift=-2mm]v2.west);
     \node[font=\scriptsize\bfseries, text=presorange, anchor=south, align=center]
-      at ([yshift=2mm]$(v1.east)!0.5!(v2.west)$) {6\,127\\ménages};
+      at ([yshift=2mm]$(v1.east)!0.5!(v2.west)$) {6\,127 ménages\\ retrouvés};
+
+    \node[groupe=presorange] (t) at (0,-2.3) {};
+    \node[titre, text=presorange] at ([yshift=-0.18cm]t.north) {Traités};
+    \node[detail] at ([yshift=-0.64cm]t.north)
+      {Transfert reçu en 2018 d'un ancien membre vivant hors du Sénégal};
+    \node[font=\scriptsize\bfseries, text=presorange, anchor=south east]
+      at ([shift={(-0.15,0.08)}]t.south east) {2\,638 enfants};
+
+    \node[groupe=presgris] (c) at (5.9,-2.3) {};
+    \node[titre, text=presgris] at ([yshift=-0.18cm]c.north) {Témoins};
+    \node[detail] at ([yshift=-0.64cm]c.north)
+      {Aucun transfert de ce type en 2018};
+    \node[font=\scriptsize\bfseries, text=presgris, anchor=south east]
+      at ([shift={(-0.15,0.08)}]c.south east) {15\,148 enfants};
   \end{tikzpicture}
 
   \smallskip
-  \bandeau{presvert}{0.93\linewidth}{Population cible et unité d'analyse}{%
-    Enfants de 0 à 17 ans suivis individuellement d'une vague à l'autre, soit
-    \chiffre{17\,786} enfants : 2\,638 dans un ménage bénéficiaire en 2018 et
-    15\,148 dans un ménage non bénéficiaire.}
+  {\footnotesize\color{presor}\textbf{\chiffre{17\,786} enfants} de 0 à 17 ans
+   suivis individuellement d'une vague à l'autre : c'est l'unité d'analyse.}
 \end{frame}
 
 \subsection{Mesure de la pauvreté multidimensionnelle}
 
-\begin{frame}[label=moda-dimensions]{Ce qu'il faut savoir sur l'approche MODA}
+\begin{frame}[label=moda-dimensions]{Construction de l'indice de pauvreté multidimensionnelle}
   \small
   \centering
   \vspace{-0.15cm}
   \begin{tikzpicture}[
       hexa/.style   = {relief, regular polygon, regular polygon sides=6, draw=#1!60!black,
                        line width=1pt, fill=#1, text=white, inner sep=0pt,
-                       minimum size=0.95cm, font=\small},
+                       minimum size=0.9cm, font=\small},
       hexa/.default = presvert,
       etiq/.style   = {below=1mm, font=\scriptsize, text=presor}
     ]
@@ -652,32 +625,30 @@
     \node[hexa=dimeau]    (d2) at (2.6,0)    {\faTint};      \node[etiq] at (d2.south) {Eau};
     \node[hexa=dimlogem]  (d3) at (5.2,0)    {\faHome};      \node[etiq] at (d3.south) {Logement};
     \node[hexa=dimnutri]  (d4) at (7.8,0)    {\faLeaf};      \node[etiq] at (d4.south) {Nutrition};
-    \node[hexa=dimsante]  (d5) at (1.3,-1.62) {\faHeartbeat}; \node[etiq] at (d5.south) {Santé};
-    \node[hexa=dimprotec] (d6) at (3.9,-1.62) {\faIdCard};    \node[etiq] at (d6.south) {Protection};
-    \node[hexa=dimeduc]   (d7) at (6.5,-1.62) {\faBook};      \node[etiq] at (d7.south) {Éducation};
+    \node[hexa=dimsante]  (d5) at (1.3,-1.55) {\faHeartbeat}; \node[etiq] at (d5.south) {Santé};
+    \node[hexa=dimprotec] (d6) at (3.9,-1.55) {\faIdCard};    \node[etiq] at (d6.south) {Protection};
+    \node[hexa=dimeduc]   (d7) at (6.5,-1.55) {\faBook};      \node[etiq] at (d7.south) {Éducation};
   \end{tikzpicture}
 
   \smallskip
-  \groupeage{\faChild}{0 à 4 ans}{11}\hspace{1.6cm}
-  \groupeage{\faRunning}{5 à 14 ans}{13}\hspace{1.6cm}
+  \groupeage{\faChild}{0 à 4 ans}{11}\hspace{1.4cm}
+  \groupeage{\faRunning}{5 à 14 ans}{13}\hspace{1.4cm}
   \groupeage{\faMale}{15 à 17 ans}{11}
-  \smallskip
 
-  \begin{tikzpicture}[baseline=(pastille.base)]
-    \node[circle, fill=presorange, text=white, minimum size=0.85cm,
-          inner sep=0pt, font=\small\bfseries] (pastille) {$k=4$};
-  \end{tikzpicture}\hspace{2mm}%
-  \begin{minipage}[c]{0.70\linewidth}
-    \footnotesize
-    \textbf{\color{presorange}Double seuil.} Privé dans une dimension dès un
-    indicateur, pauvre dès quatre dimensions sur sept.
-  \end{minipage}\hfill
-  
   \smallskip
+  {\footnotesize\textbf{\color{presorange}Double seuil.} Privé dans une
+   dimension dès un indicateur, pauvre dès \chiffre{4} dimensions sur 7.}
+
+  \smallskip
+  {\footnotesize\color{presor}
+   $\displaystyle H = \frac{1}{n}\sum_{i}\mathbf{1}[s_i \geq k]$
+   \hspace{0.6cm}
+   $\displaystyle A = \frac{1}{q}\sum_{i\,:\,s_i \geq k}\frac{s_i}{7}$
+   \hspace{0.6cm}
+   $\displaystyle M_0 = H \times A$}
 \end{frame}
 
-
-\begin{frame}[label=matrice-nmoda,noframenumbering]{Matrice MODA complète, indicateurs, âges et seuils}
+\begin{frame}[label=matrice-nmoda]{Matrice MODA complète, indicateurs, âges et seuils}
 	\centering
 	\resizebox{\textwidth}{!}{%
 		\renewcommand{\arraystretch}{1.15}
@@ -723,111 +694,9 @@
 		\textit{Source :} EHCVM, calculs de l'auteur, d'après l'ANSD/UNICEF (2024).}
 \end{frame}
 
-\begin{frame}{Ce qu'il faut savoir sur les trois indices}
-  \footnotesize
-  \centering
-  % Les trois cartouches occupent exactement la largeur du texte :
-  % 3,5 cm de large, poses tous les 3,65 cm.
-  \begin{tikzpicture}[
-      indice/.style  = {relief, rounded corners=6pt, draw=#1, line width=1.1pt,
-                        fill=#1!8, minimum width=3.5cm, minimum height=3.7cm,
-                        anchor=north west},
-      indice/.default = presvert,
-      lettre/.style  = {font=\LARGE\bfseries, anchor=north},
-      nom/.style     = {font=\small\bfseries, anchor=north},
-      form/.style    = {anchor=north},
-      glose/.style   = {font=\scriptsize, text=presgris, anchor=north,
-                        text width=3.15cm, align=center}
-    ]
-    \node[indice=presvert] (h) at (0,0) {};
-    \node[lettre, text=presvert] at ([yshift=-0.18cm]h.north) {$H$};
-    \node[nom, text=presvert]    at ([yshift=-1.02cm]h.north) {Incidence};
-    \node[form] at ([yshift=-1.52cm]h.north)
-      {$\displaystyle H = \frac{1}{n}\sum_{i} \mathbf{1}\,[s_i \geq k]$};
-    \node[glose] at ([yshift=-2.42cm]h.north)
-      {$s_i$ : nombre de dimensions où l'enfant $i$ est privé, sur 7};
-
-    \node[indice=dimeduc] (a) at (3.65,0) {};
-    \node[lettre, text=dimeduc] at ([yshift=-0.18cm]a.north) {$A$};
-    \node[nom, text=dimeduc]    at ([yshift=-1.02cm]a.north) {Intensité};
-    \node[form] at ([yshift=-1.46cm]a.north)
-      {$\displaystyle A = \frac{1}{q}\sum_{i\,:\,s_i \geq k} \frac{s_i}{7}$};
-    \node[glose] at ([yshift=-2.42cm]a.north)
-      {$q$ : nombre d'enfants pauvres, ceux dont $s_i \geq k$};
-
-    \node[indice=presorange] (m) at (7.3,0) {};
-    \node[lettre, text=presorange] at ([yshift=-0.18cm]m.north) {$M_0$};
-    \node[nom, text=presorange]    at ([yshift=-1.02cm]m.north) {Indice ajusté};
-    \node[form] at ([yshift=-1.62cm]m.north) {$\displaystyle M_0 = H \times A$};
-    \node[glose] at ([yshift=-2.42cm]m.north)
-      {Sensible au nombre de pauvres et à ce qu'ils cumulent};
-  \end{tikzpicture}
-\end{frame}
-
 \subsection{Stratégie d'identification}
 
-\begin{frame}{Ce qu'il faut savoir sur le problème d'identification}
-  \footnotesize
-  \centering
-  \begin{tikzpicture}[
-      groupe/.style = {relief, rounded corners=5pt, draw=#1, line width=1pt, fill=#1!8,
-                       minimum width=4.7cm, minimum height=1.9cm, anchor=north west},
-      groupe/.default = presvert,
-      titre/.style  = {font=\small\bfseries, anchor=north west},
-      detail/.style = {font=\scriptsize, text=presgris, anchor=north west,
-                       text width=3.4cm, align=left}
-    ]
-    % groupe traite
-    \node[groupe=presorange] (t) at (0,0) {};
-    \node[text=presorange, font=\Large] at ([shift={(0.55,-0.62)}]t.north west) {\faHandHoldingUsd};
-    \node[titre, text=presorange] at ([shift={(1.15,-0.18)}]t.north west) {Traités};
-    \node[detail] at ([shift={(1.15,-0.55)}]t.north west)
-      {Ménage recevant en 2018 un transfert d'un ancien membre vivant hors du Sénégal};
-    \node[font=\scriptsize\bfseries, text=presorange, anchor=south east]
-      at ([shift={(-0.2,0.12)}]t.south east) {2\,638 enfants};
-
-    % groupe temoin
-    \node[groupe=presgris] (c) at (5.4,0) {};
-    \node[text=presgris, font=\Large] at ([shift={(0.55,-0.62)}]c.north west) {\faHome};
-    \node[titre, text=presgris] at ([shift={(1.15,-0.18)}]c.north west) {Témoins};
-    \node[detail] at ([shift={(1.15,-0.55)}]c.north west)
-      {Ménage ne recevant aucun transfert de ce type en 2018};
-    \node[font=\scriptsize\bfseries, text=presgris, anchor=south east]
-      at ([shift={(-0.2,0.12)}]c.south east) {15\,148 enfants};
-
-    % ligne de temps
-    \draw[presvert, line width=1pt, -{Stealth[length=2.5mm]}]
-      (0,-2.4) -- (10.1,-2.4);
-    \node[font=\scriptsize\bfseries, text=presvert, anchor=north] at (0.6,-2.5) {2018};
-    \node[font=\scriptsize\bfseries, text=presvert, anchor=north] at (9.5,-2.5) {2021};
-  \end{tikzpicture}
-
-  \smallskip
-  \begin{block}{Deux biais, deux réponses partielles}
-    \begin{columns}[T]
-      \begin{column}{0.48\linewidth}
-        \centering
-        \vspace{-0.2cm}
-        \begin{equation*}
-          \tau_{\text{ATT}} = \mathbb{E}[Y_i(1) - Y_i(0) \mid D_i = 1]
-        \end{equation*}
-        {\scriptsize Le contrefactuel $Y_i(0)$ est inobservable.}
-      \end{column}
-      \begin{column}{0.48\linewidth}
-        \centering
-        \vspace{-0.2cm}
-        \begin{equation*}
-          \hat{\tau}_{\text{DD}}
-          = \Delta\overline{Y}_{T} - \Delta\overline{Y}_{C}
-        \end{equation*}
-        {\scriptsize Neutralise l'inobservable stable, mais suppose des groupes
-         comparables au départ.}
-      \end{column}
-    \end{columns}
-  \end{block}
-\end{frame}
-
-\begin{frame}{Les deux filtres de la stratégie d'identification}
+\begin{frame}{PSM : l'appariement}
   \centering
   \begin{tikzpicture}[x=1cm, y=1cm,
       etape/.style   = {font=\small\bfseries, text=presor, anchor=north}
@@ -882,32 +751,34 @@
   \end{tikzpicture}
 \end{frame}
 
-\begin{frame}{Ce qu'il faut savoir sur l'estimateur retenu}
+\begin{frame}{L'estimateur PSM-DD}
   \footnotesize
   \centering
-  \begin{tikzpicture}[
-      methode/.style = {relief, rounded corners=5pt, draw=#1, line width=1pt, fill=#1!8,
-                        minimum width=3.5cm, minimum height=1.75cm, anchor=north west},
-      methode/.default = presvert,
-      nom/.style     = {font=\small\bfseries, anchor=north, text width=3.2cm,
-                        align=center},
-      param/.style   = {font=\scriptsize, text=presgris, anchor=north,
-                        text width=3.2cm, align=center}
-    ]
-    \node[methode=presvert] (m1) at (0,0) {};
-    \node[nom, text=presvert] at ([yshift=-0.2cm]m1.north) {$k$ plus proches voisins};
-    \node[param] at ([yshift=-0.88cm]m1.north)
-      {$k=4$, avec remise \textit{(estimation principale)}};
+  \begin{columns}[T]
+    \begin{column}{0.48\linewidth}
+      \centering
+      \vspace{-0.1cm}
+      \begin{equation*}
+        \tau_{\text{ATT}} = \mathbb{E}[Y_i(1) - Y_i(0) \mid D_i = 1]
+      \end{equation*}
+      {\scriptsize Le contrefactuel $Y_i(0)$ n'est pas observable.}
+    \end{column}
+    \begin{column}{0.48\linewidth}
+      \centering
+      \vspace{-0.1cm}
+      \begin{equation*}
+        \hat{\tau}_{\text{DD}} = \Delta\overline{Y}_{T} - \Delta\overline{Y}_{C}
+      \end{equation*}
+      {\scriptsize Neutralise l'inobservable stable, mais suppose des groupes
+       comparables au départ.}
+    \end{column}
+  \end{columns}
 
-    \node[methode=presvert] (m2) at (3.85,0) {};
-    \node[nom, text=presvert] at ([yshift=-0.2cm]m2.north) {Noyau};
-    \node[param] at ([yshift=-0.88cm]m2.north) {Epanechnikov, fenêtre $h = 0{,}06$};
+  \smallskip
+  {\scriptsize Score de propension logit, appariement sur le support commun par
+   $k$ plus proches voisins ($k=4$, avec remise). Noyau d'Epanechnikov
+   ($h=0{,}06$) et caliper ($0{,}05$) servent de contrôle.}
 
-    \node[methode=presvert] (m3) at (7.7,0) {};
-    \node[nom, text=presvert] at ([yshift=-0.2cm]m3.north) {Caliper};
-    \node[param] at ([yshift=-0.88cm]m3.north) {rayon $0{,}05$, sans remise};
-  \end{tikzpicture}
-  
   \smallskip
   \begin{alertblock}{PSM-double différence}
     \vspace{-0.2cm}
@@ -917,13 +788,14 @@
         \Bigl[\Delta Y_i - \sum_{j\in\mathcal{C}} w_{ij}\,\Delta Y_j\Bigr]
     \end{equation*}
 
-    Les deux limites se compensent : l'appariement rend les groupes comparables
-    sur l'observable, la double différence neutralise l'inobservable stable
-    (Heckman \emph{et al.}, 1997).
+    L'appariement rend les groupes comparables sur l'observable, la double
+    différence neutralise l'inobservable stable (Heckman \emph{et al.}, 1997).
   \end{alertblock}
 \end{frame}
 
-\begin{frame}{Une définition alternative du traitement}
+\subsection{Ce qui sera mis à l'épreuve}
+
+\begin{frame}{Définition alternative, robustesse et hétérogénéité}
   \footnotesize
   \centering
   \begin{tikzpicture}[
@@ -957,10 +829,12 @@
   \end{tikzpicture}
 
   \smallskip
-  {\scriptsize\color{presgris}L'hétérogénéité de l'effet sera par ailleurs
-   testée sur \textbf{\color{presor}les sept dimensions}, \textbf{\color{presor}le
-   milieu}, \textbf{\color{presor}le genre du chef}, \textbf{\color{presor}l'âge
-   de l'enfant} et \textbf{\color{presor}le montant reçu}.}
+  {\scriptsize\color{presgris}\textbf{\color{presor}Définition alternative} :
+   bénéficiaires aux deux vagues contre jamais bénéficiaires.\ \
+   \textbf{\color{presor}Robustesse} : trois algorithmes d'appariement, seuil
+   $k$ de 1 à 7, estimation sans appariement.\ \
+   \textbf{\color{presor}Hétérogénéité} : les sept dimensions, le milieu, le
+   genre du chef, l'âge de l'enfant, le montant reçu.}
 \end{frame}
 
 % ============================================================
