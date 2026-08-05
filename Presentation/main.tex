@@ -868,6 +868,52 @@
   \end{alertblock}
 \end{frame}
 
+\begin{frame}{Une définition alternative du traitement}
+  \footnotesize
+  \centering
+  \begin{tikzpicture}[
+      groupe/.style = {relief, rounded corners=5pt, draw=#1, line width=1pt, fill=#1!8,
+                       minimum width=4.7cm, minimum height=1.9cm, anchor=north west},
+      groupe/.default = presvert,
+      titre/.style  = {font=\small\bfseries, anchor=north west},
+      detail/.style = {font=\scriptsize, text=presgris, anchor=north west,
+                       text width=3.4cm, align=left}
+    ]
+    \node[groupe=presorange] (t) at (0,0) {};
+    \node[text=presorange, font=\Large] at ([shift={(0.55,-0.62)}]t.north west) {\faHandHoldingUsd};
+    \node[titre, text=presorange] at ([shift={(1.15,-0.18)}]t.north west) {Bénéficiaires stables};
+    \node[detail] at ([shift={(1.15,-0.55)}]t.north west)
+      {Ménage recevant un transfert aux deux vagues};
+    \node[font=\scriptsize\bfseries, text=presorange, anchor=south east]
+      at ([shift={(-0.2,0.12)}]t.south east) {1\,482 enfants};
+
+    \node[groupe=presgris] (c) at (5.4,0) {};
+    \node[text=presgris, font=\Large] at ([shift={(0.55,-0.62)}]c.north west) {\faHome};
+    \node[titre, text=presgris] at ([shift={(1.15,-0.18)}]c.north west) {Jamais bénéficiaires};
+    \node[detail] at ([shift={(1.15,-0.55)}]c.north west)
+      {Ménage ne recevant aucun transfert, ni en 2018 ni en 2021};
+    \node[font=\scriptsize\bfseries, text=presgris, anchor=south east]
+      at ([shift={(-0.2,0.12)}]c.south east) {13\,477 enfants};
+
+    \draw[presvert, line width=1pt, -{Stealth[length=2.5mm]}]
+      (0,-2.4) -- (10.1,-2.4);
+    \node[font=\scriptsize\bfseries, text=presvert, anchor=north] at (0.6,-2.5) {2018};
+    \node[font=\scriptsize\bfseries, text=presvert, anchor=north] at (9.5,-2.5) {2021};
+  \end{tikzpicture}
+
+  \smallskip
+  \bandeau{presvert}{0.93\linewidth}{Pourquoi la tester}{%
+    Le traitement est figé en 2018 : un ménage bénéficiaire cette année-là le
+    reste, même s'il ne reçoit plus rien en 2021. Une définition plus stricte
+    ne retient que les ménages recevant aux deux vagues.}
+
+  \smallskip
+  {\scriptsize\color{presgris}L'hétérogénéité de l'effet sera par ailleurs
+   testée sur \textbf{\color{presor}les sept dimensions}, \textbf{\color{presor}le
+   milieu}, \textbf{\color{presor}le genre du chef}, \textbf{\color{presor}l'âge
+   de l'enfant} et \textbf{\color{presor}le montant reçu}.}
+\end{frame}
+
 % ============================================================
 \section[Résultats]{Résultats empiriques}
 % ============================================================
@@ -1041,17 +1087,8 @@
 
 \begin{frame}{Hétérogénéité de l'effet selon les sous-groupes}
   \centering
-  % rappel des cinq axes sur lesquels l'heterogeneite est testee
-  {\scriptsize\color{presgris}Testée sur :
-   \textbf{\color{presor}les sept dimensions}\ \ \textbullet\ \
-   \textbf{\color{presor}le milieu}\ \ \textbullet\ \
-   \textbf{\color{presor}le genre du chef}\ \ \textbullet\ \
-   \textbf{\color{presor}l'âge de l'enfant}\ \ \textbullet\ \
-   \textbf{\color{presor}le montant reçu}}
-
-  \smallskip
   \scriptsize
-  \renewcommand{\arraystretch}{1.08}
+  \renewcommand{\arraystretch}{1.15}
   \setlength{\tabcolsep}{10pt}
   \begin{tabular}{@{}lc@{}}
     \toprule
@@ -1157,47 +1194,6 @@
   {\scriptsize\color{presgris}\textit{Source :} EHCVM, calculs de l'auteur.}\\
   L'hétérogénéité n'est établie ni
    par milieu, ni par genre du chef, ni par tranche d'âge.
-\end{frame}
-
-\begin{frame}{Une définition alternative du traitement}
-  \footnotesize
-  \centering
-  \begin{tikzpicture}[
-      groupe/.style = {relief, rounded corners=5pt, draw=#1, line width=1pt, fill=#1!8,
-                       minimum width=4.7cm, minimum height=1.9cm, anchor=north west},
-      groupe/.default = presvert,
-      titre/.style  = {font=\small\bfseries, anchor=north west},
-      detail/.style = {font=\scriptsize, text=presgris, anchor=north west,
-                       text width=3.4cm, align=left}
-    ]
-    \node[groupe=presorange] (t) at (0,0) {};
-    \node[text=presorange, font=\Large] at ([shift={(0.55,-0.62)}]t.north west) {\faHandHoldingUsd};
-    \node[titre, text=presorange] at ([shift={(1.15,-0.18)}]t.north west) {Bénéficiaires stables};
-    \node[detail] at ([shift={(1.15,-0.55)}]t.north west)
-      {Ménage recevant un transfert aux deux vagues};
-    \node[font=\scriptsize\bfseries, text=presorange, anchor=south east]
-      at ([shift={(-0.2,0.12)}]t.south east) {1\,482 enfants};
-
-    \node[groupe=presgris] (c) at (5.4,0) {};
-    \node[text=presgris, font=\Large] at ([shift={(0.55,-0.62)}]c.north west) {\faHome};
-    \node[titre, text=presgris] at ([shift={(1.15,-0.18)}]c.north west) {Jamais bénéficiaires};
-    \node[detail] at ([shift={(1.15,-0.55)}]c.north west)
-      {Ménage ne recevant aucun transfert, ni en 2018 ni en 2021};
-    \node[font=\scriptsize\bfseries, text=presgris, anchor=south east]
-      at ([shift={(-0.2,0.12)}]c.south east) {13\,477 enfants};
-
-    \draw[presvert, line width=1pt, -{Stealth[length=2.5mm]}]
-      (0,-2.4) -- (10.1,-2.4);
-    \node[font=\scriptsize\bfseries, text=presvert, anchor=north] at (0.6,-2.5) {2018};
-    \node[font=\scriptsize\bfseries, text=presvert, anchor=north] at (9.5,-2.5) {2021};
-  \end{tikzpicture}
-
-  \smallskip
-  \bandeau{presvert}{0.93\linewidth}{Pourquoi la tester}{%
-    Le traitement retenu est figé en 2018 : un ménage bénéficiaire cette
-    année-là le reste dans l'analyse, même s'il ne reçoit plus rien en 2021.
-    Une définition plus stricte ne retient que les ménages qui reçoivent aux
-    deux vagues, et les compare à ceux qui n'ont jamais reçu.}
 \end{frame}
 
 \begin{frame}{Sensibilité à la définition du traitement}
