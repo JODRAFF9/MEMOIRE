@@ -833,27 +833,16 @@
       etape/.style   = {font=\small\bfseries, text=presor, anchor=north}
     ]
     % ---- 1. les donnees brutes ----------------------------------------
-    % le nuage lui-meme dessine un cylindre couche : un corps rectangulaire
-    % et deux calottes en demi-disque, sans aucun trait de contour
+    % le nuage dessine une onde qui se dirige vers le premier filtre :
+    % l'abscisse est tiree au hasard, l'ordonnee suit une sinusoide a
+    % laquelle s'ajoute l'epaisseur de la bande
     \pgfmathsetseed{4242}
-    \foreach \couleur in {presorange, presgris} {
-      \foreach \i in {1,...,80} {
-        \fill[\couleur, opacity=0.75]
-          ({1.30+(rnd-0.5)*1.90}, {-1.75+(rnd-0.5)*1.00}) circle (0.035);
+    \foreach \couleur in {presorange, presgris}
+      \foreach \i in {1,...,106} {
+        \pgfmathsetmacro{\xx}{0.20+rnd*2.55}
+        \pgfmathsetmacro{\yy}{-1.75+0.42*sin(\xx*140)+(rnd-0.5)*0.55}
+        \fill[\couleur, opacity=0.75] (\xx,\yy) circle (0.035);
       }
-      \foreach \i in {1,...,13} {
-        \pgfmathsetmacro{\a}{90+rnd*180}
-        \pgfmathsetmacro{\d}{sqrt(rnd)}
-        \fill[\couleur, opacity=0.75]
-          ({0.35+0.28*\d*cos(\a)}, {-1.75+0.50*\d*sin(\a)}) circle (0.035);
-      }
-      \foreach \i in {1,...,13} {
-        \pgfmathsetmacro{\a}{-90+rnd*180}
-        \pgfmathsetmacro{\d}{sqrt(rnd)}
-        \fill[\couleur, opacity=0.75]
-          ({2.25+0.28*\d*cos(\a)}, {-1.75+0.50*\d*sin(\a)}) circle (0.035);
-      }
-    }
 
     % ---- premier filtre ------------------------------------------------
     \fill[presor!12, draw=presor, line width=1.1pt] (3.1,-1.75) ellipse (0.26 and 1.35);
