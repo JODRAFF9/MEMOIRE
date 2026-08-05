@@ -835,12 +835,13 @@
     % ---- 1. les donnees brutes ----------------------------------------
     % le nuage dessine une onde qui se dirige vers le premier filtre :
     % l'abscisse est tiree au hasard, l'ordonnee suit une sinusoide a
-    % laquelle s'ajoute l'epaisseur de la bande
+    % laquelle s'ajoute l'epaisseur de la bande. L'etendue verticale de
+    % l'onde, 2,70 cm, est celle du diametre du filtre.
     \pgfmathsetseed{4242}
     \foreach \couleur in {presorange, presgris}
-      \foreach \i in {1,...,106} {
+      \foreach \i in {1,...,140} {
         \pgfmathsetmacro{\xx}{0.20+rnd*2.55}
-        \pgfmathsetmacro{\yy}{-1.75+0.42*sin(\xx*140)+(rnd-0.5)*0.55}
+        \pgfmathsetmacro{\yy}{-1.75+0.85*sin(\xx*140)+(rnd-0.5)*1.00}
         \fill[\couleur, opacity=0.75] (\xx,\yy) circle (0.035);
       }
 
