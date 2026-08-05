@@ -943,21 +943,29 @@
 \subsection{Qualité de l'appariement}
 
 \begin{frame}{Qualité de l'appariement PSM}
-  \begin{columns}
-    \begin{column}{0.58\textwidth}
+  \centering
+  \begin{columns}[T]
+    \begin{column}{0.49\textwidth}
       \centering
-      \includegraphics[width=\linewidth]{figures/overlap.pdf}
-        {\scriptsize\color{presgris}\textit{Source :} EHCVM, calculs de l'auteur.}
+      \includegraphics[width=\linewidth, height=0.50\textheight,
+                       keepaspectratio]{figures/overlap.pdf}\\[2pt]
+      {\scriptsize\color{presgris}Distribution du score de propension}
     \end{column}
-    \begin{column}{0.46\textwidth}
-      \begin{block}{Équilibre après appariement}
-        \begin{itemize}
-          \item Différence standardisée moyenne : 11,4\,\% avant,
-                2,4\,\% après appariement
-        \end{itemize}
-      \end{block}
+    \begin{column}{0.49\textwidth}
+      \centering
+      \includegraphics[width=\linewidth, height=0.50\textheight,
+                       keepaspectratio]{figures/fig_dd_trajectoires.pdf}\\[2pt]
+      {\scriptsize\color{presgris}Trajectoires des bénéficiaires, des témoins
+       appariés et du contrefactuel}
     \end{column}
   \end{columns}
+
+  \smallskip
+  {\footnotesize\color{presor}Différence standardisée moyenne :
+   \chiffre{11,4\,\%} avant appariement, \chiffre{2,4\,\%} après.}
+
+  \par\smallskip
+  {\scriptsize\color{presgris}\textit{Source :} EHCVM, calculs de l'auteur.}
 \end{frame}
 
 \subsection{Impact des transferts}
