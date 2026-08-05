@@ -597,12 +597,12 @@
                        text width=6.0cm}
     ]
     \foreach \i/\c/\t/\g [count=\r from 0] in {%
-      1/presvertc/{Données}/{Les deux vagues de l'EHCVM sont appariées au niveau du ménage},
+      1/presvertc/{Données}/{EHCVM I  et EHCVM II},
       2/presvert/{Identification des enfants suivis}/{L'identifiant préchargé de 2021 retrouve chaque enfant d'une vague à l'autre},
-      3/dimeau/{Calcul de l'indice}/{Quatorze indicateurs, sept dimensions, seuil de privation à $k=4$},
+      3/dimeau/{Calcul de l'indice MODA}/{Quatorze indicateurs, sept dimensions, seuil de privation à $k=4$},
       4/dimeduc/{Calcul du score}/{Un logit estime la probabilité de vivre dans un ménage bénéficiaire},
-      5/dimlogem/{Appariement}/{Chaque enfant traité rejoint ses quatre plus proches voisins},
-      6/presorange/{Estimation par PSM-DD}/{La double différence porte sur les seuls enfants appariés}}
+      5/dimlogem/{Appariement}/{Chaque enfant traité est apparié selon les trois méthodes d'appariement},
+      6/presorange/{Estimation par PSM-DD}/{}}
       {
         \node[marche=\c] (m\i) at (0.62*\r, 0.98*\r) {\i};
         \node[nom]   at ([xshift=0.9cm, yshift=0.02cm]m\i.north east) {\t};
@@ -832,13 +832,7 @@
     \node[nom, text=dimeau] at ([yshift=-0.2cm]m3.north) {Caliper};
     \node[param] at ([yshift=-0.88cm]m3.north) {rayon $0{,}05$, sans remise};
   \end{tikzpicture}
-
-  \smallskip
-  {\scriptsize Score de propension logit
-   $p(X_i) = \exp(X_i'\beta)/\bigl(1+\exp(X_i'\beta)\bigr)$, appariement sur le
-   support commun. Le $k$ plus proches voisins fournit l'estimation principale,
-   les deux autres servent de contrôle.}
-
+  
   \smallskip
   \begin{alertblock}{PSM-double différence}
     \vspace{-0.2cm}
