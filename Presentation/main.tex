@@ -519,47 +519,41 @@
 
 \begin{frame}{Travaux empiriques}
   \centering
+  \vspace{0.2cm}
+  % Trois colonnes sans cadre. La reference est ancree sous le texte de
+  % sa colonne, et non au bas d'une boite de hauteur fixe : elle ne peut
+  % donc pas le recouvrir, quelle que soit sa longueur.
   \begin{tikzpicture}[
-      champ/.style  = {relief, rounded corners=6pt, draw=#1, line width=1.1pt,
-                       fill=#1!8, minimum width=3.5cm, minimum height=3.3cm,
-                       anchor=north west},
-      champ/.default = presvert,
-      nom/.style    = {font=\small\bfseries, anchor=north},
-      dit/.style    = {font=\scriptsize, text=presgris, anchor=north,
-                       text width=3.1cm, align=center},
-      ref/.style    = {font=\scriptsize\itshape, text=presgris, anchor=south,
-                       text width=3.1cm, align=center}
+      nom/.style   = {font=\small\bfseries, anchor=north},
+      dit/.style   = {font=\scriptsize, text=presgris, anchor=north,
+                      text width=3.2cm, align=center},
+      ref/.style   = {font=\scriptsize\itshape, text=presgris!85, anchor=north,
+                      text width=3.2cm, align=center}
     ]
-    \node[champ=dimeduc] (e) at (0,0) {};
-    \node[text=dimeduc, font=\Large] at ([yshift=-0.45cm]e.north) {\faBook};
-    \node[nom, text=dimeduc] at ([yshift=-1.0cm]e.north) {Éducation};
-    \node[dit] at ([yshift=-1.5cm]e.north)
-      {Plus de scolarisation, moins de travail des enfants, sauf quand le
-       parent est absent};
-    \node[ref] at ([yshift=0.1cm]e.south) {Yang, 2008 ; Mansuri, 2006};
-
-    \node[champ=dimsante] (s) at (3.65,0) {};
-    \node[text=dimsante, font=\Large] at ([yshift=-0.45cm]s.north) {\faHeartbeat};
-    \node[nom, text=dimsante] at ([yshift=-1.0cm]s.north) {Santé et nutrition};
-    \node[dit] at ([yshift=-1.5cm]s.north)
-      {La mortalité infantile recule ; sur la nutrition, les études ne
-       s'accordent pas};
-    \node[ref] at ([yshift=0.1cm]s.south) {Hildebrandt \& McKenzie, 2005};
-
-    \node[champ=presvert] (g) at (7.3,0) {};
-    \node[text=presvert, font=\Large] at ([yshift=-0.45cm]g.north) {\faMapMarker};
-    \node[nom, text=presvert] at ([yshift=-1.0cm]g.north) {Au Sénégal};
-    \node[dit] at ([yshift=-1.5cm]g.north)
-      {Les transferts assurent le ménage contre les chocs plus qu'ils ne le
-       sortent de la pauvreté};
-    \node[ref] at ([yshift=0.1cm]g.south) {Gubert, 2002 ; Azam \& Gubert, 2006};
+    \foreach \x/\c/\ic/\t/\d/\r [count=\k] in {%
+      0/dimeduc/{\faBook}/{Éducation}/%
+        {Plus de scolarisation, moins de travail des enfants, sauf quand le
+         parent est absent}/{Yang, 2008 ; Mansuri, 2006},
+      3.7/dimsante/{\faHeartbeat}/{Santé et nutrition}/%
+        {La mortalité infantile recule ; sur la nutrition, les études ne
+         s'accordent pas}/{Hildebrandt \& McKenzie, 2005},
+      7.4/presvert/{\faMapMarker}/{Au Sénégal}/%
+        {Les transferts assurent le ménage contre les chocs plus qu'ils ne le
+         sortent de la pauvreté}/{Gubert, 2002 ; Azam \& Gubert, 2006}}
+      {
+        \node[text=\c, font=\Large, anchor=north] (ic\k) at (\x,0) {\ic};
+        \node[nom, text=\c] (no\k) at ([yshift=-0.12cm]ic\k.south) {\t};
+        \node[dit] (te\k) at ([yshift=-0.14cm]no\k.south) {\d};
+        \node[ref] at ([yshift=-0.18cm]te\k.south) {\r};
+      }
   \end{tikzpicture}
 
+  \vspace{0.25cm}
   \bandeau{presorange}{0.93\linewidth}{Apport de l'approche multidimensionnelle}{%
-    Une première en Afrique de l'Ouest : suivre les mêmes enfants d'une vague
-    à l'autre et estimer l'effet des transferts par appariement puis double
-    différence, là où les travaux de la région restent descriptifs ou
-    transversaux.}
+    Le revenu dit si le ménage est pauvre ; l'approche multidimensionnelle dit
+    de quoi l'enfant est privé, dimension par dimension, et combien de
+    privations il cumule. C'est elle qui permet de localiser l'effet des
+    transferts au lieu de le résumer à un montant.}
 \end{frame}
 
 % ============================================================
