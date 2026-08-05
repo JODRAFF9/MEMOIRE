@@ -832,22 +832,28 @@
   \begin{tikzpicture}[x=1cm, y=1cm,
       etape/.style   = {font=\small\bfseries, text=presor, anchor=north}
     ]
-    % ---- 1. la colonne des donnees brutes ------------------------------
-    % un cylindre en trois traits : le corps, la base, le couvercle
-    \fill[presgris!7]  (0.62,-0.60) rectangle (1.98,-2.95);
-    \fill[presgris!7]  (1.30,-2.95) ellipse (0.68 and 0.17);
-    \draw[presgris!35, line width=0.7pt] (0.62,-0.60) -- (0.62,-2.95);
-    \draw[presgris!35, line width=0.7pt] (1.98,-0.60) -- (1.98,-2.95);
-    \draw[presgris!35, line width=0.7pt]
-      (0.62,-2.95) arc (180:360:0.68 and 0.17);
-    \fill[presgris!12] (1.30,-0.60) ellipse (0.68 and 0.17);
-    \draw[presgris!35, line width=0.7pt] (1.30,-0.60) ellipse (0.68 and 0.17);
+    % ---- 1. les donnees brutes ----------------------------------------
+    % le nuage lui-meme dessine un cylindre couche : un corps rectangulaire
+    % et deux calottes en demi-disque, sans aucun trait de contour
     \pgfmathsetseed{4242}
-    \foreach \couleur in {presorange, presgris}
-      \foreach \i in {1,...,105} {
+    \foreach \couleur in {presorange, presgris} {
+      \foreach \i in {1,...,80} {
         \fill[\couleur, opacity=0.75]
-          ({1.30+(rnd-0.5)*1.20}, {-0.80-rnd*2.05}) circle (0.035);
+          ({1.30+(rnd-0.5)*1.90}, {-1.75+(rnd-0.5)*1.00}) circle (0.035);
       }
+      \foreach \i in {1,...,13} {
+        \pgfmathsetmacro{\a}{90+rnd*180}
+        \pgfmathsetmacro{\d}{sqrt(rnd)}
+        \fill[\couleur, opacity=0.75]
+          ({0.35+0.28*\d*cos(\a)}, {-1.75+0.50*\d*sin(\a)}) circle (0.035);
+      }
+      \foreach \i in {1,...,13} {
+        \pgfmathsetmacro{\a}{-90+rnd*180}
+        \pgfmathsetmacro{\d}{sqrt(rnd)}
+        \fill[\couleur, opacity=0.75]
+          ({2.25+0.28*\d*cos(\a)}, {-1.75+0.50*\d*sin(\a)}) circle (0.035);
+      }
+    }
 
     % ---- premier filtre ------------------------------------------------
     \fill[presor!12, draw=presor, line width=1.1pt] (3.1,-1.75) ellipse (0.26 and 1.35);
