@@ -839,17 +839,17 @@
       param/.style   = {font=\scriptsize, text=presgris, anchor=north,
                         text width=3.2cm, align=center}
     ]
-    \node[methode=dimnutri] (m1) at (0,0) {};
-    \node[nom, text=dimnutri] at ([yshift=-0.2cm]m1.north) {$k$ plus proches voisins};
+    \node[methode=presvert] (m1) at (0,0) {};
+    \node[nom, text=presvert] at ([yshift=-0.2cm]m1.north) {$k$ plus proches voisins};
     \node[param] at ([yshift=-0.88cm]m1.north)
       {$k=4$, avec remise \textit{(estimation principale)}};
 
-    \node[methode=dimeduc] (m2) at (3.85,0) {};
-    \node[nom, text=dimeduc] at ([yshift=-0.2cm]m2.north) {Noyau};
+    \node[methode=presvert] (m2) at (3.85,0) {};
+    \node[nom, text=presvert] at ([yshift=-0.2cm]m2.north) {Noyau};
     \node[param] at ([yshift=-0.88cm]m2.north) {Epanechnikov, fenêtre $h = 0{,}06$};
 
-    \node[methode=dimeau] (m3) at (7.7,0) {};
-    \node[nom, text=dimeau] at ([yshift=-0.2cm]m3.north) {Caliper};
+    \node[methode=presvert] (m3) at (7.7,0) {};
+    \node[nom, text=presvert] at ([yshift=-0.2cm]m3.north) {Caliper};
     \node[param] at ([yshift=-0.88cm]m3.north) {rayon $0{,}05$, sans remise};
   \end{tikzpicture}
   
