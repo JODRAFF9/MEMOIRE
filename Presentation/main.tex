@@ -827,6 +827,56 @@
   \end{block}
 \end{frame}
 
+\begin{frame}{Les deux filtres de la stratégie d'identification}
+  \centering
+  \begin{tikzpicture}[x=1cm, y=1cm,
+      etape/.style   = {font=\small\bfseries, text=presor, anchor=north}
+    ]
+    % ---- 1. le nuage des donnees brutes -------------------------------
+    \pgfmathsetseed{4242}
+    \foreach \couleur in {presorange, presgris}
+      \foreach \i in {1,...,105} {
+        \pgfmathsetmacro{\a}{rnd*360}
+        \pgfmathsetmacro{\d}{sqrt(rnd)}
+        \fill[\couleur, opacity=0.75]
+          ({1.3+1.15*\d*cos(\a)}, {-1.75+1.25*\d*sin(\a)}) circle (0.035);
+      }
+
+    % ---- premier filtre ------------------------------------------------
+    \fill[presor!12, draw=presor, line width=1.1pt] (3.1,-1.75) ellipse (0.26 and 1.35);
+
+    % ---- 2. les binomes apparies ---------------------------------------
+    \foreach \y in {-0.9,-1.75,-2.6} {
+      \node[text=presorange, font=\normalsize] at (4.2,\y) {\faChild};
+      \node[text=presgris,   font=\normalsize] at (4.8,\y) {\faChild};
+      \draw[presgris!70, line width=0.7pt, -{Stealth[length=1.8mm]}]
+        (5.25,\y) -- (5.95,\y);
+    }
+
+    % ---- second filtre --------------------------------------------------
+    \fill[presor!12, draw=presor, line width=1.1pt] (6.4,-1.75) ellipse (0.26 and 1.35);
+
+    % ---- 3. les deux trajectoires ---------------------------------------
+    \draw[presgris!50, line width=0.6pt] (7.3,-3.0) -- (9.9,-3.0);
+    \node[font=\scriptsize, text=presgris, anchor=north] at (7.3,-3.05) {2018};
+    \node[font=\scriptsize, text=presgris, anchor=north] at (9.9,-3.05) {2021};
+    \draw[presorange, line width=1.3pt, -{Stealth[length=2mm]}]
+      (7.3,-2.2) -- (8.6,-1.75) -- (9.9,-1.05);
+    \draw[presgris, line width=1.3pt, -{Stealth[length=2mm]}]
+      (7.3,-2.5) -- (8.6,-2.35) -- (9.9,-1.9);
+    \draw[presor, line width=0.9pt, {Stealth[length=1.6mm]}-{Stealth[length=1.6mm]}]
+      (10.15,-1.05) -- (10.15,-1.9);
+    \node[font=\scriptsize\bfseries, text=presor, anchor=south]
+      at (10.15,-0.95) {Impact pur};
+
+    % ---- intitules des trois etapes -------------------------------------
+    \node[etape] at (1.5,0.35)  {1. Les données brutes};
+    \node[etape] at (4.75,0.35) {2. L'appariement};
+    \node[etape] at (8.6,0.35)  {3. La double différence};
+
+  \end{tikzpicture}
+\end{frame}
+
 \begin{frame}{Ce qu'il faut savoir sur l'estimateur retenu}
   \footnotesize
   \centering
