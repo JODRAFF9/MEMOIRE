@@ -582,6 +582,40 @@
     15\,148 dans un ménage non bénéficiaire.}
 \end{frame}
 
+\begin{frame}{Les six étapes du traitement}
+  \centering
+  \vspace{0.1cm}
+  % Escalier : une marche par etape. Les pastilles descendent vers la
+  % droite, l'intitule est pose a droite de chacune.
+  \begin{tikzpicture}[
+      marche/.style = {rounded corners=3pt, draw=#1!70!black, line width=0.9pt,
+                       fill=#1, text=white, minimum size=0.72cm,
+                       font=\small\bfseries, inner sep=0pt, anchor=north west},
+      marche/.default = presvert,
+      nom/.style    = {font=\small\bfseries, anchor=north west, text=presor},
+      glose/.style  = {font=\scriptsize, anchor=north west, text=presgris,
+                       text width=6.0cm}
+    ]
+    \foreach \i/\c/\t/\g [count=\r from 0] in {%
+      1/presvertc/{Données}/{Les deux vagues de l'EHCVM sont appariées au niveau du ménage},
+      2/presvert/{Identification des enfants suivis}/{L'identifiant préchargé de 2021 retrouve chaque enfant d'une vague à l'autre},
+      3/dimeau/{Calcul de l'indice}/{Quatorze indicateurs, sept dimensions, seuil de privation à $k=4$},
+      4/dimeduc/{Calcul du score}/{Un logit estime la probabilité de vivre dans un ménage bénéficiaire},
+      5/dimlogem/{Appariement}/{Chaque enfant traité rejoint ses quatre plus proches voisins},
+      6/presorange/{Estimation par PSM-DD}/{La double différence porte sur les seuls enfants appariés}}
+      {
+        \node[marche=\c] (m\i) at (0.62*\r, -0.98*\r) {\i};
+        \node[nom]   at ([xshift=0.9cm, yshift=0.02cm]m\i.north east) {\t};
+        \node[glose] at ([xshift=0.9cm, yshift=-0.42cm]m\i.north east) {\g};
+      }
+    % marches tracees d'une pastille a la suivante
+    \foreach \i [evaluate=\i as \j using int(\i+1)] in {1,...,5}
+      \draw[presvert!30, line width=1.2pt, line cap=round, line join=round]
+        (m\i.south west) -- (m\i.south west |- m\j.north west)
+        -- (m\j.north west);
+  \end{tikzpicture}
+\end{frame}
+
 \subsection{Mesure de la pauvreté multidimensionnelle}
 
 \begin{frame}[label=moda-dimensions]{Présentation de l'approche MODA Multiple Overlapping Deprivation Analysis}
