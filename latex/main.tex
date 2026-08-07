@@ -160,13 +160,6 @@
   \fi
   % Le titre est confine a 78 % de la largeur : un intitule long passe a la
   % ligne au lieu de venir buter sur la pastille, qui occupe la droite.
-  % Mention « Chapitre n » au-dessus du titre, pour les seuls titres
-  % numerotes : le corps du memoire se lit alors en chapitres.
-  \ifx\relax#2\relax\else
-    {\centering\color{ensaeblue!70}\normalsize\bfseries
-     \MakeUppercase{Chapitre}~#2\par}
-    \vspace{0.15cm}
-  \fi
   {\centering
    \parbox{0.78\textwidth}{\centering\color{ensaeblue}\Large\bfseries #1}\par}
   \vspace{0.12cm}
