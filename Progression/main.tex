@@ -1,0 +1,340 @@
+% ============================================================
+%  main.tex - Memoire de fin d'etudes
+%  Impact des transferts de migrants sur la pauvrete multidimensionnelle
+%  des enfants au Senegal - ENSAE Dakar
+%  Compilation : latexmk -pdf main.tex  (biber obligatoire, pas bibtex)
+% ============================================================
+
+\documentclass[12pt, a4paper, twoside]{article}
+
+% ── Encodage & langue (XeLaTeX/LuaLaTeX : Unicode natif) ─────
+\usepackage[french]{babel}
+\usepackage{csquotes}
+
+% ── Mise en page ────────────────────────────────────────────
+\usepackage[
+  top=2.5cm, bottom=2.5cm,
+  left=3cm, right=2.5cm,
+  headheight=28pt
+]{geometry}
+\usepackage{setspace}
+\onehalfspacing
+\raggedbottom
+
+% ── Police (Times New Roman via XeLaTeX/LuaLaTeX) ────────────
+\usepackage{fontspec}
+\setmainfont{Times New Roman}
+\usepackage{microtype}
+
+% ── En-têtes et pieds de page ───────────────────────────────
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\fancyfoot[L]{\scriptsize\itshape Sié Rachid TRAORÉ, ISE3 (ENSAE-DAKAR)}
+\fancyfoot[C]{\scriptsize\textbf{\{\,\thepage\,\}}}
+\fancyfoot[R]{\scriptsize\itshape 2025-2026}
+
+% Même style pour les pages "plain" (début de section)
+\fancypagestyle{plain}{%
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0.4pt}
+  \fancyfoot[L]{\scriptsize\itshape Sié Rachid TRAORÉ, ISE3 (ENSAE-DAKAR)}
+  \fancyfoot[C]{\scriptsize\textbf{\{\,\thepage\,\}}}
+  \fancyfoot[R]{\scriptsize\itshape 2025-2026}
+}
+
+% ── Couleurs ENSAE ───────────────────────────────────────────
+\usepackage[table]{xcolor}
+\definecolor{ensaeblue}{RGB}{31,78,121}      % bleu foncé (palette)
+\definecolor{ensaecyan}{RGB}{0,174,239}       % cyan ENSAE (bordure)
+\definecolor{ensaeorange}{RGB}{224,123,57}    % orange (en-tête de tableau)
+\definecolor{tableline}{RGB}{180,180,180}     % gris des filets de grille
+\definecolor{ensaerow}{RGB}{252,232,215}      % orange très clair (ligne paire)
+
+% ── Style « tableur » (grille + en-tête orange + zébrage) ────
+\arrayrulecolor{tableline}
+\newcommand{\entete}{\rowcolor{ensaeorange}}
+% \zebre s'utilise juste avant un tableau pour alterner les lignes
+\newcommand{\zebre}{\rowcolors{2}{white}{ensaerow}}
+
+% ── Titres de section - bandeau ENSAE ────────────────────────
+\usepackage{titlesec}
+\titlespacing*{\section}{0pt}{12pt}{8pt}
+\titlespacing*{\subsection}{0pt}{8pt}{4pt}
+\titlespacing*{\subsubsection}{0pt}{6pt}{3pt}
+
+% Bandeau pleine largeur ENSAE
+\setlength{\fboxsep}{6pt}
+\newcommand{\ensaebandeau}[1]{%
+  \noindent\colorbox{ensaeblue}{%
+    \parbox[c]{\dimexpr\textwidth-12pt\relax}{%
+      \centering\color{white}\large\scshape #1%
+    }%
+  }%
+}
+% Wrappers : évite #1 direct dans \titleformat (incompatible avec certaines versions titlesec)
+\newcommand{\ensaebandeaunum}[1]{\ensaebandeau{\thesection\quad #1}}
+\newcommand{\ensaebandeaunn}[1]{\ensaebandeau{#1}}
+
+\titleformat{\section}[block]{\normalfont}{}{0pt}{\ensaebandeaunum}
+\titleformat{name=\section,numberless}[block]{\normalfont}{}{0pt}{\ensaebandeaunn}
+
+\titleformat{\subsection}
+  {\normalfont\normalsize\bfseries\color{ensaeblue}}
+  {\thesubsection.}{0.5em}{}
+  [\vspace{-5pt}\textcolor{ensaeblue}]
+
+\titleformat{\subsubsection}
+  {\normalfont\normalsize\itshape\bfseries\color{ensaeblue}}
+  {\thesubsubsection.}{0.5em}{}
+
+% ── Bordure de page ENSAE (double filet cyan) ────────────────
+\usepackage{tikz}
+\usetikzlibrary{positioning,shadows.blur,calc}
+% Bordure de page dessinee au coin de la feuille via eso-pic, SANS
+% remember picture : robuste quel que soit le moteur (pdflatex/xelatex).
+% Double filet a coins arrondis (bleu ENSAE + cyan) avec petits accents
+% orange aux quatre angles.
+\usepackage{eso-pic}
+\AddToShipoutPictureBG{%
+  \AtPageLowerLeft{%
+    \begin{tikzpicture}[overlay, line cap=round, line join=round]
+      \coordinate (SW) at (15pt,15pt);
+      \coordinate (NE) at ($(\paperwidth,\paperheight)-(15pt,15pt)$);
+      \coordinate (sw) at (20pt,20pt);
+      \coordinate (ne) at ($(\paperwidth,\paperheight)-(20pt,20pt)$);
+      \coordinate (SE) at (NE|-SW);
+      \coordinate (NW) at (SW|-NE);
+      % filet bleu exterieur (coins arrondis)
+      \draw[ensaeblue, line width=1.7pt, rounded corners=9pt] (SW) rectangle (NE);
+      % filet cyan interieur, plus fin
+      \draw[ensaecyan, line width=0.6pt, rounded corners=6pt] (sw) rectangle (ne);
+      % equerres orange dans les quatre angles (accent discret)
+      \def\L{16pt}
+      \draw[ensaeorange, line width=1.4pt, rounded corners=5pt]
+        ($(SW)+(0,\L)$) -- ($(SW)+(0,6pt)$) arc (180:270:6pt) -- ($(SW)+(\L,0)$);
+      \draw[ensaeorange, line width=1.4pt, rounded corners=5pt]
+        ($(SE)+(0,\L)$) -- ($(SE)+(0,6pt)$) arc (0:-90:6pt) -- ($(SE)+(-\L,0)$);
+      \draw[ensaeorange, line width=1.4pt, rounded corners=5pt]
+        ($(NW)+(0,-\L)$) -- ($(NW)+(0,-6pt)$) arc (180:90:6pt) -- ($(NW)+(\L,0)$);
+      \draw[ensaeorange, line width=1.4pt, rounded corners=5pt]
+        ($(NE)+(0,-\L)$) -- ($(NE)+(0,-6pt)$) arc (0:90:6pt) -- ($(NE)+(-\L,0)$);
+    \end{tikzpicture}%
+  }%
+}
+
+% ── Mathématiques ───────────────────────────────────────────
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{bm}
+
+% Ancre les notes de bas de page en bas de la page (au ras du pied de
+% page) meme lorsque le texte s'arrete plus haut.
+\usepackage[bottom]{footmisc}
+
+% Source d'une figure placee en note de bas de page (au lieu d'une
+% ligne sous la figure). A utiliser via \protect\footnotemark dans le
+% \caption, suivi de \srcfoot apres \end{figure}.
+\newcommand{\srcfoot}{\footnotetext{\textit{Source :} Calcul de l'auteur, EHCVM.}}
+
+% ── Figures & tableaux ──────────────────────────────────────
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{subfigure}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{caption}
+\captionsetup{font=small, labelfont=bf, labelsep=period}
+
+% ── Tableaux avancés ────────────────────────────────────────
+\usepackage{tabularx}
+\usepackage{threeparttable}
+
+% ── Liens & PDF ─────────────────────────────────────────────
+\usepackage[
+  colorlinks=true,
+  linkcolor=ensaeblue,
+  citecolor=ensaeblue,
+  urlcolor=ensaeblue,
+  filecolor=ensaeblue,
+  linktoc=all,
+  bookmarks=true,
+  pdftitle={Impact des transferts de migrants sur la pauvrete multidimensionnelle des enfants au Senegal},
+  pdfauthor={Sie Rachid TRAORE},
+  pdfsubject={Memoire de fin d'etudes - ENSAE Dakar}
+]{hyperref}
+
+% ── Bibliographie (biber requis) ─────────────────────────────
+\usepackage[
+  backend=biber,
+  style=apa,
+  sorting=nyt,
+  maxcitenames=4,   % « et al. » seulement a partir de 5 auteurs (norme DOSSIER)
+  mincitenames=1,
+  maxbibnames=99
+]{biblatex}
+\addbibresource{references.bib}
+
+% Noms d'auteurs en casse normale (ni gras ni petites capitales) dans les
+% citations et la bibliographie : \textnormal annule un éventuel \scshape ambiant
+\AtBeginDocument{%
+  \renewcommand*{\mkbibnamefamily}[1]{\textnormal{#1}}%
+  \renewcommand*{\mkbibnamegiven}[1]{\textnormal{#1}}%
+  \renewcommand*{\mkbibnameprefix}[1]{\textnormal{#1}}%
+  \renewcommand*{\mkbibnamesuffix}[1]{\textnormal{#1}}%
+  \renewcommand*{\mkbibcompletename}[1]{\textnormal{#1}}%
+}
+
+% ── Listes & énumérations ───────────────────────────────────
+% Puces rondes a tous les niveaux au lieu du tiret long de babel-french.
+% Fixe via enumitem (applique a la creation de la liste, donc prioritaire
+% sur le reglage de babel).
+\AtBeginDocument{\renewcommand{\labelitemi}{\textbullet}}
+\usepackage{enumitem}
+\setlist[itemize]{noitemsep, topsep=4pt, label=\textbullet}
+\setlist[itemize,2]{label=$\circ$}
+\setlist[itemize,3]{label=$\cdot$}
+\setlist[enumerate]{noitemsep, topsep=4pt}
+
+% ── Saut de page avant chaque \section ─────────────────────
+\usepackage{etoolbox}
+\pretocmd{\section}{\clearpage}{}{}
+
+% ── Annexes ─────────────────────────────────────────────────
+\usepackage{pdflscape}
+\usepackage[titletoc]{appendix}
+\renewcommand{\appendixname}{Annexe}
+
+% ── Sommaire court (coexiste avec \tableofcontents via fichier .stoc séparé)
+\usepackage{shorttoc}
+
+% ── Théorèmes (numérotés par section dans article) ───────────
+\theoremstyle{plain}
+\newtheorem{theoreme}{Théorème}[section]
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{lemme}{Lemme}[section]
+\theoremstyle{definition}
+\newtheorem{definition}{Définition}[section]
+\newtheorem{exemple}{Exemple}[section]
+\theoremstyle{remark}
+\newtheorem{remarque}{Remarque}[section]
+
+% ── Commandes personnalisées ─────────────────────────────────
+\DeclareMathOperator*{\argmin}{arg\,min}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+
+% ── Numérotation des sections ────────────────────────────────
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
+
+% ── Informations du document ─────────────────────────────────
+\title{%
+  Impact des transferts de migrants sur la pauvreté multidimensionnelle des enfants au Sénégal
+}
+\author{Sié Rachid TRAORÉ}
+\date{Août 2026}
+
+% ============================================================
+\begin{document}
+
+
+% ── Page de garde ────────────────────────────────────────────
+\input{styles/pagedeGarde}
+
+% ── Pages liminaires (numérotation romaine) ──────────────────
+\pagestyle{plain}
+\pagenumbering{roman}
+\setcounter{page}{1}
+
+\input{chapitres/decharge}
+\clearpage
+\input{chapitres/dedicace}
+\clearpage
+\input{chapitres/remerciements}
+\clearpage
+\input{chapitres/resume}
+\clearpage
+\input{chapitres/abstract}
+\clearpage
+
+% ── Sommaire (sections uniquement, via shorttoc) ─────────────
+\shorttoc{Sommaire}{1}
+\markboth{}{}
+\clearpage
+
+\listoffigures
+\markboth{}{}
+\clearpage
+\listoftables
+\markboth{}{}
+\clearpage
+
+\input{chapitres/abreviations}
+\clearpage
+
+% ── Corps du mémoire (numérotation arabe) ────────────────────
+\cleardoublepage
+\pagestyle{fancy}
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+% 1. Introduction
+\input{chapitres/introduction}
+
+% 2. Revue de la littérature
+\input{chapitres/chapitre1}
+
+% 3. Données et méthodologie
+\input{chapitres/chapitre2}
+
+% 4. Statistiques descriptives
+\input{chapitres/chapitre3_stats}
+
+% 5. Résultats des estimations
+\input{chapitres/chapitre3_resultats}
+
+% 6. Discussion
+\input{chapitres/chapitre4}
+
+% 7. Conclusion et recommandations
+\input{chapitres/conclusion}
+
+% ── Annexes ──────────────────────────────────────────────────
+\clearpage
+\phantomsection
+\addcontentsline{toc}{section}{Annexes}
+\section*{Annexes}
+\begin{appendices}
+  % Bandeau : affiche "Annexe A Titre" sans modifier \thesection
+  \renewcommand{\ensaebandeaunum}[1]{\ensaebandeau{Annexe~\thesection\quad #1}}
+  {\let\clearpage\relax \input{annexes/annexe_A}}
+  \input{annexes/annexe_C}
+  \input{annexes/annexe_D}
+  \input{annexes/annexe_E}
+  \input{annexes/annexe_F}
+  \input{annexes/annexe_G}
+\end{appendices}
+
+% ── Bibliographie ────────────────────────────────────────────
+\clearpage
+\phantomsection
+\addcontentsline{toc}{section}{Références bibliographiques}
+\section*{Références bibliographiques}
+\printbibliography[heading=none]
+
+% ── Table des matières complète ──────────────────────────────
+\clearpage
+\phantomsection
+\addcontentsline{toc}{section}{Table des matières}
+\tableofcontents
+
+\end{document}
