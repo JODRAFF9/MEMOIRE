@@ -14,9 +14,35 @@ combinaison du score de propension (PSM) et de la double différence (DD).
 
 Les enquêtes harmonisées sur les conditions de vie des ménages (EHCVM) sont
 réalisées dans le cadre du programme statistique de l'UEMOA
-\parencite{ansd2019, ansd2022}. Les deux vagues mobilisées dans ce travail
-reposent sur un plan de sondage aléatoire stratifié à deux degrés, dont les
-trois niveaux se décrivent comme suit.
+\parencite{ansd2019, ansd2022}. Leur objet est de mesurer la pauvreté et les
+conditions de vie selon une méthodologie commune aux huit États membres, de
+manière à rendre les résultats comparables entre pays et dans le temps. Cette
+harmonisation porte sur le questionnaire, sur le plan de sondage et sur les
+concepts, ce qui distingue l'EHCVM des enquêtes nationales antérieures et
+autorise le rapprochement des deux vagues mobilisées ici.
+
+Au Sénégal, la collecte est assurée par l'Agence nationale de la Statistique et
+de la Démographie. La première vague se déroule en 2018-2019, la seconde en
+2021-2022. Chacune se compose de deux passages, l'un en période de soudure,
+l'autre après les récoltes, de façon à ce que la mesure de la consommation ne
+dépende pas du moment de l'enquête, précaution qui importe pour les indicateurs
+de sécurité alimentaire mobilisés ici.
+
+Le questionnaire ménage compte une quinzaine de modules, dont six alimentent ce
+travail. Le module 1 recense les membres du ménage et leurs liens de parenté,
+d'où proviennent l'âge, le genre, l'acte de naissance et la présence de chaque
+parent biologique. Le module 2 porte sur la santé et l'accès aux soins. Le
+module 4 documente l'activité économique, y compris celle des enfants. Le module
+8a reprend l'échelle d'insécurité alimentaire vécue de la FAO, en huit
+questions. Le module 11 décrit le logement et le cadre de vie, source des
+indicateurs d'eau, d'assainissement et d'énergie. Le module 13, enfin, recense
+les transferts reçus, leur origine, leur montant et leur fréquence, ainsi que le
+lien de l'expéditeur au ménage, information sans laquelle la variable de
+traitement de ce mémoire ne pourrait être construite.
+
+Les deux vagues mobilisées dans ce travail reposent sur un plan de sondage
+aléatoire stratifié à deux degrés, dont les trois niveaux se décrivent comme
+suit.
 
 \begin{itemize}
   \item Strates. Les 14 régions administratives du Sénégal sont chacune
@@ -29,6 +55,22 @@ trois niveaux se décrivent comme suit.
   \item Unités secondaires. 12 ménages
   sont enquêtés dans chaque DR.
 \end{itemize}
+
+L'échantillon théorique atteint ainsi environ 7\,200 ménages par vague. La
+seconde vague a réinterrogé une partie des ménages de la première, ce qui
+constitue la composante longitudinale sur laquelle repose l'identification
+retenue ici. Cette composante n'était pas l'objet premier de l'enquête, dont la
+vocation est de produire des indicateurs transversaux comparables entre pays,
+et c'est pourquoi le suivi doit être reconstruit ménage par ménage, puis
+individu par individu, comme l'expose la section suivante.
+
+Deux conséquences en découlent pour ce travail. La première est que les poids
+de sondage sont calculés pour la représentativité transversale de chaque vague,
+non pour le sous-échantillon suivi, ce qui invite à la prudence dans
+l'extrapolation des résultats à l'ensemble des enfants sénégalais. La seconde
+est que la comparabilité des indicateurs entre les deux vagues doit être
+vérifiée question par question, les codes et parfois les modalités ayant changé,
+vérification dont l'annexe~\ref{ann:D} rend compte.
 
 \subsubsection{Construction de l'échantillon}
 \label{subsec:panel_enfants}
@@ -168,6 +210,51 @@ suit l'âge de l'enfant. Onze indicateurs concernent les enfants de 0 à 4 ans,
 enfants et la non-scolarisation, et 11 les adolescents de 15 à 17 ans, pour
 lesquels l'illettrisme remplace l'acte de naissance et les indicateurs
 scolaires.
+
+Chacune des sept dimensions mérite d'être explicitée, tant du point de vue de
+ce qu'elle mesure que de la raison qui la fait retenir.
+
+L'\textbf{assainissement} repose sur deux indicateurs, le type de toilettes et
+leur partage avec un autre ménage. Un enfant y est privé si le ménage recourt à
+des latrines rudimentaires, à des toilettes publiques ou à aucune installation,
+ou s'il partage ses toilettes. Le partage importe autant que le type, car il
+détermine l'usage effectif, en particulier pour les jeunes enfants et la nuit.
+
+L'\textbf{eau} combine la source d'approvisionnement et le temps d'accès. La
+privation est retenue si la source n'est pas améliorée à l'une ou l'autre
+saison et que l'eau n'est pas traitée, ou si le trajet aller ajouté au temps
+d'attente atteint trente minutes. Le critère de temps ne double pas celui de la
+source, une eau potable située loin exposant l'enfant à la corvée d'eau, donc à
+l'absentéisme scolaire.
+
+Le \textbf{logement} associe l'évacuation des ordures et le surpeuplement. La
+privation est retenue si les ordures sont brûlées, jetées dans un dépotoir
+sauvage ou évacuées autrement, ou si le ménage compte plus de quatre personnes
+par pièce occupée. Ces deux indicateurs saisissent l'environnement immédiat de
+l'enfant, dont dépendent l'exposition aux maladies et les conditions d'étude.
+
+La \textbf{nutrition} est mesurée par l'échelle d'insécurité alimentaire vécue,
+en huit questions portant sur les douze derniers mois. L'enfant est déclaré
+privé dès qu'au moins une des huit situations est déclarée. Faute de mesures
+anthropométriques comparables entre les deux vagues, cette échelle est le seul
+indicateur nutritionnel disponible, ce qui constitue une limite assumée.
+
+La \textbf{santé} croise le combustible de cuisson et l'accès à une structure de
+soins. La privation est retenue si le ménage cuisine au bois, au charbon ou aux
+déchets animaux, ou s'il ne dispose ni d'un hôpital ni d'un centre de santé
+accessible à pied. Le premier indicateur mesure une exposition domestique à la
+pollution de l'air, le second une contrainte d'offre que le revenu ne lève pas.
+
+La \textbf{protection} rassemble trois indicateurs dont l'applicabilité varie
+avec l'âge, l'absence d'acte de naissance, le travail des enfants et la
+séparation d'avec au moins un parent biologique. C'est la dimension la plus
+directement exposée aux coûts non monétaires de la migration, puisque le départ
+d'un parent y est enregistré comme une privation.
+
+L'\textbf{éducation} retient la non-scolarisation pour les 5 à 14 ans et
+l'illettrisme pour les 15 à 17 ans, l'indicateur suivant ainsi le stade du
+parcours. Elle n'est pas applicable avant cinq ans, ce qui explique que le
+groupe des 0 à 4 ans soit évalué sur six dimensions et onze indicateurs.
 
 Pour chaque enfant $i$ et chaque dimension $j \in \{1, \ldots, 7\}$, la variable
 de privation est $d_{ij} = \mathbf{1}[\text{privé dans au moins un indicateur
