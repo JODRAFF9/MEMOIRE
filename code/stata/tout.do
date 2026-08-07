@@ -1501,7 +1501,7 @@ forvalues g = 1/3 {
        Les deux densites sont estimees sur une grille commune de 100
        points ; le coefficient est l'aire situee sous leur minimum,
        comprise entre 0 (aucun recouvrement) et 1 (densites confondues). */
-    capture {
+    capture noisily {
         tempvar gx d1 d0
         quietly kdensity pscore if grp_psm == `g' & D == 1, ///
             generate(`gx' `d1') n(100) nograph
@@ -1524,6 +1524,7 @@ forvalues g = 1/3 {
 /* (v) Densites du score, par groupe d'age, AVANT appariement */
 set dp comma
 forvalues g = 1/3 {
+    local titg : label grp `g'
     quietly twoway ///
         (kdensity pscore if D == 0 & grp_psm == `g', ///
          lcolor(gs9) lwidth(medthick)) ///
@@ -1533,7 +1534,7 @@ forvalues g = 1/3 {
                pos(6) rows(1) region(color(white))) ///
         xtitle("Score de propension") ytitle("Densité") ///
         xlabel(, format(%3.1f)) ///
-        title("`: label grp `g''", size(medium)) ///
+        title("`titg'", size(medium)) ///
         graphregion(color(white)) plotregion(color(white)) ///
         name(ov`g', replace)
 }
