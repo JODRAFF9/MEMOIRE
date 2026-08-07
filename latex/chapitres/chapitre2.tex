@@ -389,21 +389,39 @@ estimé par un modèle logit
 \end{equation}
 
 Les covariables $X_i$ du modèle logit sont choisies pour satisfaire
-l'hypothèse d'indépendance conditionnelle tout en évitant d'inclure des
-variables potentiellement affectées par le traitement, chacune étant mesurée
-à la période de base (2018). Elles couvrent le chef de ménage (âge, genre,
-niveau d'éducation, statut matrimonial, catégorie socioprofessionnelle), la
-composition et le niveau de vie du ménage (taille, dépense par tête en
-logarithme), la localisation (milieu de résidence, région) et l'enfant
-lui-même (genre, âge). Les caractéristiques du chef et du ménage sont les
-déterminants que les cadres théoriques de la revue de littérature
-(section~\ref{sec:revue}) assignent à la décision de migrer et d'envoyer
-des fonds~; la dépense par tête initiale est en outre indispensable à
-l'indépendance conditionnelle, le niveau de vie déterminant conjointement le
-statut de traitement et la trajectoire ultérieure de pauvreté~; la
-localisation capte l'accès aux réseaux migratoires, qui varie fortement
-entre régions~; le genre et l'âge de l'enfant répondent à une exigence de
-mesure propre à MODA, exposée ci-après.
+l'hypothèse d'indépendance conditionnelle sans introduire de variable que le
+traitement lui-même modifie, chacune étant mesurée à la période de base
+(2018). Elles couvrent le chef de ménage (âge, genre, niveau d'éducation,
+statut matrimonial), la localisation (milieu de résidence, région) et l'enfant
+lui-même (genre, âge). Les caractéristiques du chef sont les déterminants que
+les cadres théoriques de la revue de littérature (section~\ref{sec:revue})
+assignent à la décision de migrer et d'envoyer des fonds~; la localisation
+capte l'accès aux réseaux migratoires, qui varie fortement entre régions~; le
+genre et l'âge de l'enfant répondent à une exigence de mesure propre à MODA,
+exposée ci-après.
+
+Trois variables ont été écartées de cette liste, la dépense par tête, la
+taille du ménage et la catégorie socioprofessionnelle du chef. Elles ne sont
+pas prédéterminées : le transfert reçu augmente mécaniquement la dépense par
+tête, dont il est une composante~; la taille du ménage enregistre le départ du
+migrant et, le cas échéant, l'accueil de nouveaux membres que les envois
+financent~; la catégorie socioprofessionnelle reflète l'activité du chef, dont
+\textcite{ndiaye2016} montre qu'elle est réduite par la réception de
+transferts. Les inclure reviendrait à contrôler des canaux par lesquels le
+traitement agit, ce que la littérature désigne comme un mauvais contrôle
+\parencite{angrist2009}. L'appariement absorberait alors une part de l'effet
+recherché, et l'estimation gagnerait du bruit plutôt que de la précision.
+
+Ce choix n'est pas sans coût. La dépense par tête initiale conditionne à la
+fois la probabilité de recevoir et la trajectoire ultérieure de pauvreté, si
+bien que la retirer affaiblit l'hypothèse d'indépendance conditionnelle sur ce
+canal. L'arbitrage est tranché en faveur du retrait pour une raison de
+direction du biais : le biais de mauvais contrôle déforme l'estimation de
+façon inconnue, tandis que la sélection résiduelle sur le niveau de vie initial
+est en partie neutralisée par la double différence, qui élimine tout écart
+stable dans le temps. Les trois variables restent affichées dans les tests
+d'équilibre, ce qui permet de vérifier que l'appariement les rapproche malgré
+tout, sans les avoir utilisées.
 
 La qualité de l'appariement est jugée par la différence de moyennes
 standardisée (SMD). Pour une covariable $x$, elle rapporte l'écart de
