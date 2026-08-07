@@ -15,7 +15,7 @@ async function main() {
   const p = new pptxgen();
   p.layout = "LAYOUT_WIDE";
   p.author = "Sie Rachid TRAORE";
-  p.company = "ENSAE Pierre Ndiaye";
+  p.company = "ENSAE";
   p.title = "Transferts de migrants et pauvrete multidimensionnelle des enfants au Senegal";
   let n = 0;
 
@@ -43,7 +43,7 @@ async function main() {
       x: 0, y: 0.55, w: 13.33, h: 0.3, align: "center", margin: 0,
       fontFace: POLICE, fontSize: 13.5, bold: true, color: "A5B4FC", charSpacing: 2,
     });
-    s.addText("École nationale de la statistique et de l'analyse économique Pierre Ndiaye", {
+    s.addText("École nationale de la statistique et de l'analyse économique", {
       x: 0, y: 0.88, w: 13.33, h: 0.3, align: "center", margin: 0,
       fontFace: POLICE, fontSize: 14, color: "A5B4FC",
     });
@@ -1117,7 +1117,7 @@ async function main() {
       x: 1.0, y: 3.95, w: 11.33, h: 0.34, align: "center", margin: 0,
       fontFace: POLICE, fontSize: 14, color: C.orange,
     });
-    s.addText("ENSAE Pierre Ndiaye   ·   Août 2026", {
+    s.addText("ENSAE   ·   Août 2026", {
       x: 1.0, y: 4.35, w: 11.33, h: 0.32, align: "center", margin: 0,
       fontFace: POLICE, fontSize: 14, color: "A5B4FC",
     });

@@ -134,6 +134,20 @@ alternative du traitement en robustesse.
 \subsection{Mesure de la pauvreté multidimensionnelle des enfants}
 % ─────────────────────────────────────────────────────────────────────────────
 
+Le choix de MODA appelle une justification, trois familles de mesures étant
+disponibles. Le \textbf{seuil monétaire} est écarté pour les raisons exposées au
+chapitre~1, il suppose une répartition équitable des ressources dans le ménage
+et reste muet sur ce que le revenu ne peut acheter faute d'offre. L'\textbf{indice
+de pauvreté multidimensionnelle global} de l'OPHI, construit sur dix indicateurs,
+est écarté parce qu'il prend le ménage pour unité et applique la même grille à
+tous ses membres, ce qui masque précisément la variation entre enfants d'un même
+foyer que ce travail cherche à mesurer. \textbf{MODA} est retenue pour trois
+raisons. Elle prend l'enfant pour unité d'analyse. Elle décline ses indicateurs
+par groupe d'âge, ce qui évite de juger un nourrisson sur une grille
+d'adolescent. Elle dispose enfin d'une adaptation nationale validée pour le
+Sénégal \parencite{ansd2024}, ce qui rend les résultats comparables aux
+statistiques officielles et dispense d'arbitrer seul le choix des dimensions.
+
 La pauvreté multidimensionnelle des enfants, dont la
 section~\ref{subsubsec:concept_moda} a posé les fondements conceptuels, est
 mesurée ici par l'approche MODA (Multiple Overlapping Deprivation
@@ -198,6 +212,35 @@ d'âge.
 % ─────────────────────────────────────────────────────────────────────────────
 \subsection{Stratégie d'identification causale}
 % ─────────────────────────────────────────────────────────────────────────────
+
+Le choix de la stratégie d'identification mérite d'être justifié, plusieurs
+solutions étant envisageables face au biais de sélection.
+
+L'\textbf{expérimentation} est exclue, on n'attribue pas des transferts de
+migrants au hasard. Les \textbf{variables instrumentales}, mobilisées par
+\textcite{calero2009} et \textcite{davis2016} à partir de la prévalence
+migratoire historique, supposent un instrument corrélé au fait de recevoir mais
+sans effet direct sur les privations de l'enfant. L'EHCVM ne fournit pas un tel
+instrument, faute d'information rétrospective sur l'histoire migratoire du
+village. La \textbf{régression sur discontinuité} suppose un seuil administratif
+d'éligibilité, qui n'existe pas ici puisque le transfert relève d'une décision
+privée. Les \textbf{effets fixes individuels} seuls neutraliseraient
+l'inobservable stable, mais laisseraient subsister l'écart de niveau initial
+entre les deux groupes, considérable dans notre cas.
+
+Restent l'appariement et la double différence, dont les hypothèses sont
+complémentaires plutôt que concurrentes. L'appariement corrige la sélection sur
+les caractéristiques observables, mais suppose l'indépendance conditionnelle,
+c'est-à-dire qu'aucun inobservable ne détermine simultanément le fait de
+recevoir et les privations, hypothèse forte quand la théorie des réseaux
+désigne précisément de tels déterminants. La double différence neutralise ces
+inobservables pourvu qu'ils soient stables dans le temps, mais suppose des
+tendances parallèles, hypothèse peu crédible entre deux groupes qui ne partent
+pas du même niveau. Leur combinaison, proposée par \textcite{heckman1997,
+heckman1998}, affaiblit les deux hypothèses simultanément, la double différence
+n'étant plus appliquée qu'à des enfants rendus comparables sur l'observable.
+C'est cet estimateur que retient ce mémoire, et la disponibilité de deux vagues
+appariées le rend possible.
 
 \subsubsection{Cadre des résultats potentiels}
 

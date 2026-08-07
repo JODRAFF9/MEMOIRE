@@ -85,7 +85,7 @@ corps.push(
   new Paragraph({
     spacing: { after: 800 },
     alignment: AlignmentType.CENTER,
-    children: [new TextRun({ text: "ENSAE Pierre Ndiaye  ·  Août 2026", font: POLICE, size: 24, color: "6E747E" })],
+    children: [new TextRun({ text: "ENSAE  ·  Août 2026", font: POLICE, size: 24, color: "6E747E" })],
   }),
   new Paragraph({
     spacing: { after: 120 },

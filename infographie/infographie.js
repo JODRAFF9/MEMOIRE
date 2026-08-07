@@ -237,7 +237,7 @@ async function main() {
     { x: 0.45, y: 7.10, w: 7.6, h: 0.26, margin: 0,
       fontFace: "Calibri", fontSize: 9.5, color: MUET }
   );
-  s.addText("Sié Rachid TRAORÉ · ENSAE Pierre Ndiaye · 2026", {
+  s.addText("Sié Rachid TRAORÉ · ENSAE · 2026", {
     x: 8.9, y: 7.10, w: 4.0, h: 0.26, align: "right", margin: 0,
     fontFace: "Calibri", fontSize: 9.5, color: MUET,
   });
