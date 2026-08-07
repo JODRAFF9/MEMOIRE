@@ -160,6 +160,13 @@
   \fi
   % Le titre est confine a 78 % de la largeur : un intitule long passe a la
   % ligne au lieu de venir buter sur la pastille, qui occupe la droite.
+  % Mention « Chapitre n » au-dessus du titre, pour les seuls titres
+  % numerotes : le corps du memoire se lit alors en chapitres.
+  \ifx\relax#2\relax\else
+    {\centering\color{ensaeblue!70}\normalsize\bfseries
+     \MakeUppercase{Chapitre}~#2\par}
+    \vspace{0.15cm}
+  \fi
   {\centering
    \parbox{0.78\textwidth}{\centering\color{ensaeblue}\Large\bfseries #1}\par}
   \vspace{0.12cm}
@@ -430,22 +437,25 @@
 % 1. Introduction
 \input{chapitres/introduction}
 
-% 2. Revue de la littérature
+% 2. Cadre conceptuel
+\input{chapitres/cadre_conceptuel}
+
+% 3. Revue de la littérature
 \input{chapitres/chapitre1}
 
-% 3. Données et méthodologie
+% 4. Données et méthodologie
 \input{chapitres/chapitre2}
 
-% 4. Statistiques descriptives
+% 5. Statistiques descriptives
 \input{chapitres/chapitre3_stats}
 
-% 5. Résultats des estimations
+% 6. Résultats des estimations
 \input{chapitres/chapitre3_resultats}
 
-% 6. Discussion
+% 7. Discussion
 \input{chapitres/chapitre4}
 
-% 7. Conclusion et recommandations
+% 8. Conclusion et recommandations
 \input{chapitres/conclusion}
 
 % ── Annexes ──────────────────────────────────────────────────
