@@ -1163,12 +1163,12 @@ save "$TEMP/panel_complet.dta", replace
 use "$TEMP/enfants_dep_2018.dta", clear
 keep grappe menage numind sexe age pauvre_MODA nb_dep intensite_moda groupe_moda ///
      dim_assai dim_eau dim_logem dim_nutri dim_sante dim_protect dim_educ ///
-     m_parents ///
+     m_parents m_toilet m_partag_toi m_eau_source m_eau_temps m_ordures m_surpeup m_securite m_combust m_sante_acces m_acte_nais m_trav_enf m_scol m_alfab ///
      hhweight hhsize pcexp region milieu hgender hage heduc hmstat hcsp
 rename numind numind_2018
 foreach v in sexe age pauvre_MODA nb_dep intensite_moda groupe_moda ///
              dim_assai dim_eau dim_logem dim_nutri dim_sante dim_protect dim_educ ///
-             m_parents {
+             m_parents m_toilet m_partag_toi m_eau_source m_eau_temps m_ordures m_surpeup m_securite m_combust m_sante_acces m_acte_nais m_trav_enf m_scol m_alfab {
     rename `v' `v'18
 }
 tempfile enf18_psm
@@ -1177,10 +1177,10 @@ save `enf18_psm'
 use "$TEMP/enfants_dep_2021.dta", clear
 keep grappe menage numind sexe age pauvre_MODA nb_dep intensite_moda groupe_moda ///
      dim_assai dim_eau dim_logem dim_nutri dim_sante dim_protect dim_educ ///
-     m_parents
+     m_parents m_toilet m_partag_toi m_eau_source m_eau_temps m_ordures m_surpeup m_securite m_combust m_sante_acces m_acte_nais m_trav_enf m_scol m_alfab
 foreach v in sexe age pauvre_MODA nb_dep intensite_moda groupe_moda ///
              dim_assai dim_eau dim_logem dim_nutri dim_sante dim_protect dim_educ ///
-             m_parents {
+             m_parents m_toilet m_partag_toi m_eau_source m_eau_temps m_ordures m_surpeup m_securite m_combust m_sante_acces m_acte_nais m_trav_enf m_scol m_alfab {
     rename `v' `v'21
 }
 merge m:1 grappe menage numind using "$TEMP/lien_individus.dta", ///
@@ -1338,18 +1338,54 @@ drop m_parents18 m_parents21 chef_f_t urbain_t
 di _newline "=== Logit ENFANT — score de propension (EHCVM I, panel d'enfants) ==="
 di "Enfants suivis aux deux vagues : " _N
 
-/* ── 1b. Logit au niveau enfant ──────────────────────────────
+/* ── 1b. Logit au niveau enfant, SEPAREMENT PAR GROUPE D'AGE ──
    Covariables du menage a t=0 + genre et age de l'enfant. Erreurs-types
    clusterisees au niveau de la grappe (le traitement varie au niveau
-   menage : la correlation intra-grappe couvre aussi l'intra-menage). */
-logit D c.hhsize c.log_pcexp i.milieu i.region ///
-         c.hgender c.hage i.heduc i.hmstat i.hcsp ///
-         i.sexe18 c.age18, vce(cluster grappe) nolog
+   menage : la correlation intra-grappe couvre aussi l'intra-menage).
 
-di "Pseudo-R2 McFadden : " %6.3f 1 - e(ll)/e(ll_0)
+   Le score est estime a l'interieur de chaque groupe d'age MODA plutot
+   que sur l'ensemble des enfants. Deux raisons. D'abord la mesure : les
+   indicateurs qui composent l'indice ne sont pas les memes selon l'age,
+   si bien qu'un enfant de 2 ans et un adolescent de 16 ans ne subissent
+   pas les memes privations potentielles et ne sont pas des contrefactuels
+   l'un de l'autre. Ensuite la selection : les determinants de la reception
+   d'un transfert n'ont aucune raison de peser du meme poids selon l'age de
+   l'enfant, et un score commun impose des coefficients identiques aux trois
+   groupes. Estimer separement autorise ces coefficients a differer et
+   garantit que chaque enfant traite est apparie a un temoin du meme groupe
+   d'age. */
 
-predict pscore, pr
-label var pscore "Score de propension (enfant)"
+gen byte grp_psm = groupe_moda18
+label values grp_psm grp
+label var grp_psm "Groupe d'age MODA a la periode de base"
+
+gen double pscore = .
+label var pscore "Score de propension (enfant, estime par groupe d'age)"
+
+forvalues g = 1/3 {
+    di _newline "-- Logit, groupe d'age `g' --"
+    quietly count if grp_psm == `g'
+    di "   Enfants : " r(N)
+    quietly count if grp_psm == `g' & D == 1
+    di "   dont traites : " r(N)
+
+    logit D c.hhsize c.log_pcexp i.milieu i.region ///
+             c.hgender c.hage i.heduc i.hmstat i.hcsp ///
+             i.sexe18 c.age18 if grp_psm == `g', vce(cluster grappe) nolog
+
+    di "   Pseudo-R2 McFadden : " %6.3f 1 - e(ll)/e(ll_0)
+
+    quietly predict double ps_tmp if e(sample), pr
+    quietly replace pscore = ps_tmp if grp_psm == `g' & !missing(ps_tmp)
+    drop ps_tmp
+}
+
+/* Un enfant dont le logit de son groupe n'a pas pu produire de prediction
+   (colinearite parfaite sur une modalite rare) est ecarte : il ne pourrait
+   pas etre apparie. */
+quietly count if missing(pscore)
+di _newline "Enfants sans score de propension (ecartes) : " r(N)
+drop if missing(pscore)
 
 /* Graphique de densite (support commun) */
 set dp comma
@@ -1382,38 +1418,140 @@ save "$TEMP/pscore_t0.dta", replace
 local covbal hhsize log_pcexp i.milieu i.region hgender hage ///
              i.heduc i.hmstat i.hcsp i.sexe18 age18
 
+/* Accumulateurs du desequilibre residuel, alimentes methode par methode
+   et groupe par groupe, puis moyennes pour departager les trois
+   algorithmes (section 2e). */
+foreach m in knn kernel caliper {
+    global BIAIS_`m' = 0
+    global NOBS_`m'  = 0
+}
+
+/* L'appariement est effectue A L'INTERIEUR de chaque groupe d'age, avec
+   le score estime sur ce meme groupe et un support commun propre au
+   groupe. Les poids des trois groupes sont ensuite empiles : la double
+   difference qui suit est inchangee, mais aucun appariement ne franchit
+   plus une frontiere d'age. */
+
 /* -- 2a. k-NN ------------------------------------------------ */
-di _newline "=== Appariement k-NN (k=$K_VOISINS, avec remise), niveau enfant ==="
-psmatch2 D, pscore(pscore) neighbor($K_VOISINS) common
+di _newline "=== Appariement k-NN (k=$K_VOISINS, avec remise), par groupe d'age ==="
+tempfile knn_all
+local premier = 1
+forvalues g = 1/3 {
+    use "$TEMP/pscore_t0.dta", clear
+    keep if grp_psm == `g'
+    di _newline "-- Groupe d'age `g' : " _N " enfants --"
+    psmatch2 D, pscore(pscore) neighbor($K_VOISINS) common
 
-di _newline "Balance avant/apres (SMD) :"
-pstest `covbal', both
+    di _newline "Balance avant/apres (SMD), groupe `g' :"
+    pstest `covbal', both
+    global BIAIS_knn = ${BIAIS_knn} + r(meanbias)*_N
+    global NOBS_knn  = ${NOBS_knn}  + _N
 
-rename _weight weight_knn
-keep enfid grappe menage numind_2018 D pscore weight_knn _support
+    rename _weight weight_knn
+    keep enfid grappe menage numind_2018 D pscore weight_knn _support grp_psm
+    if `premier' == 1 {
+        save `knn_all', replace
+        local premier = 0
+    }
+    else {
+        append using `knn_all'
+        save `knn_all', replace
+    }
+}
+use `knn_all', clear
 save "$TEMP/pscore_knn.dta", replace
+di _newline ">>> k-NN : " _N " enfants apparies (trois groupes empiles)"
 
-di _newline "=== Appariement Kernel (Epanechnikov, h=0.06), niveau enfant ==="
-use "$TEMP/pscore_t0.dta", clear
-psmatch2 D, pscore(pscore) kernel kerneltype(epan) bwidth(0.06) common
+/* -- 2b. Kernel ---------------------------------------------- */
+di _newline "=== Appariement Kernel (Epanechnikov, h=0.06), par groupe d'age ==="
+tempfile ker_all
+local premier = 1
+forvalues g = 1/3 {
+    use "$TEMP/pscore_t0.dta", clear
+    keep if grp_psm == `g'
+    di _newline "-- Groupe d'age `g' --"
+    psmatch2 D, pscore(pscore) kernel kerneltype(epan) bwidth(0.06) common
 
-di _newline "Balance avant/apres (SMD), methode kernel :"
-pstest `covbal', both
+    di _newline "Balance avant/apres (SMD), kernel, groupe `g' :"
+    pstest `covbal', both
+    global BIAIS_kernel = ${BIAIS_kernel} + r(meanbias)*_N
+    global NOBS_kernel  = ${NOBS_kernel}  + _N
 
-rename _weight weight_kernel
-keep enfid weight_kernel
+    rename _weight weight_kernel
+    keep enfid weight_kernel
+    if `premier' == 1 {
+        save `ker_all', replace
+        local premier = 0
+    }
+    else {
+        append using `ker_all'
+        save `ker_all', replace
+    }
+}
+use `ker_all', clear
 save "$TEMP/poids_kernel.dta", replace
 
-di _newline "=== Appariement Caliper (eps=$CALIPER, sans remise), niveau enfant ==="
-use "$TEMP/pscore_t0.dta", clear
-psmatch2 D, pscore(pscore) caliper($CALIPER) noreplacement common
+/* -- 2c. Caliper --------------------------------------------- */
+di _newline "=== Appariement Caliper (eps=$CALIPER, sans remise), par groupe d'age ==="
+tempfile cal_all
+local premier = 1
+forvalues g = 1/3 {
+    use "$TEMP/pscore_t0.dta", clear
+    keep if grp_psm == `g'
+    di _newline "-- Groupe d'age `g' --"
+    psmatch2 D, pscore(pscore) caliper($CALIPER) noreplacement common
 
-di _newline "Balance avant/apres (SMD), methode caliper :"
-pstest `covbal', both
+    di _newline "Balance avant/apres (SMD), caliper, groupe `g' :"
+    pstest `covbal', both
+    global BIAIS_caliper = ${BIAIS_caliper} + r(meanbias)*_N
+    global NOBS_caliper  = ${NOBS_caliper}  + _N
 
-rename _weight weight_caliper
-keep enfid weight_caliper
+    rename _weight weight_caliper
+    keep enfid weight_caliper
+    if `premier' == 1 {
+        save `cal_all', replace
+        local premier = 0
+    }
+    else {
+        append using `cal_all'
+        save `cal_all', replace
+    }
+}
+use `cal_all', clear
 save "$TEMP/poids_caliper.dta", replace
+
+/* ── 2e. Choix de la methode d'appariement ───────────────────
+   Les trois algorithmes sont conserves et leurs resultats presentes
+   ensemble (section 7, robustesse). L'un d'eux fournit neanmoins le
+   resultat de reference, et ce choix ne doit rien a la valeur de l'ATT
+   qu'il produit : il se fonde sur le seul critere d'equilibre, le biais
+   standardise moyen residuel sur les covariables apres appariement,
+   moyenne sur les trois groupes d'age et pondere par leur effectif.
+   L'algorithme qui rend les deux groupes les plus comparables est
+   retenu ; les deux autres servent a verifier que la conclusion n'en
+   depend pas.
+   ============================================================ */
+
+di _newline "=== 2e. Comparaison des trois methodes d'appariement ==="
+di "  methode      biais standardise moyen apres appariement (%)"
+
+local meilleure  ""
+local biais_min  = .
+foreach m in knn kernel caliper {
+    local b = ${BIAIS_`m'} / ${NOBS_`m'}
+    global BIAISMOY_`m' = `b'
+    di "  " %-12s "`m'" %10.2f `b'
+    if `b' < `biais_min' {
+        local biais_min = `b'
+        local meilleure = "`m'"
+    }
+}
+
+global METHODE         "`meilleure'"
+global POIDS_PRINCIPAL "weight_`meilleure'"
+di _newline "  >>> Methode retenue : $METHODE (biais moyen " %5.2f `biais_min' " %)"
+di "      Les resultats des deux autres methodes restent presentes"
+di "      integralement dans la section robustesse."
 
 /* ── 2d. Panel d'enfants en format long ──────────────────────
    Chaque enfant apparait a t=0 et t=1 avec SON poids d'appariement, qui
@@ -1434,7 +1572,8 @@ clonevar groupe_base = groupe_moda18
 label var groupe_base "Groupe d'age MODA a la periode de base (2018)"
 
 reshape long pauvre_MODA nb_dep intensite_moda groupe_moda sexe age ///
-             dim_assai dim_eau dim_logem dim_nutri dim_sante dim_protect dim_educ, ///
+             dim_assai dim_eau dim_logem dim_nutri dim_sante dim_protect dim_educ ///
+             m_toilet m_partag_toi m_eau_source m_eau_temps m_ordures m_surpeup m_securite m_combust m_sante_acces m_acte_nais m_trav_enf m_scol m_alfab, ///
     i(enfid) j(periode)
 gen byte t = (periode == 21)
 label var t "0 = EHCVM I (2018-19), 1 = EHCVM II (2021-22)"
@@ -1496,7 +1635,7 @@ foreach outcome in pauvre_MODA {
    ============================================================ */
 
 use "$TEMP/panel_enfants_psm.dta", clear
-keep if !missing(weight_knn) & weight_knn > 0
+keep if !missing($POIDS_PRINCIPAL) & $POIDS_PRINCIPAL > 0
 
 di _newline "Panel d'enfants apparie (k-NN) : " _N " observations"
 tabstat D, by(t) stat(mean sum n) format(%6.3f)
@@ -1504,7 +1643,7 @@ tabstat D, by(t) stat(mean sum n) format(%6.3f)
 di _newline "=== PSM-DD — ATT principal (Heckman 1997/1998) ==="
 foreach outcome in pauvre_MODA {
     di _newline "--- PSM-DD `outcome' ---"
-    regress `outcome' i.t##i.D [aw=weight_knn], vce(cluster grappe)
+    regress `outcome' i.t##i.D [aw=$POIDS_PRINCIPAL], vce(cluster grappe)
     lincom 1.t#1.D
     di "  ATT_PSM-DD = " %8.4f r(estimate) ///
        "  SE = " %8.4f r(se) "  p = " %6.4f r(p)
@@ -1519,7 +1658,7 @@ di _newline "=== Sensibilite de l'ATT au seuil de privation k ==="
 di "  k        ATT      SE       p"
 forvalues k = 1/7 {
     quietly gen byte pauvre_k`k' = (nb_dep >= `k') if !missing(nb_dep)
-    quietly regress pauvre_k`k' i.t##i.D [aw=weight_knn], vce(cluster grappe)
+    quietly regress pauvre_k`k' i.t##i.D [aw=$POIDS_PRINCIPAL], vce(cluster grappe)
     quietly lincom 1.t#1.D
     di "  " %1.0f `k' %11.4f r(estimate) %9.4f r(se) %8.4f r(p)
     quietly drop pauvre_k`k'
@@ -1533,11 +1672,11 @@ forvalues k = 1/7 {
    vs PSM-DD" de l'annexe A. */
 di _newline "=== PSM seul (transversal, sans DD) — decomposition du PSM-DD ==="
 di _newline "--- PSM seul, t=0 (niveau initial apparie) ---"
-regress pauvre_MODA D [aw=weight_knn] if t == 0, vce(cluster grappe)
+regress pauvre_MODA D [aw=$POIDS_PRINCIPAL] if t == 0, vce(cluster grappe)
 di "  ATT PSM (t=0) = " %8.4f _b[D] "  SE = " %8.4f _se[D] ///
    "  p = " %6.4f (2*ttail(e(df_r), abs(_b[D]/_se[D])))
 di _newline "--- PSM seul, t=1 (EHCVM II, sans DD) ---"
-regress pauvre_MODA D [aw=weight_knn] if t == 1, vce(cluster grappe)
+regress pauvre_MODA D [aw=$POIDS_PRINCIPAL] if t == 1, vce(cluster grappe)
 di "  ATT PSM (t=1) = " %8.4f _b[D] "  SE = " %8.4f _se[D] ///
    "  p = " %6.4f (2*ttail(e(df_r), abs(_b[D]/_se[D])))
 di _newline "  Rappel : ATT_PSM-DD = ATT_PSM(t=1) - ATT_PSM(t=0), par construction."
@@ -1547,13 +1686,13 @@ save "$TEMP/panel_apparie.dta", replace
 /* ── Fig DD : trajectoires beneficiaires vs temoins + contrefactuel ──
    Moyennes ponderees par les poids k-NN. Le contrefactuel applique la
    tendance des temoins au niveau initial des beneficiaires. */
-quietly summarize pauvre_MODA if D==1 & t==0 [aw=weight_knn]
+quietly summarize pauvre_MODA if D==1 & t==0 [aw=$POIDS_PRINCIPAL]
 scalar dd_b0 = r(mean)*100
-quietly summarize pauvre_MODA if D==1 & t==1 [aw=weight_knn]
+quietly summarize pauvre_MODA if D==1 & t==1 [aw=$POIDS_PRINCIPAL]
 scalar dd_b1 = r(mean)*100
-quietly summarize pauvre_MODA if D==0 & t==0 [aw=weight_knn]
+quietly summarize pauvre_MODA if D==0 & t==0 [aw=$POIDS_PRINCIPAL]
 scalar dd_c0 = r(mean)*100
-quietly summarize pauvre_MODA if D==0 & t==1 [aw=weight_knn]
+quietly summarize pauvre_MODA if D==0 & t==1 [aw=$POIDS_PRINCIPAL]
 scalar dd_c1 = r(mean)*100
 scalar dd_cf1 = dd_b0 + (dd_c1 - dd_c0)   /* contrefactuel sous tendances paralleles */
 
@@ -1613,7 +1752,7 @@ foreach mil in 1 2 {
         quietly count if milieu == `mil'
         if r(N) > 30 {
             di _newline "--- `lab_mil' — `outcome' ---"
-            regress `outcome' i.t##i.D [aw=weight_knn] if milieu == `mil', ///
+            regress `outcome' i.t##i.D [aw=$POIDS_PRINCIPAL] if milieu == `mil', ///
                 vce(cluster grappe)
             lincom 1.t#1.D
             di "  ATT = " %8.4f r(estimate) "  p = " %6.4f r(p)
@@ -1624,7 +1763,7 @@ foreach mil in 1 2 {
 di _newline "Test d'egalite (urbain vs rural) :"
 gen byte urban = (milieu == 1)
 foreach outcome in pauvre_MODA {
-    regress `outcome' i.t##i.D##i.urban [aw=weight_knn], vce(cluster grappe)
+    regress `outcome' i.t##i.D##i.urban [aw=$POIDS_PRINCIPAL], vce(cluster grappe)
     lincom 1.t#1.D#1.urban
     di "  Diff ATT (urbain - rural) : " %8.4f r(estimate) "  p = " %6.4f r(p)
 }
@@ -1641,7 +1780,7 @@ if _rc == 0 {
             quietly count if hgender == `h'
             if r(N) > 30 {
                 di "--- `lab_h' — `outcome' ---"
-                regress `outcome' i.t##i.D [aw=weight_knn] if hgender == `h', ///
+                regress `outcome' i.t##i.D [aw=$POIDS_PRINCIPAL] if hgender == `h', ///
                     vce(cluster grappe)
                 lincom 1.t#1.D
                 di "  ATT = " %8.4f r(estimate) "  p = " %6.4f r(p)
@@ -1652,7 +1791,7 @@ if _rc == 0 {
     di _newline "Test d'egalite (chef femme vs chef homme) :"
     gen byte chef_fem = (hgender == 2) if !missing(hgender)
     foreach outcome in pauvre_MODA {
-        regress `outcome' i.t##i.D##i.chef_fem [aw=weight_knn], vce(cluster grappe)
+        regress `outcome' i.t##i.D##i.chef_fem [aw=$POIDS_PRINCIPAL], vce(cluster grappe)
         lincom 1.t#1.D#1.chef_fem
         di "  Diff ATT (chef femme - chef homme) : " %8.4f r(estimate) ///
            "  p = " %6.4f r(p)
@@ -1671,7 +1810,7 @@ foreach g in 1 2 3 {
             quietly count if groupe_base == `g'
             di "  Observations changeant de groupe d'age entre les vagues : " ///
                %5.1f 100*`n_chg'/r(N) "%"
-            regress `outcome' i.t##i.D [aw=weight_knn] if groupe_base == `g', ///
+            regress `outcome' i.t##i.D [aw=$POIDS_PRINCIPAL] if groupe_base == `g', ///
                 vce(cluster grappe)
             lincom 1.t#1.D
             di "  ATT = " %8.4f r(estimate) "  p = " %6.4f r(p)
@@ -1684,7 +1823,7 @@ foreach g in 1 2 3 {
    l'effet. */
 di _newline "Test d'egalite des ATT entre groupes d'age :"
 foreach outcome in pauvre_MODA {
-    regress `outcome' i.t##i.D##ib1.groupe_base [aw=weight_knn], ///
+    regress `outcome' i.t##i.D##ib1.groupe_base [aw=$POIDS_PRINCIPAL], ///
         vce(cluster grappe)
     testparm i.t#i.D#i.groupe_base
     di "  Test joint d'egalite des trois ATT : F = " %6.2f r(F) ///
@@ -1733,10 +1872,10 @@ merge m:1 grappe menage using `quintiles', ///
 
 foreach outcome in pauvre_MODA {
     forvalues q = 1/5 {
-        quietly count if q_montant == `q' & !missing(weight_knn)
+        quietly count if q_montant == `q' & !missing($POIDS_PRINCIPAL)
         if r(N) > 30 {
             di _newline "--- Quintile `q' — `outcome' ---"
-            regress `outcome' i.t##i.D [aw=weight_knn] ///
+            regress `outcome' i.t##i.D [aw=$POIDS_PRINCIPAL] ///
                 if D == 0 | q_montant == `q', vce(cluster grappe)
             lincom 1.t#1.D
             di "  ATT = " %8.4f r(estimate) "  SE = " %8.4f r(se) ///
@@ -1751,7 +1890,7 @@ foreach outcome in pauvre_MODA {
    decoupe l'information. */
 di _newline "Effet dose-reponse (montant en logarithme, enfants traites) :"
 quietly gen double log_montant = log(montant_transf) if montant_transf > 0
-regress pauvre_MODA i.t##c.log_montant [aw=weight_knn] if D == 1, ///
+regress pauvre_MODA i.t##c.log_montant [aw=$POIDS_PRINCIPAL] if D == 1, ///
     vce(cluster grappe)
 lincom 1.t#c.log_montant
 di "  Pente dose-reponse = " %8.4f r(estimate) "  SE = " %8.4f r(se) ///
@@ -2457,7 +2596,7 @@ foreach poids_var in weight_knn weight_kernel weight_caliper {
     }
 }
 
-keep if !missing(weight_knn) & weight_knn > 0
+keep if !missing($POIDS_PRINCIPAL) & $POIDS_PRINCIPAL > 0
 
 /* ATT PSM-DD pour chaque dimension (poids d'appariement PSM uniquement,
    pas de poids d'enquete ; erreurs-types clusterisees au niveau grappe) */
@@ -2471,12 +2610,42 @@ matrix UB   = J(`n_dims', 1, .)
 local i = 0
 foreach dim of local dims {
     local ++i
-    quietly regress dim_`dim' i.t##i.D [aw=weight_knn], vce(cluster grappe)
+    quietly regress dim_`dim' i.t##i.D [aw=$POIDS_PRINCIPAL], vce(cluster grappe)
     quietly lincom 1.t#1.D
     matrix ATT[`i',1] = r(estimate)
     matrix LB[`i',1]  = r(estimate) - 1.96*r(se)
     matrix UB[`i',1]  = r(estimate) + 1.96*r(se)
     di "  dim_`dim' : ATT=" %8.4f r(estimate) "  SE=" %7.4f r(se) "  p=" %6.4f r(p)
+}
+
+/* ── ATT par INDICATEUR ──────────────────────────────────────
+   La dimension agrege ses indicateurs par la regle de l'union : elle
+   passe a 1 des qu'un seul indicateur est positif. Un effet nul sur la
+   dimension peut donc masquer deux mouvements de sens contraire, et un
+   effet significatif ne dit pas lequel des indicateurs le porte.
+   L'estimation est reprise indicateur par indicateur, sur le meme panel
+   apparie et avec la meme specification. Chaque indicateur n'est defini
+   que sur les groupes d'age auxquels il s'applique : la regression porte
+   sur les enfants pour lesquels il n'est pas manquant, et l'effectif
+   affiche permet de le verifier. */
+
+di _newline "=== ATT PSM-DD par indicateur ($METHODE) ==="
+di "  indicateur          n        ATT       SE        p"
+
+foreach ind in m_toilet m_partag_toi m_eau_source m_eau_temps ///
+               m_ordures m_surpeup m_securite m_combust m_sante_acces ///
+               m_acte_nais m_trav_enf m_scol m_alfab {
+    quietly count if !missing(`ind')
+    local n_ind = r(N)
+    if `n_ind' > 0 {
+        quietly regress `ind' i.t##i.D [aw=$POIDS_PRINCIPAL], vce(cluster grappe)
+        quietly lincom 1.t#1.D
+        di "  " %-16s "`ind'" %8.0f `n_ind' %10.4f r(estimate) ///
+           %9.4f r(se) %9.4f r(p)
+    }
+    else {
+        di "  " %-16s "`ind'" "   non renseigne sur le panel"
+    }
 }
 
 /* Construire dataset pour le graphique */

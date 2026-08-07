@@ -419,6 +419,71 @@ en pourcentage de l'écart-type, elle ne dépend pas de l'unité de mesure et se
 compare d'une covariable à l'autre. L'appariement est jugé satisfaisant
 lorsque la SMD résiduelle de chaque covariable reste inférieure à 10\,\%.
 
+\paragraph{Une estimation séparée par groupe d'âge.}
+Le score de propension et l'appariement ne sont pas estimés sur l'ensemble des
+enfants, mais séparément à l'intérieur de chacun des trois groupes d'âge MODA,
+soit les 0 à 4 ans, les 5 à 14 ans et les 15 à 17 ans. Deux raisons le
+commandent. La première tient à la mesure : les indicateurs qui composent
+l'indice ne sont pas les mêmes selon l'âge, si bien qu'un enfant de deux ans et
+un adolescent de seize ans ne sont pas exposés aux mêmes privations
+potentielles et ne peuvent servir de contrefactuel l'un à l'autre. La seconde
+tient à la sélection : les déterminants de la réception d'un transfert n'ont
+aucune raison de peser du même poids selon l'âge de l'enfant, et un score
+commun contraint les trois groupes à partager les mêmes coefficients. Estimer
+séparément lève cette contrainte, autorise le support commun à différer d'un
+groupe à l'autre, et garantit qu'aucun appariement ne franchit une frontière
+d'âge. Les poids obtenus dans les trois groupes sont ensuite empilés, la
+double différence qui suit restant inchangée.
+
+\paragraph{Le choix de l'algorithme d'appariement.}
+Trois algorithmes sont mis en œuvre, les $k$ plus proches voisins, le noyau
+d'Epanechnikov et le caliper. Aucun n'est théoriquement supérieur aux autres :
+ils arbitrent différemment entre biais et variance, le voisinage le plus étroit
+réduisant le biais au prix d'un nombre réduit de témoins mobilisés. Le choix du
+résultat de référence repose donc sur un critère d'équilibre et non sur la
+valeur de l'effet estimé, ce qui interdirait toute lecture causale. Le critère
+retenu est le biais standardisé moyen résiduel sur l'ensemble des covariables
+après appariement, moyenné sur les trois groupes d'âge et pondéré par leur
+effectif. L'algorithme qui rend les deux groupes les plus comparables fournit
+le résultat principal~; les deux autres sont estimés et présentés
+intégralement, et servent à vérifier que la conclusion ne dépend pas de cette
+convention.
+
+\paragraph{Les tests menés avant l'estimation.}
+Trois tests précèdent l'estimation d'impact. Le premier compare les
+caractéristiques observables des deux groupes à la période de base, par un test
+de Student sur la différence de moyennes dont les écarts-types sont
+regroupés au niveau de la grappe. Le deuxième compare de la même façon les
+résultats initiaux, indice de pauvreté, nombre de privations, intensité et
+chacune des sept dimensions : c'est l'écart préexistant que la double
+différence doit neutraliser et non attribuer aux transferts. Le troisième est
+un test joint d'égalité de l'ensemble des covariables, obtenu par le rapport de
+vraisemblance du logit. Son rejet n'est pas un échec mais le fait empirique qui
+justifie la démarche : il établit qu'une comparaison directe des deux groupes
+serait biaisée, et donc que l'appariement est nécessaire.
+
+\paragraph{Les tests d'endogénéité.}
+Une covariable du score de propension doit être prédéterminée, c'est-à-dire
+fixée avant le traitement et non modifiée par lui. Une variable affectée par
+les transferts introduirait dans le score un canal par lequel le traitement
+agit, et l'appariement en absorberait une partie de l'effet. Le test consiste,
+pour chaque variable mesurée aux deux vagues, à régresser sa valeur de 2021 sur
+le traitement de 2018 en contrôlant sa valeur de 2018. Un coefficient
+significatif sur le traitement établit que celui-ci déplace la variable, qui ne
+peut alors servir de covariable d'appariement. Le même test est appliqué à la
+séparation parentale, non comme covariable mais comme indicateur de privation :
+il fonde son retrait de l'agrégat, exposé plus haut.
+
+\paragraph{Une lecture jusqu'aux indicateurs.}
+L'effet est estimé non seulement sur l'indice agrégé et sur chacune des sept
+dimensions, mais aussi sur chacun des treize indicateurs élémentaires. La
+raison tient à la règle d'agrégation : une dimension passe à un dès qu'un seul
+de ses indicateurs est positif, si bien qu'un effet nul sur la dimension peut
+recouvrir deux mouvements de sens contraire, et qu'un effet significatif ne dit
+pas lequel des indicateurs le porte. L'estimation par indicateur porte sur le
+même panel apparié et la même spécification, chaque indicateur n'étant défini
+que sur les groupes d'âge auxquels il s'applique.
+
 \subsubsection{Double différence}
 
 La double différence (DD) \textcite{card1994} exploite la dimension temporelle des deux vagues EHCVM
