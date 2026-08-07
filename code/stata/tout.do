@@ -1210,8 +1210,14 @@ foreach v in milieu region heduc hmstat {
 egen long enfid = group(grappe menage numind_2018)
 label var enfid "Identifiant individuel de l'enfant (panel)"
 
-drop if missing(D) | missing(log_pcexp) | missing(hhsize) ///
-       | missing(hcsp) | missing(sexe18) | missing(age18) ///
+/* Cas complets sur les seules variables qui entrent dans l'estimation :
+   le traitement, les covariables du score et les deux resultats. Les
+   variables ecartees du score (log_pcexp, hhsize, hcsp) ne conditionnent
+   plus l'echantillon : les exclure du modele tout en excluant les enfants
+   dont elles manquent restreindrait le panel sans contrepartie. */
+drop if missing(D) | missing(sexe18) | missing(age18) ///
+       | missing(milieu) | missing(region) | missing(hgender) ///
+       | missing(hage) | missing(heduc) | missing(hmstat) ///
        | missing(pauvre_MODA18) | missing(pauvre_MODA21)
 
 /* ── Validation empirique de l'appariement individuel ─────────
@@ -1282,9 +1288,7 @@ foreach v of varlist pauvre_MODA18 nb_dep18 intensite_moda18 ///
 }
 
 di _newline "-- (iii) Test joint d'egalite des covariables --"
-quietly logit D c.hhsize c.log_pcexp i.milieu i.region ///
-                c.hgender c.hage i.heduc i.hmstat i.hcsp ///
-                i.sexe18 c.age18, nolog
+quietly logit D $COV_SCORE, nolog
 local lr   = 2*(e(ll) - e(ll_0))
 local ddl  = e(df_m)
 di "  LR chi2(" `ddl' ") = " %8.2f `lr' ///
@@ -1355,6 +1359,32 @@ di "Enfants suivis aux deux vagues : " _N
    garantit que chaque enfant traite est apparie a un temoin du meme groupe
    d'age. */
 
+/* ── Specification du score de propension ───────────────────
+   Trois covariables presentes dans une premiere version ont ete
+   RETIREES parce qu'elles ne sont pas predeterminees : le traitement
+   les modifie, et les inclure revient a controler un canal par lequel
+   il agit ("bad control"), donc a absorber dans l'appariement une part
+   de l'effet que l'on cherche a mesurer.
+
+     - log_pcexp : la depense par tete est mecaniquement augmentee par
+       le transfert recu, qui est une ressource du menage ;
+     - hhsize    : la taille du menage enregistre le depart du migrant
+       et, le cas echeant, l'accueil de nouveaux membres finance par
+       les envois ;
+     - hcsp      : la categorie socioprofessionnelle du chef reflete son
+       activite, dont Ndiaye (2016) montre qu'elle est reduite par la
+       reception de transferts.
+
+   Sont conservees les seules caracteristiques qu'un transfert recu en
+   2018 ne peut avoir modifiees : la localisation (milieu, region), le
+   genre, l'age, le niveau d'education et le statut matrimonial du chef,
+   le genre et l'age de l'enfant.
+
+   Les trois variables retirees restent affichees dans les tests
+   d'equilibre : on verifie ainsi que l'appariement les rapproche malgre
+   tout, sans les avoir utilisees. */
+global COV_SCORE "i.milieu i.region c.hgender c.hage i.heduc i.hmstat i.sexe18 c.age18"
+
 gen byte grp_psm = groupe_moda18
 label values grp_psm grp
 label var grp_psm "Groupe d'age MODA a la periode de base"
@@ -1369,9 +1399,7 @@ forvalues g = 1/3 {
     quietly count if grp_psm == `g' & D == 1
     di "   dont traites : " r(N)
 
-    logit D c.hhsize c.log_pcexp i.milieu i.region ///
-             c.hgender c.hage i.heduc i.hmstat i.hcsp ///
-             i.sexe18 c.age18 if grp_psm == `g', vce(cluster grappe) nolog
+    logit D $COV_SCORE if grp_psm == `g', vce(cluster grappe) nolog
 
     di "   Pseudo-R2 McFadden : " %6.3f 1 - e(ll)/e(ll_0)
 
@@ -1415,8 +1443,11 @@ save "$TEMP/pscore_t0.dta", replace
    observable comparable, y compris en genre et en age.
    ============================================================ */
 
-local covbal hhsize log_pcexp i.milieu i.region hgender hage ///
-             i.heduc i.hmstat i.hcsp i.sexe18 age18
+/* La liste d'equilibre est plus large que la specification du score :
+   elle inclut les trois variables ecartees (hhsize, log_pcexp, hcsp),
+   afin de montrer ce que l'appariement en fait sans les avoir utilisees. */
+local covbal i.milieu i.region hgender hage i.heduc i.hmstat ///
+             i.sexe18 age18 hhsize log_pcexp i.hcsp
 
 /* Accumulateurs du desequilibre residuel, alimentes methode par methode
    et groupe par groupe, puis moyennes pour departager les trois
@@ -1945,7 +1976,7 @@ capture which diff
 if _rc == 0 {
     di _newline "=== Validation croisee : diff (kernel, score logit) ==="
     diff pauvre_MODA, t(D) p(t) kernel id(enfid) logit ///
-        cov(hhsize log_pcexp milieu hgender hage heduc hmstat hcsp sexe age) ///
+        cov(milieu hgender hage heduc hmstat sexe age) ///
         support cluster(grappe)
     di _newline "  Rappel estimateur maison (kernel) : voir ligne weight_kernel ci-dessus."
 }
@@ -1998,15 +2029,15 @@ di "  ATT_DD_stables = " %8.4f r(estimate) ///
    sur support commun, puis DD ponderee. */
 preserve
     keep if t == 0
-    quietly logit D_stable_alt c.hhsize c.log_pcexp i.milieu i.region ///
-        c.hgender c.hage i.heduc i.hmstat i.hcsp i.sexe c.age, ///
+    quietly logit D_stable_alt i.milieu i.region ///
+        c.hgender c.hage i.heduc i.hmstat i.sexe c.age, ///
         vce(cluster grappe)
     di _newline "  Pseudo-R2 logit (stables) : " %6.3f 1 - e(ll)/e(ll_0)
     quietly predict pscore_sta if e(sample), pr
     quietly psmatch2 D_stable_alt, pscore(pscore_sta) neighbor($K_VOISINS) common
     di _newline "  Balance apres appariement (stables) :"
     pstest hhsize log_pcexp i.milieu i.region hgender hage ///
-        i.heduc i.hmstat i.hcsp i.sexe age, both
+        i.heduc i.hmstat i.sexe age, both
     rename _weight w_sta
     keep enfid w_sta
     tempfile poids_sta

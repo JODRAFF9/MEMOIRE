@@ -55,12 +55,17 @@ déclaré et sa fréquence, s13aq17a et s13aq17b en 2018, s13q22a et s13q22b en
 
 \subsection*{Covariables du score de propension}
 
-Le vecteur retenu combine deux niveaux. Au niveau du ménage, la taille, la
-dépense par tête en logarithme, le milieu de résidence, la région, ainsi que le
-genre, l'âge, le niveau d'éducation, le statut matrimonial et la catégorie
-socioprofessionnelle du chef. Au niveau de l'enfant, le genre et l'âge à la
-période de base. Toutes ces variables sont mesurées à la première vague, de
-manière à ce qu'aucune ne soit postérieure au traitement.
+Le vecteur retenu combine deux niveaux. Au niveau du ménage, le milieu de
+résidence, la région, ainsi que le genre, l'âge, le niveau d'éducation et le
+statut matrimonial du chef. Au niveau de l'enfant, le genre et l'âge à la
+période de base. Toutes ces variables sont mesurées à la première vague et
+sont prédéterminées, aucune n'étant modifiée par le transfert lui-même.
+
+Trois variables ont été écartées pour cette raison : la dépense par tête, dont
+le transfert est une composante, la taille du ménage, qui enregistre le départ
+du migrant, et la catégorie socioprofessionnelle du chef, dont l'activité est
+affectée par les envois reçus. Elles restent affichées dans les tests
+d'équilibre à titre de diagnostic, sans entrer dans l'estimation du score.
 
 \subsection*{Traitement des valeurs manquantes}
 
