@@ -1795,6 +1795,11 @@ use "$TEMP/pscore_t0.dta", clear
 merge 1:1 enfid using "$TEMP/pscore_knn.dta",    keepusing(weight_knn)     nogenerate
 merge 1:1 enfid using "$TEMP/poids_kernel.dta",  keepusing(weight_kernel)  nogenerate
 merge 1:1 enfid using "$TEMP/poids_caliper.dta", keepusing(weight_caliper) nogenerate
+if "$POIDS_PRINCIPAL" == "" | "$POIDS_PRINCIPAL" == "weight_" {
+    global METHODE         "knn"
+    global POIDS_PRINCIPAL "weight_knn"
+    di "  !! Methode non determinee en amont : repli sur le k-NN."
+}
 quietly keep if !missing($POIDS_PRINCIPAL) & $POIDS_PRINCIPAL > 0
 
 di _newline "  Enfants sur support commun apres appariement : " _N
@@ -1899,6 +1904,15 @@ foreach outcome in pauvre_MODA {
       d = ATT estime, poids d'appariement k-NN (niveau ENFANT)
    ============================================================ */
 
+/* Garde-fou local : si cette section est lancee seule (session neuve,
+   globales des sections precedentes absentes) ou depuis une version du
+   fichier ou la methode n'a pas ete determinee, la reference retombe
+   sur le k-NN au lieu de mourir sur un nom de variable vide. */
+if "$POIDS_PRINCIPAL" == "" | "$POIDS_PRINCIPAL" == "weight_" {
+    global METHODE         "knn"
+    global POIDS_PRINCIPAL "weight_knn"
+    di "  !! Methode non determinee en amont : repli sur le k-NN."
+}
 use "$TEMP/panel_enfants_psm.dta", clear
 keep if !missing($POIDS_PRINCIPAL) & $POIDS_PRINCIPAL > 0
 
@@ -2861,6 +2875,11 @@ foreach poids_var in weight_knn weight_kernel weight_caliper {
     }
 }
 
+if "$POIDS_PRINCIPAL" == "" | "$POIDS_PRINCIPAL" == "weight_" {
+    global METHODE         "knn"
+    global POIDS_PRINCIPAL "weight_knn"
+    di "  !! Methode non determinee en amont : repli sur le k-NN."
+}
 keep if !missing($POIDS_PRINCIPAL) & $POIDS_PRINCIPAL > 0
 
 /* ATT PSM-DD pour chaque dimension (poids d'appariement PSM uniquement,
