@@ -177,13 +177,13 @@ alternative du traitement en robustesse.
 % ─────────────────────────────────────────────────────────────────────────────
 
 Le choix de MODA appelle une justification, trois familles de mesures étant
-disponibles. Le \textbf{seuil monétaire} est écarté pour les raisons exposées au
+disponibles. Le seuil monétaire est écarté pour les raisons exposées au
 chapitre~1, il suppose une répartition équitable des ressources dans le ménage
-et reste muet sur ce que le revenu ne peut acheter faute d'offre. L'\textbf{indice
-de pauvreté multidimensionnelle global} de l'OPHI, construit sur dix indicateurs,
+et reste muet sur ce que le revenu ne peut acheter faute d'offre. L'indice
+de pauvreté multidimensionnelle global de l'OPHI, construit sur dix indicateurs,
 est écarté parce qu'il prend le ménage pour unité et applique la même grille à
 tous ses membres, ce qui masque précisément la variation entre enfants d'un même
-foyer que ce travail cherche à mesurer. \textbf{MODA} est retenue pour trois
+foyer que ce travail cherche à mesurer. MODA est retenue pour trois
 raisons. Elle prend l'enfant pour unité d'analyse. Elle décline ses indicateurs
 par groupe d'âge, ce qui évite de juger un nourrisson sur une grille
 d'adolescent. Elle dispose enfin d'une adaptation nationale validée pour le
@@ -204,7 +204,7 @@ annexe~\ref{ann:C} (tableau~\ref{tab:matrice_nmoda}).
 Les sept dimensions retenues sont l'assainissement, l'eau, le logement, la
 nutrition, la santé, la protection de l'enfant et l'éducation, chacune reposant
 sur des indicateurs comparables entre les deux vagues de l'EHCVM. Au total,
-14 indicateurs alimentent ces dimensions, mais leur champ d'application
+13 indicateurs alimentent ces dimensions, mais leur champ d'application
 suit l'âge de l'enfant. Onze indicateurs concernent les enfants de 0 à 4 ans,
 13 les enfants d'âge scolaire de 5 à 14 ans, qui y ajoutent le travail des
 enfants et la non-scolarisation, et 11 les adolescents de 15 à 17 ans, pour
@@ -214,44 +214,54 @@ scolaires.
 Chacune des sept dimensions mérite d'être explicitée, tant du point de vue de
 ce qu'elle mesure que de la raison qui la fait retenir.
 
-L'\textbf{assainissement} repose sur deux indicateurs, le type de toilettes et
+L'assainissement repose sur deux indicateurs, le type de toilettes et
 leur partage avec un autre ménage. Un enfant y est privé si le ménage recourt à
 des latrines rudimentaires, à des toilettes publiques ou à aucune installation,
 ou s'il partage ses toilettes. Le partage importe autant que le type, car il
 détermine l'usage effectif, en particulier pour les jeunes enfants et la nuit.
 
-L'\textbf{eau} combine la source d'approvisionnement et le temps d'accès. La
+L'eau combine la source d'approvisionnement et le temps d'accès. La
 privation est retenue si la source n'est pas améliorée à l'une ou l'autre
 saison et que l'eau n'est pas traitée, ou si le trajet aller ajouté au temps
 d'attente atteint trente minutes. Le critère de temps ne double pas celui de la
 source, une eau potable située loin exposant l'enfant à la corvée d'eau, donc à
 l'absentéisme scolaire.
 
-Le \textbf{logement} associe l'évacuation des ordures et le surpeuplement. La
+Le logement associe l'évacuation des ordures et le surpeuplement. La
 privation est retenue si les ordures sont brûlées, jetées dans un dépotoir
 sauvage ou évacuées autrement, ou si le ménage compte plus de quatre personnes
 par pièce occupée. Ces deux indicateurs saisissent l'environnement immédiat de
 l'enfant, dont dépendent l'exposition aux maladies et les conditions d'étude.
 
-La \textbf{nutrition} est mesurée par l'échelle d'insécurité alimentaire vécue,
+La nutrition est mesurée par l'échelle d'insécurité alimentaire vécue,
 en huit questions portant sur les douze derniers mois. L'enfant est déclaré
 privé dès qu'au moins une des huit situations est déclarée. Faute de mesures
 anthropométriques comparables entre les deux vagues, cette échelle est le seul
 indicateur nutritionnel disponible, ce qui constitue une limite assumée.
 
-La \textbf{santé} croise le combustible de cuisson et l'accès à une structure de
+La santé croise le combustible de cuisson et l'accès à une structure de
 soins. La privation est retenue si le ménage cuisine au bois, au charbon ou aux
 déchets animaux, ou s'il ne dispose ni d'un hôpital ni d'un centre de santé
 accessible à pied. Le premier indicateur mesure une exposition domestique à la
 pollution de l'air, le second une contrainte d'offre que le revenu ne lève pas.
 
-La \textbf{protection} rassemble trois indicateurs dont l'applicabilité varie
-avec l'âge, l'absence d'acte de naissance, le travail des enfants et la
-séparation d'avec au moins un parent biologique. C'est la dimension la plus
-directement exposée aux coûts non monétaires de la migration, puisque le départ
-d'un parent y est enregistré comme une privation.
+La protection rassemble deux indicateurs dont l'applicabilité varie avec
+l'âge, l'absence d'acte de naissance avant quinze ans et le travail des
+enfants de cinq à dix-sept ans. Un troisième indicateur, la séparation d'avec
+au moins un parent biologique, figure dans la grille MODA de référence mais a
+été écarté de l'agrégat retenu ici. La raison est d'identification et non de
+mesure~: la séparation parentale est une conséquence directe de la migration,
+donc du traitement dont on cherche à estimer l'effet. La conserver reviendrait
+à imputer aux transferts une privation que le départ du parent produit
+mécaniquement, et à faire apparaître un effet défavorable par construction. La
+variable reste calculée à titre descriptif et sert de test d'endogénéité, en
+vérifiant que le traitement la déplace effectivement. Le travail des enfants
+est en contrepartie mesuré jusqu'à dix-sept ans~; sans quoi les adolescents
+n'auraient plus aucun indicateur de protection et seraient évalués sur six
+dimensions au lieu de sept, ce qui rendrait le seuil $k = 4$ non comparable
+entre groupes d'âge.
 
-L'\textbf{éducation} retient la non-scolarisation pour les 5 à 14 ans et
+L'éducation retient la non-scolarisation pour les 5 à 14 ans et
 l'illettrisme pour les 15 à 17 ans, l'indicateur suivant ainsi le stade du
 parcours. Elle n'est pas applicable avant cinq ans, ce qui explique que le
 groupe des 0 à 4 ans soit évalué sur six dimensions et onze indicateurs.
@@ -303,15 +313,15 @@ d'âge.
 Le choix de la stratégie d'identification mérite d'être justifié, plusieurs
 solutions étant envisageables face au biais de sélection.
 
-L'\textbf{expérimentation} est exclue, on n'attribue pas des transferts de
-migrants au hasard. Les \textbf{variables instrumentales}, mobilisées par
+L'expérimentation est exclue, on n'attribue pas des transferts de
+migrants au hasard. Les variables instrumentales, mobilisées par
 \textcite{calero2009} et \textcite{davis2016} à partir de la prévalence
 migratoire historique, supposent un instrument corrélé au fait de recevoir mais
 sans effet direct sur les privations de l'enfant. L'EHCVM ne fournit pas un tel
 instrument, faute d'information rétrospective sur l'histoire migratoire du
-village. La \textbf{régression sur discontinuité} suppose un seuil administratif
+village. La régression sur discontinuité suppose un seuil administratif
 d'éligibilité, qui n'existe pas ici puisque le transfert relève d'une décision
-privée. Les \textbf{effets fixes individuels} seuls neutraliseraient
+privée. Les effets fixes individuels seuls neutraliseraient
 l'inobservable stable, mais laisseraient subsister l'écart de niveau initial
 entre les deux groupes, considérable dans notre cas.
 
