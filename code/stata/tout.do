@@ -1641,6 +1641,13 @@ foreach m in knn kernel caliper {
     global NOBS_`m'  = 0
 }
 
+/* Valeurs par defaut de la methode retenue. Elles sont ecrasees en
+   section 2e par le resultat du critere d'equilibre. Les poser ici
+   garantit qu'aucune section ulterieure ne s'interrompra sur un nom de
+   variable vide, meme si le calcul du biais echoue. */
+global METHODE         "knn"
+global POIDS_PRINCIPAL "weight_knn"
+
 /* L'appariement est effectue A L'INTERIEUR de chaque groupe d'age, avec
    le score estime sur ce meme groupe et un support commun propre au
    groupe. Les poids des trois groupes sont ensuite empiles : la double
