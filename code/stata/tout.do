@@ -1506,7 +1506,7 @@ forvalues g = 1/3 {
         quietly kdensity pscore if grp_psm == `g' & D == 1, ///
             generate(`gx' `d1') n(100) nograph
         quietly kdensity pscore if grp_psm == `g' & D == 0, ///
-            at(`gx') generate(`d0') n(100) nograph
+            at(`gx') generate(`d0') nograph
         quietly summarize `gx'
         local pas = (r(max) - r(min)) / 99
         tempvar mn
