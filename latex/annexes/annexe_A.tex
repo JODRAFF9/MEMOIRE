@@ -1,9 +1,49 @@
-\section{Sensibilité au seuil de dimensions}
+\section{Justification des seuils de privation}
 \label{ann:A}
 
-Le seuil $k=4$ retenu comme approche principale (section~\ref{sec:methodo})
-est une convention, conformément à la méthodologie MODA Sénégal
-\parencite{ansd2024}.
+La mesure MODA repose sur deux seuils, dont le choix conditionne l'ensemble des
+résultats. Cette annexe les justifie l'un après l'autre.
+
+\subsection*{Le seuil intra-dimensionnel}
+
+À l'intérieur d'une dimension, l'enfant est déclaré privé dès qu'il l'est dans
+au moins un indicateur, règle dite de l'union. Deux arguments la fondent. Le
+premier est substantiel, les indicateurs d'une même dimension ne sont pas
+interchangeables, un enfant dont le ménage dispose de toilettes améliorées mais
+les partage avec un autre ménage n'est pas dans une situation d'assainissement
+satisfaisante, et la moyenne des deux indicateurs masquerait cette privation.
+Le second est pratique, le nombre d'indicateurs varie d'une dimension à
+l'autre, de un à trois selon l'âge, si bien qu'une règle de majorité aboutirait
+à des exigences différentes selon les dimensions.
+
+\subsection*{Le seuil inter-dimensionnel}
+
+Le seuil $k=4$, sur les sept dimensions, retient trois justifications
+convergentes.
+
+La première est institutionnelle. Il s'agit du seuil retenu par la méthodologie
+MODA Sénégal \parencite{ansd2024}, ce qui rend les résultats de ce mémoire
+directement comparables aux statistiques officielles. Retenir un autre seuil
+aurait produit des chiffres incomparables à ceux que publie l'ANSD, sans gain
+analytique.
+
+La deuxième est empirique. La figure~\ref{fig:distrib_dimensions} montre que
+$k=4$ se situe au voisinage du mode de la distribution du nombre de privations
+cumulées, aux deux vagues, sans discontinuité marquée qui désignerait un autre
+seuil comme plus naturel. Aucune rupture de la distribution ne suggère qu'un
+enfant privé dans trois dimensions relèverait d'une population distincte de
+celui qui l'est dans quatre.
+
+La troisième est méthodologique. \textcite{alkire2011} rappellent que le choix
+de $k$ est normatif et ne se déduit pas des données, et recommandent en
+conséquence d'en tester la sensibilité plutôt que de le justifier a priori.
+C'est ce que fait la section~\ref{sec:discussion}, où le seuil est fait varier
+de une à sept dimensions. L'ampleur de l'effet estimé y suit une courbe en
+cloche, maximale au seuil retenu, et n'est significative que pour deux, trois
+et quatre dimensions. Ce résultat mérite d'être lu pour lui-même, il indique
+que l'effet des transferts se joue au milieu de la distribution des privations
+et non dans son noyau, chez les enfants qui cumulent six ou sept privations et
+dont la situation relève de déficits structurels.
 
 \begin{figure}[H]
   \centering
@@ -14,6 +54,13 @@ est une convention, conformément à la méthodologie MODA Sénégal
   {\footnotesize \textbf{Source :} Calcul de l'auteur, EHCVM.}
 \end{figure}
 
-Le choix de $k=4$ se situe au
-voisinage du mode de la distribution, sans discontinuité marquée qui
-justifierait un autre seuil.
+\subsection*{Ce que le choix du seuil ne règle pas}
+
+Deux limites subsistent, qu'aucune valeur de $k$ ne lève. La première est la
+pondération, les sept dimensions étant traitées comme équivalentes faute d'un
+critère consensuel pour les hiérarchiser. La seconde est le caractère discret
+du comptage, une amélioration réelle mais insuffisante pour faire franchir un
+seuil restant invisible à l'indice. C'est la raison pour laquelle l'intensité
+$A$ et l'indice ajusté $M_0$ sont suivis en même temps que l'incidence $H$,
+le premier étant seul sensible à ce que cumulent les enfants déjà déclarés
+pauvres.
