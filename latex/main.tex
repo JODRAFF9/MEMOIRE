@@ -403,11 +403,9 @@
 \clearpage
 \input{chapitres/dedicace}
 \clearpage
+\input{chapitres/avant_propos}
+\clearpage
 \input{chapitres/remerciements}
-\clearpage
-\input{chapitres/resume}
-\clearpage
-\input{chapitres/abstract}
 \clearpage
 
 % ── Sommaire (sections uniquement, via shorttoc) ─────────────
@@ -426,6 +424,13 @@
 \clearpage
 
 \input{chapitres/abreviations}
+\clearpage
+
+% Le resume et sa traduction ferment les pages liminaires : ils sont lus
+% immediatement avant l'introduction.
+\input{chapitres/resume}
+\clearpage
+\input{chapitres/abstract}
 \clearpage
 
 % ── Corps du mémoire (numérotation arabe) ────────────────────
@@ -472,6 +477,8 @@
   \input{annexes/annexe_motifs}
   \newpage
   \input{annexes/annexe_C}
+  \clearpage
+  \input{annexes/annexe_D}
 \end{appendices}
 
 % ── Bibliographie ────────────────────────────────────────────

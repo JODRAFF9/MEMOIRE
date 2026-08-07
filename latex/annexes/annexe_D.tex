@@ -1,0 +1,69 @@
+\section{Dictionnaire des indicateurs et des variables sources}
+\label{ann:D}
+
+Cette annexe documente la construction de chaque indicateur à partir des
+questionnaires de l'EHCVM. Elle permet de reproduire la mesure, et rend
+explicite le fait que les codes de questions diffèrent entre les deux vagues,
+ce qui a imposé une correspondance manuelle module par module.
+
+\begin{table}[H]
+  \centering
+  \caption{Correspondance entre indicateurs MODA et questions de l'EHCVM}
+  \label{tab:dictionnaire}
+  \zebre
+  \footnotesize
+  \begin{tabular}{|l|l|l|l|}
+    \hline
+    \entete Dimension & Indicateur & EHCVM I (2018-19) & EHCVM II (2021-22) \\ \hline
+    Assainissement & Type de toilettes           & s11q55  & s11q54 \\ \hline
+    Assainissement & Partage des toilettes       & s11q56  & s11q55 \\ \hline
+    Eau            & Source d'approvisionnement  & s11q26a & s11q26b \\ \hline
+    Eau            & Temps d'accès               & s11q29a, s11q31a & s11q28a, s11q30a \\ \hline
+    Logement       & Évacuation des ordures      & s11q54  & s11q53 \\ \hline
+    Logement       & Surpeuplement               & \multicolumn{2}{c|}{taille du ménage rapportée à s11q02} \\ \hline
+    Nutrition      & Insécurité alimentaire      & \multicolumn{2}{c|}{module s08a, échelle FIES à huit questions} \\ \hline
+    Santé          & Combustible de cuisson      & s11q53  & s11q52 \\ \hline
+    Santé          & Accès à une structure       & \multicolumn{2}{c|}{s02\_co, s02q02} \\ \hline
+    Protection     & Acte de naissance           & \multicolumn{2}{c|}{s01q05} \\ \hline
+    Protection     & Travail des enfants         & \multicolumn{2}{c|}{module s04} \\ \hline
+    Protection     & Séparation parentale        & \multicolumn{2}{c|}{s01q22 (père), s01q29 (mère)} \\ \hline
+    Éducation      & Non-scolarisation           & \multicolumn{2}{c|}{variable dérivée \texttt{scol}} \\ \hline
+    Éducation      & Illettrisme                 & \multicolumn{2}{c|}{variable dérivée \texttt{alfab}} \\
+    \hline
+  \end{tabular}
+
+  {\footnotesize \textbf{Source :} Construction de l'auteur, questionnaires EHCVM I et II.}
+\end{table}
+
+\subsection*{Variable de traitement}
+
+Le statut de bénéficiaire est construit à partir du module 13 des deux
+questionnaires. Trois conditions doivent être réunies simultanément. Le ménage
+déclare avoir reçu un transfert au cours de la période de référence. L'expéditeur
+réside hors du Sénégal, ce qu'indique le code pays de la question s13aq14 en
+2018 et s13q19 en 2021. L'expéditeur a appartenu au ménage avant son départ,
+information portée par s13aq12 en 2018 et s13q17 en 2021. Cette troisième
+condition est celle qui distingue le transfert d'un ancien membre de l'envoi
+d'un tiers, et c'est elle qui donne son sens à la variable de traitement.
+
+Le montant annuel reçu, qui sert à l'analyse par quintile, combine le montant
+déclaré et sa fréquence, s13aq17a et s13aq17b en 2018, s13q22a et s13q22b en
+2021.
+
+\subsection*{Covariables du score de propension}
+
+Le vecteur retenu combine deux niveaux. Au niveau du ménage, la taille, la
+dépense par tête en logarithme, le milieu de résidence, la région, ainsi que le
+genre, l'âge, le niveau d'éducation, le statut matrimonial et la catégorie
+socioprofessionnelle du chef. Au niveau de l'enfant, le genre et l'âge à la
+période de base. Toutes ces variables sont mesurées à la première vague, de
+manière à ce qu'aucune ne soit postérieure au traitement.
+
+\subsection*{Traitement des valeurs manquantes}
+
+L'analyse est conduite en cas complets. Une dimension est déclarée manquante
+dès qu'un seul de ses indicateurs pertinents pour le groupe d'âge de l'enfant
+l'est, et non imputée à zéro, choix conservateur qui évite de compter comme non
+privé un enfant sur lequel l'information fait défaut. L'échantillon
+d'estimation retient les enfants pour lesquels le statut de traitement, les
+covariables et l'indice sont renseignés aux deux vagues.
