@@ -413,3 +413,61 @@ Le croisement par genre (tableau~\ref{tab:sexe_15_17}) illustre cette limite,
 puisque, avec un peu plus de deux cents enfants par genre, dont une minorité dans des
 ménages bénéficiaires, aucun écart n'atteint le seuil de 5\,\% à l'une ou
 l'autre vague.
+
+\subsection{Chevauchement des scores de propension}
+\label{sec:chevauchement}
+
+L'appariement présenté au chapitre précédent suppose que chaque enfant
+bénéficiaire trouve, parmi les non-bénéficiaires, des enfants de score
+comparable. Cette condition, dite de support commun, ne se vérifie pas par un
+test unique. Elle s'apprécie par un faisceau d'éléments, examinés séparément
+dans chacun des trois groupes d'âge puisque le score y est estimé séparément.
+
+Le premier élément est l'étendue des scores dans chacun des deux groupes, dont
+se déduit la région de recouvrement, comprise entre le plus élevé des deux
+minima et le plus faible des deux maxima. Le deuxième est le nombre d'enfants
+bénéficiaires situés hors de cette région, que l'appariement doit écarter faute
+de contrefactuel : leur part mesure la perte d'échantillon, et au-delà de
+5\,\% elle restreint la population sur laquelle l'effet est identifié, ce qui
+doit être signalé plutôt que masqué. Le troisième est la répartition par décile
+de score, qui révèle les zones où les témoins se raréfient sans pour autant
+sortir du support, et où l'appariement repose sur un petit nombre
+d'observations réutilisées. Le quatrième est le coefficient de chevauchement,
+aire située sous le minimum des deux densités, qui résume l'ensemble en un
+nombre compris entre zéro, lorsque les deux distributions sont disjointes, et
+un, lorsqu'elles se confondent.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{figures/fig_overlap_groupes.pdf}
+  \caption{Densité du score de propension avant appariement, par groupe d'âge}
+  \label{fig:overlap_groupes}
+
+  {\footnotesize \textbf{Source :} Calcul de l'auteur, EHCVM.}
+\end{figure}
+
+La figure~\ref{fig:overlap_groupes} présente les densités avant appariement.
+La lecture porte moins sur l'écart entre les deux courbes, attendu puisque les
+bénéficiaires se distinguent des autres, que sur l'existence de témoins partout
+où se trouvent des bénéficiaires. Une densité témoin qui s'annule dans la zone
+haute des scores signalerait que les ménages les plus susceptibles de recevoir
+n'ont pas d'équivalent non bénéficiaire, et que l'effet ne serait identifié que
+sur les bénéficiaires les moins typiques.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.85\linewidth]{figures/fig_overlap_apres.pdf}
+  \caption{Densité du score de propension après appariement, méthode retenue}
+  \label{fig:overlap_apres}
+
+  {\footnotesize \textbf{Source :} Calcul de l'auteur, EHCVM. La densité des
+  non-bénéficiaires est pondérée par les poids d'appariement.}
+\end{figure}
+
+La figure~\ref{fig:overlap_apres} donne la contrepartie après appariement, la
+densité des non-bénéficiaires étant pondérée par les poids issus de la méthode
+retenue. C'est la superposition des deux courbes qui atteste que l'appariement
+a fait son travail, et elle se lit conjointement avec les biais standardisés
+résiduels du chapitre précédent : la première montre que les distributions de
+score coïncident, les seconds que les covariables elles-mêmes se sont
+rapprochées.

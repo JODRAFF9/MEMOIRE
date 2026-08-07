@@ -1415,8 +1415,136 @@ quietly count if missing(pscore)
 di _newline "Enfants sans score de propension (ecartes) : " r(N)
 drop if missing(pscore)
 
-/* Graphique de densite (support commun) */
+/* ============================================================
+   1c. ANALYSES DE CHEVAUCHEMENT (SUPPORT COMMUN)
+
+   L'appariement n'a de sens que si chaque enfant beneficiaire trouve,
+   parmi les non beneficiaires, des enfants de score comparable. C'est
+   la seconde hypothese du PSM, celle du support commun. Elle ne se
+   verifie pas par un test unique mais par un faisceau d'elements, tous
+   produits ici, et separement dans chaque groupe d'age puisque le score
+   y est estime separement.
+
+     (i)   l'etendue des scores dans chaque groupe de traitement, d'ou
+           se deduit la region de recouvrement ;
+     (ii)  le nombre et la part d'enfants traites situes hors de cette
+           region : ce sont ceux que l'appariement devra ecarter, et
+           leur poids mesure la perte d'echantillon ;
+     (iii) la repartition par decile de score, qui revele les zones ou
+           les temoins se rarefient meme sans sortir du support ;
+     (iv)  le coefficient de chevauchement, part de l'echantillon situee
+           sous le minimum des deux densites, resume en un nombre ;
+     (v)   les densites, avant et apres appariement.
+
+   Un chevauchement insuffisant ne s'annule pas par un choix technique :
+   il restreint la population sur laquelle l'effet est identifie, ce que
+   le rapport doit dire plutot que masquer.
+   ============================================================ */
+
+di _newline "=== 1c. Analyses de chevauchement (support commun) ==="
+
+forvalues g = 1/3 {
+
+    di _newline "--- Groupe d'age `g' ---"
+
+    /* (i) Etendue des scores et region de recouvrement */
+    quietly summarize pscore if grp_psm == `g' & D == 1, detail
+    local min1 = r(min)
+    local max1 = r(max)
+    local p50_1 = r(p50)
+    quietly summarize pscore if grp_psm == `g' & D == 0, detail
+    local min0 = r(min)
+    local max0 = r(max)
+    local p50_0 = r(p50)
+
+    local binf = max(`min1', `min0')
+    local bsup = min(`max1', `max0')
+
+    di "  Traites  : min " %6.4f `min1' "  mediane " %6.4f `p50_1' ///
+       "  max " %6.4f `max1'
+    di "  Temoins  : min " %6.4f `min0' "  mediane " %6.4f `p50_0' ///
+       "  max " %6.4f `max0'
+    di "  Region de recouvrement : [" %6.4f `binf' " ; " %6.4f `bsup' "]"
+
+    /* (ii) Traites hors region de recouvrement */
+    quietly count if grp_psm == `g' & D == 1
+    local n_tr = r(N)
+    quietly count if grp_psm == `g' & D == 1 & (pscore < `binf' | pscore > `bsup')
+    local n_hors = r(N)
+    di "  Traites hors support : " `n_hors' " sur " `n_tr' ///
+       "  (" %5.2f 100*`n_hors'/`n_tr' " %)"
+    if 100*`n_hors'/`n_tr' > 5 {
+        di "  ATTENTION : plus de 5 % des traites sont hors support."
+        di "  L'effet estime ne vaut alors que pour la sous-population"
+        di "  effectivement appariable, ce qui doit etre signale."
+    }
+
+    /* (iii) Repartition par decile de score */
+    quietly xtile dec_ps = pscore if grp_psm == `g', nq(10)
+    di _newline "  Repartition par decile de score :"
+    di "    decile   traites   temoins   ratio temoins/traite"
+    forvalues d = 1/10 {
+        quietly count if grp_psm == `g' & dec_ps == `d' & D == 1
+        local nd1 = r(N)
+        quietly count if grp_psm == `g' & dec_ps == `d' & D == 0
+        local nd0 = r(N)
+        if `nd1' > 0 {
+            di "    " %6.0f `d' %10.0f `nd1' %10.0f `nd0' %12.1f `nd0'/`nd1'
+        }
+        else {
+            di "    " %6.0f `d' %10.0f `nd1' %10.0f `nd0' "        (aucun traite)"
+        }
+    }
+    quietly drop dec_ps
+
+    /* (iv) Coefficient de chevauchement des deux densites.
+       Les deux densites sont estimees sur une grille commune de 100
+       points ; le coefficient est l'aire situee sous leur minimum,
+       comprise entre 0 (aucun recouvrement) et 1 (densites confondues). */
+    capture {
+        tempvar gx d1 d0
+        quietly kdensity pscore if grp_psm == `g' & D == 1, ///
+            generate(`gx' `d1') n(100) nograph
+        quietly kdensity pscore if grp_psm == `g' & D == 0, ///
+            at(`gx') generate(`d0') n(100) nograph
+        quietly summarize `gx'
+        local pas = (r(max) - r(min)) / 99
+        tempvar mn
+        quietly gen double `mn' = min(`d1', `d0')
+        quietly summarize `mn', meanonly
+        di _newline "  Coefficient de chevauchement : " ///
+           %5.3f r(sum)*`pas'
+        drop `gx' `d1' `d0' `mn'
+    }
+    if _rc != 0 {
+        di _newline "  Coefficient de chevauchement : non calculable"
+    }
+}
+
+/* (v) Densites du score, par groupe d'age, AVANT appariement */
 set dp comma
+forvalues g = 1/3 {
+    quietly twoway ///
+        (kdensity pscore if D == 0 & grp_psm == `g', ///
+         lcolor(gs9) lwidth(medthick)) ///
+        (kdensity pscore if D == 1 & grp_psm == `g', ///
+         lcolor(orange) lwidth(medthick)), ///
+        legend(order(1 "Non bénéficiaires" 2 "Bénéficiaires") ///
+               pos(6) rows(1) region(color(white))) ///
+        xtitle("Score de propension") ytitle("Densité") ///
+        xlabel(, format(%3.1f)) ///
+        title("`: label grp `g''", size(medium)) ///
+        graphregion(color(white)) plotregion(color(white)) ///
+        name(ov`g', replace)
+}
+graph combine ov1 ov2 ov3, rows(1) ///
+    graphregion(color(white)) ///
+    saving("$OUTPUT/overlap_groupes.gph", replace)
+graph export "$OUTPUT/figures/fig_overlap_groupes.pdf", replace
+graph drop ov1 ov2 ov3
+
+/* Densite d'ensemble (tous groupes confondus), conservee pour la
+   comparaison avec la version anterieure du rapport */
 twoway ///
     (kdensity pscore if D == 0, lcolor(gs9) lwidth(medthick)) ///
     (kdensity pscore if D == 1, lcolor(orange) lwidth(medthick)), ///
@@ -1581,6 +1709,35 @@ foreach m in knn kernel caliper {
 global METHODE         "`meilleure'"
 global POIDS_PRINCIPAL "weight_`meilleure'"
 di _newline "  >>> Methode retenue : $METHODE (biais moyen " %5.2f `biais_min' " %)"
+
+/* Chevauchement APRES appariement, methode retenue : la densite des
+   temoins est ponderee par les poids d'appariement. Si l'appariement a
+   fonctionne, les deux densites se superposent, la ou celles d'avant
+   appariement se croisaient a peine. */
+use "$TEMP/pscore_t0.dta", clear
+merge 1:1 enfid using "$TEMP/pscore_knn.dta",    keepusing(weight_knn)     nogenerate
+merge 1:1 enfid using "$TEMP/poids_kernel.dta",  keepusing(weight_kernel)  nogenerate
+merge 1:1 enfid using "$TEMP/poids_caliper.dta", keepusing(weight_caliper) nogenerate
+quietly keep if !missing($POIDS_PRINCIPAL) & $POIDS_PRINCIPAL > 0
+
+di _newline "  Enfants sur support commun apres appariement : " _N
+quietly count if D == 1
+di "  dont traites : " r(N)
+
+set dp comma
+twoway ///
+    (kdensity pscore if D == 0 [aw=$POIDS_PRINCIPAL], ///
+     lcolor(gs9) lwidth(medthick)) ///
+    (kdensity pscore if D == 1 [aw=$POIDS_PRINCIPAL], ///
+     lcolor(orange) lwidth(medthick)), ///
+    legend(order(1 "Non bénéficiaires (pondérés)" 2 "Bénéficiaires") ///
+           pos(6) rows(1) region(color(white))) ///
+    xtitle("Score de propension") ytitle("Densité") ///
+    xlabel(, format(%3.1f)) ///
+    graphregion(color(white)) plotregion(color(white))
+set dp period
+graph export "$OUTPUT/figures/fig_overlap_apres.pdf", replace
+di "  >>> fig_overlap_apres.pdf sauvegarde"
 di "      Les resultats des deux autres methodes restent presentes"
 di "      integralement dans la section robustesse."
 
