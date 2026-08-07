@@ -1557,6 +1557,19 @@ twoway ///
 set dp period
 graph export "$OUTPUT/overlap_panel.pdf", replace
 
+/* ── Variables d'equilibre ───────────────────────────────────
+   Les variables categorielles sont eclatees en indicatrices : le biais
+   standardise n'a de sens que modalite par modalite. La liste couvre la
+   specification du score ET les trois variables qui en ont ete ecartees,
+   afin de voir ce que l'appariement en fait sans les avoir utilisees. */
+quietly tabulate region, generate(_beq_reg)
+quietly tabulate heduc,  generate(_beq_edu)
+quietly tabulate hmstat, generate(_beq_mst)
+quietly tabulate hcsp,   generate(_beq_csp)
+quietly generate byte _beq_urb   = (milieu == 1)
+quietly generate byte _beq_fille = (sexe18 == 2)
+global BALVARS "_beq_urb _beq_reg* _beq_edu* _beq_mst* hgender hage _beq_fille age18 hhsize log_pcexp _beq_csp*"
+
 save "$TEMP/pscore_t0.dta", replace
 
 /* ============================================================
@@ -1576,6 +1589,48 @@ save "$TEMP/pscore_t0.dta", replace
    afin de montrer ce que l'appariement en fait sans les avoir utilisees. */
 local covbal i.milieu i.region hgender hage i.heduc i.hmstat ///
              i.sexe18 age18 hhsize log_pcexp i.hcsp
+
+/* ── Outil de mesure de l'equilibre ──────────────────────────
+   pstest affiche un tableau lisible mais ne renvoie rien d'exploitable
+   dans r() : le biais moyen doit donc etre recalcule ici pour pouvoir
+   departager les trois algorithmes. Pour chaque covariable, l'ecart de
+   moyennes entre traites et temoins apres appariement est rapporte a la
+   dispersion commune AVANT appariement, convention de Rosenbaum et Rubin
+   (1985) ; le programme renvoie la moyenne des valeurs absolues. */
+capture program drop _biaismoyen
+program define _biaismoyen, rclass
+    syntax varlist(numeric), treat(varname) [pond(varname)]
+    local somme = 0
+    local k     = 0
+    foreach v of local varlist {
+        quietly summarize `v' if `treat' == 1
+        local vT = r(Var)
+        quietly summarize `v' if `treat' == 0
+        local vC = r(Var)
+        local den = sqrt((`vT' + `vC')/2)
+        if `den' > 0 & !missing(`den') {
+            if "`pond'" != "" {
+                quietly summarize `v' if `treat' == 1 [aw=`pond']
+                local mT = r(mean)
+                quietly summarize `v' if `treat' == 0 [aw=`pond']
+                local mC = r(mean)
+            }
+            else {
+                quietly summarize `v' if `treat' == 1
+                local mT = r(mean)
+                quietly summarize `v' if `treat' == 0
+                local mC = r(mean)
+            }
+            if !missing(`mT') & !missing(`mC') {
+                local somme = `somme' + abs(100*(`mT' - `mC')/`den')
+                local k     = `k' + 1
+            }
+        }
+    }
+    if `k' > 0   return scalar meanbias = `somme'/`k'
+    else         return scalar meanbias = .
+    return scalar nvar = `k'
+end
 
 /* Accumulateurs du desequilibre residuel, alimentes methode par methode
    et groupe par groupe, puis moyennes pour departager les trois
@@ -1603,8 +1658,10 @@ forvalues g = 1/3 {
 
     di _newline "Balance avant/apres (SMD), groupe `g' :"
     pstest `covbal', both
+    quietly _biaismoyen $BALVARS, treat(D) pond(_weight)
     global BIAIS_knn = ${BIAIS_knn} + r(meanbias)*_N
     global NOBS_knn  = ${NOBS_knn}  + _N
+    di "  Biais standardise moyen residuel, groupe `g' : " %5.2f r(meanbias) " %"
 
     rename _weight weight_knn
     keep enfid grappe menage numind_2018 D pscore weight_knn _support grp_psm
@@ -1633,8 +1690,10 @@ forvalues g = 1/3 {
 
     di _newline "Balance avant/apres (SMD), kernel, groupe `g' :"
     pstest `covbal', both
+    quietly _biaismoyen $BALVARS, treat(D) pond(_weight)
     global BIAIS_kernel = ${BIAIS_kernel} + r(meanbias)*_N
     global NOBS_kernel  = ${NOBS_kernel}  + _N
+    di "  Biais standardise moyen residuel, groupe `g' : " %5.2f r(meanbias) " %"
 
     rename _weight weight_kernel
     keep enfid weight_kernel
@@ -1662,8 +1721,10 @@ forvalues g = 1/3 {
 
     di _newline "Balance avant/apres (SMD), caliper, groupe `g' :"
     pstest `covbal', both
+    quietly _biaismoyen $BALVARS, treat(D) pond(_weight)
     global BIAIS_caliper = ${BIAIS_caliper} + r(meanbias)*_N
     global NOBS_caliper  = ${NOBS_caliper}  + _N
+    di "  Biais standardise moyen residuel, groupe `g' : " %5.2f r(meanbias) " %"
 
     rename _weight weight_caliper
     keep enfid weight_caliper
@@ -1704,6 +1765,14 @@ foreach m in knn kernel caliper {
         local biais_min = `b'
         local meilleure = "`m'"
     }
+}
+
+/* Garde-fou : si aucun biais n'a pu etre calcule, l'execution se
+   poursuit sur le k-NN plutot que de s'interrompre plus loin sur un nom
+   de variable vide. */
+if "`meilleure'" == "" {
+    di "  !! Aucun biais calculable : repli sur le k-NN."
+    local meilleure "knn"
 }
 
 global METHODE         "`meilleure'"
