@@ -43,7 +43,7 @@ async function main() {
       x: 0, y: 0.55, w: 13.33, h: 0.3, align: "center", margin: 0,
       fontFace: POLICE, fontSize: 13.5, bold: true, color: "A5B4FC", charSpacing: 2,
     });
-    s.addText("École nationale de la statistique et de l'analyse économique", {
+    s.addText("École nationale de la Statistique et de l'Analyse économique", {
       x: 0, y: 0.88, w: 13.33, h: 0.3, align: "center", margin: 0,
       fontFace: POLICE, fontSize: 14, color: "A5B4FC",
     });
