@@ -354,8 +354,9 @@ save "$TEMP/traitement_2021.dta", replace
    3. LOGEMENT        m_ordures (s11q54/53) ; m_surpeup (hhsize / s11q02)
    4. NUTRITION       m_securite (s08a, 8 questions FIES)
    5. SANTE           m_combust (s11q53/52) ; m_sante_acces (s02_co, s02q02)
-   6. PROTECTION      m_acte_nais (s01q05) ; m_trav_enf (s04) ;
-                      m_parents (s01q22/s01q29)
+   6. PROTECTION      m_acte_nais (s01q05) ; m_trav_enf (s04)
+                      m_parents (s01q22/s01q29) calcule a titre descriptif,
+                      hors agregat
    7. EDUCATION       m_scol (scol) ; m_alfab (alfab)
                       m_neet calcule a titre descriptif, hors agregat
    -------------------------------------------------------------------------- */
@@ -781,11 +782,19 @@ foreach annee in 2018 2021 {
     /* ── [Dimension 6/7 : Protection de l'enfant] ────────────────────
        Indicateur 1 - Absence d'acte de naissance (non pertinent > 14 ans)
        Indicateur 2 - Travail des enfants (economique OU domestique
-       >=1h, 5-14 ans uniquement)
-       Indicateur 3 - Separation parentale (ne vit pas avec ses 2 parents)
-       Combinaison par groupe d'age : 0-4 ans = ind.1 OU ind.3 ;
-       5-14 ans = ind.1 OU ind.2 OU ind.3 ; 15-17 ans = ind.3 seul.
-       replace ... if age > 14/hors 5-14 ans = non-applicabilite (pas une
+       >=1h, 5-17 ans)
+       Combinaison par groupe d'age : 0-4 ans = ind.1 seul ;
+       5-14 ans = ind.1 OU ind.2 ; 15-17 ans = ind.2 seul.
+       La separation parentale a ete RETIREE de l'agregat : elle est une
+       consequence directe de la migration, donc du traitement etudie. La
+       maintenir reviendrait a imputer aux transferts une privation que le
+       depart du parent produit mecaniquement. m_parents reste calculee a
+       titre descriptif mais n'alimente plus dim_protect.
+       Le travail des enfants est en consequence mesure jusqu'a 17 ans :
+       sans cela les 15-17 ans n'auraient plus aucun indicateur de
+       protection et seraient mesures sur six dimensions au lieu de sept,
+       ce qui rendrait le seuil k = 4 non comparable entre groupes d'age.
+       replace ... if hors 5-17 ans = non-applicabilite (pas une
        imputation de valeur manquante) : l'indicateur ne sert pas pour ce
        groupe d'age, quelle que soit l'info disponible. */
     gen byte m_acte_nais = (s01q05 == 2) if !missing(s01q05)
@@ -796,10 +805,11 @@ foreach annee in 2018 2021 {
        nrep, les enfants sans aucune reponse seraient comptes "ne travaille pas"
        plutot qu'exclus. */
     gen byte m_trav_enf = (eco == 1 | h_dom >= 1) ///
-        if age >= 5 & age <= 14 & nrep > 0 & !missing(nrep)
-    replace  m_trav_enf = 0 if age < 5 | age > 14
+        if age >= 5 & age <= 17 & nrep > 0 & !missing(nrep)
+    replace  m_trav_enf = 0 if age < 5
 
-    /* Separation parentale : enfant ne vivant pas avec ses DEUX parents
+    /* Separation parentale, VARIABLE DESCRIPTIVE UNIQUEMENT (hors indice) :
+       enfant ne vivant pas avec ses DEUX parents
        biologiques, identifie directement par les questions du roster
        (s01q22 pere dans le menage, s01q29 mere dans le menage ; 1=Oui, 2=Non).
        Prive (m_parents=1) des qu'au moins un parent ne vit pas dans le menage ;
@@ -814,11 +824,12 @@ foreach annee in 2018 2021 {
     /* dim_protect manquante des qu'UN SEUL indicateur pertinent pour le
        groupe d'age de l'enfant lui manque (analyse en cas complets). */
     gen byte dim_protect = .
-    replace  dim_protect = (m_acte_nais == 1 | m_parents == 1) ///
-        if groupe_moda == 1 & !missing(m_acte_nais) & !missing(m_parents)
-    replace  dim_protect = (m_acte_nais == 1 | m_trav_enf == 1 | m_parents == 1) ///
-        if groupe_moda == 2 & !missing(m_acte_nais) & !missing(m_trav_enf) & !missing(m_parents)
-    replace  dim_protect = (m_parents == 1) if groupe_moda == 3 & !missing(m_parents)
+    replace  dim_protect = (m_acte_nais == 1) ///
+        if groupe_moda == 1 & !missing(m_acte_nais)
+    replace  dim_protect = (m_acte_nais == 1 | m_trav_enf == 1) ///
+        if groupe_moda == 2 & !missing(m_acte_nais) & !missing(m_trav_enf)
+    replace  dim_protect = (m_trav_enf == 1) ///
+        if groupe_moda == 3 & !missing(m_trav_enf)
 
     /* ── [Dimension 7/7 : Education] ──────────────────────────────
        Indicateur 1 - Illettrisme, ne sait ni lire ni ecrire (15-17 ans)
@@ -1152,10 +1163,12 @@ save "$TEMP/panel_complet.dta", replace
 use "$TEMP/enfants_dep_2018.dta", clear
 keep grappe menage numind sexe age pauvre_MODA nb_dep intensite_moda groupe_moda ///
      dim_assai dim_eau dim_logem dim_nutri dim_sante dim_protect dim_educ ///
+     m_parents ///
      hhweight hhsize pcexp region milieu hgender hage heduc hmstat hcsp
 rename numind numind_2018
 foreach v in sexe age pauvre_MODA nb_dep intensite_moda groupe_moda ///
-             dim_assai dim_eau dim_logem dim_nutri dim_sante dim_protect dim_educ {
+             dim_assai dim_eau dim_logem dim_nutri dim_sante dim_protect dim_educ ///
+             m_parents {
     rename `v' `v'18
 }
 tempfile enf18_psm
@@ -1163,9 +1176,11 @@ save `enf18_psm'
 
 use "$TEMP/enfants_dep_2021.dta", clear
 keep grappe menage numind sexe age pauvre_MODA nb_dep intensite_moda groupe_moda ///
-     dim_assai dim_eau dim_logem dim_nutri dim_sante dim_protect dim_educ
+     dim_assai dim_eau dim_logem dim_nutri dim_sante dim_protect dim_educ ///
+     m_parents
 foreach v in sexe age pauvre_MODA nb_dep intensite_moda groupe_moda ///
-             dim_assai dim_eau dim_logem dim_nutri dim_sante dim_protect dim_educ {
+             dim_assai dim_eau dim_logem dim_nutri dim_sante dim_protect dim_educ ///
+             m_parents {
     rename `v' `v'21
 }
 merge m:1 grappe menage numind using "$TEMP/lien_individus.dta", ///
@@ -1213,6 +1228,112 @@ di "  Part avec ecart d'age dans [2 ; 4] ans : " %5.1f 100*r(N)/_N "%"
 quietly count if ecart_age < 0
 di "  Part avec ecart d'age negatif (erreur de declaration) : " %5.1f 100*r(N)/_N "%"
 quietly drop ecart_age
+
+
+/* ============================================================
+   1a-bis. TESTS DE COMPARAISON AVANT L'ESTIMATION D'IMPACT
+
+   Avant toute estimation, on documente l'ecart initial entre
+   enfants beneficiaires et non beneficiaires. Trois tests :
+
+     (i)   comparaison des caracteristiques observables a t=0
+           (test de Student sur la difference de moyennes, erreurs-
+           types clusterisees au niveau de la grappe) ;
+     (ii)  comparaison des resultats a t=0 (indice MODA, nombre de
+           privations, intensite, chaque dimension) : c'est l'ecart
+           que la double difference doit neutraliser, et non
+           attribuer au traitement ;
+     (iii) test joint de l'ensemble des covariables (test du
+           rapport de vraisemblance du logit de D). Le rejet de
+           l'egalite jointe est le fait empirique qui justifie
+           l'appariement : une comparaison directe des deux groupes
+           serait biaisee.
+   ============================================================ */
+
+di _newline "=== 1a-bis. Tests de comparaison avant estimation ==="
+
+quietly gen byte chef_f_t = (hgender == 2)
+quietly gen byte urbain_t = (milieu  == 1)
+
+di _newline "-- (i) Caracteristiques observables a t=0 --"
+di "  variable            D=1        D=0      diff        p"
+foreach v of varlist hhsize log_pcexp hage chef_f_t urbain_t sexe18 age18 {
+    quietly summarize `v' if D == 1
+    local m1 = r(mean)
+    quietly summarize `v' if D == 0
+    local m0 = r(mean)
+    quietly regress `v' D, vce(cluster grappe)
+    local p = 2*ttail(e(df_r), abs(_b[D]/_se[D]))
+    di "  " %-16s "`v'" %9.3f `m1' %10.3f `m0' %10.3f `m1'-`m0' %9.4f `p'
+}
+
+di _newline "-- (ii) Resultats a t=0 (ecart initial a neutraliser) --"
+di "  variable            D=1        D=0      diff        p"
+foreach v of varlist pauvre_MODA18 nb_dep18 intensite_moda18 ///
+                     dim_assai18 dim_eau18 dim_logem18 dim_nutri18 ///
+                     dim_sante18 dim_protect18 dim_educ18 {
+    quietly summarize `v' if D == 1
+    local m1 = r(mean)
+    quietly summarize `v' if D == 0
+    local m0 = r(mean)
+    quietly regress `v' D, vce(cluster grappe)
+    local p = 2*ttail(e(df_r), abs(_b[D]/_se[D]))
+    di "  " %-16s "`v'" %9.3f `m1' %10.3f `m0' %10.3f `m1'-`m0' %9.4f `p'
+}
+
+di _newline "-- (iii) Test joint d'egalite des covariables --"
+quietly logit D c.hhsize c.log_pcexp i.milieu i.region ///
+                c.hgender c.hage i.heduc i.hmstat i.hcsp ///
+                i.sexe18 c.age18, nolog
+local lr   = 2*(e(ll) - e(ll_0))
+local ddl  = e(df_m)
+di "  LR chi2(" `ddl' ") = " %8.2f `lr' ///
+   "   p = " %6.4f chi2tail(`ddl', `lr')
+di "  H0 : les deux groupes ont la meme distribution de covariables."
+di "  Le rejet justifie l'appariement prealable a la double difference."
+
+/* ============================================================
+   1a-ter. TESTS D'ENDOGENEITE
+
+   Une covariable du score de propension doit etre PREDETERMINEE :
+   fixee avant le traitement, et non modifiee par lui. Une variable
+   affectee par les transferts introduirait dans le score un canal
+   par lequel le traitement agit, et l'appariement en absorberait
+   une partie de l'effet ("bad control").
+
+   Test retenu : pour chaque variable candidate mesuree aux deux
+   vagues, on regresse sa valeur en 2021 sur le traitement de 2018
+   en controlant sa valeur de 2018. Un coefficient significatif sur
+   D signifie que le traitement deplace la variable : elle n'est pas
+   predeterminee et ne peut pas servir de covariable d'appariement.
+
+   Le meme test est applique a la separation parentale, non plus
+   comme covariable mais comme indicateur de privation : s'il est
+   positif, l'indice MODA contiendrait une privation que la
+   migration produit mecaniquement, ce qui suffit a la retirer de
+   l'agregat (cf. dimension Protection, section B).
+   ============================================================ */
+
+di _newline "=== 1a-ter. Tests d'endogeneite ==="
+
+di _newline "-- Separation parentale : le traitement la produit-il ? --"
+quietly regress m_parents21 D m_parents18, vce(cluster grappe)
+di "  Effet de D sur la separation parentale en 2021 : " ///
+   %7.4f _b[D] "  (et " %6.4f _se[D] ")  p = " ///
+   %6.4f 2*ttail(e(df_r), abs(_b[D]/_se[D]))
+di "  Un coefficient positif et significatif confirme que cet"
+di "  indicateur est un RESULTAT du traitement, non une privation"
+di "  independante : il est exclu de l'indice MODA."
+
+di _newline "-- Dimensions MODA : lesquelles le traitement deplace-t-il ? --"
+di "  (diagnostic, non un test de validite du score)"
+foreach v in assai eau logem nutri sante protect educ {
+    quietly regress dim_`v'21 D dim_`v'18, vce(cluster grappe)
+    di "  dim_" %-8s "`v'" " : b(D) = " %7.4f _b[D] ///
+       "   p = " %6.4f 2*ttail(e(df_r), abs(_b[D]/_se[D]))
+}
+
+drop m_parents18 m_parents21 chef_f_t urbain_t
 
 di _newline "=== Logit ENFANT — score de propension (EHCVM I, panel d'enfants) ==="
 di "Enfants suivis aux deux vagues : " _N
