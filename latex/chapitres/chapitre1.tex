@@ -131,6 +131,47 @@ de la charte). Une privation n'est donc pas un simple manque de ressources
 mais la négation d'un droit, ce qui fonde la mesure sur une définition
 normative du bien-être de l'enfant plutôt que sur le seul revenu du ménage.
 
+% ─────────────────────────────────────────────────────────────────────────────
+\subsubsection{De la définition à la mesure : compter les privations}
+% ─────────────────────────────────────────────────────────────────────────────
+
+Définir la pauvreté comme une privation simultanée ne suffit pas, encore
+faut-il la compter. La méthode de dénombrement de \textcite{alkire2011} fournit
+le cadre aujourd'hui dominant. Elle procède en deux temps. Un premier seuil,
+dit intra-dimensionnel, détermine pour chaque dimension si l'enfant y est privé.
+Un second seuil, dit inter-dimensionnel et noté $k$, fixe le nombre de
+dimensions à partir duquel l'enfant est déclaré pauvre. Ce double seuil évite
+les deux écueils symétriques des approches antérieures, l'approche dite de
+l'union qui déclare pauvre tout enfant privé dans une seule dimension et
+surestime donc la pauvreté, et l'approche dite de l'intersection qui exige la
+privation dans toutes les dimensions et la sous-estime tout autant.
+
+De ce dénombrement se déduisent trois indices, qui ne disent pas la même chose.
+L'incidence $H$ est la part des enfants privés dans au moins $k$ dimensions.
+L'intensité $A$ est la part moyenne de privations que supportent les enfants
+ainsi déclarés pauvres. L'indice ajusté $M_0$, produit des deux, est le seul
+des trois à satisfaire la propriété de monotonicité dimensionnelle, une
+privation supplémentaire chez un enfant déjà pauvre augmentant l'indice alors
+qu'elle laisse l'incidence inchangée. Suivre les trois est donc nécessaire, une
+baisse de $H$ accompagnée d'une intensité stable ne signifiant pas la même
+chose qu'une baisse conjointe des deux.
+
+L'approche MODA \parencite{deneubourg2012} applique ce cadre à l'enfant. Elle
+en retient la logique du double seuil, mais l'assortit de trois choix propres
+au public visé. Les dimensions sont celles du bien-être de l'enfant et non du
+ménage, elles sont déclinées par groupe d'âge, et l'analyse porte sur les
+privations qui se superposent chez un même enfant plutôt que sur les taux
+dimension par dimension. C'est cette déclinaison, adaptée au Sénégal par
+\textcite{ansd2024}, que ce mémoire reprend.
+
+Deux limites de cette famille de mesures doivent être signalées, car elles
+pèsent sur l'interprétation des résultats. La première tient à la pondération,
+les dimensions étant ici traitées comme équivalentes faute d'un critère
+consensuel pour les hiérarchiser, choix courant mais qui n'est pas neutre. La
+seconde tient au caractère discret des seuils, une amélioration réelle mais
+insuffisante pour franchir un seuil restant invisible à l'indice, ce qui rend
+nécessaire de tester la sensibilité des résultats à la valeur de $k$.
+
 % ── PARTIE II : Revue empirique ────────────────────────────
 \subsection{Revue empirique}
 
@@ -221,6 +262,43 @@ protection comme une dimension à part entière de la pauvreté des enfants.
 
 \bigskip
 
+Le tableau~\ref{tab:synthese_empirique} récapitule les travaux qui viennent
+d'être discutés. Il fait apparaître trois régularités. Les études reposant sur
+une source de variation exogène, chocs de change ou prévalence migratoire
+historique, concluent à des effets plus modestes que les comparaisons
+transversales, ce qui suggère que ces dernières surestiment l'apport des
+transferts. Les effets établis se concentrent sur les dimensions qui dépendent
+du budget courant, éducation et santé, et se raréfient sur celles qui
+supposent une infrastructure. Enfin, aucune de ces études ne mesure la
+pauvreté au niveau de l'enfant ni n'agrège plusieurs dimensions.
+
+\begin{table}[H]
+  \centering
+  \caption{Synthèse des travaux empiriques sur les transferts et le bien-être des enfants}
+  \label{tab:synthese_empirique}
+  \zebre
+  \footnotesize
+  \begin{tabular}{|l|l|l|l|}
+    \hline
+    \entete Auteurs & Terrain & Identification & Résultat principal \\ \hline
+    \textcite{cox2003}        & Salvador    & Transversal, contrôles      & Abandon scolaire en baisse \\ \hline
+    \textcite{hildebrandt2005}& Mexique     & Prévalence migratoire       & Mortalité infantile en baisse \\ \hline
+    \textcite{azam2006}       & Afrique     & Transversal                 & Recul modeste de la pauvreté \\ \hline
+    \textcite{mansuri2006}    & Pakistan    & Transversal, contrôles      & Effet négatif de l'absence du père \\ \hline
+    \textcite{yang2008}       & Philippines & Chocs de change             & Scolarisation et logement en hausse \\ \hline
+    \textcite{calero2009}     & Équateur    & Variables instrumentales    & Effet conditionnel à l'offre de services \\ \hline
+    \textcite{acosta2011}     & Salvador    & Variables instrumentales    & Travail des enfants en baisse \\ \hline
+    \textcite{amuedo2011}     & Mexique     & Transversal, contrôles      & Dépenses de santé en hausse \\ \hline
+    \textcite{combes2011}     & UEMOA       & Panel macroéconomique       & Volatilité de la consommation en baisse \\ \hline
+    \textcite{davis2016}      & Guatemala   & Variables instrumentales    & Effet nutritionnel conditionnel \\ \hline
+    \textcite{ndiaye2016}     & Sénégal     & Correction de sélection     & Capital humain en hausse \\ \hline
+    \textcite{bucheli2018}    & Équateur    & Transversal, contrôles      & Effets hétérogènes selon le profil \\
+    \hline
+  \end{tabular}
+
+  {\footnotesize \textbf{Source :} Construction de l'auteur à partir de la littérature citée.}
+\end{table}
+
 Cette revue livre trois enseignements. Le premier porte sur la sélection.
 La migration et l'envoi de fonds relèvent de logiques de réseaux, de différentiels
 de revenus et de motifs assurantiels, ce qui rend le statut de bénéficiaire
@@ -240,6 +318,13 @@ constamment selon le genre, le milieu et l'âge, appelle à une mesure
 multidimensionnelle agrégeant l'ensemble de ces canaux plutôt qu'un indicateur
 isolé. Le troisième enseignement porte sur la lacune que ce travail comble,
 aucune étude recensée ne combinant mesure multidimensionnelle de la pauvreté
-infantile et transferts de migrants. Ce
+infantile et transferts de migrants. Cette lacune est double. Elle est de
+mesure, les travaux sur les transferts retenant soit le revenu du ménage, soit
+une dimension isolée du bien-être de l'enfant, jamais l'ensemble des privations
+qu'un même enfant cumule. Elle est d'identification, les études disponibles en
+Afrique de l'Ouest s'appuyant sur des données transversales, qui ne
+neutralisent que ce qui s'observe, alors même que la théorie des réseaux
+désigne des déterminants inobservables du statut de bénéficiaire. Ce
 mémoire s'y attaque en corrigeant à la fois la sélection sur observables et
-les effets fixes inobservables.
+les effets fixes inobservables, et en portant la mesure au niveau de l'enfant
+plutôt qu'à celui du ménage.
