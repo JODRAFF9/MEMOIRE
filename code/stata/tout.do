@@ -210,13 +210,14 @@ local fich_list s13a_1
 
     /* Identifier les menages avec au moins un transfert etranger */
     use "`base'/`fich_det'_me_sen`annee'.dta", clear
-    /* Transfert etranger ET expediteur ancien membre du menage (var_exmbr==1,
-       s13aq12 en 2018 / s13q17 en 2021) : seuls ces transferts relevent de la
-       migration d'un membre du menage (theorie des reseaux migratoires). Les
-       transferts d'un expediteur n'ayant jamais vecu dans le menage sont
-       ecartes du traitement. */
-    keep if `var_lieu' >= $CODE_ETRANGER_MIN & !missing(`var_lieu') ///
-        & `var_exmbr' == 1
+    /* Transfert etranger, quel que soit le lien de l'expediteur au
+       menage : le traitement retient tout transfert recu de l'etranger,
+       sans exiger que l'expediteur ait vecu dans le menage. La solidarite
+       transnationale deborde le seul ancien membre (parents eloignes,
+       reseaux villageois), et conditionner au lien restreindrait le
+       traitement sans que la theorie ne l'impose. Le lien reste observe
+       (var_exmbr, s13aq12 en 2018 / s13q17 en 2021) a titre descriptif. */
+    keep if `var_lieu' >= $CODE_ETRANGER_MIN & !missing(`var_lieu')
     bysort grappe menage: keep if _n == 1
     gen transfert_migrant = 1
     keep grappe menage transfert_migrant
@@ -238,7 +239,7 @@ local fich_list s13a_1
     di "  `annee' : " %5.1f r(mean)*100 "%  (" %4.0f r(sum) "/" %5.0f r(N) " menages)"
 
     /* ── Intensite du traitement : montant annuel recu ────────────
-       Meme perimetre que D (transfert etranger d'un ex-membre du menage).
+       Meme perimetre que D (tout transfert recu de l'etranger).
        Le montant par envoi est annualise par la frequence declaree, puis
        somme sur l'ensemble des transferts eligibles du menage.
        v_montant / v_freq : s13aq17a/b en 2018, s13q22a/b en 2021. */
@@ -279,13 +280,14 @@ local fich_list s13_1
 
     /* Identifier les menages avec au moins un transfert etranger */
     use "`base'/`fich_det'_me_sen`annee'.dta", clear
-    /* Transfert etranger ET expediteur ancien membre du menage (var_exmbr==1,
-       s13aq12 en 2018 / s13q17 en 2021) : seuls ces transferts relevent de la
-       migration d'un membre du menage (theorie des reseaux migratoires). Les
-       transferts d'un expediteur n'ayant jamais vecu dans le menage sont
-       ecartes du traitement. */
-    keep if `var_lieu' >= $CODE_ETRANGER_MIN & !missing(`var_lieu') ///
-        & `var_exmbr' == 1
+    /* Transfert etranger, quel que soit le lien de l'expediteur au
+       menage : le traitement retient tout transfert recu de l'etranger,
+       sans exiger que l'expediteur ait vecu dans le menage. La solidarite
+       transnationale deborde le seul ancien membre (parents eloignes,
+       reseaux villageois), et conditionner au lien restreindrait le
+       traitement sans que la theorie ne l'impose. Le lien reste observe
+       (var_exmbr, s13aq12 en 2018 / s13q17 en 2021) a titre descriptif. */
+    keep if `var_lieu' >= $CODE_ETRANGER_MIN & !missing(`var_lieu')
     bysort grappe menage: keep if _n == 1
     gen transfert_migrant = 1
     keep grappe menage transfert_migrant
@@ -963,8 +965,7 @@ foreach annee in 2018 2021 {
    de 2018, qui sert de reference avant l'observation des resultats
    ulterieurs. On definit :
      - traites (D_stable=1) : menage recevant en 2018 un transfert
-       etranger d'un expediteur ayant deja vecu dans le menage
-       (migration d'un membre du menage)
+       de l'etranger, quel que soit le lien de l'expediteur au menage
      - temoins (D_stable=0) : menage ne recevant aucun transfert
        etranger de ce type en 2018
    Le statut etant fige a la periode de base, il ne peut pas etre
@@ -1168,9 +1169,8 @@ save "$TEMP/panel_complet.dta", replace
      6. Heterogeneite (milieu, genre, age)
      7. Robustesse (seuil k, methodes d'appariement, agregat menage)
 
-   Traitement : defini a la periode de base (2018), transfert d'un
-   expediteur residant hors du Senegal et ayant deja vecu dans le
-   menage.
+   Traitement : transfert recu de l'etranger, quel que soit le lien
+   de l'expediteur au menage.
    ============================================================ */
 
 /* ── 1a. Construction du panel d'enfants suivis ──────────────
@@ -1209,8 +1209,8 @@ merge m:1 grappe menage numind using "$TEMP/lien_individus.dta", ///
 drop numind
 merge 1:1 grappe menage numind_2018 using `enf18_psm', keep(match) nogenerate
 
-/* Traitement defini a la periode de base (transfert 2018, expediteur
-   ex-membre du menage) */
+/* Traitement defini a la periode de base (transfert de l'etranger
+   recu en 2018) */
 merge m:1 grappe menage using "$TEMP/traitement_2018.dta", ///
     keepusing(D) keep(match) nogenerate
 
