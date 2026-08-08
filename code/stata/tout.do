@@ -1330,7 +1330,11 @@ di "Enfants suivis aux deux editions : " _N
    l'age et la probabilite d'avoir un migrant dans le menage n'a aucune
    raison d'etre lineaire, un chef age etant plus souvent le parent reste
    au pays d'un enfant adulte parti. */
-global COV_SCORE "i.milieu i.region c.hgender i.hage_cl i.heduc i.hmstat i.sexe18"
+/* Le nombre de privations de la periode de base figure parmi les
+   covariables : le design principal etant un PSM en niveaux de 2021,
+   l'hypothese d'independance conditionnelle n'est credible qu'a niveau
+   initial comparable. */
+global COV_SCORE "c.nb_dep18 i.milieu i.region c.hgender i.hage_cl i.heduc i.hmstat i.sexe18"
 
 gen byte grp_psm = groupe_moda18
 label values grp_psm grp
@@ -2048,17 +2052,46 @@ keep if !missing($POIDS_PRINCIPAL) & $POIDS_PRINCIPAL > 0
 di _newline "Panel d'enfants apparie (k-NN) : " _N " observations"
 tabstat D, by(t) stat(mean sum n) format(%6.3f)
 
-/* ── RESULTAT PRINCIPAL : ATT PAR GROUPE D'AGE ────────────────
-   L'estimation de l'impact suit la logique de tout le dispositif : le
-   score est estime par groupe d'age, l'appariement est fait par groupe
-   d'age, et l'ATT est donc lui aussi estime SEPAREMENT dans chaque
-   groupe. Un ATT global n'aurait pas d'interpretation propre, puisque
-   les enfants n'y sont pas mesures sur les memes indicateurs : les
-   trois ATT par groupe constituent le resultat principal. L'estimation
-   d'ensemble est conservee a titre de synthese ponderee, et parce que
-   le test placebo et la lecture par dimension s'y adossent. */
+/* ── RESULTAT PRINCIPAL : PSM EN NIVEAUX DE 2021 ─────────────
+   La double difference exigerait des tendances paralleles qu'aucune
+   periode pre-traitement ne permet de tester : la methodologie se limite
+   au PSM. L'effet est estime sur le nombre de privations de 2021, les
+   temoins etant rendus comparables par l'appariement sur le score, qui
+   inclut le nombre de privations de la periode de base. L'estimation est
+   conduite sur l'ensemble des 0-17 ans (appariement stratifie par groupe
+   d'age, poids empiles), puis separement dans chaque groupe. */
+use "$TEMP/panel_enfants_psm.dta", clear
+keep if t == 1
+keep if !missing($POIDS_PRINCIPAL) & $POIDS_PRINCIPAL > 0
 
-di _newline "=== PSM-DD — ATT PRINCIPAL, PAR GROUPE D'AGE ==="
+di _newline "=== ATT PRINCIPAL : PSM sur le nombre de privations de 2021 ==="
+di _newline "-- Ensemble 0-17 ans (appariement stratifie par groupe d'age) --"
+quietly count if D == 1
+di "  Traites apparies : " r(N)
+regress nb_dep i.D [aw=$POIDS_PRINCIPAL], vce(cluster grappe)
+di "  ATT_PSM 0-17 = " %8.4f _b[1.D] "  SE = " %8.4f _se[1.D] ///
+   "  p = " %6.4f 2*ttail(e(df_r), abs(_b[1.D]/_se[1.D]))
+global ATT_GLOB = _b[1.D]
+
+forvalues g = 1/3 {
+    local titg : label grp `g'
+    di _newline "-- `titg' --"
+    regress nb_dep i.D [aw=$POIDS_PRINCIPAL] if groupe_base == `g', ///
+        vce(cluster grappe)
+    di "  ATT_PSM (`titg') = " %8.4f _b[1.D] "  SE = " %8.4f _se[1.D] ///
+       "  p = " %6.4f 2*ttail(e(df_r), abs(_b[1.D]/_se[1.D]))
+    global ATT_G`g' = _b[1.D]
+}
+
+/* ── ROBUSTESSE TRAJECTOIRES : PSM-DD PAR GROUPE D'AGE ───────
+   La famille en trajectoires est conservee en robustesse : elle suppose
+   les tendances paralleles, intestables ici, et l'ecart initial d'une
+   privation entiere entre stables et jamais rend le retour a la moyenne
+   plausible. La confrontation des deux familles borne l'effet. */
+use "$TEMP/panel_enfants_psm.dta", clear
+keep if !missing($POIDS_PRINCIPAL) & $POIDS_PRINCIPAL > 0
+
+di _newline "=== ROBUSTESSE : PSM-DD (trajectoires), par groupe d'age ==="
 forvalues g = 1/3 {
     local titg : label grp `g'
     /* Effectifs APRES appariement : enfants sur support commun et de
@@ -2080,7 +2113,7 @@ forvalues g = 1/3 {
     lincom 1.t#1.D
     di "  ATT_PSM-DD nb_dep (`titg') = " %8.4f r(estimate) ///
        "  SE = " %8.4f r(se) "  p = " %6.4f r(p)
-    global ATT_G`g' = r(estimate)
+    global ATTDD_G`g' = r(estimate)
 
     regress pauvre_MODA i.t##i.D [aw=$POIDS_PRINCIPAL] ///
         if groupe_base == `g', vce(cluster grappe)
@@ -2161,7 +2194,7 @@ preserve
         di "  ANCOVA (`titg') : effet = " %8.4f _b[1.D] ///
            "  SE = " %8.4f _se[1.D] ///
            "  p = " %6.4f 2*ttail(e(df_r), abs(_b[1.D]/_se[1.D]))
-        di "  Rappel DD (`titg') : " %8.4f ${ATT_G`g'}
+        di "  Rappel DD (`titg') : " %8.4f ${ATTDD_G`g'}
         di "  Lecture : DD et ANCOVA encadrent l'effet vrai (Angrist et"
         di "  Pischke, 2009) ; meme signe = conclusion robuste aux deux"
         di "  hypotheses opposees."
@@ -3412,8 +3445,8 @@ forvalues g = 1/3 {
     di _newline "Placebo groupe `g' : moyenne=" %7.4f r(mean) "  sd=" %6.4f r(sd)
     quietly count if !missing(att_g`g')
     local ntot = r(N)
-    quietly count if att_g`g' < ${ATT_G`g'}
-    di "  ATT du groupe (" %6.4f ${ATT_G`g'} ") : rang = " ///
+    quietly count if att_g`g' < ${ATTDD_G`g'}
+    di "  ATT du groupe (" %6.4f ${ATTDD_G`g'} ") : rang = " ///
        %4.1f 100*r(N)/`ntot' "e centile"
 }
 
@@ -3427,7 +3460,7 @@ forvalues g = 1/3 {
     quietly histogram att_g`g', width(0.005) frequency ///
         color(gs9) lcolor(white) ///
         xline(0, lcolor(black) lpattern(solid)) ///
-        xline(`=${ATT_G`g'}', lcolor(orange) lpattern(dash) lwidth(medthick)) ///
+        xline(`=${ATTDD_G`g'}', lcolor(orange) lpattern(dash) lwidth(medthick)) ///
         xtitle("ATT placebo") ytitle("Réplications") ///
         title("`titg'", size(medium)) ///
         graphregion(color(white)) plotregion(color(white)) ///

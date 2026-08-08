@@ -3,8 +3,9 @@
 
 Cette section présente les données et la méthodologie de la recherche. La
 pauvreté multidimensionnelle des enfants est mesurée par l'approche MODA de
-l'UNICEF, qui sert de variable de résultat. L'impact des transferts est estimé sur les deux éditions de l'EHCVM par la
-combinaison du score de propension (PSM) et de la double différence (DD).
+l'UNICEF, qui sert de variable de résultat. L'impact des transferts est estimé par appariement sur score de propension
+(PSM) en niveaux de la seconde édition, la famille en trajectoires (double
+différence) étant conservée en robustesse.
 
 % ─────────────────────────────────────────────────────────────────────────────
 \subsection{Sources de données}
@@ -609,6 +610,23 @@ recouvrir deux mouvements de sens contraire, et qu'un effet significatif ne dit
 pas lequel des indicateurs le porte. L'estimation par indicateur porte sur le
 même panel apparié et la même spécification, chaque indicateur n'étant défini
 que sur les groupes d'âge auxquels il s'applique.
+
+\subsubsection{Design principal : appariement en niveaux de 2021}
+
+Le design principal se limite à l'appariement. La double différence
+supposerait des tendances parallèles qu'aucune période pré-traitement ne
+permet de tester, le traitement étant déjà en cours à la période de base~;
+plutôt que d'asseoir le résultat principal sur une hypothèse invérifiable,
+l'effet est estimé sur le nombre de privations de 2021, les témoins étant
+rendus comparables par l'appariement sur le score de propension. Le score
+inclut le nombre de privations de la période de base~: l'indépendance
+conditionnelle n'est crédible qu'à niveau initial comparable, et ce
+conditionnement neutralise la part de la trajectoire qui tient au point de
+départ. L'estimation est conduite d'abord sur l'ensemble des enfants de 0 à
+17 ans, l'appariement restant stratifié par groupe d'âge, puis séparément
+dans chaque groupe. La famille en trajectoires, double différence et
+PSM-DD, est conservée en robustesse~: la confrontation des deux familles,
+qui reposent sur des hypothèses opposées, borne l'effet.
 
 \subsubsection{Double différence}
 

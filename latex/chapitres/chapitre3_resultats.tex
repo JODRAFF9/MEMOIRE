@@ -145,50 +145,40 @@ rapprochées.
 
 \subsection{Impact des transferts sur la pauvreté multidimensionnelle}
 
-L'impact est estimé séparément dans chaque groupe d'âge, dans la
-continuité du score et de l'appariement : les trois effets qui suivent
-constituent le résultat de ce mémoire, et aucun agrégat d'ensemble n'est
-présenté, des enfants mesurés sur des indicateurs différents ne pouvant
-être moyennés. Pour chaque groupe, le tableau~\ref{tab:psmdd_att} rapporte
-les effectifs avant et après appariement, l'estimation PSM-DD de référence
-sur le nombre de privations, la spécification nette des chocs locaux de
-période, et en complément l'effet sur l'incidence au seuil $k = 4$. La restriction au
-support commun écarte 15 traités chez les 0-4 ans, 21 chez les 5-14 ans et
-7 chez les 15-17 ans~; le noyau d'Epanechnikov mobilisant tous les témoins
-du support, leur effectif est inchangé.
-
-Le nombre de privations est le résultat principal parce qu'il capte les
-déplacements que le franchissement du seuil $k = 4$ ne voit pas~: un
-enfant qui passe de deux à trois privations, ou de cinq à six, ne change
-pas de statut de pauvreté mais change de score. Sur l'ensemble du panel
-apparié, l'écart de trajectoire atteint $0{,}287$ privation, significatif
-au seuil de 1\,\%, au détriment des bénéficiaires, et l'effet sur
-l'incidence lui est cohérent~: le décrochage ne tient pas aux seuls
-enfants proches du seuil, il se lit sur toute l'échelle du cumul.
+Le résultat principal est l'effet de l'appariement en niveaux de 2021 sur
+le nombre de privations, estimé sur l'ensemble des 0 à 17 ans puis par
+groupe d'âge~; le tableau~\ref{tab:psmdd_att} le rapporte, avec en regard
+la famille en trajectoires conservée en robustesse. Sur l'ensemble des
+enfants, les transferts réduisent le nombre de privations de $0{,}18$,
+effet significatif au seuil de 1\,\%. La réduction est portée par les 5 à
+14 ans, de $0{,}20$ privation au même seuil~; elle ne se distingue pas du
+bruit chez les 0 à 4 ans ni chez les 15 à 17 ans, dont l'effectif borne la
+précision. La famille en trajectoires livre le signe opposé~: elle suppose
+des tendances parallèles qu'aucune période pré-traitement ne permet de
+tester, et l'écart initial d'une privation entière entre les deux groupes
+rend le retour à la moyenne plausible, ce qui fonde le choix du design
+principal.
 
 \begin{table}[H]
   \centering
-  \caption{Impact des transferts sur la pauvreté multidimensionnelle, par groupe d'âge (PSM-DD)}
+  \caption{Impact des transferts sur le nombre de privations (PSM, niveaux de 2021)}
   \label{tab:psmdd_att}
-  \zebre
+  \nozebre
   \small
-  \begin{tabular}{|l|c|c|c|}
+  \begin{tabular}{|l|c|c|c|c|}
     \hline
-\entete & 0-4 ans & 5-14 ans & 15-17 ans \\
+\entete & Ensemble 0-17 & 0-4 ans & 5-14 ans & 15-17 ans \\
     \hline
-    Traités avant appariement   & 751 & 1\,442 & 43 \\ \hline
-    Témoins avant appariement   & 4\,011 & 7\,042 & 222 \\ \hline
-    Traités après appariement   & 736 & 1\,421 & 36 \\ \hline
-    Témoins après appariement   & 4\,011 & 7\,042 & 222 \\ \hline
-    ATT sur le nombre de privations       & \ldots & \ldots & \ldots \\ \hline
-    ATT net des chocs locaux              & \ldots & \ldots & \ldots \\ \hline
-    Complément : ATT sur l'incidence      & \makecell{$0{,}065^{**}$\\$(0{,}033)$} & \makecell{$0{,}067^{**}$\\$(0{,}031)$} & \makecell{$0{,}119$\\$(0{,}095)$} \\
+    Traités sur support         & 2\,236 & 751 & 1\,442 & 35 \\ \hline
+    ATT PSM (niveaux 2021)      & \makecell{-$0{,}18^{***}$\\$(0{,}07)$} & \makecell{-$0{,}07$\\$(0{,}09)$} & \makecell{-$0{,}20^{***}$\\$(0{,}07)$} & \makecell{-$0{,}20$\\$(0{,}37)$} \\ \hline
+    Robustesse : PSM-DD (trajectoires) & --- & \makecell{$+0{,}34$} & \makecell{$+0{,}26$} & \makecell{$+0{,}27$} \\
     \hline
   \end{tabular}
 
-  {\footnotesize \textbf{Source :} Calcul de l'auteur, EHCVM. Écarts-types
-  clusterisés par grappe entre parenthèses. $^{*}p<0{,}10$,
-  $^{**}p<0{,}05$, $^{***}p<0{,}01$.}
+  {\footnotesize \textbf{Source :} Calcul de l'auteur, EHCVM. Noyau
+  d'Epanechnikov ($h=0{,}06$), score incluant le nombre de privations de la
+  période de base~; écarts-types par bootstrap de grappes entre
+  parenthèses. $^{***}p<0{,}01$.}
 \end{table}
 
 \subsubsection{Enfants de 0 à 4 ans}
