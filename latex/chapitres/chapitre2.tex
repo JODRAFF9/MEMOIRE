@@ -456,7 +456,7 @@ en pourcentage de l'écart-type, elle ne dépend pas de l'unité de mesure et se
 compare d'une covariable à l'autre. L'appariement est jugé satisfaisant
 lorsque la SMD résiduelle de chaque covariable reste inférieure à 10\,\%.
 
-\paragraph{Une estimation séparée par groupe d'âge.}
+\subsubsection{Une estimation séparée par groupe d'âge}
 Le score de propension et l'appariement ne sont pas estimés sur l'ensemble des
 enfants, mais séparément à l'intérieur de chacun des trois groupes d'âge MODA,
 soit les 0 à 4 ans, les 5 à 14 ans et les 15 à 17 ans. Deux raisons le
@@ -472,7 +472,7 @@ groupe à l'autre, et garantit qu'aucun appariement ne franchit une frontière
 d'âge. Les poids obtenus dans les trois groupes sont ensuite empilés, la
 double différence qui suit restant inchangée.
 
-\paragraph{Le choix de l'algorithme d'appariement.}
+\subsubsection{Le choix de l'algorithme d'appariement}
 Trois algorithmes sont mis en œuvre, les $k$ plus proches voisins, le noyau
 d'Epanechnikov et le caliper. Aucun n'est théoriquement supérieur aux autres :
 ils arbitrent différemment entre biais et variance, le voisinage le plus étroit
@@ -486,7 +486,7 @@ le résultat principal~; les deux autres sont estimés et présentés
 intégralement, et servent à vérifier que la conclusion ne dépend pas de cette
 convention.
 
-\paragraph{Les tests menés avant l'estimation.}
+\subsubsection{Les tests menés avant l'estimation}
 Trois tests précèdent l'estimation d'impact. Le premier compare les
 caractéristiques observables des deux groupes à la période de base, par un test
 de Student sur la différence de moyennes dont les écarts-types sont
@@ -499,7 +499,7 @@ vraisemblance du logit. Son rejet n'est pas un échec mais le fait empirique qui
 justifie la démarche : il établit qu'une comparaison directe des deux groupes
 serait biaisée, et donc que l'appariement est nécessaire.
 
-\paragraph{Les tests d'endogénéité.}
+\subsubsection{Les tests d'endogénéité}
 Une covariable du score de propension doit être prédéterminée, c'est-à-dire
 fixée avant le traitement et non modifiée par lui. Une variable affectée par
 les transferts introduirait dans le score un canal par lequel le traitement
@@ -511,7 +511,7 @@ peut alors servir de covariable d'appariement. Le même test est appliqué à la
 séparation parentale, non comme covariable mais comme indicateur de privation :
 il fonde son retrait de l'agrégat, exposé plus haut.
 
-\paragraph{Une lecture jusqu'aux indicateurs.}
+\subsubsection{Une lecture jusqu'aux indicateurs}
 L'effet est estimé non seulement sur l'indice agrégé et sur chacune des sept
 dimensions, mais aussi sur chacun des treize indicateurs élémentaires. La
 raison tient à la règle d'agrégation : une dimension passe à un dès qu'un seul
@@ -538,7 +538,7 @@ et le groupe témoin ($D_i=0$), sous l'hypothèse de tendances parallèles :
   \label{eq:parallel}
 \end{equation}
 
-\paragraph{La pandémie de COVID-19 entre les deux vagues.}
+\subsubsection{La pandémie de COVID-19 entre les deux vagues}
 La période séparant les deux enquêtes contient la pandémie de COVID-19, dont
 le choc a frappé le Sénégal en 2020 : restrictions de déplacement, fermeture
 temporaire des écoles, ralentissement de l'activité, tension sur les prix
