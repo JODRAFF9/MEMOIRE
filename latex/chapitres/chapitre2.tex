@@ -325,6 +325,50 @@ taux de privation par dimension $H_j$ et l'indice ajusté $M_0$
 servent de mesures secondaires, décomposables par milieu, région et groupe
 d'âge.
 
+\subsubsection{Choix des seuils de privation}
+
+La mesure repose sur deux seuils, dont le choix conditionne l'ensemble des
+résultats. À l'intérieur d'une dimension, l'enfant est déclaré privé dès
+qu'il l'est dans au moins un indicateur, règle dite de l'union. Deux
+arguments la fondent : le premier est substantiel, les indicateurs d'une
+même dimension n'étant pas interchangeables, un enfant dont le ménage
+dispose de toilettes améliorées mais les partage avec un autre ménage n'est
+pas dans une situation d'assainissement satisfaisante, et la moyenne des
+deux indicateurs masquerait cette privation. Le second est pratique, le
+nombre d'indicateurs variant d'une dimension à l'autre, si bien qu'une
+règle de majorité aboutirait à des exigences différentes selon les
+dimensions.
+
+Le seuil inter-dimensionnel $k = 4$ retient trois justifications
+convergentes. La première est institutionnelle : il s'agit du seuil de la
+méthodologie MODA Sénégal \parencite{ansd2024}, ce qui rend les résultats
+directement comparables aux statistiques officielles. La deuxième est
+empirique : la distribution du nombre de privations cumulées, donnée en
+annexe (figure~\ref{fig:distrib_dimensions}), place $k = 4$ au voisinage de
+son mode aux deux éditions, sans discontinuité qui désignerait un autre
+seuil comme plus naturel. La troisième est méthodologique :
+\textcite{alkire2011} rappellent que le choix de $k$ est normatif et ne se
+déduit pas des données, et recommandent d'en tester la sensibilité, ce qui
+est fait dans l'analyse de robustesse où le seuil varie de une à sept
+dimensions.
+
+Deux limites subsistent, qu'aucune valeur de $k$ ne lève : la pondération,
+les sept dimensions étant traitées comme équivalentes faute d'un critère
+consensuel pour les hiérarchiser, et le caractère discret du comptage, une
+amélioration réelle mais insuffisante pour faire franchir un seuil restant
+invisible à l'incidence. C'est la raison pour laquelle l'intensité $A$ et
+l'indice ajusté $M_0$ sont suivis en même temps que $H$, le premier étant
+seul sensible à ce que cumulent les enfants déjà déclarés pauvres.
+
+\subsubsection{Traitement des valeurs manquantes}
+
+L'analyse est conduite en cas complets. Une dimension est déclarée
+manquante dès qu'un seul de ses indicateurs pertinents pour le groupe d'âge
+de l'enfant l'est, et non imputée à zéro, choix conservateur qui évite de
+compter comme non privé un enfant sur lequel l'information fait défaut.
+L'échantillon d'estimation retient les enfants pour lesquels le statut de
+traitement, les covariables et l'indice sont renseignés aux deux éditions.
+
 % ─────────────────────────────────────────────────────────────────────────────
 \subsection{Stratégie d'identification causale}
 % ─────────────────────────────────────────────────────────────────────────────

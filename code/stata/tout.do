@@ -1992,6 +1992,62 @@ forvalues g = 1/3 {
     }
 }
 
+/* ── CHEVAUCHEMENT DES PRIVATIONS (le "O" de MODA) ───────────
+   L'analyse MODA est une analyse des privations qui se chevauchent :
+   compter les enfants prives dimension par dimension ne dit pas si ce
+   sont les memes enfants qui cumulent. Trois sorties :
+     (i)   la repartition des enfants selon le nombre de privations
+           simultanees (0, 1, ..., 7), par edition ;
+     (ii)  la matrice de chevauchement deux a deux : part des enfants
+           prives a la fois dans la dimension ligne et la dimension
+           colonne (diagonale = taux de privation simple) ;
+     (iii) parmi les enfants prives dans une dimension donnee, la part
+           qui cumule au moins trois autres privations, qui mesure a
+           quel point chaque privation est isolee ou enchassee. */
+
+local dims_ov assai eau logem nutri sante protect educ
+
+di _newline "=== Chevauchement des privations : nombre de privations simultanees ==="
+forvalues tt = 0/1 {
+    di "  -- edition t=`tt' --"
+    tab nb_dep if t == `tt'
+}
+
+di _newline "=== Matrice de chevauchement deux a deux (%, edition 2018) ==="
+foreach d1 of local dims_ov {
+    local ligne "  `d1' :"
+    foreach d2 of local dims_ov {
+        quietly count if t == 0 & !missing(dim_`d1') & !missing(dim_`d2')
+        local nn = r(N)
+        quietly count if t == 0 & dim_`d1' == 1 & dim_`d2' == 1
+        if `nn' > 0 local ligne "`ligne' `d2'=`: display %5.1f 100*r(N)/`nn''"
+    }
+    di "`ligne'"
+}
+
+di _newline "=== Matrice de chevauchement deux a deux (%, edition 2021) ==="
+foreach d1 of local dims_ov {
+    local ligne "  `d1' :"
+    foreach d2 of local dims_ov {
+        quietly count if t == 1 & !missing(dim_`d1') & !missing(dim_`d2')
+        local nn = r(N)
+        quietly count if t == 1 & dim_`d1' == 1 & dim_`d2' == 1
+        if `nn' > 0 local ligne "`ligne' `d2'=`: display %5.1f 100*r(N)/`nn''"
+    }
+    di "`ligne'"
+}
+
+di _newline "=== Enchassement : parmi les prives d'une dimension, part cumulant >=4 privations ==="
+forvalues tt = 0/1 {
+    di "  -- edition t=`tt' --"
+    foreach d1 of local dims_ov {
+        quietly count if t == `tt' & dim_`d1' == 1
+        local np = r(N)
+        quietly count if t == `tt' & dim_`d1' == 1 & nb_dep >= 4 & !missing(nb_dep)
+        if `np' > 0 di "    `d1' : " %5.1f 100*r(N)/`np' " %  (n=" `np' ")"
+    }
+}
+
 /* Distribution du nombre de privations, par statut et edition */
 di _newline "=== Distribution du nombre de privations (nb_dep) ==="
 forvalues tt = 0/1 {
