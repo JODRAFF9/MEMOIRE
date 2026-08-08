@@ -469,8 +469,12 @@ aucune raison de peser du même poids selon l'âge de l'enfant, et un score
 commun contraint les trois groupes à partager les mêmes coefficients. Estimer
 séparément lève cette contrainte, autorise le support commun à différer d'un
 groupe à l'autre, et garantit qu'aucun appariement ne franchit une frontière
-d'âge. Les poids obtenus dans les trois groupes sont ensuite empilés, la
-double différence qui suit restant inchangée.
+d'âge. La logique se poursuit jusqu'à l'estimation de l'impact : l'ATT est
+lui aussi estimé séparément dans chaque groupe d'âge, et ces trois effets
+constituent le résultat principal, un effet global n'ayant pas
+d'interprétation propre lorsque les enfants ne sont pas mesurés sur les
+mêmes indicateurs. Une estimation d'ensemble est présentée en complément, à
+titre de synthèse pondérée.
 
 \subsubsection{Choix de l'algorithme d'appariement}
 Trois algorithmes sont mis en œuvre, les $k$ plus proches voisins, le noyau
