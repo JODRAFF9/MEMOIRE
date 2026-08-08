@@ -274,18 +274,14 @@ pollution de l'air, le second une contrainte d'offre que le revenu ne lève pas.
 
 La protection rassemble deux indicateurs dont l'applicabilité varie avec
 l'âge, l'absence d'acte de naissance avant quinze ans et le travail des
-enfants de cinq à dix-sept ans. Un troisième indicateur, la séparation d'avec
-au moins un parent biologique, figure dans la grille MODA de référence mais a
-été écarté de l'agrégat retenu ici. La raison est d'identification et non de
-mesure~: la séparation parentale est une conséquence directe de la migration,
-donc du traitement dont on cherche à estimer l'effet. La conserver reviendrait
-à imputer aux transferts une privation que le départ du parent produit
-mécaniquement, et à faire apparaître un effet défavorable par construction. La
-variable reste calculée à titre descriptif et sert de test d'endogénéité, en
-vérifiant que le traitement la déplace effectivement. Le travail des enfants
-est en contrepartie mesuré jusqu'à dix-sept ans~; sans quoi les adolescents
-n'auraient plus aucun indicateur de protection et seraient évalués sur six
-dimensions au lieu de sept, ce qui rendrait le seuil $k = 4$ non comparable
+enfants de cinq à dix-sept ans. La séparation d'avec un parent biologique,
+présente dans la grille MODA de référence, est écartée de l'agrégat~: elle
+est une conséquence directe de la migration, donc du traitement dont on
+cherche à estimer l'effet, et la conserver imputerait aux transferts une
+privation que le départ du parent produit mécaniquement. Le travail des
+enfants est en contrepartie mesuré jusqu'à dix-sept ans, sans quoi les
+adolescents n'auraient aucun indicateur de protection et seraient évalués
+sur six dimensions au lieu de sept, rendant le seuil $k = 4$ non comparable
 entre groupes d'âge.
 
 L'éducation retient la non-scolarisation pour les 5 à 14 ans et
@@ -598,9 +594,7 @@ agit, et l'appariement en absorberait une partie de l'effet. Le test consiste,
 pour chaque variable mesurée aux deux éditions, à régresser sa valeur de 2021 sur
 le traitement de 2018 en contrôlant sa valeur de 2018. Un coefficient
 significatif sur le traitement établit que celui-ci déplace la variable, qui ne
-peut alors servir de covariable d'appariement. Le même test est appliqué à la
-séparation parentale, non comme covariable mais comme indicateur de privation :
-il fonde son retrait de l'agrégat, exposé plus haut.
+peut alors servir de covariable d'appariement.
 
 \subsubsection{Effets par indicateur}
 L'effet est estimé non seulement sur l'indice agrégé et sur chacune des sept
@@ -625,9 +619,10 @@ conditionnelle n'est crédible qu'à niveau initial comparable, et ce
 conditionnement neutralise la part de la trajectoire qui tient au point de
 départ. L'estimation est conduite d'abord sur l'ensemble des enfants de 0 à
 17 ans, l'appariement restant stratifié par groupe d'âge, puis séparément
-dans chaque groupe. La famille en trajectoires, double différence et
-PSM-DD, est conservée en robustesse~: la confrontation des deux familles,
-qui reposent sur des hypothèses opposées, borne l'effet.
+dans chaque groupe. La robustesse du résultat est éprouvée par la
+définition du traitement, la sensibilité au seuil de privation et le choix
+de l'algorithme d'appariement, la méthode retenue l'étant au seul critère
+d'équilibre.
 
 \subsubsection{Prise en compte de la COVID-19}
 
@@ -641,125 +636,12 @@ est celui des transferts dans la conjoncture de 2021, pandémie comprise.
 Le choix du design des bénéficiaires stables y répond aussi, ces ménages
 étant précisément ceux dont les envois ont résisté au choc de 2020.
 
-\subsubsection{Robustesse : famille en trajectoires}
-
-La famille en trajectoires est conservée en robustesse, en regard du
-design principal. La double différence \parencite{card1994} exploite la dimension temporelle des deux éditions EHCVM
-pour contrôler les effets fixes inobservables stables dans le temps :
-\begin{equation}
-  \hat{\tau}_{DD} = \left(\bar{Y}^1_{t=2} - \bar{Y}^1_{t=1}\right)
-  - \left(\bar{Y}^0_{t=2} - \bar{Y}^0_{t=1}\right),
-  \label{eq:dd}
-\end{equation}
-où les exposants 1 et 0 désignent respectivement le groupe traité ($D_i=1$)
-et le groupe témoin ($D_i=0$), sous l'hypothèse de tendances parallèles :
-\begin{equation}
-  \E\!\left[Y_i(0)_{t=2} - Y_i(0)_{t=1} \mid D_i = 1\right]
-  = \E\!\left[Y_i(0)_{t=2} - Y_i(0)_{t=1} \mid D_i = 0\right].
-  \label{eq:parallel}
-\end{equation}
-
-Sa combinaison avec l'appariement donne l'estimateur PSM-DD :
-
-La combinaison PSM-DD proposée par \textcite{heckman1997} et
-\textcite{heckman1998} neutralise simultanément le biais lié aux différences
-observables (PSM) et celui lié aux effets fixes inobservables constants dans
-le temps (DD) :
-\begin{equation}
-  \hat{\tau}_{PSM\text{-}DD} = \frac{1}{n_T} \sum_{i \in \mathcal{T}}
-  \left[\Delta Y_i - \sum_{j \in \mathcal{C}(i)} w_{ij} \cdot \Delta Y_j
-  \right],
-  \label{eq:psm-dd}
-\end{equation}
-où $\Delta Y_i = Y_{i,t=2} - Y_{i,t=1}$ est la variation intra-ménage
-de la variable de résultat MODA, calculée directement sur les
-ménages suivis entre les deux éditions.
-
-Quelques conventions valent pour l'ensemble des estimations qui suivent. Les
-statistiques descriptives sont pondérées par la pondération de sondage des
-ménages, et toutes les erreurs-types sont clusterisées par grappe, l'unité
-primaire de sondage, puis reportées entre parenthèses sous le coefficient.
-Sauf mention contraire, l'appariement retenu est le plus proche voisin, au
-niveau de l'enfant. La significativité est signalée par $^{*}p<0{,}10$,
-$^{**}p<0{,}05$ et $^{***}p<0{,}01$.
-
-En pratique, l'estimateur est obtenu par la régression pondérée, estimée
-séparément dans chaque groupe d'âge $g$ :
-\begin{equation}
-  Y_{it} = \alpha_g + \gamma_g\, t + \delta_g\, D_i
-         + \tau_g\, (t \times D_i) + \varepsilon_{it},
-  \label{eq:reg_dd}
-\end{equation}
-où $Y_{it}$ est l'indicateur de pauvreté multidimensionnelle de l'enfant
-$i$ à la période $t$, la pondération est le poids d'appariement de la
-méthode retenue, et $\hat{\tau}_g$ est l'ATT du groupe. Les écarts-types
-sont clusterisés au niveau de la grappe. La spécification nette des chocs
-locaux de période ajoute à l'équation~\eqref{eq:reg_dd} des interactions
-période$\times$région et période$\times$milieu :
-\begin{equation}
-  Y_{it} = \alpha_g + \gamma_g\, t + \delta_g\, D_i + \tau_g\, (t \times D_i)
-         + \sum_r \lambda_{rg}\, (t \times R_{ir})
-         + \mu_g\, (t \times U_i) + \varepsilon_{it},
-  \label{eq:reg_dd_chocs}
-\end{equation}
-où $R_{ir}$ et $U_i$ désignent la région et le milieu de résidence :
-chaque localité y possède son propre choc de période, et $\hat{\tau}_g$
-n'est plus identifié que par la comparaison de bénéficiaires et de témoins
-d'une même localité.
-
-\subsubsection{Encadrement DD--ANCOVA}
-
-L'hypothèse d'indépendance conditionnelle du design principal et
-l'hypothèse de tendances parallèles de la famille en trajectoires sont
-toutes deux intestables, le traitement étant déjà en cours à la période de
-base. L'encadrement de \textcite{angrist2009} tire parti de leur
-opposition. La double
-différence suppose les tendances parallèles et tolère une sélection sur le
-niveau initial~; la régression à variable dépendante retardée, dite ANCOVA,
-qui régresse le résultat de 2021 sur le traitement, le résultat de 2018 et
-les covariables, suppose au contraire la sélection sur le niveau initial et
-tolère des tendances différentes. Les deux estimations encadrent l'effet
-vrai~: un effet de même signe dans les deux spécifications ne dépend
-d'aucune des deux hypothèses, tandis qu'un effet qui disparaît dans
-l'ANCOVA signale que la convergence des niveaux, les témoins partant de
-plus haut et reculant mécaniquement davantage, porte le résultat de la
-double différence. Cette question se pose ici avec une acuité particulière,
-les bénéficiaires stables partant d'un niveau de privation très inférieur à
-celui des témoins. Un estimateur doublement robuste (AIPW) complète le
-dispositif, convergent dès lors que le modèle de sélection ou le modèle de
-résultat est correctement spécifié.
-
-\subsubsection{Régression par commutation endogène}
-
-Le dispositif est complété par une régression par commutation endogène
-\parencite{lokshin2004}, qui traite ce qu'aucune des spécifications
-précédentes n'atteint, la sélection sur inobservables contemporains. Deux
-équations de résultat, une par régime, bénéficiaire et non bénéficiaire,
-sont estimées conjointement avec une équation de sélection par maximum de
-vraisemblance, en laissant les inobservables des trois équations se
-corréler. Le résultat est le nombre de privations de 2021, celui de 2018
-figurant parmi les contrôles, et l'effet sur les traités se déduit des
-contrefactuels prédits, ce que les bénéficiaires auraient connu dans le
-régime sans transferts. La méthode exige une restriction d'exclusion, une
-variable qui détermine la réception sans affecter directement les
-privations~: l'instrument retenu est la part de ménages bénéficiaires
-stables dans la grappe de sondage, hors le ménage lui-même, proxy des
-réseaux migratoires locaux dont la revue de littérature établit qu'ils
-gouvernent l'accès à la migration. Cette restriction est assumée comme une
-hypothèse et non comme un fait, le réseau local pouvant affecter les
-privations par d'autres canaux~; l'estimation vaut donc comme robustesse,
-en dialogue avec \textcite{ndiaye2016} qui mobilise une correction de
-sélection voisine sur données sénégalaises, et non comme identification
-principale.
-
 \subsubsection{Analyses d'hétérogénéité et de robustesse}
 \label{subsec:robustesse}
 
-Les analyses d'hétérogénéité estiment l'impact PSM-DD séparément selon le milieu de résidence, le groupe d'âge, le genre du chef de ménage, chaque dimension de privation et le quintile de montant reçu.
-La robustesse est vérifiée de deux manières, par la comparaison des trois
-algorithmes d'appariement et par une définition alternative du traitement. Celle-ci
-restreint la comparaison d'enfants des ménages bénéficiaires
-stables face aux enfants des
-ménages jamais bénéficiaires, en excluant ceux qui changent de statut entre
-2018 et 2021. Ce second design mesure l'effet d'une exposition durable aux
-transferts.
+Les analyses d'hétérogénéité estiment l'impact séparément selon le milieu
+de résidence, le genre du chef de ménage, chaque dimension et chaque
+indicateur de privation, et le quintile de montant reçu. La robustesse est
+éprouvée par la définition du traitement, l'estimation étant reprise avec
+le traitement fixé à la seule période de base, bénéficiaires transitoires
+inclus, et par la sensibilité au seuil de privation $k$.
