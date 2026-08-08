@@ -281,6 +281,40 @@ ni de l'absence de période pré-traitement de l'autre.
   {\footnotesize \textbf{Source :} Calcul de l'auteur, EHCVM.}
 \end{table}
 
+\subsubsection{Encadrement DD--ANCOVA}
+
+L'hypothèse de tendances parallèles étant intestable en l'absence de
+période pré-traitement, le tableau~\ref{tab:ancova} confronte, pour chaque
+groupe d'âge, la double différence à la régression à variable dépendante
+retardée, dont les hypothèses s'opposent et dont les estimations encadrent
+l'effet vrai, ainsi qu'à l'estimateur doublement robuste. La lecture porte
+sur le signe et l'ordre de grandeur~: leur concordance établirait que la
+conclusion ne repose ni sur les tendances parallèles ni sur la sélection
+sur le niveau initial~; un effet qui s'effondrerait dans l'ANCOVA
+indiquerait que la convergence des niveaux porte la double différence.
+
+\begin{table}[H]
+  \centering
+  \caption{Encadrement de l'effet, double différence contre ANCOVA, par groupe d'âge}
+  \label{tab:ancova}
+  \zebre
+  \small
+  \begin{tabular}{|l|c|c|c|}
+    \hline
+\entete Spécification & 0-4 ans & 5-14 ans & 15-17 ans \\
+    \hline
+    PSM-DD                     & $0{,}065^{**}$ & $0{,}067^{**}$ & $0{,}119$ \\ \hline
+    ANCOVA pondérée            & \ldots & \ldots & \ldots \\ \hline
+    AIPW (doublement robuste)  & \ldots & \ldots & \ldots \\
+    \hline
+  \end{tabular}
+
+  {\footnotesize \textbf{Source :} Calcul de l'auteur, EHCVM. Écarts-types
+  clusterisés par grappe. ANCOVA : résultat de 2021 régressé sur le
+  traitement, le résultat de 2018 et les covariables du score, pondérée par
+  les poids d'appariement.}
+\end{table}
+
 \subsubsection{Sensibilité au seuil de privation \texorpdfstring{$k$}{k}}
 \label{subsec:sensib_k}
 

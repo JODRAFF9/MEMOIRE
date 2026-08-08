@@ -694,6 +694,28 @@ chaque localité y possède son propre choc de période, et $\hat{\tau}_g$
 n'est plus identifié que par la comparaison de bénéficiaires et de témoins
 d'une même localité.
 
+\subsubsection{Encadrement DD--ANCOVA}
+
+Le traitement étant déjà en cours à la période de base, il n'existe aucune
+période pré-traitement~: l'hypothèse de tendances parallèles ne peut être
+testée directement, et le test placebo, qui rééchantillonne un faux
+traitement parmi les témoins, n'en fournit qu'une vérification indirecte.
+La réponse retenue est l'encadrement de \textcite{angrist2009}. La double
+différence suppose les tendances parallèles et tolère une sélection sur le
+niveau initial~; la régression à variable dépendante retardée, dite ANCOVA,
+qui régresse le résultat de 2021 sur le traitement, le résultat de 2018 et
+les covariables, suppose au contraire la sélection sur le niveau initial et
+tolère des tendances différentes. Les deux estimations encadrent l'effet
+vrai~: un effet de même signe dans les deux spécifications ne dépend
+d'aucune des deux hypothèses, tandis qu'un effet qui disparaît dans
+l'ANCOVA signale que la convergence des niveaux, les témoins partant de
+plus haut et reculant mécaniquement davantage, porte le résultat de la
+double différence. Cette question se pose ici avec une acuité particulière,
+les bénéficiaires stables partant d'un niveau de privation très inférieur à
+celui des témoins. Un estimateur doublement robuste (AIPW) complète le
+dispositif, convergent dès lors que le modèle de sélection ou le modèle de
+résultat est correctement spécifié.
+
 \subsubsection{Analyses d'hétérogénéité et de robustesse}
 \label{subsec:robustesse}
 
