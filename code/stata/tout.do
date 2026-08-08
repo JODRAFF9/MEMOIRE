@@ -2065,14 +2065,9 @@ keep if t == 1
 keep if !missing($POIDS_PRINCIPAL) & $POIDS_PRINCIPAL > 0
 
 di _newline "=== ATT PRINCIPAL : PSM sur le nombre de privations de 2021 ==="
-di _newline "-- Ensemble 0-17 ans (appariement stratifie par groupe d'age) --"
-quietly count if D == 1
-di "  Traites apparies : " r(N)
-regress nb_dep i.D [aw=$POIDS_PRINCIPAL], vce(cluster grappe)
-di "  ATT_PSM 0-17 = " %8.4f _b[1.D] "  SE = " %8.4f _se[1.D] ///
-   "  p = " %6.4f 2*ttail(e(df_r), abs(_b[1.D]/_se[1.D]))
-global ATT_GLOB = _b[1.D]
-
+/* Aucun effet d'ensemble : les enfants des trois groupes ne sont pas
+   mesures sur les memes indicateurs, seuls les trois effets par groupe
+   d'age ont une interpretation. */
 forvalues g = 1/3 {
     local titg : label grp `g'
     di _newline "-- `titg' --"
