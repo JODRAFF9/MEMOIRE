@@ -1242,6 +1242,16 @@ drop if missing(D) | missing(sexe18) | missing(age18) ///
    est conservee en robustesse (section 8).
    L'echantillon complet est sauvegarde avant restriction pour cette
    meme section 8. */
+gen byte hage_cl = .
+replace  hage_cl = 1 if hage <  35
+replace  hage_cl = 2 if hage >= 35 & hage < 50
+replace  hage_cl = 3 if hage >= 50 & hage < 65
+replace  hage_cl = 4 if hage >= 65 & !missing(hage)
+label define hagecl 1 "Moins de 35 ans" 2 "35-49 ans" ///
+                    3 "50-64 ans" 4 "65 ans et plus", replace
+label values hage_cl hagecl
+label var hage_cl "Age du chef de menage, en classes"
+
 save "$TEMP/panel_large_tous.dta", replace
 
 quietly count
@@ -1419,7 +1429,15 @@ di "Enfants suivis aux deux vagues : " _N
    Les trois variables retirees restent affichees dans les tests
    d'equilibre : on verifie ainsi que l'appariement les rapproche malgre
    tout, sans les avoir utilisees. */
-global COV_SCORE "i.milieu i.region c.hgender c.hage i.heduc i.hmstat i.sexe18 c.age18"
+/* L'age de l'enfant ne figure pas dans le score : l'estimation etant
+   conduite a l'interieur de chaque groupe d'age, l'appariement est deja
+   contraint par l'age, et la variable n'apporterait qu'une variation
+   residuelle intra-groupe sans lien etabli avec la selection.
+   L'age du chef entre en classes plutot qu'en continu : la relation entre
+   l'age et la probabilite d'avoir un migrant dans le menage n'a aucune
+   raison d'etre lineaire, un chef age etant plus souvent le parent reste
+   au pays d'un enfant adulte parti. */
+global COV_SCORE "i.milieu i.region c.hgender i.hage_cl i.heduc i.hmstat i.sexe18"
 
 gen byte grp_psm = groupe_moda18
 label values grp_psm grp
@@ -1603,9 +1621,10 @@ quietly tabulate region, generate(_beq_reg)
 quietly tabulate heduc,  generate(_beq_edu)
 quietly tabulate hmstat, generate(_beq_mst)
 quietly tabulate hcsp,   generate(_beq_csp)
+quietly tabulate hage_cl, generate(_beq_hag)
 quietly generate byte _beq_urb   = (milieu == 1)
 quietly generate byte _beq_fille = (sexe18 == 2)
-global BALVARS "_beq_urb _beq_reg* _beq_edu* _beq_mst* hgender hage _beq_fille age18 hhsize log_pcexp _beq_csp*"
+global BALVARS "_beq_urb _beq_reg* _beq_edu* _beq_mst* hgender _beq_hag* _beq_fille hhsize log_pcexp _beq_csp*"
 
 save "$TEMP/pscore_t0.dta", replace
 
@@ -1624,8 +1643,8 @@ save "$TEMP/pscore_t0.dta", replace
 /* La liste d'equilibre est plus large que la specification du score :
    elle inclut les trois variables ecartees (hhsize, log_pcexp, hcsp),
    afin de montrer ce que l'appariement en fait sans les avoir utilisees. */
-local covbal i.milieu i.region hgender hage i.heduc i.hmstat ///
-             i.sexe18 age18 hhsize log_pcexp i.hcsp
+local covbal i.milieu i.region hgender i.hage_cl i.heduc i.hmstat ///
+             i.sexe18 hhsize log_pcexp i.hcsp
 
 /* ── Outil de mesure de l'equilibre ──────────────────────────
    pstest affiche un tableau lisible mais ne renvoie rien d'exploitable
@@ -2369,7 +2388,7 @@ capture which diff
 if _rc == 0 {
     di _newline "=== Validation croisee : diff (kernel, score logit) ==="
     diff pauvre_MODA, t(D) p(t) kernel id(enfid) logit ///
-        cov(milieu hgender hage heduc hmstat sexe age) ///
+        cov(milieu hgender hage_cl heduc hmstat sexe) ///
         support cluster(grappe)
     di _newline "  Rappel estimateur maison (kernel) : voir ligne weight_kernel ci-dessus."
 }
@@ -2414,8 +2433,8 @@ quietly psmatch2 D_base_alt, pscore(pscore_alt) neighbor($K_VOISINS) common
 rename _weight w_alt
 
 di _newline "  Balance apres appariement (definition 2018) :"
-capture noisily pstest i.milieu i.region hgender hage i.heduc i.hmstat ///
-    i.sexe18 age18 hhsize log_pcexp i.hcsp, both
+capture noisily pstest i.milieu i.region hgender i.hage_cl i.heduc i.hmstat ///
+    i.sexe18 hhsize log_pcexp i.hcsp, both
 
 /* Panel long minimal pour la DD */
 keep enfid grappe menage D_base_alt w_alt pauvre_MODA18 pauvre_MODA21
