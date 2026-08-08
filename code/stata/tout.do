@@ -1701,7 +1701,13 @@ forvalues g = 1/3 {
     psmatch2 D, pscore(pscore) neighbor($K_VOISINS) common
 
     di _newline "Balance avant/apres (SMD), groupe `g' :"
-    pstest `covbal', both
+    /* pstest estime un probit interne qui peut ne pas converger sur un
+       groupe a tres faible effectif (r(430)) : son tableau est purement
+       descriptif, l'echec ne doit pas interrompre le pipeline. Le biais
+       retenu pour departager les methodes est calcule par _biaismoyen,
+       independant de pstest. */
+    capture noisily pstest `covbal', both
+    if _rc di "  !! pstest non convergent sur ce groupe (r(" _rc ")) — ignore."
     quietly _biaismoyen $BALVARS, treat(D) pond(_weight)
     global BIAIS_knn = ${BIAIS_knn} + r(meanbias)*_N
     global NOBS_knn  = ${NOBS_knn}  + _N
@@ -1733,7 +1739,13 @@ forvalues g = 1/3 {
     psmatch2 D, pscore(pscore) kernel kerneltype(epan) bwidth(0.06) common
 
     di _newline "Balance avant/apres (SMD), kernel, groupe `g' :"
-    pstest `covbal', both
+    /* pstest estime un probit interne qui peut ne pas converger sur un
+       groupe a tres faible effectif (r(430)) : son tableau est purement
+       descriptif, l'echec ne doit pas interrompre le pipeline. Le biais
+       retenu pour departager les methodes est calcule par _biaismoyen,
+       independant de pstest. */
+    capture noisily pstest `covbal', both
+    if _rc di "  !! pstest non convergent sur ce groupe (r(" _rc ")) — ignore."
     quietly _biaismoyen $BALVARS, treat(D) pond(_weight)
     global BIAIS_kernel = ${BIAIS_kernel} + r(meanbias)*_N
     global NOBS_kernel  = ${NOBS_kernel}  + _N
@@ -1764,7 +1776,13 @@ forvalues g = 1/3 {
     psmatch2 D, pscore(pscore) caliper($CALIPER) noreplacement common
 
     di _newline "Balance avant/apres (SMD), caliper, groupe `g' :"
-    pstest `covbal', both
+    /* pstest estime un probit interne qui peut ne pas converger sur un
+       groupe a tres faible effectif (r(430)) : son tableau est purement
+       descriptif, l'echec ne doit pas interrompre le pipeline. Le biais
+       retenu pour departager les methodes est calcule par _biaismoyen,
+       independant de pstest. */
+    capture noisily pstest `covbal', both
+    if _rc di "  !! pstest non convergent sur ce groupe (r(" _rc ")) — ignore."
     quietly _biaismoyen $BALVARS, treat(D) pond(_weight)
     global BIAIS_caliper = ${BIAIS_caliper} + r(meanbias)*_N
     global NOBS_caliper  = ${NOBS_caliper}  + _N
@@ -2396,7 +2414,7 @@ quietly psmatch2 D_base_alt, pscore(pscore_alt) neighbor($K_VOISINS) common
 rename _weight w_alt
 
 di _newline "  Balance apres appariement (definition 2018) :"
-pstest i.milieu i.region hgender hage i.heduc i.hmstat ///
+capture noisily pstest i.milieu i.region hgender hage i.heduc i.hmstat ///
     i.sexe18 age18 hhsize log_pcexp i.hcsp, both
 
 /* Panel long minimal pour la DD */
