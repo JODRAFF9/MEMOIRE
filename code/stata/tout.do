@@ -8,16 +8,15 @@
    Aucune ponderation par poids d'enquete (hhweight) : toutes les
    statistiques et estimations sont calculees sur effectifs bruts,
    avec erreurs-types clusterisees au niveau de la grappe.
-   Traitement : design ENTRANTS (aucun transfert en 2018, transfert
-   etranger recu en 2021, vs jamais beneficiaire aux deux vagues).
+   Traitement : transfert recu de l'etranger, quel que soit le lien de
+   l'expediteur ; design principal = beneficiaires stables (recu aux
+   deux editions) vs jamais beneficiaires.
 
    Pipeline :
      config       — chemins, constantes
-     (chargement direct des bases, sans sous-programmes)
-     01_visitation  — exploration des bases brutes
      02_traitement  — variable D + identification panel
      03_deprivation — indicateurs MODA
-     04_panel       — panel vrai + traitement entrants
+     04_panel       — panel vrai
      05_psm_dd      — estimation PSM-DD (matching niveau enfant)
      06_stats_desc  — statistiques descriptives
      07_effets_dim  — effets par dimension
@@ -81,108 +80,6 @@ foreach d in "$OUTPUT" "$TEMP" "$PREP" "$LOGS" {
     capture mkdir "`d'"
 }
 
-
-/* ============================================================
-   SECTION : 01_VISITATION — Exploration des deux bases EHCVM
-   ============================================================ */
-
-
-/* ── EHCVM I (2018-2019) ──────────────────────────────────── */
-
-use "$BASE_2018/ehcvm_individu_sen2018.dta", clear
-di _newline "===== Individus 2018-2019 ====="
-di "Observations : " _N
-describe
-codebook, compact
-
-use "$BASE_2018/ehcvm_menage_sen2018.dta", clear
-di _newline "===== Menages 2018-2019 ====="
-di "Observations : " _N
-describe
-codebook, compact
-
-use "$BASE_2018/ehcvm_welfare_sen2018.dta", clear
-di _newline "===== Welfare 2018-2019 ====="
-di "Observations : " _N
-describe
-codebook, compact
-
-use "$BASE_2018/s13a_1_me_sen2018.dta", clear
-di _newline "===== Transferts S13A-1 (2018-2019) ====="
-di "Observations : " _N
-describe
-codebook, compact
-
-use "$BASE_2018/s13a_2_me_sen2018.dta", clear
-di _newline "===== Transferts S13A-2 (2018-2019) ====="
-di "Observations : " _N
-describe
-codebook, compact
-
-
-/* ── EHCVM II (2021-2022) ─────────────────────────────────── */
-
-use "$BASE_2021/ehcvm_individu_sen2021.dta", clear
-di _newline "===== Individus 2021-2022 ====="
-di "Observations : " _N
-describe
-codebook, compact
-
-use "$BASE_2021/ehcvm_menage_sen2021.dta", clear
-di _newline "===== Menages 2021-2022 ====="
-di "Observations : " _N
-describe
-codebook, compact
-
-use "$BASE_2021/ehcvm_welfare_sen2021.dta", clear
-di _newline "===== Welfare 2021-2022 ====="
-di "Observations : " _N
-describe
-codebook, compact
-
-use "$BASE_2021/s13_1_me_sen2021.dta", clear
-di _newline "===== Transferts S13-1 (2021-2022) ====="
-di "Observations : " _N
-describe
-codebook, compact
-
-use "$BASE_2021/s13_2_me_sen2021.dta", clear
-di _newline "===== Transferts S13-2 (2021-2022) ====="
-di "Observations : " _N
-describe
-codebook, compact
-
-
-/* ── Structure panel : variable PanelHH (s00_me_sen2021) ─── */
-
-di _newline "===== Structure panel EHCVM II ====="
-use "$BASE_2021/s00_me_sen2021.dta", clear
-di "Total menages enquetes (2021) : " _N
-tab PanelHH, missing
-di "  --> PanelHH=1 : meme menage suivi depuis 2018"
-di "  --> PanelHH=0 : nouveau menage (remplacement)"
-
-/* Verification croisement grappe+menage entre les deux vagues */
-preserve
-    keep grappe menage PanelHH
-    tempfile id_2021
-    save `id_2021'
-restore
-
-use "$BASE_2018/s00_me_sen2018.dta", clear
-merge 1:1 grappe menage using `id_2021', keepusing(PanelHH)
-di _newline "Menages 2018 retrouves en 2021 (_merge==3) : " ///
-   r(N) " (verif : doit etre proche de 6127)"
-tab _merge
-
-/* Modalites variables de transferts */
-use "$BASE_2018/s13a_2_me_sen2018.dta", clear
-di _newline "Modalites s13aq14 (lieu expediteur, 2018) :"
-tabulate s13aq14, missing
-
-use "$BASE_2021/s13_2_me_sen2021.dta", clear
-di _newline "Modalites s13q19 (lieu expediteur, 2021) :"
-tabulate s13q19, missing
 
 /* ============================================================
    SECTION : 02_TRAITEMENT — Variable de traitement + identifiant panel
@@ -360,7 +257,6 @@ save "$TEMP/traitement_2021.dta", replace
                       m_parents (s01q22/s01q29) calcule a titre descriptif,
                       hors agregat
    7. EDUCATION       m_scol (scol) ; m_alfab (alfab)
-                      m_neet calcule a titre descriptif, hors agregat
    -------------------------------------------------------------------------- */
 
 /* ============================================================
@@ -608,7 +504,7 @@ foreach annee in 2018 2021 {
     merge m:1 grappe menage numind using `s04_trav', ///
         keepusing(h_dom eco nrep) nogenerate keep(master match)
 
-    /* Les variables scol, activ7j, lien, alfab/alfa sont deja presentes
+    /* Les variables scol, lien, alfab/alfa sont deja presentes
        dans ehcvm_individu (chargee en A1) : aucune fusion supplementaire
        n'est necessaire pour la dimension Education. */
 
@@ -838,8 +734,7 @@ foreach annee in 2018 2021 {
        Indicateur 2 - Non-scolarisation (5-14 ans)
        Combinaison par groupe d'age : 5-14 ans = ind.2 seul ;
        15-17 ans = ind.1 seul.
-       NEET (ni scolarise ni employe) hors agregat : m_neet est calcule a
-       titre descriptif mais n'alimente pas dim_educ. */
+       */
     gen byte m_scol = (scol == 0) if age >= 5 & age <= 14 & !missing(scol)
     replace  m_scol = 0 if age < 5 | age > 14
 
@@ -869,11 +764,6 @@ foreach annee in 2018 2021 {
         capture confirm variable alfa
         if !_rc replace m_alfab_nc = (alfa == 0) if !missing(alfa)
     }
-
-    /* NEET : conserve pour la statistique descriptive (annexe), hors agregat. */
-    gen byte m_neet = (scol == 0 & activ7j != 1) ///
-        if age >= 15 & !missing(scol) & !missing(activ7j)
-    replace  m_neet = 0 if age < 15
 
     /* Non applicable aux 0-4 ans (groupe_moda==1) : dim_educ = 0 par
        defaut. 15-17 ans : illettrisme seul (NEET retire). */
@@ -912,7 +802,6 @@ foreach annee in 2018 2021 {
 
    Exploite le suivi effectif des menages entre les deux vagues.
    Produit : $TEMP/panel_vrai.dta
-             $TEMP/panel_complet.dta (panel vrai + nouveaux menages)
 
    Variables cles :
      grappe menage  — identifiants communs aux deux vagues
@@ -995,7 +884,7 @@ save "$TEMP/traitement_stable.dta", replace
 
    On conserve les menages qui apparaissent dans les DEUX vagues
    avec le meme identifiant grappe+menage, avec un statut de
-   traitement entrant (menages deja beneficiaires en 2018 exclus).
+   traitement defini a la periode de base.
    ============================================================ */
 
 /* Identifier les menages presents dans les deux vagues */
@@ -1138,23 +1027,6 @@ preserve
 restore
 
 
-
-/* ============================================================
-   4. Panel complet — panel vrai + nouveaux menages 2021
-
-   Utile pour les estimations sur echantillon elargi
-   et les comparaisons de robustesse.
-   ============================================================ */
-
-use "$TEMP/vague_2018.dta", clear
-append using "$TEMP/vague_2021.dta"
-sort grappe menage t
-
-di _newline "=== Panel complet (vague 2018 + vague 2021) ==="
-di "Observations totales : " _N
-tabstat D, by(t) stat(mean sum n) format(%6.3f)
-
-save "$TEMP/panel_complet.dta", replace
 
 /* ============================================================
    SECTION : 05_PSM_DD — Estimation PSM-DD au niveau ENFANT
@@ -2275,8 +2147,6 @@ regress pauvre_MODA D [aw=$POIDS_PRINCIPAL] if t == 1, vce(cluster grappe)
 di "  ATT PSM (t=1) = " %8.4f _b[D] "  SE = " %8.4f _se[D] ///
    "  p = " %6.4f (2*ttail(e(df_r), abs(_b[D]/_se[D])))
 di _newline "  Rappel : ATT_PSM-DD = ATT_PSM(t=1) - ATT_PSM(t=0), par construction."
-
-save "$TEMP/panel_apparie.dta", replace
 
 /* ── Fig DD : trajectoires beneficiaires vs temoins + contrefactuel ──
    Moyennes ponderees par les poids k-NN. Le contrefactuel applique la
