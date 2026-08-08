@@ -136,9 +136,12 @@ $D_i \in \{0, 1\}$ est attachée à chaque enfant $i$ et vaut 1 si son ménage
 est bénéficiaire de transferts de migrants, tous les enfants d'un même
 ménage partageant donc le même statut. Construit à partir de la section 13
 des deux éditions EHCVM, un transfert éligible est celui d'un expéditeur
-résidant hors du Sénégal et ayant déjà vécu dans le ménage, en tant
-qu'ancien membre parti en migration~; les transferts internes et les envois
-d'expéditeurs n'ayant jamais appartenu au ménage sont écartés.
+résidant hors du Sénégal, quel que soit son lien au ménage~: la solidarité
+transnationale déborde le seul ancien membre parti en migration, parents
+éloignés et réseaux villageois envoyant également, et conditionner au lien
+restreindrait le traitement sans que la théorie ne l'impose. Seuls les
+transferts internes au Sénégal sont écartés. Le lien de l'expéditeur au
+ménage reste observé à titre descriptif.
 
 Le design principal retient l'exposition continue : un enfant est traité si
 son ménage reçoit un tel transfert aux deux éditions, et le groupe
@@ -360,6 +363,19 @@ invisible à l'incidence. C'est la raison pour laquelle l'intensité $A$ et
 l'indice ajusté $M_0$ sont suivis en même temps que $H$, le premier étant
 seul sensible à ce que cumulent les enfants déjà déclarés pauvres.
 
+\subsubsection{Grille de mesure figée à la période de base}
+
+Trois ans séparent les deux éditions, si bien qu'un enfant change d'âge, et
+parfois de groupe, entre les deux mesures. Pour que la double différence
+compare le même enfant sur la même grille, les privations de 2021 sont
+mesurées sur la grille du groupe d'âge de la période de base~: un enfant de
+la grille 5-14 devenu adolescent reste évalué sur l'acte de naissance et la
+scolarisation, à partir des mêmes questions du questionnaire. Les
+dimensions du cadre de vie, identiques d'une grille à l'autre, ne sont pas
+affectées. La contrepartie, assumée, est que certaines privations sont
+mesurées en 2021 sur des enfants qui n'ont plus l'âge de la grille~; elle
+est discutée dans les limites.
+
 \subsubsection{Traitement des valeurs manquantes}
 
 L'analyse est conduite en cas complets. Une dimension est déclarée
@@ -443,13 +459,22 @@ les résultats potentiels sont indépendants du traitement,
 La seconde est le support commun, $0 < P(D_i = 1 \mid X_i) < 1$,
 garantissant que l'appariement est réalisable pour chaque traité.
 Si la CIA est satisfaite pour $X_i$,
-elle l'est aussi pour le score de propension $p(X_i) = P(D_i = 1 \mid X_i)$,
-estimé par un modèle logit
+elle l'est aussi pour le score de propension $p(X_i) = P(D_i = 1 \mid X_i)$.
+Le score est estimé par un modèle logit, séparément dans chaque groupe
+d'âge $g \in \{1, 2, 3\}$ :
 \begin{equation}
-  p(X_i) = \frac{\exp\left(X_i'\hat{\beta}\right)}
-                {1 + \exp\left(X_i'\hat{\beta}\right)}.
+  p_g(X_i) = P\left(D_i = 1 \mid X_i,\, G_i = g\right)
+           = \frac{\exp\left(\beta_{0g} + X_i'\beta_g\right)}
+                  {1 + \exp\left(\beta_{0g} + X_i'\beta_g\right)},
   \label{eq:logit}
 \end{equation}
+où $G_i$ désigne le groupe d'âge de l'enfant à la période de base et où les
+coefficients $\beta_g$ sont propres à chaque groupe. Le vecteur $X_i$
+comprend le genre de l'enfant, le milieu de résidence, la région, ainsi que
+le genre, l'âge en classes, le niveau d'éducation et le statut matrimonial
+du chef de ménage, tous mesurés en 2018. Les écarts-types sont clusterisés
+au niveau de la grappe de sondage, le traitement variant au niveau du
+ménage.
 
 Les covariables $X_i$ du modèle logit sont choisies pour satisfaire
 l'hypothèse d'indépendance conditionnelle sans introduire de variable que le
@@ -638,6 +663,30 @@ primaire de sondage, puis reportées entre parenthèses sous le coefficient.
 Sauf mention contraire, l'appariement retenu est le plus proche voisin, au
 niveau de l'enfant. La significativité est signalée par $^{*}p<0{,}10$,
 $^{**}p<0{,}05$ et $^{***}p<0{,}01$.
+
+En pratique, l'estimateur est obtenu par la régression pondérée, estimée
+séparément dans chaque groupe d'âge $g$ :
+\begin{equation}
+  Y_{it} = \alpha_g + \gamma_g\, t + \delta_g\, D_i
+         + \tau_g\, (t \times D_i) + \varepsilon_{it},
+  \label{eq:reg_dd}
+\end{equation}
+où $Y_{it}$ est l'indicateur de pauvreté multidimensionnelle de l'enfant
+$i$ à la période $t$, la pondération est le poids d'appariement de la
+méthode retenue, et $\hat{\tau}_g$ est l'ATT du groupe. Les écarts-types
+sont clusterisés au niveau de la grappe. La spécification nette des chocs
+locaux de période ajoute à l'équation~\eqref{eq:reg_dd} des interactions
+période$\times$région et période$\times$milieu :
+\begin{equation}
+  Y_{it} = \alpha_g + \gamma_g\, t + \delta_g\, D_i + \tau_g\, (t \times D_i)
+         + \sum_r \lambda_{rg}\, (t \times R_{ir})
+         + \mu_g\, (t \times U_i) + \varepsilon_{it},
+  \label{eq:reg_dd_chocs}
+\end{equation}
+où $R_{ir}$ et $U_i$ désignent la région et le milieu de résidence :
+chaque localité y possède son propre choc de période, et $\hat{\tau}_g$
+n'est plus identifié que par la comparaison de bénéficiaires et de témoins
+d'une même localité.
 
 \subsubsection{Analyses d'hétérogénéité et de robustesse}
 \label{subsec:robustesse}

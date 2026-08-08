@@ -210,13 +210,14 @@ local fich_list s13a_1
 
     /* Identifier les menages avec au moins un transfert etranger */
     use "`base'/`fich_det'_me_sen`annee'.dta", clear
-    /* Transfert etranger ET expediteur ancien membre du menage (var_exmbr==1,
-       s13aq12 en 2018 / s13q17 en 2021) : seuls ces transferts relevent de la
-       migration d'un membre du menage (theorie des reseaux migratoires). Les
-       transferts d'un expediteur n'ayant jamais vecu dans le menage sont
-       ecartes du traitement. */
-    keep if `var_lieu' >= $CODE_ETRANGER_MIN & !missing(`var_lieu') ///
-        & `var_exmbr' == 1
+    /* Transfert etranger, quel que soit le lien de l'expediteur au
+       menage : le traitement retient tout transfert recu de l'etranger,
+       sans exiger que l'expediteur ait vecu dans le menage. La solidarite
+       transnationale deborde le seul ancien membre (parents eloignes,
+       reseaux villageois), et conditionner au lien restreindrait le
+       traitement sans que la theorie ne l'impose. Le lien reste observe
+       (var_exmbr, s13aq12 en 2018 / s13q17 en 2021) a titre descriptif. */
+    keep if `var_lieu' >= $CODE_ETRANGER_MIN & !missing(`var_lieu')
     bysort grappe menage: keep if _n == 1
     gen transfert_migrant = 1
     keep grappe menage transfert_migrant
@@ -238,7 +239,7 @@ local fich_list s13a_1
     di "  `annee' : " %5.1f r(mean)*100 "%  (" %4.0f r(sum) "/" %5.0f r(N) " menages)"
 
     /* ── Intensite du traitement : montant annuel recu ────────────
-       Meme perimetre que D (transfert etranger d'un ex-membre du menage).
+       Meme perimetre que D (tout transfert recu de l'etranger).
        Le montant par envoi est annualise par la frequence declaree, puis
        somme sur l'ensemble des transferts eligibles du menage.
        v_montant / v_freq : s13aq17a/b en 2018, s13q22a/b en 2021. */
@@ -279,13 +280,14 @@ local fich_list s13_1
 
     /* Identifier les menages avec au moins un transfert etranger */
     use "`base'/`fich_det'_me_sen`annee'.dta", clear
-    /* Transfert etranger ET expediteur ancien membre du menage (var_exmbr==1,
-       s13aq12 en 2018 / s13q17 en 2021) : seuls ces transferts relevent de la
-       migration d'un membre du menage (theorie des reseaux migratoires). Les
-       transferts d'un expediteur n'ayant jamais vecu dans le menage sont
-       ecartes du traitement. */
-    keep if `var_lieu' >= $CODE_ETRANGER_MIN & !missing(`var_lieu') ///
-        & `var_exmbr' == 1
+    /* Transfert etranger, quel que soit le lien de l'expediteur au
+       menage : le traitement retient tout transfert recu de l'etranger,
+       sans exiger que l'expediteur ait vecu dans le menage. La solidarite
+       transnationale deborde le seul ancien membre (parents eloignes,
+       reseaux villageois), et conditionner au lien restreindrait le
+       traitement sans que la theorie ne l'impose. Le lien reste observe
+       (var_exmbr, s13aq12 en 2018 / s13q17 en 2021) a titre descriptif. */
+    keep if `var_lieu' >= $CODE_ETRANGER_MIN & !missing(`var_lieu')
     bysort grappe menage: keep if _n == 1
     gen transfert_migrant = 1
     keep grappe menage transfert_migrant
@@ -851,6 +853,23 @@ foreach annee in 2018 2021 {
     }
     replace m_alfab = 0 if age < 15
 
+    /* Versions NON plafonnees par l'age courant, utilisees pour mesurer
+       les privations de 2021 SUR LA GRILLE DU GROUPE DE BASE : un enfant
+       de la grille 5-14 devenu 15-17 en 2021 y reste evalue sur l'acte de
+       naissance et la scolarisation. La limite est assumee et discutee
+       dans le rapport : ces privations sont alors mesurees sur des
+       enfants qui n'ont plus l'age de la grille. */
+    gen byte m_acte_nc = (s01q05 == 2) if !missing(s01q05)
+    gen byte m_scol_nc = (scol == 0)   if !missing(scol)
+    gen byte m_alfab_nc = .
+    if `annee' == 2018 {
+        replace m_alfab_nc = (alfab == 0) if !missing(alfab)
+    }
+    else {
+        capture confirm variable alfa
+        if !_rc replace m_alfab_nc = (alfa == 0) if !missing(alfa)
+    }
+
     /* NEET : conserve pour la statistique descriptive (annexe), hors agregat. */
     gen byte m_neet = (scol == 0 & activ7j != 1) ///
         if age >= 15 & !missing(scol) & !missing(activ7j)
@@ -946,8 +965,7 @@ foreach annee in 2018 2021 {
    de 2018, qui sert de reference avant l'observation des resultats
    ulterieurs. On definit :
      - traites (D_stable=1) : menage recevant en 2018 un transfert
-       etranger d'un expediteur ayant deja vecu dans le menage
-       (migration d'un membre du menage)
+       de l'etranger, quel que soit le lien de l'expediteur au menage
      - temoins (D_stable=0) : menage ne recevant aucun transfert
        etranger de ce type en 2018
    Le statut etant fige a la periode de base, il ne peut pas etre
@@ -1151,9 +1169,8 @@ save "$TEMP/panel_complet.dta", replace
      6. Heterogeneite (milieu, genre, age)
      7. Robustesse (seuil k, methodes d'appariement, agregat menage)
 
-   Traitement : defini a la periode de base (2018), transfert d'un
-   expediteur residant hors du Senegal et ayant deja vecu dans le
-   menage.
+   Traitement : transfert recu de l'etranger, quel que soit le lien
+   de l'expediteur au menage.
    ============================================================ */
 
 /* ── 1a. Construction du panel d'enfants suivis ──────────────
@@ -1164,11 +1181,13 @@ use "$TEMP/enfants_dep_2018.dta", clear
 keep grappe menage numind sexe age pauvre_MODA nb_dep intensite_moda groupe_moda ///
      dim_assai dim_eau dim_logem dim_nutri dim_sante dim_protect dim_educ ///
      m_parents m_toilet m_partag_toi m_eau_source m_eau_temps m_ordures m_surpeup m_securite m_combust m_sante_acces m_acte_nais m_trav_enf m_scol m_alfab ///
+     m_acte_nc m_scol_nc m_alfab_nc ///
      hhweight hhsize pcexp region milieu hgender hage heduc hmstat hcsp
 rename numind numind_2018
 foreach v in sexe age pauvre_MODA nb_dep intensite_moda groupe_moda ///
              dim_assai dim_eau dim_logem dim_nutri dim_sante dim_protect dim_educ ///
-             m_parents m_toilet m_partag_toi m_eau_source m_eau_temps m_ordures m_surpeup m_securite m_combust m_sante_acces m_acte_nais m_trav_enf m_scol m_alfab {
+             m_parents m_toilet m_partag_toi m_eau_source m_eau_temps m_ordures m_surpeup m_securite m_combust m_sante_acces m_acte_nais m_trav_enf m_scol m_alfab ///
+             m_acte_nc m_scol_nc m_alfab_nc {
     rename `v' `v'18
 }
 tempfile enf18_psm
@@ -1177,10 +1196,12 @@ save `enf18_psm'
 use "$TEMP/enfants_dep_2021.dta", clear
 keep grappe menage numind sexe age pauvre_MODA nb_dep intensite_moda groupe_moda ///
      dim_assai dim_eau dim_logem dim_nutri dim_sante dim_protect dim_educ ///
-     m_parents m_toilet m_partag_toi m_eau_source m_eau_temps m_ordures m_surpeup m_securite m_combust m_sante_acces m_acte_nais m_trav_enf m_scol m_alfab
+     m_parents m_toilet m_partag_toi m_eau_source m_eau_temps m_ordures m_surpeup m_securite m_combust m_sante_acces m_acte_nais m_trav_enf m_scol m_alfab ///
+     m_acte_nc m_scol_nc m_alfab_nc
 foreach v in sexe age pauvre_MODA nb_dep intensite_moda groupe_moda ///
              dim_assai dim_eau dim_logem dim_nutri dim_sante dim_protect dim_educ ///
-             m_parents m_toilet m_partag_toi m_eau_source m_eau_temps m_ordures m_surpeup m_securite m_combust m_sante_acces m_acte_nais m_trav_enf m_scol m_alfab {
+             m_parents m_toilet m_partag_toi m_eau_source m_eau_temps m_ordures m_surpeup m_securite m_combust m_sante_acces m_acte_nais m_trav_enf m_scol m_alfab ///
+             m_acte_nc m_scol_nc m_alfab_nc {
     rename `v' `v'21
 }
 merge m:1 grappe menage numind using "$TEMP/lien_individus.dta", ///
@@ -1188,8 +1209,8 @@ merge m:1 grappe menage numind using "$TEMP/lien_individus.dta", ///
 drop numind
 merge 1:1 grappe menage numind_2018 using `enf18_psm', keep(match) nogenerate
 
-/* Traitement defini a la periode de base (transfert 2018, expediteur
-   ex-membre du menage) */
+/* Traitement defini a la periode de base (transfert de l'etranger
+   recu en 2018) */
 merge m:1 grappe menage using "$TEMP/traitement_2018.dta", ///
     keepusing(D) keep(match) nogenerate
 
@@ -1923,11 +1944,50 @@ label var groupe_base "Groupe d'age MODA a la periode de base (2018)"
 
 reshape long pauvre_MODA nb_dep intensite_moda groupe_moda sexe age ///
              dim_assai dim_eau dim_logem dim_nutri dim_sante dim_protect dim_educ ///
-             m_toilet m_partag_toi m_eau_source m_eau_temps m_ordures m_surpeup m_securite m_combust m_sante_acces m_acte_nais m_trav_enf m_scol m_alfab, ///
+             m_toilet m_partag_toi m_eau_source m_eau_temps m_ordures m_surpeup m_securite m_combust m_sante_acces m_acte_nais m_trav_enf m_scol m_alfab ///
+             m_acte_nc m_scol_nc m_alfab_nc, ///
     i(enfid) j(periode)
 gen byte t = (periode == 21)
 label var t "0 = EHCVM I (2018-19), 1 = EHCVM II (2021-22)"
 drop periode
+
+/* ── GRILLE FIGEE A LA PERIODE DE BASE ───────────────────────
+   La double difference exige que chaque enfant soit mesure sur la meme
+   grille aux deux dates : les privations de 2021 sont donc recalculees
+   sur la grille du groupe d'age DE BASE, a partir des versions non
+   plafonnees des indicateurs individuels. Un enfant de la grille 5-14
+   devenu 15-17 reste evalue sur l'acte de naissance et la scolarisation.
+   La limite, assumee et discutee dans le rapport, est que ces privations
+   sont mesurees en 2021 sur des enfants qui n'ont plus l'age de la
+   grille. Les dimensions du cadre de vie (assainissement, eau, logement,
+   nutrition, sante), identiques d'une grille a l'autre, sont inchangees. */
+replace dim_protect = (m_acte_nc == 1) ///
+    if t == 1 & groupe_base == 1 & !missing(m_acte_nc)
+replace dim_protect = . ///
+    if t == 1 & groupe_base == 1 & missing(m_acte_nc)
+replace dim_protect = (m_acte_nc == 1 | m_trav_enf == 1) ///
+    if t == 1 & groupe_base == 2 & !missing(m_acte_nc) & !missing(m_trav_enf)
+replace dim_protect = . ///
+    if t == 1 & groupe_base == 2 & (missing(m_acte_nc) | missing(m_trav_enf))
+replace dim_protect = (m_trav_enf == 1) ///
+    if t == 1 & groupe_base == 3 & !missing(m_trav_enf)
+replace dim_protect = . ///
+    if t == 1 & groupe_base == 3 & missing(m_trav_enf)
+
+replace dim_educ = 0 if t == 1 & groupe_base == 1
+replace dim_educ = m_scol_nc  if t == 1 & groupe_base == 2
+replace dim_educ = m_alfab_nc if t == 1 & groupe_base == 3
+
+/* Reagregation sur la grille figee */
+replace nb_dep = dim_assai + dim_eau + dim_logem + dim_nutri + ///
+                 dim_sante + dim_protect + dim_educ if t == 1
+replace pauvre_MODA = (nb_dep >= $K_MODA) if t == 1 & !missing(nb_dep)
+replace pauvre_MODA = . if t == 1 & missing(nb_dep)
+replace intensite_moda = nb_dep / 7 if t == 1
+
+quietly count if t == 1 & missing(pauvre_MODA)
+di _newline ">>> Grille figee a la base : " r(N) ///
+    " observations 2021 sans indice (cas incomplets sur la grille)"
 
 save "$TEMP/panel_enfants_psm.dta", replace
 
