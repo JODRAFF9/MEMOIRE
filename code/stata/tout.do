@@ -2238,7 +2238,7 @@ twoway (connected temoin annee, lcolor(gs7) mcolor(gs7) msymbol(square) lwidth(m
             mcolor(orange) lwidth(medthick) ///
             mlabel(lb_c) mlabcolor(black) mlabpos(6) mlabgap(4.5) mlabsize(small)), ///
     xlabel(2018 2021) xscale(range(2017.7 2021.8)) ///
-    xtitle("Vague EHCVM") ytitle("Incidence MODA (H, %)") ///
+    xtitle("Vague EHCVM") ytitle("Incidence de pauvreté multidimensionnelle (H, %)") ///
     ylabel(0(20)100, grid) ///
     legend(order(2 "Bénéficiaires" 1 "Témoins appariés" ///
                  3 "Contrefactuel (tendances parallèles)") pos(6) rows(2)) ///
@@ -2549,7 +2549,7 @@ di _newline ">>> 05_psm_dd.do termine."
    estime decrivent ainsi les memes enfants. Le profil des MENAGES (bloc 1)
    reste sur le panel vrai, son unite etant le menage et non l'enfant.
 
-   Les statistiques de pauvrete/privation (incidence MODA, par dimension,
+   Les statistiques de pauvrete/privation (incidence de pauvreté multidimensionnelle, par dimension,
    par age, par milieu, par region) sont PONDEREES par les poids de sondage
    (hhweight). Le profil des menages et la balance traites/non-traites
    restent sur effectifs bruts.
@@ -2691,7 +2691,7 @@ foreach annee in 2018 2021 {
 }
 
 /* ============================================================
-   3. Incidence MODA par vague, milieu, groupe d'âge
+   3. Incidence de pauvreté multidimensionnelle par édition, milieu, groupe d'âge
    ============================================================ */
 
 di _newline "=== 3. Incidence pauvreté multidimensionnelle ==="
@@ -2817,7 +2817,7 @@ foreach annee in 2018 2021 {
 
 di _newline "=== 5. Graphiques ==="
 
-/* ── Fig 1 : Évolution de l'incidence MODA, beneficiaires vs
+/* ── Fig 1 : Évolution de l'incidence de pauvreté multidimensionnelle, beneficiaires vs
    non-beneficiaires. Les deux trajectoires rendent visible la logique de
    double difference : c'est l'ECART entre les groupes, et son evolution
    entre les deux vagues, qui porte l'information sur l'impact. ── */
@@ -2847,7 +2847,7 @@ twoway (connected H_nonbenef annee, lcolor(gs9) mcolor(gs9) msymbol(square) ///
         lwidth(medthick) mlabel(lbl_b) mlabcolor(black) mlabpos(12) ///
         mlabgap(2) mlabsize(small)), ///
     xlabel(2018 2021) xscale(range(2017.7 2021.3)) xtitle("Vague EHCVM") ///
-    ytitle("Incidence MODA H (%)") ///
+    ytitle("Incidence de pauvreté multidimensionnelle H (%)") ///
     ylabel(40(5)70, grid) yscale(range(38 72)) ///
     legend(order(1 "Non-bénéficiaires" 2 "Bénéficiaires") pos(6) rows(1)) ///
     graphregion(color(white)) plotregion(color(white))
@@ -2997,7 +2997,7 @@ forvalues g = 0/3 {
     if `g' == 1 local lbl "0-4 ans"
     if `g' == 2 local lbl "5-14 ans"
     if `g' == 3 local lbl "15-17 ans"
-    di _newline(2) "=== Incidence MODA par genre du chef et statut — `lbl' ==="
+    di _newline(2) "=== Incidence de pauvreté multidimensionnelle par genre du chef et statut — `lbl' ==="
     di "  Chef        D=0 2018  D=1 2018   Ecart |  D=0 2021  D=1 2021   Ecart |     DD    p18    p21      n18      n21"
     forvalues sx = 1/2 {
         local slbl = cond(`sx' == 1, "Chef homme", "Chef femme")
@@ -3026,7 +3026,7 @@ forvalues g = 0/3 {
     }
 }
 
-/* Incidence MODA par quintile de montant recu, pour l'ensemble des enfants
+/* Incidence de pauvreté multidimensionnelle par quintile de montant recu, pour l'ensemble des enfants
    puis pour chaque tranche d'age. Les quintiles sont construits sur le
    montant annuel des menages beneficiaires, au niveau menage pour que le
    decoupage ne soit pas deforme par le nombre d'enfants. Les enfants de
@@ -3054,7 +3054,7 @@ forvalues g = 0/3 {
     if `g' == 3 local lbl "15-17 ans"
     if `g' == 0 local cond "1"
     else        local cond "groupe_base == `g'"
-    di _newline(2) "=== Incidence MODA par quintile de montant — `lbl' ==="
+    di _newline(2) "=== Incidence de pauvreté multidimensionnelle par quintile de montant — `lbl' ==="
     di "  Groupe          H 2018   H 2021      DD       n18      n21"
     quietly summarize pauvre_MODA [aw=hhweight] if t == 0 & D == 0 & `cond'
     local r0 = r(mean)*100
