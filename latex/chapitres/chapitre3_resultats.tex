@@ -321,13 +321,20 @@ indiquerait que la convergence des niveaux porte la double différence.
 
 Le tableau~\ref{tab:esr} rapporte l'effet sur les traités déduit de la
 régression par commutation endogène, pour les deux groupes d'âge dont
-l'effectif permet le maximum de vraisemblance conjoint. La lecture se fait
-en regard des estimations précédentes~: une convergence de signe avec le
-PSM-DD et l'ANCOVA indiquerait que la sélection sur inobservables
-contemporains, seule menace que ces derniers ne traitent pas, ne renverse
-pas la conclusion. La validité de l'exercice reste suspendue à la
-restriction d'exclusion de l'instrument, la part de bénéficiaires stables
-de la grappe hors le ménage, discutée au chapitre méthodologique.
+l'effectif permet le maximum de vraisemblance conjoint. L'instrument est
+puissant dans les deux groupes, et le résultat est frappant~: le signe
+s'inverse. Une fois la sélection sur inobservables modélisée par le réseau
+de la grappe, les transferts réduisent le nombre de privations, de 0,64
+chez les 0 à 4 ans, sans atteindre la significativité, et de 0,75 chez les
+5 à 14 ans, au seuil de 5\,\%. Les deux familles de méthodes reposent sur
+des hypothèses opposées et livrent des effets de signes opposés~: le
+PSM-DD, qui suppose les tendances parallèles, conclut à un décrochage des
+bénéficiaires~; la commutation, qui suppose la restriction d'exclusion du
+réseau, conclut qu'ils auraient décroché davantage sans les transferts.
+Aucune des deux hypothèses n'est testable, et les données ne permettent pas
+de trancher entre elles~: le signe de l'effet dépend de l'hypothèse
+d'identification retenue, constat qui borne la portée de l'ensemble des
+résultats et que la discussion prend au sérieux.
 
 \begin{table}[H]
   \centering
@@ -338,14 +345,16 @@ de la grappe hors le ménage, discutée au chapitre méthodologique.
     \hline
 \entete & 0-4 ans & 5-14 ans \\
     \hline
-    ATT (commutation endogène) & \ldots & \ldots \\ \hline
-    Rappel : PSM-DD            & \ldots & \ldots \\
+    ATT (commutation endogène) & \makecell{-$0{,}64$\\$(0{,}48)$} & \makecell{-$0{,}75^{**}$\\$(0{,}40)$} \\ \hline
+    Statistique $t$ de l'instrument & 12,5 & 18,8 \\
     \hline
   \end{tabular}
 
-  {\footnotesize \textbf{Source :} Calcul de l'auteur, EHCVM. Sélection
-  instrumentée par la part de ménages bénéficiaires stables de la grappe,
-  hors le ménage. Les 15-17 ans ne sont pas estimés, effectif insuffisant.}
+  {\footnotesize \textbf{Source :} Calcul de l'auteur, EHCVM. Estimation
+  en deux étapes (Maddala), sélection instrumentée par la part de ménages
+  bénéficiaires stables de la grappe hors le ménage~; écarts-types par
+  bootstrap de grappes entre parenthèses. $^{**}p<0{,}05$. Les 15-17 ans ne
+  sont pas estimés, effectif insuffisant.}
 \end{table}
 
 \subsubsection{Sensibilité au seuil de privation \texorpdfstring{$k$}{k}}
