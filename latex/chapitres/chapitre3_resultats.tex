@@ -32,14 +32,14 @@ séparée.
     \hline
 \entete Variable & 0-4 ans & 5-14 ans & 15-17 ans \\
     \hline
-    Genre féminin (enfant)          & \ldots & \ldots & \ldots \\ \hline
-    Chef féminin                    & \ldots & \ldots & \ldots \\ \hline
-    Âge du chef : 35-49 ans         & \ldots & \ldots & \ldots \\ \hline
-    Âge du chef : 50-64 ans         & \ldots & \ldots & \ldots \\ \hline
-    Âge du chef : 65 ans et plus    & \ldots & \ldots & \ldots \\ \hline
-    Milieu rural                    & \ldots & \ldots & \ldots \\ \hline
-    Pseudo-$R^2$                    & \ldots & \ldots & \ldots \\ \hline
-    Observations                    & \ldots & \ldots & \ldots \\
+    Genre féminin (enfant)      & \makecell{-$0{,}135$\\$(0{,}090)$} & \makecell{$0{,}132^{**}$\\$(0{,}062)$} & \makecell{-$0{,}209$\\$(0{,}394)$} \\ \hline
+    Chef féminin                & \makecell{$0{,}797^{***}$\\$(0{,}203)$} & \makecell{$0{,}944^{***}$\\$(0{,}174)$} & \makecell{$3{,}144^{***}$\\$(0{,}870)$} \\ \hline
+    Âge du chef : 35-49 ans     & \makecell{-$0{,}481^{*}$\\$(0{,}255)$} & \makecell{-$0{,}299$\\$(0{,}231)$} & \makecell{-$0{,}116$\\$(1{,}096)$} \\ \hline
+    Âge du chef : 50-64 ans     & \makecell{-$0{,}101$\\$(0{,}264)$} & \makecell{$0{,}077$\\$(0{,}255)$} & \makecell{$1{,}127$\\$(1{,}190)$} \\ \hline
+    Âge du chef : 65 ans et plus& \makecell{$0{,}412$\\$(0{,}290)$} & \makecell{$0{,}659^{**}$\\$(0{,}270)$} & \makecell{$1{,}750$\\$(1{,}190)$} \\ \hline
+    Milieu rural                & \makecell{-$0{,}703^{***}$\\$(0{,}188)$} & \makecell{-$0{,}663^{***}$\\$(0{,}180)$} & \makecell{-$0{,}765^{*}$\\$(0{,}414)$} \\ \hline
+    Pseudo-$R^2$                & 0,125 & 0,135 & 0,266 \\ \hline
+    Observations                & 4\,762 & 8\,484 & 265 \\
     \hline
   \end{tabular}
 
@@ -85,7 +85,7 @@ méthodes. Le caliper s'équilibre le mieux, avec une SMD de 1,6\,\%, devant
 le noyau à 2,0\,\% et le k-NN à 2,4\,\%. Le déséquilibre résiduel du k-NN
 porte sur la taille du ménage et la dépense par tête.
 
-\subsection{Chevauchement des scores de propension}
+\subsection{Support commun des scores de propension}
 \label{sec:chevauchement}
 
 L'appariement présenté au chapitre précédent suppose que chaque enfant
@@ -150,8 +150,8 @@ continuité du score et de l'appariement : les trois effets qui suivent
 constituent le résultat de ce mémoire, et aucun agrégat d'ensemble n'est
 présenté, des enfants mesurés sur des indicateurs différents ne pouvant
 être moyennés. Pour chaque groupe, le tableau~\ref{tab:psmdd_att} rapporte
-l'effectif apparié, la double différence brute, l'estimation PSM-DD de
-référence et la spécification nette des chocs locaux de période.
+l'effectif apparié, l'estimation PSM-DD de référence et la spécification
+nette des chocs locaux de période.
 
 \begin{table}[H]
   \centering
@@ -163,11 +163,10 @@ référence et la spécification nette des chocs locaux de période.
     \hline
 \entete & 0-4 ans & 5-14 ans & 15-17 ans \\
     \hline
-    Traités appariés            & \ldots & \ldots & \ldots \\ \hline
-    Témoins appariés            & \ldots & \ldots & \ldots \\ \hline
-    DD brute                    & \ldots & \ldots & \ldots \\ \hline
-    ATT PSM-DD                  & \ldots & \ldots & \ldots \\ \hline
-    ATT net des chocs locaux    & \ldots & \ldots & \ldots \\
+    Traités appariés            & 736 & 1\,421 & 36 \\ \hline
+    Témoins appariés            & 4\,011 & 7\,042 & 222 \\ \hline
+    ATT PSM-DD                  & \makecell{$0{,}065^{**}$\\$(0{,}033)$} & \makecell{$0{,}067^{**}$\\$(0{,}031)$} & \makecell{$0{,}119$\\$(0{,}095)$} \\ \hline
+    ATT net des chocs locaux    & \makecell{$0{,}068^{**}$\\$(0{,}030)$} & \makecell{$0{,}068^{**}$\\$(0{,}030)$} & \makecell{$0{,}119$\\$(0{,}088)$} \\
     \hline
   \end{tabular}
 
@@ -237,15 +236,22 @@ tous trois significatifs au moins au seuil de 10\,\%.
 
 \subsubsection{Sensibilité à la définition du traitement}
 
-Le tableau~\ref{tab:stables_estim} reprend l'estimation en substituant aux
-bénéficiaires de 2018 les enfants des ménages bénéficiaires stables, recevant
-un transfert aux deux éditions, face aux enfants des ménages jamais
-bénéficiaires. Ce second design mesure l'effet d'une exposition durable aux
-transferts. Le score de propension y est réestimé sur ce sous-échantillon.
+Le design principal compare les bénéficiaires stables aux ménages jamais
+bénéficiaires. Le tableau~\ref{tab:stables_estim} reprend l'estimation
+avec la définition canonique de la double différence, le traitement fixé à
+la seule période de base, bénéficiaires transitoires inclus~; le score de
+propension y est réestimé sur l'échantillon complet des enfants suivis.
+L'effet demeure, de moindre ampleur~: la double différence brute donne
+$0{,}043$ ($p = 0{,}026$) et le PSM-DD $0{,}049$ ($p = 0{,}059$), contre
+$0{,}065$ à $0{,}067$ chez les stables des deux premiers groupes d'âge. La
+dilution est attendue, près de la moitié des traités de cette définition ne
+recevant plus en 2021~: la convergence de signe et d'ordre de grandeur des
+deux designs indique que la conclusion ne dépend ni de la dilution de l'un
+ni de l'absence de période pré-traitement de l'autre.
 
 \begin{table}[H]
   \centering
-  \caption{Sensibilité à la définition du traitement, bénéficiaires stables contre jamais bénéficiaires}
+  \caption{Sensibilité à la définition du traitement, fixé à la période de base avec transitoires inclus}
   \label{tab:stables_estim}
   \zebre
   \begin{tabular}{|l|c|}
@@ -253,7 +259,7 @@ transferts. Le score de propension y est réestimé sur ce sous-échantillon.
 \entete Spécification & Coefficient \\
     \hline
     DD simple & \makecell{\ATTstaDD\\\ATTstaDDse} \\ \hline
-    PSM-DD (k-NN, $k=4$)         & \makecell{\ATTstaPSM\\\ATTstaPSMse} \\
+    PSM-DD (k-NN, avec remise)   & \makecell{\ATTstaPSM\\\ATTstaPSMse} \\
     \hline
   \end{tabular}
 
