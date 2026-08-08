@@ -92,7 +92,7 @@ foreach d in "$OUTPUT" "$TEMP" "$PREP" "$LOGS" {
    ============================================================ */
 
 
-/* ── Construction pour chaque vague ──────────────────────── */
+/* ── Construction pour chaque edition ──────────────────────── */
 
 di _newline ">>> Prevalence des transferts de migrants :"
 local annee 2018
@@ -210,7 +210,7 @@ local fich_list s13_1
 /*
    On recupere PanelHH depuis s00_me_sen2021 et on le joint
    au fichier traitement_2021 pour distinguer :
-     - panel vrai  (PanelHH=1, grappe+menage communs aux 2 vagues)
+     - panel vrai  (PanelHH=1, grappe+menage communs aux 2 editions)
      - remplacement (PanelHH=0, ménage nouveau en 2021)
 */
 
@@ -227,7 +227,7 @@ quietly count if PanelHH == 1
 di _newline "Menages panel retrouves dans traitement_2018 : " r(N)
 save "$TEMP/traitement_2018.dta", replace
 
-di _newline ">>> Statut de traitement par type de menage (vague 2021) :"
+di _newline ">>> Statut de traitement par type de menage (edition 2021) :"
 use "$TEMP/traitement_2021.dta", clear
 merge 1:1 grappe menage using "$TEMP/panel_id.dta", ///
     keepusing(PanelHH) nogenerate
@@ -443,7 +443,7 @@ foreach annee in 2018 2021 {
        leur identifiant de 2018 (s01qpreload_pid, accompagne du sexe, de
        l'age et du lien de parente precharges). Cette variable, et non le
        rang dans le roster 2021 (membres__id), est la cle qui relie un
-       individu a lui-meme d'une vague a l'autre. Elle permet de constituer
+       individu a lui-meme d'une edition a l'autre. Elle permet de constituer
        un veritable panel d'ENFANTS, et non seulement de menages. */
     if `annee' == 2021 {
         preserve
@@ -648,7 +648,7 @@ foreach annee in 2018 2021 {
        menage est suppose ne pas avoir manque de cette ressource (aucune
        observation n'est perdue).
        Diversite alimentaire NON RETENUE : le module correspondant n'a pas
-       ete collecte en 2021, donc aucun comparateur entre vagues. */
+       ete collecte en 2021, donc aucun comparateur entre editions. */
     egen byte fies_score = anycount(s08aq01 s08aq02 s08aq03 s08aq04 ///
         s08aq05 s08aq06 s08aq07 s08aq08), values(1)
     gen byte m_securite = (fies_score >= 1)
@@ -812,7 +812,7 @@ foreach annee in 2018 2021 {
 
 
 /* ============================================================
-   1. Preparer chaque vague avec traitement et PanelHH
+   1. Preparer chaque edition avec traitement et PanelHH
    ============================================================ */
 
 foreach annee in 2018 2021 {
@@ -829,7 +829,7 @@ foreach annee in 2018 2021 {
     /* PanelHH : disponible directement dans traitement_2018/2021 */
     capture confirm variable PanelHH
     if _rc {
-        /* Si absent (vague 2018 sans jointure panel_id), mettre a 1 */
+        /* Si absent (edition 2018 sans jointure panel_id), mettre a 1 */
         gen byte PanelHH = 1
     }
 
@@ -843,7 +843,7 @@ foreach annee in 2018 2021 {
     }
 
     save "$TEMP/vague_`annee'.dta", replace
-    di "Vague `annee' : " _N " enfants, dont " ///
+    di "Édition `annee' : " _N " enfants, dont " ///
        r(N) " ménages panel"
 }
 
@@ -2238,7 +2238,7 @@ twoway (connected temoin annee, lcolor(gs7) mcolor(gs7) msymbol(square) lwidth(m
             mcolor(orange) lwidth(medthick) ///
             mlabel(lb_c) mlabcolor(black) mlabpos(6) mlabgap(4.5) mlabsize(small)), ///
     xlabel(2018 2021) xscale(range(2017.7 2021.8)) ///
-    xtitle("Vague EHCVM") ytitle("Incidence de pauvreté multidimensionnelle (H, %)") ///
+    xtitle("Édition EHCVM") ytitle("Incidence de pauvreté multidimensionnelle (H, %)") ///
     ylabel(0(20)100, grid) ///
     legend(order(2 "Bénéficiaires" 1 "Témoins appariés" ///
                  3 "Contrefactuel (tendances parallèles)") pos(6) rows(2)) ///
@@ -2846,7 +2846,7 @@ twoway (connected H_nonbenef annee, lcolor(gs9) mcolor(gs9) msymbol(square) ///
        (connected H_benef annee, lcolor(orange) mcolor(orange) msymbol(circle) ///
         lwidth(medthick) mlabel(lbl_b) mlabcolor(black) mlabpos(12) ///
         mlabgap(2) mlabsize(small)), ///
-    xlabel(2018 2021) xscale(range(2017.7 2021.3)) xtitle("Vague EHCVM") ///
+    xlabel(2018 2021) xscale(range(2017.7 2021.3)) xtitle("Édition EHCVM") ///
     ytitle("Incidence de pauvreté multidimensionnelle H (%)") ///
     ylabel(40(5)70, grid) yscale(range(38 72)) ///
     legend(order(1 "Non-bénéficiaires" 2 "Bénéficiaires") pos(6) rows(1)) ///
