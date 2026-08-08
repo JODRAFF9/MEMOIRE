@@ -24,7 +24,7 @@
      08_carte_region— carte regionale
      09_placebo — tests placebo
    ============================================================ */
-cd "C:\Users\Bmd\Documents\ISE\Cours\ISE3\Memoire"
+cd "C:\Users\Bmd\Documents\ISE\Cours\Archive_ISE3\Memoire"
 capture log close _all
 /* Si tout.log est verrouille par un autre programme (r(608)), on bascule sur
    un nom horodate. $LOGFILE retient le fichier reellement ouvert, recopie
