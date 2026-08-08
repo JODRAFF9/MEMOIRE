@@ -92,7 +92,7 @@ foreach d in "$OUTPUT" "$TEMP" "$PREP" "$LOGS" {
    ============================================================ */
 
 
-/* ── Construction pour chaque vague ──────────────────────── */
+/* ── Construction pour chaque edition ──────────────────────── */
 
 di _newline ">>> Prevalence des transferts de migrants :"
 local annee 2018
@@ -210,7 +210,7 @@ local fich_list s13_1
 /*
    On recupere PanelHH depuis s00_me_sen2021 et on le joint
    au fichier traitement_2021 pour distinguer :
-     - panel vrai  (PanelHH=1, grappe+menage communs aux 2 vagues)
+     - panel vrai  (PanelHH=1, grappe+menage communs aux 2 editions)
      - remplacement (PanelHH=0, ménage nouveau en 2021)
 */
 
@@ -227,7 +227,7 @@ quietly count if PanelHH == 1
 di _newline "Menages panel retrouves dans traitement_2018 : " r(N)
 save "$TEMP/traitement_2018.dta", replace
 
-di _newline ">>> Statut de traitement par type de menage (vague 2021) :"
+di _newline ">>> Statut de traitement par type de menage (edition 2021) :"
 use "$TEMP/traitement_2021.dta", clear
 merge 1:1 grappe menage using "$TEMP/panel_id.dta", ///
     keepusing(PanelHH) nogenerate
@@ -438,12 +438,12 @@ foreach annee in 2018 2021 {
         save `s01_temp'
     restore
 
-    /* A6bis. Table de correspondance individuelle entre les deux vagues.
+    /* A6bis. Table de correspondance individuelle entre les deux editions.
        En 2021, le questionnaire precharge les membres du menage panel avec
        leur identifiant de 2018 (s01qpreload_pid, accompagne du sexe, de
        l'age et du lien de parente precharges). Cette variable, et non le
        rang dans le roster 2021 (membres__id), est la cle qui relie un
-       individu a lui-meme d'une vague a l'autre. Elle permet de constituer
+       individu a lui-meme d'une edition a l'autre. Elle permet de constituer
        un veritable panel d'ENFANTS, et non seulement de menages. */
     if `annee' == 2021 {
         preserve
@@ -633,7 +633,7 @@ foreach annee in 2018 2021 {
 
     /* ── [Dimension 4/7 : Nutrition] ───────────────────────────────
        Indicateur unique - Insecurite alimentaire, echelle FIES COMPLETE
-       (8 questions du module 8A, presentes dans LES DEUX vagues) :
+       (8 questions du module 8A, presentes dans LES DEUX editions) :
          q01 inquietude de manquer de nourriture
          q02 impossibilite de manger sainement
          q03 alimentation peu variee
@@ -648,7 +648,7 @@ foreach annee in 2018 2021 {
        menage est suppose ne pas avoir manque de cette ressource (aucune
        observation n'est perdue).
        Diversite alimentaire NON RETENUE : le module correspondant n'a pas
-       ete collecte en 2021, donc aucun comparateur entre vagues. */
+       ete collecte en 2021, donc aucun comparateur entre editions. */
     egen byte fies_score = anycount(s08aq01 s08aq02 s08aq03 s08aq04 ///
         s08aq05 s08aq06 s08aq07 s08aq08), values(1)
     gen byte m_securite = (fies_score >= 1)
@@ -659,7 +659,7 @@ foreach annee in 2018 2021 {
        dechets animaux).
        Indicateur 2 - Absence d'acces a pied a une structure de sante
        (m_sante_acces, construite en A4bis a partir du module
-       communautaire s02_co, disponible dans LES DEUX vagues).
+       communautaire s02_co, disponible dans LES DEUX editions).
        Dimension privee si combustible solide OU pas d'acces sante a pied.
        Analyse en cas complets : m_sante_acces n'est jamais manquant (0/1
        au niveau de la grappe) ; la dimension n'est donc manquante que si
@@ -800,11 +800,11 @@ foreach annee in 2018 2021 {
 /* ============================================================
    SECTION : 04_PANEL — Construction du panel vrai (PanelHH=1)
 
-   Exploite le suivi effectif des menages entre les deux vagues.
+   Exploite le suivi effectif des menages entre les deux editions.
    Produit : $TEMP/panel_vrai.dta
 
    Variables cles :
-     grappe menage  — identifiants communs aux deux vagues
+     grappe menage  — identifiants communs aux deux editions
      PanelHH        — 1 si menage suivi, 0 si nouveau (2021 seulement)
      t              — 0 (2018) / 1 (2021)
      D              — statut de traitement (transfert migrant)
@@ -812,7 +812,7 @@ foreach annee in 2018 2021 {
 
 
 /* ============================================================
-   1. Preparer chaque vague avec traitement et PanelHH
+   1. Preparer chaque edition avec traitement et PanelHH
    ============================================================ */
 
 foreach annee in 2018 2021 {
@@ -829,7 +829,7 @@ foreach annee in 2018 2021 {
     /* PanelHH : disponible directement dans traitement_2018/2021 */
     capture confirm variable PanelHH
     if _rc {
-        /* Si absent (vague 2018 sans jointure panel_id), mettre a 1 */
+        /* Si absent (edition 2018 sans jointure panel_id), mettre a 1 */
         gen byte PanelHH = 1
     }
 
@@ -843,7 +843,7 @@ foreach annee in 2018 2021 {
     }
 
     save "$TEMP/vague_`annee'.dta", replace
-    di "Vague `annee' : " _N " enfants, dont " ///
+    di "Édition `annee' : " _N " enfants, dont " ///
        r(N) " ménages panel"
 }
 
@@ -858,7 +858,7 @@ foreach annee in 2018 2021 {
      - temoins (D_stable=0) : menage ne recevant aucun transfert
        etranger de ce type en 2018
    Le statut etant fige a la periode de base, il ne peut pas etre
-   affecte par l'evolution des privations entre les deux vagues.
+   affecte par l'evolution des privations entre les deux editions.
    ============================================================ */
 
 use "$TEMP/traitement_2018.dta", clear
@@ -869,7 +869,7 @@ rename D D_2021
 gen byte D_stable = D_2018
 label var D_stable "Traitement (1=beneficiaire migrant en 2018, 0=non beneficiaire)"
 
-di _newline ">>> Cellules de traitement (menages presents aux 2 vagues) :"
+di _newline ">>> Cellules de traitement (menages presents aux 2 editions) :"
 tab D_2018 D_2021
 quietly count if D_stable == 1
 di "  Beneficiaires 2018 (migrant) : " r(N)
@@ -882,12 +882,12 @@ save "$TEMP/traitement_stable.dta", replace
 /* ============================================================
    3. Panel vrai — uniquement les menages suivis (PanelHH=1)
 
-   On conserve les menages qui apparaissent dans les DEUX vagues
+   On conserve les menages qui apparaissent dans les DEUX editions
    avec le meme identifiant grappe+menage, avec un statut de
    traitement defini a la periode de base.
    ============================================================ */
 
-/* Identifier les menages presents dans les deux vagues */
+/* Identifier les menages presents dans les deux editions */
 use "$TEMP/vague_2018.dta", clear
 keep grappe menage
 duplicates drop grappe menage, force
@@ -901,7 +901,7 @@ duplicates drop grappe menage, force
 keep if PanelHH == 1
 gen _in2021 = 1
 merge 1:1 grappe menage using `id2018'
-keep if _merge == 3   /* presents dans les deux vagues */
+keep if _merge == 3   /* presents dans les deux editions */
 keep grappe menage
 tempfile ids_panel
 save `ids_panel'
@@ -909,7 +909,7 @@ save "$TEMP/ids_panel.dta", replace   /* liste complete de tous les menages
     suivis, reutilisee par l'analyse de robustesse "beneficiaires stables" */
 
 quietly count
-di _newline "Menages vraiment suivis (presences dans les 2 vagues) : " r(N)
+di _newline "Menages vraiment suivis (presences dans les 2 editions) : " r(N)
 
 /* Construire le panel vrai en deux periodes */
 use "$TEMP/vague_2018.dta", clear
@@ -1032,7 +1032,7 @@ restore
    SECTION : 05_PSM_DD — Estimation PSM-DD au niveau ENFANT
 
    Strategie :
-     1. Panel d'enfants suivis entre les deux vagues (cle preload)
+     1. Panel d'enfants suivis entre les deux editions (cle preload)
         puis logit au NIVEAU ENFANT sur t=0 -> score de propension
      2. Verification equilibre (SMD) sur les covariables menage ET enfant
      3. Appariement PSM (k-NN, kernel, caliper) au niveau enfant
@@ -1089,7 +1089,7 @@ merge m:1 grappe menage using "$TEMP/traitement_2018.dta", ///
 /* Restriction aux menages du panel vrai */
 merge m:1 grappe menage using "$TEMP/ids_panel.dta", keep(match) nogenerate
 
-/* Statut aux deux vagues, pour la definition du design principal */
+/* Statut aux deux editions, pour la definition du design principal */
 merge m:1 grappe menage using "$TEMP/traitement_stable.dta", ///
     keepusing(D_2018 D_2021) keep(master match) nogenerate
 
@@ -1103,7 +1103,7 @@ foreach v in milieu region heduc hmstat {
     capture destring `v', replace
 }
 
-/* Un identifiant individuel unique, stable entre les deux vagues */
+/* Un identifiant individuel unique, stable entre les deux editions */
 egen long enfid = group(grappe menage numind_2018)
 label var enfid "Identifiant individuel de l'enfant (panel)"
 
@@ -1119,8 +1119,8 @@ drop if missing(D) | missing(sexe18) | missing(age18) ///
 
 /* ── DESIGN PRINCIPAL : beneficiaires stables vs jamais beneficiaires ──
    Le traitement du design principal est l'exposition continue : menages
-   beneficiaires aux DEUX vagues (D_2018=1 et D_2021=1) contre menages
-   jamais beneficiaires (0 aux deux vagues). Deux raisons commandent ce
+   beneficiaires aux DEUX editions (D_2018=1 et D_2021=1) contre menages
+   jamais beneficiaires (0 aux deux editions). Deux raisons commandent ce
    choix. La premiere est la definition meme du traitement : pres d'un
    beneficiaire de 2018 sur deux ne recoit plus en 2021, en partie parce
    que la pandemie de COVID-19 a interrompu les envois en 2020 ; classer
@@ -1164,7 +1164,7 @@ di "  Transitoires ecartes             : " `n_avant' - r(N)
    satisfaire. */
 di _newline "--- Validation de l'appariement individuel ---"
 quietly count if sexe18 == sexe21
-di "  Concordance du genre entre vagues : " %5.1f 100*r(N)/_N "%"
+di "  Concordance du genre entre editions : " %5.1f 100*r(N)/_N "%"
 quietly gen int ecart_age = age21 - age18
 quietly summarize ecart_age, detail
 di "  Ecart d'age : mediane " %4.1f r(p50) "  moyenne " %5.2f r(mean)
@@ -1245,7 +1245,7 @@ di "  Le rejet justifie l'appariement prealable a la double difference."
    une partie de l'effet ("bad control").
 
    Test retenu : pour chaque variable candidate mesuree aux deux
-   vagues, on regresse sa valeur en 2021 sur le traitement de 2018
+   editions, on regresse sa valeur en 2021 sur le traitement de 2018
    en controlant sa valeur de 2018. Un coefficient significatif sur
    D signifie que le traitement deplace la variable : elle n'est pas
    predeterminee et ne peut pas servir de covariable d'appariement.
@@ -1279,7 +1279,7 @@ foreach v in assai eau logem nutri sante protect educ {
 drop m_parents18 m_parents21 chef_f_t urbain_t
 
 di _newline "=== Logit ENFANT — score de propension (EHCVM I, panel d'enfants) ==="
-di "Enfants suivis aux deux vagues : " _N
+di "Enfants suivis aux deux editions : " _N
 
 /* ── 1b. Logit au niveau enfant, SEPAREMENT PAR GROUPE D'AGE ──
    Covariables du menage a t=0 + genre et age de l'enfant. Erreurs-types
@@ -1807,9 +1807,9 @@ merge 1:1 enfid using "$TEMP/pscore_knn.dta", ///
     keepusing(weight_knn _support) nogenerate
 
 /* Groupe d'age fige a la periode de base. Un enfant de 3 ans en 2018 en a
-   6 en 2021 : recalcule a chaque vague, le groupe change en cours de panel
+   6 en 2021 : recalcule a chaque edition, le groupe change en cours de panel
    et la double difference d'un sous-groupe ne compare plus le meme enfant a
-   lui-meme. Le groupe de base suit l'enfant aux deux vagues, si bien que
+   lui-meme. Le groupe de base suit l'enfant aux deux editions, si bien que
    « 0-4 ans » se lit « age de 0 a 4 ans en 2018 ». */
 clonevar groupe_base = groupe_moda18
 label var groupe_base "Groupe d'age MODA a la periode de base (2018)"
@@ -1864,12 +1864,12 @@ di _newline ">>> Grille figee a la base : " r(N) ///
 save "$TEMP/panel_enfants_psm.dta", replace
 
 di _newline "Panel d'enfants apparie : " _N " observations (" ///
-    %6.0f `=_N/2' " enfants x 2 vagues)"
+    %6.0f `=_N/2' " enfants x 2 editions)"
 
 /* ── Ventilation des enfants suivis par statut de beneficiaire ──
    Alimente le tableau de repartition du traitement (chap. 2) et le
    tableau d'effectifs des statistiques descriptives (chap. 4) : les
-   quatre statuts possibles au croisement des deux vagues, sur
+   quatre statuts possibles au croisement des deux editions, sur
    L'ENSEMBLE des enfants suivis (avant restriction du design principal
    aux stables et jamais beneficiaires), au total et par groupe d'age. */
 use "$TEMP/panel_large_tous.dta", clear
@@ -2238,7 +2238,7 @@ twoway (connected temoin annee, lcolor(gs7) mcolor(gs7) msymbol(square) lwidth(m
             mcolor(orange) lwidth(medthick) ///
             mlabel(lb_c) mlabcolor(black) mlabpos(6) mlabgap(4.5) mlabsize(small)), ///
     xlabel(2018 2021) xscale(range(2017.7 2021.8)) ///
-    xtitle("Vague EHCVM") ytitle("Incidence de pauvreté multidimensionnelle (H, %)") ///
+    xtitle("Édition EHCVM") ytitle("Incidence de pauvreté multidimensionnelle (H, %)") ///
     ylabel(0(20)100, grid) ///
     legend(order(2 "Bénéficiaires" 1 "Témoins appariés" ///
                  3 "Contrefactuel (tendances parallèles)") pos(6) rows(2)) ///
@@ -2317,7 +2317,7 @@ foreach g in 1 2 3 {
             quietly count if groupe_base == `g' & groupe_moda != groupe_base
             local n_chg = r(N)
             quietly count if groupe_base == `g'
-            di "  Observations changeant de groupe d'age entre les vagues : " ///
+            di "  Observations changeant de groupe d'age entre les editions : " ///
                %5.1f 100*`n_chg'/r(N) "%"
             regress `outcome' i.t##i.D [aw=$POIDS_PRINCIPAL] if groupe_base == `g', ///
                 vce(cluster grappe)
@@ -2543,7 +2543,7 @@ di _newline ">>> 05_psm_dd.do termine."
    Chapitre 3 : profil ménages, pauvreté, privations, comparaison D=0/1
 
    Les statistiques portant sur les ENFANTS sont calculees sur les enfants
-   suivis individuellement d'une vague a l'autre (panel_enfants_psm.dta),
+   suivis individuellement d'une edition a l'autre (panel_enfants_psm.dta),
    c'est-a-dire sur l'echantillon meme de l'estimation d'impact avant la
    restriction au support commun. Un tableau descriptif et un coefficient
    estime decrivent ainsi les memes enfants. Le profil des MENAGES (bloc 1)
@@ -2716,7 +2716,7 @@ foreach annee in 2018 2021 {
        "%  M0=" %5.3f `H'*`A'
 }
 
-/* Export tab_moda_age : H par groupe d'âge et vague */
+/* Export tab_moda_age : H par groupe d'âge et edition */
 clear
 set obs 6
 gen str8 annee       = ""
@@ -2820,7 +2820,7 @@ di _newline "=== 5. Graphiques ==="
 /* ── Fig 1 : Évolution de l'incidence de pauvreté multidimensionnelle, beneficiaires vs
    non-beneficiaires. Les deux trajectoires rendent visible la logique de
    double difference : c'est l'ECART entre les groupes, et son evolution
-   entre les deux vagues, qui porte l'information sur l'impact. ── */
+   entre les deux editions, qui porte l'information sur l'impact. ── */
 use "$TEMP/panel_enfants_psm.dta", clear
 forvalues d = 0/1 {
     foreach tt in 0 1 {
@@ -2846,7 +2846,7 @@ twoway (connected H_nonbenef annee, lcolor(gs9) mcolor(gs9) msymbol(square) ///
        (connected H_benef annee, lcolor(orange) mcolor(orange) msymbol(circle) ///
         lwidth(medthick) mlabel(lbl_b) mlabcolor(black) mlabpos(12) ///
         mlabgap(2) mlabsize(small)), ///
-    xlabel(2018 2021) xscale(range(2017.7 2021.3)) xtitle("Vague EHCVM") ///
+    xlabel(2018 2021) xscale(range(2017.7 2021.3)) xtitle("Édition EHCVM") ///
     ytitle("Incidence de pauvreté multidimensionnelle H (%)") ///
     ylabel(40(5)70, grid) yscale(range(38 72)) ///
     legend(order(1 "Non-bénéficiaires" 2 "Bénéficiaires") pos(6) rows(1)) ///
@@ -2909,7 +2909,7 @@ di ">>> fig_distrib_dimensions.pdf sauvegardé"
    Coeur descriptif de la section : pour chaque dimension MODA et pour
    l'incidence globale, taux de privation des enfants selon le statut de
    traitement du menage (D=1 beneficiaire migrant en 2018 ; D=0 non
-   beneficiaire) a chaque vague, ecart entre groupes a chaque date, et
+   beneficiaire) a chaque edition, ecart entre groupes a chaque date, et
    evolution de cet ecart (double difference descriptive, non ponderee
    par l'appariement). Echantillon : enfants suivis, ponderation hhweight.
    ============================================================ */
@@ -2937,7 +2937,7 @@ foreach v in dim_assai dim_eau dim_logem dim_nutri dim_sante dim_protect ///
        %9.1f `b0' %10.1f `b1' %8.1f `g1' " |" %7.1f `dd'
 }
 
-/* Test de significativite de l'ecart entre groupes, a chaque vague */
+/* Test de significativite de l'ecart entre groupes, a chaque edition */
 di _newline "  Test de l'ecart beneficiaires/non-beneficiaires (p-valeurs) :"
 foreach v in dim_assai dim_eau dim_logem dim_nutri dim_sante dim_protect ///
              dim_educ pauvre_MODA {
@@ -2952,7 +2952,7 @@ foreach v in dim_assai dim_eau dim_logem dim_nutri dim_sante dim_protect ///
    rapport confronte les dimensions et le statut de beneficiaire au sein
    d'une tranche d'age. Le groupe est celui de la PERIODE DE BASE : sur un
    panel d'enfants suivis, un decoupage sur l'age courant ferait changer les
-   sous-groupes de composition entre les deux vagues et la comparaison ne
+   sous-groupes de composition entre les deux editions et la comparaison ne
    porterait plus sur les memes enfants. « 0-4 ans » se lit donc « age de 0 a
    4 ans en 2018 », et ces enfants ont 3 a 7 ans en 2021 : dim_educ, nulle
    par construction en 2018, devient applicable a une partie d'entre eux. */
@@ -2989,7 +2989,7 @@ forvalues g = 1/3 {
     di "  Effectifs : `n18' enfants en 2018, " r(N) " en 2021"
 }
 
-/* Croisement genre du chef de menage x statut de beneficiaire x vague, pour
+/* Croisement genre du chef de menage x statut de beneficiaire x edition, pour
    l'ensemble des enfants puis pour chaque tranche d'age. Alimente le
    tableau par genre de chaque sous-section descriptive. */
 forvalues g = 0/3 {
