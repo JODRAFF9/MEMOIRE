@@ -9,6 +9,14 @@
 
 % ── Encodage & langue (XeLaTeX/LuaLaTeX : Unicode natif) ─────
 \usepackage[french]{babel}
+% babel french intitule les tableaux « Table » : on impose « Tableau »,
+% dans les legendes comme dans la liste des tableaux.
+\addto\captionsfrench{%
+  \renewcommand{\tablename}{Tableau}%
+  \renewcommand{\listtablename}{Liste des tableaux}%
+  \renewcommand{\figurename}{Graphique}%
+  \renewcommand{\listfigurename}{Liste des graphiques}%
+}
 \usepackage{csquotes}
 
 % ── Mise en page ────────────────────────────────────────────
