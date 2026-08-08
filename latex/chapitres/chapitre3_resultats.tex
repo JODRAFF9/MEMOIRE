@@ -32,21 +32,19 @@ séparée.
     \hline
 \entete Variable & 0-4 ans & 5-14 ans & 15-17 ans \\
     \hline
-    Genre féminin (enfant)      & \makecell{-$0{,}135$\\$(0{,}090)$} & \makecell{$0{,}132^{**}$\\$(0{,}062)$} & \makecell{-$0{,}209$\\$(0{,}394)$} \\ \hline
-    Chef féminin                & \makecell{$0{,}797^{***}$\\$(0{,}203)$} & \makecell{$0{,}944^{***}$\\$(0{,}174)$} & \makecell{$3{,}144^{***}$\\$(0{,}870)$} \\ \hline
-    Âge du chef : 35-49 ans     & \makecell{-$0{,}481^{*}$\\$(0{,}255)$} & \makecell{-$0{,}299$\\$(0{,}231)$} & \makecell{-$0{,}116$\\$(1{,}096)$} \\ \hline
-    Âge du chef : 50-64 ans     & \makecell{-$0{,}101$\\$(0{,}264)$} & \makecell{$0{,}077$\\$(0{,}255)$} & \makecell{$1{,}127$\\$(1{,}190)$} \\ \hline
-    Âge du chef : 65 ans et plus& \makecell{$0{,}412$\\$(0{,}290)$} & \makecell{$0{,}659^{**}$\\$(0{,}270)$} & \makecell{$1{,}750$\\$(1{,}190)$} \\ \hline
-    Milieu rural                & \makecell{-$0{,}703^{***}$\\$(0{,}188)$} & \makecell{-$0{,}663^{***}$\\$(0{,}180)$} & \makecell{-$0{,}765^{*}$\\$(0{,}414)$} \\ \hline
-    Pseudo-$R^2$                & 0,125 & 0,135 & 0,266 \\ \hline
+    Nb. privations 2018         & \makecell{-$0{,}672^{***}$\\$(0{,}042)$} & \makecell{-$0{,}519^{***}$\\$(0{,}027)$} & \makecell{-$0{,}729^{***}$\\$(0{,}195)$} \\ \hline
+    Genre féminin (enfant)      & \makecell{-$0{,}121$\\$(0{,}089)$} & \makecell{$0{,}223^{***}$\\$(0{,}065)$} & \makecell{$0{,}059$\\$(0{,}438)$} \\ \hline
+    Chef féminin                & \makecell{$0{,}640^{***}$\\$(0{,}134)$} & \makecell{$0{,}755^{***}$\\$(0{,}094)$} & \makecell{$3{,}127^{***}$\\$(0{,}734)$} \\ \hline
+    Milieu rural                & \makecell{-$0{,}126$\\$(0{,}105)$} & \makecell{-$0{,}132$\\$(0{,}075)$} & \makecell{-$0{,}345$\\$(0{,}465)$} \\ \hline
+    Pseudo-$R^2$                & 0,194 & 0,190 & 0,336 \\ \hline
     Observations                & 4\,762 & 8\,484 & 265 \\
     \hline
   \end{tabular}
 
   {\footnotesize \textbf{Source :} Calcul de l'auteur, EHCVM. Écarts-types
   clusterisés par grappe entre parenthèses~; indicatrices de région, de
-  niveau d'éducation et de statut matrimonial du chef incluses. Référence de
-  l'âge du chef : moins de 35 ans.}
+  classes d'âge, de niveau d'éducation et de statut matrimonial du chef
+  incluses.}
 \end{table}
 
 \subsubsection{Comparaison de la qualité des trois appariements}
@@ -145,19 +143,21 @@ rapprochées.
 
 \subsection{Impact des transferts sur la pauvreté multidimensionnelle}
 
-Le résultat principal est l'effet de l'appariement en niveaux de 2021 sur
-le nombre de privations, estimé sur l'ensemble des 0 à 17 ans puis par
-groupe d'âge~; le tableau~\ref{tab:psmdd_att} le rapporte, avec en regard
-la famille en trajectoires conservée en robustesse. Sur l'ensemble des
-enfants, les transferts réduisent le nombre de privations de $0{,}18$,
-effet significatif au seuil de 1\,\%. La réduction est portée par les 5 à
-14 ans, de $0{,}20$ privation au même seuil~; elle ne se distingue pas du
-bruit chez les 0 à 4 ans ni chez les 15 à 17 ans, dont l'effectif borne la
-précision. La famille en trajectoires livre le signe opposé~: elle suppose
-des tendances parallèles qu'aucune période pré-traitement ne permet de
-tester, et l'écart initial d'une privation entière entre les deux groupes
-rend le retour à la moyenne plausible, ce qui fonde le choix du design
-principal.
+Le résultat principal est l'effet de l'appariement sur le nombre de
+privations de 2021, estimé séparément dans chaque groupe d'âge~; aucun
+effet d'ensemble n'est présenté, les enfants des trois groupes n'étant pas
+mesurés sur les mêmes indicateurs. Le tableau~\ref{tab:psmdd_att} le
+rapporte, avec en regard la famille en trajectoires conservée en
+robustesse. Chez les 5 à 14 ans, les transferts réduisent le nombre de
+privations de $0{,}20$, effet significatif au seuil de 1\,\%. L'effet ne
+se distingue pas du bruit chez les 0 à 4 ans, où il reste de même signe
+mais trois fois plus faible, ni chez les 15 à 17 ans, où l'estimation
+ponctuelle est comparable à celle des 5-14 ans mais où trente-cinq traités
+sur support ne permettent aucune conclusion. La famille en trajectoires
+livre le signe opposé~: elle suppose des tendances parallèles qu'aucune
+période pré-traitement ne permet de tester, et l'écart initial d'une
+privation entière entre les deux groupes rend le retour à la moyenne
+plausible, ce qui fonde le choix du design principal.
 
 \begin{table}[H]
   \centering
@@ -165,13 +165,13 @@ principal.
   \label{tab:psmdd_att}
   \nozebre
   \small
-  \begin{tabular}{|l|c|c|c|c|}
+  \begin{tabular}{|l|c|c|c|}
     \hline
-\entete & Ensemble 0-17 & 0-4 ans & 5-14 ans & 15-17 ans \\
+\entete & 0-4 ans & 5-14 ans & 15-17 ans \\
     \hline
-    Traités sur support         & 2\,236 & 751 & 1\,442 & 35 \\ \hline
-    ATT PSM (niveaux 2021)      & \makecell{-$0{,}18^{***}$\\$(0{,}07)$} & \makecell{-$0{,}07$\\$(0{,}09)$} & \makecell{-$0{,}20^{***}$\\$(0{,}07)$} & \makecell{-$0{,}20$\\$(0{,}37)$} \\ \hline
-    Robustesse : PSM-DD (trajectoires) & --- & \makecell{$+0{,}34$} & \makecell{$+0{,}26$} & \makecell{$+0{,}27$} \\
+    Traités sur support         & 751 & 1\,442 & 35 \\ \hline
+    ATT PSM (niveaux 2021)      & \makecell{-$0{,}07$\\$(0{,}09)$} & \makecell{-$0{,}20^{***}$\\$(0{,}07)$} & \makecell{-$0{,}20$\\$(0{,}37)$} \\ \hline
+    Robustesse : PSM-DD (trajectoires) & $+0{,}34$ & $+0{,}26$ & $+0{,}27$ \\
     \hline
   \end{tabular}
 

@@ -377,9 +377,10 @@ seul sensible à ce que cumulent les enfants déjà déclarés pauvres.
 \subsubsection{Grille de mesure figée à la période de base}
 
 Trois ans séparent les deux éditions, si bien qu'un enfant change d'âge, et
-parfois de groupe, entre les deux mesures. Pour que la double différence
-compare le même enfant sur la même grille, les privations de 2021 sont
-mesurées sur la grille du groupe d'âge de la période de base~: un enfant de
+parfois de groupe, entre les deux mesures. Pour que le niveau initial qui
+entre dans le score et le résultat de 2021 soient mesurés sur la même
+grille, les privations de 2021 sont mesurées sur la grille du groupe d'âge
+de la période de base~: un enfant de
 la grille 5-14 devenu adolescent reste évalué sur l'acte de naissance et la
 scolarisation, à partir des mêmes questions du questionnaire. Les
 dimensions du cadre de vie, identiques d'une grille à l'autre, ne sont pas
@@ -628,9 +629,22 @@ dans chaque groupe. La famille en trajectoires, double différence et
 PSM-DD, est conservée en robustesse~: la confrontation des deux familles,
 qui reposent sur des hypothèses opposées, borne l'effet.
 
-\subsubsection{Double différence}
+\subsubsection{Prise en compte de la COVID-19}
 
-La double différence (DD) \textcite{card1994} exploite la dimension temporelle des deux éditions EHCVM
+La pandémie a frappé le Sénégal entre les deux éditions. Dans le design
+principal, estimé en niveaux de 2021, sa composante commune affecte
+identiquement bénéficiaires et témoins appariés, qui traversent la même
+conjoncture~; sa composante géographique est neutralisée par l'appariement
+sur la région et le milieu. Reste l'exposition différentielle des ménages
+au sein d'une même localité, qui borne l'interprétation~: l'effet estimé
+est celui des transferts dans la conjoncture de 2021, pandémie comprise.
+Le choix du design des bénéficiaires stables y répond aussi, ces ménages
+étant précisément ceux dont les envois ont résisté au choc de 2020.
+
+\subsubsection{Robustesse : famille en trajectoires}
+
+La famille en trajectoires est conservée en robustesse, en regard du
+design principal. La double différence \parencite{card1994} exploite la dimension temporelle des deux éditions EHCVM
 pour contrôler les effets fixes inobservables stables dans le temps :
 \begin{equation}
   \hat{\tau}_{DD} = \left(\bar{Y}^1_{t=2} - \bar{Y}^1_{t=1}\right)
@@ -645,31 +659,7 @@ et le groupe témoin ($D_i=0$), sous l'hypothèse de tendances parallèles :
   \label{eq:parallel}
 \end{equation}
 
-\subsubsection{Prise en compte de la COVID-19}
-La période séparant les deux enquêtes contient la pandémie de COVID-19, dont
-le choc a frappé le Sénégal en 2020 : restrictions de déplacement, fermeture
-temporaire des écoles, ralentissement de l'activité, tension sur les prix
-alimentaires. Il faut dire précisément ce que la double différence en absorbe
-et ce qu'elle n'en absorbe pas. Tout ce que la pandémie a de commun aux deux
-groupes, la dégradation générale des conditions de vie entre 2018-2019 et
-2021-2022, est capté par l'indicatrice de période et ne contamine pas l'effet
-estimé, c'est précisément la force du dispositif. Ce que l'estimateur ne
-neutralise pas, c'est une exposition différentielle : si la pandémie a frappé
-les ménages bénéficiaires plus ou moins durement que leurs témoins appariés,
-cet écart s'incorpore à l'effet mesuré. Or cette exposition différentielle est
-plausible dans les deux sens. D'un côté, les envois de fonds dépendent du
-revenu de migrants installés dans des pays eux-mêmes confinés, et le canal
-même du traitement a été perturbé en 2020 avant de se rétablir~; de l'autre,
-la littérature rappelée au chapitre précédent prête aux transferts un rôle
-assurantiel qui aurait dû, au contraire, amortir le choc chez les
-bénéficiaires \parencite{gubert2002}. L'effet estimé doit donc se lire comme
-l'effet des transferts dans la conjoncture particulière de la période,
-pandémie comprise, et non comme un paramètre structurel valable en temps
-ordinaire. L'appariement sur le milieu de résidence et la région limite par
-ailleurs la part géographique de l'exposition différentielle, les restrictions
-ayant surtout varié entre villes et campagnes et d'une région à l'autre.
-
-\subsubsection{Estimateur par appariement et double différence}
+Sa combinaison avec l'appariement donne l'estimateur PSM-DD :
 
 La combinaison PSM-DD proposée par \textcite{heckman1997} et
 \textcite{heckman1998} neutralise simultanément le biais lié aux différences
@@ -719,11 +709,11 @@ d'une même localité.
 
 \subsubsection{Encadrement DD--ANCOVA}
 
-Le traitement étant déjà en cours à la période de base, il n'existe aucune
-période pré-traitement~: l'hypothèse de tendances parallèles ne peut être
-testée directement, et le test placebo, qui rééchantillonne un faux
-traitement parmi les témoins, n'en fournit qu'une vérification indirecte.
-La réponse retenue est l'encadrement de \textcite{angrist2009}. La double
+L'hypothèse d'indépendance conditionnelle du design principal et
+l'hypothèse de tendances parallèles de la famille en trajectoires sont
+toutes deux intestables, le traitement étant déjà en cours à la période de
+base. L'encadrement de \textcite{angrist2009} tire parti de leur
+opposition. La double
 différence suppose les tendances parallèles et tolère une sélection sur le
 niveau initial~; la régression à variable dépendante retardée, dite ANCOVA,
 qui régresse le résultat de 2021 sur le traitement, le résultat de 2018 et
