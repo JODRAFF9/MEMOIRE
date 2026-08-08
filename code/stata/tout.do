@@ -1880,19 +1880,26 @@ quietly count if D == 1
 di "  dont traites : " r(N)
 
 set dp comma
-twoway ///
-    (kdensity pscore if D == 0 [aw=$POIDS_PRINCIPAL], ///
-     lcolor(gs9) lwidth(medthick)) ///
-    (kdensity pscore if D == 1 [aw=$POIDS_PRINCIPAL], ///
-     lcolor(orange) lwidth(medthick)), ///
-    legend(order(1 "Non bénéficiaires (pondérés)" 2 "Bénéficiaires") ///
-           pos(6) rows(1) region(color(white))) ///
-    xtitle("Score de propension") ytitle("Densité") ///
-    xlabel(, format(%3.1f)) ///
-    graphregion(color(white)) plotregion(color(white))
+forvalues g = 1/3 {
+    local titg : label grp `g'
+    quietly twoway ///
+        (kdensity pscore if D == 0 & grp_psm == `g' [aw=$POIDS_PRINCIPAL], ///
+         lcolor(gs9) lwidth(medthick)) ///
+        (kdensity pscore if D == 1 & grp_psm == `g' [aw=$POIDS_PRINCIPAL], ///
+         lcolor(orange) lwidth(medthick)), ///
+        legend(order(1 "Non bénéficiaires (pondérés)" 2 "Bénéficiaires") ///
+               pos(6) rows(1) region(color(white))) ///
+        xtitle("Score de propension") ytitle("Densité") ///
+        xlabel(, format(%3.1f)) ///
+        title("`titg'", size(medium)) ///
+        graphregion(color(white)) plotregion(color(white)) ///
+        name(ova`g', replace)
+}
+graph combine ova1 ova2 ova3, rows(1) graphregion(color(white))
 set dp period
 graph export "$OUTPUT/figures/fig_overlap_apres.pdf", replace
-di "  >>> fig_overlap_apres.pdf sauvegarde"
+graph drop ova1 ova2 ova3
+di "  >>> fig_overlap_apres.pdf sauvegarde (trois panneaux, un par groupe)"
 di "      Les resultats des deux autres methodes restent presentes"
 di "      integralement dans la section robustesse."
 
@@ -2106,11 +2113,16 @@ tabstat D, by(t) stat(mean sum n) format(%6.3f)
 di _newline "=== PSM-DD — ATT PRINCIPAL, PAR GROUPE D'AGE ==="
 forvalues g = 1/3 {
     local titg : label grp `g'
+    /* Effectifs APRES appariement : enfants sur support commun et de
+       poids strictement positif, seuls a entrer dans l'estimation. */
     quietly count if groupe_base == `g' & t == 0 & D == 1
     local n_tr = r(N)
-    quietly count if groupe_base == `g' & t == 0
-    local n_g = r(N)
-    di _newline "--- Groupe `titg' (enfants : `n_g', dont traites : `n_tr') ---"
+    quietly count if groupe_base == `g' & t == 0 & D == 0
+    local n_te = r(N)
+    di _newline "--- Groupe `titg' ---"
+    di "  Effectifs apres appariement (t=0) : traites `n_tr', temoins `n_te'"
+    global NTR_G`g' = `n_tr'
+    global NTE_G`g' = `n_te'
     regress pauvre_MODA i.t##i.D [aw=$POIDS_PRINCIPAL] ///
         if groupe_base == `g', vce(cluster grappe)
     lincom 1.t#1.D
@@ -2119,15 +2131,35 @@ forvalues g = 1/3 {
     global ATT_G`g' = r(estimate)
 }
 
-di _newline "=== PSM-DD — synthese d'ensemble (complement) ==="
-foreach outcome in pauvre_MODA {
-    di _newline "--- PSM-DD `outcome' ---"
-    regress `outcome' i.t##i.D [aw=$POIDS_PRINCIPAL], vce(cluster grappe)
-    lincom 1.t#1.D
-    di "  ATT_PSM-DD (ensemble) = " %8.4f r(estimate) ///
-       "  SE = " %8.4f r(se) "  p = " %6.4f r(p)
-    global ATT_REEL = r(estimate)   /* reutilise par le test placebo */
-}
+di _newline "=== Effectifs avant / apres appariement, par groupe et methode ==="
+di "  (avant = enfants du design principal ; apres = sur support, poids > 0)"
+preserve
+    use "$TEMP/pscore_t0.dta", clear
+    merge 1:1 enfid using "$TEMP/pscore_knn.dta",    keepusing(weight_knn)     nogenerate
+    merge 1:1 enfid using "$TEMP/poids_kernel.dta",  keepusing(weight_kernel)  nogenerate
+    merge 1:1 enfid using "$TEMP/poids_caliper.dta", keepusing(weight_caliper) nogenerate
+    forvalues g = 1/3 {
+        local titg : label grp `g'
+        di _newline "  -- `titg' --"
+        quietly count if grp_psm == `g' & D == 1
+        local a1 = r(N)
+        quietly count if grp_psm == `g' & D == 0
+        local a0 = r(N)
+        di "    avant appariement        : traites " %6.0f `a1' "   temoins " %6.0f `a0'
+        foreach m in knn kernel caliper {
+            quietly count if grp_psm == `g' & D == 1 & weight_`m' > 0 & !missing(weight_`m')
+            local b1 = r(N)
+            quietly count if grp_psm == `g' & D == 0 & weight_`m' > 0 & !missing(weight_`m')
+            local b0 = r(N)
+            di "    apres (" %-7s "`m'" ")        : traites " %6.0f `b1' "   temoins " %6.0f `b0'
+        }
+    }
+restore
+
+/* Aucun resultat d'ensemble n'est presente : le score, l'appariement et
+   l'impact sont estimes par groupe d'age, et un agregat qui melange des
+   enfants mesures sur des indicateurs differents n'aurait pas
+   d'interpretation. Les trois ATT ci-dessus sont LE resultat. */
 
 /* ── ATT net des chocs locaux de periode (COVID-19) ──────────
    L'indicatrice de periode absorbe le choc COVID COMMUN aux deux
@@ -2141,12 +2173,16 @@ foreach outcome in pauvre_MODA {
    geographique de l'exposition differentielle a la pandemie. Elle ne
    peut rien contre une exposition differentielle au sein d'une meme
    localite, discutee dans les limites du rapport. */
-di _newline "=== PSM-DD net des chocs locaux de periode (COVID-19) ==="
-regress pauvre_MODA i.t##i.D i.t#i.region i.t#i.milieu ///
-    [aw=$POIDS_PRINCIPAL], vce(cluster grappe)
-lincom 1.t#1.D
-di "  ATT_net_chocs_locaux = " %8.4f r(estimate) ///
-   "  SE = " %8.4f r(se) "  p = " %6.4f r(p)
+di _newline "=== PSM-DD net des chocs locaux de periode (COVID-19), par groupe ==="
+forvalues g = 1/3 {
+    local titg : label grp `g'
+    di _newline "-- `titg' --"
+    regress pauvre_MODA i.t##i.D i.t#i.region i.t#i.milieu ///
+        [aw=$POIDS_PRINCIPAL] if groupe_base == `g', vce(cluster grappe)
+    lincom 1.t#1.D
+    di "  ATT_net_chocs (`titg') = " %8.4f r(estimate) ///
+       "  SE = " %8.4f r(se) "  p = " %6.4f r(p)
+}
 di "  (interactions periode x region et periode x milieu incluses)"
 
 /* ── Sensibilite au seuil inter-dimensionnel k ──────────────────
@@ -3188,7 +3224,7 @@ di ">>> 07_effets_dim.do terminé."
 di _newline "=== Test placebo (200 replications) ==="
 
 local n_rep 200
-matrix PLA = J(`n_rep', 1, .)   /* col 1 = MODA */
+matrix PLA = J(`n_rep', 3, .)   /* une colonne par groupe d'age */
 
 /* Echantillon : enfants suivis des menages jamais traites */
 use "$TEMP/panel_enfants_psm.dta", clear
@@ -3227,58 +3263,60 @@ forvalues r = 1/`n_rep' {
         use `never', clear
         merge m:1 grappe menage using `fake', keep(match) nogenerate
 
-        /* DD placebo (moyennes des 4 cellules) */
-        foreach y in pauvre_MODA {
-            summarize `y' if t==1 & fakeD==1
+        /* DD placebo (moyennes des 4 cellules), par groupe d'age,
+           comme l'estimation principale */
+        forvalues g = 1/3 {
+            summarize pauvre_MODA if t==1 & fakeD==1 & groupe_base==`g'
             local m11 = r(mean)
-            summarize `y' if t==0 & fakeD==1
+            summarize pauvre_MODA if t==0 & fakeD==1 & groupe_base==`g'
             local m01 = r(mean)
-            summarize `y' if t==1 & fakeD==0
+            summarize pauvre_MODA if t==1 & fakeD==0 & groupe_base==`g'
             local m10 = r(mean)
-            summarize `y' if t==0 & fakeD==0
+            summarize pauvre_MODA if t==0 & fakeD==0 & groupe_base==`g'
             local m00 = r(mean)
-            local att = (`m11'-`m01') - (`m10'-`m00')
-            matrix PLA[`r',1] = `att'
+            matrix PLA[`r',`g'] = (`m11'-`m01') - (`m10'-`m00')
         }
     }
     if mod(`r', 50) == 0 di "  replication `r'/`n_rep'"
 }
 
-/* Statistiques de la distribution placebo */
+/* Statistiques de la distribution placebo, groupe par groupe : la
+   distribution doit etre centree sur zero, et l'ATT du groupe doit se
+   situer dans sa queue. */
 clear
 svmat PLA, names(col)
-rename c1 att_moda
-foreach y in moda {
-    quietly summarize att_`y'
-    di _newline "Placebo `y' : moyenne=" %7.4f r(mean) "  sd=" %6.4f r(sd)
-    quietly count if abs(att_`y') > 0.05
-    di "  fraction |ATT|>0.05 : " %4.1f 100*r(N)/`n_rep' "%"
-    /* Centile de l'ATT reel dans la distribution placebo (rang percentile) */
-    quietly count if !missing(att_`y')
+forvalues g = 1/3 {
+    rename c`g' att_g`g'
+    quietly summarize att_g`g'
+    di _newline "Placebo groupe `g' : moyenne=" %7.4f r(mean) "  sd=" %6.4f r(sd)
+    quietly count if !missing(att_g`g')
     local ntot = r(N)
-    quietly count if att_`y' < $ATT_REEL
-    di "  ATT reel (" %6.4f $ATT_REEL ") : rang = " %4.1f 100*r(N)/`ntot' "e centile"
+    quietly count if att_g`g' < ${ATT_G`g'}
+    di "  ATT du groupe (" %6.4f ${ATT_G`g'} ") : rang = " ///
+       %4.1f 100*r(N)/`ntot' "e centile"
 }
 
 /* ── Fig placebo : distribution des ATT placebo vs ATT reel ──
    Verifie la plausibilite des tendances paralleles : la distribution
    placebo doit etre centree sur zero et l'ATT reel doit se situer dans
    sa queue. */
-scalar att_reel = $ATT_REEL   /* ATT PSM-DD principal, sauvegarde en section 5 */
-local xl_att = scalar(att_reel)
 set dp comma
-histogram att_moda, width(0.005) frequency ///
-    color(gs9) lcolor(white) ///
-    xline(0, lcolor(black) lpattern(solid)) ///
-    xline(`xl_att', lcolor(orange) lpattern(dash) lwidth(medthick)) ///
-    xtitle("ATT placebo") ///
-    ytitle("Nombre de réplications") ///
-    xlabel(-0.06 "-0,06" -0.04 "-0,04" -0.02 "-0,02" 0 "0" ///
-           0.02 "0,02" 0.04 "0,04" 0.06 "0,06" 0.08 "0,08" 0.10 "0,10", grid) ///
-    graphregion(color(white)) plotregion(color(white))
+forvalues g = 1/3 {
+    local titg : label grp `g'
+    quietly histogram att_g`g', width(0.005) frequency ///
+        color(gs9) lcolor(white) ///
+        xline(0, lcolor(black) lpattern(solid)) ///
+        xline(`=${ATT_G`g'}', lcolor(orange) lpattern(dash) lwidth(medthick)) ///
+        xtitle("ATT placebo") ytitle("Réplications") ///
+        title("`titg'", size(medium)) ///
+        graphregion(color(white)) plotregion(color(white)) ///
+        name(pla`g', replace)
+}
+graph combine pla1 pla2 pla3, rows(1) graphregion(color(white))
 set dp period
 graph export "$OUTPUT/figures/fig_placebo_dd.pdf", replace
-di ">>> fig_placebo_dd.pdf sauvegardé"
+graph drop pla1 pla2 pla3
+di ">>> fig_placebo_dd.pdf sauvegardé (trois panneaux, un par groupe)"
 
 di _newline ">>> 09_placebo.do termine."
 

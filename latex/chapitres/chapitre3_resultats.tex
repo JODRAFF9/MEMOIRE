@@ -10,111 +10,44 @@ par dimension de la pauvreté.
 
 \subsection{Estimation du score de propension}
 
-\subsubsection{Résultats du modèle logit}
+\subsubsection{Résultats des trois modèles logit}
 
-Le modèle présente un pseudo-$R^2$ de McFadden de 15,0\,\%. La probabilité
-qu'un enfant vive dans un
-ménage bénéficiaire croît avec la dépense par tête ($1{,}04$), la présence
-d'une femme à la tête du ménage ($0{,}92$) et la taille du ménage ($0{,}08$).
-À niveau de vie donné, les ménages dirigés par un cadre
-moyen (-$1{,}10$), un ouvrier non qualifié (-$0{,}60$), un travailleur
-familial (-$0{,}66$) ou un travailleur pour
-compte propre (-$0{,}38$) reçoivent moins souvent des transferts que ceux dont
-le chef est sans emploi, catégorie de référence. Les deux covariables
-individuelles ne sont en revanche pas significatives, ni
-le genre de l'enfant ($0{,}037$) ni son âge ($0{,}007$) ne prédisant
-l'appartenance à un ménage bénéficiaire. Le tableau~\ref{tab:logit} rassemble
-ces coefficients et le graphique~\ref{fig:support} montre le recouvrement des
-distributions du score entre les deux groupes.
+Le score de propension est estimé séparément dans chacun des trois groupes
+d'âge : le tableau~\ref{tab:logit} présente les trois modèles côte à côte.
+Les covariables sont celles du chapitre méthodologique, le genre de
+l'enfant, le milieu, la région, et les caractéristiques du chef de ménage,
+son genre, son âge en classes, son niveau d'éducation et son statut
+matrimonial. La comparaison des colonnes montre dans quelle mesure les
+déterminants de la réception d'un transfert diffèrent selon l'âge des
+enfants du ménage, ce qui est précisément la raison d'une estimation
+séparée.
 
 \begin{table}[H]
   \centering
-  \caption{Modèle logit pour l'estimation du score de propension (EHCVM I, 2018-2019)}
+  \caption{Modèles logit du score de propension, par groupe d'âge}
   \label{tab:logit}
-  \nozebre
-  \begin{tabular}{|l|c|}
+  \zebre
+  \small
+  \begin{tabular}{|l|c|c|c|}
     \hline
-\entete Variable & Coefficient \\
+\entete Variable & 0-4 ans & 5-14 ans & 15-17 ans \\
     \hline
-\sousentete Caractéristiques de l'enfant & \\ \hline
-    \quad Genre féminin                        & \makecell{$0{,}037$\\$(0{,}044)$} \\ \hline
-\sousentete Caractéristiques du chef de ménage & \\ \hline
-    \quad Âge du chef (réf. moins de 35 ans) & \\ \hline
-    \quad\quad 35-49 ans      & \makecell{\ldots} \\ \hline
-    \quad\quad 50-64 ans      & \makecell{\ldots} \\ \hline
-    \quad\quad 65 ans et plus & \makecell{\ldots} \\ \hline
-    \quad Chef féminin                         & \makecell{$0{,}917^{***}$\\$(0{,}164)$} \\ \hline
-    \quad CSP, cadre moyen                     & \makecell{-$1{,}099^{***}$\\$(0{,}385)$} \\ \hline
-    \quad CSP, ouvrier non qualifié            & \makecell{-$0{,}601^{*}$\\$(0{,}362)$} \\ \hline
-    \quad CSP, travailleur familial            & \makecell{-$0{,}658^{*}$\\$(0{,}346)$} \\ \hline
-    \quad CSP, compte propre                   & \makecell{-$0{,}382^{***}$\\$(0{,}137)$} \\ \hline
-    \quad Éducation, postsecondaire            & \makecell{$1{,}063^{**}$\\$(0{,}502)$} \\ \hline
-    \quad Divorcé(e)                           & \makecell{-$1{,}903^{**}$\\$(0{,}751)$} \\ \hline
-\sousentete Caractéristiques du ménage & \\ \hline
-    \quad Taille du ménage                     & \makecell{$0{,}084^{***}$\\$(0{,}011)$} \\ \hline
-    \quad Log dépense par tête                 & \makecell{$1{,}044^{***}$\\$(0{,}142)$} \\ \hline
-    \quad Milieu rural                         & \makecell{-$0{,}166$\\$(0{,}150)$} \\ \hline
-\sousentete    Effets fixes région               & Oui \\
-    \hline
-    Constante                                  & \makecell{-$17{,}10^{***}$\\$(2{,}006)$} \\
-    \hline
-    Pseudo-$R^2$ de McFadden                   & $0{,}150$ \\ \hline
-    Observations (enfants, EHCVM~I) & $17\,735$ \\
+    Genre féminin (enfant)          & \ldots & \ldots & \ldots \\ \hline
+    Chef féminin                    & \ldots & \ldots & \ldots \\ \hline
+    Âge du chef : 35-49 ans         & \ldots & \ldots & \ldots \\ \hline
+    Âge du chef : 50-64 ans         & \ldots & \ldots & \ldots \\ \hline
+    Âge du chef : 65 ans et plus    & \ldots & \ldots & \ldots \\ \hline
+    Milieu rural                    & \ldots & \ldots & \ldots \\ \hline
+    Pseudo-$R^2$                    & \ldots & \ldots & \ldots \\ \hline
+    Observations                    & \ldots & \ldots & \ldots \\
     \hline
   \end{tabular}
 
-  {\footnotesize \textbf{Source :} Calcul de l'auteur, EHCVM. $^{*}p<0{,}10$, $^{**}p<0{,}05$, $^{***}p<0{,}01$~; écarts-types entre parenthèses}
+  {\footnotesize \textbf{Source :} Calcul de l'auteur, EHCVM. Écarts-types
+  clusterisés par grappe entre parenthèses~; indicatrices de région, de
+  niveau d'éducation et de statut matrimonial du chef incluses. Référence de
+  l'âge du chef : moins de 35 ans.}
 \end{table}
-
-\begin{figure}[H]
-  \centering
-  \caption{Distribution du score de propension des enfants de ménages bénéficiaires et non bénéficiaires (EHCVM I, panel suivi)}
-  \includegraphics[width=0.85\linewidth]{figures/overlap_panel.pdf}
-  \label{fig:support}
-
-  {\footnotesize \textbf{Source :} Calcul de l'auteur, EHCVM.}
-\end{figure}
-
-Avant appariement, la différence standardisée moyenne atteint 11,4\,\%, avec
-des écarts de 49,7\,\% sur la taille du ménage, 29,3\,\% sur le log de la
-dépense par tête et 27,5\,\% sur le genre du chef de ménage. Le tableau~\ref{tab:balance} présente le diagnostic
-d'équilibrage obtenu une fois l'appariement k-NN effectué, et le
-tableau~\ref{tab:balance_global} résume la qualité de l'appariement pour les
-trois algorithmes.
-
-\begin{table}[H]
-  \centering
-  \caption{Diagnostic post-appariement de l'équilibrage des covariables (méthode k-NN, niveau enfant)}
-  \label{tab:balance}
-  \zebre
-  \small
-  \resizebox{\linewidth}{!}{%
-  \begin{tabular}{|l|c|c|c|c|c|}
-    \hline
-\entete Variable & Moyenne traités & Moyenne témoins & SMD (\%) & T-stat & $P>|t|$ \\
-    \hline
-    Genre de l'enfant (\% filles) & 0,505  & 0,502  & 0,6   & 0,21  & 0,836 \\ \hline
-
-    Taille du ménage             & 17,276 & 16,542 & 8,5   & 2,59  & 0,010 \\ \hline
-    Log dépense par tête         & 12,888 & 12,943 & -10,7 & -3,45 & 0,001 \\ \hline
-    Genre du chef de ménage       & 1,300  & 1,324  & -5,8  & -1,94 & 0,052 \\ \hline
-    Âge du chef (années)         & 54,794 & 54,437 & 2,5   & 0,87  & 0,384 \\ \hline
-    Milieu rural (\%)            & 0,470  & 0,454  & 3,4   & 1,23  & 0,219 \\
-    \hline
-  \end{tabular}%
-  }
-
-  {\footnotesize \textbf{Source :} Calcul de l'auteur, EHCVM.}
-\end{table}
-
-L'appariement est jugé satisfaisant en deçà d'une différence standardisée
-(équation~\ref{eq:smd}) de 10\,\%. Il corrige l'essentiel du déséquilibre initial. La différence
-standardisée moyenne passe de 11,4\,\% à 2,4\,\%. Les
-covariables individuelles sont équilibrées, le genre à $0{,}6$\,\% et l'âge
-de l'enfant à $2{,}0$\,\%. Deux covariables de ménage conservent un
-déséquilibre résiduel, la taille du ménage ($8{,}5$\,\%) et le log de la
-dépense par tête (-$10{,}7$\,\%), les deux déterminants les plus forts du
-traitement.
 
 \subsubsection{Comparaison de la qualité des trois appariements}
 
@@ -212,45 +145,57 @@ rapprochées.
 
 \subsection{Impact des transferts sur la pauvreté multidimensionnelle}
 
-\label{subsec:psmdd}
+L'impact est estimé séparément dans chaque groupe d'âge, dans la
+continuité du score et de l'appariement : les trois effets qui suivent
+constituent le résultat de ce mémoire, et aucun agrégat d'ensemble n'est
+présenté, des enfants mesurés sur des indicateurs différents ne pouvant
+être moyennés. Pour chaque groupe, le tableau~\ref{tab:psmdd_att} rapporte
+l'effectif apparié, la double différence brute, l'estimation PSM-DD de
+référence et la spécification nette des chocs locaux de période.
 
 \begin{table}[H]
   \centering
-  \caption{Impact des transferts sur la pauvreté multidimensionnelle, des estimateurs transversaux au PSM-DD}
+  \caption{Impact des transferts sur la pauvreté multidimensionnelle, par groupe d'âge (PSM-DD)}
   \label{tab:psmdd_att}
   \zebre
-  \begin{tabular}{|l|c|}
+  \small
+  \begin{tabular}{|l|c|c|c|}
     \hline
-\entete Spécification & Coefficient \\
+\entete & 0-4 ans & 5-14 ans & 15-17 ans \\
     \hline
-    PSM seul, EHCVM~I (2018-19)  & \makecell{-$0{,}081^{***}$\\$(0{,}031)$} \\ \hline
-    PSM seul, EHCVM~II (2021-22) & \makecell{-$0{,}017$\\$(0{,}031)$} \\ \hline
-    DD simple                    & \makecell{$0{,}035$\\$(0{,}025)$} \\ \hline
-    PSM-DD                       & \makecell{$0{,}064^{**}$\\$(0{,}029)$} \\
+    Traités appariés            & \ldots & \ldots & \ldots \\ \hline
+    Témoins appariés            & \ldots & \ldots & \ldots \\ \hline
+    DD brute                    & \ldots & \ldots & \ldots \\ \hline
+    ATT PSM-DD                  & \ldots & \ldots & \ldots \\ \hline
+    ATT net des chocs locaux    & \ldots & \ldots & \ldots \\
     \hline
   \end{tabular}
 
-  {\footnotesize \textbf{Source :} Calcul de l'auteur, EHCVM. $^{*}p<0{,}10$, $^{**}p<0{,}05$.}
+  {\footnotesize \textbf{Source :} Calcul de l'auteur, EHCVM. Écarts-types
+  clusterisés par grappe entre parenthèses. $^{*}p<0{,}10$,
+  $^{**}p<0{,}05$, $^{***}p<0{,}01$.}
 \end{table}
 
-Le tableau~\ref{tab:psmdd_att} rapporte quatre spécifications, de
-l'appariement transversal appliqué séparément à chaque édition à l'estimateur
-PSM-DD retenu. Les lignes PSM et PSM-DD y portent sur le support commun, soit
-16\,210 observations-enfants, la double différence simple sur l'ensemble des
-enfants suivis, soit 35\,572 observations. L'appariement transversal donne un écart de -8,1 points en faveur des
-enfants bénéficiaires en 2018-2019, significatif au seuil de 1\,\%, réduit à
--1,7 point et non significatif en 2021-2022. La double différence sans
-appariement donne 3,5 points, non significatifs. L'estimateur PSM-DD
-donne 6,4 points, significatifs au seuil de 5\,\%. La privation multidimensionnelle des
-enfants de ménages bénéficiaires a donc reculé plus lentement que celle
-d'enfants témoins de genre, d'âge et de profil de ménage comparables.
-L'hypothèse H1 n'est pas validée.
+\subsubsection{Enfants de 0 à 4 ans}
 
-Le graphique~\ref{fig:dd_trajectoires} représente l'incidence MODA des enfants
-bénéficiaires et des témoins appariés aux deux éditions, ainsi que le
-contrefactuel obtenu en appliquant la tendance des témoins au niveau initial
-des bénéficiaires. L'écart entre la trajectoire observée des bénéficiaires et
-son contrefactuel correspond à l'effet estimé.
+L'analyse du premier groupe porte sur les enfants âgés de 0 à 4 ans à la
+période de base, dont la mesure repose sur onze indicateurs. Le
+commentaire porte sur le signe et l'ampleur de l'ATT, sa précision, et sa
+tenue dans la spécification nette des chocs locaux~; il est complété par
+la lecture par dimension et par indicateur propre au groupe.
+
+\subsubsection{Enfants de 5 à 14 ans}
+
+Le deuxième groupe, le plus nombreux, est mesuré sur treize indicateurs.
+Même grille de lecture : effet, précision, stabilité aux chocs locaux,
+décomposition par dimension et indicateur.
+
+\subsubsection{Enfants de 15 à 17 ans}
+
+Le troisième groupe est mesuré sur onze indicateurs et repose sur un
+effectif réduit, tant en traités qu'en témoins appariés : la précision de
+l'estimation en est affectée, et le commentaire s'attache d'abord à ce que
+l'on peut et ne peut pas conclure d'un groupe de cette taille.
 
 \begin{figure}[H]
   \centering
@@ -261,6 +206,8 @@ son contrefactuel correspond à l'effet estimé.
 
   {\footnotesize \textbf{Source :} Calcul de l'auteur, EHCVM.}
 \end{figure}
+
+Le graphique~\ref{fig:dd_trajectoires} illustre, pour chaque groupe, les trajectoires d'incidence des bénéficiaires et de leurs témoins appariés entre les deux éditions, dont l'écart des pentes est l'estimateur.
 
 \subsubsection{Robustesse au choix de la méthode d'appariement}
 
