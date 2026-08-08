@@ -3,7 +3,7 @@
 
 Cette section présente les données et la méthodologie de la recherche. La
 pauvreté multidimensionnelle des enfants est mesurée par l'approche MODA de
-l'UNICEF, qui sert de variable de résultat. L'impact des transferts est estimé sur les deux vagues de l'EHCVM par la
+l'UNICEF, qui sert de variable de résultat. L'impact des transferts est estimé sur les deux éditions de l'EHCVM par la
 combinaison du score de propension (PSM) et de la double différence (DD).
 
 % ─────────────────────────────────────────────────────────────────────────────
@@ -19,10 +19,10 @@ conditions de vie selon une méthodologie commune aux huit États membres, de
 manière à rendre les résultats comparables entre pays et dans le temps. Cette
 harmonisation porte sur le questionnaire, sur le plan de sondage et sur les
 concepts, ce qui distingue l'EHCVM des enquêtes nationales antérieures et
-autorise le rapprochement des deux vagues mobilisées ici.
+autorise le rapprochement des deux éditions mobilisées ici.
 
 Au Sénégal, la collecte est assurée par l'Agence nationale de la Statistique et
-de la Démographie. La première vague se déroule en 2018-2019, la seconde en
+de la Démographie. La première édition se déroule en 2018-2019, la seconde en
 2021-2022. Chacune se compose de deux passages, l'un en période de soudure,
 l'autre après les récoltes, de façon à ce que la mesure de la consommation ne
 dépende pas du moment de l'enquête, précaution qui importe pour les indicateurs
@@ -40,24 +40,24 @@ les transferts reçus, leur origine, leur montant et leur fréquence, ainsi que 
 lien de l'expéditeur au ménage, information sans laquelle la variable de
 traitement de ce mémoire ne pourrait être construite.
 
-Les deux vagues mobilisées dans ce travail reposent sur un plan de sondage
+Les deux éditions mobilisées dans ce travail reposent sur un plan de sondage
 aléatoire stratifié à deux degrés, dont les trois niveaux se décrivent comme
 suit.
 
 \begin{itemize}
-  \item Strates. Les 14 régions administratives du Sénégal sont chacune
+  \item Strates : les 14 régions administratives du Sénégal sont chacune
   subdivisées suivant le milieu de résidence (urbain, rural), soit 28 strates.
   Le tirage est indépendant dans chaque strate, ce qui garantit la
   représentativité au niveau région et milieu de résidence;
-  \item Unités primaires. Des districts
+  \item Unités primaires : des districts
   de recensement (DR) issus du RGPHAE 2013 constituent les grappes.
   598 DR ont été sélectionnés (330 urbains, 268 ruraux);
-  \item Unités secondaires. 12 ménages
+  \item Unités secondaires : 12 ménages
   sont enquêtés dans chaque DR.
 \end{itemize}
 
-L'échantillon théorique atteint ainsi environ 7\,200 ménages par vague. La
-seconde vague a réinterrogé une partie des ménages de la première, ce qui
+L'échantillon théorique atteint ainsi environ 7\,200 ménages par édition. La
+second'édition a réinterrogé une partie des ménages de la première, ce qui
 constitue la composante longitudinale sur laquelle repose l'identification
 retenue ici. Cette composante n'était pas l'objet premier de l'enquête, dont la
 vocation est de produire des indicateurs transversaux comparables entre pays,
@@ -65,10 +65,10 @@ et c'est pourquoi le suivi doit être reconstruit ménage par ménage, puis
 individu par individu, comme l'expose la section suivante.
 
 Deux conséquences en découlent pour ce travail. La première est que les poids
-de sondage sont calculés pour la représentativité transversale de chaque vague,
+de sondage sont calculés pour la représentativité transversale de chaque édition,
 non pour le sous-échantillon suivi, ce qui invite à la prudence dans
 l'extrapolation des résultats à l'ensemble des enfants sénégalais. La seconde
-est que la comparabilité des indicateurs entre les deux vagues doit être
+est que la comparabilité des indicateurs entre les deux éditions doit être
 vérifiée question par question, les codes et parfois les modalités ayant changé,
 vérification dont l'annexe~\ref{ann:D} rend compte.
 
@@ -76,13 +76,13 @@ vérification dont l'annexe~\ref{ann:D} rend compte.
 \label{subsec:panel_enfants}
 
 L'unité d'analyse est l'enfant. La population cible est l'ensemble des enfants
-âgés de 0 à 17 ans vivant dans un ménage enquêté aux deux vagues, le ménage ne
+âgés de 0 à 17 ans vivant dans un ménage enquêté aux deux éditions, le ménage ne
 servant ici qu'à les atteindre. Sur les 7\,156 ménages de l'EHCVM~I et les
 7\,120 de l'EHCVM~II, 6\,127 sont enquêtés aux deux passages et forment le
 panel vrai
 \parencite{ansd2022}. Ils abritent 31\,382 enfants de 0 à 17 ans en 2018-2019
 et 28\,341 en 2021-2022, dont 17\,786 sont suivis individuellement d'une
-vague à l'autre grâce à l'identifiant de 2018 préchargé dans le questionnaire
+édition à l'autre grâce à l'identifiant de 2018 préchargé dans le questionnaire
 de l'EHCVM~II, qui relie chaque
 personne à elle-même. Le
 tableau~\ref{tab:panelhh} donne la répartition des ménages selon leur statut
@@ -135,13 +135,13 @@ L'unité d'analyse étant l'enfant, la variable de traitement
 $D_i \in \{0, 1\}$ est attachée à chaque enfant $i$ et vaut 1 si son ménage
 est bénéficiaire de transferts de migrants, tous les enfants d'un même
 ménage partageant donc le même statut. Construit à partir de la section 13
-des deux vagues EHCVM, un transfert éligible est celui d'un expéditeur
+des deux éditions EHCVM, un transfert éligible est celui d'un expéditeur
 résidant hors du Sénégal et ayant déjà vécu dans le ménage, en tant
 qu'ancien membre parti en migration~; les transferts internes et les envois
 d'expéditeurs n'ayant jamais appartenu au ménage sont écartés.
 
 Le design principal retient l'exposition continue : un enfant est traité si
-son ménage reçoit un tel transfert \emph{aux deux vagues}, et le groupe
+son ménage reçoit un tel transfert \emph{aux deux éditions}, et le groupe
 témoin rassemble les enfants des ménages n'en recevant à aucune des deux.
 Deux raisons commandent ce choix. La première tient à la définition même du
 traitement~: comme le montre le tableau~\ref{tab:repart_traitement}, près
@@ -165,7 +165,7 @@ Le tableau~\ref{tab:repart_traitement} donne la répartition des 17\,786
 enfants suivis. 1\,482 vivent dans un ménage bénéficiaire stable et
 13\,477 dans un ménage jamais bénéficiaire~: ce sont les deux groupes du
 design principal. Les 2\,827 enfants des ménages au statut transitoire,
-bénéficiaires à une seule des deux vagues, sont écartés du design principal
+bénéficiaires à une seule des deux éditions, sont écartés du design principal
 et réintégrés par la définition de robustesse.
 
 \begin{table}[H]
@@ -178,7 +178,7 @@ et réintégrés par la définition de robustesse.
 \entete Statut du ménage en 2018 & Enfants suivis ($n$) & Part (\%) \\
     \hline
     Bénéficiaire ($D=1$)     &  2\,638 &  14,8 \\ \hline
-    \quad dont bénéficiaire stable (aux deux vagues) & 1\,482 & 8,3 \\ \hline
+    \quad dont bénéficiaire stable (aux deux éditions) & 1\,482 & 8,3 \\ \hline
     \quad dont bénéficiaire en 2018 seulement        & 1\,156 & 6,5 \\ \hline
     Non-bénéficiaire ($D=0$) & 15\,148 &  85,2 \\ \hline
     \quad dont jamais bénéficiaire                   & 13\,477 & 75,8 \\ \hline
@@ -222,7 +222,7 @@ et de leur applicabilité par groupe d'âge est détaillée en
 annexe~\ref{ann:C} (tableau~\ref{tab:matrice_nmoda}).
 Les sept dimensions retenues sont l'assainissement, l'eau, le logement, la
 nutrition, la santé, la protection de l'enfant et l'éducation, chacune reposant
-sur des indicateurs comparables entre les deux vagues de l'EHCVM. Au total,
+sur des indicateurs comparables entre les deux éditions de l'EHCVM. Au total,
 13 indicateurs alimentent ces dimensions, mais leur champ d'application
 suit l'âge de l'enfant. Onze indicateurs concernent les enfants de 0 à 4 ans,
 13 les enfants d'âge scolaire de 5 à 14 ans, qui y ajoutent le travail des
@@ -255,7 +255,7 @@ l'enfant, dont dépendent l'exposition aux maladies et les conditions d'étude.
 La nutrition est mesurée par l'échelle d'insécurité alimentaire vécue,
 en huit questions portant sur les douze derniers mois. L'enfant est déclaré
 privé dès qu'au moins une des huit situations est déclarée. Faute de mesures
-anthropométriques comparables entre les deux vagues, cette échelle est le seul
+anthropométriques comparables entre les deux éditions, cette échelle est le seul
 indicateur nutritionnel disponible, ce qui constitue une limite assumée.
 
 La santé croise le combustible de cuisson et l'accès à une structure de
@@ -355,7 +355,7 @@ tendances parallèles, hypothèse peu crédible entre deux groupes qui ne parten
 pas du même niveau. Leur combinaison, proposée par \textcite{heckman1997,
 heckman1998}, affaiblit les deux hypothèses simultanément, la double différence
 n'étant plus appliquée qu'à des enfants rendus comparables sur l'observable.
-C'est cet estimateur que retient ce mémoire, et la disponibilité de deux vagues
+C'est cet estimateur que retient ce mémoire, et la disponibilité de deux éditions
 appariées le rend possible.
 
 \subsubsection{Cadre des résultats potentiels}
@@ -504,7 +504,7 @@ Une covariable du score de propension doit être prédéterminée, c'est-à-dire
 fixée avant le traitement et non modifiée par lui. Une variable affectée par
 les transferts introduirait dans le score un canal par lequel le traitement
 agit, et l'appariement en absorberait une partie de l'effet. Le test consiste,
-pour chaque variable mesurée aux deux vagues, à régresser sa valeur de 2021 sur
+pour chaque variable mesurée aux deux éditions, à régresser sa valeur de 2021 sur
 le traitement de 2018 en contrôlant sa valeur de 2018. Un coefficient
 significatif sur le traitement établit que celui-ci déplace la variable, qui ne
 peut alors servir de covariable d'appariement. Le même test est appliqué à la
@@ -523,7 +523,7 @@ que sur les groupes d'âge auxquels il s'applique.
 
 \subsubsection{Double différence}
 
-La double différence (DD) \textcite{card1994} exploite la dimension temporelle des deux vagues EHCVM
+La double différence (DD) \textcite{card1994} exploite la dimension temporelle des deux éditions EHCVM
 pour contrôler les effets fixes inobservables stables dans le temps :
 \begin{equation}
   \hat{\tau}_{DD} = \left(\bar{Y}^1_{t=2} - \bar{Y}^1_{t=1}\right)
@@ -538,7 +538,7 @@ et le groupe témoin ($D_i=0$), sous l'hypothèse de tendances parallèles :
   \label{eq:parallel}
 \end{equation}
 
-\subsubsection{La pandémie de COVID-19 entre les deux vagues}
+\subsubsection{La pandémie de COVID-19 entre les deux éditions}
 La période séparant les deux enquêtes contient la pandémie de COVID-19, dont
 le choc a frappé le Sénégal en 2020 : restrictions de déplacement, fermeture
 temporaire des écoles, ralentissement de l'activité, tension sur les prix
@@ -576,7 +576,7 @@ le temps (DD) :
 \end{equation}
 où $\Delta Y_i = Y_{i,t=2} - Y_{i,t=1}$ est la variation intra-ménage
 de la variable de résultat MODA, calculée directement sur les
-ménages suivis entre les deux vagues.
+ménages suivis entre les deux éditions.
 
 Quelques conventions valent pour l'ensemble des estimations qui suivent. Les
 statistiques descriptives sont pondérées par la pondération de sondage des
