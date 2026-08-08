@@ -851,6 +851,23 @@ foreach annee in 2018 2021 {
     }
     replace m_alfab = 0 if age < 15
 
+    /* Versions NON plafonnees par l'age courant, utilisees pour mesurer
+       les privations de 2021 SUR LA GRILLE DU GROUPE DE BASE : un enfant
+       de la grille 5-14 devenu 15-17 en 2021 y reste evalue sur l'acte de
+       naissance et la scolarisation. La limite est assumee et discutee
+       dans le rapport : ces privations sont alors mesurees sur des
+       enfants qui n'ont plus l'age de la grille. */
+    gen byte m_acte_nc = (s01q05 == 2) if !missing(s01q05)
+    gen byte m_scol_nc = (scol == 0)   if !missing(scol)
+    gen byte m_alfab_nc = .
+    if `annee' == 2018 {
+        replace m_alfab_nc = (alfab == 0) if !missing(alfab)
+    }
+    else {
+        capture confirm variable alfa
+        if !_rc replace m_alfab_nc = (alfa == 0) if !missing(alfa)
+    }
+
     /* NEET : conserve pour la statistique descriptive (annexe), hors agregat. */
     gen byte m_neet = (scol == 0 & activ7j != 1) ///
         if age >= 15 & !missing(scol) & !missing(activ7j)
@@ -1164,11 +1181,13 @@ use "$TEMP/enfants_dep_2018.dta", clear
 keep grappe menage numind sexe age pauvre_MODA nb_dep intensite_moda groupe_moda ///
      dim_assai dim_eau dim_logem dim_nutri dim_sante dim_protect dim_educ ///
      m_parents m_toilet m_partag_toi m_eau_source m_eau_temps m_ordures m_surpeup m_securite m_combust m_sante_acces m_acte_nais m_trav_enf m_scol m_alfab ///
+     m_acte_nc m_scol_nc m_alfab_nc ///
      hhweight hhsize pcexp region milieu hgender hage heduc hmstat hcsp
 rename numind numind_2018
 foreach v in sexe age pauvre_MODA nb_dep intensite_moda groupe_moda ///
              dim_assai dim_eau dim_logem dim_nutri dim_sante dim_protect dim_educ ///
-             m_parents m_toilet m_partag_toi m_eau_source m_eau_temps m_ordures m_surpeup m_securite m_combust m_sante_acces m_acte_nais m_trav_enf m_scol m_alfab {
+             m_parents m_toilet m_partag_toi m_eau_source m_eau_temps m_ordures m_surpeup m_securite m_combust m_sante_acces m_acte_nais m_trav_enf m_scol m_alfab ///
+             m_acte_nc m_scol_nc m_alfab_nc {
     rename `v' `v'18
 }
 tempfile enf18_psm
@@ -1177,10 +1196,12 @@ save `enf18_psm'
 use "$TEMP/enfants_dep_2021.dta", clear
 keep grappe menage numind sexe age pauvre_MODA nb_dep intensite_moda groupe_moda ///
      dim_assai dim_eau dim_logem dim_nutri dim_sante dim_protect dim_educ ///
-     m_parents m_toilet m_partag_toi m_eau_source m_eau_temps m_ordures m_surpeup m_securite m_combust m_sante_acces m_acte_nais m_trav_enf m_scol m_alfab
+     m_parents m_toilet m_partag_toi m_eau_source m_eau_temps m_ordures m_surpeup m_securite m_combust m_sante_acces m_acte_nais m_trav_enf m_scol m_alfab ///
+     m_acte_nc m_scol_nc m_alfab_nc
 foreach v in sexe age pauvre_MODA nb_dep intensite_moda groupe_moda ///
              dim_assai dim_eau dim_logem dim_nutri dim_sante dim_protect dim_educ ///
-             m_parents m_toilet m_partag_toi m_eau_source m_eau_temps m_ordures m_surpeup m_securite m_combust m_sante_acces m_acte_nais m_trav_enf m_scol m_alfab {
+             m_parents m_toilet m_partag_toi m_eau_source m_eau_temps m_ordures m_surpeup m_securite m_combust m_sante_acces m_acte_nais m_trav_enf m_scol m_alfab ///
+             m_acte_nc m_scol_nc m_alfab_nc {
     rename `v' `v'21
 }
 merge m:1 grappe menage numind using "$TEMP/lien_individus.dta", ///
@@ -1923,11 +1944,50 @@ label var groupe_base "Groupe d'age MODA a la periode de base (2018)"
 
 reshape long pauvre_MODA nb_dep intensite_moda groupe_moda sexe age ///
              dim_assai dim_eau dim_logem dim_nutri dim_sante dim_protect dim_educ ///
-             m_toilet m_partag_toi m_eau_source m_eau_temps m_ordures m_surpeup m_securite m_combust m_sante_acces m_acte_nais m_trav_enf m_scol m_alfab, ///
+             m_toilet m_partag_toi m_eau_source m_eau_temps m_ordures m_surpeup m_securite m_combust m_sante_acces m_acte_nais m_trav_enf m_scol m_alfab ///
+             m_acte_nc m_scol_nc m_alfab_nc, ///
     i(enfid) j(periode)
 gen byte t = (periode == 21)
 label var t "0 = EHCVM I (2018-19), 1 = EHCVM II (2021-22)"
 drop periode
+
+/* ── GRILLE FIGEE A LA PERIODE DE BASE ───────────────────────
+   La double difference exige que chaque enfant soit mesure sur la meme
+   grille aux deux dates : les privations de 2021 sont donc recalculees
+   sur la grille du groupe d'age DE BASE, a partir des versions non
+   plafonnees des indicateurs individuels. Un enfant de la grille 5-14
+   devenu 15-17 reste evalue sur l'acte de naissance et la scolarisation.
+   La limite, assumee et discutee dans le rapport, est que ces privations
+   sont mesurees en 2021 sur des enfants qui n'ont plus l'age de la
+   grille. Les dimensions du cadre de vie (assainissement, eau, logement,
+   nutrition, sante), identiques d'une grille a l'autre, sont inchangees. */
+replace dim_protect = (m_acte_nc == 1) ///
+    if t == 1 & groupe_base == 1 & !missing(m_acte_nc)
+replace dim_protect = . ///
+    if t == 1 & groupe_base == 1 & missing(m_acte_nc)
+replace dim_protect = (m_acte_nc == 1 | m_trav_enf == 1) ///
+    if t == 1 & groupe_base == 2 & !missing(m_acte_nc) & !missing(m_trav_enf)
+replace dim_protect = . ///
+    if t == 1 & groupe_base == 2 & (missing(m_acte_nc) | missing(m_trav_enf))
+replace dim_protect = (m_trav_enf == 1) ///
+    if t == 1 & groupe_base == 3 & !missing(m_trav_enf)
+replace dim_protect = . ///
+    if t == 1 & groupe_base == 3 & missing(m_trav_enf)
+
+replace dim_educ = 0 if t == 1 & groupe_base == 1
+replace dim_educ = m_scol_nc  if t == 1 & groupe_base == 2
+replace dim_educ = m_alfab_nc if t == 1 & groupe_base == 3
+
+/* Reagregation sur la grille figee */
+replace nb_dep = dim_assai + dim_eau + dim_logem + dim_nutri + ///
+                 dim_sante + dim_protect + dim_educ if t == 1
+replace pauvre_MODA = (nb_dep >= $K_MODA) if t == 1 & !missing(nb_dep)
+replace pauvre_MODA = . if t == 1 & missing(nb_dep)
+replace intensite_moda = nb_dep / 7 if t == 1
+
+quietly count if t == 1 & missing(pauvre_MODA)
+di _newline ">>> Grille figee a la base : " r(N) ///
+    " observations 2021 sans indice (cas incomplets sur la grille)"
 
 save "$TEMP/panel_enfants_psm.dta", replace
 
