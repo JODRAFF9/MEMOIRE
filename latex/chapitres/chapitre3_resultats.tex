@@ -38,9 +38,11 @@ distributions du score entre les deux groupes.
     \hline
 \sousentete Caractéristiques de l'enfant & \\ \hline
     \quad Genre féminin                        & \makecell{$0{,}037$\\$(0{,}044)$} \\ \hline
-    \quad Âge de l'enfant (années)             & \makecell{$0{,}007$\\$(0{,}006)$} \\ \hline
 \sousentete Caractéristiques du chef de ménage & \\ \hline
-    \quad Âge du chef (années)                 & \makecell{$0{,}004$\\$(0{,}005)$} \\ \hline
+    \quad Âge du chef (réf. moins de 35 ans) & \\ \hline
+    \quad\quad 35-49 ans      & \makecell{\ldots} \\ \hline
+    \quad\quad 50-64 ans      & \makecell{\ldots} \\ \hline
+    \quad\quad 65 ans et plus & \makecell{\ldots} \\ \hline
     \quad Chef féminin                         & \makecell{$0{,}917^{***}$\\$(0{,}164)$} \\ \hline
     \quad CSP, cadre moyen                     & \makecell{-$1{,}099^{***}$\\$(0{,}385)$} \\ \hline
     \quad CSP, ouvrier non qualifié            & \makecell{-$0{,}601^{*}$\\$(0{,}362)$} \\ \hline
@@ -92,7 +94,7 @@ trois algorithmes.
 \entete Variable & Moyenne traités & Moyenne témoins & SMD (\%) & T-stat & $P>|t|$ \\
     \hline
     Genre de l'enfant (\% filles) & 0,505  & 0,502  & 0,6   & 0,21  & 0,836 \\ \hline
-    Âge de l'enfant (années)     & 6,878  & 6,795  & 2,0   & 0,71  & 0,478 \\ \hline
+
     Taille du ménage             & 17,276 & 16,542 & 8,5   & 2,59  & 0,010 \\ \hline
     Log dépense par tête         & 12,888 & 12,943 & -10,7 & -3,45 & 0,001 \\ \hline
     Genre du chef de ménage       & 1,300  & 1,324  & -5,8  & -1,94 & 0,052 \\ \hline
@@ -149,6 +151,64 @@ $[0{,}5~;~2]$. Le test joint n'est significatif pour aucune des trois
 méthodes. Le caliper s'équilibre le mieux, avec une SMD de 1,6\,\%, devant
 le noyau à 2,0\,\% et le k-NN à 2,4\,\%. Le déséquilibre résiduel du k-NN
 porte sur la taille du ménage et la dépense par tête.
+
+\subsection{Chevauchement des scores de propension}
+\label{sec:chevauchement}
+
+L'appariement présenté au chapitre précédent suppose que chaque enfant
+bénéficiaire trouve, parmi les non-bénéficiaires, des enfants de score
+comparable. Cette condition, dite de support commun, ne se vérifie pas par un
+test unique. Elle s'apprécie par un faisceau d'éléments, examinés séparément
+dans chacun des trois groupes d'âge puisque le score y est estimé séparément.
+
+Le premier élément est l'étendue des scores dans chacun des deux groupes, dont
+se déduit la région de recouvrement, comprise entre le plus élevé des deux
+minima et le plus faible des deux maxima. Le deuxième est le nombre d'enfants
+bénéficiaires situés hors de cette région, que l'appariement doit écarter faute
+de contrefactuel : leur part mesure la perte d'échantillon, et au-delà de
+5\,\% elle restreint la population sur laquelle l'effet est identifié, ce qui
+doit être signalé plutôt que masqué. Le troisième est la répartition par décile
+de score, qui révèle les zones où les témoins se raréfient sans pour autant
+sortir du support, et où l'appariement repose sur un petit nombre
+d'observations réutilisées. Le quatrième est le coefficient de chevauchement,
+aire située sous le minimum des deux densités, qui résume l'ensemble en un
+nombre compris entre zéro, lorsque les deux distributions sont disjointes, et
+un, lorsqu'elles se confondent.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{figures/fig_overlap_groupes.pdf}
+  \caption{Densité du score de propension avant appariement, par groupe d'âge}
+  \label{fig:overlap_groupes}
+
+  {\footnotesize \textbf{Source :} Calcul de l'auteur, EHCVM.}
+\end{figure}
+
+La figure~\ref{fig:overlap_groupes} présente les densités avant appariement.
+La lecture porte moins sur l'écart entre les deux courbes, attendu puisque les
+bénéficiaires se distinguent des autres, que sur l'existence de témoins partout
+où se trouvent des bénéficiaires. Une densité témoin qui s'annule dans la zone
+haute des scores signalerait que les ménages les plus susceptibles de recevoir
+n'ont pas d'équivalent non bénéficiaire, et que l'effet ne serait identifié que
+sur les bénéficiaires les moins typiques.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.85\linewidth]{figures/fig_overlap_apres.pdf}
+  \caption{Densité du score de propension après appariement, méthode retenue}
+  \label{fig:overlap_apres}
+
+  {\footnotesize \textbf{Source :} Calcul de l'auteur, EHCVM. La densité des
+  non-bénéficiaires est pondérée par les poids d'appariement.}
+\end{figure}
+
+La figure~\ref{fig:overlap_apres} donne la contrepartie après appariement, la
+densité des non-bénéficiaires étant pondérée par les poids issus de la méthode
+retenue. C'est la superposition des deux courbes qui atteste que l'appariement
+a fait son travail, et elle se lit conjointement avec les biais standardisés
+résiduels du chapitre précédent : la première montre que les distributions de
+score coïncident, les seconds que les covariables elles-mêmes se sont
+rapprochées.
 
 \subsection{Impact des transferts sur la pauvreté multidimensionnelle}
 

@@ -1,11 +1,6 @@
 \section{Dictionnaire des indicateurs et des variables sources}
 \label{ann:D}
 
-Cette annexe documente la construction de chaque indicateur à partir des
-questionnaires de l'EHCVM. Elle permet de reproduire la mesure, et rend
-explicite le fait que les codes de questions diffèrent entre les deux éditions,
-ce qui a imposé une correspondance manuelle module par module.
-
 \begin{table}[H]
   \centering
   \caption{Correspondance entre indicateurs MODA et questions de l'EHCVM}
@@ -37,44 +32,3 @@ ce qui a imposé une correspondance manuelle module par module.
   parentale est une conséquence de la migration, donc du traitement estimé. Elle
   sert de test d'endogénéité et non d'indicateur de privation.}
 \end{table}
-
-\subsection*{Variable de traitement}
-
-Le statut de bénéficiaire est construit à partir du module 13 des deux
-questionnaires. Le design principal exige ces conditions aux deux éditions
-(bénéficiaire stable), le groupe témoin ne les remplissant à aucune~; la
-définition de robustesse les fixe à la seule période de base. Trois conditions
-doivent être réunies simultanément : le ménage
-déclare avoir reçu un transfert au cours de la période de référence. L'expéditeur
-réside hors du Sénégal, ce qu'indique le code pays de la question s13aq14 en
-2018 et s13q19 en 2021. L'expéditeur a appartenu au ménage avant son départ,
-information portée par s13aq12 en 2018 et s13q17 en 2021. Cette troisième
-condition est celle qui distingue le transfert d'un ancien membre de l'envoi
-d'un tiers, et c'est elle qui donne son sens à la variable de traitement.
-
-Le montant annuel reçu, qui sert à l'analyse par quintile, combine le montant
-déclaré et sa fréquence, s13aq17a et s13aq17b en 2018, s13q22a et s13q22b en
-2021.
-
-\subsection*{Covariables du score de propension}
-
-Le vecteur retenu combine deux niveaux. Au niveau du ménage, le milieu de
-résidence, la région, ainsi que le genre, l'âge, le niveau d'éducation et le
-statut matrimonial du chef. Au niveau de l'enfant, le genre et l'âge à la
-période de base. Toutes ces variables sont mesurées à la première édition et
-sont prédéterminées, aucune n'étant modifiée par le transfert lui-même.
-
-Trois variables ont été écartées pour cette raison : la dépense par tête, dont
-le transfert est une composante, la taille du ménage, qui enregistre le départ
-du migrant, et la catégorie socioprofessionnelle du chef, dont l'activité est
-affectée par les envois reçus. Elles restent affichées dans les tests
-d'équilibre à titre de diagnostic, sans entrer dans l'estimation du score.
-
-\subsection*{Traitement des valeurs manquantes}
-
-L'analyse est conduite en cas complets. Une dimension est déclarée manquante
-dès qu'un seul de ses indicateurs pertinents pour le groupe d'âge de l'enfant
-l'est, et non imputée à zéro, choix conservateur qui évite de compter comme non
-privé un enfant sur lequel l'information fait défaut. L'échantillon
-d'estimation retient les enfants pour lesquels le statut de traitement, les
-covariables et l'indice sont renseignés aux deux éditions.
