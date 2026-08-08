@@ -282,6 +282,23 @@ qu'à $k=2$, $k=3$ et $k=4$.
   {\footnotesize \textbf{Source :} Calcul de l'auteur, EHCVM. $^{*}p<0{,}10$.}
 \end{table}
 
+\subsubsection{Neutralisation des chocs locaux de période}
+
+La pandémie de COVID-19 constitue un choc majeur survenu entre les deux
+éditions. Sa composante commune aux deux groupes est absorbée par
+l'indicatrice de période, c'est la force du dispositif en double
+différence. Sa composante géographique, restrictions, fermetures et
+tensions de prix n'ayant frappé uniformément ni les régions ni les milieux
+urbain et rural, est neutralisée par une spécification augmentée
+d'interactions période$\times$région et période$\times$milieu~: chaque
+localité y possède son propre choc de période, et l'effet n'est plus
+identifié que par la comparaison de bénéficiaires et de témoins d'une même
+localité, soumis au même choc local. La stabilité de l'estimation dans
+cette spécification indique que l'effet mesuré n'est pas le reflet d'une
+répartition géographique différente des deux groupes face à la pandémie.
+Ce que cette correction ne peut atteindre, une exposition différentielle à
+la pandémie au sein d'une même localité, est discuté dans les limites.
+
 \subsubsection{Effets par dimension}
 L'analyse par dimension (figure~\ref{fig:effets_dim}) décompose l'effet
 d'ensemble sur les sept
@@ -363,3 +380,71 @@ quintile de montant annuel reçu et rapporte la pente dose-réponse.
 
   {\footnotesize \textbf{Source :} Calcul de l'auteur, EHCVM. $^{*}p<0{,}10$, $^{**}p<0{,}05$.}
 \end{table}
+
+\subsubsection{Selon le milieu de résidence}
+
+L'effet atteint $0{,}069$ en milieu urbain, significatif au seuil de
+10\,\%, et $0{,}059$ en milieu rural, non significatif. Les deux
+coefficients sont donc très proches et le test d'égalité ne rejette pas
+l'homogénéité ($p = 0{,}863$). Le volet géographique de
+l'hypothèse H2 n'est pas validé.
+
+\subsubsection{Selon le genre du chef de ménage}
+
+Le genre du chef de ménage est le prédicteur le plus fort du traitement, la
+migration de l'époux laissant souvent la gestion du ménage à l'épouse. L'effet
+des transferts peut donc différer selon que le ménage est dirigé par un homme
+ou par une femme. L'estimation donne \ATTchefH pour les ménages dirigés par un
+homme et \ATTchefF pour ceux dirigés par une femme. Le premier atteint le
+seuil de 10\,\%, le second non, mais l'écart d'un point entre les deux ne se
+distingue pas du bruit ($p = \PchefEg$). Le volet de H2 qui s'y rapporte
+n'est donc pas validé.
+
+\subsubsection{Selon les groupes d'âge}
+
+La décomposition livre le coefficient de plus grande ampleur de l'analyse.
+Chez les enfants de 0 à 4 ans, l'effet atteint $0{,}091$ et est significatif au
+seuil de 5\,\%. La privation multidimensionnelle des
+enfants de 0 à 4 ans de ménages bénéficiaires recule neuf points plus lentement
+que celle de leurs témoins appariés. Il dépasse de moitié l'effet
+d'ensemble, et il concerne la tranche d'âge sur laquelle les privations pèsent
+le plus lourdement dans la trajectoire ultérieure de l'enfant. Les 5-14 ans
+suivent avec $0{,}056$, significatif au seuil de 10\,\%.
+
+Le test joint d'égalité des trois effets ne rejette
+pas l'homogénéité, et l'écart des 5-14 ans aux 0-4 ans, de
+3,5 points, n'est pas significatif. Ce que l'on peut affirmer
+est donc que l'effet est établi chez les enfants de 0 à 4 ans et ne l'est pas ailleurs,
+non que son ampleur y soit statistiquement supérieure. Les 15-17 ans montrent un coefficient de -$0{,}069$, non significatif.
+
+\subsubsection{Selon le montant des transferts reçus}
+\label{subsec:hetero_montant}
+
+Les trois volets précédents traitent le traitement comme binaire. Or les
+montants reçus varient considérablement d'un ménage à l'autre. La médiane
+s'établit autour de 600\,000 FCFA par an, mais le troisième quartile atteint
+1\,280\,000 FCFA. Un transfert de 50\,000 FCFA et
+un transfert de deux millions ne desserrent pas la même contrainte
+budgétaire, et rien n'impose que leurs effets soient de même ampleur. Ce
+dernier volet de l'hypothèse H2 examine donc la relation dose-réponse. Les
+quintiles sont construits sur la distribution du montant annuel parmi les
+ménages bénéficiaires, au niveau du ménage puis chaque quintile d'enfants traités est
+comparé à l'ensemble des enfants témoins appariés. Le tableau
+\ref{tab:hetero_montant} rapporte l'effet par quintile ainsi qu'un test continu,
+qui estime la pente de l'effet en fonction du logarithme du montant sur les
+seuls enfants traités.
+
+L'effet défavorable se concentre sur les petits
+montants, avec $12{,}9$ points de pourcentage dans le premier quintile, jusqu'à
+100~000 FCFA par an, et $9{,}9$ points dans le deuxième, tous deux
+significatifs à 5\,\%. Il disparaît ensuite, les troisième et quatrième
+quintiles ne se distinguent pas, et le cinquième, au-delà de 1,8 million de
+FCFA par an, présente un coefficient négatif et non significatif en pratique
+(-$0{,}008$). Le test continu confirme cette structure, la pente de l'effet en fonction du
+logarithme du montant vaut -$0{,}025$, significative au seuil de 10\,\%. Plus le montant est
+élevé, plus l'écart de trajectoire défavorable tend à se réduire. Le profil
+par quintile n'est toutefois pas strictement monotone, le quatrième quintile
+remontant sans être significatif, et c'est la pente en tendance qui porte la
+conclusion. Le volet de H2 relatif au montant est
+donc validé.
+
