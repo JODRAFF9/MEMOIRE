@@ -2105,6 +2105,50 @@ restore
    geographique de l'exposition differentielle a la pandemie. Elle ne
    peut rien contre une exposition differentielle au sein d'une meme
    localite, discutee dans les limites du rapport. */
+/* ── ENCADREMENT DD - ANCOVA, par groupe d'age ───────────────
+   Le traitement etant deja en cours a la periode de base, il n'existe
+   aucune periode pre-traitement : l'hypothese de tendances paralleles
+   de la DD est intestable par construction. L'encadrement d'Angrist et
+   Pischke (2009) y repond : la DD suppose les tendances paralleles, la
+   regression a variable dependante retardee (ANCOVA : resultat de 2021
+   sur le traitement, le resultat de 2018 et les covariables) suppose au
+   contraire la selection sur le niveau initial, et les deux estimations
+   ENCADRENT l'effet vrai. Un effet de meme signe dans les deux
+   specifications ne depend d'aucune des deux hypotheses ; un effet qui
+   disparait dans l'ANCOVA signale que la convergence des niveaux (retour
+   a la moyenne) porte le resultat de la DD.
+   L'AIPW (doublement robuste, teffects) complete : meme identification,
+   estimateur convergent des lors que le modele de score OU le modele de
+   resultat est bien specifie. */
+di _newline "=== Encadrement DD - ANCOVA, par groupe d'age ==="
+preserve
+    use "$TEMP/pscore_t0.dta", clear
+    merge 1:1 enfid using "$TEMP/poids_kernel.dta", ///
+        keepusing(weight_kernel) nogenerate
+    forvalues g = 1/3 {
+        local titg : label grp `g'
+        di _newline "-- `titg' --"
+        regress pauvre_MODA21 i.D c.pauvre_MODA18 $COV_SCORE ///
+            [aw=weight_kernel] if grp_psm == `g' ///
+            & weight_kernel > 0 & !missing(weight_kernel), vce(cluster grappe)
+        di "  ANCOVA (`titg') : effet = " %8.4f _b[1.D] ///
+           "  SE = " %8.4f _se[1.D] ///
+           "  p = " %6.4f 2*ttail(e(df_r), abs(_b[1.D]/_se[1.D]))
+        di "  Rappel DD (`titg') : " %8.4f ${ATT_G`g'}
+        di "  Lecture : DD et ANCOVA encadrent l'effet vrai (Angrist et"
+        di "  Pischke, 2009) ; meme signe = conclusion robuste aux deux"
+        di "  hypotheses opposees."
+
+        capture noisily teffects aipw (pauvre_MODA21 pauvre_MODA18 $COV_SCORE) ///
+            (D $COV_SCORE, logit) if grp_psm == `g', atet
+        if _rc == 0 {
+            di "  AIPW (`titg') : ATET = " %8.4f _b[r1vs0.D] ///
+               "  SE = " %8.4f _se[r1vs0.D]
+        }
+        else di "  AIPW (`titg') : non estimable (rc=" _rc ")"
+    }
+restore
+
 di _newline "=== PSM-DD net des chocs locaux de periode (COVID-19), par groupe ==="
 forvalues g = 1/3 {
     local titg : label grp `g'
