@@ -2712,6 +2712,41 @@ foreach annee in 2018 2021 {
             di "  `dim' / `lbl' : " %5.1f M[1,1]*100 "%   n=" %7.0f M[2,1]
         }
     }
+    /* ── Taux de privation PAR INDICATEUR ─────────────────────
+       La dimension agrege par la regle de l'union : le taux de la
+       dimension ne dit pas quel indicateur le porte. Chaque indicateur
+       est decrit sur son champ d'application (enfants pour lesquels il
+       n'est pas manquant), au total, par statut et par groupe d'age. */
+    di _newline "  -- Indicateurs `annee' : taux de privation --"
+    di "    indicateur        ensemble   benefic.   non-ben.       n"
+    foreach ind in m_toilet m_partag_toi m_eau_source m_eau_temps ///
+                   m_ordures m_surpeup m_securite m_combust ///
+                   m_sante_acces m_acte_nais m_trav_enf m_scol m_alfab {
+        quietly count if !missing(`ind')
+        local n_ind = r(N)
+        if `n_ind' > 0 {
+            quietly summarize `ind' [aw=hhweight]
+            local p_ens = 100*r(mean)
+            quietly summarize `ind' [aw=hhweight] if D == 1
+            local p_b = 100*r(mean)
+            quietly summarize `ind' [aw=hhweight] if D == 0
+            local p_nb = 100*r(mean)
+            di "    " %-16s "`ind'" %9.1f `p_ens' %11.1f `p_b' ///
+               %11.1f `p_nb' %9.0f `n_ind'
+        }
+    }
+    di _newline "  -- Indicateurs `annee' par groupe d'age --"
+    foreach ind in m_toilet m_partag_toi m_eau_source m_eau_temps ///
+                   m_ordures m_surpeup m_securite m_combust ///
+                   m_sante_acces m_acte_nais m_trav_enf m_scol m_alfab {
+        local ligne "    `ind' :"
+        forvalues g = 1/3 {
+            quietly summarize `ind' [aw=hhweight] if groupe_base == `g'
+            if r(N) > 0 local ligne "`ligne'  g`g'=`: display %5.1f 100*r(mean)'"
+        }
+        di "`ligne'"
+    }
+
     quietly summarize intensite_moda [aw=hhweight] if pauvre_MODA == 1
     local A = r(mean)
     quietly summarize pauvre_MODA [aw=hhweight]
