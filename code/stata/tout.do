@@ -1988,6 +1988,21 @@ forvalues tt = 0/1 {
     }
 }
 
+/* ── Statistiques sur le nombre de privations s_i ────────────
+   La variable de resultat principale merite sa description complete :
+   moyenne, ecart-type et mediane par statut, edition et groupe d'age. */
+di _newline "=== Nombre de privations s_i : moyenne, ecart-type, mediane ==="
+forvalues tt = 0/1 {
+    di "  -- edition t=`tt' --"
+    tabstat nb_dep if t == `tt', by(D) stat(mean sd p50 n) format(%6.2f)
+    forvalues g = 1/3 {
+        local titg : label grp `g'
+        di "    `titg' :"
+        tabstat nb_dep if t == `tt' & groupe_base == `g', ///
+            by(D) stat(mean sd p50 n) format(%6.2f)
+    }
+}
+
 /* Distribution du nombre de privations, par statut et edition */
 di _newline "=== Distribution du nombre de privations (nb_dep) ==="
 forvalues tt = 0/1 {
