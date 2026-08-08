@@ -1890,23 +1890,25 @@ save "$TEMP/panel_enfants_psm.dta", replace
 di _newline "Panel d'enfants apparie : " _N " observations (" ///
     %6.0f `=_N/2' " enfants x 2 vagues)"
 
-/* ── Ventilation des enfants suivis par stabilite du statut ─────
-   Alimente le tableau de repartition du traitement (chap. 2) : parmi les
-   17 786 enfants suivis, croisement du statut 2018 (D) avec le statut a
-   l'autre vague, d'ou les sous-groupes stables / 2018 seulement /
-   jamais / 2021 seulement mobilises par la robustesse. */
-use "$TEMP/panel_enfants_psm.dta", clear
-keep if t == 0
-merge m:1 grappe menage using "$TEMP/traitement_stable.dta", ///
-    keepusing(D_2018 D_2021) keep(master match) nogenerate
+/* ── Ventilation des enfants suivis par statut de beneficiaire ──
+   Alimente le tableau de repartition du traitement (chap. 2) et le
+   tableau d'effectifs des statistiques descriptives (chap. 4) : les
+   quatre statuts possibles au croisement des deux vagues, sur
+   L'ENSEMBLE des enfants suivis (avant restriction du design principal
+   aux stables et jamais beneficiaires), au total et par groupe d'age. */
+use "$TEMP/panel_large_tous.dta", clear
 gen str24 statut_stab = ""
-replace statut_stab = "Beneficiaire stable"    if D_2018 == 1 & D_2021 == 1
-replace statut_stab = "Beneficiaire 2018 slt"  if D_2018 == 1 & D_2021 == 0
-replace statut_stab = "Jamais beneficiaire"    if D_2018 == 0 & D_2021 == 0
-replace statut_stab = "Beneficiaire 2021 slt"  if D_2018 == 0 & D_2021 == 1
-di _newline "=== Enfants suivis : statut 2018 x stabilite ==="
-tab statut_stab D, missing
+replace statut_stab = "1. Beneficiaire stable"   if D_2018 == 1 & D_2021 == 1
+replace statut_stab = "2. Beneficiaire 2018 slt" if D_2018 == 1 & D_2021 == 0
+replace statut_stab = "3. Beneficiaire 2021 slt" if D_2018 == 0 & D_2021 == 1
+replace statut_stab = "4. Jamais beneficiaire"   if D_2018 == 0 & D_2021 == 0
+di _newline "=== Enfants suivis : les quatre statuts possibles ==="
 tab statut_stab, missing
+di _newline "=== Effectifs par statut et groupe d'age (periode de base) ==="
+tab statut_stab groupe_moda18, missing
+di _newline "=== Design principal : effectifs beneficiaires / non ==="
+di "  (stables = traites ; jamais = temoins ; transitoires ecartes)"
+tab statut_stab if D_2018 == D_2021
 
 /* ============================================================
    3. Statistiques descriptives sur le panel
