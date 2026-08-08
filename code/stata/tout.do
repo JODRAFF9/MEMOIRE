@@ -2056,12 +2056,23 @@ forvalues g = 1/3 {
     di "  Effectifs apres appariement (t=0) : traites `n_tr', temoins `n_te'"
     global NTR_G`g' = `n_tr'
     global NTE_G`g' = `n_te'
+    /* Resultat PRINCIPAL : le nombre de privations (0-7). Le seuil
+       k = 4 est une convention ; le comptage capte toute l'echelle du
+       cumul, y compris les deplacements qui ne franchissent pas le
+       seuil. L'incidence au seuil est presentee en complement. */
+    regress nb_dep i.t##i.D [aw=$POIDS_PRINCIPAL] ///
+        if groupe_base == `g', vce(cluster grappe)
+    lincom 1.t#1.D
+    di "  ATT_PSM-DD nb_dep (`titg') = " %8.4f r(estimate) ///
+       "  SE = " %8.4f r(se) "  p = " %6.4f r(p)
+    global ATT_G`g' = r(estimate)
+
     regress pauvre_MODA i.t##i.D [aw=$POIDS_PRINCIPAL] ///
         if groupe_base == `g', vce(cluster grappe)
     lincom 1.t#1.D
-    di "  ATT_PSM-DD (`titg') = " %8.4f r(estimate) ///
+    di "  Complement incidence (`titg') = " %8.4f r(estimate) ///
        "  SE = " %8.4f r(se) "  p = " %6.4f r(p)
-    global ATT_G`g' = r(estimate)
+    global ATTH_G`g' = r(estimate)
 }
 
 di _newline "=== Effectifs avant / apres appariement, par groupe et methode ==="
@@ -2129,7 +2140,7 @@ preserve
     forvalues g = 1/3 {
         local titg : label grp `g'
         di _newline "-- `titg' --"
-        regress pauvre_MODA21 i.D c.pauvre_MODA18 $COV_SCORE ///
+        regress nb_dep21 i.D c.nb_dep18 $COV_SCORE ///
             [aw=weight_kernel] if grp_psm == `g' ///
             & weight_kernel > 0 & !missing(weight_kernel), vce(cluster grappe)
         di "  ANCOVA (`titg') : effet = " %8.4f _b[1.D] ///
@@ -2140,7 +2151,7 @@ preserve
         di "  Pischke, 2009) ; meme signe = conclusion robuste aux deux"
         di "  hypotheses opposees."
 
-        capture noisily teffects aipw (pauvre_MODA21 pauvre_MODA18 $COV_SCORE) ///
+        capture noisily teffects aipw (nb_dep21 nb_dep18 $COV_SCORE) ///
             (D $COV_SCORE, logit) if grp_psm == `g', atet
         if _rc == 0 {
             di "  AIPW (`titg') : ATET = " %8.4f _b[r1vs0.D] ///
@@ -2154,7 +2165,7 @@ di _newline "=== PSM-DD net des chocs locaux de periode (COVID-19), par groupe =
 forvalues g = 1/3 {
     local titg : label grp `g'
     di _newline "-- `titg' --"
-    regress pauvre_MODA i.t##i.D i.t#i.region i.t#i.milieu ///
+    regress nb_dep i.t##i.D i.t#i.region i.t#i.milieu ///
         [aw=$POIDS_PRINCIPAL] if groupe_base == `g', vce(cluster grappe)
     lincom 1.t#1.D
     di "  ATT_net_chocs (`titg') = " %8.4f r(estimate) ///
@@ -3288,13 +3299,13 @@ forvalues r = 1/`n_rep' {
         /* DD placebo (moyennes des 4 cellules), par groupe d'age,
            comme l'estimation principale */
         forvalues g = 1/3 {
-            summarize pauvre_MODA if t==1 & fakeD==1 & groupe_base==`g'
+            summarize nb_dep if t==1 & fakeD==1 & groupe_base==`g'
             local m11 = r(mean)
-            summarize pauvre_MODA if t==0 & fakeD==1 & groupe_base==`g'
+            summarize nb_dep if t==0 & fakeD==1 & groupe_base==`g'
             local m01 = r(mean)
-            summarize pauvre_MODA if t==1 & fakeD==0 & groupe_base==`g'
+            summarize nb_dep if t==1 & fakeD==0 & groupe_base==`g'
             local m10 = r(mean)
-            summarize pauvre_MODA if t==0 & fakeD==0 & groupe_base==`g'
+            summarize nb_dep if t==0 & fakeD==0 & groupe_base==`g'
             local m00 = r(mean)
             matrix PLA[`r',`g'] = (`m11'-`m01') - (`m10'-`m00')
         }
