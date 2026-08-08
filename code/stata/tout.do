@@ -2384,6 +2384,18 @@ foreach poids_var in weight_knn weight_kernel weight_caliper {
 /* ── Variable de resultat continue : nombre de privations ──────
    Le statut binaire perd l'information sur l'intensite. On reestime l'ATT
    sur nb_dep (0 a 7) avec la DD simple et les trois appariements. */
+di _newline "=== ATT sur le nombre de privations (0-7), par groupe d'age ==="
+forvalues g = 1/3 {
+    local titg : label grp `g'
+    regress nb_dep i.t##i.D [aw=$POIDS_PRINCIPAL] ///
+        if groupe_base == `g', vce(cluster grappe)
+    lincom 1.t#1.D
+    di "  nb_dep (`titg') : ATT = " %8.4f r(estimate) ///
+       "  SE = " %8.4f r(se) "  p = " %6.4f r(p)
+}
+di "  Lecture : effet sur le nombre de privations cumulees, qui capte les"
+di "  deplacements que le franchissement du seuil k=4 ne voit pas."
+
 di _newline "=== ATT sur le nombre de privations (0-7) ==="
 preserve
     use "$TEMP/panel_enfants_psm.dta", clear
