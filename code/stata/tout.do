@@ -1196,6 +1196,10 @@ merge m:1 grappe menage using "$TEMP/traitement_2018.dta", ///
 /* Restriction aux menages du panel vrai */
 merge m:1 grappe menage using "$TEMP/ids_panel.dta", keep(match) nogenerate
 
+/* Statut aux deux vagues, pour la definition du design principal */
+merge m:1 grappe menage using "$TEMP/traitement_stable.dta", ///
+    keepusing(D_2018 D_2021) keep(master match) nogenerate
+
 /* Intensite du traitement : montant annuel recu en 2018. Manquant pour les
    menages non beneficiaires, par construction. */
 merge m:1 grappe menage using "$TEMP/montant_2018.dta", ///
@@ -1219,6 +1223,38 @@ drop if missing(D) | missing(sexe18) | missing(age18) ///
        | missing(milieu) | missing(region) | missing(hgender) ///
        | missing(hage) | missing(heduc) | missing(hmstat) ///
        | missing(pauvre_MODA18) | missing(pauvre_MODA21)
+
+/* ── DESIGN PRINCIPAL : beneficiaires stables vs jamais beneficiaires ──
+   Le traitement du design principal est l'exposition continue : menages
+   beneficiaires aux DEUX vagues (D_2018=1 et D_2021=1) contre menages
+   jamais beneficiaires (0 aux deux vagues). Deux raisons commandent ce
+   choix. La premiere est la definition meme du traitement : pres d'un
+   beneficiaire de 2018 sur deux ne recoit plus en 2021, en partie parce
+   que la pandemie de COVID-19 a interrompu les envois en 2020 ; classer
+   ces menages parmi les traites reviendrait a mesurer l'effet d'un
+   traitement largement eteint. La seconde est la lisibilite de l'effet :
+   chez les stables, le flux est effectif sur toute la periode, et l'ATT
+   se lit comme l'effet d'une exposition durable aux transferts.
+   En contrepartie, le traitement est deja en cours a t=0 : la periode de
+   base n'est pas une periode pre-traitement, et la DD s'interprete comme
+   l'ecart de trajectoire entre exposition continue et absence continue.
+   La definition a la periode de base (D de 2018, transitoires inclus)
+   est conservee en robustesse (section 8).
+   L'echantillon complet est sauvegarde avant restriction pour cette
+   meme section 8. */
+save "$TEMP/panel_large_tous.dta", replace
+
+quietly count
+local n_avant = r(N)
+keep if D_2018 == D_2021
+di _newline "=== Design principal : stables vs jamais ==="
+di "  Enfants suivis au total          : `n_avant'"
+quietly count if D == 1
+di "  Enfants de beneficiaires stables : " r(N)
+quietly count if D == 0
+di "  Enfants jamais beneficiaires     : " r(N)
+quietly count
+di "  Transitoires ecartes             : " `n_avant' - r(N)
 
 /* ── Validation empirique de l'appariement individuel ─────────
    Deux verifications qu'un appariement arbitraire ne pourrait pas
@@ -1929,6 +1965,26 @@ foreach outcome in pauvre_MODA {
     global ATT_REEL = r(estimate)   /* reutilise par le test placebo */
 }
 
+/* ── ATT net des chocs locaux de periode (COVID-19) ──────────
+   L'indicatrice de periode absorbe le choc COVID COMMUN aux deux
+   groupes. Ce qu'elle n'absorbe pas, c'est un choc de periode qui varie
+   selon le lieu : restrictions, fermetures et tensions de prix n'ont pas
+   frappe uniformement les regions ni les milieux urbain et rural. Les
+   interactions periode x region et periode x milieu permettent a chaque
+   localite d'avoir son propre choc de periode ; l'ATT est alors identifie
+   par la comparaison de traites et temoins AU SEIN d'une meme localite,
+   soumis au meme choc local. Cette specification retire la part
+   geographique de l'exposition differentielle a la pandemie. Elle ne
+   peut rien contre une exposition differentielle au sein d'une meme
+   localite, discutee dans les limites du rapport. */
+di _newline "=== PSM-DD net des chocs locaux de periode (COVID-19) ==="
+regress pauvre_MODA i.t##i.D i.t#i.region i.t#i.milieu ///
+    [aw=$POIDS_PRINCIPAL], vce(cluster grappe)
+lincom 1.t#1.D
+di "  ATT_net_chocs_locaux = " %8.4f r(estimate) ///
+   "  SE = " %8.4f r(se) "  p = " %6.4f r(p)
+di "  (interactions periode x region et periode x milieu incluses)"
+
 /* ── Sensibilite au seuil inter-dimensionnel k ──────────────────
    Le seuil k=4 est une convention. On reestime l'ATT en definissant la
    pauvrete successivement a chaque seuil de 1 a 7 dimensions sur 7, pour
@@ -2234,107 +2290,65 @@ else {
 
 /* ============================================================
    8. Robustesse : definition alternative du traitement
-      (beneficiaires stables)
+      (traitement defini a la periode de base, transitoires inclus)
 
-   En complement du design principal (DD canonique avec
-   periode pre-traitement observee), l'ATT est aussi estime en
-   comparant les beneficiaires STABLES (D_2018=1 et D_2021=1) aux
-   menages jamais beneficiaires. Le champ reste celui de tout le rapport,
-   les enfants suivis individuellement d'une vague a l'autre. Ce
-   design capte l'effet d'une exposition durable aux transferts,
-   mais le traitement y est deja en cours a t=0 : la periode de
-   base n'est pas une periode pre-traitement, ce qui fragilise
-   l'interpretation causale canonique de la DD. Fourni ici a titre
-   de comparaison.
+   Le design principal compare les beneficiaires stables aux menages
+   jamais beneficiaires. En robustesse, l'ATT est reestime avec la
+   definition canonique de la DD : traitement fixe a la periode de base
+   (transfert recu en 2018), quel que soit le statut de 2021. Ce design
+   reintegre les beneficiaires transitoires ; il dilue l'exposition,
+   puisque pres de la moitie des traites ne recoivent plus en 2021,
+   mais il offre une periode de base au statut bien defini et une
+   population complete. La convergence des deux designs est le
+   veritable test : un effet present dans les deux ne depend ni de la
+   dilution de l'un ni de l'absence de periode pre-traitement de
+   l'autre.
    ============================================================ */
 
-use "$TEMP/panel_enfants_psm.dta", clear
-merge m:1 grappe menage using "$TEMP/traitement_stable.dta", ///
-    keepusing(D_2018 D_2021) keep(master match) nogenerate
+use "$TEMP/panel_large_tous.dta", clear
+gen byte D_base_alt = D
+label var D_base_alt "1=beneficiaire en 2018 (transitoires inclus)"
 
-/* Restreindre aux menages a statut constant : beneficiaires stables
-   (D=1 aux deux vagues) et jamais beneficiaires (D=0 aux deux vagues) */
-keep if D_2018 == D_2021
-gen byte D_stable_alt = D_2018
-label var D_stable_alt "1=beneficiaire stable (2 vagues), 0=jamais beneficiaire"
+quietly count if D_base_alt == 1
+local n_ben = r(N)
+quietly count if D_base_alt == 0
+local n_non = r(N)
+di _newline "=== Robustesse : definition a la periode de base (2018) ==="
+di "  Enfants de beneficiaires 2018 : `n_ben'"
+di "  Enfants non beneficiaires 2018 : `n_non'"
 
-quietly count if D_stable_alt == 1 & t == 0
-local n_sta = r(N)
-quietly count if D_stable_alt == 0 & t == 0
-local n_jam = r(N)
-di _newline "=== Robustesse : beneficiaires stables vs jamais beneficiaires ==="
-di "  Beneficiaires stables (D=1 aux 2 vagues) : `n_sta' obs"
-di "  Jamais beneficiaires (aux 2 vagues)      : `n_jam' obs"
+/* Logit et appariement k-NN sur l'echantillon complet, en format large */
+quietly logit D_base_alt $COV_SCORE, vce(cluster grappe)
+di "  Pseudo-R2 logit (definition 2018) : " %6.3f 1 - e(ll)/e(ll_0)
+quietly predict pscore_alt if e(sample), pr
+quietly psmatch2 D_base_alt, pscore(pscore_alt) neighbor($K_VOISINS) common
+rename _weight w_alt
 
-di _newline "--- DD brute, beneficiaires stables vs jamais beneficiaires ---"
-regress pauvre_MODA i.t##i.D_stable_alt, vce(cluster grappe)
-lincom 1.t#1.D_stable_alt
-di "  ATT_DD_stables = " %8.4f r(estimate) ///
+di _newline "  Balance apres appariement (definition 2018) :"
+pstest i.milieu i.region hgender hage i.heduc i.hmstat ///
+    i.sexe18 age18 hhsize log_pcexp i.hcsp, both
+
+/* Panel long minimal pour la DD */
+keep enfid grappe menage D_base_alt w_alt pauvre_MODA18 pauvre_MODA21
+reshape long pauvre_MODA, i(enfid) j(periode)
+gen byte t = (periode == 21)
+drop periode
+
+di _newline "--- DD brute, definition 2018 (transitoires inclus) ---"
+regress pauvre_MODA i.t##i.D_base_alt, vce(cluster grappe)
+lincom 1.t#1.D_base_alt
+di "  ATT_DD_2018 = " %8.4f r(estimate) ///
    "  SE = " %8.4f r(se) "  p = " %6.4f r(p)
 
-/* ── PSM-DD sur la definition alternative ──────────────────────
-   Meme chaine que le design principal : logit a t=0, appariement k-NN
-   sur support commun, puis DD ponderee. */
-preserve
-    keep if t == 0
-    quietly logit D_stable_alt i.milieu i.region ///
-        c.hgender c.hage i.heduc i.hmstat i.sexe c.age, ///
-        vce(cluster grappe)
-    di _newline "  Pseudo-R2 logit (stables) : " %6.3f 1 - e(ll)/e(ll_0)
-    quietly predict pscore_sta if e(sample), pr
-    quietly psmatch2 D_stable_alt, pscore(pscore_sta) neighbor($K_VOISINS) common
-    di _newline "  Balance apres appariement (stables) :"
-    pstest hhsize log_pcexp i.milieu i.region hgender hage ///
-        i.heduc i.hmstat i.sexe age, both
-    rename _weight w_sta
-    keep enfid w_sta
-    tempfile poids_sta
-    save `poids_sta'
-restore
-merge m:1 enfid using `poids_sta', keep(master match) nogenerate
-
-di _newline "--- PSM-DD, beneficiaires stables vs jamais beneficiaires ---"
-quietly count if t == 0 & w_sta > 0 & !missing(w_sta)
+di _newline "--- PSM-DD, definition 2018 (transitoires inclus) ---"
+quietly count if t == 0 & w_alt > 0 & !missing(w_alt)
 di "  Enfants sur support commun : " r(N)
-regress pauvre_MODA i.t##i.D_stable_alt [aw=w_sta] ///
-    if w_sta > 0 & !missing(w_sta), vce(cluster grappe)
-lincom 1.t#1.D_stable_alt
-di "  ATT_PSMDD_stables = " %8.4f r(estimate) ///
+regress pauvre_MODA i.t##i.D_base_alt [aw=w_alt] ///
+    if w_alt > 0 & !missing(w_alt), vce(cluster grappe)
+lincom 1.t#1.D_base_alt
+di "  ATT_PSMDD_2018 = " %8.4f r(estimate) ///
    "  SE = " %8.4f r(se) "  p = " %6.4f r(p)
-
-/* ── Effet stables par quintile de montant 2018 ────────────────
-   Quintiles construits au niveau des menages stables, chaque quintile
-   compare a l'ensemble des jamais beneficiaires. */
-preserve
-    keep if D_stable_alt == 1 & t == 0
-    bysort grappe menage: keep if _n == 1
-    merge 1:1 grappe menage using "$TEMP/montant_2018.dta", ///
-        keepusing(montant_transf) keep(match) nogenerate
-    xtile q_sta = montant_transf, nquantiles(5)
-    di _newline "  Bornes des quintiles (menages stables, montant 2018, FCFA) :"
-    forvalues q = 1/5 {
-        quietly summarize montant_transf if q_sta == `q', detail
-        di "    Q`q' : " %10.0f r(min) " a " %10.0f r(max) ///
-           "  (mediane " %10.0f r(p50) ", n=" %4.0f r(N) " menages)"
-    }
-    keep grappe menage q_sta
-    tempfile quint_sta
-    save `quint_sta'
-restore
-merge m:1 grappe menage using `quint_sta', keep(master match) nogenerate
-
-di _newline "=== Robustesse stables : effet par quintile de montant ==="
-forvalues q = 1/5 {
-    quietly count if q_sta == `q' & t == 0
-    local n_q = r(N)
-    if `n_q' > 0 {
-        regress pauvre_MODA i.t##i.D_stable_alt ///
-            if D_stable_alt == 0 | q_sta == `q', vce(cluster grappe)
-        lincom 1.t#1.D_stable_alt
-        di "  Q`q' : ATT = " %8.4f r(estimate) "  SE = " %8.4f r(se) ///
-           "  p = " %6.4f r(p) "  (enfants traites t=0 : `n_q')"
-    }
-}
+di "  A comparer a l'ATT du design principal (stables vs jamais)."
 
 di _newline ">>> 05_psm_dd.do termine."
 

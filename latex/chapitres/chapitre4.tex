@@ -12,11 +12,31 @@ selon le milieu, le genre du chef de ménage et l'âge, l'interprétation
 
 \subsubsection{Sensibilité à la définition du traitement}
 
-Le tableau~\ref{tab:stables_estim} montre que l'écart de trajectoire ne se
-retrouve pas chez les bénéficiaires de longue date, quelle que soit la
-correction appliquée. Ni la double différence simple (\ATTstaDD) ni
-l'estimateur PSM-DD (\ATTstaPSM) n'atteignent la significativité, et tous
-deux restent d'ampleur inférieure à l'estimation principale.
+Le design principal compare les bénéficiaires stables aux ménages jamais
+bénéficiaires. La définition de robustesse revient à la convention canonique
+de la double différence, le traitement fixé à la seule période de base,
+bénéficiaires transitoires inclus. Le tableau~\ref{tab:stables_estim}
+confronte les deux estimations. La convergence des deux designs est le
+test qui importe~: un effet présent dans les deux ne dépend ni de la
+dilution qu'introduisent les transitoires dans l'un, ni de l'absence de
+période pré-traitement de l'autre.
+
+\subsubsection{Neutralisation des chocs locaux de période}
+
+La pandémie de COVID-19 constitue un choc majeur survenu entre les deux
+vagues. Sa composante commune aux deux groupes est absorbée par
+l'indicatrice de période, c'est la force du dispositif en double
+différence. Sa composante géographique, restrictions, fermetures et
+tensions de prix n'ayant frappé uniformément ni les régions ni les milieux
+urbain et rural, est neutralisée par une spécification augmentée
+d'interactions période$\times$région et période$\times$milieu~: chaque
+localité y possède son propre choc de période, et l'effet n'est plus
+identifié que par la comparaison de bénéficiaires et de témoins d'une même
+localité, soumis au même choc local. La stabilité de l'estimation dans
+cette spécification indique que l'effet mesuré n'est pas le reflet d'une
+répartition géographique différente des deux groupes face à la pandémie.
+Ce que cette correction ne peut atteindre, une exposition différentielle à
+la pandémie au sein d'une même localité, est discuté dans les limites.
 
 \subsubsection{Sensibilité à la méthode d'appariement et au seuil de privation}
 
@@ -179,7 +199,21 @@ sélectionnant des témoins comparables sur les caractéristiques observables à
 la période de base, ce qui renforce la plausibilité de l'hypothèse. Un choc
 affectant différemment les ménages bénéficiaires et leurs témoins entre les
 deux vagues, indépendamment des transferts, resterait indiscernable de
-l'effet estimé.
+l'effet estimé. La pandémie de COVID-19 est le candidat le plus évident.
+Le design principal y répond en partie, les bénéficiaires stables étant
+précisément ceux dont les envois ont résisté au choc, et la spécification
+aux chocs locaux de période en retire la composante géographique. Reste
+l'exposition différentielle au sein d'une même localité, qu'aucune des
+deux corrections n'atteint~: si, à localité donnée, les ménages
+bénéficiaires ont subi la pandémie plus durement que leurs témoins
+appariés, cet écart demeure incorporé à l'effet estimé, qui doit se lire
+comme l'effet des transferts dans la conjoncture particulière de la
+période, pandémie comprise, et non comme un paramètre structurel valable
+en temps ordinaire. Une variable instrumentale n'offrirait pas d'issue
+crédible ici, les instruments usuels de la littérature, réseaux
+migratoires historiques ou distance aux couloirs d'envoi, violant
+vraisemblablement la restriction d'exclusion à l'échelle d'un choc
+aussi général.
 
 La seconde tient au vieillissement des enfants entre les deux
 enquêtes. Trois ans séparent les vagues, si bien qu'un même enfant n'est pas
