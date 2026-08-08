@@ -1915,9 +1915,52 @@ tab statut_stab if D_2018 == D_2021
    ============================================================ */
 
 use "$TEMP/panel_enfants_psm.dta", clear
-di _newline "=== Stats descriptives (enfants suivis, traitement 2018) ==="
+di _newline "=== Stats descriptives (design principal : stables vs jamais) ==="
 tabstat pauvre_MODA nb_dep pcexp, ///
     by(D) stat(mean n) format(%6.3f)
+
+/* ── Incidence H, intensite A et indice ajuste M0 ────────────
+   Les trois indices Alkire-Foster sont presentes ensemble : H seul
+   confond sortie de pauvrete et attenuation des privations chez ceux
+   qui restent pauvres. A est la part moyenne des sept dimensions en
+   privation PARMI LES PAUVRES (s_i >= k), et M0 = H x A. Chaque bloc
+   est decline par statut et par edition, puis par groupe d'age :
+   c'est la matrice descriptive complete que le rapport commente. */
+di _newline "=== H, A et M0 par statut et par edition ==="
+forvalues d = 0/1 {
+    forvalues tt = 0/1 {
+        quietly summarize pauvre_MODA if D == `d' & t == `tt'
+        local H = r(mean)
+        quietly summarize intensite_moda if D == `d' & t == `tt' & pauvre_MODA == 1
+        local A = r(mean)
+        di "  D=`d' t=`tt' :  H = " %6.3f `H' ///
+           "   A = " %6.3f `A' "   M0 = " %6.3f `H'*`A'
+    }
+}
+
+di _newline "=== H, A et M0 par groupe d'age (periode de base) et statut ==="
+forvalues g = 1/3 {
+    local titg : label grp `g'
+    di "  -- `titg' --"
+    forvalues d = 0/1 {
+        forvalues tt = 0/1 {
+            quietly summarize pauvre_MODA if D == `d' & t == `tt' & groupe_base == `g'
+            local H = r(mean)
+            quietly summarize intensite_moda ///
+                if D == `d' & t == `tt' & groupe_base == `g' & pauvre_MODA == 1
+            local A = r(mean)
+            di "    D=`d' t=`tt' :  H = " %6.3f `H' ///
+               "   A = " %6.3f `A' "   M0 = " %6.3f `H'*`A'
+        }
+    }
+}
+
+/* Distribution du nombre de privations, par statut et edition */
+di _newline "=== Distribution du nombre de privations (nb_dep) ==="
+forvalues tt = 0/1 {
+    di "  -- edition t=`tt' --"
+    tab nb_dep D if t == `tt', column nofreq
+}
 
 /* ============================================================
    4. Double Difference brute (sans appariement, reference)
