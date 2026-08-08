@@ -1957,12 +1957,38 @@ keep if !missing($POIDS_PRINCIPAL) & $POIDS_PRINCIPAL > 0
 di _newline "Panel d'enfants apparie (k-NN) : " _N " observations"
 tabstat D, by(t) stat(mean sum n) format(%6.3f)
 
-di _newline "=== PSM-DD — ATT principal (Heckman 1997/1998) ==="
+/* ── RESULTAT PRINCIPAL : ATT PAR GROUPE D'AGE ────────────────
+   L'estimation de l'impact suit la logique de tout le dispositif : le
+   score est estime par groupe d'age, l'appariement est fait par groupe
+   d'age, et l'ATT est donc lui aussi estime SEPAREMENT dans chaque
+   groupe. Un ATT global n'aurait pas d'interpretation propre, puisque
+   les enfants n'y sont pas mesures sur les memes indicateurs : les
+   trois ATT par groupe constituent le resultat principal. L'estimation
+   d'ensemble est conservee a titre de synthese ponderee, et parce que
+   le test placebo et la lecture par dimension s'y adossent. */
+
+di _newline "=== PSM-DD — ATT PRINCIPAL, PAR GROUPE D'AGE ==="
+forvalues g = 1/3 {
+    local titg : label grp `g'
+    quietly count if groupe_base == `g' & t == 0 & D == 1
+    local n_tr = r(N)
+    quietly count if groupe_base == `g' & t == 0
+    local n_g = r(N)
+    di _newline "--- Groupe `titg' (enfants : `n_g', dont traites : `n_tr') ---"
+    regress pauvre_MODA i.t##i.D [aw=$POIDS_PRINCIPAL] ///
+        if groupe_base == `g', vce(cluster grappe)
+    lincom 1.t#1.D
+    di "  ATT_PSM-DD (`titg') = " %8.4f r(estimate) ///
+       "  SE = " %8.4f r(se) "  p = " %6.4f r(p)
+    global ATT_G`g' = r(estimate)
+}
+
+di _newline "=== PSM-DD — synthese d'ensemble (complement) ==="
 foreach outcome in pauvre_MODA {
     di _newline "--- PSM-DD `outcome' ---"
     regress `outcome' i.t##i.D [aw=$POIDS_PRINCIPAL], vce(cluster grappe)
     lincom 1.t#1.D
-    di "  ATT_PSM-DD = " %8.4f r(estimate) ///
+    di "  ATT_PSM-DD (ensemble) = " %8.4f r(estimate) ///
        "  SE = " %8.4f r(se) "  p = " %6.4f r(p)
     global ATT_REEL = r(estimate)   /* reutilise par le test placebo */
 }
