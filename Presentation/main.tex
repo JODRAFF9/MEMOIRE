@@ -452,14 +452,18 @@
     \begin{itemize}
       \item[{\color{presvert}\faBullseye}] Construire un indice de pauvreté
             multidimensionnelle adapté aux enfants sénégalais.
-      \item[{\color{presvert}\faBullseye}] Estimer l'impact des transferts sur
-            cet indice et en analyser l'hétérogénéité.
+      \item[{\color{presvert}\faBullseye}] Estimer l'impact d'une exposition
+            durable aux transferts sur le nombre de privations, séparément
+            dans chaque groupe d'âge.
+      \item[{\color{presvert}\faBullseye}] Analyser l'hétérogénéité de cet
+            impact selon les dimensions et indicateurs, le milieu, le genre
+            du chef et le montant reçu.
     \end{itemize}
   \end{block}
   \begin{block}{Hypothèses de recherche}
     \begin{enumerate}
-      \item[H1] Les transferts réduisent significativement la pauvreté multidimensionnelle des enfants.
-      \item[H2] L'effet est hétérogène selon les dimensions, le milieu, le genre du chef de ménage, l'âge de l'enfant et le montant reçu.
+      \item[H1] Une exposition durable aux transferts réduit significativement la pauvreté multidimensionnelle des enfants, dans chaque groupe d'âge.
+      \item[H2] L'effet est hétérogène selon les dimensions et indicateurs, le milieu, le genre du chef de ménage et le montant reçu.
     \end{enumerate}
   \end{block}
 \end{frame}
@@ -744,12 +748,12 @@
     % ---- intitules des trois etapes -------------------------------------
     \node[etape] at (1.5,0.35)  {1. Les données brutes};
     \node[etape] at (4.75,0.35) {2. L'appariement};
-    \node[etape] at (8.6,0.35)  {3. La double différence};
+    \node[etape] at (8.6,0.35)  {3. La comparaison en 2021};
 
   \end{tikzpicture}
 \end{frame}
 
-\begin{frame}{L'estimateur PSM-DD}
+\begin{frame}{L'estimateur : PSM en niveaux de 2021}
   \footnotesize
   \centering
   \begin{columns}[T]
@@ -765,29 +769,25 @@
       \centering
       \vspace{-0.1cm}
       \begin{equation*}
-        \hat{\tau}_{\text{DD}} = \Delta\overline{Y}_{T} - \Delta\overline{Y}_{C}
+        \hat{\tau}_{g} = \overline{Y}^{2021}_{T,g} -
+          \textstyle\sum_j w_{ij}\, Y^{2021}_{j,g}
       \end{equation*}
-      {\scriptsize Neutralise l'inobservable stable, mais suppose des groupes
-       comparables au départ.}
+      {\scriptsize Estimé en 2021, séparément dans chaque groupe d'âge $g$.}
     \end{column}
   \end{columns}
 
   \smallskip
-  {\scriptsize Score de propension logit, appariement sur le support commun par
-   $k$ plus proches voisins ($k=4$, avec remise). Noyau d'Epanechnikov
-   ($h=0{,}06$) et caliper ($0{,}05$) servent de contrôle.}
+  {\scriptsize Score logit par groupe d'âge, incluant le \textbf{nombre de
+   privations de 2018} : l'indépendance conditionnelle n'est crédible qu'à
+   niveau initial comparable. Noyau d'Epanechnikov ($h=0{,}06$) retenu au
+   critère d'équilibre ; $k$-NN et caliper en contrôle.}
 
   \smallskip
-  \begin{alertblock}{PSM-double différence}
-    \vspace{-0.2cm}
-    \begin{equation*}
-      \hat{\tau}_{\text{PSM-DD}}
-      = \frac{1}{n_T}\sum_{i\in\mathcal{T}}
-        \Bigl[\Delta Y_i - \sum_{j\in\mathcal{C}} w_{ij}\,\Delta Y_j\Bigr]
-    \end{equation*}
-
-    L'appariement rend les groupes comparables sur l'observable, la double
-    différence neutralise l'inobservable stable (Heckman \emph{et al.}, 1997).
+  \begin{alertblock}{Pourquoi pas la double différence ?}
+    Le traitement est déjà en cours à la période de base : aucune période
+    pré-traitement, tendances parallèles \textbf{intestables}. La famille en
+    trajectoires (PSM-DD) est conservée en \textbf{robustesse} : les deux
+    hypothèses opposées bornent l'effet.
   \end{alertblock}
 \end{frame}
 
@@ -912,7 +912,7 @@
         \color{white}Ensemble & \color{white}2018-19 & \color{white}2021-22 & \color{white}$\Delta$ \\
         \midrule
         \rowcolor{presvert!7}
-        Incidence     & 63,5\,\% & 57,8\,\% & $-5{,}7$ pp \\
+        Incidence     & 62,2\,\% & 53,8\,\% & $-8{,}4$ pp \\
         Intensité     & 70,7\,\% & 70,3\,\% & $-0{,}4$ pp \\
         \rowcolor{presvert!7}
         Indice ajusté & 0,449    & 0,406    & $-0{,}043$ \\
@@ -972,19 +972,19 @@
   \footnotesize
   \begin{table}
     \centering
-    \caption{Effet moyen sur les traités (ATT), pauvreté MODA}
+    \caption{ATT sur le nombre de privations, PSM en niveaux de 2021}
     \renewcommand{\arraystretch}{1.25}
-    \begin{tabular}{@{}lcc@{}}
+    \begin{tabular}{@{}lccc@{}}
       \toprule
       \rowcolor{presvert!88!black}
-      \color{white}Spécification & \color{white}ATT & \color{white}Écart-type \\
+      \color{white} & \color{white}0-4 ans & \color{white}5-14 ans & \color{white}15-17 ans \\
       \midrule
       \rowcolor{presvert!7}
-      DD brute (sans appariement) & $0{,}035$          & $(0{,}025)$ \\
-      PSM-DD, k-NN ($k=4$)        & $0{,}064^{**}$     & $(0{,}029)$ \\
+      Traités sur support & 751 & 1\,442 & 35 \\
+      ATT (nb. de privations) & $-0{,}07$ & $-0{,}20^{***}$ & $-0{,}20$ \\
       \rowcolor{presvert!7}
-      PSM-DD, noyau Epanechnikov  & $0{,}061^{*}$      & $(0{,}032)$ \\
-      PSM-DD, caliper             & $0{,}050^{*}$      & $(0{,}028)$ \\
+      Écart-type (bootstrap) & $(0{,}09)$ & $(0{,}07)$ & $(0{,}37)$ \\
+      Robustesse trajectoires (PSM-DD) & $+0{,}34$ & $+0{,}26$ & $+0{,}27$ \\
       \bottomrule
     \end{tabular}
     \par\smallskip
@@ -993,7 +993,7 @@
   
   \vspace{-0.25cm}
   \bandeau{presorange}{0.93\linewidth}{Résultat central}{%
-    {\color{presorange}\faArrowUp}~Sur 2018-2021, la pauvreté multidimensionnelle des enfants des ménages bénéficiaires recule plus lentement que celle des témoins appariés (\chiffre{$+6{,}4$ pp}, significatif à 5\,\%), les trois appariements concordant, de 0,050 à 0,064.}
+    {\color{presorange}\faArrowDown}~Chez les 5-14 ans, une exposition durable aux transferts réduit le nombre de privations de \chiffre{$0{,}20$} (seuil de 1\,\%) ; même signe mais imprécis chez les 0-4 ans, aucune conclusion chez les 15-17 ans. La famille en trajectoires, aux hypothèses opposées, borne ce résultat.}
 \end{frame}
 
 
@@ -1094,14 +1094,15 @@
   \begin{block}{Sensibilité des résultats}
     \begin{itemize}
       \setlength{\itemsep}{1pt}
-      \item Méthodes d'appariement (k-NN, noyau, caliper) : effet de
-            $0{,}050$ à $0{,}064$, k-NN significatif à 5\,\%, noyau et
-            caliper à 10\,\%.
-      \item Seuil $k$, testé de 1 à 7 : ampleur en courbe de cloche, maximale
-            à $k=4$ et significative seulement de $k=2$ à $k=4$ : l'effet se
-            joue au milieu de la distribution des privations.
-      \item Sans appariement, sur tous les enfants suivis : $0{,}035$, non
-            significatif, même signe et ampleur atténuée.
+      \item Famille en niveaux : ANCOVA ($-0{,}24$), AIPW ($-0{,}19$) et
+            commutation endogène ($-0{,}75^{**}$) concordent avec le PSM chez
+            les 5-14 ans.
+      \item Famille en trajectoires (PSM-DD) : signe opposé ($+0{,}26$),
+            sous des tendances parallèles intestables et un écart initial
+            d'une privation entière : retour à la moyenne plausible.
+      \item L'hybride, commutation sur la variation : rien de significatif.
+            Les deux familles bornent l'effet ; le design en niveaux est
+            assumé comme principal.
     \end{itemize}
   \end{block}
 
@@ -1114,9 +1115,9 @@
     \color{white}Hyp. & \color{white}Énoncé & \color{white}Résultat & \color{white}Décision \\
     \midrule
     \rowcolor{presorange!16}
-    H1 & Réduction de la pauvreté & ATT de $0{,}064^{**}$ & Non validée \\
+    H1 & Réduction de la pauvreté & $-0{,}20^{***}$ chez les 5-14 ans & Partiellement validée \\
     \rowcolor{presvert!10}
-    H2 & Hétérogénéité des effets & Nutrition et 0-4 ans & Partiellement validée \\
+    H2 & Hétérogénéité des effets & Âge et sécurité alimentaire & Partiellement validée \\
     \bottomrule
   \end{tabular}
   \par\smallskip
@@ -1131,11 +1132,11 @@
   \begin{columns}[T]
     \begin{column}{0.475\textwidth}
       \bandeau{presorange}{0.93\linewidth}{Résultat sous cette définition}{%
-    La DD tombe à $0{,}022$ et le PSM-DD à $-0{,}008$, tous deux non significatifs. L'exposition de ces ménages, déjà en cours en 2018, relève d'une autre question que le design principal.}
+    Avec le traitement fixé à la seule période de base, transitoires inclus, la famille en trajectoires donne $0{,}043^{**}$ en DD et $0{,}049^{*}$ en PSM-DD : la dilution atténue sans inverser.}
     \end{column}
     \begin{column}{0.475\textwidth}
       \bandeau{presvert}{0.93\linewidth}{Synthèse des tests}{%
-    Le signe et l'ordre de grandeur résistent au choix de l'algorithme comme au choix du seuil. Seule la définition du traitement les fait disparaître, ce qui délimite la portée du résultat.}
+    Le résultat principal résiste au choix de l'algorithme et converge avec toute la famille en niveaux ; il est borné par la famille en trajectoires, dont l'hypothèse est la moins crédible ici.}
     \end{column}
   \end{columns}
   \vfill
@@ -1155,23 +1156,23 @@
     % noyau de la question
     \node[circle, fill=presvert, text=white, minimum size=1.8cm, inner sep=1pt,
           font=\scriptsize\bfseries, align=center] (coeur) at (0,0)
-      {Pourquoi\\l'effet ne\\se voit pas};
+      {Pourquoi l'effet\\est modeste\\et localisé};
 
     % trois mecanismes disposes autour du noyau
     \node[etape=dimnutri] (a) at (-4.3,0.95) {};
     \node[titre, text=dimnutri] at ([yshift=-0.3cm]a.north) {L'usage des fonds};
     \node[detail] at ([yshift=-0.85cm]a.north)
-      {68,5 \% en soutien courant, moins d'un dixième en santé ou scolarité};
+      {Deux envois sur trois en soutien courant : l'effet passe par le budget, la sécurité alimentaire en tête};
 
     \node[etape=dimsante] (b) at (4.3,0.95) {};
     \node[titre, text=dimsante] at ([yshift=-0.3cm]b.north) {La contrainte d'offre};
     \node[detail] at ([yshift=-0.85cm]b.north)
-      {Eau, assainissement et soins relèvent de l'investissement collectif};
+      {Eau, assainissement, soins : l'investissement collectif borne ce que le pouvoir d'achat peut lever};
 
     \node[etape=dimeau] (c) at (0,-2.05) {};
-    \node[titre, text=dimeau] at ([yshift=-0.3cm]c.north) {La marge de l'effet};
+    \node[titre, text=dimeau] at ([yshift=-0.3cm]c.north) {La lecture par âge};
     \node[detail] at ([yshift=-0.85cm]c.north)
-      {L'écart se joue au milieu de la distribution des privations};
+      {Chez les 0-4 ans, acte de naissance et cadre sanitaire répondent peu au budget courant};
 
     \draw[presvert!45, line width=1.1pt] (coeur) -- (a);
     \draw[presvert!45, line width=1.1pt] (coeur) -- (b);
@@ -1192,15 +1193,15 @@
   \begin{enumerate}
       \item Mesure de la pauvreté multidimensionnelle des enfants sur deux
             éditions EHCVM selon l'approche MODA (7 dimensions, $k=4$).
-      \item L'incidence de pauvreté multidimensionnelle recule de \chiffre{63,5\,\%} (2018) à \chiffre{57,8\,\%} (2021) :
+      \item L'incidence de pauvreté multidimensionnelle recule de \chiffre{62,2\,\%} (2018) à \chiffre{53,8\,\%} (2021) :
             amélioration réelle mais la pauvreté reste massive.
-      \item Les transferts ne réduisent pas, à trois ans, la
-            pauvreté multidimensionnelle des enfants : l'effet est de
-            \chiffre{$+0{,}064$}, significatif à 5\,\%, de signe défavorable et stable aux
-            trois appariements.
-      \item Il n'est établi que sur la nutrition, chez les 0-4 ans et sur les
-          plus faibles montants reçus, là où l'apport monétaire est trop
-          faible pour peser sur les conditions de vie de l'enfant.
+      \item Une exposition durable aux transferts réduit le nombre de
+            privations de \chiffre{$0{,}20$} chez les 5-14 ans, au seuil de
+            1\,\% ; même signe mais imprécis chez les 0-4 ans, aucune
+            conclusion chez les 15-17 ans.
+      \item La portée est bornée : la famille en trajectoires, aux
+            hypothèses opposées et intestables, donne le signe contraire ;
+            la commutation endogène conforte le signe protecteur.
   \end{enumerate}
 \end{frame}
 
@@ -1210,12 +1211,12 @@
   \begin{block}{Cibler les marges où l'écart se concentre}
     \begin{itemize}
       \setlength{\itemsep}{2pt}
-      \item[{\color{presvert}\faLeaf}] Sécurité alimentaire des enfants en
-            priorité dans les zones d'émigration.
-      \item[{\color{presvert}\faChild}] Appui ciblé aux enfants de 0 à 4 ans
-            des ménages bénéficiaires.
-      \item[{\color{presvert}\faHandHoldingUsd}] Accompagner en priorité les
-            ménages recevant les plus faibles montants.
+      \item[{\color{presvert}\faLeaf}] Consolider le canal alimentaire, par
+            lequel l'effet protecteur passe, sans écarter les non-bénéficiaires.
+      \item[{\color{presvert}\faChild}] Cibler les 0-4 ans, chez qui l'effet
+            ne se matérialise pas : état civil, environnement sanitaire.
+      \item[{\color{presvert}\faHandHoldingUsd}] Maintenir les ménages
+            bénéficiaires dans le champ de la protection sociale.
     \end{itemize}
   \end{block}
   \begin{block}{Améliorer les conditions de conversion des transferts}
