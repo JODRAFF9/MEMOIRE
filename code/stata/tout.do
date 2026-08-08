@@ -1477,8 +1477,7 @@ forvalues g = 1/3 {
          lcolor(gs9) lwidth(medthick)) ///
         (kdensity pscore if D == 1 & grp_psm == `g', ///
          lcolor(orange) lwidth(medthick)), ///
-        legend(order(1 "Non bénéficiaires" 2 "Bénéficiaires") ///
-               pos(6) rows(1) region(color(white))) ///
+        legend(off) ///
         xtitle("Score de propension") ytitle("Densité") ///
         xlabel(, format(%3.1f)) ///
         title("`titg'", size(medium)) ///
@@ -1486,6 +1485,7 @@ forvalues g = 1/3 {
         name(ov`g', replace)
 }
 graph combine ov1 ov2 ov3, rows(1) ///
+    note("Gris : non bénéficiaires ; orange : bénéficiaires", size(small)) ///
     graphregion(color(white)) ///
     saving("$OUTPUT/overlap_groupes.gph", replace)
 graph export "$OUTPUT/figures/fig_overlap_groupes.pdf", replace
@@ -1780,15 +1780,16 @@ forvalues g = 1/3 {
          lcolor(gs9) lwidth(medthick)) ///
         (kdensity pscore if D == 1 & grp_psm == `g' [aw=$POIDS_PRINCIPAL], ///
          lcolor(orange) lwidth(medthick)), ///
-        legend(order(1 "Non bénéficiaires (pondérés)" 2 "Bénéficiaires") ///
-               pos(6) rows(1) region(color(white))) ///
+        legend(off) ///
         xtitle("Score de propension") ytitle("Densité") ///
         xlabel(, format(%3.1f)) ///
         title("`titg'", size(medium)) ///
         graphregion(color(white)) plotregion(color(white)) ///
         name(ova`g', replace)
 }
-graph combine ova1 ova2 ova3, rows(1) graphregion(color(white))
+graph combine ova1 ova2 ova3, rows(1) ///
+    note("Gris : non bénéficiaires (pondérés par l'appariement) ; orange : bénéficiaires", size(small)) ///
+    graphregion(color(white))
 set dp period
 graph export "$OUTPUT/figures/fig_overlap_apres.pdf", replace
 graph drop ova1 ova2 ova3
