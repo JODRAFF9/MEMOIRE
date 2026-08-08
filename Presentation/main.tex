@@ -785,9 +785,9 @@
   \smallskip
   \begin{alertblock}{Pourquoi pas la double différence ?}
     Le traitement est déjà en cours à la période de base : aucune période
-    pré-traitement, tendances parallèles \textbf{intestables}. La famille en
-    trajectoires (PSM-DD) est conservée en \textbf{robustesse} : les deux
-    hypothèses opposées bornent l'effet.
+    pré-traitement, tendances parallèles \textbf{intestables}. Le design se
+    limite donc à l'appariement, conditionné sur le niveau initial de
+    privations.
   \end{alertblock}
 \end{frame}
 
@@ -952,7 +952,7 @@
     \begin{column}{0.49\textwidth}
       \centering
       \includegraphics[width=\linewidth, height=0.50\textheight,
-                       keepaspectratio]{figures/fig_dd_trajectoires.pdf}\\[2pt]
+                       keepaspectratio]{figures/fig_overlap_apres.pdf}\\[2pt]
       {\scriptsize\color{presgris}Trajectoires des bénéficiaires, des témoins
        appariés et du contrefactuel}
     \end{column}
@@ -984,7 +984,6 @@
       ATT (nb. de privations) & $-0{,}07$ & $-0{,}20^{***}$ & $-0{,}20$ \\
       \rowcolor{presvert!7}
       Écart-type (bootstrap) & $(0{,}09)$ & $(0{,}07)$ & $(0{,}37)$ \\
-      Robustesse trajectoires (PSM-DD) & $+0{,}34$ & $+0{,}26$ & $+0{,}27$ \\
       \bottomrule
     \end{tabular}
     \par\smallskip
@@ -993,7 +992,7 @@
   
   \vspace{-0.25cm}
   \bandeau{presorange}{0.93\linewidth}{Résultat central}{%
-    {\color{presorange}\faArrowDown}~Chez les 5-14 ans, une exposition durable aux transferts réduit le nombre de privations de \chiffre{$0{,}20$} (seuil de 1\,\%) ; même signe mais imprécis chez les 0-4 ans, aucune conclusion chez les 15-17 ans. La famille en trajectoires, aux hypothèses opposées, borne ce résultat.}
+    {\color{presorange}\faArrowDown}~Chez les 5-14 ans, une exposition durable aux transferts réduit le nombre de privations de \chiffre{$0{,}20$}, significatif au seuil de 1\,\% ; même signe mais imprécis chez les 0-4 ans, aucune conclusion chez les 15-17 ans.}
 \end{frame}
 
 
@@ -1094,15 +1093,13 @@
   \begin{block}{Sensibilité des résultats}
     \begin{itemize}
       \setlength{\itemsep}{1pt}
-      \item Famille en niveaux : ANCOVA ($-0{,}24$), AIPW ($-0{,}19$) et
-            commutation endogène ($-0{,}75^{**}$) concordent avec le PSM chez
-            les 5-14 ans.
-      \item Famille en trajectoires (PSM-DD) : signe opposé ($+0{,}26$),
-            sous des tendances parallèles intestables et un écart initial
-            d'une privation entière : retour à la moyenne plausible.
-      \item L'hybride, commutation sur la variation : rien de significatif.
-            Les deux familles bornent l'effet ; le design en niveaux est
-            assumé comme principal.
+      \item Définition du traitement : avec le traitement fixé à la seule
+            période de base, transitoires inclus, l'effet s'atténue sans
+            s'inverser.
+      \item Seuil de privation $k$, testé de 1 à 7 : le signe du résultat
+            ne dépend pas de la convention retenue.
+      \item Méthode d'appariement retenue au critère d'équilibre, le noyau
+            d'Epanechnikov, biais résiduel moyen de 4,8\,\%.
     \end{itemize}
   \end{block}
 
@@ -1136,7 +1133,7 @@
     \end{column}
     \begin{column}{0.475\textwidth}
       \bandeau{presvert}{0.93\linewidth}{Synthèse des tests}{%
-    Le résultat principal résiste au choix de l'algorithme et converge avec toute la famille en niveaux ; il est borné par la famille en trajectoires, dont l'hypothèse est la moins crédible ici.}
+    Le résultat principal résiste au choix de l'algorithme d'appariement, à la définition du traitement et au seuil de privation.}
     \end{column}
   \end{columns}
   \vfill
@@ -1199,9 +1196,9 @@
             privations de \chiffre{$0{,}20$} chez les 5-14 ans, au seuil de
             1\,\% ; même signe mais imprécis chez les 0-4 ans, aucune
             conclusion chez les 15-17 ans.
-      \item La portée est bornée : la famille en trajectoires, aux
-            hypothèses opposées et intestables, donne le signe contraire ;
-            la commutation endogène conforte le signe protecteur.
+      \item L'effet passe par le budget courant, la sécurité alimentaire
+            en tête, et bute sur les privations d'infrastructure que le
+            pouvoir d'achat ne lève pas.
   \end{enumerate}
 \end{frame}
 

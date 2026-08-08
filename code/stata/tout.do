@@ -21,7 +21,6 @@
      06_stats_desc  — statistiques descriptives
      07_effets_dim  — effets par dimension
      08_carte_region— carte regionale
-     09_placebo — tests placebo
    ============================================================ */
 cd "C:\Users\Bmd\Documents\ISE\Cours\Archive_ISE3\Memoire"
 capture log close _all
@@ -254,8 +253,6 @@ save "$TEMP/traitement_2021.dta", replace
    4. NUTRITION       m_securite (s08a, 8 questions FIES)
    5. SANTE           m_combust (s11q53/52) ; m_sante_acces (s02_co, s02q02)
    6. PROTECTION      m_acte_nais (s01q05) ; m_trav_enf (s04)
-                      m_parents (s01q22/s01q29) calcule a titre descriptif,
-                      hors agregat
    7. EDUCATION       m_scol (scol) ; m_alfab (alfab)
    -------------------------------------------------------------------------- */
 
@@ -683,11 +680,9 @@ foreach annee in 2018 2021 {
        >=1h, 5-17 ans)
        Combinaison par groupe d'age : 0-4 ans = ind.1 seul ;
        5-14 ans = ind.1 OU ind.2 ; 15-17 ans = ind.2 seul.
-       La separation parentale a ete RETIREE de l'agregat : elle est une
-       consequence directe de la migration, donc du traitement etudie. La
-       maintenir reviendrait a imputer aux transferts une privation que le
-       depart du parent produit mecaniquement. m_parents reste calculee a
-       titre descriptif mais n'alimente plus dim_protect.
+       La separation parentale, presente dans la grille MODA de
+       reference, est ecartee de l'agregat : consequence directe de la
+       migration, donc du traitement etudie.
        Le travail des enfants est en consequence mesure jusqu'a 17 ans :
        sans cela les 15-17 ans n'auraient plus aucun indicateur de
        protection et seraient mesures sur six dimensions au lieu de sept,
@@ -705,19 +700,6 @@ foreach annee in 2018 2021 {
     gen byte m_trav_enf = (eco == 1 | h_dom >= 1) ///
         if age >= 5 & age <= 17 & nrep > 0 & !missing(nrep)
     replace  m_trav_enf = 0 if age < 5
-
-    /* Separation parentale, VARIABLE DESCRIPTIVE UNIQUEMENT (hors indice) :
-       enfant ne vivant pas avec ses DEUX parents
-       biologiques, identifie directement par les questions du roster
-       (s01q22 pere dans le menage, s01q29 mere dans le menage ; 1=Oui, 2=Non).
-       Prive (m_parents=1) des qu'au moins un parent ne vit pas dans le menage ;
-       non prive (0) seulement si pere ET mere y vivent. Manquant si l'une des
-       deux reponses manque (analyse en cas complets). Remplace l'ancien proxy
-       fonde sur le lien au chef de menage (lien > 3), qui classait mal les
-       enfants du chef dont un parent est absent. */
-    gen byte m_parents = .
-    replace  m_parents = 1 if s01q22 == 2 | s01q29 == 2
-    replace  m_parents = 0 if s01q22 == 1 & s01q29 == 1
 
     /* dim_protect manquante des qu'UN SEUL indicateur pertinent pour le
        groupe d'age de l'enfant lui manque (analyse en cas complets). */
@@ -1052,13 +1034,13 @@ restore
 use "$TEMP/enfants_dep_2018.dta", clear
 keep grappe menage numind sexe age pauvre_MODA nb_dep intensite_moda groupe_moda ///
      dim_assai dim_eau dim_logem dim_nutri dim_sante dim_protect dim_educ ///
-     m_parents m_toilet m_partag_toi m_eau_source m_eau_temps m_ordures m_surpeup m_securite m_combust m_sante_acces m_acte_nais m_trav_enf m_scol m_alfab ///
+     m_toilet m_partag_toi m_eau_source m_eau_temps m_ordures m_surpeup m_securite m_combust m_sante_acces m_acte_nais m_trav_enf m_scol m_alfab ///
      m_acte_nc m_scol_nc m_alfab_nc ///
      hhweight hhsize pcexp region milieu hgender hage heduc hmstat hcsp
 rename numind numind_2018
 foreach v in sexe age pauvre_MODA nb_dep intensite_moda groupe_moda ///
              dim_assai dim_eau dim_logem dim_nutri dim_sante dim_protect dim_educ ///
-             m_parents m_toilet m_partag_toi m_eau_source m_eau_temps m_ordures m_surpeup m_securite m_combust m_sante_acces m_acte_nais m_trav_enf m_scol m_alfab ///
+             m_toilet m_partag_toi m_eau_source m_eau_temps m_ordures m_surpeup m_securite m_combust m_sante_acces m_acte_nais m_trav_enf m_scol m_alfab ///
              m_acte_nc m_scol_nc m_alfab_nc {
     rename `v' `v'18
 }
@@ -1068,11 +1050,11 @@ save `enf18_psm'
 use "$TEMP/enfants_dep_2021.dta", clear
 keep grappe menage numind sexe age pauvre_MODA nb_dep intensite_moda groupe_moda ///
      dim_assai dim_eau dim_logem dim_nutri dim_sante dim_protect dim_educ ///
-     m_parents m_toilet m_partag_toi m_eau_source m_eau_temps m_ordures m_surpeup m_securite m_combust m_sante_acces m_acte_nais m_trav_enf m_scol m_alfab ///
+     m_toilet m_partag_toi m_eau_source m_eau_temps m_ordures m_surpeup m_securite m_combust m_sante_acces m_acte_nais m_trav_enf m_scol m_alfab ///
      m_acte_nc m_scol_nc m_alfab_nc
 foreach v in sexe age pauvre_MODA nb_dep intensite_moda groupe_moda ///
              dim_assai dim_eau dim_logem dim_nutri dim_sante dim_protect dim_educ ///
-             m_parents m_toilet m_partag_toi m_eau_source m_eau_temps m_ordures m_surpeup m_securite m_combust m_sante_acces m_acte_nais m_trav_enf m_scol m_alfab ///
+             m_toilet m_partag_toi m_eau_source m_eau_temps m_ordures m_surpeup m_securite m_combust m_sante_acces m_acte_nais m_trav_enf m_scol m_alfab ///
              m_acte_nc m_scol_nc m_alfab_nc {
     rename `v' `v'21
 }
@@ -1259,15 +1241,6 @@ di "  Le rejet justifie l'appariement prealable a la double difference."
 
 di _newline "=== 1a-ter. Tests d'endogeneite ==="
 
-di _newline "-- Separation parentale : le traitement la produit-il ? --"
-quietly regress m_parents21 D m_parents18, vce(cluster grappe)
-di "  Effet de D sur la separation parentale en 2021 : " ///
-   %7.4f _b[D] "  (et " %6.4f _se[D] ")  p = " ///
-   %6.4f 2*ttail(e(df_r), abs(_b[D]/_se[D]))
-di "  Un coefficient positif et significatif confirme que cet"
-di "  indicateur est un RESULTAT du traitement, non une privation"
-di "  independante : il est exclu de l'indice MODA."
-
 di _newline "-- Dimensions MODA : lesquelles le traitement deplace-t-il ? --"
 di "  (diagnostic, non un test de validite du score)"
 foreach v in assai eau logem nutri sante protect educ {
@@ -1276,7 +1249,7 @@ foreach v in assai eau logem nutri sante protect educ {
        "   p = " %6.4f 2*ttail(e(df_r), abs(_b[D]/_se[D]))
 }
 
-drop m_parents18 m_parents21 chef_f_t urbain_t
+drop chef_f_t urbain_t
 
 di _newline "=== Logit ENFANT — score de propension (EHCVM I, panel d'enfants) ==="
 di "Enfants suivis aux deux editions : " _N
@@ -2078,229 +2051,28 @@ forvalues g = 1/3 {
     global ATT_G`g' = _b[1.D]
 }
 
-/* ── ROBUSTESSE TRAJECTOIRES : PSM-DD PAR GROUPE D'AGE ───────
-   La famille en trajectoires est conservee en robustesse : elle suppose
-   les tendances paralleles, intestables ici, et l'ecart initial d'une
-   privation entiere entre stables et jamais rend le retour a la moyenne
-   plausible. La confrontation des deux familles borne l'effet. */
-use "$TEMP/panel_enfants_psm.dta", clear
-keep if !missing($POIDS_PRINCIPAL) & $POIDS_PRINCIPAL > 0
-
-di _newline "=== ROBUSTESSE : PSM-DD (trajectoires), par groupe d'age ==="
-forvalues g = 1/3 {
-    local titg : label grp `g'
-    /* Effectifs APRES appariement : enfants sur support commun et de
-       poids strictement positif, seuls a entrer dans l'estimation. */
-    quietly count if groupe_base == `g' & t == 0 & D == 1
-    local n_tr = r(N)
-    quietly count if groupe_base == `g' & t == 0 & D == 0
-    local n_te = r(N)
-    di _newline "--- Groupe `titg' ---"
-    di "  Effectifs apres appariement (t=0) : traites `n_tr', temoins `n_te'"
-    global NTR_G`g' = `n_tr'
-    global NTE_G`g' = `n_te'
-    /* Resultat PRINCIPAL : le nombre de privations (0-7). Le seuil
-       k = 4 est une convention ; le comptage capte toute l'echelle du
-       cumul, y compris les deplacements qui ne franchissent pas le
-       seuil. L'incidence au seuil est presentee en complement. */
-    regress nb_dep i.t##i.D [aw=$POIDS_PRINCIPAL] ///
-        if groupe_base == `g', vce(cluster grappe)
-    lincom 1.t#1.D
-    di "  ATT_PSM-DD nb_dep (`titg') = " %8.4f r(estimate) ///
-       "  SE = " %8.4f r(se) "  p = " %6.4f r(p)
-    global ATTDD_G`g' = r(estimate)
-
-    regress pauvre_MODA i.t##i.D [aw=$POIDS_PRINCIPAL] ///
-        if groupe_base == `g', vce(cluster grappe)
-    lincom 1.t#1.D
-    di "  Complement incidence (`titg') = " %8.4f r(estimate) ///
-       "  SE = " %8.4f r(se) "  p = " %6.4f r(p)
-    global ATTH_G`g' = r(estimate)
-}
-
-di _newline "=== Effectifs avant / apres appariement, par groupe et methode ==="
-di "  (avant = enfants du design principal ; apres = sur support, poids > 0)"
-preserve
-    use "$TEMP/pscore_t0.dta", clear
-    merge 1:1 enfid using "$TEMP/pscore_knn.dta",    keepusing(weight_knn)     nogenerate
-    merge 1:1 enfid using "$TEMP/poids_kernel.dta",  keepusing(weight_kernel)  nogenerate
-    merge 1:1 enfid using "$TEMP/poids_caliper.dta", keepusing(weight_caliper) nogenerate
-    forvalues g = 1/3 {
-        local titg : label grp `g'
-        di _newline "  -- `titg' --"
-        quietly count if grp_psm == `g' & D == 1
-        local a1 = r(N)
-        quietly count if grp_psm == `g' & D == 0
-        local a0 = r(N)
-        di "    avant appariement        : traites " %6.0f `a1' "   temoins " %6.0f `a0'
-        foreach m in knn kernel caliper {
-            quietly count if grp_psm == `g' & D == 1 & weight_`m' > 0 & !missing(weight_`m')
-            local b1 = r(N)
-            quietly count if grp_psm == `g' & D == 0 & weight_`m' > 0 & !missing(weight_`m')
-            local b0 = r(N)
-            di "    apres (" %-7s "`m'" ")        : traites " %6.0f `b1' "   temoins " %6.0f `b0'
-        }
-    }
-restore
-
-/* Aucun resultat d'ensemble n'est presente : le score, l'appariement et
-   l'impact sont estimes par groupe d'age, et un agregat qui melange des
-   enfants mesures sur des indicateurs differents n'aurait pas
-   d'interpretation. Les trois ATT ci-dessus sont LE resultat. */
-
-/* ── ATT net des chocs locaux de periode (COVID-19) ──────────
-   L'indicatrice de periode absorbe le choc COVID COMMUN aux deux
-   groupes. Ce qu'elle n'absorbe pas, c'est un choc de periode qui varie
-   selon le lieu : restrictions, fermetures et tensions de prix n'ont pas
-   frappe uniformement les regions ni les milieux urbain et rural. Les
-   interactions periode x region et periode x milieu permettent a chaque
-   localite d'avoir son propre choc de periode ; l'ATT est alors identifie
-   par la comparaison de traites et temoins AU SEIN d'une meme localite,
-   soumis au meme choc local. Cette specification retire la part
-   geographique de l'exposition differentielle a la pandemie. Elle ne
-   peut rien contre une exposition differentielle au sein d'une meme
-   localite, discutee dans les limites du rapport. */
-/* ── ENCADREMENT DD - ANCOVA, par groupe d'age ───────────────
-   Le traitement etant deja en cours a la periode de base, il n'existe
-   aucune periode pre-traitement : l'hypothese de tendances paralleles
-   de la DD est intestable par construction. L'encadrement d'Angrist et
-   Pischke (2009) y repond : la DD suppose les tendances paralleles, la
-   regression a variable dependante retardee (ANCOVA : resultat de 2021
-   sur le traitement, le resultat de 2018 et les covariables) suppose au
-   contraire la selection sur le niveau initial, et les deux estimations
-   ENCADRENT l'effet vrai. Un effet de meme signe dans les deux
-   specifications ne depend d'aucune des deux hypotheses ; un effet qui
-   disparait dans l'ANCOVA signale que la convergence des niveaux (retour
-   a la moyenne) porte le resultat de la DD.
-   L'AIPW (doublement robuste, teffects) complete : meme identification,
-   estimateur convergent des lors que le modele de score OU le modele de
-   resultat est bien specifie. */
-di _newline "=== Encadrement DD - ANCOVA, par groupe d'age ==="
-preserve
-    use "$TEMP/pscore_t0.dta", clear
-    merge 1:1 enfid using "$TEMP/poids_kernel.dta", ///
-        keepusing(weight_kernel) nogenerate
-    forvalues g = 1/3 {
-        local titg : label grp `g'
-        di _newline "-- `titg' --"
-        regress nb_dep21 i.D c.nb_dep18 $COV_SCORE ///
-            [aw=weight_kernel] if grp_psm == `g' ///
-            & weight_kernel > 0 & !missing(weight_kernel), vce(cluster grappe)
-        di "  ANCOVA (`titg') : effet = " %8.4f _b[1.D] ///
-           "  SE = " %8.4f _se[1.D] ///
-           "  p = " %6.4f 2*ttail(e(df_r), abs(_b[1.D]/_se[1.D]))
-        di "  Rappel DD (`titg') : " %8.4f ${ATTDD_G`g'}
-        di "  Lecture : DD et ANCOVA encadrent l'effet vrai (Angrist et"
-        di "  Pischke, 2009) ; meme signe = conclusion robuste aux deux"
-        di "  hypotheses opposees."
-
-        capture noisily teffects aipw (nb_dep21 nb_dep18 $COV_SCORE) ///
-            (D $COV_SCORE, logit) if grp_psm == `g', atet
-        if _rc == 0 {
-            di "  AIPW (`titg') : ATET = " %8.4f _b[r1vs0.D] ///
-               "  SE = " %8.4f _se[r1vs0.D]
-        }
-        else di "  AIPW (`titg') : non estimable (rc=" _rc ")"
-    }
-restore
-
-di _newline "=== PSM-DD net des chocs locaux de periode (COVID-19), par groupe ==="
-forvalues g = 1/3 {
-    local titg : label grp `g'
-    di _newline "-- `titg' --"
-    regress nb_dep i.t##i.D i.t#i.region i.t#i.milieu ///
-        [aw=$POIDS_PRINCIPAL] if groupe_base == `g', vce(cluster grappe)
-    lincom 1.t#1.D
-    di "  ATT_net_chocs (`titg') = " %8.4f r(estimate) ///
-       "  SE = " %8.4f r(se) "  p = " %6.4f r(p)
-}
-di "  (interactions periode x region et periode x milieu incluses)"
 
 /* ── Sensibilite au seuil inter-dimensionnel k ──────────────────
-   Le seuil k=4 est une convention. On reestime l'ATT en definissant la
-   pauvrete successivement a chaque seuil de 1 a 7 dimensions sur 7, pour
-   verifier que la conclusion ne depend pas du seuil retenu. */
-di _newline "=== Sensibilite de l'ATT au seuil de privation k ==="
-di "  k        ATT      SE       p"
-forvalues k = 1/7 {
-    quietly gen byte pauvre_k`k' = (nb_dep >= `k') if !missing(nb_dep)
-    quietly regress pauvre_k`k' i.t##i.D [aw=$POIDS_PRINCIPAL], vce(cluster grappe)
-    quietly lincom 1.t#1.D
-    di "  " %1.0f `k' %11.4f r(estimate) %9.4f r(se) %8.4f r(p)
-    quietly drop pauvre_k`k'
-}
-
-/* ── PSM seul (transversal, sans double difference) ─────────────
-   Decompose le PSM-DD en ses deux composantes transversales : l'ecart
-   de niveau apparie a t=0 (avant traitement) et a t=1 (apres), ponderes
-   par les poids d'appariement k-NN. Par construction,
-   ATT_PSM-DD = ecart(t=1) - ecart(t=0). Alimente le tableau "PSM seul
-   vs PSM-DD" de l'annexe A. */
-di _newline "=== PSM seul (transversal, sans DD) — decomposition du PSM-DD ==="
-di _newline "--- PSM seul, t=0 (niveau initial apparie) ---"
-regress pauvre_MODA D [aw=$POIDS_PRINCIPAL] if t == 0, vce(cluster grappe)
-di "  ATT PSM (t=0) = " %8.4f _b[D] "  SE = " %8.4f _se[D] ///
-   "  p = " %6.4f (2*ttail(e(df_r), abs(_b[D]/_se[D])))
-di _newline "--- PSM seul, t=1 (EHCVM II, sans DD) ---"
-regress pauvre_MODA D [aw=$POIDS_PRINCIPAL] if t == 1, vce(cluster grappe)
-di "  ATT PSM (t=1) = " %8.4f _b[D] "  SE = " %8.4f _se[D] ///
-   "  p = " %6.4f (2*ttail(e(df_r), abs(_b[D]/_se[D])))
-di _newline "  Rappel : ATT_PSM-DD = ATT_PSM(t=1) - ATT_PSM(t=0), par construction."
-
-/* ── Fig DD : trajectoires beneficiaires vs temoins + contrefactuel ──
-   Moyennes ponderees par les poids k-NN. Le contrefactuel applique la
-   tendance des temoins au niveau initial des beneficiaires. */
-quietly summarize pauvre_MODA if D==1 & t==0 [aw=$POIDS_PRINCIPAL]
-scalar dd_b0 = r(mean)*100
-quietly summarize pauvre_MODA if D==1 & t==1 [aw=$POIDS_PRINCIPAL]
-scalar dd_b1 = r(mean)*100
-quietly summarize pauvre_MODA if D==0 & t==0 [aw=$POIDS_PRINCIPAL]
-scalar dd_c0 = r(mean)*100
-quietly summarize pauvre_MODA if D==0 & t==1 [aw=$POIDS_PRINCIPAL]
-scalar dd_c1 = r(mean)*100
-scalar dd_cf1 = dd_b0 + (dd_c1 - dd_c0)   /* contrefactuel sous tendances paralleles */
-
+   Le resultat principal porte sur le nombre de privations ; on verifie
+   ici que l'effet sur le STATUT de pauvrete ne depend pas de la
+   convention k, en reestimant en niveaux de 2021, par groupe d'age. */
+di _newline "=== Sensibilite au seuil k (statut de pauvrete, niveaux 2021) ==="
 preserve
-clear
-set obs 2
-gen annee   = 2018 in 1
-replace annee   = 2021 in 2
-gen benef   = dd_b0 in 1
-replace benef   = dd_b1 in 2
-gen temoin  = dd_c0 in 1
-replace temoin  = dd_c1 in 2
-gen contref = dd_b0 in 1
-replace contref = dd_cf1 in 2
-gen str8 lb_b = subinstr(string(benef,  "%3.1f"), ".", ",", 1) + " %"
-gen str8 lb_t = subinstr(string(temoin, "%3.1f"), ".", ",", 1) + " %"
-/* etiquette du contrefactuel affichee seulement en 2021 (2018 = point benef) */
-gen str8 lb_c = ""
-replace  lb_c = subinstr(string(contref, "%3.1f"), ".", ",", 1) + " %" in 2
+    keep if t == 1
+    forvalues g = 1/3 {
+        local titg : label grp `g'
+        di "  -- `titg' --   k        ATT      SE       p"
+        forvalues k = 1/7 {
+            quietly gen byte pauvre_k = (nb_dep >= `k') if !missing(nb_dep)
+            quietly regress pauvre_k i.D [aw=$POIDS_PRINCIPAL] ///
+                if groupe_base == `g', vce(cluster grappe)
+            di "        " %1.0f `k' %11.4f _b[1.D] %9.4f _se[1.D] ///
+               %8.4f 2*ttail(e(df_r), abs(_b[1.D]/_se[1.D]))
+            quietly drop pauvre_k
+        }
+    }
+restore
 
-/* Positions d'etiquette par point pour eviter tout chevauchement :
-   temoin au-dessus (12) ; entrants a droite du point en 2021 (3),
-   hors des courbes, en dessous en 2018 (6) ; contrefactuel en
-   dessous (6), avec un ecart accru. */
-gen byte vp_b = 6
-replace  vp_b = 3 in 2
-
-set dp comma
-twoway (connected temoin annee, lcolor(gs7) mcolor(gs7) msymbol(square) lwidth(medthick) ///
-            mlabel(lb_t) mlabcolor(black) mlabpos(12) mlabgap(3) mlabsize(small)) ///
-       (connected benef annee, lcolor(orange) mcolor(orange) msymbol(circle) lwidth(medthick) ///
-            mlabel(lb_b) mlabcolor(black) mlabvpos(vp_b) mlabgap(3) mlabsize(small)) ///
-       (connected contref annee, lcolor(orange) lpattern(dash) msymbol(diamond_hollow) ///
-            mcolor(orange) lwidth(medthick) ///
-            mlabel(lb_c) mlabcolor(black) mlabpos(6) mlabgap(4.5) mlabsize(small)), ///
-    xlabel(2018 2021) xscale(range(2017.7 2021.8)) ///
-    xtitle("Édition EHCVM") ytitle("Incidence de pauvreté multidimensionnelle (H, %)") ///
-    ylabel(0(20)100, grid) ///
-    legend(order(2 "Bénéficiaires" 1 "Témoins appariés" ///
-                 3 "Contrefactuel (tendances parallèles)") pos(6) rows(2)) ///
-    graphregion(color(white)) plotregion(color(white))
-set dp period
-graph export "$OUTPUT/figures/fig_dd_trajectoires.pdf", replace
-di ">>> fig_dd_trajectoires.pdf sauvegardé"
 restore
 
 /* ============================================================
@@ -2590,79 +2362,6 @@ lincom 1.t#1.D_base_alt
 di "  ATT_PSMDD_2018 = " %8.4f r(estimate) ///
    "  SE = " %8.4f r(se) "  p = " %6.4f r(p)
 di "  A comparer a l'ATT du design principal (stables vs jamais)."
-
-/* ============================================================
-   9. Robustesse : regression par commutation endogene
-      (endogenous switching regression, Lokshin et Sajaia 2004)
-
-   Le PSM-DD corrige la selection sur observables et les inobservables
-   stables ; la commutation endogene traite la selection sur
-   INOBSERVABLES en laissant les erreurs de l'equation de selection se
-   correler avec celles des deux equations de resultat (regimes
-   beneficiaire / non beneficiaire), estimees conjointement par maximum
-   de vraisemblance (movestay). Elle exige une restriction d'exclusion :
-   une variable qui determine la reception sans affecter directement les
-   privations. L'instrument retenu est la part de menages beneficiaires
-   stables dans la grappe, HORS le menage lui-meme (« leave-one-out »),
-   proxy des reseaux migratoires locaux. Cette restriction est assumee
-   comme telle et discutee dans le rapport : le reseau local peut
-   affecter les privations par d'autres canaux, et cette estimation vaut
-   comme robustesse, non comme identification principale.
-
-   Resultat : nb_dep de 2021, avec nb_dep de 2018 en controle. ATT
-   deduit des contrefactuels de mspredict (yc1_1 : espere en regime
-   beneficiaire pour les beneficiaires ; yc2_1 : espere en regime non
-   beneficiaire pour les memes).
-   ============================================================ */
-
-di _newline "=== Robustesse : commutation endogene (movestay) ==="
-capture which movestay
-if _rc {
-    di "  !! movestay absent : ssc install movestay, puis relancer."
-}
-else {
-    use "$TEMP/pscore_t0.dta", clear
-
-    /* Instrument leave-one-out au niveau menage, reporte aux enfants */
-    preserve
-        bysort grappe menage: keep if _n == 1
-        bysort grappe: egen nb_men_grap = count(menage)
-        bysort grappe: egen nb_ben_grap = total(D)
-        gen double part_ben_loo = (nb_ben_grap - D) / (nb_men_grap - 1) ///
-            if nb_men_grap > 1
-        keep grappe menage part_ben_loo
-        tempfile loo
-        save `loo'
-    restore
-    merge m:1 grappe menage using `loo', nogenerate
-
-    quietly summarize part_ben_loo if D == 1
-    di "  Instrument (part beneficiaires de la grappe, hors menage) :"
-    di "    traites  : moyenne " %6.3f r(mean)
-    quietly summarize part_ben_loo if D == 0
-    di "    temoins  : moyenne " %6.3f r(mean)
-
-    forvalues g = 1/2 {
-        local titg : label grp `g'
-        di _newline "-- Commutation endogene, `titg' --"
-        capture noisily movestay ///
-            (nb_dep21 = nb_dep18 $COV_SCORE) if grp_psm == `g', ///
-            select(D = part_ben_loo $COV_SCORE) cluster(grappe)
-        if _rc == 0 {
-            quietly mspredict double y1_att if D == 1, yc1_1
-            quietly mspredict double y0_att if D == 1, yc2_1
-            quietly gen double att_esr = y1_att - y0_att if D == 1
-            quietly summarize att_esr
-            di "  ATT commutation (`titg') = " %8.4f r(mean) ///
-               "  (n traites = " r(N) ")"
-            di "  Rappel ANCOVA et PSM-DD : voir sections precedentes."
-            drop y1_att y0_att att_esr
-        }
-        else di "  !! movestay non convergent pour ce groupe (rc=" _rc ")."
-    }
-    di "  15-17 ans : effectif insuffisant pour le maximum de"
-    di "  vraisemblance conjoint, groupe non estime."
-}
 
 di _newline ">>> 05_psm_dd.do termine."
 
@@ -3352,122 +3051,6 @@ graph display, scale(1.35)   /* texte agrandi pour la projection */
 graph export "$OUTPUT/figures/fig_effets_dim.pdf", replace
 di ">>> fig_effets_dim.pdf sauvegardé dans $OUTPUT/figures/"
 di ">>> 07_effets_dim.do terminé."
-
-/* ============================================================
-   SECTION : 09_PLACEBO — Tests de validite (annexe A)
-
-   1. Test placebo : 200 assignations aleatoires d'un faux
-      traitement parmi les menages jamais traites ; la
-      distribution des ATT placebo doit etre centree sur zero
-      si l'hypothese de tendances paralleles est plausible.
-      retrouves vs perdus en 2021 sur les covariables de base.
-
-   Aucune ponderation par poids d'enquete.
-   ============================================================ */
-
-
-/* ============================================================
-   1. Test placebo (200 replications)
-   ============================================================ */
-
-di _newline "=== Test placebo (200 replications) ==="
-
-local n_rep 200
-matrix PLA = J(`n_rep', 3, .)   /* une colonne par groupe d'age */
-
-/* Echantillon : enfants suivis des menages jamais traites */
-use "$TEMP/panel_enfants_psm.dta", clear
-keep if D == 0
-tempfile never
-save `never'
-
-/* Liste des menages (une ligne par menage) */
-bysort grappe menage: keep if _n == 1
-keep grappe menage
-tempfile liste_men
-save `liste_men'
-quietly count
-local n_men = r(N)
-/* part de faux traites = part observee de traites */
-preserve
-    use "$TEMP/panel_enfants_psm.dta", clear
-    keep if t == 0
-    bysort grappe menage: keep if _n == 1
-    quietly summarize D
-    local part_fake = r(mean)
-restore
-di "  Part de faux traites appliquee : " %6.4f `part_fake'
-
-forvalues r = 1/`n_rep' {
-    quietly {
-        use `liste_men', clear
-        set seed `=1000+`r''
-        gen u = runiform()
-        sort u
-        gen byte fakeD = (_n <= `part_fake'*`n_men')
-        keep grappe menage fakeD
-        tempfile fake
-        save `fake'
-
-        use `never', clear
-        merge m:1 grappe menage using `fake', keep(match) nogenerate
-
-        /* DD placebo (moyennes des 4 cellules), par groupe d'age,
-           comme l'estimation principale */
-        forvalues g = 1/3 {
-            summarize nb_dep if t==1 & fakeD==1 & groupe_base==`g'
-            local m11 = r(mean)
-            summarize nb_dep if t==0 & fakeD==1 & groupe_base==`g'
-            local m01 = r(mean)
-            summarize nb_dep if t==1 & fakeD==0 & groupe_base==`g'
-            local m10 = r(mean)
-            summarize nb_dep if t==0 & fakeD==0 & groupe_base==`g'
-            local m00 = r(mean)
-            matrix PLA[`r',`g'] = (`m11'-`m01') - (`m10'-`m00')
-        }
-    }
-    if mod(`r', 50) == 0 di "  replication `r'/`n_rep'"
-}
-
-/* Statistiques de la distribution placebo, groupe par groupe : la
-   distribution doit etre centree sur zero, et l'ATT du groupe doit se
-   situer dans sa queue. */
-clear
-svmat PLA, names(col)
-forvalues g = 1/3 {
-    rename c`g' att_g`g'
-    quietly summarize att_g`g'
-    di _newline "Placebo groupe `g' : moyenne=" %7.4f r(mean) "  sd=" %6.4f r(sd)
-    quietly count if !missing(att_g`g')
-    local ntot = r(N)
-    quietly count if att_g`g' < ${ATTDD_G`g'}
-    di "  ATT du groupe (" %6.4f ${ATTDD_G`g'} ") : rang = " ///
-       %4.1f 100*r(N)/`ntot' "e centile"
-}
-
-/* ── Fig placebo : distribution des ATT placebo vs ATT reel ──
-   Verifie la plausibilite des tendances paralleles : la distribution
-   placebo doit etre centree sur zero et l'ATT reel doit se situer dans
-   sa queue. */
-set dp comma
-forvalues g = 1/3 {
-    local titg : label grp `g'
-    quietly histogram att_g`g', width(0.005) frequency ///
-        color(gs9) lcolor(white) ///
-        xline(0, lcolor(black) lpattern(solid)) ///
-        xline(`=${ATTDD_G`g'}', lcolor(orange) lpattern(dash) lwidth(medthick)) ///
-        xtitle("ATT placebo") ytitle("Réplications") ///
-        title("`titg'", size(medium)) ///
-        graphregion(color(white)) plotregion(color(white)) ///
-        name(pla`g', replace)
-}
-graph combine pla1 pla2 pla3, rows(1) graphregion(color(white))
-set dp period
-graph export "$OUTPUT/figures/fig_placebo_dd.pdf", replace
-graph drop pla1 pla2 pla3
-di ">>> fig_placebo_dd.pdf sauvegardé (trois panneaux, un par groupe)"
-
-di _newline ">>> 09_placebo.do termine."
 
 /* ── Fig : taux de privation par dimension, ensemble et par groupe ──
    Barres horizontales, une paire par dimension (EHCVM I vs II),
