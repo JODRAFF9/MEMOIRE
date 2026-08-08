@@ -721,6 +721,29 @@ celui des témoins. Un estimateur doublement robuste (AIPW) complète le
 dispositif, convergent dès lors que le modèle de sélection ou le modèle de
 résultat est correctement spécifié.
 
+\subsubsection{Régression par commutation endogène}
+
+Le dispositif est complété par une régression par commutation endogène
+\parencite{lokshin2004}, qui traite ce qu'aucune des spécifications
+précédentes n'atteint, la sélection sur inobservables contemporains. Deux
+équations de résultat, une par régime, bénéficiaire et non bénéficiaire,
+sont estimées conjointement avec une équation de sélection par maximum de
+vraisemblance, en laissant les inobservables des trois équations se
+corréler. Le résultat est le nombre de privations de 2021, celui de 2018
+figurant parmi les contrôles, et l'effet sur les traités se déduit des
+contrefactuels prédits, ce que les bénéficiaires auraient connu dans le
+régime sans transferts. La méthode exige une restriction d'exclusion, une
+variable qui détermine la réception sans affecter directement les
+privations~: l'instrument retenu est la part de ménages bénéficiaires
+stables dans la grappe de sondage, hors le ménage lui-même, proxy des
+réseaux migratoires locaux dont la revue de littérature établit qu'ils
+gouvernent l'accès à la migration. Cette restriction est assumée comme une
+hypothèse et non comme un fait, le réseau local pouvant affecter les
+privations par d'autres canaux~; l'estimation vaut donc comme robustesse,
+en dialogue avec \textcite{ndiaye2016} qui mobilise une correction de
+sélection voisine sur données sénégalaises, et non comme identification
+principale.
+
 \subsubsection{Analyses d'hétérogénéité et de robustesse}
 \label{subsec:robustesse}
 

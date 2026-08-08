@@ -2563,6 +2563,79 @@ di "  ATT_PSMDD_2018 = " %8.4f r(estimate) ///
    "  SE = " %8.4f r(se) "  p = " %6.4f r(p)
 di "  A comparer a l'ATT du design principal (stables vs jamais)."
 
+/* ============================================================
+   9. Robustesse : regression par commutation endogene
+      (endogenous switching regression, Lokshin et Sajaia 2004)
+
+   Le PSM-DD corrige la selection sur observables et les inobservables
+   stables ; la commutation endogene traite la selection sur
+   INOBSERVABLES en laissant les erreurs de l'equation de selection se
+   correler avec celles des deux equations de resultat (regimes
+   beneficiaire / non beneficiaire), estimees conjointement par maximum
+   de vraisemblance (movestay). Elle exige une restriction d'exclusion :
+   une variable qui determine la reception sans affecter directement les
+   privations. L'instrument retenu est la part de menages beneficiaires
+   stables dans la grappe, HORS le menage lui-meme (« leave-one-out »),
+   proxy des reseaux migratoires locaux. Cette restriction est assumee
+   comme telle et discutee dans le rapport : le reseau local peut
+   affecter les privations par d'autres canaux, et cette estimation vaut
+   comme robustesse, non comme identification principale.
+
+   Resultat : nb_dep de 2021, avec nb_dep de 2018 en controle. ATT
+   deduit des contrefactuels de mspredict (yc1_1 : espere en regime
+   beneficiaire pour les beneficiaires ; yc2_1 : espere en regime non
+   beneficiaire pour les memes).
+   ============================================================ */
+
+di _newline "=== Robustesse : commutation endogene (movestay) ==="
+capture which movestay
+if _rc {
+    di "  !! movestay absent : ssc install movestay, puis relancer."
+}
+else {
+    use "$TEMP/pscore_t0.dta", clear
+
+    /* Instrument leave-one-out au niveau menage, reporte aux enfants */
+    preserve
+        bysort grappe menage: keep if _n == 1
+        bysort grappe: egen nb_men_grap = count(menage)
+        bysort grappe: egen nb_ben_grap = total(D)
+        gen double part_ben_loo = (nb_ben_grap - D) / (nb_men_grap - 1) ///
+            if nb_men_grap > 1
+        keep grappe menage part_ben_loo
+        tempfile loo
+        save `loo'
+    restore
+    merge m:1 grappe menage using `loo', nogenerate
+
+    quietly summarize part_ben_loo if D == 1
+    di "  Instrument (part beneficiaires de la grappe, hors menage) :"
+    di "    traites  : moyenne " %6.3f r(mean)
+    quietly summarize part_ben_loo if D == 0
+    di "    temoins  : moyenne " %6.3f r(mean)
+
+    forvalues g = 1/2 {
+        local titg : label grp `g'
+        di _newline "-- Commutation endogene, `titg' --"
+        capture noisily movestay ///
+            (nb_dep21 = nb_dep18 $COV_SCORE) if grp_psm == `g', ///
+            select(D = part_ben_loo $COV_SCORE) cluster(grappe)
+        if _rc == 0 {
+            quietly mspredict double y1_att if D == 1, yc1_1
+            quietly mspredict double y0_att if D == 1, yc2_1
+            quietly gen double att_esr = y1_att - y0_att if D == 1
+            quietly summarize att_esr
+            di "  ATT commutation (`titg') = " %8.4f r(mean) ///
+               "  (n traites = " r(N) ")"
+            di "  Rappel ANCOVA et PSM-DD : voir sections precedentes."
+            drop y1_att y0_att att_esr
+        }
+        else di "  !! movestay non convergent pour ce groupe (rc=" _rc ")."
+    }
+    di "  15-17 ans : effectif insuffisant pour le maximum de"
+    di "  vraisemblance conjoint, groupe non estime."
+}
+
 di _newline ">>> 05_psm_dd.do termine."
 
 /* ============================================================
