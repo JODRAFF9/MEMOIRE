@@ -135,19 +135,38 @@ L'unité d'analyse étant l'enfant, la variable de traitement
 $D_i \in \{0, 1\}$ est attachée à chaque enfant $i$ et vaut 1 si son ménage
 est bénéficiaire de transferts de migrants, tous les enfants d'un même
 ménage partageant donc le même statut. Construit à partir de la section 13
-des deux vagues EHCVM, le statut est défini à la période de base (2018). Un
-enfant est traité si son ménage a reçu en 2018 au moins un transfert d'un
-expéditeur résidant hors du Sénégal et ayant déjà vécu dans le ménage, en
-tant qu'ancien membre parti en migration. Le groupe témoin rassemble les
-enfants des ménages ne recevant aucun transfert de ce type~; les transferts
-internes et les envois d'expéditeurs n'ayant jamais appartenu au ménage
-sont écartés. Le tableau~\ref{tab:repart_traitement} donne la répartition
-qui en résulte. Sur les 17\,786 enfants suivis, 2\,638, soit 14,8\,\%, vivent dans un
-ménage bénéficiaire à la période de base. Le tableau distingue aussi les
-statuts à l'autre vague. Ainsi, 1\,482 enfants vivent dans un ménage bénéficiaire
-stable, recevant un transfert aux deux vagues, et 13\,477 dans un ménage
-jamais bénéficiaire, les deux groupes que mobilise la définition
-alternative du traitement en robustesse.
+des deux vagues EHCVM, un transfert éligible est celui d'un expéditeur
+résidant hors du Sénégal et ayant déjà vécu dans le ménage, en tant
+qu'ancien membre parti en migration~; les transferts internes et les envois
+d'expéditeurs n'ayant jamais appartenu au ménage sont écartés.
+
+Le design principal retient l'exposition continue : un enfant est traité si
+son ménage reçoit un tel transfert \emph{aux deux vagues}, et le groupe
+témoin rassemble les enfants des ménages n'en recevant à aucune des deux.
+Deux raisons commandent ce choix. La première tient à la définition même du
+traitement~: comme le montre le tableau~\ref{tab:repart_traitement}, près
+d'un ménage bénéficiaire de 2018 sur deux ne reçoit plus en 2021, la
+pandémie de COVID-19 ayant notamment interrompu une partie des envois en
+2020. Classer ces ménages parmi les traités reviendrait à mesurer l'effet
+d'un traitement largement éteint au moment où le résultat est observé. La
+seconde tient à la lisibilité de l'effet~: chez les bénéficiaires stables,
+le flux est effectif sur toute la période, et l'effet estimé se lit comme
+celui d'une exposition durable aux transferts. Ce design a une contrepartie,
+assumée~: le traitement est déjà en cours à la période de base, qui n'est
+donc pas une période pré-traitement, et la double différence s'interprète
+comme l'écart de trajectoire entre exposition continue et absence continue.
+La définition canonique, fixée à la seule période de base et incluant les
+bénéficiaires transitoires, est conservée en robustesse~; la convergence des
+deux designs constitue le véritable test, un effet présent dans les deux ne
+dépendant ni de la dilution de l'un ni de l'absence de période
+pré-traitement de l'autre.
+
+Le tableau~\ref{tab:repart_traitement} donne la répartition des 17\,786
+enfants suivis. 1\,482 vivent dans un ménage bénéficiaire stable et
+13\,477 dans un ménage jamais bénéficiaire~: ce sont les deux groupes du
+design principal. Les 2\,827 enfants des ménages au statut transitoire,
+bénéficiaires à une seule des deux vagues, sont écartés du design principal
+et réintégrés par la définition de robustesse.
 
 \begin{table}[H]
   \centering
@@ -518,6 +537,30 @@ et le groupe témoin ($D_i=0$), sous l'hypothèse de tendances parallèles :
   = \E\!\left[Y_i(0)_{t=2} - Y_i(0)_{t=1} \mid D_i = 0\right].
   \label{eq:parallel}
 \end{equation}
+
+\paragraph{La pandémie de COVID-19 entre les deux vagues.}
+La période séparant les deux enquêtes contient la pandémie de COVID-19, dont
+le choc a frappé le Sénégal en 2020 : restrictions de déplacement, fermeture
+temporaire des écoles, ralentissement de l'activité, tension sur les prix
+alimentaires. Il faut dire précisément ce que la double différence en absorbe
+et ce qu'elle n'en absorbe pas. Tout ce que la pandémie a de commun aux deux
+groupes, la dégradation générale des conditions de vie entre 2018-2019 et
+2021-2022, est capté par l'indicatrice de période et ne contamine pas l'effet
+estimé, c'est précisément la force du dispositif. Ce que l'estimateur ne
+neutralise pas, c'est une exposition différentielle : si la pandémie a frappé
+les ménages bénéficiaires plus ou moins durement que leurs témoins appariés,
+cet écart s'incorpore à l'effet mesuré. Or cette exposition différentielle est
+plausible dans les deux sens. D'un côté, les envois de fonds dépendent du
+revenu de migrants installés dans des pays eux-mêmes confinés, et le canal
+même du traitement a été perturbé en 2020 avant de se rétablir~; de l'autre,
+la littérature rappelée au chapitre précédent prête aux transferts un rôle
+assurantiel qui aurait dû, au contraire, amortir le choc chez les
+bénéficiaires \parencite{gubert2002}. L'effet estimé doit donc se lire comme
+l'effet des transferts \emph{dans la conjoncture particulière de la période},
+pandémie comprise, et non comme un paramètre structurel valable en temps
+ordinaire. L'appariement sur le milieu de résidence et la région limite par
+ailleurs la part géographique de l'exposition différentielle, les restrictions
+ayant surtout varié entre villes et campagnes et d'une région à l'autre.
 
 \subsubsection{Estimateur par appariement et double différence}
 
