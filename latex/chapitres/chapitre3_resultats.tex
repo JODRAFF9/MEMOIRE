@@ -144,30 +144,44 @@ ni de l'absence de période pré-traitement de l'autre.
 \label{subsec:sensib_k}
 
 Le seuil $k=4$ dimensions sur sept retenu pour déclarer un enfant pauvre est
-une convention, dont l'annexe~\ref{ann:A} donne la distribution sous-jacente. Le tableau~\ref{tab:sensib_k} réestime l'effet à chaque seuil
-possible, de $k=1$ à $k=7$. Le signe de l'effet est positif à tous les seuils,
-mais son ampleur suit une courbe en cloche, quasi nulle à $k=1$ où elle
-vaut $0{,}007$,
-elle croît jusqu'à un
-maximum de $0{,}064$ à $k=4$ puis retombe, jusqu'à $0{,}010$ à $k=6$. La
-significativité épouse la même forme, l'effet n'atteignant le seuil de 10\,\%
-qu'à $k=2$, $k=3$ et $k=4$.
+une convention, dont l'annexe~\ref{ann:A} donne la distribution sous-jacente.
+Le tableau~\ref{tab:sensib_k} réestime, en niveaux de la seconde édition et
+séparément par groupe d'âge, l'effet sur la probabilité d'être privé dans au
+moins $k$ dimensions, pour chaque seuil possible de $k=1$ à $k=7$. Chez les
+enfants de 0 à 4 ans, aucun seuil ne fait apparaître d'effet significatif, ce
+qui prolonge l'absence d'effet constatée sur le nombre de privations. Chez les
+enfants de 5 à 14 ans, l'effet est négatif du seuil de deux privations
+jusqu'à six et atteint son ampleur maximale autour des seuils de quatre et
+cinq dimensions : la probabilité d'être privé dans au moins cinq dimensions
+recule de 5,5 points chez les bénéficiaires, un effet significatif au seuil
+de 5\,\%, tandis que le recul de 5,6 points observé au seuil conventionnel de
+quatre dimensions n'est significatif qu'au seuil de 10\,\%. Chez les
+adolescents, seul le seuil extrême de sept privations ressort, avec un recul
+significatif au seuil de 5\,\%, mais la faiblesse des effectifs invite à ne
+pas surinterpréter ce coefficient. L'effet protecteur identifié chez les 5-14
+ans ne dépend donc pas de la convention $k=4$ : il se manifeste sur les seuils
+élevés, ce qui est cohérent avec un recul du nombre de privations concentré
+chez les enfants initialement les plus privés.
 
 \begin{table}[H]
   \centering
-  \caption{Sensibilité de l'ATT PSM-DD au seuil inter-dimensionnel $k$}
+  \caption{Sensibilité de l'ATT au seuil inter-dimensionnel $k$ en niveaux de la seconde édition}
   \label{tab:sensib_k}
-  \zebre
+  \nozebre
   \begin{tabular}{|l|c|c|c|c|c|c|c|}
     \hline
 \entete Seuil $k$ & 1 & 2 & 3 & 4 & 5 & 6 & 7 \\
     \hline
-    ATT & $0{,}007$ & $0{,}023^{*}$ & $0{,}043^{*}$ & $0{,}064^{**}$ & $0{,}031$ & $0{,}010$ & $0{,}010$ \\ \hline
-    Écart-type & $(0{,}006)$ & $(0{,}014)$ & $(0{,}026)$ & $(0{,}029)$ & $(0{,}028)$ & $(0{,}022)$ & $(0{,}011)$ \\
+    ATT 0-4 ans & $0{,}004$ & $0{,}004$ & $-0{,}063$ & $-0{,}059$ & $-0{,}005$ & $0{,}004$ & -- \\
+    Écart-type & $(0{,}008)$ & $(0{,}040)$ & $(0{,}044)$ & $(0{,}037)$ & $(0{,}033)$ & $(0{,}015)$ & -- \\ \hline
+    ATT 5-14 ans & $0{,}000$ & $-0{,}015$ & $-0{,}049$ & $-0{,}056^{*}$ & $-0{,}055^{**}$ & $-0{,}020$ & $0{,}004$ \\
+    Écart-type & $(0{,}006)$ & $(0{,}021)$ & $(0{,}033)$ & $(0{,}032)$ & $(0{,}028)$ & $(0{,}018)$ & $(0{,}009)$ \\ \hline
+    ATT 15-17 ans & -- & $0{,}033$ & $0{,}037$ & $-0{,}013$ & $-0{,}135$ & $-0{,}046$ & $-0{,}033^{**}$ \\
+    Écart-type & -- & $(0{,}062)$ & $(0{,}108)$ & $(0{,}112)$ & $(0{,}089)$ & $(0{,}049)$ & $(0{,}016)$ \\
     \hline
   \end{tabular}
 
-  {\footnotesize \textbf{Source :} Calcul de l'auteur, EHCVM. $^{*}p<0{,}10$.}
+  {\footnotesize \textbf{Source :} Calcul de l'auteur, EHCVM. $^{*}p<0{,}10$ ; $^{**}p<0{,}05$. Un tiret signale un seuil sans variation dans le groupe.}
 \end{table}
 
 \subsubsection{Effets par dimension}
