@@ -646,12 +646,20 @@ résultats des témoins,
 \end{equation}
 où $T_g$ et $C_g$ désignent les traités et les témoins du groupe et où les
 poids $w_{ij}$, positifs et de somme un pour chaque traité, définissent
-l'algorithme d'appariement. Trois algorithmes sont mis en œuvre. Le
-premier est celui des $k$ plus proches voisins, qui affecte un poids
-$w_{ij} = 1/k$ aux $k$ témoins dont le score est le plus proche de celui
-du traité $i$, avec remise, un même témoin pouvant servir à plusieurs
-traités. Le deuxième est l'appariement par noyau, qui mobilise tous les
-témoins du support en les pondérant par leur proximité au traité,
+l'algorithme d'appariement. Trois algorithmes sont mis en œuvre.
+
+Le premier est l'appariement aux $k$ plus proches voisins, avec $k=4$ et
+avec remise. Chaque enfant traité est comparé aux quatre témoins dont le
+score est le plus proche du sien, qui reçoivent chacun un poids
+$w_{ij} = 1/4$, un même témoin pouvant servir à plusieurs traités. Le
+recours à quatre voisins plutôt qu'à un seul stabilise le contrefactuel en
+moyennant le bruit propre à chaque témoin, au prix d'une comparaison un
+peu moins proche~; la remise garantit que chaque traité obtient les
+meilleurs témoins disponibles, même lorsque plusieurs traités se disputent
+la même zone de score.
+
+Le deuxième est l'appariement par noyau, qui mobilise tous les témoins du
+support en les pondérant par leur proximité au traité,
 \begin{equation}
   w_{ij} = \frac{K\!\left(\dfrac{p_j - p_i}{h}\right)}
                 {\sum_{l \in C_g} K\!\left(\dfrac{p_l - p_i}{h}\right)},
@@ -660,10 +668,22 @@ témoins du support en les pondérant par leur proximité au traité,
   \label{eq:kernel}
 \end{equation}
 où $K$ est le noyau d'Epanechnikov et $h$ la fenêtre de lissage, fixée à
-0,06. Le troisième est le caliper, appariement au plus proche voisin sans
+0,06. Chaque témoin dont le score se situe à moins de $h$ du traité
+contribue au contrefactuel, avec un poids qui décroît avec la distance et
+s'annule au bord de la fenêtre. En exploitant toute l'information du
+voisinage plutôt que quelques observations, cet estimateur atteint la
+variance la plus faible des trois~; sa limite est symétrique, des témoins
+relativement éloignés pouvant peser dans le contrefactuel si la fenêtre
+est trop large.
+
+Le troisième est l'appariement avec caliper, au plus proche voisin sans
 remise sous la contrainte $|p_i - p_j| < \varepsilon$, avec
-$\varepsilon = 0{,}05$, qui écarte tout traité sans témoin suffisamment
-proche.
+$\varepsilon = 0{,}05$. Chaque traité est associé à un unique témoin,
+jamais réutilisé, et tout traité sans témoin à moins de $\varepsilon$ est
+écarté de l'estimation. C'est l'algorithme le plus exigeant sur la qualité
+de chaque paire, et le plus coûteux en échantillon, la contrainte de
+distance et l'absence de remise pouvant écarter des traités appariables
+par les deux autres méthodes.
 
 Aucun n'est théoriquement supérieur aux autres :
 ils arbitrent différemment entre biais et variance, le voisinage le plus étroit
@@ -723,9 +743,9 @@ conditionnelle n'est crédible qu'à niveau initial comparable, et ce
 conditionnement neutralise la part de la trajectoire qui tient au point de
 départ. L'estimation est conduite séparément dans chaque groupe d'âge,
 aucun effet d'ensemble n'étant présenté. La robustesse du résultat est éprouvée par la
-définition du traitement, la sensibilité au seuil de privation et le choix
-de l'algorithme d'appariement, la méthode retenue l'étant au seul critère
-d'équilibre.
+définition du traitement, la sensibilité au seuil de privation et la
+comparaison des trois algorithmes d'appariement, la méthode retenue l'étant
+au seul critère d'équilibre.
 
 \subsubsection{Prise en compte de la COVID-19}
 
@@ -745,6 +765,8 @@ Le choix du design des bénéficiaires stables y répond aussi, ces ménages
 Les analyses d'hétérogénéité estiment l'impact séparément selon le milieu
 de résidence, le genre du chef de ménage, chaque dimension et chaque
 indicateur de privation, et le quintile de montant reçu. La robustesse est
-éprouvée par la définition du traitement, l'estimation étant reprise avec
-le traitement fixé à la seule période de base, bénéficiaires transitoires
-inclus, et par la sensibilité au seuil de privation $k$.
+éprouvée de trois façons : par la définition du traitement, l'estimation
+étant reprise avec le traitement fixé à la seule période de base,
+bénéficiaires transitoires inclus~; par la sensibilité au seuil de
+privation $k$~; et par la comparaison des trois algorithmes d'appariement,
+l'effet étant réestimé avec chacun des trois jeux de poids.
