@@ -1,12 +1,13 @@
 \section{Résultats des estimations}
 \label{sec:resultats}
 
-Cette section présente les résultats empiriques de la stratégie d'identification
-PSM-Double différence. Elle s'organise en trois temps, l'estimation du score de
-propension et la vérification de la qualité de l'appariement, la présentation des
-estimateurs de double différence brute, et enfin les résultats de l'estimateur PSM-DD
-de l'effet moyen du traitement sur les traités, avec une analyse des impacts
-par dimension de la pauvreté.
+Cette section présente les résultats empiriques de la stratégie
+d'identification par appariement sur score de propension en niveaux de la
+seconde édition. Elle s'organise en quatre temps : l'estimation du score de
+propension et la vérification de la qualité de l'appariement, l'examen du
+support commun, l'estimation de l'effet moyen du traitement sur les traités
+dans chacun des trois groupes d'âge, et enfin les analyses de robustesse,
+les effets par dimension et l'hétérogénéité des effets.
 
 \subsection{Estimation du score de propension}
 
@@ -14,13 +15,13 @@ par dimension de la pauvreté.
 
 Le score de propension est estimé séparément dans chacun des trois groupes
 d'âge : le tableau~\ref{tab:logit} présente les trois modèles côte à côte.
-Les covariables sont celles du chapitre méthodologique, le genre de
-l'enfant, le milieu, la région, et les caractéristiques du chef de ménage,
-son genre, son âge en classes, son niveau d'éducation et son statut
-matrimonial. La comparaison des colonnes montre dans quelle mesure les
-déterminants de la réception d'un transfert diffèrent selon l'âge des
-enfants du ménage, ce qui est précisément la raison d'une estimation
-séparée.
+Les covariables sont celles du chapitre méthodologique, le nombre de
+privations de la période de base, le genre de l'enfant, le milieu, la
+région, et les caractéristiques du chef de ménage, son genre, son âge en
+classes, son niveau d'éducation et son statut matrimonial. La comparaison
+des colonnes montre dans quelle mesure les déterminants de la réception
+d'un transfert diffèrent selon l'âge des enfants du ménage, ce qui est
+précisément la raison d'une estimation séparée.
 
 \begin{table}[H]
   \centering
@@ -32,10 +33,10 @@ séparée.
     \hline
 \entete Variable & 0-4 ans & 5-14 ans & 15-17 ans \\
     \hline
-    Nb. privations 2018         & \makecell{-$0{,}672^{***}$\\$(0{,}042)$} & \makecell{-$0{,}519^{***}$\\$(0{,}027)$} & \makecell{-$0{,}729^{***}$\\$(0{,}195)$} \\ \hline
-    Genre féminin (enfant)      & \makecell{-$0{,}121$\\$(0{,}089)$} & \makecell{$0{,}223^{***}$\\$(0{,}065)$} & \makecell{$0{,}059$\\$(0{,}438)$} \\ \hline
-    Chef féminin                & \makecell{$0{,}640^{***}$\\$(0{,}134)$} & \makecell{$0{,}755^{***}$\\$(0{,}094)$} & \makecell{$3{,}127^{***}$\\$(0{,}734)$} \\ \hline
-    Milieu rural                & \makecell{-$0{,}126$\\$(0{,}105)$} & \makecell{-$0{,}132$\\$(0{,}075)$} & \makecell{-$0{,}345$\\$(0{,}465)$} \\ \hline
+    Nb. privations 2018         & \makecell{-$0{,}672^{***}$\\$(0{,}078)$} & \makecell{-$0{,}519^{***}$\\$(0{,}058)$} & \makecell{-$0{,}729^{***}$\\$(0{,}181)$} \\ \hline
+    Genre féminin (enfant)      & \makecell{-$0{,}121$\\$(0{,}094)$} & \makecell{$0{,}223^{***}$\\$(0{,}065)$} & \makecell{$0{,}059$\\$(0{,}422)$} \\ \hline
+    Chef féminin                & \makecell{$0{,}640^{***}$\\$(0{,}206)$} & \makecell{$0{,}755^{***}$\\$(0{,}179)$} & \makecell{$3{,}127^{***}$\\$(0{,}828)$} \\ \hline
+    Milieu rural                & \makecell{-$0{,}126$\\$(0{,}202)$} & \makecell{-$0{,}132$\\$(0{,}186)$} & \makecell{-$0{,}345$\\$(0{,}451)$} \\ \hline
     Pseudo-$R^2$                & 0,194 & 0,190 & 0,336 \\ \hline
     Observations                & 4\,762 & 8\,484 & 265 \\
     \hline
@@ -44,84 +45,240 @@ séparée.
   {\footnotesize \textbf{Source :} Calcul de l'auteur, EHCVM. Écarts-types
   clusterisés par grappe entre parenthèses~; indicatrices de région, de
   classes d'âge, de niveau d'éducation et de statut matrimonial du chef
-  incluses.}
+  incluses. $^{***}p<0{,}01$.}
 \end{table}
 
-\subsubsection{Comparaison de la qualité des trois appariements}
+Trois enseignements ressortent du tableau. Le premier est le rôle central
+du niveau initial de privations : dans les trois groupes, un enfant plus
+privé en 2018 a une probabilité nettement plus faible d'appartenir à un
+ménage bénéficiaire stable, le coefficient étant significatif au seuil de
+1\,\% partout. La sélection dans le traitement est donc fortement liée au
+niveau de vie initial, ce qui justifie d'inclure cette variable dans le
+score plutôt que de la laisser dans le terme d'erreur. Le deuxième est le
+poids du genre du chef : un ménage dirigé par une femme est beaucoup plus
+probablement bénéficiaire, et l'ampleur du coefficient croît avec l'âge
+des enfants, ce qui correspond au profil du ménage dont l'homme a migré et
+dont l'épouse assure la gestion. Le troisième est l'absence d'effet propre
+du milieu de résidence une fois la région et le niveau initial contrôlés,
+le coefficient du milieu rural n'étant significatif dans aucun groupe.
 
-Le tableau~\ref{tab:balance_global} confronte les indicateurs synthétiques
-d'équilibrage des trois algorithmes. La comparaison vérifie qu'aucun d'eux ne
-doit sa performance à une restriction excessive de l'échantillon apparié.
+\subsubsection{Qualité de l'appariement et choix de l'algorithme}
+
+Les trois algorithmes du chapitre méthodologique sont mis en œuvre dans
+chaque groupe d'âge, et le tableau~\ref{tab:balance_global} rapporte, pour
+chacun, le biais standardisé moyen résiduel sur l'ensemble des covariables
+après appariement, groupe par groupe puis en moyenne pondérée par les
+effectifs. L'algorithme de référence est retenu sur ce seul critère
+d'équilibre, indépendamment de la valeur de l'effet qu'il produit.
 
 \begin{table}[H]
   \centering
-  \caption{Qualité de l'appariement selon les trois algorithmes}
+  \caption{Biais standardisé moyen résiduel après appariement selon l'algorithme}
   \label{tab:balance_global}
   \zebre
-  \begin{tabular}{|l|c|c|c|c|c|}
+  \begin{tabular}{|l|c|c|c|c|}
     \hline
-\entete Échantillon & Pseudo-$R^2$ & $p$ (LR $\chi^2$) & SMD moy. (\%) & $B$ (\%) & $R$ \\
+\entete Algorithme & 0-4 ans & 5-14 ans & 15-17 ans & Moyenne pondérée \\
     \hline
-    Avant appariement            & 0,151 & 0,000 & 11,4 & 103,6 & 1,25 \\ \hline
-    k-NN ($k=4$)                 & 0,005 & 0,551 & 2,4  & 17,0  & 1,04 \\ \hline
-    Noyau Epanechnikov           & 0,003 & 0,964 & 2,0  & 13,9  & 1,30 \\ \hline
-    Caliper ($\varepsilon = 0{,}05$) & 0,002 & 1,000 & 1,6 & 11,5 & 0,97 \\
+    k-NN ($k=4$, avec remise)        & 5,62 & 5,16 & 11,88 & 5,45 \\ \hline
+    Noyau Epanechnikov ($h=0{,}06$)  & 5,30 & 3,90 & 10,39 & 4,52 \\ \hline
+    Caliper ($\varepsilon=0{,}05$)   & 6,38 & 4,85 & 13,31 & 5,56 \\
+    \hline
+  \end{tabular}
+
+  {\footnotesize \textbf{Source :} Calcul de l'auteur, EHCVM. Biais en
+  pourcentage, moyenne pondérée par l'effectif des groupes.}
+\end{table}
+
+Le noyau d'Epanechnikov domine les deux autres algorithmes dans chacun des
+trois groupes, avec un biais résiduel moyen de 4,52\,\% contre 5,45\,\%
+pour le k-NN et 5,56\,\% pour le caliper : c'est donc lui qui fournit le
+résultat de référence, les deux autres servant de vérification. Le biais
+résiduel reste inférieur au seuil usuel de 5\,\% dans les deux premiers
+groupes~; il demeure plus élevé chez les adolescents, où la rareté des
+traités limite la qualité de l'appariement quelle que soit la méthode, ce
+qui invite à lire les résultats de ce groupe avec prudence.
+
+\subsection{Support commun des scores de propension}
+\label{sec:chevauchement}
+
+L'appariement suppose que chaque enfant bénéficiaire trouve, parmi les
+non-bénéficiaires, des enfants de score comparable. Cette condition, dite
+de support commun, ne se vérifie pas par un test unique. Elle s'apprécie
+par un faisceau d'éléments, examinés séparément dans chacun des trois
+groupes d'âge puisque le score y est estimé séparément : l'étendue des
+scores dans chacun des deux groupes, dont se déduit la région de
+recouvrement~; la part des bénéficiaires situés hors de cette région, que
+l'appariement écarte faute de contrefactuel~; et le coefficient de
+chevauchement, aire située sous le minimum des deux densités, compris
+entre zéro lorsque les distributions sont disjointes et un lorsqu'elles se
+confondent. Le tableau~\ref{tab:support} rassemble ces éléments et le
+graphique~\ref{fig:overlap_groupes} montre les densités avant appariement.
+
+\begin{table}[H]
+  \centering
+  \caption{Support commun des scores de propension par groupe d'âge}
+  \label{tab:support}
+  \zebre
+  \begin{tabular}{|l|c|c|c|}
+    \hline
+\entete Indicateur & 0-4 ans & 5-14 ans & 15-17 ans \\
+    \hline
+    Traités hors support             & 0 sur 751 & 0 sur 1\,442 & 9 sur 43 \\ \hline
+    Part hors support (\%)           & 0,0 & 0,0 & 20,9 \\ \hline
+    Coefficient de chevauchement     & 0,557 & 0,563 & 0,413 \\
     \hline
   \end{tabular}
 
   {\footnotesize \textbf{Source :} Calcul de l'auteur, EHCVM.}
 \end{table}
 
-Le tableau retient deux indicateurs, la différence standardisée des indices de
-propension linéaires, notée $B$, et le rapport de leurs variances, noté $R$, un
-appariement étant jugé satisfaisant lorsque $B$ reste sous 25\,\% et $R$ dans
-l'intervalle $[0{,}5~;~2]$. Les trois algorithmes satisfont les critères usuels. La différence
-standardisée moyenne tombe à 2,4\,\% ou moins, le pseudo-$R^2$ passe de 0,151
-à 0,005 ou moins, $B$ reste sous 25\,\% et $R$ dans l'intervalle
-$[0{,}5~;~2]$. Le test joint n'est significatif pour aucune des trois
-méthodes. Le caliper s'équilibre le mieux, avec une SMD de 1,6\,\%, devant
-le noyau à 2,0\,\% et le k-NN à 2,4\,\%. Le déséquilibre résiduel du k-NN
-porte sur la taille du ménage et la dépense par tête.
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{figures/fig_overlap_groupes.pdf}
+  \caption{Densités des scores de propension avant appariement, par groupe d'âge}
+  \label{fig:overlap_groupes}
 
-\subsection{Support commun des scores de propension}
-\label{sec:chevauchement}
+  {\footnotesize \textbf{Source :} Calcul de l'auteur, EHCVM.}
+\end{figure}
 
-L'appariement présenté au chapitre précédent suppose que chaque enfant
-bénéficiaire trouve, parmi les non-bénéficiaires, des enfants de score
-comparable. Cette condition, dite de support commun, ne se vérifie pas par un
-test unique. Elle s'apprécie par un faisceau d'éléments, examinés séparément
-dans chacun des trois groupes d'âge puisque le score y est estimé séparément.
+Dans les deux premiers groupes, aucun enfant traité ne se trouve hors de
+la région de recouvrement et le coefficient de chevauchement dépasse 0,55 :
+tous les bénéficiaires y trouvent des témoins comparables, et l'effet
+estimé vaut pour l'ensemble d'entre eux. Le constat est différent chez les
+adolescents, où plus d'un traité sur cinq se situe au-delà du score
+maximal observé chez les témoins : l'effet n'y est identifié que sur la
+sous-population effectivement appariable, restriction qui s'ajoute à la
+faiblesse des effectifs. Le graphique~\ref{fig:overlap_apres} montre les
+densités après appariement, celle des témoins étant pondérée par les
+poids du noyau : dans les deux premiers groupes, les deux courbes se
+superposent presque exactement là où elles se croisaient à peine avant
+appariement, signe que la pondération a bien reconstruit la distribution
+des scores des traités chez les témoins.
 
-Le premier élément est l'étendue des scores dans chacun des deux groupes, dont
-se déduit la région de recouvrement, comprise entre le plus élevé des deux
-minima et le plus faible des deux maxima. Le deuxième est le nombre d'enfants
-bénéficiaires situés hors de cette région, que l'appariement doit écarter faute
-de contrefactuel : leur part mesure la perte d'échantillon, et au-delà de
-5\,\% elle restreint la population sur laquelle l'effet est identifié, ce qui
-doit être signalé plutôt que masqué. Le troisième est la répartition par décile
-de score, qui révèle les zones où les témoins se raréfient sans pour autant
-sortir du support, et où l'appariement repose sur un petit nombre
-d'observations réutilisées. Le quatrième est le coefficient de chevauchement,
-aire située sous le minimum des deux densités, qui résume l'ensemble en un
-nombre compris entre zéro, lorsque les deux distributions sont disjointes, et
-un, lorsqu'elles se confondent.
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{figures/fig_overlap_apres.pdf}
+  \caption{Densités des scores de propension après appariement, par groupe d'âge}
+  \label{fig:overlap_apres}
 
+  {\footnotesize \textbf{Source :} Calcul de l'auteur, EHCVM.}
+\end{figure}
+
+\subsection{Impact des transferts sur le nombre de privations}
+\label{sec:impact}
+
+L'effet d'une exposition durable aux transferts est estimé sur le nombre
+de privations de la seconde édition, mesuré sur la grille du groupe d'âge
+de base, les témoins étant pondérés par les poids du noyau d'Epanechnikov.
+Le tableau~\ref{tab:att_principal} rapporte les effectifs et l'effet
+estimé dans chacun des trois groupes : aucun effet d'ensemble n'est
+présenté, les enfants des trois groupes n'étant pas mesurés sur les mêmes
+indicateurs.
+
+\begin{table}[H]
+  \centering
+  \caption{Impact d'une exposition durable aux transferts sur le nombre de privations, par groupe d'âge}
+  \label{tab:att_principal}
+  \nozebre
+  \begin{tabular}{|l|c|c|c|}
+    \hline
+\entete  & 0-4 ans & 5-14 ans & 15-17 ans \\
+    \hline
+    Traités avant appariement   & 751 & 1\,442 & 43 \\ \hline
+    Témoins avant appariement   & 4\,013 & 7\,044 & 282 \\ \hline
+    Traités sur support commun  & 751 & 1\,442 & 35 \\ \hline
+    Témoins appariés            & 4\,011 & 7\,036 & 222 \\ \hline
+    ATT (nombre de privations)  & \makecell{-$0{,}114$\\$(0{,}136)$} & \makecell{-$0{,}190^{*}$\\$(0{,}114)$} & \makecell{-$0{,}156$\\$(0{,}316)$} \\
+    \hline
+  \end{tabular}
+
+  {\footnotesize \textbf{Source :} Calcul de l'auteur, EHCVM. Écarts-types
+  clusterisés par grappe entre parenthèses. $^{*}p<0{,}10$.}
+\end{table}
+
+\subsubsection{Chez les enfants de 0 à 4 ans}
+
+L'effet estimé est négatif mais ne se distingue pas du bruit
+d'échantillonnage. Les jeunes enfants de ménages bénéficiaires stables
+comptent en moyenne un dixième de privation de moins que leurs témoins
+appariés en 2021, écart qui n'est pas significatif aux seuils usuels. La
+grille de ce groupe est dominée par des privations d'infrastructure, l'eau,
+l'assainissement, le logement et l'accès aux soins, sur lesquelles un flux
+monétaire privé a peu de prise : l'absence d'effet mesurable y est
+cohérente avec la nature des privations en jeu.
+
+\subsubsection{Chez les enfants de 5 à 14 ans}
+
+C'est dans ce groupe, le plus nombreux, que l'effet protecteur se
+manifeste. Une exposition durable aux transferts réduit le nombre de
+dimensions en privation de 0,19, effet significatif au seuil de 10\,\%.
+Rapporté à la moyenne des témoins appariés, qui subissent un peu plus de
+trois privations sur la grille de ce groupe, l'effet représente un recul
+d'environ 6\,\% du nombre de privations. L'ampleur est modeste, mais elle
+est estimée sur près de mille cinq cents enfants traités et résiste aux
+vérifications présentées plus loin.
+
+\subsubsection{Chez les adolescents de 15 à 17 ans}
+
+L'effet estimé est du même signe que dans les deux autres groupes mais
+son écart-type est trop grand pour autoriser une conclusion : avec
+trente-cinq traités sur support commun et un cinquième des traités
+écartés faute de contrefactuel, la puissance statistique fait défaut. Ce
+groupe illustre la limite de l'exercice plutôt qu'un résultat en soi, et
+les analyses qui suivent le confirment sans jamais s'y appuyer.
+
+\subsection{Analyses de robustesse}
+
+\subsubsection{Sensibilité au choix de l'algorithme d'appariement}
+
+Le tableau~\ref{tab:sensib_algo} réestime l'effet avec les deux
+algorithmes non retenus. Le signe est négatif pour les trois algorithmes
+dans les trois groupes, et l'ampleur reste comprise entre un dixième et un
+tiers de privation. Chez les 5-14 ans, groupe où l'effet est établi, le
+k-NN donne un effet plus fort que le noyau, significatif au seuil de
+5\,\%, et le caliper un effet quasi identique au noyau, significatif au
+seuil de 10\,\% : la conclusion ne dépend donc pas de l'algorithme. Chez
+les 0-4 ans, seul le caliper atteint le seuil de 10\,\%, ce qui ne suffit
+pas à établir un effet que les deux autres méthodes ne voient pas.
+
+\begin{table}[H]
+  \centering
+  \caption{Sensibilité de l'ATT à l'algorithme d'appariement}
+  \label{tab:sensib_algo}
+  \nozebre
+  \begin{tabular}{|l|c|c|c|}
+    \hline
+\entete Algorithme & 0-4 ans & 5-14 ans & 15-17 ans \\
+    \hline
+    k-NN ($k=4$, avec remise) & \makecell{-$0{,}151$\\$(0{,}138)$} & \makecell{-$0{,}272^{**}$\\$(0{,}118)$} & \makecell{-$0{,}236$\\$(0{,}326)$} \\ \hline
+    Noyau Epanechnikov        & \makecell{-$0{,}114$\\$(0{,}136)$} & \makecell{-$0{,}190^{*}$\\$(0{,}114)$} & \makecell{-$0{,}156$\\$(0{,}316)$} \\ \hline
+    Caliper ($\varepsilon=0{,}05$) & \makecell{-$0{,}245^{*}$\\$(0{,}145)$} & \makecell{-$0{,}203^{*}$\\$(0{,}122)$} & \makecell{-$0{,}313$\\$(0{,}431)$} \\
+    \hline
+  \end{tabular}
+
+  {\footnotesize \textbf{Source :} Calcul de l'auteur, EHCVM. Écarts-types
+  clusterisés par grappe entre parenthèses. $^{*}p<0{,}10$ ; $^{**}p<0{,}05$.}
+\end{table}
 
 \subsubsection{Sensibilité à la définition du traitement}
 
 Le design principal compare les bénéficiaires stables aux ménages jamais
 bénéficiaires. Le tableau~\ref{tab:stables_estim} reprend l'estimation
-avec la définition canonique de la double différence, le traitement fixé à
-la seule période de base, bénéficiaires transitoires inclus~; le score de
-propension y est réestimé sur l'échantillon complet des enfants suivis.
-L'effet demeure, de moindre ampleur~: la double différence brute donne
-$0{,}043$, significative au seuil de 5\,\%, et le PSM-DD $0{,}049$, au
-seuil de 10\,\%, contre
-$0{,}065$ à $0{,}067$ chez les stables des deux premiers groupes d'âge. La
-dilution est attendue, près de la moitié des traités de cette définition ne
-recevant plus en 2021~: la convergence de signe et d'ordre de grandeur des
-deux designs indique que la conclusion ne dépend ni de la dilution de l'un
-ni de l'absence de période pré-traitement de l'autre.
+avec la définition fixée à la seule période de base, bénéficiaires
+transitoires inclus~; le score de propension y est réestimé sur
+l'échantillon complet des enfants suivis. La double différence brute, sans
+appariement, donne un coefficient positif significatif au seuil de 5\,\%,
+qui reflète la convergence mécanique des deux groupes vers la moyenne
+plutôt qu'un effet du traitement, l'écart initial entre eux étant
+considérable. Une fois l'appariement appliqué, le coefficient devient
+négatif et ne se distingue plus de zéro. Cette atténuation est attendue :
+près de la moitié des traités de cette définition ne reçoivent plus en
+2021, et la dilution de l'exposition efface l'effet que le design
+principal détecte chez les bénéficiaires durables. Le contraste entre les
+deux définitions renforce ainsi la lecture du résultat principal, l'effet
+protecteur étant lié à la durée de l'exposition et non au seul fait
+d'avoir reçu une fois.
 
 \begin{table}[H]
   \centering
@@ -137,7 +294,8 @@ ni de l'absence de période pré-traitement de l'autre.
     \hline
   \end{tabular}
 
-  {\footnotesize \textbf{Source :} Calcul de l'auteur, EHCVM.}
+  {\footnotesize \textbf{Source :} Calcul de l'auteur, EHCVM. Écarts-types
+  clusterisés par grappe entre parenthèses. $^{**}p<0{,}05$.}
 \end{table}
 
 \subsubsection{Sensibilité au seuil de privation \texorpdfstring{$k$}{k}}
@@ -184,153 +342,167 @@ chez les enfants initialement les plus privés.
   {\footnotesize \textbf{Source :} Calcul de l'auteur, EHCVM. $^{*}p<0{,}10$ ; $^{**}p<0{,}05$. Un tiret signale un seuil sans variation dans le groupe.}
 \end{table}
 
-\subsubsection{Effets par dimension}
+\subsection{Effets par dimension et par indicateur}
+
 L'analyse par dimension (graphique~\ref{fig:effets_dim}) décompose l'effet
-d'ensemble sur les sept
-dimensions MODA. Une seule ressort, la nutrition, avec un effet de $0{,}068$
-significatif au seuil de 10\,\%. La privation alimentaire des enfants de ménages
-bénéficiaires recule 6,8 points plus lentement que celle de leurs témoins
-appariés. Les six autres dimensions présentent des coefficients faibles, tous
-positifs et tous non significatifs, entre $0{,}005$ pour l'éducation et
-$0{,}046$ pour l'assainissement. Le
-volet dimensionnel de l'hypothèse H2 est ainsi partiellement validé, l'effet
-des transferts n'étant pas uniforme entre dimensions.
+sur les sept dimensions MODA, estimé en niveaux de la seconde édition sur
+l'ensemble des enfants appariés. Une seule dimension ressort nettement, la
+nutrition : la part d'enfants en insécurité alimentaire est inférieure de
+12,6 points chez les bénéficiaires stables, effet significatif au seuil de
+1\,\% et retrouvé avec la même ampleur par les trois algorithmes.
+L'assainissement suit, avec un recul de 5,7 points qui manque de peu le
+seuil de 10\,\% avec le noyau mais l'atteint avec le k-NN et le seuil de
+5\,\% avec le caliper. Les cinq autres dimensions présentent des
+coefficients proches de zéro et non significatifs : les privations d'eau,
+de logement, de santé, de protection et d'éducation ne distinguent pas les
+bénéficiaires de leurs témoins appariés. Le volet dimensionnel de
+l'hypothèse H2 est ainsi validé, l'effet des transferts étant tout sauf
+uniforme entre dimensions.
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.85\linewidth]{figures/fig_effets_dim.pdf}
-  \caption{Impact des transferts de migrants par dimension MODA (ATT PSM-DD, IC 95\,\%)}
+  \caption{Impact des transferts par dimension MODA en niveaux de la seconde édition, IC 95\,\%}
   \label{fig:effets_dim}
 
   {\footnotesize \textbf{Source :} Calcul de l'auteur, EHCVM.}
 \end{figure}
 
+La lecture par indicateur précise l'origine de ces effets. Au sein de la
+nutrition, l'effet est porté par l'insécurité alimentaire mesurée par
+l'échelle FIES, seule composante de la dimension. Au sein du logement, le
+surpeuplement recule de 3,1 points chez les bénéficiaires, effet
+significatif au seuil de 5\,\% que la dimension agrégée masque, la
+gestion des ordures ne bougeant pas. Aucun des onze autres indicateurs ne
+présente d'écart significatif, qu'il s'agisse des composantes de l'eau, de
+la santé, de la protection ou de l'éducation. Le canal budgétaire ressort
+ainsi avec netteté : les transferts améliorent d'abord ce qui dépend de la
+dépense courante du ménage, l'alimentation au premier chef, et n'ont pas
+de prise mesurable sur les privations qui supposent une infrastructure ou
+une offre publique.
+
 \subsection{Hétérogénéité des effets}
 
-Le tableau~\ref{tab:heterogeneite} rapporte l'effet estimé séparément selon
-le milieu de résidence, le genre du chef de ménage et le groupe d'âge de
-l'enfant, avec pour chaque dimension le test formel d'égalité des
-coefficients. Le tableau~\ref{tab:hetero_montant} décline l'effet par
-quintile de montant annuel reçu et rapporte la pente dose-réponse.
-
-\begin{table}[H]
-  \centering
-  \caption{Hétérogénéité des effets par milieu de résidence, genre du chef de ménage et âge (PSM-DD)}
-  \label{tab:heterogeneite}
-  \zebre
-  \begin{tabular}{|l|c|}
-    \hline
-\entete Sous-groupe & ATT (MODA) \\
-    \hline
-    \multicolumn{2}{|c|}{Par milieu de résidence} \\ \hline
-    \quad Milieu urbain & $0{,}069^{*}$ \\ \hline
-    \quad Milieu rural  & $0{,}059$     \\ \hline
-    \quad Test d'égalité ($p$-valeur) & 0,863 \\
-    \hline
-    \multicolumn{2}{|c|}{Par genre du chef de ménage} \\ \hline
-    \quad Homme & \ATTchefH \\ \hline
-    \quad Femme & \ATTchefF \\ \hline
-    \quad Test d'égalité ($p$-valeur) & \PchefEg \\
-    \hline
-    \multicolumn{2}{|c|}{Par groupe d'âge} \\ \hline
-    \quad 0-4 ans   & $0{,}091^{**}$ \\ \hline
-    \quad 5-14 ans  & $0{,}056^{*}$  \\ \hline
-    \quad 15-17 ans & -$0{,}069$     \\ \hline
-    \quad Test d'égalité ($p$-valeur) & 0,252 \\
-    \hline
-  \end{tabular}
-
-  {\footnotesize \textbf{Source :} Calcul de l'auteur, EHCVM.}
-\end{table}
-
-\begin{table}[H]
-  \centering
-  \caption{Hétérogénéité de l'effet selon le montant annuel des transferts}
-  \label{tab:hetero_montant}
-  \zebre
-  \begin{tabular}{|l|c|}
-    \hline
-\entete Quintile de montant & ATT \\
-    \hline
-    Q1 (jusqu'à 100~000 FCFA)  & \makecell{$0{,}129^{**}$\\$(0{,}052)$} \\ \hline
-    Q2 (110~000 à 360~000)     & \makecell{$0{,}099^{**}$\\$(0{,}042)$} \\ \hline
-    Q3 (380~000 à 900~000)     & \makecell{$0{,}020$\\$(0{,}047)$}      \\ \hline
-    Q4 (920~000 à 1~800~000)   & \makecell{$0{,}084$\\$(0{,}060)$}      \\ \hline
-    Q5 (au-delà de 1~824~000)  & \makecell{-$0{,}008$\\$(0{,}052)$}     \\
-    \hline
-    \hline
-    Pente dose-réponse (log du montant) & \makecell{-$0{,}025^{*}$\\$(0{,}014)$} \\
-    \hline
-  \end{tabular}
-
-  {\footnotesize \textbf{Source :} Calcul de l'auteur, EHCVM. $^{*}p<0{,}10$, $^{**}p<0{,}05$.}
-\end{table}
+L'hypothèse H2 prête à l'effet une variation selon le milieu de résidence,
+le genre du chef de ménage et le montant reçu. Chaque modérateur est
+examiné en niveaux de la seconde édition, séparément par groupe d'âge, le
+groupe des adolescents étant écarté lorsque l'effectif traité d'une strate
+descend sous le seuil de trente observations.
 
 \subsubsection{Selon le milieu de résidence}
 
-L'effet atteint $0{,}069$ en milieu urbain, significatif au seuil de
-10\,\%, et $0{,}059$ en milieu rural, non significatif. Les deux
-coefficients sont donc très proches et le test d'égalité ne rejette pas
-l'homogénéité, la p-valeur atteignant 0,863. Le volet géographique de
-l'hypothèse H2 n'est pas validé.
+Le tableau~\ref{tab:heterogeneite} rapporte l'effet estimé séparément en
+milieu urbain et en milieu rural. Chez les 0-4 ans comme chez les 5-14
+ans, les coefficients urbains et ruraux sont proches, tous négatifs et
+aucun n'atteint les seuils usuels pris isolément, la division de
+l'échantillon coûtant en précision~; le test d'égalité ne rejette
+l'homogénéité dans aucun des deux groupes, avec des p-valeurs supérieures
+à 0,8. Le volet géographique de l'hypothèse H2 n'est donc pas validé :
+rien n'indique que l'effet protecteur diffère selon le milieu.
+
+\begin{table}[H]
+  \centering
+  \caption{Hétérogénéité de l'ATT par milieu de résidence et genre du chef de ménage}
+  \label{tab:heterogeneite}
+  \nozebre
+  \begin{tabular}{|l|c|c|}
+    \hline
+\entete Sous-groupe & 0-4 ans & 5-14 ans \\
+    \hline
+    Milieu urbain & \makecell{-$0{,}153$\\$(0{,}130)$} & \makecell{-$0{,}183$\\$(0{,}124)$} \\ \hline
+    Milieu rural  & \makecell{-$0{,}102$\\$(0{,}189)$} & \makecell{-$0{,}203$\\$(0{,}173)$} \\ \hline
+    Test d'égalité ($p$) & 0,826 & 0,923 \\
+    \hline
+    Chef homme & \makecell{-$0{,}134$\\$(0{,}153)$} & \makecell{-$0{,}153$\\$(0{,}146)$} \\ \hline
+    Chef femme & \makecell{-$0{,}128$\\$(0{,}198)$} & \makecell{-$0{,}284^{**}$\\$(0{,}143)$} \\ \hline
+    Test d'égalité ($p$) & 0,980 & 0,516 \\
+    \hline
+  \end{tabular}
+
+  {\footnotesize \textbf{Source :} Calcul de l'auteur, EHCVM. Écarts-types
+  clusterisés par grappe entre parenthèses. $^{**}p<0{,}05$. Le groupe des
+  15-17 ans est écarté, l'effectif traité de chaque strate y étant
+  inférieur à trente.}
+\end{table}
 
 \subsubsection{Selon le genre du chef de ménage}
 
-Le genre du chef de ménage est le prédicteur le plus fort du traitement, la
-migration de l'époux laissant souvent la gestion du ménage à l'épouse. L'effet
-des transferts peut donc différer selon que le ménage est dirigé par un homme
-ou par une femme. L'estimation donne \ATTchefH pour les ménages dirigés par un
-homme et \ATTchefF pour ceux dirigés par une femme. Le premier atteint le
-seuil de 10\,\%, le second non, mais l'écart d'un point entre les deux ne se
-distingue pas du bruit, la p-valeur du test d'égalité s'établissant à
-\PchefEg. Le volet de H2 qui s'y rapporte
-n'est donc pas validé.
+Le genre du chef de ménage est le prédicteur le plus fort du traitement,
+la migration de l'époux laissant souvent la gestion du ménage à l'épouse.
+Chez les 5-14 ans, l'effet estimé dans les ménages dirigés par une femme
+atteint 0,28 privation de moins, significatif au seuil de 5\,\%, alors
+qu'il reste plus faible et non significatif dans les ménages dirigés par
+un homme. L'écart entre les deux coefficients ne se distingue toutefois
+pas du bruit, la p-valeur du test d'égalité dépassant 0,5 : les données
+suggèrent que l'effet protecteur passe d'abord par les ménages dont une
+femme tient le budget, sans permettre de l'affirmer. Chez les 0-4 ans, les
+deux coefficients sont quasi identiques. Le volet de H2 qui s'y rapporte
+n'est donc pas validé au sens strict du test d'égalité.
 
 \subsubsection{Selon les groupes d'âge}
 
-La décomposition livre le coefficient de plus grande ampleur de l'analyse.
-Chez les enfants de 0 à 4 ans, l'effet atteint $0{,}091$ et est significatif au
-seuil de 5\,\%. La privation multidimensionnelle des
-enfants de 0 à 4 ans de ménages bénéficiaires recule neuf points plus lentement
-que celle de leurs témoins appariés. Il dépasse de moitié l'effet
-d'ensemble, et il concerne la tranche d'âge sur laquelle les privations pèsent
-le plus lourdement dans la trajectoire ultérieure de l'enfant. Les 5-14 ans
-suivent avec $0{,}056$, significatif au seuil de 10\,\%.
-
-Le test joint d'égalité des trois effets ne rejette
-pas l'homogénéité, et l'écart des 5-14 ans aux 0-4 ans, de
-3,5 points, n'est pas significatif. Ce que l'on peut affirmer
-est donc que l'effet est établi chez les enfants de 0 à 4 ans et ne l'est pas ailleurs,
-non que son ampleur y soit statistiquement supérieure. Les 15-17 ans montrent un coefficient de -$0{,}069$, non significatif.
+L'estimation principale étant conduite séparément par groupe, la question
+d'hétérogénéité restante est celle de l'égalité des trois effets. Le test
+joint ne rejette pas l'homogénéité, la p-valeur atteignant 0,75, et ni
+l'écart des 5-14 ans aux 0-4 ans ni celui des adolescents n'est
+significatif. Ce que l'on peut affirmer est donc que l'effet est établi
+chez les enfants de 5 à 14 ans et ne l'est pas ailleurs, non que son
+ampleur y soit statistiquement supérieure : la localisation de l'effet
+tient à la précision des estimations autant qu'à leur ampleur.
 
 \subsubsection{Selon le montant des transferts reçus}
 \label{subsec:hetero_montant}
 
-Les trois volets précédents traitent le traitement comme binaire. Or les
-montants reçus varient considérablement d'un ménage à l'autre. La médiane
-s'établit autour de 600\,000 FCFA par an, mais le troisième quartile atteint
-1\,280\,000 FCFA. Un transfert de 50\,000 FCFA et
-un transfert de deux millions ne desserrent pas la même contrainte
-budgétaire, et rien n'impose que leurs effets soient de même ampleur. Ce
-dernier volet de l'hypothèse H2 examine donc la relation dose-réponse. Les
-quintiles sont construits sur la distribution du montant annuel parmi les
-ménages bénéficiaires, au niveau du ménage puis chaque quintile d'enfants traités est
-comparé à l'ensemble des enfants témoins appariés. Le tableau
-\ref{tab:hetero_montant} rapporte l'effet par quintile ainsi qu'un test continu,
-qui estime la pente de l'effet en fonction du logarithme du montant sur les
-seuls enfants traités.
+Les volets précédents traitent le traitement comme binaire. Or les
+montants annuels reçus varient d'un facteur mille d'un ménage à l'autre,
+de cinq mille francs à plus de huit millions, et rien n'impose que leurs
+effets soient de même ampleur. Les quintiles sont construits sur la
+distribution du montant annuel parmi les ménages bénéficiaires, au niveau
+du ménage pour que le découpage ne soit pas déformé par le nombre
+d'enfants, puis chaque quintile d'enfants traités est comparé à l'ensemble
+des témoins appariés de son groupe d'âge. Le tableau
+\ref{tab:hetero_montant} rapporte l'effet par quintile ainsi que la pente
+dose-réponse, estimée en fonction du logarithme du montant sur les seuls
+enfants traités.
 
-L'effet défavorable se concentre sur les petits
-montants, avec $12{,}9$ points de pourcentage dans le premier quintile, jusqu'à
-100~000 FCFA par an, et $9{,}9$ points dans le deuxième, tous deux
-significatifs à 5\,\%. Il disparaît ensuite, les troisième et quatrième
-quintiles ne se distinguent pas, et le cinquième, au-delà de 1,8 million de
-FCFA par an, présente un coefficient négatif et non significatif en pratique
-(-$0{,}008$). Le test continu confirme cette structure, la pente de l'effet en fonction du
-logarithme du montant vaut -$0{,}025$, significative au seuil de 10\,\%. Plus le montant est
-élevé, plus l'écart de trajectoire défavorable tend à se réduire. Le profil
-par quintile n'est toutefois pas strictement monotone, le quatrième quintile
-remontant sans être significatif, et c'est la pente en tendance qui porte la
-conclusion. Le volet de H2 relatif au montant est
-donc validé.
+\begin{table}[H]
+  \centering
+  \caption{Hétérogénéité de l'ATT selon le montant annuel des transferts}
+  \label{tab:hetero_montant}
+  \nozebre
+  \begin{tabular}{|l|c|c|}
+    \hline
+\entete Quintile de montant & 0-4 ans & 5-14 ans \\
+    \hline
+    Q1 (5\,000 à 180\,000 FCFA)        & \makecell{$0{,}554^{*}$\\$(0{,}318)$}  & \makecell{$0{,}353$\\$(0{,}224)$} \\ \hline
+    Q2 (195\,000 à 720\,000)           & \makecell{$0{,}458$\\$(0{,}292)$}      & \makecell{$0{,}392$\\$(0{,}253)$} \\ \hline
+    Q3 (745\,000 à 1\,200\,000)        & \makecell{-$0{,}367^{*}$\\$(0{,}202)$} & \makecell{-$0{,}106$\\$(0{,}302)$} \\ \hline
+    Q4 (1\,250\,000 à 2\,400\,000)     & \makecell{-$0{,}607^{***}$\\$(0{,}182)$} & \makecell{-$0{,}890^{***}$\\$(0{,}133)$} \\ \hline
+    Q5 (2\,490\,000 à 8\,400\,000)     & \makecell{-$0{,}752^{***}$\\$(0{,}199)$} & \makecell{-$0{,}599^{**}$\\$(0{,}233)$} \\
+    \hline
+    \hline
+    Pente dose-réponse (log du montant) & \makecell{-$0{,}312^{***}$\\$(0{,}073)$} & \makecell{-$0{,}273^{***}$\\$(0{,}056)$} \\
+    \hline
+  \end{tabular}
 
+  {\footnotesize \textbf{Source :} Calcul de l'auteur, EHCVM. Écarts-types
+  clusterisés par grappe entre parenthèses. $^{*}p<0{,}10$,
+  $^{**}p<0{,}05$, $^{***}p<0{,}01$. Le groupe des 15-17 ans est écarté,
+  chaque quintile y comptant moins de dix enfants traités.}
+\end{table}
+
+Le gradient est net et de même forme dans les deux groupes d'âge : les
+deux premiers quintiles, jusqu'à environ sept cent mille francs par an,
+présentent des coefficients positifs, dont un seul atteint le seuil de
+10\,\%, tandis que l'effet protecteur se concentre entièrement dans la
+moitié supérieure de la distribution. À partir du quatrième quintile,
+au-delà de 1,25 million de francs par an, le nombre de privations recule
+de 0,6 à 0,9 selon le groupe, effets significatifs au seuil de 1\,\%. La
+pente dose-réponse confirme cette structure, le nombre de privations des
+enfants traités diminuant d'environ 0,3 lorsque le montant reçu est
+multiplié par 2,7, relation significative au seuil de 1\,\% dans les deux
+groupes. La lecture est double : l'effet moyen
+modeste du design principal recouvre une forte hétérogénéité d'intensité,
+et seuls les transferts substantiels, de l'ordre du seuil de pauvreté
+annuel par tête et au-delà, réduisent effectivement les privations des
+enfants. Le volet de H2 relatif au montant est donc validé.

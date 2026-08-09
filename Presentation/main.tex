@@ -981,9 +981,9 @@
       \midrule
       \rowcolor{presvert!7}
       Traités sur support & 751 & 1\,442 & 35 \\
-      ATT (nb. de privations) & $-0{,}07$ & $-0{,}20^{***}$ & $-0{,}20$ \\
+      ATT (nb. de privations) & $-0{,}11$ & $-0{,}19^{*}$ & $-0{,}16$ \\
       \rowcolor{presvert!7}
-      Écart-type (bootstrap) & $(0{,}09)$ & $(0{,}07)$ & $(0{,}37)$ \\
+      Écart-type (cluster grappe) & $(0{,}14)$ & $(0{,}11)$ & $(0{,}32)$ \\
       \bottomrule
     \end{tabular}
     \par\smallskip
@@ -992,7 +992,7 @@
   
   \vspace{-0.25cm}
   \bandeau{presorange}{0.93\linewidth}{Résultat central}{%
-    {\color{presorange}\faArrowDown}~Chez les 5-14 ans, une exposition durable aux transferts réduit le nombre de privations de \chiffre{$0{,}20$}, significatif au seuil de 1\,\% ; même signe mais imprécis chez les 0-4 ans, aucune conclusion chez les 15-17 ans.}
+    {\color{presorange}\faArrowDown}~Chez les 5-14 ans, une exposition durable aux transferts réduit le nombre de privations de \chiffre{$0{,}19$}, significatif au seuil de 10\,\% ; même signe mais imprécis chez les 0-4 ans, aucune conclusion chez les 15-17 ans.}
 \end{frame}
 
 
@@ -1006,11 +1006,11 @@
     \end{column}
     \begin{column}{0.36\textwidth}
       \bandeau{presorange}{0.93\linewidth}{Un seul effet sectoriel significatif}{%
-    La nutrition est la seule dimension significative. Les six autres vont dans le même sens sans atteindre la significativité.}
+    L'insécurité alimentaire est inférieure de \chiffre{$12{,}6$}~points chez les bénéficiaires, au seuil de 1\,\%, quel que soit l'algorithme. Les six autres dimensions ne bougent pas.}
     \end{column}
   \end{columns}
   \bandeau{presvert}{0.93\linewidth}{Lecture}{%
-    Aucun test d'égalité ne conclut, ni entre milieux, ni selon le genre du chef, ni entre tranches d'âge. L'effet n'est établi que chez les 0-4 ans ($+9{,}1$ pp, significatif à 5\,\%) : effet par âge et effet nutrition se répondent.}
+    Le canal budgétaire domine : les transferts protègent ce qui dépend de la dépense courante, l'alimentation au premier chef, et n'ont pas de prise sur les privations d'infrastructure.}
 \end{frame}
 
 \begin{frame}{Hétérogénéité de l'effet selon les sous-groupes}
@@ -1018,38 +1018,34 @@
   \scriptsize
   \renewcommand{\arraystretch}{1.15}
   \setlength{\tabcolsep}{10pt}
-  \begin{tabular}{@{}lc@{}}
+  \begin{tabular}{@{}lcc@{}}
     \toprule
     \rowcolor{presvert!88!black}
-    \color{white}Sous-groupe & \color{white}ATT (MODA) \\
+    \color{white}Sous-groupe & \color{white}0-4 ans & \color{white}5-14 ans \\
     \midrule
     \rowcolor{presvert!18}
-    \multicolumn{2}{@{}l@{}}{\textbf{Par milieu de résidence}} \\
-    \quad Milieu urbain & $0{,}069^{*}$ \\
+    \multicolumn{3}{@{}l@{}}{\textbf{Par milieu de résidence}} \\
+    \quad Milieu urbain & $-0{,}153$ & $-0{,}183$ \\
     \rowcolor{presvert!7}
-    \quad Milieu rural  & $0{,}059$ \\
-    \quad Test d'égalité ($p$-valeur) & 0,863 \\
+    \quad Milieu rural  & $-0{,}102$ & $-0{,}203$ \\
+    \quad Test d'égalité ($p$-valeur) & 0,826 & 0,923 \\
     \midrule
     \rowcolor{presvert!18}
-    \multicolumn{2}{@{}l@{}}{\textbf{Par genre du chef de ménage}} \\
-    \quad Homme & $0{,}062^{*}$ \\
-    \rowcolor{presvert!7}
-    \quad Femme & $0{,}071$ \\
-    \quad Test d'égalité ($p$-valeur) & 0,879 \\
-    \midrule
-    \rowcolor{presvert!18}
-    \multicolumn{2}{@{}l@{}}{\textbf{Par groupe d'âge}} \\
+    \multicolumn{3}{@{}l@{}}{\textbf{Par genre du chef de ménage}} \\
+    \quad Chef homme & $-0{,}134$ & $-0{,}153$ \\
     \rowcolor{presorange!16}
-    \quad 0-4 ans   & $0{,}091^{**}$ \\
-    \quad 5-14 ans  & $0{,}056^{*}$ \\
-    \rowcolor{presvert!7}
-    \quad 15-17 ans & $-0{,}069$ \\
-    \quad Test d'égalité ($p$-valeur) & 0,252 \\
+    \quad Chef femme & $-0{,}128$ & $-0{,}284^{**}$ \\
+    \quad Test d'égalité ($p$-valeur) & 0,980 & 0,516 \\
+    \midrule
+    \rowcolor{presvert!18}
+    \multicolumn{3}{@{}l@{}}{\textbf{Entre groupes d'âge}} \\
+    \quad Test joint d'égalité des trois ATT & \multicolumn{2}{c}{$p=0{,}748$} \\
     \bottomrule
   \end{tabular}
 
   \par\smallskip
-  {\scriptsize\color{presgris} $^{*}p<0{,}10$, $^{**}p<0{,}05$.
+  {\scriptsize\color{presgris} $^{**}p<0{,}05$. 15-17 ans écartés (moins de
+   30 traités par strate).
    \textit{Source :} EHCVM, calculs de l'auteur.}
 \end{frame}
 
@@ -1062,24 +1058,27 @@
     \begin{tabular}{@{}lcc@{}}
       \toprule
       \rowcolor{presvert!88!black}
-      \color{white}Quintile de montant annuel & \color{white}ATT & \color{white}Écart-type \\
+      \color{white}Quintile de montant annuel & \color{white}0-4 ans & \color{white}5-14 ans \\
       \midrule
+      Q1 (5\,000 à 180\,000 FCFA)     & $0{,}554^{*}$ & $0{,}353$ \\
+      \rowcolor{presvert!7}
+      Q2 (195\,000 à 720\,000)        & $0{,}458$ & $0{,}392$ \\
+      Q3 (745\,000 à 1\,200\,000)     & $-0{,}367^{*}$ & $-0{,}106$ \\
+      \rowcolor{presvert!7}
+      Q4 (1\,250\,000 à 2\,400\,000)  & $-0{,}607^{***}$ & $-0{,}890^{***}$ \\
+      Q5 (2\,490\,000 à 8\,400\,000)  & $-0{,}752^{***}$ & $-0{,}599^{**}$ \\
       \midrule
-      Q1 (jusqu'à 100~000 FCFA)  & $0{,}129^{**}$ & $(0{,}052)$ \\
-      Q2 (110~000 à 360~000)     & $0{,}099^{**}$ & $(0{,}042)$ \\
-      \rowcolor{presvert!7}
-      Q3 (380~000 à 900~000)     & $0{,}020$      & $(0{,}047)$ \\
-      Q4 (920~000 à 1~800~000)   & $0{,}084$      & $(0{,}060)$ \\
-      \rowcolor{presvert!7}
-      Q5 (au-delà de 1~824~000)  & $-0{,}008$     & $(0{,}052)$ \\
+      \rowcolor{presorange!16}
+      Pente dose-réponse (log montant) & $-0{,}312^{***}$ & $-0{,}273^{***}$ \\
       \bottomrule
     \end{tabular}
-     {\scriptsize\color{presgris}\textit{Source :} EHCVM, calculs de l'auteur.}
+     {\scriptsize\color{presgris} $^{*}p<0{,}10$, $^{**}p<0{,}05$, $^{***}p<0{,}01$.
+      \textit{Source :} EHCVM, calculs de l'auteur.}
     \par\smallskip
   \end{table}
 
   \bandeau{presorange}{0.93\linewidth}{Gradient selon l'intensité du traitement}{%
-    L'effet défavorable se concentre sur les petits montants : seuls les deux premiers quintiles sont significatifs et l'écart ne se retrouve pas pour les transferts les plus élevés. Le montant relevant du choix du migrant, le gradient se lit comme une association conditionnelle.}
+    L'effet protecteur se concentre entièrement sur la moitié supérieure des montants : au-delà de 1,25 million de FCFA par an, le nombre de privations recule de 0,6 à 0,9, au seuil de 1\,\%. La pente dose-réponse est négative et significative dans les deux groupes.}
 \end{frame}
 
 % ============================================================
@@ -1094,13 +1093,13 @@
     \begin{itemize}
       \setlength{\itemsep}{1pt}
       \item Définition du traitement : avec le traitement fixé à la seule
-            période de base, transitoires inclus, l'effet s'atténue sans
-            s'inverser.
+            période de base, transitoires inclus, l'effet disparaît, ce qui
+            confirme le rôle de la durée d'exposition.
       \item Seuil de privation $k$, testé de 1 à 7 : chez les 5-14 ans,
             l'effet reste négatif aux seuils élevés et significatif autour
             de $k=4$ et $k=5$.
       \item Méthode d'appariement retenue au critère d'équilibre, le noyau
-            d'Epanechnikov, biais résiduel moyen de 4,8\,\%.
+            d'Epanechnikov, biais résiduel moyen de 4,5\,\%.
     \end{itemize}
   \end{block}
 
@@ -1113,15 +1112,15 @@
     \color{white}Hyp. & \color{white}Énoncé & \color{white}Résultat & \color{white}Décision \\
     \midrule
     \rowcolor{presorange!16}
-    H1 & Réduction de la pauvreté & $-0{,}20^{***}$ chez les 5-14 ans & Partiellement validée \\
+    H1 & Réduction de la pauvreté & $-0{,}19^{*}$ chez les 5-14 ans & Partiellement validée \\
     \rowcolor{presvert!10}
-    H2 & Hétérogénéité des effets & Âge et sécurité alimentaire & Partiellement validée \\
+    H2 & Hétérogénéité des effets & Alimentation et montant reçu & Partiellement validée \\
     \bottomrule
   \end{tabular}
   \par\smallskip
   {\scriptsize\color{presgris}\textit{Source :} EHCVM, calculs de l'auteur.}\\
-  L'hétérogénéité n'est établie ni
-   par milieu, ni par genre du chef, ni par tranche d'âge.
+  L'hétérogénéité n'est établie ni par milieu ni par tranche d'âge ;
+   elle l'est selon le montant reçu, avec un gradient dose-réponse net.
 \end{frame}
 
 \begin{frame}{Sensibilité à la définition du traitement}
@@ -1130,7 +1129,7 @@
   \begin{columns}[T]
     \begin{column}{0.475\textwidth}
       \bandeau{presorange}{0.93\linewidth}{Résultat sous cette définition}{%
-    Avec le traitement fixé à la seule période de base, transitoires inclus, la famille en trajectoires donne $0{,}043^{**}$ en DD et $0{,}049^{*}$ en PSM-DD : la dilution atténue sans inverser.}
+    Avec le traitement fixé à la seule période de base, transitoires inclus, la DD brute donne $0{,}043^{**}$ et le PSM-DD $-0{,}028$, non significatif : la dilution efface l'effet, qui tient à la durée d'exposition.}
     \end{column}
     \begin{column}{0.475\textwidth}
       \bandeau{presvert}{0.93\linewidth}{Synthèse des tests}{%
@@ -1194,8 +1193,8 @@
       \item L'incidence de pauvreté multidimensionnelle recule de \chiffre{62,2\,\%} (2018) à \chiffre{53,8\,\%} (2021) :
             amélioration réelle mais la pauvreté reste massive.
       \item Une exposition durable aux transferts réduit le nombre de
-            privations de \chiffre{$0{,}20$} chez les 5-14 ans, au seuil de
-            1\,\% ; même signe mais imprécis chez les 0-4 ans, aucune
+            privations de \chiffre{$0{,}19$} chez les 5-14 ans, au seuil de
+            10\,\% ; même signe mais imprécis chez les 0-4 ans, aucune
             conclusion chez les 15-17 ans.
       \item L'effet passe par le budget courant, la sécurité alimentaire
             en tête, et bute sur les privations d'infrastructure que le
