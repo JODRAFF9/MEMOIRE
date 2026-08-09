@@ -133,7 +133,7 @@ $(date)
 .     tempfile etrangers
 
 .     save `etrangers'
-file C:\Users\Bmd\AppData\Local\Temp\ST_4128_000001.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_4a78_000001.tmp saved as .dta format
 
 . 
 .     /* Fusionner sur la liste exhaustive des menages */
@@ -286,7 +286,7 @@ file code/stata/temp/montant_2018.dta saved
 .     tempfile etrangers
 
 .     save `etrangers'
-file C:\Users\Bmd\AppData\Local\Temp\ST_4128_000002.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_4a78_000002.tmp saved as .dta format
 
 . 
 .     /* Fusionner sur la liste exhaustive des menages */
@@ -955,7 +955,7 @@ file code/stata/temp/traitement_2021.dta saved
 (0 observations deleted)
 (1,722 missing values generated)
 (1,722 real changes made)
-file C:\Users\Bmd\AppData\Local\Temp\ST_4128_000004.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_4a78_000004.tmp saved as .dta format
   CSP du chef 2018 :
 
                    Categorie |
@@ -1008,7 +1008,7 @@ Sans emploi ou non renseigne |      1,722       24.06       24.06
     Not matched                             0
     Matched                            33,844  
     -----------------------------------------
-file C:\Users\Bmd\AppData\Local\Temp\ST_4128_000006.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_4a78_000006.tmp saved as .dta format
 
     Result                      Number of obs
     -----------------------------------------
@@ -1017,7 +1017,7 @@ file C:\Users\Bmd\AppData\Local\Temp\ST_4128_000006.tmp saved as .dta format
     -----------------------------------------
 (4 missing values generated)
 (9,059 observations deleted)
-file C:\Users\Bmd\AppData\Local\Temp\ST_4128_000008.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_4a78_000008.tmp saved as .dta format
 
     Result                      Number of obs
     -----------------------------------------
@@ -1027,21 +1027,21 @@ file C:\Users\Bmd\AppData\Local\Temp\ST_4128_000008.tmp saved as .dta format
 
     Matched                            24,955  
     -----------------------------------------
-file C:\Users\Bmd\AppData\Local\Temp\ST_4128_00000a.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_4a78_00000a.tmp saved as .dta format
 
     Result                      Number of obs
     -----------------------------------------
     Not matched                             0
     Matched                            33,844  
     -----------------------------------------
-file C:\Users\Bmd\AppData\Local\Temp\ST_4128_00000c.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_4a78_00000c.tmp saved as .dta format
 
     Result                      Number of obs
     -----------------------------------------
     Not matched                             0
     Matched                            33,844  
     -----------------------------------------
-file C:\Users\Bmd\AppData\Local\Temp\ST_4128_00000e.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_4a78_00000e.tmp saved as .dta format
 
     Result                      Number of obs
     -----------------------------------------
@@ -1135,7 +1135,7 @@ file code/stata/temp/enfants_dep_2018.dta saved
 (0 observations deleted)
 (1,326 missing values generated)
 (1,326 real changes made)
-file C:\Users\Bmd\AppData\Local\Temp\ST_4128_00000g.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_4a78_00000g.tmp saved as .dta format
   CSP du chef 2021 :
 
                    Categorie |
@@ -1191,7 +1191,7 @@ Sans emploi ou non renseigne |      1,326       18.62       18.62
     Not matched                             0
     Matched                            31,033  
     -----------------------------------------
-file C:\Users\Bmd\AppData\Local\Temp\ST_4128_00000i.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_4a78_00000i.tmp saved as .dta format
 
     Result                      Number of obs
     -----------------------------------------
@@ -1199,21 +1199,21 @@ file C:\Users\Bmd\AppData\Local\Temp\ST_4128_00000i.tmp saved as .dta format
     Matched                            31,033  
     -----------------------------------------
 (14,304 observations deleted)
-file C:\Users\Bmd\AppData\Local\Temp\ST_4128_00000k.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_4a78_00000k.tmp saved as .dta format
 
     Result                      Number of obs
     -----------------------------------------
     Not matched                             0
     Matched                            31,033  
     -----------------------------------------
-file C:\Users\Bmd\AppData\Local\Temp\ST_4128_00000m.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_4a78_00000m.tmp saved as .dta format
 
     Result                      Number of obs
     -----------------------------------------
     Not matched                             0
     Matched                            31,033  
     -----------------------------------------
-file C:\Users\Bmd\AppData\Local\Temp\ST_4128_00000o.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_4a78_00000o.tmp saved as .dta format
 (16,493 observations deleted)
 file code/stata/temp/lien_individus.dta saved
 
@@ -1227,7 +1227,7 @@ file code/stata/temp/lien_individus.dta saved
     Not matched                             0
     Matched                            31,033  
     -----------------------------------------
-file C:\Users\Bmd\AppData\Local\Temp\ST_4128_00000r.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_4a78_00000r.tmp saved as .dta format
 
     Result                      Number of obs
     -----------------------------------------
@@ -1481,7 +1481,7 @@ Duplicates in terms of grappe menage
 . tempfile id2018
 
 . save `id2018'
-file C:\Users\Bmd\AppData\Local\Temp\ST_4128_00000s.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_4a78_00000s.tmp saved as .dta format
 
 . 
 . use "$TEMP/vague_2021.dta", clear
@@ -1518,7 +1518,7 @@ Duplicates in terms of grappe menage
 . tempfile ids_panel
 
 . save `ids_panel'
-file C:\Users\Bmd\AppData\Local\Temp\ST_4128_00000t.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_4a78_00000t.tmp saved as .dta format
 
 . save "$TEMP/ids_panel.dta", replace   /* liste complete de tous les menages
 >     suivis, reutilisee par l'analyse de robustesse "beneficiaires stables" */
@@ -1546,7 +1546,7 @@ Menages vraiment suivis (presences dans les 2 editions) : 5691
 . tempfile panel_t0
 
 . save `panel_t0'
-file C:\Users\Bmd\AppData\Local\Temp\ST_4128_00000u.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_4a78_00000u.tmp saved as .dta format
 
 . 
 . use "$TEMP/vague_2021.dta", clear
@@ -1562,7 +1562,7 @@ file C:\Users\Bmd\AppData\Local\Temp\ST_4128_00000u.tmp saved as .dta format
 . tempfile panel_t1
 
 . save `panel_t1'
-file C:\Users\Bmd\AppData\Local\Temp\ST_4128_00000v.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_4a78_00000v.tmp saved as .dta format
 
 . 
 . use `panel_t0', clear
@@ -1993,7 +1993,7 @@ depart_int |       (first) D
 . tempfile enf18_psm
 
 . save `enf18_psm'
-file C:\Users\Bmd\AppData\Local\Temp\ST_4128_00000x.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_4a78_00000x.tmp saved as .dta format
 
 . 
 . use "$TEMP/enfants_dep_2021.dta", clear
@@ -2317,7 +2317,7 @@ file code/stata/temp/panel_large_tous.dta saved
 
 . di "  LR chi2(" `ddl' ") = " %8.2f `lr' ///
 >    "   p = " %6.4f chi2tail(`ddl', `lr')
-  LR chi2(32) =  2239.09   p = 0.0000
+  LR chi2(0) =     0.00   p =      .
 
 . di "  H0 : les deux groupes ont la meme distribution de covariables."
   H0 : les deux groupes ont la meme distribution de covariables.
@@ -3230,8 +3230,8 @@ log_pcexp              U  | 12.962   12.671     57.9         |  14.68  0.000 |  
 -----------------------------------------------------------------------------------
 * if B>25%, R outside [0.5; 2]
   Biais standardise moyen residuel, groupe 1 :  5.62 %
-(file C:\Users\Bmd\AppData\Local\Temp\ST_4128_000010.tmp not found)
-file C:\Users\Bmd\AppData\Local\Temp\ST_4128_000010.tmp saved as .dta format
+(file C:\Users\Bmd\AppData\Local\Temp\ST_4a78_000010.tmp not found)
+file C:\Users\Bmd\AppData\Local\Temp\ST_4a78_000010.tmp saved as .dta format
 (5,027 observations deleted)
 
 -- Groupe d'age 2 : 8484 enfants --
@@ -3384,7 +3384,7 @@ log_pcexp              U  | 12.971   12.695     53.9         |  18.84  0.000 |  
   Biais standardise moyen residuel, groupe 2 :  5.16 %
 (label _support already defined)
 (label grp already defined)
-file C:\Users\Bmd\AppData\Local\Temp\ST_4128_000010.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_4a78_000010.tmp saved as .dta format
 (13,246 observations deleted)
 
 -- Groupe d'age 3 : 265 enfants --
@@ -3501,7 +3501,7 @@ log_pcexp              U  | 12.888   12.717     36.0         |   2.09  0.038 |  
   Biais standardise moyen residuel, groupe 3 : 11.88 %
 (label _support already defined)
 (label grp already defined)
-file C:\Users\Bmd\AppData\Local\Temp\ST_4128_000010.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_4a78_000010.tmp saved as .dta format
 
 . use `knn_all', clear
 
@@ -3699,8 +3699,8 @@ log_pcexp              U  | 12.962   12.671     57.9         |  14.68  0.000 |  
 -----------------------------------------------------------------------------------
 * if B>25%, R outside [0.5; 2]
   Biais standardise moyen residuel, groupe 1 :  5.30 %
-(file C:\Users\Bmd\AppData\Local\Temp\ST_4128_000011.tmp not found)
-file C:\Users\Bmd\AppData\Local\Temp\ST_4128_000011.tmp saved as .dta format
+(file C:\Users\Bmd\AppData\Local\Temp\ST_4a78_000011.tmp not found)
+file C:\Users\Bmd\AppData\Local\Temp\ST_4a78_000011.tmp saved as .dta format
 (5,027 observations deleted)
 
 -- Groupe d'age 2 --
@@ -3851,7 +3851,7 @@ log_pcexp              U  | 12.971   12.695     53.9         |  18.84  0.000 |  
 -----------------------------------------------------------------------------------
 * if B>25%, R outside [0.5; 2]
   Biais standardise moyen residuel, groupe 2 :  3.90 %
-file C:\Users\Bmd\AppData\Local\Temp\ST_4128_000011.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_4a78_000011.tmp saved as .dta format
 (13,246 observations deleted)
 
 -- Groupe d'age 3 --
@@ -3966,7 +3966,7 @@ log_pcexp              U  | 12.888   12.717     36.0         |   2.09  0.038 |  
 -----------------------------------------------------------------------------------
 * if B>25%, R outside [0.5; 2]
   Biais standardise moyen residuel, groupe 3 : 10.39 %
-file C:\Users\Bmd\AppData\Local\Temp\ST_4128_000011.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_4a78_000011.tmp saved as .dta format
 
 . use `ker_all', clear
 
@@ -4160,8 +4160,8 @@ log_pcexp              U  | 12.962   12.671     57.9         |  14.68  0.000 |  
 -----------------------------------------------------------------------------------
 * if B>25%, R outside [0.5; 2]
   Biais standardise moyen residuel, groupe 1 :  6.38 %
-(file C:\Users\Bmd\AppData\Local\Temp\ST_4128_000012.tmp not found)
-file C:\Users\Bmd\AppData\Local\Temp\ST_4128_000012.tmp saved as .dta format
+(file C:\Users\Bmd\AppData\Local\Temp\ST_4a78_000012.tmp not found)
+file C:\Users\Bmd\AppData\Local\Temp\ST_4a78_000012.tmp saved as .dta format
 (5,027 observations deleted)
 
 -- Groupe d'age 2 --
@@ -4312,7 +4312,7 @@ log_pcexp              U  | 12.971   12.695     53.9         |  18.84  0.000 |  
 -----------------------------------------------------------------------------------
 * if B>25%, R outside [0.5; 2]
   Biais standardise moyen residuel, groupe 2 :  4.85 %
-file C:\Users\Bmd\AppData\Local\Temp\ST_4128_000012.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_4a78_000012.tmp saved as .dta format
 (13,246 observations deleted)
 
 -- Groupe d'age 3 --
@@ -4427,7 +4427,7 @@ log_pcexp              U  | 12.888   12.717     36.0         |   2.09  0.038 |  
 -----------------------------------------------------------------------------------
 * if B>25%, R outside [0.5; 2]
   Biais standardise moyen residuel, groupe 3 : 13.31 %
-file C:\Users\Bmd\AppData\Local\Temp\ST_4128_000012.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_4a78_000012.tmp saved as .dta format
 
 . use `cal_all', clear
 
@@ -5636,7 +5636,7 @@ D#groupe_base |
 .     tempfile quintiles
 
 .     save `quintiles'
-file C:\Users\Bmd\AppData\Local\Temp\ST_4128_000015.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_4a78_000015.tmp saved as .dta format
 
 .     di "  Bornes des quintiles de montant annuel (FCFA) :"
   Bornes des quintiles de montant annuel (FCFA) :
@@ -7015,7 +7015,7 @@ file code/stata/output/figures/fig_distrib_dimensions.pdf saved as PDF format
 .     tempfile quint_desc
 
 .     save `quint_desc'
-file C:\Users\Bmd\AppData\Local\Temp\ST_4128_000017.tmp saved as .dta format
+file C:\Users\Bmd\AppData\Local\Temp\ST_4a78_000017.tmp saved as .dta format
 
 . restore
 
