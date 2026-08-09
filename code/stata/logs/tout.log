@@ -2317,7 +2317,7 @@ file code/stata/temp/panel_large_tous.dta saved
 
 . di "  LR chi2(" `ddl' ") = " %8.2f `lr' ///
 >    "   p = " %6.4f chi2tail(`ddl', `lr')
-  LR chi2(0) =     0.00   p =      .
+  LR chi2(32) =  2239.09   p = 0.0000
 
 . di "  H0 : les deux groupes ont la meme distribution de covariables."
   H0 : les deux groupes ont la meme distribution de covariables.
@@ -5447,11 +5447,2226 @@ Linear regression                               Number of obs     =        257
 . restore
 
 . 
+. /* ============================================================
+>    6. Heterogeneite
+>    ============================================================ */
+. 
+. /* L'ensemble de la section est estime en niveaux de 2021, comme le
+>    resultat principal : la base en memoire ne contient que t==1. Chaque
+>    moderateur est examine par groupe d'age, seuls perimetre ou l'ATT a
+>    une interpretation, avec le test d'interaction correspondant. */
+. 
+. di _newline "=== Heterogeneite par milieu (niveaux 2021, par groupe d'age) ==="
+
+=== Heterogeneite par milieu (niveaux 2021, par groupe d'age) ===
+
+. gen byte urban = (milieu == 1)
+
+. forvalues g = 1/3 {
+  2.     local titg : label grp `g'
+  3.     di _newline "-- `titg' --"
+  4.     foreach mil in 1 0 {
+  5.         local lab_mil = cond(`mil' == 1, "Urbain", "Rural ")
+  6.         quietly count if urban == `mil' & groupe_base == `g' & D == 1
+  7.         if r(N) > 30 {
+  8.             quietly regress nb_dep i.D [aw=$POIDS_PRINCIPAL] ///
+>                 if urban == `mil' & groupe_base == `g', vce(cluster grappe)
+  9.             di "  `lab_mil' : ATT = " %8.4f _b[1.D] "  SE = " %8.4f _se[1.D] ///
+>                "  p = " %6.4f 2*ttail(e(df_r), abs(_b[1.D]/_se[1.D]))
+ 10.         }
+ 11.         else di "  `lab_mil' : effectif traite insuffisant (n=" r(N) ")"
+ 12.     }
+ 13.     quietly regress nb_dep i.D##i.urban [aw=$POIDS_PRINCIPAL] ///
+>         if groupe_base == `g', vce(cluster grappe)
+ 14.     quietly lincom 1.D#1.urban
+ 15.     di "  Diff ATT (urbain - rural) : " %8.4f r(estimate) "  p = " %6.4f r(p)
+ 16. }
+
+-- 0-4 ans --
+  Urbain : ATT =  -0.1526  SE =   0.1295  p = 0.2399
+  Rural  : ATT =  -0.1021  SE =   0.1894  p = 0.5903
+  Diff ATT (urbain - rural) :  -0.0504  p = 0.8260
+
+-- 5-14 ans --
+  Urbain : ATT =  -0.1829  SE =   0.1243  p = 0.1422
+  Rural  : ATT =  -0.2034  SE =   0.1732  p = 0.2413
+  Diff ATT (urbain - rural) :   0.0205  p = 0.9234
+
+-- 15-17 ans --
+  Urbain : effectif traite insuffisant (n=20)
+  Rural  : effectif traite insuffisant (n=15)
+  Diff ATT (urbain - rural) :   0.0214  p = 0.9717
+
+. drop urban
+
+. 
+. /* -- Par genre du chef de menage (hgender : 1 homme, 2 femme) -- */
+. di _newline "=== Heterogeneite par genre du chef (niveaux 2021, par groupe d'age) ==="
+
+=== Heterogeneite par genre du chef (niveaux 2021, par groupe d'age) ===
+
+. gen byte chef_fem = (hgender == 2) if !missing(hgender)
+
+. forvalues g = 1/3 {
+  2.     local titg : label grp `g'
+  3.     di _newline "-- `titg' --"
+  4.     foreach h in 0 1 {
+  5.         local lab_h = cond(`h' == 0, "Chef homme", "Chef femme")
+  6.         quietly count if chef_fem == `h' & groupe_base == `g' & D == 1
+  7.         if r(N) > 30 {
+  8.             quietly regress nb_dep i.D [aw=$POIDS_PRINCIPAL] ///
+>                 if chef_fem == `h' & groupe_base == `g', vce(cluster grappe)
+  9.             di "  `lab_h' : ATT = " %8.4f _b[1.D] "  SE = " %8.4f _se[1.D] ///
+>                "  p = " %6.4f 2*ttail(e(df_r), abs(_b[1.D]/_se[1.D]))
+ 10.         }
+ 11.         else di "  `lab_h' : effectif traite insuffisant (n=" r(N) ")"
+ 12.     }
+ 13.     quietly regress nb_dep i.D##i.chef_fem [aw=$POIDS_PRINCIPAL] ///
+>         if groupe_base == `g', vce(cluster grappe)
+ 14.     quietly lincom 1.D#1.chef_fem
+ 15.     di "  Diff ATT (chef femme - chef homme) : " %8.4f r(estimate) ///
+>        "  p = " %6.4f r(p)
+ 16. }
+
+-- 0-4 ans --
+  Chef homme : ATT =  -0.1341  SE =   0.1525  p = 0.3794
+  Chef femme : ATT =  -0.1280  SE =   0.1983  p = 0.5191
+  Diff ATT (chef femme - chef homme) :   0.0061  p = 0.9801
+
+-- 5-14 ans --
+  Chef homme : ATT =  -0.1528  SE =   0.1462  p = 0.2966
+  Chef femme : ATT =  -0.2842  SE =   0.1426  p = 0.0470
+  Diff ATT (chef femme - chef homme) :  -0.1314  p = 0.5157
+
+-- 15-17 ans --
+  Chef homme : effectif traite insuffisant (n=24)
+  Chef femme : effectif traite insuffisant (n=11)
+  Diff ATT (chef femme - chef homme) :  -0.1168  p = 0.8668
+
+. drop chef_fem
+
+. 
+. /* Les trois ATT par groupe d'age sont-ils egaux ? Le test ne compare pas
+>    des niveaux de nb_dep entre grilles, mais des ECARTS traites-temoins :
+>    la difference d'ATT reste interpretable meme si les grilles different. */
+. di _newline "=== Egalite des ATT entre groupes d'age (niveaux 2021) ==="
+
+=== Egalite des ATT entre groupes d'age (niveaux 2021) ===
+
+. regress nb_dep i.D##ib1.groupe_base [aw=$POIDS_PRINCIPAL], vce(cluster grappe)
+(sum of wgt is 4,451.97340694801)
+
+Linear regression                               Number of obs     =     13,497
+                                                F(5, 577)         =      24.24
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.0333
+                                                Root MSE          =     1.4706
+
+                                (Std. err. adjusted for 578 clusters in grappe)
+-------------------------------------------------------------------------------
+              |               Robust
+       nb_dep | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+--------------+----------------------------------------------------------------
+          1.D |   -.114157   .1356785    -0.84   0.400    -.3806409    .1523269
+              |
+  groupe_base |
+    5-14 ans  |    .583052   .0692199     8.42   0.000     .4470982    .7190058
+   15-17 ans  |    .690228   .2278785     3.03   0.003     .2426555      1.1378
+              |
+D#groupe_base |
+  1#5-14 ans  |  -.0759306   .0998653    -0.76   0.447    -.2720745    .1202132
+ 1#15-17 ans  |  -.0423299   .3137139    -0.13   0.893    -.6584903    .5738304
+              |
+        _cons |   2.751973   .0889487    30.94   0.000     2.577271    2.926676
+-------------------------------------------------------------------------------
+
+. testparm i.D#i.groupe_base
+
+ ( 1)  1.D#2.groupe_base = 0
+ ( 2)  1.D#3.groupe_base = 0
+
+       F(  2,   577) =    0.29
+            Prob > F =    0.7483
+
+. di "  Test joint d'egalite des trois ATT : F = " %6.2f r(F) ///
+>    "  p = " %6.4f r(p)
+  Test joint d'egalite des trois ATT : F =   0.29  p = 0.7483
+
+. foreach g in 2 3 {
+  2.     if `g' == 2 local lab_g "5-14 ans"
+  3.     else        local lab_g "15-17 ans"
+  4.     capture lincom 1.D#`g'.groupe_base
+  5.     if _rc == 0 {
+  6.         di "  Diff ATT (`lab_g' - 0-4 ans) : " %8.4f r(estimate) ///
+>            "  p = " %6.4f r(p)
+  7.     }
+  8. }
+  Diff ATT (5-14 ans - 0-4 ans) :  -0.0759  p = 0.4474
+  Diff ATT (15-17 ans - 0-4 ans) :  -0.0423  p = 0.8927
+
+. 
+. /* -- 6d. Par quintile de montant de transferts --------------
+>    H2 porte aussi sur l'intensite du traitement : un transfert plus eleve
+>    produit-il un effet different ? Les quintiles sont definis sur la
+>    distribution du montant annuel PARMI LES MENAGES BENEFICIAIRES ; chaque
+>    quintile d'enfants traites est ensuite compare a l'ensemble des enfants
+>    temoins apparies. Les quintiles sont preferes aux deciles : avec environ
+>    2 600 enfants traites, un decoupage en dix laisserait des sous-groupes
+>    trop petits pour une inference exploitable. */
+. di _newline "=== Heterogeneite par quintile de montant de transferts ==="
+
+=== Heterogeneite par quintile de montant de transferts ===
+
+. 
+. /* Quintiles construits au niveau MENAGE beneficiaire (un menage = un
+>    montant), pour que le decoupage ne soit pas deforme par le nombre
+>    d'enfants du menage. */
+. preserve
+
+.     keep if D == 1 & !missing(montant_transf)
+(11,803 observations deleted)
+
+.     bysort grappe menage: keep if _n == 1
+(1,324 observations deleted)
+
+.     xtile q_montant = montant_transf, nquantiles(5)
+
+.     keep grappe menage q_montant montant_transf
+
+.     tempfile quintiles
+
+.     save `quintiles'
+file C:\Users\Bmd\AppData\Local\Temp\ST_4128_000015.tmp saved as .dta format
+
+.     di "  Bornes des quintiles de montant annuel (FCFA) :"
+  Bornes des quintiles de montant annuel (FCFA) :
+
+.     forvalues q = 1/5 {
+  2.         quietly summarize montant_transf if q_montant == `q', detail
+  3.         di "    Q`q' : " %10.0f r(min) " a " %10.0f r(max) ///
+>            "  (mediane " %10.0f r(p50) ", n=" %4.0f r(N) " menages)"
+  4.     }
+    Q1 :       5000 a     180000  (mediane      60000, n=  80 menages)
+    Q2 :     195000 a     720000  (mediane     472000, n=  79 menages)
+    Q3 :     745000 a    1200000  (mediane     960000, n=  67 menages)
+    Q4 :    1250000 a    2400000  (mediane    1800000, n=  95 menages)
+    Q5 :    2490000 a    8400000  (mediane    4020000, n=  55 menages)
+
 . restore
-nothing to restore
-r(622);
 
-end of do-file
+. 
+. merge m:1 grappe menage using `quintiles', ///
+>     keepusing(q_montant) keep(master match) nogenerate
 
-r(622);
+    Result                      Number of obs
+    -----------------------------------------
+    Not matched                        11,803
+        from master                    11,803  
+        from using                          0  
 
+    Matched                             1,700  
+    -----------------------------------------
+
+. 
+. /* Chaque quintile de traites est compare aux temoins apparies, en niveaux
+>    de 2021, separement par groupe d'age. */
+. forvalues g = 1/3 {
+  2.     local titg : label grp `g'
+  3.     di _newline "-- `titg' --"
+  4.     forvalues q = 1/5 {
+  5.         quietly count if q_montant == `q' & groupe_base == `g' & ///
+>             !missing($POIDS_PRINCIPAL)
+  6.         if r(N) > 30 {
+  7.             quietly regress nb_dep i.D [aw=$POIDS_PRINCIPAL] ///
+>                 if (D == 0 | q_montant == `q') & groupe_base == `g', ///
+>                 vce(cluster grappe)
+  8.             di "  Q`q' : ATT = " %8.4f _b[1.D] "  SE = " %8.4f _se[1.D] ///
+>                "  p = " %6.4f 2*ttail(e(df_r), abs(_b[1.D]/_se[1.D]))
+  9.         }
+ 10.         else di "  Q`q' : effectif traite insuffisant (n=" r(N) ")"
+ 11.     }
+ 12. }
+
+-- 0-4 ans --
+  Q1 : ATT =   0.5538  SE =   0.3175  p = 0.0816
+  Q2 : ATT =   0.4582  SE =   0.2920  p = 0.1172
+  Q3 : ATT =  -0.3666  SE =   0.2018  p = 0.0699
+  Q4 : ATT =  -0.6068  SE =   0.1820  p = 0.0009
+  Q5 : ATT =  -0.7520  SE =   0.1993  p = 0.0002
+
+-- 5-14 ans --
+  Q1 : ATT =   0.3527  SE =   0.2240  p = 0.1159
+  Q2 : ATT =   0.3918  SE =   0.2526  p = 0.1214
+  Q3 : ATT =  -0.1063  SE =   0.3021  p = 0.7251
+  Q4 : ATT =  -0.8898  SE =   0.1334  p = 0.0000
+  Q5 : ATT =  -0.5985  SE =   0.2328  p = 0.0104
+
+-- 15-17 ans --
+  Q1 : effectif traite insuffisant (n=4)
+  Q2 : effectif traite insuffisant (n=5)
+  Q3 : effectif traite insuffisant (n=4)
+  Q4 : effectif traite insuffisant (n=5)
+  Q5 : effectif traite insuffisant (n=3)
+
+. 
+. /* Test continu : le nombre de privations de 2021 varie-t-il avec le
+>    logarithme du montant chez les traites ? Plus puissant que la
+>    comparaison par quintiles, qui decoupe l'information. */
+. di _newline "Effet dose-reponse (montant en logarithme, enfants traites) :"
+
+Effet dose-reponse (montant en logarithme, enfants traites) :
+
+. quietly gen double log_montant = log(montant_transf) if montant_transf > 0
+
+. forvalues g = 1/3 {
+  2.     local titg : label grp `g'
+  3.     quietly count if D == 1 & !missing(log_montant) & groupe_base == `g'
+  4.     if r(N) > 30 {
+  5.         quietly regress nb_dep c.log_montant [aw=$POIDS_PRINCIPAL] ///
+>             if D == 1 & groupe_base == `g', vce(cluster grappe)
+  6.         di "  `titg' : pente = " %8.4f _b[log_montant] ///
+>            "  SE = " %8.4f _se[log_montant] ///
+>            "  p = " %6.4f 2*ttail(e(df_r), abs(_b[log_montant]/_se[log_montant]))
+  7.     }
+  8.     else di "  `titg' : effectif insuffisant (n=" r(N) ")"
+  9. }
+  0-4 ans : pente =  -0.3121  SE =   0.0732  p = 0.0000
+  5-14 ans : pente =  -0.2732  SE =   0.0557  p = 0.0000
+  15-17 ans : effectif insuffisant (n=21)
+
+. drop log_montant
+
+. 
+. /* ============================================================
+>    7. Robustesse
+>    ============================================================ */
+. 
+. /* Le resultat principal ne doit pas dependre de l'algorithme retenu au
+>    critere d'equilibre : l'ATT en niveaux de 2021 est reestime par groupe
+>    d'age avec chacun des trois jeux de poids. */
+. di _newline "=== Comparaison des trois methodes d'appariement (niveaux 2021) ==="
+
+=== Comparaison des trois methodes d'appariement (niveaux 2021) ===
+
+. foreach poids_var in weight_knn weight_kernel weight_caliper {
+  2.     forvalues g = 1/3 {
+  3.         local titg : label grp `g'
+  4.         quietly count if !missing(`poids_var') & `poids_var' > 0 & ///
+>             groupe_base == `g'
+  5.         if r(N) > 30 {
+  6.             quietly regress nb_dep i.D [aw=`poids_var'] ///
+>                 if `poids_var' > 0 & groupe_base == `g', vce(cluster grappe)
+  7.             di "  `poids_var' (`titg') : ATT = " %8.4f _b[1.D] ///
+>                "  SE = " %8.4f _se[1.D] ///
+>                "  p = " %6.4f 2*ttail(e(df_r), abs(_b[1.D]/_se[1.D]))
+  8.         }
+  9.         else di "  `poids_var' (`titg') : effectif insuffisant (n=" r(N) ")"
+ 10.     }
+ 11. }
+  weight_knn (0-4 ans) : ATT =  -0.1505  SE =   0.1377  p = 0.2752
+  weight_knn (5-14 ans) : ATT =  -0.2723  SE =   0.1180  p = 0.0214
+  weight_knn (15-17 ans) : ATT =  -0.2357  SE =   0.3263  p = 0.4719
+  weight_kernel (0-4 ans) : ATT =  -0.1142  SE =   0.1357  p = 0.4005
+  weight_kernel (5-14 ans) : ATT =  -0.1901  SE =   0.1139  p = 0.0956
+  weight_kernel (15-17 ans) : ATT =  -0.1565  SE =   0.3155  p = 0.6205
+  weight_caliper (0-4 ans) : ATT =  -0.2448  SE =   0.1454  p = 0.0931
+  weight_caliper (5-14 ans) : ATT =  -0.2026  SE =   0.1218  p = 0.0969
+  weight_caliper (15-17 ans) : ATT =  -0.3125  SE =   0.4309  p = 0.4713
+
+. 
+. /* ============================================================
+>    8. Robustesse : definition alternative du traitement
+>       (traitement defini a la periode de base, transitoires inclus)
+> 
+>    Le design principal compare les beneficiaires stables aux menages
+>    jamais beneficiaires. En robustesse, l'ATT est reestime avec la
+>    definition canonique de la DD : traitement fixe a la periode de base
+>    (transfert recu en 2018), quel que soit le statut de 2021. Ce design
+>    reintegre les beneficiaires transitoires ; il dilue l'exposition,
+>    puisque pres de la moitie des traites ne recoivent plus en 2021,
+>    mais il offre une periode de base au statut bien defini et une
+>    population complete. La convergence des deux designs est le
+>    veritable test : un effet present dans les deux ne depend ni de la
+>    dilution de l'un ni de l'absence de periode pre-traitement de
+>    l'autre.
+>    ============================================================ */
+. 
+. use "$TEMP/panel_large_tous.dta", clear
+
+. gen byte D_base_alt = D
+
+. label var D_base_alt "1=beneficiaire en 2018 (transitoires inclus)"
+
+. 
+. quietly count if D_base_alt == 1
+
+. local n_ben = r(N)
+
+. quietly count if D_base_alt == 0
+
+. local n_non = r(N)
+
+. di _newline "=== Robustesse : definition a la periode de base (2018) ==="
+
+=== Robustesse : definition a la periode de base (2018) ===
+
+. di "  Enfants de beneficiaires 2018 : `n_ben'"
+  Enfants de beneficiaires 2018 : 4083
+
+. di "  Enfants non beneficiaires 2018 : `n_non'"
+  Enfants non beneficiaires 2018 : 13689
+
+. 
+. /* Logit et appariement k-NN sur l'echantillon complet, en format large */
+. quietly logit D_base_alt $COV_SCORE, vce(cluster grappe)
+
+. di "  Pseudo-R2 logit (definition 2018) : " %6.3f 1 - e(ll)/e(ll_0)
+  Pseudo-R2 logit (definition 2018) :  0.109
+
+. quietly predict pscore_alt if e(sample), pr
+
+. quietly psmatch2 D_base_alt, pscore(pscore_alt) neighbor($K_VOISINS) common
+
+. rename _weight w_alt
+
+. 
+. di _newline "  Balance apres appariement (definition 2018) :"
+
+  Balance apres appariement (definition 2018) :
+
+. capture noisily pstest i.milieu i.region hgender i.hage_cl i.heduc i.hmstat ///
+>     i.sexe18 hhsize log_pcexp i.hcsp, both
+Error: provide weight
+variable __00000E not found
+
+. 
+. /* Panel long minimal pour la DD */
+. keep enfid grappe menage D_base_alt w_alt pauvre_MODA18 pauvre_MODA21
+
+. reshape long pauvre_MODA, i(enfid) j(periode)
+(j = 18 21)
+
+Data                               Wide   ->   Long
+-----------------------------------------------------------------------------
+Number of observations           17,772   ->   35,544      
+Number of variables                   7   ->   7           
+j variable (2 values)                     ->   periode
+xij variables:
+            pauvre_MODA18 pauvre_MODA21   ->   pauvre_MODA
+-----------------------------------------------------------------------------
+
+. gen byte t = (periode == 21)
+
+. drop periode
+
+. 
+. di _newline "--- DD brute, definition 2018 (transitoires inclus) ---"
+
+--- DD brute, definition 2018 (transitoires inclus) ---
+
+. regress pauvre_MODA i.t##i.D_base_alt, vce(cluster grappe)
+
+Linear regression                               Number of obs     =     35,544
+                                                F(3, 580)         =      45.82
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.0334
+                                                Root MSE          =     .48398
+
+                               (Std. err. adjusted for 581 clusters in grappe)
+------------------------------------------------------------------------------
+             |               Robust
+ pauvre_MODA | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+         1.t |  -.0580028   .0092455    -6.27   0.000    -.0761614   -.0398441
+1.D_base_alt |  -.2263942   .0236766    -9.56   0.000    -.2728966   -.1798918
+             |
+t#D_base_alt |
+        1 1  |   .0428179   .0192123     2.23   0.026     .0050837     .080552
+             |
+       _cons |   .6638177   .0140168    47.36   0.000     .6362878    .6913475
+------------------------------------------------------------------------------
+
+. lincom 1.t#1.D_base_alt
+
+ ( 1)  1.t#1.D_base_alt = 0
+
+------------------------------------------------------------------------------
+ pauvre_MODA | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+         (1) |   .0428179   .0192123     2.23   0.026     .0050837     .080552
+------------------------------------------------------------------------------
+
+. di "  ATT_DD_2018 = " %8.4f r(estimate) ///
+>    "  SE = " %8.4f r(se) "  p = " %6.4f r(p)
+  ATT_DD_2018 =   0.0428  SE =   0.0192  p = 0.0262
+
+. 
+. di _newline "--- PSM-DD, definition 2018 (transitoires inclus) ---"
+
+--- PSM-DD, definition 2018 (transitoires inclus) ---
+
+. quietly count if t == 0 & w_alt > 0 & !missing(w_alt)
+
+. di "  Enfants sur support commun : " r(N)
+  Enfants sur support commun : 9041
+
+. regress pauvre_MODA i.t##i.D_base_alt [aw=w_alt] ///
+>     if w_alt > 0 & !missing(w_alt), vce(cluster grappe)
+(sum of wgt is 16,328)
+
+Linear regression                               Number of obs     =     18,082
+                                                F(3, 566)         =       2.50
+                                                Prob > F          =     0.0585
+                                                R-squared         =     0.0033
+                                                Root MSE          =     .49742
+
+                               (Std. err. adjusted for 567 clusters in grappe)
+------------------------------------------------------------------------------
+             |               Robust
+ pauvre_MODA | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+         1.t |   .0128613   .0172641     0.74   0.457    -.0210482    .0467709
+1.D_base_alt |    -.04134    .026606    -1.55   0.121    -.0935986    .0109186
+             |
+t#D_base_alt |
+        1 1  |   -.027805    .023701    -1.17   0.241    -.0743576    .0187476
+             |
+       _cons |   .4786257   .0220708    21.69   0.000      .435275    .5219764
+------------------------------------------------------------------------------
+
+. lincom 1.t#1.D_base_alt
+
+ ( 1)  1.t#1.D_base_alt = 0
+
+------------------------------------------------------------------------------
+ pauvre_MODA | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+         (1) |   -.027805    .023701    -1.17   0.241    -.0743576    .0187476
+------------------------------------------------------------------------------
+
+. di "  ATT_PSMDD_2018 = " %8.4f r(estimate) ///
+>    "  SE = " %8.4f r(se) "  p = " %6.4f r(p)
+  ATT_PSMDD_2018 =  -0.0278  SE =   0.0237  p = 0.2412
+
+. di "  A comparer a l'ATT du design principal (stables vs jamais)."
+  A comparer a l'ATT du design principal (stables vs jamais).
+
+. 
+. di _newline ">>> 05_psm_dd.do termine."
+
+>>> 05_psm_dd.do termine.
+
+. 
+. /* ============================================================
+>    SECTION : 06_STATS_DESC — Statistiques descriptives
+>    Chapitre 3 : profil ménages, pauvreté, privations, comparaison D=0/1
+> 
+>    Les statistiques portant sur les ENFANTS sont calculees sur les enfants
+>    suivis individuellement d'une edition a l'autre (panel_enfants_psm.dta),
+>    c'est-a-dire sur l'echantillon meme de l'estimation d'impact avant la
+>    restriction au support commun. Un tableau descriptif et un coefficient
+>    estime decrivent ainsi les memes enfants. Le profil des MENAGES (bloc 1)
+>    reste sur le panel vrai, son unite etant le menage et non l'enfant.
+> 
+>    Les statistiques de pauvrete/privation (incidence de pauvreté multidimensionnelle, par dimension,
+>    par age, par milieu, par region) sont PONDEREES par les poids de sondage
+>    (hhweight). Le profil des menages et la balance traites/non-traites
+>    restent sur effectifs bruts.
+>    ============================================================ */
+. 
+. 
+. /* Créer les dossiers de sortie */
+. capture mkdir "$OUTPUT"
+
+. capture mkdir "$OUTPUT/figures"
+
+. capture mkdir "$OUTPUT/tables"
+
+. 
+. /* ============================================================
+>    1. Caractéristiques générales des ménages
+>    ============================================================ */
+. 
+. di _newline "=== 1. Profil des ménages ==="
+
+=== 1. Profil des ménages ===
+
+. 
+. foreach annee in 2018 2021 {
+  2.     local tt = cond(`annee' == 2018, 0, 1)
+  3.     use "$TEMP/panel_vrai.dta", clear
+  4.     keep if t == `tt'
+  5.     bysort grappe menage: keep if _n == 1   /* un ménage = une ligne */
+  6. 
+.     drop D
+  7.     merge m:1 grappe menage using "$TEMP/traitement_`annee'.dta", ///
+>         keepusing(D) nogenerate keep(master match)
+  8.     replace D = 0 if missing(D)
+  9. 
+.     /* Taille ménage, âge CM, milieu, transferts */
+.     quietly {
+ 10.         gen byte chef_f = (hgender == 2)
+ 11.         gen byte urbain = (milieu == 1)
+ 12.         foreach v in hhsize hage pcexp chef_f urbain D {
+ 13.             summarize `v' [aw=hhweight]   /* caracteristiques ponderees (representativite nationale) */
+ 14.             if "`v'" == "hhsize" scalar m_hhsize_`annee' = r(mean)
+ 15.             if "`v'" == "hage"   scalar m_hage_`annee'   = r(mean)
+ 16.             if "`v'" == "pcexp"  scalar m_pcexp_`annee'  = r(mean)
+ 17.             if "`v'" == "chef_f" scalar p_chef_f_`annee' = r(mean)*100
+ 18.             if "`v'" == "urbain" scalar p_urbain_`annee' = r(mean)*100
+ 19.             if "`v'" == "D"      scalar p_D_`annee'      = r(mean)*100
+ 20.         }
+ 21.         count
+ 22.         scalar n_men_`annee' = r(N)
+ 23.     }
+ 24.     di "`annee' : " n_men_`annee' " ménages"
+ 25.     di "  Taille moy : " %5.2f m_hhsize_`annee'
+ 26.     di "  PCE moy    : " %12.0f m_pcexp_`annee' " FCFA/an"
+ 27.     di "  Chef féminin  : " %5.1f p_chef_f_`annee' "%"
+ 28.     di "  Milieu urbain : " %5.1f p_urbain_`annee' "%"
+ 29.     di "  Transferts    : " %5.1f p_D_`annee'      "%"
+ 30. }
+(28,341 observations deleted)
+(25,691 observations deleted)
+
+    Result                      Number of obs
+    -----------------------------------------
+    Not matched                             0
+    Matched                             5,691  
+    -----------------------------------------
+(0 real changes made)
+2018 : 5691 ménages
+  Taille moy : 10.16
+  PCE moy    :       515217 FCFA/an
+  Chef féminin  :  26.2%
+  Milieu urbain :  45.9%
+  Transferts    :  23.7%
+(31,382 observations deleted)
+(22,650 observations deleted)
+
+    Result                      Number of obs
+    -----------------------------------------
+    Not matched                             0
+    Matched                             5,691  
+    -----------------------------------------
+(0 real changes made)
+2021 : 5691 ménages
+  Taille moy :  9.38
+  PCE moy    :       565226 FCFA/an
+  Chef féminin  :  28.7%
+  Milieu urbain :  45.9%
+  Transferts    :  26.7%
+
+. 
+. 
+. /* ============================================================
+>    2. Balance traités / non-traités (EHCVM I, t=0)
+>    ============================================================ */
+. 
+. di _newline "=== 2. Balance traites / non-traites (niveau ENFANT) ==="
+
+=== 2. Balance traites / non-traites (niveau ENFANT) ===
+
+. 
+. /* Alimente le tableau de selection de la section 2 : qui recoit des
+>    transferts ? L'unite est l'enfant, comme dans tout le memoire. */
+. use "$TEMP/panel_enfants_psm.dta", clear
+
+. keep if t == 0
+(13,511 observations deleted)
+
+. 
+. gen byte chef_f = (hgender == 2)
+
+. gen byte urbain = (milieu  == 1)
+
+. gen byte fille  = (sexe == 2)
+
+. 
+. foreach v in fille age hhsize hage pcexp chef_f urbain {
+  2.     quietly summarize `v' [aw=hhweight] if D == 1
+  3.     local m1 = r(mean)
+  4.     quietly summarize `v' [aw=hhweight] if D == 0
+  5.     local m0 = r(mean)
+  6.     quietly regress `v' D, vce(cluster grappe)
+  7.     di "  " %-8s "`v'" " : D=1 " %10.2f `m1' "  D=0 " %10.2f `m0' ///
+>        "  p=" %6.4f (2*ttail(e(df_r), abs(_b[D]/_se[D])))
+  8. }
+  fille    : D=1       0.49  D=0       0.49  p=0.2484
+  age      : D=1       6.84  D=0       6.59  p=0.0107
+  hhsize   : D=1      16.56  D=0      12.56  p=0.0000
+  hage     : D=1      54.03  D=0      51.64  p=0.0002
+  pcexp    : D=1  527930.13  D=0  393640.88  p=0.0000
+  chef_f   : D=1       0.35  D=0       0.17  p=0.0000
+  urbain   : D=1       0.55  D=0       0.33  p=0.0000
+
+. quietly count if D == 1
+
+. di "  Enfants traites : " r(N)
+  Enfants traites : 2236
+
+. quietly count if D == 0
+
+. di "  Enfants temoins : " r(N)
+  Enfants temoins : 11275
+
+. 
+. /* ============================================================
+>    2bis. Caracteristiques des transferts etrangers recus :
+>    motifs declares et montants annualises
+> 
+>    Source : module detail des transferts (une ligne par transfert).
+>    Restreint aux transferts dont l'expediteur reside a l'etranger
+>    (meme definition que le traitement D). Le montant annuel est
+>    obtenu en multipliant le montant par envoi par la frequence
+>    declaree (mois x12, trimestre x4, semestre x2, annee x1 ;
+>    irregulier = montant deja declare sur 12 mois, x1), puis somme
+>    au niveau menage sur l'ensemble de ses transferts etrangers.
+>    ============================================================ */
+. 
+. di _newline "=== 2bis. Motifs et montants des transferts etrangers ==="
+
+=== 2bis. Motifs et montants des transferts etrangers ===
+
+. 
+. foreach annee in 2018 2021 {
+  2. 
+.     if `annee' == 2018 {
+  3.         local base      "$BASE_2018"
+  4.         local fich_det  s13a_2
+  5.         local v_lieu    s13aq14
+  6.         local v_motif   s13aq15
+  7.         local v_montant s13aq17a
+  8.         local v_freq    s13aq17b
+  9.     }
+ 10.     else {
+ 11.         local base      "$BASE_2021"
+ 12.         local fich_det  s13_2
+ 13.         local v_lieu    s13q19
+ 14.         local v_motif   s13q20
+ 15.         local v_montant s13q22a
+ 16.         local v_freq    s13q22b
+ 17.     }
+ 18. 
+.     use "`base'/`fich_det'_me_sen`annee'.dta", clear
+ 19.     keep if `v_lieu' >= $CODE_ETRANGER_MIN & !missing(`v_lieu')
+ 20. 
+.     quietly count
+ 21.     di _newline "-- `annee' : " r(N) " transferts etrangers --"
+ 22. 
+.     di "  Repartition des motifs (%):"
+ 23.     tab `v_motif'
+ 24. 
+.     /* Montant annualise par transfert */
+.     gen double mult = .
+ 25.     replace mult = 12 if `v_freq' == 1   /* mois       */
+ 26.     replace mult = 4  if `v_freq' == 2   /* trimestre  */
+ 27.     replace mult = 2  if `v_freq' == 3   /* semestre   */
+ 28.     replace mult = 1  if `v_freq' == 4   /* annee      */
+ 29.     replace mult = 1  if `v_freq' == 5   /* irregulier : montant sur 12 mois */
+ 30.     gen double montant_annuel = `v_montant' * mult
+ 31. 
+.     /* Somme au niveau menage */
+.     collapse (sum) montant_annuel, by(grappe menage)
+ 32.     di "  Montant annuel recu par menage beneficiaire (FCFA) :"
+ 33.     summarize montant_annuel, detail
+ 34. }
+(5,997 observations deleted)
+
+-- 2018 : 2406 transferts etrangers --
+  Repartition des motifs (%):
+
+ 13A.15. Quel est le principal motif du |
+                             transfert? |      Freq.     Percent        Cum.
+----------------------------------------+-----------------------------------
+                   Scolarit�, �ducation |         84        3.49        3.49
+                         Sant�, maladie |        110        4.57        8.06
+                        Soutien courant |      1,605       66.71       74.77
+                   Appui travaux champs |         13        0.54       75.31
+Appui d�marrage d'une entreprise non ag |         15        0.62       75.94
+                        F�te/Ev�nements |        272       11.31       87.24
+                       Achat de terrain |          3        0.12       87.36
+              Construction d'une maison |         17        0.71       88.07
+                     Autre (� pr�ciser) |        287       11.93      100.00
+----------------------------------------+-----------------------------------
+                                  Total |      2,406      100.00
+(2,406 missing values generated)
+(1,039 real changes made)
+(93 real changes made)
+(31 real changes made)
+(274 real changes made)
+(968 real changes made)
+(11 missing values generated)
+  Montant annuel recu par menage beneficiaire (FCFA) :
+
+                    (sum) montant_annuel
+-------------------------------------------------------------
+      Percentiles      Smallest
+ 1%         5000              0
+ 5%        15000              0
+10%        25000              0       Obs               1,584
+25%        60000              0       Sum of wgt.       1,584
+
+50%       300000                      Mean           883179.8
+                        Largest       Std. dev.       1334903
+75%      1200000        8400000
+90%      2400000        8400000       Variance       1.78e+12
+95%      3600000        8700000       Skewness       3.000335
+99%      6100000       1.48e+07       Kurtosis       17.07306
+(7,890 observations deleted)
+
+-- 2021 : 2775 transferts etrangers --
+  Repartition des motifs (%):
+
+  13.20. Quel est le principal motif du |
+                             transfert? |      Freq.     Percent        Cum.
+----------------------------------------+-----------------------------------
+                   Scolarité, éducation |        102        3.68        3.68
+                         Santé, maladie |        179        6.45       10.13
+                        Soutien courant |      1,900       68.47       78.59
+                   Appui travaux champs |         14        0.50       79.10
+Appui/ démarrage d'une entreprise non a |         33        1.19       80.29
+                        Fête/Evènements |        259        9.33       89.62
+                       Achat de terrain |          3        0.11       89.73
+              Construction d'une maison |         20        0.72       90.45
+            Aide à cause de la COVID-19 |          9        0.32       90.77
+                     Autre (à préciser) |        256        9.23      100.00
+----------------------------------------+-----------------------------------
+                                  Total |      2,775      100.00
+(2,775 missing values generated)
+(1,176 real changes made)
+(104 real changes made)
+(28 real changes made)
+(256 real changes made)
+(1,211 real changes made)
+  Montant annuel recu par menage beneficiaire (FCFA) :
+
+                    (sum) montant_annuel
+-------------------------------------------------------------
+      Percentiles      Smallest
+ 1%         5600           2500
+ 5%        20000           3000
+10%        30000           3000       Obs               1,765
+25%        70000           5000       Sum of wgt.       1,765
+
+50%       275000                      Mean           948112.8
+                        Largest       Std. dev.       1572988
+75%      1200000       1.20e+07
+90%      2760000       1.36e+07       Variance       2.47e+12
+95%      3650000       1.44e+07       Skewness       3.379543
+99%      7825000       1.44e+07       Kurtosis       19.09429
+
+. 
+. /* ============================================================
+>    3. Incidence de pauvreté multidimensionnelle par édition, milieu, groupe d'âge
+>    ============================================================ */
+. 
+. di _newline "=== 3. Incidence pauvreté multidimensionnelle ==="
+
+=== 3. Incidence pauvreté multidimensionnelle ===
+
+. 
+. foreach annee in 2018 2021 {
+  2.     local tt = cond(`annee' == 2018, 0, 1)
+  3.     use "$TEMP/panel_enfants_psm.dta", clear
+  4.     keep if t == `tt'
+  5. 
+.     di _newline "-- MODA `annee' (pondéré hhweight) --"
+  6.     tabstat pauvre_MODA nb_dep [aw=hhweight], ///
+>         by(milieu) stat(mean n) format(%6.3f)
+  7.     tabstat pauvre_MODA nb_dep [aw=hhweight], ///
+>         by(groupe_base) stat(mean n) format(%6.3f)
+  8.     /* Incidence ajustee : H (part de pauvres), A (intensite moyenne parmi les
+>        pauvres = nb_dep/7), M0 = H x A, ponderes par hhweight. */
+.     quietly summarize pauvre_MODA [aw=hhweight]
+  9.     local H = r(mean)
+ 10.     quietly summarize intensite_moda [aw=hhweight] if pauvre_MODA == 1
+ 11.     local A = r(mean)
+ 12.     di "  Incidence ajustee `annee' : H=" %5.1f 100*`H' "%  A=" %5.1f 100*`A' ///
+>        "%  M0=" %5.3f `H'*`A'
+ 13. }
+(13,511 observations deleted)
+
+-- MODA 2018 (pondéré hhweight) --
+
+Summary statistics: Mean, N
+Group variable: milieu (Milieu residence)
+
+milieu |  pauvre~A    nb_dep
+-------+--------------------
+Urbain |     0.323     2.841
+       |  5562.000  5562.000
+-------+--------------------
+ Rural |     0.770     4.519
+       |  7949.000  7949.000
+-------+--------------------
+ Total |     0.604     3.897
+       |   1.4e+04   1.4e+04
+----------------------------
+
+Summary statistics: Mean, N
+Group variable: groupe_base (Groupe d'age MODA a la periode de base (2018))
+
+groupe_base |  pauvre~A    nb_dep
+------------+--------------------
+    0-4 ans |     0.516     3.488
+            |  4762.000  4762.000
+------------+--------------------
+   5-14 ans |     0.653     4.123
+            |  8484.000  8484.000
+------------+--------------------
+  15-17 ans |     0.628     4.043
+            |   265.000   265.000
+------------+--------------------
+      Total |     0.604     3.897
+            |   1.4e+04   1.4e+04
+---------------------------------
+  Incidence ajustee 2018 : H= 60.4%  A= 71.0%  M0=0.429
+(13,511 observations deleted)
+
+-- MODA 2021 (pondéré hhweight) --
+
+Summary statistics: Mean, N
+Group variable: milieu (Milieu residence)
+
+milieu |  pauvre~A    nb_dep
+-------+--------------------
+Urbain |     0.243     2.591
+       |  5558.000  5558.000
+-------+--------------------
+ Rural |     0.682     4.176
+       |  7947.000  7947.000
+-------+--------------------
+ Total |     0.519     3.588
+       |   1.4e+04   1.4e+04
+----------------------------
+
+Summary statistics: Mean, N
+Group variable: groupe_base (Groupe d'age MODA a la periode de base (2018))
+
+groupe_base |  pauvre~A    nb_dep
+------------+--------------------
+    0-4 ans |     0.430     3.167
+            |  4762.000  4762.000
+------------+--------------------
+   5-14 ans |     0.569     3.815
+            |  8478.000  8478.000
+------------+--------------------
+  15-17 ans |     0.559     3.941
+            |   265.000   265.000
+------------+--------------------
+      Total |     0.519     3.588
+            |   1.4e+04   1.4e+04
+---------------------------------
+  Incidence ajustee 2021 : H= 51.9%  A= 69.5%  M0=0.361
+
+. 
+. /* Export tab_moda_age : H par groupe d'âge et edition */
+. clear
+
+. set obs 6
+Number of observations (_N) was 0, now 6.
+
+. gen str8 annee       = ""
+(6 missing values generated)
+
+. gen str12 groupe     = ""
+(6 missing values generated)
+
+. gen H_MODA           = .
+(6 missing values generated)
+
+. gen n_obs            = .
+(6 missing values generated)
+
+. 
+. local r = 0
+
+. foreach annee in 2018 2021 {
+  2.     local tt = cond(`annee' == 2018, 0, 1)
+  3.     use "$TEMP/panel_enfants_psm.dta", clear
+  4.     keep if t == `tt'
+  5.     foreach g in 1 2 3 {
+  6.         local ++r
+  7.         quietly summarize pauvre_MODA [aw=hhweight] if groupe_base == `g'
+  8.         local hmoda = r(mean)*100
+  9.         /* n_calc = enfants avec un statut MODA calcule ; n_tot = effectif
+>            total de la tranche (colonne "Obs." du tableau du rapport) */
+.         local nobs  = r(N)
+ 10.         quietly count if groupe_base == `g'
+ 11.         local ntot  = r(N)
+ 12.         local lbl   = cond(`g'==1,"0-4 ans",cond(`g'==2,"5-14 ans","15-17 ans"))
+ 13.         di "  `annee' / `lbl' : H=" %5.1f `hmoda' "% (n_calc=`nobs', n_tot=`ntot')"
+ 14.     }
+ 15. }
+(13,511 observations deleted)
+  2018 / 0-4 ans : H= 51.6% (n_calc=4762, n_tot=4762)
+  2018 / 5-14 ans : H= 65.3% (n_calc=8484, n_tot=8484)
+  2018 / 15-17 ans : H= 62.8% (n_calc=265, n_tot=265)
+(13,511 observations deleted)
+  2021 / 0-4 ans : H= 43.0% (n_calc=4762, n_tot=4762)
+  2021 / 5-14 ans : H= 56.9% (n_calc=8478, n_tot=8484)
+  2021 / 15-17 ans : H= 55.9% (n_calc=265, n_tot=265)
+
+. 
+. /* ============================================================
+>    4. Taux de privation par dimension
+>    ============================================================ */
+. 
+. di _newline "=== 4. Privation par dimension ==="
+
+=== 4. Privation par dimension ===
+
+. 
+. foreach annee in 2018 2021 {
+  2.     local tt = cond(`annee' == 2018, 0, 1)
+  3.     use "$TEMP/panel_enfants_psm.dta", clear
+  4.     keep if t == `tt'
+  5.     di _newline "-- Dimensions `annee' --"
+  6.     foreach dim in assai eau logem nutri sante protect educ {
+  7.         quietly summarize dim_`dim' [aw=hhweight]
+  8.         di "  `dim' : " %5.1f r(mean)*100 "%"
+  9.     }
+ 10.     di _newline "  -- Dimensions `annee' par tranche d'age --"
+ 11.     foreach dim in assai eau logem nutri sante protect educ {
+ 12.         quietly tabstat dim_`dim' [aw=hhweight], by(groupe_base) ///
+>             stat(mean n) format(%7.4f) save
+ 13.         forvalues g = 1/3 {
+ 14.             matrix M = r(Stat`g')
+ 15.             local lbl = cond(`g'==1,"0-4 ans",cond(`g'==2,"5-14 ans","15-17 ans"))
+ 16.             di "  `dim' / `lbl' : " %5.1f M[1,1]*100 "%   n=" %7.0f M[2,1]
+ 17.         }
+ 18.     }
+ 19.     /* ── Taux de privation PAR INDICATEUR ─────────────────────
+>        La dimension agrege par la regle de l'union : le taux de la
+>        dimension ne dit pas quel indicateur le porte. Chaque indicateur
+>        est decrit sur son champ d'application (enfants pour lesquels il
+>        n'est pas manquant), au total, par statut et par groupe d'age. */
+.     di _newline "  -- Indicateurs `annee' : taux de privation --"
+ 20.     di "    indicateur        ensemble   benefic.   non-ben.       n"
+ 21.     foreach ind in m_toilet m_partag_toi m_eau_source m_eau_temps ///
+>                    m_ordures m_surpeup m_securite m_combust ///
+>                    m_sante_acces m_acte_nais m_trav_enf m_scol m_alfab {
+ 22.         quietly count if !missing(`ind')
+ 23.         local n_ind = r(N)
+ 24.         if `n_ind' > 0 {
+ 25.             quietly summarize `ind' [aw=hhweight]
+ 26.             local p_ens = 100*r(mean)
+ 27.             quietly summarize `ind' [aw=hhweight] if D == 1
+ 28.             local p_b = 100*r(mean)
+ 29.             quietly summarize `ind' [aw=hhweight] if D == 0
+ 30.             local p_nb = 100*r(mean)
+ 31.             di "    " %-16s "`ind'" %9.1f `p_ens' %11.1f `p_b' ///
+>                %11.1f `p_nb' %9.0f `n_ind'
+ 32.         }
+ 33.     }
+ 34.     di _newline "  -- Indicateurs `annee' par groupe d'age --"
+ 35.     foreach ind in m_toilet m_partag_toi m_eau_source m_eau_temps ///
+>                    m_ordures m_surpeup m_securite m_combust ///
+>                    m_sante_acces m_acte_nais m_trav_enf m_scol m_alfab {
+ 36.         local ligne "    `ind' :"
+ 37.         forvalues g = 1/3 {
+ 38.             quietly summarize `ind' [aw=hhweight] if groupe_base == `g'
+ 39.             if r(N) > 0 local ligne "`ligne'  g`g'=`: display %5.1f 100*r(mean)'"
+ 40.         }
+ 41.         di "`ligne'"
+ 42.     }
+ 43. 
+.     quietly summarize intensite_moda [aw=hhweight] if pauvre_MODA == 1
+ 44.     local A = r(mean)
+ 45.     quietly summarize pauvre_MODA [aw=hhweight]
+ 46.     di "  Indice ajuste `annee' : H=" %5.1f 100*r(mean) "%  A=" %5.1f 100*`A' ///
+>        "%  M0=" %5.3f r(mean)*`A'
+ 47. }
+(13,511 observations deleted)
+
+-- Dimensions 2018 --
+  assai :  52.8%
+  eau :  23.7%
+  logem :  67.5%
+  nutri :  70.4%
+  sante :  97.4%
+  protect :  49.0%
+  educ :  28.9%
+
+  -- Dimensions 2018 par tranche d'age --
+  assai / 0-4 ans :  54.2%   n=   4762
+  assai / 5-14 ans :  52.1%   n=   8484
+  assai / 15-17 ans :  50.7%   n=    265
+  eau / 0-4 ans :  25.1%   n=   4762
+  eau / 5-14 ans :  23.0%   n=   8484
+  eau / 15-17 ans :  18.3%   n=    265
+  logem / 0-4 ans :  69.0%   n=   4762
+  logem / 5-14 ans :  66.7%   n=   8484
+  logem / 15-17 ans :  66.2%   n=    265
+  nutri / 0-4 ans :  70.2%   n=   4762
+  nutri / 5-14 ans :  70.3%   n=   8484
+  nutri / 15-17 ans :  74.6%   n=    265
+  sante / 0-4 ans :  97.4%   n=   4762
+  sante / 5-14 ans :  97.3%   n=   8484
+  sante / 15-17 ans :  99.6%   n=    265
+  protect / 0-4 ans :  32.9%   n=   4762
+  protect / 5-14 ans :  57.8%   n=   8484
+  protect / 15-17 ans :  59.8%   n=    265
+  educ / 0-4 ans :   0.0%   n=   4762
+  educ / 5-14 ans :  45.0%   n=   8484
+  educ / 15-17 ans :  35.2%   n=    265
+
+  -- Indicateurs 2018 : taux de privation --
+    indicateur        ensemble   benefic.   non-ben.       n
+    m_toilet             41.0       19.6       45.4    13511
+    m_partag_toi         20.4       10.3       22.8    11844
+    m_eau_source          8.5        6.6        8.9    13511
+    m_eau_temps          18.5       10.1       20.2    13511
+    m_ordures            62.0       47.4       65.1    13511
+    m_surpeup            13.5        4.3       15.4    13511
+    m_securite           70.4       42.4       76.2    13511
+    m_combust            93.0       87.4       94.2    13511
+    m_sante_acces        70.7       63.5       72.2    13511
+    m_acte_nais          30.9       15.1       34.1    13511
+    m_trav_enf           26.2       23.0       26.8    13511
+    m_scol               28.2       23.4       29.2    13511
+    m_alfab               0.7        0.5        0.7    13511
+
+  -- Indicateurs 2018 par groupe d'age --
+    m_toilet :  g1= 42.6  g2= 40.0  g3= 42.7
+    m_partag_toi :  g1= 20.3  g2= 20.7  g3= 14.6
+    m_eau_source :  g1=  9.2  g2=  8.2  g3=  6.7
+    m_eau_temps :  g1= 19.3  g2= 18.1  g3= 14.9
+    m_ordures :  g1= 63.5  g2= 61.2  g3= 61.5
+    m_surpeup :  g1= 13.9  g2= 13.3  g3=  9.5
+    m_securite :  g1= 70.2  g2= 70.3  g3= 74.6
+    m_combust :  g1= 93.5  g2= 92.6  g3= 98.3
+    m_sante_acces :  g1= 72.1  g2= 70.1  g3= 66.3
+    m_acte_nais :  g1= 32.9  g2= 30.7  g3=  0.0
+    m_trav_enf :  g1=  0.0  g2= 39.9  g3= 59.8
+    m_scol :  g1=  0.0  g2= 45.0  g3=  0.0
+    m_alfab :  g1=  0.0  g2=  0.0  g3= 35.2
+  Indice ajuste 2018 : H= 60.4%  A= 71.0%  M0=0.429
+(13,511 observations deleted)
+
+-- Dimensions 2021 --
+  assai :  50.6%
+  eau :  18.7%
+  logem :  55.9%
+  nutri :  63.6%
+  sante :  96.6%
+  protect :  49.6%
+  educ :  23.9%
+
+  -- Dimensions 2021 par tranche d'age --
+  assai / 0-4 ans :  52.1%   n=   4762
+  assai / 5-14 ans :  49.7%   n=   8484
+  assai / 15-17 ans :  49.6%   n=    265
+  eau / 0-4 ans :  19.9%   n=   4762
+  eau / 5-14 ans :  18.0%   n=   8484
+  eau / 15-17 ans :  19.5%   n=    265
+  logem / 0-4 ans :  59.0%   n=   4762
+  logem / 5-14 ans :  54.2%   n=   8484
+  logem / 15-17 ans :  51.0%   n=    265
+  nutri / 0-4 ans :  64.4%   n=   4762
+  nutri / 5-14 ans :  62.9%   n=   8484
+  nutri / 15-17 ans :  71.5%   n=    265
+  sante / 0-4 ans :  97.0%   n=   4762
+  sante / 5-14 ans :  96.4%   n=   8484
+  sante / 15-17 ans :  97.8%   n=    265
+  protect / 0-4 ans :  24.3%   n=   4762
+  protect / 5-14 ans :  63.1%   n=   8478
+  protect / 15-17 ans :  71.4%   n=    265
+  educ / 0-4 ans :   0.0%   n=   4762
+  educ / 5-14 ans :  37.1%   n=   8484
+  educ / 15-17 ans :  33.3%   n=    265
+
+  -- Indicateurs 2021 : taux de privation --
+    indicateur        ensemble   benefic.   non-ben.       n
+    m_toilet             43.3       26.1       46.9    13511
+    m_partag_toi         13.2       11.2       13.6    12199
+    m_eau_source          7.6        5.5        8.0    13511
+    m_eau_temps          14.0        7.5       15.4    13511
+    m_ordures            50.3       34.4       53.6    13511
+    m_surpeup             9.7        4.5       10.8    13511
+    m_securite           63.6       42.6       67.9    13511
+    m_combust            92.0       88.8       92.6    13511
+    m_sante_acces        82.4       80.6       82.7    13511
+    m_acte_nais          20.5       13.0       22.1    13511
+    m_trav_enf           40.7       37.5       41.3    13511
+    m_scol               33.1       24.2       34.9    13511
+    m_alfab               3.6        2.5        3.8    13511
+
+  -- Indicateurs 2021 par groupe d'age --
+    m_toilet :  g1= 44.9  g2= 42.5  g3= 42.2
+    m_partag_toi :  g1= 13.1  g2= 13.3  g3= 10.7
+    m_eau_source :  g1=  8.2  g2=  7.2  g3=  9.2
+    m_eau_temps :  g1= 15.1  g2= 13.4  g3= 15.2
+    m_ordures :  g1= 52.9  g2= 48.9  g3= 46.0
+    m_surpeup :  g1= 10.7  g2=  9.2  g3=  6.8
+    m_securite :  g1= 64.4  g2= 62.9  g3= 71.5
+    m_combust :  g1= 92.4  g2= 91.7  g3= 93.4
+    m_sante_acces :  g1= 82.8  g2= 82.1  g3= 81.7
+    m_acte_nais :  g1= 24.3  g2= 18.7  g3= 10.3
+    m_trav_enf :  g1= 15.7  g2= 53.8  g3= 71.4
+    m_scol :  g1= 43.9  g2= 27.6  g3= 12.6
+    m_alfab :  g1=  0.2  g2=  4.9  g3= 21.3
+  Indice ajuste 2021 : H= 51.9%  A= 69.5%  M0=0.361
+
+. 
+. 
+. /* ============================================================
+>    5. Graphiques
+>    ============================================================ */
+. 
+. di _newline "=== 5. Graphiques ==="
+
+=== 5. Graphiques ===
+
+. 
+. /* ── Fig 1 : Évolution de l'incidence de pauvreté multidimensionnelle, beneficiaires vs
+>    non-beneficiaires. Les deux trajectoires rendent visible la logique de
+>    double difference : c'est l'ECART entre les groupes, et son evolution
+>    entre les deux editions, qui porte l'information sur l'impact. ── */
+. use "$TEMP/panel_enfants_psm.dta", clear
+
+. forvalues d = 0/1 {
+  2.     foreach tt in 0 1 {
+  3.         quietly summarize pauvre_MODA [aw=hhweight] if D == `d' & t == `tt'
+  4.         scalar H_d`d'_t`tt' = r(mean)*100
+  5.     }
+  6. }
+
+. clear
+
+. set obs 2
+Number of observations (_N) was 0, now 2.
+
+. gen annee = 2018 in 1
+(1 missing value generated)
+
+. replace annee = 2021 in 2
+(1 real change made)
+
+. gen H_benef    = H_d1_t0 in 1
+(1 missing value generated)
+
+. replace H_benef = H_d1_t1 in 2
+(1 real change made)
+
+. gen H_nonbenef = H_d0_t0 in 1
+(1 missing value generated)
+
+. replace H_nonbenef = H_d0_t1 in 2
+(1 real change made)
+
+. gen str12 lbl_b  = subinstr(string(H_benef,    "%3.1f"), ".", ",", 1) + " %"
+
+. gen str12 lbl_nb = subinstr(string(H_nonbenef, "%3.1f"), ".", ",", 1) + " %"
+
+. 
+. set dp comma
+
+. twoway (connected H_nonbenef annee, lcolor(gs9) mcolor(gs9) msymbol(square) ///
+>         lwidth(medthick) mlabel(lbl_nb) mlabcolor(black) mlabpos(12) ///
+>         mlabgap(2) mlabsize(small)) ///
+>        (connected H_benef annee, lcolor(orange) mcolor(orange) msymbol(circle) ///
+>         lwidth(medthick) mlabel(lbl_b) mlabcolor(black) mlabpos(12) ///
+>         mlabgap(2) mlabsize(small)), ///
+>     xlabel(2018 2021) xscale(range(2017.7 2021.3)) xtitle("Édition EHCVM") ///
+>     ytitle("Incidence de pauvreté multidimensionnelle H (%)") ///
+>     ylabel(40(5)70, grid) yscale(range(38 72)) ///
+>     legend(order(1 "Non-bénéficiaires" 2 "Bénéficiaires") pos(6) rows(1)) ///
+>     graphregion(color(white)) plotregion(color(white))
+
+. set dp period
+
+. graph display, scale(1.35)   /* texte agrandi pour la projection */
+
+. graph export "$OUTPUT/figures/fig_evolution_ipm.pdf", replace
+file code/stata/output/figures/fig_evolution_ipm.pdf saved as PDF format
+
+. di ">>> fig_evolution_ipm.pdf sauvegardé"
+>>> fig_evolution_ipm.pdf sauvegardé
+
+. 
+. /* ── Fig 2 : Distribution du nombre de dimensions en privation ──
+>    Abscisse : nombre exact de dimensions en privation (0 a 7).
+>    Ordonnee  : part des enfants (%), a l'image du rapport ANSD/UNICEF
+>    MODA. Ligne verticale placee apres la barre des 4 dimensions. */
+. tempname distrib
+
+. matrix `distrib' = J(8, 3, .)
+
+. foreach annee in 2018 2021 {
+  2.     local tt = cond(`annee' == 2018, 0, 1)
+  3.     use "$TEMP/panel_enfants_psm.dta", clear
+  4.     keep if t == `tt'
+  5.     local col = cond(`annee' == 2018, 2, 3)
+  6.     quietly count if !missing(nb_dep)
+  7.     local n_tot = r(N)
+  8.     forvalues d = 0/7 {
+  9.         quietly count if nb_dep == `d' & !missing(nb_dep)
+ 10.         matrix `distrib'[`d' + 1, 1] = `d'
+ 11.         matrix `distrib'[`d' + 1, `col'] = r(N) / `n_tot' * 100
+ 12.     }
+ 13. }
+(13,511 observations deleted)
+(13,511 observations deleted)
+
+. clear
+
+. svmat `distrib', names(col)
+number of observations will be reset to 8
+Press any key to continue, or Break to abort
+Number of observations (_N) was 0, now 8.
+
+. rename c1 nb_dim
+
+. rename c2 pct_2018
+
+. rename c3 pct_2021
+
+. gen str8 lbl_18 = subinstr(string(pct_2018, "%3.1f"), ".", ",", 1)
+
+. gen str8 lbl_21 = subinstr(string(pct_2021, "%3.1f"), ".", ",", 1)
+
+. gen x_2018 = nb_dim - 0.19
+
+. gen x_2021 = nb_dim + 0.19
+
+. 
+. set dp comma
+
+. graph twoway ///
+>     (bar pct_2018 x_2018, barwidth(0.35) color(gs9)) ///
+>     (bar pct_2021 x_2021, barwidth(0.35) color(orange)) ///
+>     (scatter pct_2018 x_2018, msymbol(none) mlabel(lbl_18) ///
+>      mlabpos(12) mlabcolor(black) mlabsize(vsmall)) ///
+>     (scatter pct_2021 x_2021, msymbol(none) mlabel(lbl_21) ///
+>      mlabpos(12) mlabcolor(black) mlabsize(vsmall)) ///
+>     , xline(4.5, lcolor(red) lpattern(dash) lwidth(medthick)) ///
+>     xlabel(0(1)7) xtitle("Nombre de dimensions en privation (sur 7)") ///
+>     ylabel(0(5)30, grid) ytitle("Part des enfants (%)") ///
+>     legend(order(1 "EHCVM I (2018-19)" 2 "EHCVM II (2021-22)") pos(6) rows(1)) ///
+>     graphregion(color(white)) plotregion(color(white))
+
+. set dp period
+
+. graph display, scale(1.35)   /* texte agrandi pour la projection */
+
+. graph export "$OUTPUT/figures/fig_distrib_dimensions.pdf", replace
+file code/stata/output/figures/fig_distrib_dimensions.pdf saved as PDF format
+
+. di ">>> fig_distrib_dimensions.pdf sauvegardé"
+>>> fig_distrib_dimensions.pdf sauvegardé
+
+. 
+. /* ============================================================
+>    COMPARAISON BENEFICIAIRES / NON-BENEFICIAIRES x 2018-2021
+> 
+>    Coeur descriptif de la section : pour chaque dimension MODA et pour
+>    l'incidence globale, taux de privation des enfants selon le statut de
+>    traitement du menage (D=1 beneficiaire migrant en 2018 ; D=0 non
+>    beneficiaire) a chaque edition, ecart entre groupes a chaque date, et
+>    evolution de cet ecart (double difference descriptive, non ponderee
+>    par l'appariement). Echantillon : enfants suivis, ponderation hhweight.
+>    ============================================================ */
+. 
+. use "$TEMP/panel_enfants_psm.dta", clear
+
+. 
+. di _newline(2) "=== Privations : beneficiaires vs non-beneficiaires, 2018 et 2021 ==="
+
+
+=== Privations : beneficiaires vs non-beneficiaires, 2018 et 2021 ===
+
+. di "    (enfants suivis, pondere hhweight ; D=1 beneficiaire migrant 2018)"
+    (enfants suivis, pondere hhweight ; D=1 beneficiaire migrant 2018)
+
+. di _newline "  Indicateur          D=0 2018  D=1 2018   Ecart |  D=0 2021  D=1 2021   Ecart |     DD"
+
+  Indicateur          D=0 2018  D=1 2018   Ecart |  D=0 2021  D=1 2021   Ecart |     DD
+
+. 
+. foreach v in dim_assai dim_eau dim_logem dim_nutri dim_sante dim_protect ///
+>              dim_educ pauvre_MODA {
+  2.     quietly summarize `v' [aw=hhweight] if t == 0 & D == 0
+  3.     local a0 = r(mean)*100
+  4.     quietly summarize `v' [aw=hhweight] if t == 0 & D == 1
+  5.     local a1 = r(mean)*100
+  6.     quietly summarize `v' [aw=hhweight] if t == 1 & D == 0
+  7.     local b0 = r(mean)*100
+  8.     quietly summarize `v' [aw=hhweight] if t == 1 & D == 1
+  9.     local b1 = r(mean)*100
+ 10.     local g0 = `a1' - `a0'      /* ecart benef - non benef en 2018 */
+ 11.     local g1 = `b1' - `b0'      /* ecart benef - non benef en 2021 */
+ 12.     local dd = `g1' - `g0'      /* evolution de l'ecart = DD descriptive */
+ 13.     di "  " %-18s "`v'" %9.1f `a0' %10.1f `a1' %8.1f `g0' " |" ///
+>        %9.1f `b0' %10.1f `b1' %8.1f `g1' " |" %7.1f `dd'
+ 14. }
+  dim_assai              58.2      26.7   -31.5 |     54.2      32.8   -21.4 |   10.1
+  dim_eau                25.6      14.5   -11.1 |     20.1      12.0    -8.1 |    3.0
+  dim_logem              71.1      50.2   -20.9 |     59.6      37.9   -21.6 |   -0.7
+  dim_nutri              76.2      42.4   -33.8 |     67.9      42.6   -25.3 |    8.5
+  dim_sante              98.2      93.4    -4.8 |     96.6      96.7     0.1 |    4.9
+  dim_protect            51.9      35.0   -16.9 |     51.2      41.8    -9.4 |    7.6
+  dim_educ               29.9      23.9    -6.1 |     25.4      16.8    -8.6 |   -2.5
+  pauvre_MODA            66.2      32.5   -33.7 |     56.6      29.3   -27.3 |    6.5
+
+. 
+. /* Test de significativite de l'ecart entre groupes, a chaque edition */
+. di _newline "  Test de l'ecart beneficiaires/non-beneficiaires (p-valeurs) :"
+
+  Test de l'ecart beneficiaires/non-beneficiaires (p-valeurs) :
+
+. foreach v in dim_assai dim_eau dim_logem dim_nutri dim_sante dim_protect ///
+>              dim_educ pauvre_MODA {
+  2.     quietly regress `v' D if t == 0, vce(cluster grappe)
+  3.     local p0 = 2*ttail(e(df_r), abs(_b[D]/_se[D]))
+  4.     quietly regress `v' D if t == 1, vce(cluster grappe)
+  5.     local p1 = 2*ttail(e(df_r), abs(_b[D]/_se[D]))
+  6.     di "  " %-18s "`v'" "  2018 : p=" %6.4f `p0' "   2021 : p=" %6.4f `p1'
+  7. }
+  dim_assai           2018 : p=0.0000   2021 : p=0.0000
+  dim_eau             2018 : p=0.0004   2021 : p=0.0073
+  dim_logem           2018 : p=0.0000   2021 : p=0.0000
+  dim_nutri           2018 : p=0.0000   2021 : p=0.0000
+  dim_sante           2018 : p=0.0030   2021 : p=0.5855
+  dim_protect         2018 : p=0.0000   2021 : p=0.0012
+  dim_educ            2018 : p=0.0034   2021 : p=0.0000
+  pauvre_MODA         2018 : p=0.0000   2021 : p=0.0000
+
+. 
+. /* Meme comparaison declinee par groupe d'age : chaque sous-section du
+>    rapport confronte les dimensions et le statut de beneficiaire au sein
+>    d'une tranche d'age. Le groupe est celui de la PERIODE DE BASE : sur un
+>    panel d'enfants suivis, un decoupage sur l'age courant ferait changer les
+>    sous-groupes de composition entre les deux editions et la comparaison ne
+>    porterait plus sur les memes enfants. « 0-4 ans » se lit donc « age de 0 a
+>    4 ans en 2018 », et ces enfants ont 3 a 7 ans en 2021 : dim_educ, nulle
+>    par construction en 2018, devient applicable a une partie d'entre eux. */
+. forvalues g = 1/3 {
+  2.     if `g' == 1 local lbl "0-4 ans"
+  3.     if `g' == 2 local lbl "5-14 ans"
+  4.     if `g' == 3 local lbl "15-17 ans"
+  5.     di _newline(2) "=== Privations par dimension et statut — `lbl' ==="
+  6.     di "  Indicateur          D=0 2018  D=1 2018   Ecart |  D=0 2021  D=1 2021   Ecart |     DD    p18    p21"
+  7.     foreach v in dim_assai dim_eau dim_logem dim_nutri dim_sante dim_protect ///
+>                  dim_educ pauvre_MODA {
+  8.         quietly summarize `v' [aw=hhweight] if t == 0 & D == 0 & groupe_base == `g'
+  9.         local a0 = r(mean)*100
+ 10.         quietly summarize `v' [aw=hhweight] if t == 0 & D == 1 & groupe_base == `g'
+ 11.         local a1 = r(mean)*100
+ 12.         quietly summarize `v' [aw=hhweight] if t == 1 & D == 0 & groupe_base == `g'
+ 13.         local b0 = r(mean)*100
+ 14.         quietly summarize `v' [aw=hhweight] if t == 1 & D == 1 & groupe_base == `g'
+ 15.         local b1 = r(mean)*100
+ 16.         local g0 = `a1' - `a0'
+ 17.         local g1 = `b1' - `b0'
+ 18.         local dd = `g1' - `g0'
+ 19.         quietly regress `v' D if t == 0 & groupe_base == `g', vce(cluster grappe)
+ 20.         local p0 = 2*ttail(e(df_r), abs(_b[D]/_se[D]))
+ 21.         quietly regress `v' D if t == 1 & groupe_base == `g', vce(cluster grappe)
+ 22.         local p1 = 2*ttail(e(df_r), abs(_b[D]/_se[D]))
+ 23.         di "  " %-18s "`v'" %9.1f `a0' %10.1f `a1' %8.1f `g0' " |" ///
+>            %9.1f `b0' %10.1f `b1' %8.1f `g1' " |" %7.1f `dd' ///
+>            %7.3f `p0' %7.3f `p1'
+ 24.     }
+ 25.     quietly count if groupe_base == `g' & t == 0
+ 26.     local n18 = r(N)
+ 27.     quietly count if groupe_base == `g' & t == 1
+ 28.     di "  Effectifs : `n18' enfants en 2018, " r(N) " en 2021"
+ 29. }
+
+
+=== Privations par dimension et statut — 0-4 ans ===
+  Indicateur          D=0 2018  D=1 2018   Ecart |  D=0 2021  D=1 2021   Ecart |     DD    p18    p21
+  dim_assai              59.5      26.8   -32.7 |     55.4      35.3   -20.2 |   12.5  0.000  0.000
+  dim_eau                26.8      16.4   -10.5 |     21.2      13.4    -7.8 |    2.7  0.008  0.017
+  dim_logem              72.1      53.2   -18.8 |     61.9      44.1   -17.8 |    1.0  0.000  0.000
+  dim_nutri              76.1      40.1   -35.9 |     68.1      45.2   -22.9 |   13.0  0.000  0.000
+  dim_sante              98.1      94.0    -4.1 |     96.9      97.4     0.5 |    4.6  0.018  0.796
+  dim_protect            35.9      17.2   -18.7 |     25.8      16.9    -8.9 |    9.8  0.000  0.014
+  dim_educ                0.0       0.0     0.0 |      0.0       0.0     0.0 |    0.0      .      .
+  pauvre_MODA            56.9      24.5   -32.4 |     47.2      21.7   -25.5 |    6.9  0.000  0.000
+  Effectifs : 4762 enfants en 2018, 4762 en 2021
+
+
+=== Privations par dimension et statut — 5-14 ans ===
+  Indicateur          D=0 2018  D=1 2018   Ecart |  D=0 2021  D=1 2021   Ecart |     DD    p18    p21
+  dim_assai              57.5      26.6   -31.0 |     53.6      31.6   -22.0 |    9.0  0.000  0.000
+  dim_eau                25.0      13.7   -11.3 |     19.5      11.4    -8.1 |    3.2  0.000  0.006
+  dim_logem              70.7      48.4   -22.2 |     58.4      34.6   -23.8 |   -1.5  0.000  0.000
+  dim_nutri              76.1      43.5   -32.6 |     67.7      40.9   -26.7 |    5.9  0.000  0.000
+  dim_sante              98.2      93.0    -5.3 |     96.4      96.3    -0.1 |    5.1  0.002  0.538
+  dim_protect            60.7      44.0   -16.8 |     65.0      54.2   -10.9 |    5.9  0.000  0.001
+  dim_educ               46.9      36.2   -10.7 |     39.6      25.4   -14.2 |   -3.4  0.000  0.000
+  pauvre_MODA            71.5      36.5   -35.0 |     61.9      33.2   -28.7 |    6.3  0.000  0.000
+  Effectifs : 8484 enfants en 2018, 8484 en 2021
+
+
+=== Privations par dimension et statut — 15-17 ans ===
+  Indicateur          D=0 2018  D=1 2018   Ecart |  D=0 2021  D=1 2021   Ecart |     DD    p18    p21
+  dim_assai              54.3      29.0   -25.3 |     52.8      30.6   -22.1 |    3.1  0.019  0.100
+  dim_eau                20.0       7.7   -12.3 |     20.9      11.0    -9.9 |    2.5  0.073  0.275
+  dim_logem              67.7      57.5   -10.2 |     52.5      42.0   -10.5 |   -0.3  0.208  0.395
+  dim_nutri              79.5      44.6   -34.9 |     73.7      58.3   -15.4 |   19.6  0.000  0.023
+  dim_sante             100.0      96.9    -3.1 |     97.4     100.0     2.6 |    5.7  0.317  0.160
+  dim_protect            62.0      46.2   -15.8 |     72.2      66.4    -5.8 |   10.0  0.106  0.121
+  dim_educ               36.0      30.3    -5.7 |     35.3      21.4   -13.9 |   -8.1  0.885  0.207
+  pauvre_MODA            67.1      36.8   -30.3 |     59.6      33.6   -26.0 |    4.3  0.003  0.008
+  Effectifs : 265 enfants en 2018, 265 en 2021
+
+. 
+. /* Croisement genre du chef de menage x statut de beneficiaire x edition, pour
+>    l'ensemble des enfants puis pour chaque tranche d'age. Alimente le
+>    tableau par genre de chaque sous-section descriptive. */
+. forvalues g = 0/3 {
+  2.     if `g' == 0 local lbl "Ensemble 0-17 ans"
+  3.     if `g' == 1 local lbl "0-4 ans"
+  4.     if `g' == 2 local lbl "5-14 ans"
+  5.     if `g' == 3 local lbl "15-17 ans"
+  6.     di _newline(2) "=== Incidence de pauvreté multidimensionnelle par genre du chef et statut — `lbl' ==="
+  7.     di "  Chef        D=0 2018  D=1 2018   Ecart |  D=0 2021  D=1 2021   Ecart |     DD    p18    p21      n18  
+>     n21"
+  8.     forvalues sx = 1/2 {
+  9.         local slbl = cond(`sx' == 1, "Chef homme", "Chef femme")
+ 10.         if `g' == 0 local cond "hgender == `sx'"
+ 11.         else        local cond "hgender == `sx' & groupe_base == `g'"
+ 12.         quietly summarize pauvre_MODA [aw=hhweight] if t == 0 & D == 0 & `cond'
+ 13.         local a0 = r(mean)*100
+ 14.         quietly summarize pauvre_MODA [aw=hhweight] if t == 0 & D == 1 & `cond'
+ 15.         local a1 = r(mean)*100
+ 16.         quietly summarize pauvre_MODA [aw=hhweight] if t == 1 & D == 0 & `cond'
+ 17.         local b0 = r(mean)*100
+ 18.         quietly summarize pauvre_MODA [aw=hhweight] if t == 1 & D == 1 & `cond'
+ 19.         local b1 = r(mean)*100
+ 20.         local e0 = `a1' - `a0'
+ 21.         local e1 = `b1' - `b0'
+ 22.         quietly regress pauvre_MODA D if t == 0 & `cond', vce(cluster grappe)
+ 23.         local p0 = 2*ttail(e(df_r), abs(_b[D]/_se[D]))
+ 24.         quietly regress pauvre_MODA D if t == 1 & `cond', vce(cluster grappe)
+ 25.         local p1 = 2*ttail(e(df_r), abs(_b[D]/_se[D]))
+ 26.         quietly count if t == 0 & `cond'
+ 27.         local n0 = r(N)
+ 28.         quietly count if t == 1 & `cond'
+ 29.         di "  " %-10s "`slbl'" %9.1f `a0' %10.1f `a1' %8.1f `e0' " |" ///
+>            %9.1f `b0' %10.1f `b1' %8.1f `e1' " |" %7.1f `e1'-`e0' ///
+>            %7.3f `p0' %7.3f `p1' %9.0f `n0' %9.0f r(N)
+ 30.     }
+ 31. }
+
+
+=== Incidence de pauvreté multidimensionnelle par genre du chef et statut — Ensemble 0-17 ans ===
+  Chef        D=0 2018  D=1 2018   Ecart |  D=0 2021  D=1 2021   Ecart |     DD    p18    p21      n18      n21
+  Chef homme     68.9      37.8   -31.1 |     59.2      35.3   -23.9 |    7.2  0.000  0.000    10918    10918
+  Chef femme     53.3      22.3   -31.0 |     44.0      18.0   -26.0 |    5.0  0.000  0.000     2593     2593
+
+
+=== Incidence de pauvreté multidimensionnelle par genre du chef et statut — 0-4 ans ===
+  Chef        D=0 2018  D=1 2018   Ecart |  D=0 2021  D=1 2021   Ecart |     DD    p18    p21      n18      n21
+  Chef homme     60.5      31.4   -29.1 |     50.3      27.6   -22.7 |    6.4  0.000  0.000     3887     3887
+  Chef femme     39.2      11.0   -28.2 |     32.0      10.0   -22.0 |    6.2  0.000  0.000      875      875
+
+
+=== Incidence de pauvreté multidimensionnelle par genre du chef et statut — 5-14 ans ===
+  Chef        D=0 2018  D=1 2018   Ecart |  D=0 2021  D=1 2021   Ecart |     DD    p18    p21      n18      n21
+  Chef homme     73.7      41.1   -32.6 |     64.3      39.2   -25.1 |    7.5  0.000  0.000     6814     6814
+  Chef femme     61.1      27.9   -33.2 |     50.6      22.0   -28.6 |    4.6  0.000  0.000     1670     1670
+
+
+=== Incidence de pauvreté multidimensionnelle par genre du chef et statut — 15-17 ans ===
+  Chef        D=0 2018  D=1 2018   Ecart |  D=0 2021  D=1 2021   Ecart |     DD    p18    p21      n18      n21
+  Chef homme     68.8      39.7   -29.1 |     61.7      40.8   -20.8 |    8.3  0.020  0.249      217      217
+  Chef femme     57.0      30.1   -26.9 |     47.2      16.9   -30.2 |   -3.3  0.124  0.028       48       48
+
+. 
+. /* Incidence de pauvreté multidimensionnelle par quintile de montant recu, pour l'ensemble des enfants
+>    puis pour chaque tranche d'age. Les quintiles sont construits sur le
+>    montant annuel des menages beneficiaires, au niveau menage pour que le
+>    decoupage ne soit pas deforme par le nombre d'enfants. Les enfants de
+>    menages non beneficiaires forment la ligne de reference. */
+. capture drop montant_transf
+
+. capture drop q5_montant
+
+. merge m:1 grappe menage using "$TEMP/montant_2018.dta", ///
+>     keepusing(montant_transf) keep(master match) nogenerate
+
+    Result                      Number of obs
+    -----------------------------------------
+    Not matched                        23,608
+        from master                    23,608  
+        from using                          0  
+
+    Matched                             3,414  
+    -----------------------------------------
+
+. 
+. preserve
+
+.     keep if D == 1 & t == 0 & !missing(montant_transf)
+(25,315 observations deleted)
+
+.     bysort grappe menage: keep if _n == 1
+(1,331 observations deleted)
+
+.     xtile q5_montant = montant_transf, nquantiles(5)
+
+.     keep grappe menage q5_montant
+
+.     tempfile quint_desc
+
+.     save `quint_desc'
+file C:\Users\Bmd\AppData\Local\Temp\ST_4128_000017.tmp saved as .dta format
+
+. restore
+
+. merge m:1 grappe menage using `quint_desc', ///
+>     keepusing(q5_montant) keep(master match) nogenerate
+
+    Result                      Number of obs
+    -----------------------------------------
+    Not matched                        23,608
+        from master                    23,608  
+        from using                          0  
+
+    Matched                             3,414  
+    -----------------------------------------
+
+. 
+. forvalues g = 0/3 {
+  2.     if `g' == 0 local lbl "Ensemble 0-17 ans"
+  3.     if `g' == 1 local lbl "0-4 ans"
+  4.     if `g' == 2 local lbl "5-14 ans"
+  5.     if `g' == 3 local lbl "15-17 ans"
+  6.     if `g' == 0 local cond "1"
+  7.     else        local cond "groupe_base == `g'"
+  8.     di _newline(2) "=== Incidence de pauvreté multidimensionnelle par quintile de montant — `lbl' ==="
+  9.     di "  Groupe          H 2018   H 2021      DD       n18      n21"
+ 10.     quietly summarize pauvre_MODA [aw=hhweight] if t == 0 & D == 0 & `cond'
+ 11.     local r0 = r(mean)*100
+ 12.     quietly summarize pauvre_MODA [aw=hhweight] if t == 1 & D == 0 & `cond'
+ 13.     local r1 = r(mean)*100
+ 14.     quietly count if t == 0 & D == 0 & `cond'
+ 15.     local m0 = r(N)
+ 16.     quietly count if t == 1 & D == 0 & `cond'
+ 17.     di "  " %-14s "Non-benef." %8.1f `r0' %9.1f `r1' %8.1f `r1'-`r0' ///
+>        %10.0f `m0' %9.0f r(N)
+ 18.     forvalues q = 1/5 {
+ 19.         quietly count if q5_montant == `q' & t == 0 & `cond'
+ 20.         local n0 = r(N)
+ 21.         if `n0' > 0 {
+ 22.             quietly summarize pauvre_MODA [aw=hhweight] if t == 0 & q5_montant == `q' & `cond'
+ 23.             local a0 = r(mean)*100
+ 24.             quietly summarize pauvre_MODA [aw=hhweight] if t == 1 & q5_montant == `q' & `cond'
+ 25.             local a1 = r(mean)*100
+ 26.             quietly count if t == 1 & q5_montant == `q' & `cond'
+ 27.             di "  " %-14s "Quintile `q'" %8.1f `a0' %9.1f `a1' ///
+>                %8.1f (`a1'-`a0')-(`r1'-`r0') %10.0f `n0' %9.0f r(N)
+ 28.         }
+ 29.     }
+ 30. }
+
+
+=== Incidence de pauvreté multidimensionnelle par quintile de montant — Ensemble 0-17 ans ===
+  Groupe          H 2018   H 2021      DD       n18      n21
+  Non-benef.        66.2     56.6    -9.6     11275    11275
+  Quintile 1        44.3     45.2    10.4       378      378
+  Quintile 2        42.0     42.7    10.3       372      372
+  Quintile 3        29.7     32.8    12.7       289      289
+  Quintile 4        17.1     15.0     7.5       404      404
+  Quintile 5        29.3     16.5    -3.2       264      264
+
+
+=== Incidence de pauvreté multidimensionnelle par quintile de montant — 0-4 ans ===
+  Groupe          H 2018   H 2021      DD       n18      n21
+  Non-benef.        56.9     47.2    -9.7      4011     4011
+  Quintile 1        35.0     40.2    14.8       121      121
+  Quintile 2        33.9     37.5    13.3       138      138
+  Quintile 3        16.4     14.3     7.6        96       96
+  Quintile 4        12.2     10.0     7.5       124      124
+  Quintile 5        11.9      7.9     5.7        91       91
+
+
+=== Incidence de pauvreté multidimensionnelle par quintile de montant — 5-14 ans ===
+  Groupe          H 2018   H 2021      DD       n18      n21
+  Non-benef.        71.5     61.9    -9.6      7042     7042
+  Quintile 1        48.5     47.7     8.8       253      253
+  Quintile 2        47.0     45.6     8.2       227      227
+  Quintile 3        36.8     42.3    15.1       188      188
+  Quintile 4        18.8     17.1     7.8       274      274
+  Quintile 5        37.6     20.7    -7.4       167      167
+
+
+=== Incidence de pauvreté multidimensionnelle par quintile de montant — 15-17 ans ===
+  Groupe          H 2018   H 2021      DD       n18      n21
+  Non-benef.        67.1     59.6    -7.5       222      222
+  Quintile 1        53.5     27.2   -18.8         4        4
+  Quintile 2        42.6     52.2    17.2         7        7
+  Quintile 3        35.0     54.2    26.7         5        5
+  Quintile 4        46.7     27.7   -11.5         6        6
+  Quintile 5        68.5     34.8   -26.1         6        6
+
+. 
+. di _newline ">>> 06_stats_desc.do terminé."
+
+>>> 06_stats_desc.do terminé.
+
+. di ">>> Sorties dans : $OUTPUT/tables/ et $OUTPUT/figures/"
+>>> Sorties dans : code/stata/output/tables/ et code/stata/output/figures/
+
+. 
+. /* ============================================================
+>    SECTION : 07_EFFETS_DIM — ATT par dimension MODA (niveaux 2021)
+>    Génère output/figures/fig_effets_dim.pdf
+>    ============================================================ */
+. 
+. 
+. /* Comme le resultat principal, les effets dimensionnels sont estimes en
+>    niveaux de la seconde edition, sur le meme echantillon apparie. */
+. use "$TEMP/panel_enfants_psm.dta", clear
+
+. keep if t == 1
+(13,511 observations deleted)
+
+. 
+. /* ── ATT par dimension, trois methodes d'appariement ───────────
+>    Verifie que la lecture dimensionnelle ne depend pas de l'algorithme. */
+. local dims assai eau logem nutri sante protect educ
+
+. di _newline "=== ATT par dimension, comparaison des trois appariements ==="
+
+=== ATT par dimension, comparaison des trois appariements ===
+
+. foreach poids_var in weight_knn weight_kernel weight_caliper {
+  2.     di _newline "--- `poids_var' ---"
+  3.     foreach dim of local dims {
+  4.         quietly count if !missing(`poids_var') & `poids_var' > 0
+  5.         if r(N) > 0 {
+  6.             quietly regress dim_`dim' i.D [aw=`poids_var'] ///
+>                 if `poids_var' > 0, vce(cluster grappe)
+  7.             di "  dim_`dim' : ATT=" %8.4f _b[1.D] ///
+>                "  SE=" %7.4f _se[1.D] ///
+>                "  p=" %6.4f 2*ttail(e(df_r), abs(_b[1.D]/_se[1.D]))
+  8.         }
+  9.     }
+ 10. }
+
+--- weight_knn ---
+  dim_assai : ATT= -0.0692  SE= 0.0361  p=0.0557
+  dim_eau : ATT= -0.0075  SE= 0.0334  p=0.8222
+  dim_logem : ATT= -0.0123  SE= 0.0386  p=0.7491
+  dim_nutri : ATT= -0.1366  SE= 0.0382  p=0.0004
+  dim_sante : ATT=  0.0070  SE= 0.0112  p=0.5335
+  dim_protect : ATT= -0.0120  SE= 0.0220  p=0.5874
+  dim_educ : ATT= -0.0002  SE= 0.0165  p=0.9892
+
+--- weight_kernel ---
+  dim_assai : ATT= -0.0568  SE= 0.0349  p=0.1038
+  dim_eau : ATT=  0.0023  SE= 0.0322  p=0.9426
+  dim_logem : ATT=  0.0005  SE= 0.0378  p=0.9901
+  dim_nutri : ATT= -0.1259  SE= 0.0380  p=0.0010
+  dim_sante : ATT=  0.0116  SE= 0.0110  p=0.2931
+  dim_protect : ATT=  0.0070  SE= 0.0215  p=0.7455
+  dim_educ : ATT= -0.0024  SE= 0.0143  p=0.8695
+
+--- weight_caliper ---
+  dim_assai : ATT= -0.0778  SE= 0.0364  p=0.0331
+  dim_eau : ATT= -0.0091  SE= 0.0347  p=0.7933
+  dim_logem : ATT= -0.0030  SE= 0.0405  p=0.9404
+  dim_nutri : ATT= -0.1334  SE= 0.0380  p=0.0005
+  dim_sante : ATT=  0.0116  SE= 0.0111  p=0.2956
+  dim_protect : ATT= -0.0116  SE= 0.0229  p=0.6148
+  dim_educ : ATT=  0.0045  SE= 0.0171  p=0.7905
+
+. 
+. if "$POIDS_PRINCIPAL" == "" | "$POIDS_PRINCIPAL" == "weight_" {
+.     global METHODE         "knn"
+.     global POIDS_PRINCIPAL "weight_knn"
+.     di "  !! Methode non determinee en amont : repli sur le k-NN."
+. }
+
+. keep if !missing($POIDS_PRINCIPAL) & $POIDS_PRINCIPAL > 0
+(8 observations deleted)
+
+. 
+. /* ATT en niveaux de 2021 pour chaque dimension (poids d'appariement PSM
+>    uniquement, pas de poids d'enquete ; erreurs-types clusterisees grappe) */
+. local dims    assai eau logem nutri sante protect educ
+
+. local n_dims  7
+
+. 
+. matrix ATT  = J(`n_dims', 1, .)
+
+. matrix LB   = J(`n_dims', 1, .)
+
+. matrix UB   = J(`n_dims', 1, .)
+
+. 
+. local i = 0
+
+. foreach dim of local dims {
+  2.     local ++i
+  3.     quietly regress dim_`dim' i.D [aw=$POIDS_PRINCIPAL], vce(cluster grappe)
+  4.     matrix ATT[`i',1] = _b[1.D]
+  5.     matrix LB[`i',1]  = _b[1.D] - 1.96*_se[1.D]
+  6.     matrix UB[`i',1]  = _b[1.D] + 1.96*_se[1.D]
+  7.     di "  dim_`dim' : ATT=" %8.4f _b[1.D] "  SE=" %7.4f _se[1.D] ///
+>        "  p=" %6.4f 2*ttail(e(df_r), abs(_b[1.D]/_se[1.D]))
+  8. }
+  dim_assai : ATT= -0.0568  SE= 0.0349  p=0.1038
+  dim_eau : ATT=  0.0023  SE= 0.0322  p=0.9426
+  dim_logem : ATT=  0.0005  SE= 0.0378  p=0.9901
+  dim_nutri : ATT= -0.1259  SE= 0.0380  p=0.0010
+  dim_sante : ATT=  0.0116  SE= 0.0110  p=0.2931
+  dim_protect : ATT=  0.0070  SE= 0.0215  p=0.7455
+  dim_educ : ATT= -0.0024  SE= 0.0143  p=0.8695
+
+. 
+. /* ── ATT par INDICATEUR ──────────────────────────────────────
+>    La dimension agrege ses indicateurs par la regle de l'union : elle
+>    passe a 1 des qu'un seul indicateur est positif. Un effet nul sur la
+>    dimension peut donc masquer deux mouvements de sens contraire, et un
+>    effet significatif ne dit pas lequel des indicateurs le porte.
+>    L'estimation est reprise indicateur par indicateur, sur le meme panel
+>    apparie et avec la meme specification. Chaque indicateur n'est defini
+>    que sur les groupes d'age auxquels il s'applique : la regression porte
+>    sur les enfants pour lesquels il n'est pas manquant, et l'effectif
+>    affiche permet de le verifier. */
+. 
+. di _newline "=== ATT par indicateur, niveaux 2021 ($METHODE) ==="
+
+=== ATT par indicateur, niveaux 2021 (kernel) ===
+
+. di "  indicateur          n        ATT       SE        p"
+  indicateur          n        ATT       SE        p
+
+. 
+. foreach ind in m_toilet m_partag_toi m_eau_source m_eau_temps ///
+>                m_ordures m_surpeup m_securite m_combust m_sante_acces ///
+>                m_acte_nais m_trav_enf m_scol m_alfab {
+  2.     quietly count if !missing(`ind')
+  3.     local n_ind = r(N)
+  4.     if `n_ind' > 0 {
+  5.         quietly regress `ind' i.D [aw=$POIDS_PRINCIPAL], vce(cluster grappe)
+  6.         di "  " %-16s "`ind'" %8.0f `n_ind' %10.4f _b[1.D] ///
+>            %9.4f _se[1.D] %9.4f 2*ttail(e(df_r), abs(_b[1.D]/_se[1.D]))
+  7.     }
+  8.     else {
+  9.         di "  " %-16s "`ind'" "   non renseigne sur le panel"
+ 10.     }
+ 11. }
+  m_toilet           13503   -0.0509   0.0354   0.1510
+  m_partag_toi       12191    0.0088   0.0178   0.6207
+  m_eau_source       13503   -0.0039   0.0163   0.8101
+  m_eau_temps        13503   -0.0038   0.0297   0.8988
+  m_ordures          13503    0.0084   0.0364   0.8181
+  m_surpeup          13503   -0.0307   0.0127   0.0156
+  m_securite         13503   -0.1259   0.0380   0.0010
+  m_combust          13503    0.0028   0.0177   0.8729
+  m_sante_acces      13503   -0.0222   0.0293   0.4488
+  m_acte_nais        13503    0.0010   0.0203   0.9593
+  m_trav_enf         13503    0.0165   0.0199   0.4072
+  m_scol             13503    0.0017   0.0172   0.9208
+  m_alfab            13503   -0.0015   0.0046   0.7406
+
+. 
+. /* Construire dataset pour le graphique */
+. clear
+
+. set obs `n_dims'
+Number of observations (_N) was 0, now 7.
+
+. gen ordre = _n
+
+. gen str12 dim = ""
+(7 missing values generated)
+
+. replace dim = "Assainissement" in 1
+variable dim was str12 now str14
+(1 real change made)
+
+. replace dim = "Eau"            in 2
+(1 real change made)
+
+. replace dim = "Logement"       in 3
+(1 real change made)
+
+. replace dim = "Nutrition"      in 4
+(1 real change made)
+
+. replace dim = "Santé"          in 5
+(1 real change made)
+
+. replace dim = "Protection"     in 6
+(1 real change made)
+
+. replace dim = "Éducation"      in 7
+(1 real change made)
+
+. gen att = .
+(7 missing values generated)
+
+. gen lb  = .
+(7 missing values generated)
+
+. gen ub  = .
+(7 missing values generated)
+
+. forvalues i = 1/`n_dims' {
+  2.     replace att = ATT[`i',1]*100 in `i'
+  3.     replace lb  = LB[`i',1]*100  in `i'
+  4.     replace ub  = UB[`i',1]*100  in `i'
+  5. }
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+
+. 
+. /* Trier par ATT croissant et réaffecter le rang */
+. sort att
+
+. replace ordre = _n
+(6 real changes made)
+
+. 
+. /* Construire les labels ylabel à partir des valeurs de dim triées */
+. local ylab_str ""
+
+. forvalues i = 1/`n_dims' {
+  2.     local lbl = dim[`i']
+  3.     local ylab_str `"`ylab_str' `i' "`lbl'""'
+  4. }
+
+. 
+. /* Etiquettes de valeur (virgule decimale), placees au-dela des IC */
+. gen str8 lbl_att = subinstr(string(att, "%4.1f"), ".", ",", 1)
+
+. gen xlbl = ub + 1.2 if att >= 0
+(3 missing values generated)
+
+. replace xlbl = lb - 1.2 if att < 0
+(3 real changes made)
+
+. 
+. /* Graphique à barres horizontales avec IC 95 % */
+. set dp comma
+
+. twoway ///
+>     (bar att ordre, horizontal barwidth(0.6) color(gs9)) ///
+>     (rcap lb ub ordre, horizontal lcolor(orange) lwidth(medthick) msize(medium)) ///
+>     (scatter ordre xlbl, msymbol(none) mlabel(lbl_att) ///
+>      mlabpos(0) mlabcolor(black) mlabsize(small)), ///
+>     ylab(`ylab_str', angle(0) noticks) ///
+>     yscale(range(0.5 7.5)) ///
+>     ytitle("") xtitle("ATT (points de pourcentage)") ///
+>     xlabel(, format(%4.1f)) ///
+>     xline(0, lcolor(black) lpattern(dash)) ///
+>     legend(off) ///
+>     graphregion(color(white)) plotregion(color(white))
+
+. 
+. set dp period
+
+. graph display, scale(1.35)   /* texte agrandi pour la projection */
+
+. graph export "$OUTPUT/figures/fig_effets_dim.pdf", replace
+file code/stata/output/figures/fig_effets_dim.pdf saved as PDF format
+
+. di ">>> fig_effets_dim.pdf sauvegardé dans $OUTPUT/figures/"
+>>> fig_effets_dim.pdf sauvegardé dans code/stata/output/figures/
+
+. di ">>> 07_effets_dim.do terminé."
+>>> 07_effets_dim.do terminé.
+
+. 
+. /* ── Fig : taux de privation par dimension, ensemble et par groupe ──
+>    Barres horizontales, une paire par dimension (EHCVM I vs II),
+>    ponderees par hhweight. Remplace les tableaux du chapitre 3. */
+. use "$TEMP/panel_enfants_psm.dta", clear
+
+. foreach g in ens 1 2 3 {
+  2.     preserve
+  3.     if "`g'" != "ens" keep if groupe_base == `g'
+  4.     collapse (mean) dim_assai dim_eau dim_logem dim_nutri dim_sante ///
+>              dim_protect dim_educ [aw=hhweight], by(t)
+  5.     reshape long dim_, i(t) j(dm) string
+  6.     replace dim_ = 100*dim_
+  7.     reshape wide dim_, i(dm) j(t)
+  8.     gen byte ordre = .
+  9.     replace ordre = 1 if dm == "assai"
+ 10.     replace ordre = 2 if dm == "eau"
+ 11.     replace ordre = 3 if dm == "logem"
+ 12.     replace ordre = 4 if dm == "nutri"
+ 13.     replace ordre = 5 if dm == "sante"
+ 14.     replace ordre = 6 if dm == "protect"
+ 15.     replace ordre = 7 if dm == "educ"
+ 16.     gen str22 lbl = ""
+ 17.     replace lbl = "Assainissement" if dm == "assai"
+ 18.     replace lbl = "Eau"            if dm == "eau"
+ 19.     replace lbl = "Logement"       if dm == "logem"
+ 20.     replace lbl = "Nutrition"      if dm == "nutri"
+ 21.     replace lbl = "Santé"          if dm == "sante"
+ 22.     replace lbl = "Protection"     if dm == "protect"
+ 23.     replace lbl = "Éducation"      if dm == "educ"
+ 24.     /* education non applicable aux 0-4 ans */
+.     if "`g'" == "1" drop if dm == "educ"
+ 25.     sort ordre
+ 26.     gen pos  = _n
+ 27.     gen pos0 = pos - 0.19
+ 28.     gen pos1 = pos + 0.19
+ 29.     /* Etiquettes en toutes lettres, virgule decimale garantie */
+.     gen str8 l0 = subinstr(string(dim_0, "%3.1f"), ".", ",", 1)
+ 30.     gen str8 l1 = subinstr(string(dim_1, "%3.1f"), ".", ",", 1)
+ 31.     local ylab ""
+ 32.     forvalues i = 1/`=_N' {
+ 33.         local ylab `ylab' `i' "`=lbl[`i']'"
+ 34.     }
+ 35.     twoway (bar dim_0 pos0, horizontal barwidth(0.36) color(gs9)) ///
+>            (bar dim_1 pos1, horizontal barwidth(0.36) color(orange)) ///
+>            (scatter pos0 dim_0, msymbol(none) mlabel(l0) ///
+>                 mlabcolor(black) mlabsize(vsmall) mlabpos(3)) ///
+>            (scatter pos1 dim_1, msymbol(none) mlabel(l1) ///
+>                 mlabcolor(black) mlabsize(vsmall) mlabpos(3)), ///
+>         ylabel(`ylab', angle(0) nogrid) yscale(reverse) ytitle("") ///
+>         xlabel(0(20)100, grid) xtitle("Taux de privation (%)") ///
+>         legend(order(1 "EHCVM I (2018-19)" 2 "EHCVM II (2021-22)") ///
+>                pos(6) rows(1) region(color(white))) ///
+>         graphregion(color(white)) plotregion(color(white))
+ 36.     local suf = cond("`g'"=="ens","ensemble", ///
+>         cond("`g'"=="1","0_4", cond("`g'"=="2","5_14","15_17")))
+ 37.     graph export "$OUTPUT/figures/fig_dim_`suf'.pdf", replace
+ 38.     di ">>> fig_dim_`suf'.pdf sauvegardé"
+ 39.     restore
+ 40. }
+(j = assai eau educ logem nutri protect sante)
+
+Data                               Wide   ->   Long
+-----------------------------------------------------------------------------
+Number of observations                2   ->   14          
+Number of variables                   8   ->   3           
+j variable (7 values)                     ->   dm
+xij variables:
+        dim_assai dim_eau ... dim_sante   ->   dim_
+-----------------------------------------------------------------------------
+(14 real changes made)
+(j = 0 1)
+
+Data                               Long   ->   Wide
+-----------------------------------------------------------------------------
+Number of observations               14   ->   7           
+Number of variables                   3   ->   3           
+j variable (2 values)                 t   ->   (dropped)
+xij variables:
+                                   dim_   ->   dim_0 dim_1
+-----------------------------------------------------------------------------
+(7 missing values generated)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(7 missing values generated)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+file code/stata/output/figures/fig_dim_ensemble.pdf saved as PDF format
+>>> fig_dim_ensemble.pdf sauvegardé
+(17,498 observations deleted)
+(j = assai eau educ logem nutri protect sante)
+
+Data                               Wide   ->   Long
+-----------------------------------------------------------------------------
+Number of observations                2   ->   14          
+Number of variables                   8   ->   3           
+j variable (7 values)                     ->   dm
+xij variables:
+        dim_assai dim_eau ... dim_sante   ->   dim_
+-----------------------------------------------------------------------------
+(12 real changes made)
+(j = 0 1)
+
+Data                               Long   ->   Wide
+-----------------------------------------------------------------------------
+Number of observations               14   ->   7           
+Number of variables                   3   ->   3           
+j variable (2 values)                 t   ->   (dropped)
+xij variables:
+                                   dim_   ->   dim_0 dim_1
+-----------------------------------------------------------------------------
+(7 missing values generated)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(7 missing values generated)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 observation deleted)
+file code/stata/output/figures/fig_dim_0_4.pdf saved as PDF format
+>>> fig_dim_0_4.pdf sauvegardé
+(10,054 observations deleted)
+(j = assai eau educ logem nutri protect sante)
+
+Data                               Wide   ->   Long
+-----------------------------------------------------------------------------
+Number of observations                2   ->   14          
+Number of variables                   8   ->   3           
+j variable (7 values)                     ->   dm
+xij variables:
+        dim_assai dim_eau ... dim_sante   ->   dim_
+-----------------------------------------------------------------------------
+(14 real changes made)
+(j = 0 1)
+
+Data                               Long   ->   Wide
+-----------------------------------------------------------------------------
+Number of observations               14   ->   7           
+Number of variables                   3   ->   3           
+j variable (2 values)                 t   ->   (dropped)
+xij variables:
+                                   dim_   ->   dim_0 dim_1
+-----------------------------------------------------------------------------
+(7 missing values generated)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(7 missing values generated)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+file code/stata/output/figures/fig_dim_5_14.pdf saved as PDF format
+>>> fig_dim_5_14.pdf sauvegardé
+(26,492 observations deleted)
+(j = assai eau educ logem nutri protect sante)
+
+Data                               Wide   ->   Long
+-----------------------------------------------------------------------------
+Number of observations                2   ->   14          
+Number of variables                   8   ->   3           
+j variable (7 values)                     ->   dm
+xij variables:
+        dim_assai dim_eau ... dim_sante   ->   dim_
+-----------------------------------------------------------------------------
+(14 real changes made)
+(j = 0 1)
+
+Data                               Long   ->   Wide
+-----------------------------------------------------------------------------
+Number of observations               14   ->   7           
+Number of variables                   3   ->   3           
+j variable (2 values)                 t   ->   (dropped)
+xij variables:
+                                   dim_   ->   dim_0 dim_1
+-----------------------------------------------------------------------------
+(7 missing values generated)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(7 missing values generated)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+file code/stata/output/figures/fig_dim_15_17.pdf saved as PDF format
+>>> fig_dim_15_17.pdf sauvegardé
+
+. 
+. /* ============================================================
+>    SECTION FINALE : copie des figures vers le rapport LaTeX
+>    ------------------------------------------------------------
+>    Recopie automatiquement les PDF generes dans output/figures
+>    vers latex/figures, pour que le memoire compile toujours les
+>    dernieres versions sans manipulation manuelle.
+>    ============================================================ */
+. 
+. di _newline ">>> Copie des figures vers latex/figures et Presentation/figures ..."
+
+>>> Copie des figures vers latex/figures et Presentation/figures ...
+
+. /* Copie dynamique de tous les PDF generes (toute figure future incluse)
+>    vers le rapport ET la presentation Beamer, pour les garder synchronises. */
+. local figs : dir "$OUTPUT/figures" files "*.pdf"
+
+. foreach f of local figs {
+  2.     foreach dest in "latex/figures" "Presentation/figures" {
+  3.         capture copy "$OUTPUT/figures/`f'" "`dest'/`f'", replace
+  4.         if _rc di "    !! echec copie `f' vers `dest' (rc=" _rc ")"
+  5.     }
+  6.     di "    ok `f'"
+  7. }
+    ok fig_carte_nmoda_barres.pdf
+    ok fig_croisement_pauvrete.pdf
+    ok fig_dim_0_4.pdf
+    ok fig_dim_15_17.pdf
+    ok fig_dim_5_14.pdf
+    ok fig_dim_ensemble.pdf
+    ok fig_distrib_dimensions.pdf
+    ok fig_distrib_nbdep.pdf
+    ok fig_effets_dim.pdf
+    ok fig_evolution_ipm.pdf
+    ok fig_overlap_apres.pdf
+    ok fig_overlap_groupes.pdf
+    ok fig_placebo_dd.pdf
+    ok fig_profil_statut.pdf
+
+. /* Graphique de support commun (a la racine de output) */
+. capture copy "$OUTPUT/overlap_panel.pdf" "latex/figures/overlap_panel.pdf", replace
+
+. capture copy "$OUTPUT/overlap_panel.pdf" "Presentation/figures/overlap.pdf", replace
+
+. 
+. di _newline ">>> FIN DU PIPELINE COMPLET <<<"
+
+>>> FIN DU PIPELINE COMPLET <<<
+
+. 
+. /* Ferme le log, puis recopie vers tout.log si la bascule horodatee a servi,
+>    pour que le fichier versionne porte toujours la sortie complete. */
+. capture log close _all
