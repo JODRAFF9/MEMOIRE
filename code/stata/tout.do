@@ -2077,99 +2077,74 @@ restore
    6. Heterogeneite
    ============================================================ */
 
-di _newline "=== Heterogeneite par milieu ==="
-foreach mil in 1 2 {
-    if `mil' == 1 local lab_mil "Urbain"
-    else          local lab_mil "Rural"
+/* L'ensemble de la section est estime en niveaux de 2021, comme le
+   resultat principal : la base en memoire ne contient que t==1. Chaque
+   moderateur est examine par groupe d'age, seuls perimetre ou l'ATT a
+   une interpretation, avec le test d'interaction correspondant. */
 
-    foreach outcome in pauvre_MODA {
-        quietly count if milieu == `mil'
-        if r(N) > 30 {
-            di _newline "--- `lab_mil' — `outcome' ---"
-            regress `outcome' i.t##i.D [aw=$POIDS_PRINCIPAL] if milieu == `mil', ///
-                vce(cluster grappe)
-            lincom 1.t#1.D
-            di "  ATT = " %8.4f r(estimate) "  p = " %6.4f r(p)
-        }
-    }
-}
-
-di _newline "Test d'egalite (urbain vs rural) :"
+di _newline "=== Heterogeneite par milieu (niveaux 2021, par groupe d'age) ==="
 gen byte urban = (milieu == 1)
-foreach outcome in pauvre_MODA {
-    regress `outcome' i.t##i.D##i.urban [aw=$POIDS_PRINCIPAL], vce(cluster grappe)
-    lincom 1.t#1.D#1.urban
+forvalues g = 1/3 {
+    local titg : label grp `g'
+    di _newline "-- `titg' --"
+    foreach mil in 1 0 {
+        local lab_mil = cond(`mil' == 1, "Urbain", "Rural ")
+        quietly count if urban == `mil' & groupe_base == `g' & D == 1
+        if r(N) > 30 {
+            quietly regress nb_dep i.D [aw=$POIDS_PRINCIPAL] ///
+                if urban == `mil' & groupe_base == `g', vce(cluster grappe)
+            di "  `lab_mil' : ATT = " %8.4f _b[1.D] "  SE = " %8.4f _se[1.D] ///
+               "  p = " %6.4f 2*ttail(e(df_r), abs(_b[1.D]/_se[1.D]))
+        }
+        else di "  `lab_mil' : effectif traite insuffisant (n=" r(N) ")"
+    }
+    quietly regress nb_dep i.D##i.urban [aw=$POIDS_PRINCIPAL] ///
+        if groupe_base == `g', vce(cluster grappe)
+    quietly lincom 1.D#1.urban
     di "  Diff ATT (urbain - rural) : " %8.4f r(estimate) "  p = " %6.4f r(p)
 }
 drop urban
 
 /* -- Par genre du chef de menage (hgender : 1 homme, 2 femme) -- */
-di _newline "=== Heterogeneite par genre du chef de menage ==="
-capture confirm variable hgender
-if _rc == 0 {
-    foreach outcome in pauvre_MODA {
-        foreach h in 1 2 {
-            if `h' == 1 local lab_h "Chef homme"
-            else        local lab_h "Chef femme"
-            quietly count if hgender == `h'
-            if r(N) > 30 {
-                di "--- `lab_h' — `outcome' ---"
-                regress `outcome' i.t##i.D [aw=$POIDS_PRINCIPAL] if hgender == `h', ///
-                    vce(cluster grappe)
-                lincom 1.t#1.D
-                di "  ATT = " %8.4f r(estimate) "  p = " %6.4f r(p)
-            }
-        }
-    }
-
-    di _newline "Test d'egalite (chef femme vs chef homme) :"
-    gen byte chef_fem = (hgender == 2) if !missing(hgender)
-    foreach outcome in pauvre_MODA {
-        regress `outcome' i.t##i.D##i.chef_fem [aw=$POIDS_PRINCIPAL], vce(cluster grappe)
-        lincom 1.t#1.D#1.chef_fem
-        di "  Diff ATT (chef femme - chef homme) : " %8.4f r(estimate) ///
-           "  p = " %6.4f r(p)
-    }
-    drop chef_fem
-}
-
-di _newline "=== Heterogeneite par groupe d'age (groupe fige en 2018) ==="
-foreach g in 1 2 3 {
-    foreach outcome in pauvre_MODA {
-        quietly count if groupe_base == `g'
+di _newline "=== Heterogeneite par genre du chef (niveaux 2021, par groupe d'age) ==="
+gen byte chef_fem = (hgender == 2) if !missing(hgender)
+forvalues g = 1/3 {
+    local titg : label grp `g'
+    di _newline "-- `titg' --"
+    foreach h in 0 1 {
+        local lab_h = cond(`h' == 0, "Chef homme", "Chef femme")
+        quietly count if chef_fem == `h' & groupe_base == `g' & D == 1
         if r(N) > 30 {
-            di "--- Groupe `g' — `outcome' ---"
-            quietly count if groupe_base == `g' & groupe_moda != groupe_base
-            local n_chg = r(N)
-            quietly count if groupe_base == `g'
-            di "  Observations changeant de groupe d'age entre les editions : " ///
-               %5.1f 100*`n_chg'/r(N) "%"
-            regress `outcome' i.t##i.D [aw=$POIDS_PRINCIPAL] if groupe_base == `g', ///
-                vce(cluster grappe)
-            lincom 1.t#1.D
-            di "  ATT = " %8.4f r(estimate) "  p = " %6.4f r(p)
+            quietly regress nb_dep i.D [aw=$POIDS_PRINCIPAL] ///
+                if chef_fem == `h' & groupe_base == `g', vce(cluster grappe)
+            di "  `lab_h' : ATT = " %8.4f _b[1.D] "  SE = " %8.4f _se[1.D] ///
+               "  p = " %6.4f 2*ttail(e(df_r), abs(_b[1.D]/_se[1.D]))
         }
+        else di "  `lab_h' : effectif traite insuffisant (n=" r(N) ")"
     }
-}
-
-/* Trois groupes : un test joint d'abord (les trois ATT sont-ils egaux ?),
-   puis les ecarts a la reference 0-4 ans, groupe sur lequel se concentre
-   l'effet. */
-di _newline "Test d'egalite des ATT entre groupes d'age :"
-foreach outcome in pauvre_MODA {
-    regress `outcome' i.t##i.D##ib1.groupe_base [aw=$POIDS_PRINCIPAL], ///
-        vce(cluster grappe)
-    testparm i.t#i.D#i.groupe_base
-    di "  Test joint d'egalite des trois ATT : F = " %6.2f r(F) ///
+    quietly regress nb_dep i.D##i.chef_fem [aw=$POIDS_PRINCIPAL] ///
+        if groupe_base == `g', vce(cluster grappe)
+    quietly lincom 1.D#1.chef_fem
+    di "  Diff ATT (chef femme - chef homme) : " %8.4f r(estimate) ///
        "  p = " %6.4f r(p)
-    foreach g in 2 3 {
-        if `g' == 2 local lab_g "5-14 ans"
-        else        local lab_g "15-17 ans"
-        capture lincom 1.t#1.D#`g'.groupe_base
-        if _rc == 0 {
-            di "  Diff ATT (`lab_g' - 0-4 ans) : " %8.4f r(estimate) ///
-               "  p = " %6.4f r(p)
-        }
+}
+drop chef_fem
+
+/* Les trois ATT par groupe d'age sont-ils egaux ? Le test ne compare pas
+   des niveaux de nb_dep entre grilles, mais des ECARTS traites-temoins :
+   la difference d'ATT reste interpretable meme si les grilles different. */
+di _newline "=== Egalite des ATT entre groupes d'age (niveaux 2021) ==="
+regress nb_dep i.D##ib1.groupe_base [aw=$POIDS_PRINCIPAL], vce(cluster grappe)
+testparm i.D#i.groupe_base
+di "  Test joint d'egalite des trois ATT : F = " %6.2f r(F) ///
+   "  p = " %6.4f r(p)
+foreach g in 2 3 {
+    if `g' == 2 local lab_g "5-14 ans"
+    else        local lab_g "15-17 ans"
+    capture lincom 1.D#`g'.groupe_base
+    if _rc == 0 {
+        di "  Diff ATT (`lab_g' - 0-4 ans) : " %8.4f r(estimate) ///
+           "  p = " %6.4f r(p)
     }
 }
 
@@ -2187,7 +2162,7 @@ di _newline "=== Heterogeneite par quintile de montant de transferts ==="
    montant), pour que le decoupage ne soit pas deforme par le nombre
    d'enfants du menage. */
 preserve
-    keep if D == 1 & t == 0 & !missing(montant_transf)
+    keep if D == 1 & !missing(montant_transf)
     bysort grappe menage: keep if _n == 1
     xtile q_montant = montant_transf, nquantiles(5)
     keep grappe menage q_montant montant_transf
@@ -2204,99 +2179,66 @@ restore
 merge m:1 grappe menage using `quintiles', ///
     keepusing(q_montant) keep(master match) nogenerate
 
-foreach outcome in pauvre_MODA {
+/* Chaque quintile de traites est compare aux temoins apparies, en niveaux
+   de 2021, separement par groupe d'age. */
+forvalues g = 1/3 {
+    local titg : label grp `g'
+    di _newline "-- `titg' --"
     forvalues q = 1/5 {
-        quietly count if q_montant == `q' & !missing($POIDS_PRINCIPAL)
+        quietly count if q_montant == `q' & groupe_base == `g' & ///
+            !missing($POIDS_PRINCIPAL)
         if r(N) > 30 {
-            di _newline "--- Quintile `q' — `outcome' ---"
-            regress `outcome' i.t##i.D [aw=$POIDS_PRINCIPAL] ///
-                if D == 0 | q_montant == `q', vce(cluster grappe)
-            lincom 1.t#1.D
-            di "  ATT = " %8.4f r(estimate) "  SE = " %8.4f r(se) ///
-               "  p = " %6.4f r(p)
+            quietly regress nb_dep i.D [aw=$POIDS_PRINCIPAL] ///
+                if (D == 0 | q_montant == `q') & groupe_base == `g', ///
+                vce(cluster grappe)
+            di "  Q`q' : ATT = " %8.4f _b[1.D] "  SE = " %8.4f _se[1.D] ///
+               "  p = " %6.4f 2*ttail(e(df_r), abs(_b[1.D]/_se[1.D]))
         }
+        else di "  Q`q' : effectif traite insuffisant (n=" r(N) ")"
     }
 }
 
-/* Test continu : l'effet varie-t-il avec le logarithme du montant ?
-   Estime sur les seuls enfants traites, la reference etant l'ecart de
-   trajectoire moyen. Plus puissant que la comparaison par quintiles, qui
-   decoupe l'information. */
+/* Test continu : le nombre de privations de 2021 varie-t-il avec le
+   logarithme du montant chez les traites ? Plus puissant que la
+   comparaison par quintiles, qui decoupe l'information. */
 di _newline "Effet dose-reponse (montant en logarithme, enfants traites) :"
 quietly gen double log_montant = log(montant_transf) if montant_transf > 0
-regress pauvre_MODA i.t##c.log_montant [aw=$POIDS_PRINCIPAL] if D == 1, ///
-    vce(cluster grappe)
-lincom 1.t#c.log_montant
-di "  Pente dose-reponse = " %8.4f r(estimate) "  SE = " %8.4f r(se) ///
-   "  p = " %6.4f r(p)
+forvalues g = 1/3 {
+    local titg : label grp `g'
+    quietly count if D == 1 & !missing(log_montant) & groupe_base == `g'
+    if r(N) > 30 {
+        quietly regress nb_dep c.log_montant [aw=$POIDS_PRINCIPAL] ///
+            if D == 1 & groupe_base == `g', vce(cluster grappe)
+        di "  `titg' : pente = " %8.4f _b[log_montant] ///
+           "  SE = " %8.4f _se[log_montant] ///
+           "  p = " %6.4f 2*ttail(e(df_r), abs(_b[log_montant]/_se[log_montant]))
+    }
+    else di "  `titg' : effectif insuffisant (n=" r(N) ")"
+}
 drop log_montant
 
 /* ============================================================
    7. Robustesse
    ============================================================ */
 
-di _newline "=== Comparaison des trois methodes d'appariement ==="
-/* Les trois poids sont deja portes par panel_enfants_psm.dta (niveau enfant) */
+/* Le resultat principal ne doit pas dependre de l'algorithme retenu au
+   critere d'equilibre : l'ATT en niveaux de 2021 est reestime par groupe
+   d'age avec chacun des trois jeux de poids. */
+di _newline "=== Comparaison des trois methodes d'appariement (niveaux 2021) ==="
 foreach poids_var in weight_knn weight_kernel weight_caliper {
-    foreach outcome in pauvre_MODA {
-        quietly count if !missing(`poids_var') & `poids_var' > 0
-        if r(N) > 0 {
-            regress `outcome' i.t##i.D [aw=`poids_var'] ///
-                if `poids_var' > 0, vce(cluster grappe)
-            lincom 1.t#1.D
-            di "  `poids_var' — `outcome' : ATT=" %8.4f r(estimate) ///
-               "  p=" %6.4f r(p)
+    forvalues g = 1/3 {
+        local titg : label grp `g'
+        quietly count if !missing(`poids_var') & `poids_var' > 0 & ///
+            groupe_base == `g'
+        if r(N) > 30 {
+            quietly regress nb_dep i.D [aw=`poids_var'] ///
+                if `poids_var' > 0 & groupe_base == `g', vce(cluster grappe)
+            di "  `poids_var' (`titg') : ATT = " %8.4f _b[1.D] ///
+               "  SE = " %8.4f _se[1.D] ///
+               "  p = " %6.4f 2*ttail(e(df_r), abs(_b[1.D]/_se[1.D]))
         }
+        else di "  `poids_var' (`titg') : effectif insuffisant (n=" r(N) ")"
     }
-}
-
-/* ── Variable de resultat continue : nombre de privations ──────
-   Le statut binaire perd l'information sur l'intensite. On reestime l'ATT
-   sur nb_dep (0 a 7) avec la DD simple et les trois appariements. */
-di _newline "=== ATT sur le nombre de privations (0-7), par groupe d'age ==="
-forvalues g = 1/3 {
-    local titg : label grp `g'
-    regress nb_dep i.t##i.D [aw=$POIDS_PRINCIPAL] ///
-        if groupe_base == `g', vce(cluster grappe)
-    lincom 1.t#1.D
-    di "  nb_dep (`titg') : ATT = " %8.4f r(estimate) ///
-       "  SE = " %8.4f r(se) "  p = " %6.4f r(p)
-}
-di "  Lecture : effet sur le nombre de privations cumulees, qui capte les"
-di "  deplacements que le franchissement du seuil k=4 ne voit pas."
-
-di _newline "=== ATT sur le nombre de privations (0-7) ==="
-preserve
-    use "$TEMP/panel_enfants_psm.dta", clear
-    quietly regress nb_dep i.t##i.D, vce(cluster grappe)
-    quietly lincom 1.t#1.D
-    di "  DD simple      : ATT=" %8.4f r(estimate) ///
-       "  SE=" %7.4f r(se) "  p=" %6.4f r(p)
-restore
-foreach poids_var in weight_knn weight_kernel weight_caliper {
-    quietly count if !missing(`poids_var') & `poids_var' > 0
-    if r(N) > 0 {
-        quietly regress nb_dep i.t##i.D [aw=`poids_var'] ///
-            if `poids_var' > 0, vce(cluster grappe)
-        quietly lincom 1.t#1.D
-        di "  `poids_var' : ATT=" %8.4f r(estimate) ///
-           "  SE=" %7.4f r(se) "  p=" %6.4f r(p)
-    }
-}
-
-/* ── Validation croisee : diff (Villa 2016), score logit ───────
-   Implementation independante du kernel PSM-DD. A comparer a la ligne
-   weight_kernel. Installation : ssc install diff */
-capture which diff
-if _rc == 0 {
-    di _newline "=== Validation croisee : diff (kernel, score logit) ==="
-    diff pauvre_MODA, t(D) p(t) kernel id(enfid) logit ///
-        cov(milieu hgender hage_cl heduc hmstat sexe) ///
-        support cluster(grappe)
-    di _newline "  Rappel estimateur maison (kernel) : voir ligne weight_kernel ci-dessus."
-}
-else {
-    di _newline "(!) commande diff absente : ssc install diff pour la validation croisee."
 }
 
 /* ============================================================
@@ -2909,13 +2851,15 @@ di _newline ">>> 06_stats_desc.do terminé."
 di ">>> Sorties dans : $OUTPUT/tables/ et $OUTPUT/figures/"
 
 /* ============================================================
-   SECTION : 07_EFFETS_DIM — ATT PSM-DD par dimension MODA
+   SECTION : 07_EFFETS_DIM — ATT par dimension MODA (niveaux 2021)
    Génère output/figures/fig_effets_dim.pdf
    ============================================================ */
 
 
-/* Joindre poids k-NN au panel vrai */
+/* Comme le resultat principal, les effets dimensionnels sont estimes en
+   niveaux de la seconde edition, sur le meme echantillon apparie. */
 use "$TEMP/panel_enfants_psm.dta", clear
+keep if t == 1
 
 /* ── ATT par dimension, trois methodes d'appariement ───────────
    Verifie que la lecture dimensionnelle ne depend pas de l'algorithme. */
@@ -2926,11 +2870,11 @@ foreach poids_var in weight_knn weight_kernel weight_caliper {
     foreach dim of local dims {
         quietly count if !missing(`poids_var') & `poids_var' > 0
         if r(N) > 0 {
-            quietly regress dim_`dim' i.t##i.D [aw=`poids_var'] ///
+            quietly regress dim_`dim' i.D [aw=`poids_var'] ///
                 if `poids_var' > 0, vce(cluster grappe)
-            quietly lincom 1.t#1.D
-            di "  dim_`dim' : ATT=" %8.4f r(estimate) ///
-               "  SE=" %7.4f r(se) "  p=" %6.4f r(p)
+            di "  dim_`dim' : ATT=" %8.4f _b[1.D] ///
+               "  SE=" %7.4f _se[1.D] ///
+               "  p=" %6.4f 2*ttail(e(df_r), abs(_b[1.D]/_se[1.D]))
         }
     }
 }
@@ -2942,8 +2886,8 @@ if "$POIDS_PRINCIPAL" == "" | "$POIDS_PRINCIPAL" == "weight_" {
 }
 keep if !missing($POIDS_PRINCIPAL) & $POIDS_PRINCIPAL > 0
 
-/* ATT PSM-DD pour chaque dimension (poids d'appariement PSM uniquement,
-   pas de poids d'enquete ; erreurs-types clusterisees au niveau grappe) */
+/* ATT en niveaux de 2021 pour chaque dimension (poids d'appariement PSM
+   uniquement, pas de poids d'enquete ; erreurs-types clusterisees grappe) */
 local dims    assai eau logem nutri sante protect educ
 local n_dims  7
 
@@ -2954,12 +2898,12 @@ matrix UB   = J(`n_dims', 1, .)
 local i = 0
 foreach dim of local dims {
     local ++i
-    quietly regress dim_`dim' i.t##i.D [aw=$POIDS_PRINCIPAL], vce(cluster grappe)
-    quietly lincom 1.t#1.D
-    matrix ATT[`i',1] = r(estimate)
-    matrix LB[`i',1]  = r(estimate) - 1.96*r(se)
-    matrix UB[`i',1]  = r(estimate) + 1.96*r(se)
-    di "  dim_`dim' : ATT=" %8.4f r(estimate) "  SE=" %7.4f r(se) "  p=" %6.4f r(p)
+    quietly regress dim_`dim' i.D [aw=$POIDS_PRINCIPAL], vce(cluster grappe)
+    matrix ATT[`i',1] = _b[1.D]
+    matrix LB[`i',1]  = _b[1.D] - 1.96*_se[1.D]
+    matrix UB[`i',1]  = _b[1.D] + 1.96*_se[1.D]
+    di "  dim_`dim' : ATT=" %8.4f _b[1.D] "  SE=" %7.4f _se[1.D] ///
+       "  p=" %6.4f 2*ttail(e(df_r), abs(_b[1.D]/_se[1.D]))
 }
 
 /* ── ATT par INDICATEUR ──────────────────────────────────────
@@ -2973,7 +2917,7 @@ foreach dim of local dims {
    sur les enfants pour lesquels il n'est pas manquant, et l'effectif
    affiche permet de le verifier. */
 
-di _newline "=== ATT PSM-DD par indicateur ($METHODE) ==="
+di _newline "=== ATT par indicateur, niveaux 2021 ($METHODE) ==="
 di "  indicateur          n        ATT       SE        p"
 
 foreach ind in m_toilet m_partag_toi m_eau_source m_eau_temps ///
@@ -2982,10 +2926,9 @@ foreach ind in m_toilet m_partag_toi m_eau_source m_eau_temps ///
     quietly count if !missing(`ind')
     local n_ind = r(N)
     if `n_ind' > 0 {
-        quietly regress `ind' i.t##i.D [aw=$POIDS_PRINCIPAL], vce(cluster grappe)
-        quietly lincom 1.t#1.D
-        di "  " %-16s "`ind'" %8.0f `n_ind' %10.4f r(estimate) ///
-           %9.4f r(se) %9.4f r(p)
+        quietly regress `ind' i.D [aw=$POIDS_PRINCIPAL], vce(cluster grappe)
+        di "  " %-16s "`ind'" %8.0f `n_ind' %10.4f _b[1.D] ///
+           %9.4f _se[1.D] %9.4f 2*ttail(e(df_r), abs(_b[1.D]/_se[1.D]))
     }
     else {
         di "  " %-16s "`ind'" "   non renseigne sur le panel"
