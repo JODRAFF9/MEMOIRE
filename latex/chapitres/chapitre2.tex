@@ -479,18 +479,23 @@ d'âge $g \in \{1, 2, 3\}$ :
 \end{equation}
 où $G_i$ désigne le groupe d'âge de l'enfant à la période de base et où les
 coefficients $\beta_g$ sont propres à chaque groupe. Le vecteur $X_i$
-comprend le genre de l'enfant, le milieu de résidence, la région, ainsi que
-le genre, l'âge en classes, le niveau d'éducation et le statut matrimonial
-du chef de ménage, tous mesurés en 2018. Les écarts-types sont clusterisés
+comprend le nombre de privations de l'enfant à la période de base, son
+genre, le milieu de résidence, la région, ainsi que le genre, l'âge en
+classes, le niveau d'éducation et le statut matrimonial du chef de ménage,
+tous mesurés en 2018. Les écarts-types sont clusterisés
 au niveau de la grappe de sondage, le traitement variant au niveau du
 ménage.
 
 Les covariables $X_i$ du modèle logit sont choisies pour satisfaire
 l'hypothèse d'indépendance conditionnelle sans introduire de variable que le
 traitement lui-même modifie, chacune étant mesurée à la période de base
-(2018). Elles couvrent le chef de ménage (âge en classes, genre, niveau
-d'éducation, statut matrimonial), la localisation (milieu de résidence,
-région) et le genre de l'enfant. Les caractéristiques du chef sont les
+(2018). Elles couvrent le niveau initial de privations de l'enfant, le chef
+de ménage (âge en classes, genre, niveau d'éducation, statut matrimonial),
+la localisation (milieu de résidence, région) et le genre de l'enfant. Le
+nombre de privations de la période de base occupe une place à part~:
+l'indépendance conditionnelle n'est crédible qu'entre enfants partant d'un
+niveau de privation comparable, et ce conditionnement neutralise la part du
+niveau de 2021 qui tient au point de départ. Les caractéristiques du chef sont les
 déterminants que les cadres théoriques de la revue de littérature
 (section~\ref{sec:revue}) assignent à la décision de migrer et d'envoyer des
 fonds~; l'âge du chef entre en classes plutôt qu'en continu, sa relation avec
@@ -520,14 +525,22 @@ fois la probabilité de recevoir et la trajectoire ultérieure de pauvreté, si
 bien que la retirer affaiblit l'hypothèse d'indépendance conditionnelle sur ce
 canal. L'arbitrage est tranché en faveur du retrait pour une raison de
 direction du biais : le biais de mauvais contrôle déforme l'estimation de
-façon inconnue, tandis que la sélection résiduelle sur le niveau de vie initial
-est en partie neutralisée par la double différence, qui élimine tout écart
-stable dans le temps. Les trois variables restent affichées dans les tests
+façon inconnue, tandis que la sélection résiduelle sur le niveau de vie
+initial est en partie neutralisée par le conditionnement du score sur le
+nombre de privations de la période de base. Les trois variables restent affichées dans les tests
 d'équilibre, ce qui permet de vérifier que l'appariement les rapproche malgré
 tout, sans les avoir utilisées.
 
-La qualité de l'appariement est jugée par la différence de moyennes
-standardisée (SMD). Pour une covariable $x$, elle rapporte l'écart de
+\subsubsection{Indicateurs de qualité de l'appariement}
+\label{subsec:qualite_appariement}
+
+L'appariement n'est valide que s'il rend les deux groupes effectivement
+comparables sur les covariables, et cette comparabilité se mesure. Cinq
+indicateurs complémentaires sont mobilisés, chacun éclairant une facette
+différente de l'équilibre.
+
+Le premier est la différence de moyennes standardisée (SMD) de
+\textcite{rosenbaum1985}. Pour une covariable $x$, elle rapporte l'écart de
 moyennes entre traités et témoins à la dispersion commune de la covariable,
 \begin{equation}
   \mathrm{SMD}(x) = \frac{\bar{x}_T - \bar{x}_C}
@@ -535,10 +548,72 @@ moyennes entre traités et témoins à la dispersion commune de la covariable,
   \label{eq:smd}
 \end{equation}
 où $\bar{x}_T$ et $\bar{x}_C$ désignent les moyennes de la covariable dans
-les groupes traité et témoin, et $s_T^2$ et $s_C^2$ leurs variances. Exprimée
-en pourcentage de l'écart-type, elle ne dépend pas de l'unité de mesure et se
-compare d'une covariable à l'autre. L'appariement est jugé satisfaisant
-lorsque la SMD résiduelle de chaque covariable reste inférieure à 10\,\%.
+les groupes traité et témoin, et $s_T^2$ et $s_C^2$ leurs variances avant
+appariement. Exprimée en pourcentage de l'écart-type, elle ne dépend pas de
+l'unité de mesure et se compare d'une covariable à l'autre. L'appariement
+est jugé satisfaisant lorsque la SMD résiduelle de chaque covariable reste
+inférieure à 10\,\%. La réduction de biais qu'il opère sur la covariable
+$x$ s'en déduit,
+\begin{equation}
+  \Delta(x) = 100 \times
+  \left(1 - \frac{\left|\mathrm{SMD}_{\text{après}}(x)\right|}
+                 {\left|\mathrm{SMD}_{\text{avant}}(x)\right|}\right).
+  \label{eq:reduction_biais}
+\end{equation}
+
+Le deuxième est le biais standardisé moyen résiduel, moyenne des valeurs
+absolues des SMD sur l'ensemble des $K$ covariables après appariement,
+\begin{equation}
+  \bar{B} = \frac{1}{K} \sum_{k=1}^{K}
+            \left|\mathrm{SMD}_{\text{après}}(x_k)\right|.
+  \label{eq:biais_moyen}
+\end{equation}
+C'est cet indicateur synthétique, moyenné sur les trois groupes d'âge et
+pondéré par leurs effectifs, qui départage les algorithmes d'appariement,
+un seuil de 5\,\% étant usuellement considéré comme le signe d'un bon
+équilibre global.
+
+Le troisième est le test joint de significativité des covariables : le
+modèle logit du score est réestimé sur l'échantillon apparié, et le
+pseudo-$R^2$ ainsi que le test du rapport de vraisemblance de nullité
+jointe des coefficients sont comparés à leurs valeurs d'avant appariement.
+Si l'appariement a fonctionné, les covariables ne prédisent plus le
+traitement, le pseudo-$R^2$ s'effondre et le test joint cesse de rejeter.
+
+Le quatrième réunit les deux statistiques synthétiques de
+\textcite{rubin2001}, calculées sur l'indice linéaire du score
+$\ell_i = X_i'\hat{\beta}$ : la différence standardisée $B_R$ des indices
+et le rapport $R$ de leurs variances,
+\begin{equation}
+  B_R = 100 \times \frac{\bar{\ell}_T - \bar{\ell}_C}
+        {\sqrt{\dfrac{s_{\ell,T}^2 + s_{\ell,C}^2}{2}}},
+  \qquad
+  R = \frac{s_{\ell,T}^2}{s_{\ell,C}^2},
+  \label{eq:rubin}
+\end{equation}
+où $\bar{\ell}_T$ et $\bar{\ell}_C$ désignent les moyennes de l'indice dans
+les deux groupes et $s_{\ell,T}^2$ et $s_{\ell,C}^2$ ses variances. Un
+appariement est jugé acceptable lorsque $B_R$ reste inférieur à 25\,\% et
+$R$ compris entre 0,5 et 2 : la première statistique contrôle l'écart de
+position des deux distributions de score, la seconde leur écart de
+dispersion, qu'une moyenne bien alignée peut masquer.
+
+Le cinquième porte sur le support commun lui-même. La région de
+recouvrement des scores est l'intervalle
+$[\max(p_T^{\min}, p_C^{\min})~;~\min(p_T^{\max}, p_C^{\max})]$, et la part
+des traités située hors de cet intervalle mesure la population pour
+laquelle aucun contrefactuel n'existe, une part supérieure à 5\,\%
+restreignant la portée de l'effet estimé. Le degré de recouvrement des
+deux distributions est résumé par le coefficient de chevauchement, aire
+située sous le minimum des deux densités estimées,
+\begin{equation}
+  \mathrm{OVL} = \int \min\left(\hat{f}_T(p),\, \hat{f}_C(p)\right) dp,
+  \label{eq:ovl}
+\end{equation}
+compris entre zéro lorsque les distributions sont disjointes et un
+lorsqu'elles se confondent. L'ensemble de ces indicateurs est calculé dans
+chaque groupe d'âge, avant et après appariement, pour chacun des trois
+algorithmes.
 
 \subsubsection{Estimation par groupe d'âge}
 Le score de propension et l'appariement ne sont pas estimés sur l'ensemble des
@@ -560,18 +635,47 @@ d'interprétation propre lorsque les enfants ne sont pas mesurés sur les
 mêmes indicateurs~; aucun résultat d'ensemble n'est présenté.
 
 \subsubsection{Choix de l'algorithme d'appariement}
-Trois algorithmes sont mis en œuvre, les $k$ plus proches voisins, le noyau
-d'Epanechnikov et le caliper. Aucun n'est théoriquement supérieur aux autres :
+Une fois le score estimé, l'effet moyen du traitement sur les traités du
+groupe d'âge $g$ s'écrit comme la moyenne, sur les traités du support
+commun, de l'écart entre leur résultat et une moyenne pondérée des
+résultats des témoins,
+\begin{equation}
+  \hat{\tau}_g = \frac{1}{N_T^g} \sum_{i \in T_g}
+  \left(Y_i - \sum_{j \in C_g} w_{ij}\, Y_j\right),
+  \label{eq:att_algo}
+\end{equation}
+où $T_g$ et $C_g$ désignent les traités et les témoins du groupe et où les
+poids $w_{ij}$, positifs et de somme un pour chaque traité, définissent
+l'algorithme d'appariement. Trois algorithmes sont mis en œuvre. Le
+premier est celui des $k$ plus proches voisins, qui affecte un poids
+$w_{ij} = 1/k$ aux $k$ témoins dont le score est le plus proche de celui
+du traité $i$, avec remise, un même témoin pouvant servir à plusieurs
+traités. Le deuxième est l'appariement par noyau, qui mobilise tous les
+témoins du support en les pondérant par leur proximité au traité,
+\begin{equation}
+  w_{ij} = \frac{K\!\left(\dfrac{p_j - p_i}{h}\right)}
+                {\sum_{l \in C_g} K\!\left(\dfrac{p_l - p_i}{h}\right)},
+  \qquad
+  K(u) = \frac{3}{4}\left(1 - u^2\right)\mathbf{1}\{|u| < 1\},
+  \label{eq:kernel}
+\end{equation}
+où $K$ est le noyau d'Epanechnikov et $h$ la fenêtre de lissage, fixée à
+0,06. Le troisième est le caliper, appariement au plus proche voisin sans
+remise sous la contrainte $|p_i - p_j| < \varepsilon$, avec
+$\varepsilon = 0{,}05$, qui écarte tout traité sans témoin suffisamment
+proche.
+
+Aucun n'est théoriquement supérieur aux autres :
 ils arbitrent différemment entre biais et variance, le voisinage le plus étroit
 réduisant le biais au prix d'un nombre réduit de témoins mobilisés. Le choix du
 résultat de référence repose donc sur un critère d'équilibre et non sur la
 valeur de l'effet estimé, ce qui interdirait toute lecture causale. Le critère
-retenu est le biais standardisé moyen résiduel sur l'ensemble des covariables
-après appariement, moyenné sur les trois groupes d'âge et pondéré par leur
-effectif. L'algorithme qui rend les deux groupes les plus comparables fournit
-le résultat principal~; les deux autres sont estimés et présentés
-intégralement, et servent à vérifier que la conclusion ne dépend pas de cette
-convention.
+retenu est le biais standardisé moyen résiduel de
+l'équation~\eqref{eq:biais_moyen}, moyenné sur les trois groupes d'âge et
+pondéré par leur effectif. L'algorithme qui rend les deux groupes les plus
+comparables fournit le résultat principal~; les deux autres sont estimés et
+présentés intégralement, et servent à vérifier que la conclusion ne dépend
+pas de cette convention.
 
 \subsubsection{Tests de comparaison préalables}
 Trois tests précèdent l'estimation d'impact. Le premier compare les
@@ -617,9 +721,8 @@ rendus comparables par l'appariement sur le score de propension. Le score
 inclut le nombre de privations de la période de base~: l'indépendance
 conditionnelle n'est crédible qu'à niveau initial comparable, et ce
 conditionnement neutralise la part de la trajectoire qui tient au point de
-départ. L'estimation est conduite d'abord sur l'ensemble des enfants de 0 à
-17 ans, l'appariement restant stratifié par groupe d'âge, puis séparément
-dans chaque groupe. La robustesse du résultat est éprouvée par la
+départ. L'estimation est conduite séparément dans chaque groupe d'âge,
+aucun effet d'ensemble n'étant présenté. La robustesse du résultat est éprouvée par la
 définition du traitement, la sensibilité au seuil de privation et le choix
 de l'algorithme d'appariement, la méthode retenue l'étant au seul critère
 d'équilibre.
