@@ -2686,6 +2686,54 @@ set dp period
 graph export "$OUTPUT/figures/fig_distrib_dimensions.pdf", replace
 di ">>> fig_distrib_dimensions.pdf sauvegardé"
 
+/* Meme graphique, decline par groupe d'age : un fichier par groupe,
+   place en tete de chaque sous-section descriptive du rapport */
+forvalues g = 1/3 {
+    tempname dg
+    matrix `dg' = J(8, 3, .)
+    foreach annee in 2018 2021 {
+        local tt = cond(`annee' == 2018, 0, 1)
+        use "$TEMP/panel_enfants_psm.dta", clear
+        keep if t == `tt' & groupe_base == `g'
+        local col = cond(`annee' == 2018, 2, 3)
+        quietly count if !missing(nb_dep)
+        local n_tot = r(N)
+        forvalues d = 0/7 {
+            quietly count if nb_dep == `d' & !missing(nb_dep)
+            matrix `dg'[`d' + 1, 1] = `d'
+            matrix `dg'[`d' + 1, `col'] = r(N) / `n_tot' * 100
+        }
+    }
+    clear
+    svmat `dg', names(col)
+    rename c1 nb_dim
+    rename c2 pct_2018
+    rename c3 pct_2021
+    gen str8 lbl_18 = subinstr(string(pct_2018, "%3.1f"), ".", ",", 1)
+    gen str8 lbl_21 = subinstr(string(pct_2021, "%3.1f"), ".", ",", 1)
+    gen x_2018 = nb_dim - 0.19
+    gen x_2021 = nb_dim + 0.19
+    set dp comma
+    graph twoway ///
+        (bar pct_2018 x_2018, barwidth(0.35) color(gs9)) ///
+        (bar pct_2021 x_2021, barwidth(0.35) color(orange)) ///
+        (scatter pct_2018 x_2018, msymbol(none) mlabel(lbl_18) ///
+         mlabpos(12) mlabcolor(black) mlabsize(vsmall)) ///
+        (scatter pct_2021 x_2021, msymbol(none) mlabel(lbl_21) ///
+         mlabpos(12) mlabcolor(black) mlabsize(vsmall)) ///
+        , xline(4.5, lcolor(red) lpattern(dash) lwidth(medthick)) ///
+        xlabel(0(1)7, labsize(medlarge)) ///
+        xtitle("Nombre de dimensions en privation (sur 7)", size(medlarge)) ///
+        ylabel(0(5)30, grid angle(0) labsize(medlarge)) ///
+        ytitle("Part des enfants (%)", size(medlarge) margin(right)) ///
+        legend(order(1 "EHCVM I (2018-19)" 2 "EHCVM II (2021-22)") pos(6) ///
+               rows(1) size(medium) symxsize(8) colgap(6)) ///
+        graphregion(color(white)) plotregion(color(white))
+    set dp period
+    graph export "$OUTPUT/figures/fig_distrib_nbdep_g`g'.pdf", replace
+}
+di ">>> fig_distrib_nbdep_g1 a g3 sauvegardes"
+
 /* ============================================================
    COMPARAISON BENEFICIAIRES / NON-BENEFICIAIRES x 2018-2021
 
