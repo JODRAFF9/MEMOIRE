@@ -2090,13 +2090,14 @@ forvalues g = 1/3 {
     foreach mil in 1 0 {
         local lab_mil = cond(`mil' == 1, "Urbain", "Rural ")
         quietly count if urban == `mil' & groupe_base == `g' & D == 1
-        if r(N) > 30 {
+        local n_tr = r(N)
+        if `n_tr' > 1 {
             quietly regress nb_dep i.D [aw=$POIDS_PRINCIPAL] ///
                 if urban == `mil' & groupe_base == `g', vce(cluster grappe)
             di "  `lab_mil' : ATT = " %8.4f _b[1.D] "  SE = " %8.4f _se[1.D] ///
                "  p = " %6.4f 2*ttail(e(df_r), abs(_b[1.D]/_se[1.D]))
         }
-        else di "  `lab_mil' : effectif traite insuffisant (n=" r(N) ")"
+        else di "  `lab_mil' : effectif traite insuffisant (n=" `n_tr' ")"
     }
     quietly regress nb_dep i.D##i.urban [aw=$POIDS_PRINCIPAL] ///
         if groupe_base == `g', vce(cluster grappe)
@@ -2114,13 +2115,14 @@ forvalues g = 1/3 {
     foreach h in 0 1 {
         local lab_h = cond(`h' == 0, "Chef homme", "Chef femme")
         quietly count if chef_fem == `h' & groupe_base == `g' & D == 1
-        if r(N) > 30 {
+        local n_tr = r(N)
+        if `n_tr' > 1 {
             quietly regress nb_dep i.D [aw=$POIDS_PRINCIPAL] ///
                 if chef_fem == `h' & groupe_base == `g', vce(cluster grappe)
             di "  `lab_h' : ATT = " %8.4f _b[1.D] "  SE = " %8.4f _se[1.D] ///
                "  p = " %6.4f 2*ttail(e(df_r), abs(_b[1.D]/_se[1.D]))
         }
-        else di "  `lab_h' : effectif traite insuffisant (n=" r(N) ")"
+        else di "  `lab_h' : effectif traite insuffisant (n=" `n_tr' ")"
     }
     quietly regress nb_dep i.D##i.chef_fem [aw=$POIDS_PRINCIPAL] ///
         if groupe_base == `g', vce(cluster grappe)
@@ -2187,14 +2189,15 @@ forvalues g = 1/3 {
     forvalues q = 1/5 {
         quietly count if q_montant == `q' & groupe_base == `g' & ///
             !missing($POIDS_PRINCIPAL)
-        if r(N) > 30 {
+        local n_tr = r(N)
+        if `n_tr' > 1 {
             quietly regress nb_dep i.D [aw=$POIDS_PRINCIPAL] ///
                 if (D == 0 | q_montant == `q') & groupe_base == `g', ///
                 vce(cluster grappe)
             di "  Q`q' : ATT = " %8.4f _b[1.D] "  SE = " %8.4f _se[1.D] ///
                "  p = " %6.4f 2*ttail(e(df_r), abs(_b[1.D]/_se[1.D]))
         }
-        else di "  Q`q' : effectif traite insuffisant (n=" r(N) ")"
+        else di "  Q`q' : effectif traite insuffisant (n=" `n_tr' ")"
     }
 }
 
@@ -2206,14 +2209,15 @@ quietly gen double log_montant = log(montant_transf) if montant_transf > 0
 forvalues g = 1/3 {
     local titg : label grp `g'
     quietly count if D == 1 & !missing(log_montant) & groupe_base == `g'
-    if r(N) > 30 {
+    local n_tr = r(N)
+    if `n_tr' > 2 {
         quietly regress nb_dep c.log_montant [aw=$POIDS_PRINCIPAL] ///
             if D == 1 & groupe_base == `g', vce(cluster grappe)
         di "  `titg' : pente = " %8.4f _b[log_montant] ///
            "  SE = " %8.4f _se[log_montant] ///
            "  p = " %6.4f 2*ttail(e(df_r), abs(_b[log_montant]/_se[log_montant]))
     }
-    else di "  `titg' : effectif insuffisant (n=" r(N) ")"
+    else di "  `titg' : effectif insuffisant (n=" `n_tr' ")"
 }
 drop log_montant
 
@@ -2894,19 +2898,28 @@ use "$TEMP/panel_enfants_psm.dta", clear
 keep if t == 1
 
 /* ── ATT par dimension, trois methodes d'appariement ───────────
-   Verifie que la lecture dimensionnelle ne depend pas de l'algorithme. */
+   Comme toute l'heterogeneite, la lecture dimensionnelle est conduite
+   par groupe d'age : trois sorties par dimension et par methode. Une
+   dimension sans variance dans un groupe (education des 0-4 ans, nulle
+   par construction) est signalee plutot qu'estimee. */
 local dims assai eau logem nutri sante protect educ
-di _newline "=== ATT par dimension, comparaison des trois appariements ==="
+di _newline "=== ATT par dimension, trois appariements, par groupe d'age ==="
 foreach poids_var in weight_knn weight_kernel weight_caliper {
     di _newline "--- `poids_var' ---"
-    foreach dim of local dims {
-        quietly count if !missing(`poids_var') & `poids_var' > 0
-        if r(N) > 0 {
-            quietly regress dim_`dim' i.D [aw=`poids_var'] ///
-                if `poids_var' > 0, vce(cluster grappe)
-            di "  dim_`dim' : ATT=" %8.4f _b[1.D] ///
-               "  SE=" %7.4f _se[1.D] ///
-               "  p=" %6.4f 2*ttail(e(df_r), abs(_b[1.D]/_se[1.D]))
+    forvalues g = 1/3 {
+        local titg : label grp `g'
+        di "  -- `titg' --"
+        foreach dim of local dims {
+            quietly summarize dim_`dim' ///
+                if !missing(`poids_var') & `poids_var' > 0 & groupe_base == `g'
+            if r(N) > 0 & r(sd) > 0 {
+                quietly regress dim_`dim' i.D [aw=`poids_var'] ///
+                    if `poids_var' > 0 & groupe_base == `g', vce(cluster grappe)
+                di "    dim_`dim' : ATT=" %8.4f _b[1.D] ///
+                   "  SE=" %7.4f _se[1.D] ///
+                   "  p=" %6.4f 2*ttail(e(df_r), abs(_b[1.D]/_se[1.D]))
+            }
+            else di "    dim_`dim' : sans variance dans ce groupe."
         }
     }
 }
@@ -2918,111 +2931,111 @@ if "$POIDS_PRINCIPAL" == "" | "$POIDS_PRINCIPAL" == "weight_" {
 }
 keep if !missing($POIDS_PRINCIPAL) & $POIDS_PRINCIPAL > 0
 
-/* ATT en niveaux de 2021 pour chaque dimension (poids d'appariement PSM
-   uniquement, pas de poids d'enquete ; erreurs-types clusterisees grappe) */
+/* ATT en niveaux de 2021 pour chaque dimension et chaque groupe d'age
+   (poids d'appariement PSM uniquement ; erreurs-types clusterisees
+   grappe). Les estimations alimentent le graphique a trois panneaux. */
 local dims    assai eau logem nutri sante protect educ
 local n_dims  7
 
-matrix ATT  = J(`n_dims', 1, .)
-matrix LB   = J(`n_dims', 1, .)
-matrix UB   = J(`n_dims', 1, .)
-
-local i = 0
-foreach dim of local dims {
-    local ++i
-    quietly regress dim_`dim' i.D [aw=$POIDS_PRINCIPAL], vce(cluster grappe)
-    matrix ATT[`i',1] = _b[1.D]
-    matrix LB[`i',1]  = _b[1.D] - 1.96*_se[1.D]
-    matrix UB[`i',1]  = _b[1.D] + 1.96*_se[1.D]
-    di "  dim_`dim' : ATT=" %8.4f _b[1.D] "  SE=" %7.4f _se[1.D] ///
-       "  p=" %6.4f 2*ttail(e(df_r), abs(_b[1.D]/_se[1.D]))
+tempname postdim
+tempfile dimres
+postfile `postdim' byte g byte idim double att lb ub using `dimres'
+di _newline "=== ATT par dimension, methode retenue ($METHODE), par groupe ==="
+forvalues g = 1/3 {
+    local titg : label grp `g'
+    di "  -- `titg' --"
+    local i = 0
+    foreach dim of local dims {
+        local ++i
+        quietly summarize dim_`dim' if groupe_base == `g'
+        if r(N) > 0 & r(sd) > 0 {
+            quietly regress dim_`dim' i.D [aw=$POIDS_PRINCIPAL] ///
+                if groupe_base == `g', vce(cluster grappe)
+            post `postdim' (`g') (`i') (_b[1.D]) ///
+                (_b[1.D] - 1.96*_se[1.D]) (_b[1.D] + 1.96*_se[1.D])
+            di "    dim_`dim' : ATT=" %8.4f _b[1.D] "  SE=" %7.4f _se[1.D] ///
+               "  p=" %6.4f 2*ttail(e(df_r), abs(_b[1.D]/_se[1.D]))
+        }
+        else {
+            post `postdim' (`g') (`i') (.) (.) (.)
+            di "    dim_`dim' : sans variance dans ce groupe."
+        }
+    }
 }
+postclose `postdim'
 
-/* ── ATT par INDICATEUR ──────────────────────────────────────
+/* ── ATT par INDICATEUR, par groupe d'age ────────────────────
    La dimension agrege ses indicateurs par la regle de l'union : elle
    passe a 1 des qu'un seul indicateur est positif. Un effet nul sur la
    dimension peut donc masquer deux mouvements de sens contraire, et un
    effet significatif ne dit pas lequel des indicateurs le porte.
-   L'estimation est reprise indicateur par indicateur, sur le meme panel
-   apparie et avec la meme specification. Chaque indicateur n'est defini
-   que sur les groupes d'age auxquels il s'applique : la regression porte
-   sur les enfants pour lesquels il n'est pas manquant, et l'effectif
-   affiche permet de le verifier. */
+   L'estimation est reprise indicateur par indicateur, dans chaque groupe
+   d'age, sur le meme panel apparie et avec la meme specification. Un
+   indicateur sans variance dans un groupe est signale. */
 
-di _newline "=== ATT par indicateur, niveaux 2021 ($METHODE) ==="
-di "  indicateur          n        ATT       SE        p"
-
-foreach ind in m_toilet m_partag_toi m_eau_source m_eau_temps ///
-               m_ordures m_surpeup m_securite m_combust m_sante_acces ///
-               m_acte_nais m_trav_enf m_scol m_alfab {
-    quietly count if !missing(`ind')
-    local n_ind = r(N)
-    if `n_ind' > 0 {
-        quietly regress `ind' i.D [aw=$POIDS_PRINCIPAL], vce(cluster grappe)
-        di "  " %-16s "`ind'" %8.0f `n_ind' %10.4f _b[1.D] ///
-           %9.4f _se[1.D] %9.4f 2*ttail(e(df_r), abs(_b[1.D]/_se[1.D]))
-    }
-    else {
-        di "  " %-16s "`ind'" "   non renseigne sur le panel"
+di _newline "=== ATT par indicateur, niveaux 2021 ($METHODE), par groupe ==="
+forvalues g = 1/3 {
+    local titg : label grp `g'
+    di _newline "  -- `titg' --"
+    di "    indicateur          n        ATT       SE        p"
+    foreach ind in m_toilet m_partag_toi m_eau_source m_eau_temps ///
+                   m_ordures m_surpeup m_securite m_combust m_sante_acces ///
+                   m_acte_nais m_trav_enf m_scol m_alfab {
+        quietly summarize `ind' if groupe_base == `g'
+        local n_ind = r(N)
+        if `n_ind' > 0 & r(sd) > 0 {
+            quietly regress `ind' i.D [aw=$POIDS_PRINCIPAL] ///
+                if groupe_base == `g', vce(cluster grappe)
+            di "    " %-16s "`ind'" %8.0f `n_ind' %10.4f _b[1.D] ///
+               %9.4f _se[1.D] %9.4f 2*ttail(e(df_r), abs(_b[1.D]/_se[1.D]))
+        }
+        else di "    " %-16s "`ind'" "   sans variance ou non renseigne."
     }
 }
 
-/* Construire dataset pour le graphique */
-clear
-set obs `n_dims'
-gen ordre = _n
-gen str12 dim = ""
-replace dim = "Assainissement" in 1
-replace dim = "Eau"            in 2
-replace dim = "Logement"       in 3
-replace dim = "Nutrition"      in 4
-replace dim = "Santé"          in 5
-replace dim = "Protection"     in 6
-replace dim = "Éducation"      in 7
-gen att = .
-gen lb  = .
-gen ub  = .
-forvalues i = 1/`n_dims' {
-    replace att = ATT[`i',1]*100 in `i'
-    replace lb  = LB[`i',1]*100  in `i'
-    replace ub  = UB[`i',1]*100  in `i'
+/* Graphique a trois panneaux, un par groupe d'age, ordre des dimensions
+   fixe pour rester comparable d'un panneau a l'autre */
+use `dimres', clear
+gen str14 dimlab = ""
+replace dimlab = "Assainissement" if idim == 1
+replace dimlab = "Eau"            if idim == 2
+replace dimlab = "Logement"       if idim == 3
+replace dimlab = "Nutrition"      if idim == 4
+replace dimlab = "Santé"          if idim == 5
+replace dimlab = "Protection"     if idim == 6
+replace dimlab = "Éducation"      if idim == 7
+foreach v in att lb ub {
+    replace `v' = `v'*100
 }
-
-/* Trier par ATT croissant et réaffecter le rang */
-sort att
-replace ordre = _n
-
-/* Construire les labels ylabel à partir des valeurs de dim triées */
 local ylab_str ""
-forvalues i = 1/`n_dims' {
-    local lbl = dim[`i']
+forvalues i = 1/7 {
+    local lbl = dimlab[`i']
     local ylab_str `"`ylab_str' `i' "`lbl'""'
 }
-
-/* Etiquettes de valeur (virgule decimale), placees au-dela des IC */
-gen str8 lbl_att = subinstr(string(att, "%4.1f"), ".", ",", 1)
-gen xlbl = ub + 1.2 if att >= 0
-replace xlbl = lb - 1.2 if att < 0
-
-/* Graphique à barres horizontales avec IC 95 % */
 set dp comma
-twoway ///
-    (bar att ordre, horizontal barwidth(0.6) color(gs9)) ///
-    (rcap lb ub ordre, horizontal lcolor(orange) lwidth(medthick) msize(medium)) ///
-    (scatter ordre xlbl, msymbol(none) mlabel(lbl_att) ///
-     mlabpos(0) mlabcolor(black) mlabsize(small)), ///
-    ylab(`ylab_str', angle(0) noticks) ///
-    yscale(range(0.5 7.5)) ///
-    ytitle("") xtitle("ATT (points de pourcentage)") ///
-    xlabel(, format(%4.1f)) ///
-    xline(0, lcolor(black) lpattern(dash)) ///
-    legend(off) ///
-    graphregion(color(white)) plotregion(color(white))
-
+forvalues g = 1/3 {
+    local titg : label grp `g'
+    quietly twoway ///
+        (bar att idim if g == `g', horizontal barwidth(0.6) color(gs9)) ///
+        (rcap lb ub idim if g == `g', horizontal lcolor(orange) ///
+         lwidth(medthick) msize(medium)), ///
+        ylab(`ylab_str', angle(0) noticks labsize(small)) ///
+        yscale(range(0.5 7.5)) ///
+        ytitle("") xtitle("ATT (pp)", size(small)) ///
+        xlabel(, format(%4.0f) labsize(small)) ///
+        xline(0, lcolor(black) lpattern(dash)) ///
+        legend(off) ///
+        title("`titg'", size(medium)) ///
+        graphregion(color(white)) plotregion(color(white)) ///
+        name(dimeff`g', replace)
+}
+graph combine dimeff1 dimeff2 dimeff3, rows(1) ///
+    note("Barres : ATT en points de pourcentage ; segments : IC a 95 %", size(small)) ///
+    graphregion(color(white))
 set dp period
-graph display, scale(1.35)   /* texte agrandi pour la projection */
 graph export "$OUTPUT/figures/fig_effets_dim.pdf", replace
-di ">>> fig_effets_dim.pdf sauvegardé dans $OUTPUT/figures/"
+graph drop dimeff1 dimeff2 dimeff3
+di ">>> fig_effets_dim.pdf sauvegarde (trois panneaux, un par groupe)"
 di ">>> 07_effets_dim.do terminé."
 
 /* ── Fig : taux de privation par dimension, ensemble et par groupe ──
