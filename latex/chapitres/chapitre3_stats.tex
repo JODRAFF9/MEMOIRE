@@ -198,7 +198,22 @@ et l'assainissement, de 34 et 31 points en 2018. Entre les deux éditions,
 l'avantage des bénéficiaires sur l'incidence se réduit de 33,7 à 27,3
 points~: les non-bénéficiaires, partis de plus haut, reculent davantage,
 ce qui illustre la convergence vers la moyenne que l'appariement sur le
-niveau initial de privations a pour tâche de neutraliser.
+niveau initial de privations a pour tâche de neutraliser. Le
+graphique~\ref{fig:radar_ensemble} superpose ces profils en radar : la
+surface des non-bénéficiaires enveloppe celle des bénéficiaires sur
+toutes les dimensions sauf la santé, où les deux profils se rejoignent,
+et le passage d'une édition à l'autre resserre les deux surfaces sans
+inverser leur ordre.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\linewidth]{figures/fig_radar_ensemble.pdf}
+  \caption{Profil des privations par dimension selon le statut et l'édition, ensemble des enfants}
+  \label{fig:radar_ensemble}
+
+  {\footnotesize \textbf{Source :} Calcul de l'auteur, EHCVM. Les valeurs
+  figurent au tableau~\ref{tab:comparaison_benef}.}
+\end{figure}
 
 \begin{table}[H]
   \centering
@@ -320,6 +335,16 @@ tableau~\ref{tab:sexe_0_4} vérifie que cet avantage se retrouve chez les
 chefs hommes comme chez les chefs femmes, avec des écarts de 29,1 et 28,2
 points en 2018, tous deux significatifs au seuil de 1\,\%.
 
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\linewidth]{figures/fig_radar_0_4.pdf}
+  \caption{Profil des privations par dimension selon le statut et l'édition, enfants de 0 à 4 ans}
+  \label{fig:radar_0_4}
+
+  {\footnotesize \textbf{Source :} Calcul de l'auteur, EHCVM. Les valeurs
+  figurent au tableau~\ref{tab:comparaison_benef_0_4}.}
+\end{figure}
+
 \begin{table}[H]
   \centering
   \caption{Incidence de pauvreté multidimensionnelle selon le genre du chef de ménage et le statut du ménage, enfants de 0 à 4 ans (\%)}
@@ -401,6 +426,16 @@ tableau~\ref{tab:sexe_5_14} confirme l'avantage dans les deux
 configurations de ménage, l'écart étant même légèrement plus marqué chez
 les chefs femmes, 33,2 points contre 32,6 en 2018.
 
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\linewidth]{figures/fig_radar_5_14.pdf}
+  \caption{Profil des privations par dimension selon le statut et l'édition, enfants de 5 à 14 ans}
+  \label{fig:radar_5_14}
+
+  {\footnotesize \textbf{Source :} Calcul de l'auteur, EHCVM. Les valeurs
+  figurent au tableau~\ref{tab:comparaison_benef_5_14}.}
+\end{figure}
+
 \begin{table}[H]
   \centering
   \caption{Incidence de pauvreté multidimensionnelle selon le genre du chef de ménage et le statut du ménage, enfants de 5 à 14 ans (\%)}
@@ -478,6 +513,16 @@ seule la nutrition ressortant aux deux éditions. Le
 tableau~\ref{tab:sexe_15_17} en subit la même limite~: l'écart chez les
 chefs hommes n'est significatif qu'en 2018, celui des chefs femmes qu'en
 2021, sans qu'aucune conclusion ne puisse en être tirée.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\linewidth]{figures/fig_radar_15_17.pdf}
+  \caption{Profil des privations par dimension selon le statut et l'édition, enfants de 15 à 17 ans}
+  \label{fig:radar_15_17}
+
+  {\footnotesize \textbf{Source :} Calcul de l'auteur, EHCVM. Les valeurs
+  figurent au tableau~\ref{tab:comparaison_benef_15_17}.}
+\end{figure}
 
 \begin{table}[H]
   \centering
@@ -606,7 +651,7 @@ l'appariement a pour tâche de neutraliser~; il se réduit à 3,82 contre
 
 L'approche MODA est une analyse des privations qui se chevauchent : compter
 les enfants privés dimension par dimension ne dit pas si ce sont les mêmes
-enfants qui cumulent. Quatre lectures complètent donc les taux simples. La
+enfants qui cumulent. Cinq lectures complètent donc les taux simples. La
 première est la répartition des enfants selon le nombre de privations
 simultanées, donnée au tableau~\ref{tab:distrib_nbdep}. La deuxième est le
 chevauchement deux à deux, dont le tableau~\ref{tab:chevauchement} donne
@@ -614,7 +659,9 @@ la matrice à la période de base : pour chaque paire de dimensions, la part
 des enfants privés dans l'une et l'autre à la fois, la diagonale rappelant
 le taux de privation simple. La troisième est le chevauchement
 tridimensionnel des trois dimensions les plus liées, au
-tableau~\ref{tab:chevauchement3}. La quatrième est l'enchâssement de
+tableau~\ref{tab:chevauchement3}. La quatrième répartit les privés de
+chaque dimension selon le nombre d'autres privations cumulées, au
+tableau~\ref{tab:chevauchement_k}. La cinquième est l'enchâssement de
 chaque privation, au tableau~\ref{tab:enchassement} : parmi les enfants
 privés dans une dimension donnée, la part qui cumule au moins quatre
 privations, c'est-à-dire qui est pauvre au sens de l'indice.
@@ -702,6 +749,80 @@ triple cumul perdant plus de neuf points quand la part d'enfants
 épargnés par les trois privations gagne cinq points : l'amélioration
 observée est une sortie du cumul, pas un simple déplacement d'une
 privation vers une autre.
+
+Le statut de bénéficiaire sépare profondément ces configurations, comme
+le montrent les graphiques~\ref{fig:venn_nonbenef}
+et~\ref{fig:venn_benef}, qui déclinent le même croisement à la période de
+base selon le statut du ménage. Chez les enfants de ménages jamais
+bénéficiaires, le triple cumul touche 43,9\,\% des enfants et 6,0\,\%
+seulement échappent aux trois privations~; chez les enfants de
+bénéficiaires stables, le triple cumul tombe à 17,1\,\% et près d'un
+enfant sur quatre est épargné des trois. L'avantage des bénéficiaires ne
+tient donc pas à une privation en moins ici ou là, mais à une bien
+moindre exposition au noyau dur du cumul.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.72\linewidth]{figures/fig_venn_nonbeneficiaires.pdf}
+  \caption{Chevauchement du logement, de la nutrition et de l'assainissement chez les non-bénéficiaires à la période de base}
+  \label{fig:venn_nonbenef}
+
+  {\footnotesize \textbf{Source :} Calcul de l'auteur, EHCVM.}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.72\linewidth]{figures/fig_venn_beneficiaires.pdf}
+  \caption{Chevauchement du logement, de la nutrition et de l'assainissement chez les bénéficiaires stables à la période de base}
+  \label{fig:venn_benef}
+
+  {\footnotesize \textbf{Source :} Calcul de l'auteur, EHCVM.}
+\end{figure}
+
+Le tableau~\ref{tab:chevauchement_k} généralise cette lecture à toutes
+les dimensions : pour chacune, il répartit les enfants privés selon le
+nombre d'autres privations cumulées, en pourcentage de l'ensemble des
+enfants, si bien que la somme de chaque colonne redonne le taux de
+privation de la dimension.
+
+\begin{table}[H]
+  \centering
+  \caption{Enfants privés dans une dimension et dans un nombre donné d'autres dimensions à la période de base (\%)}
+  \label{tab:chevauchement_k}
+  \nozebre
+  \small
+  \resizebox{\linewidth}{!}{%
+  \begin{tabular}{|l|c|c|c|c|c|c|c|}
+    \hline
+\entete Cumul & Assain. & Eau & Logement & Nutrition & Santé & Protection & Éducation \\
+    \hline
+    Privé dans la seule dimension &  0,1 & 0,0 &  0,1 &  0,2 &  4,8 &  0,2 &  0,1 \\ \hline
+    Et dans une autre             &  1,5 & 0,3 &  3,2 &  4,5 & 11,4 &  2,1 &  0,7 \\ \hline
+    Et dans deux autres           &  6,3 & 1,5 & 10,6 & 11,9 & 18,8 &  5,1 &  2,7 \\ \hline
+    Et dans trois autres          & 14,2 & 3,5 & 18,8 & 19,0 & 23,1 &  9,4 &  4,8 \\ \hline
+    Et dans quatre autres         & 17,9 & 7,1 & 20,4 & 20,0 & 22,1 & 15,6 &  7,5 \\ \hline
+    Et dans cinq autres           & 13,1 & 8,3 & 13,4 & 13,3 & 13,8 & 12,6 &  8,1 \\ \hline
+    Privé dans les sept           &  4,2 & 4,2 &  4,2 &  4,2 &  4,2 &  4,2 &  4,2 \\
+    \hline
+  \end{tabular}%
+  }
+
+  {\footnotesize \textbf{Source :} Calcul de l'auteur, EHCVM. Part de
+  l'ensemble des enfants suivis, non pondérée~; la somme de chaque
+  colonne redonne le taux de privation de la dimension.}
+\end{table}
+
+La colonne de tête du tableau suffit à établir le constat central de
+l'approche MODA : la privation isolée n'existe pratiquement pas. Hormis
+la santé, dont 4,8\,\% des enfants sont privés sans rien cumuler
+d'autre, aucune dimension ne dépasse deux dixièmes de point d'enfants
+privés dans cette seule dimension. La masse se situe entre trois et cinq
+privations d'autres dimensions, quelle que soit la dimension de départ,
+et l'eau comme l'éducation se distinguent par un cumul plus profond
+encore, leurs privés se concentrant sur les niveaux à quatre et cinq
+autres privations : ce sont les manques des enfants les plus démunis.
+Les 4,2\,\% d'enfants privés des sept dimensions à la fois ferment
+chaque colonne, par construction identiques d'une dimension à l'autre.
 
 \begin{table}[H]
   \centering
