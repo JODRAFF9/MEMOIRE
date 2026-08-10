@@ -1945,6 +1945,25 @@ foreach d1 of local dims_ov {
     di "`ligne'"
 }
 
+/* Chevauchement tridimensionnel : les trois dimensions du cadre de vie
+   les plus liees (logement, nutrition, assainissement ; la sante, quasi
+   universelle, ne discrimine pas). Les huit regions du diagramme :
+   combo3 = 4*logement + 2*nutrition + assainissement, de 0 (aucune des
+   trois) a 7 (les trois a la fois). */
+di _newline "=== Chevauchement tridimensionnel logement x nutrition x assainissement ==="
+forvalues tt = 0/1 {
+    quietly gen byte combo3 = 4*dim_logem + 2*dim_nutri + dim_assai ///
+        if t == `tt' & !missing(dim_logem) & !missing(dim_nutri) & !missing(dim_assai)
+    label define combo3lbl 0 "aucune des trois" 1 "assainissement seul" ///
+        2 "nutrition seule" 3 "nutrition et assainissement" ///
+        4 "logement seul" 5 "logement et assainissement" ///
+        6 "logement et nutrition" 7 "les trois a la fois", replace
+    label values combo3 combo3lbl
+    di "  -- edition t=`tt' --"
+    tab combo3
+    quietly drop combo3
+}
+
 di _newline "=== Enchassement : parmi les prives d'une dimension, part cumulant >=4 privations ==="
 forvalues tt = 0/1 {
     di "  -- edition t=`tt' --"
