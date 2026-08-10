@@ -42,20 +42,36 @@ def radar(nom_fichier, sub):
          "Bénéficiaires, EHCVM II"),
     ]
     ang = np.linspace(0, 2 * np.pi, len(DIMS), endpoint=False).tolist()
-    fig, ax = plt.subplots(figsize=(7, 6.6),
+    fig, ax = plt.subplots(figsize=(8.6, 7.6),
                            subplot_kw={"projection": "polar"})
     for vals, coul, style, lab in series:
         v = vals + vals[:1]
         a = ang + ang[:1]
         ax.plot(a, v, color=coul, linestyle=style, linewidth=2, label=lab)
     ax.set_xticks(ang)
-    ax.set_xticklabels(NOMS, fontsize=10)
+    ax.set_xticklabels([])
     ax.set_ylim(0, 100)
     ax.set_yticks([25, 50, 75, 100])
     ax.set_yticklabels(["25", "50", "75", "100"], fontsize=8, color="grey")
-    ax.legend(loc="lower center", bbox_to_anchor=(0.5, -0.18),
+    # Valeurs aux sommets : editions I puis II, gris = non-beneficiaires,
+    # orange = beneficiaires. Position en fraction d'axes pour empiler
+    # proprement les deux lignes quel que soit l'angle.
+    nb18, nb21 = series[0][0], series[1][0]
+    b18,  b21  = series[2][0], series[3][0]
+    for i, a_i in enumerate(ang):
+        fx = 0.5 + 0.56 * np.cos(a_i)
+        fy = 0.5 + 0.56 * np.sin(a_i)
+        txt_nb = f"{nb18[i]:.1f} ; {nb21[i]:.1f}".replace(".", ",")
+        txt_b  = f"{b18[i]:.1f} ; {b21[i]:.1f}".replace(".", ",")
+        ax.text(fx, fy + 0.052, NOMS[i], transform=ax.transAxes,
+                ha="center", va="center", fontsize=10, color="black")
+        ax.text(fx, fy + 0.020, txt_nb, transform=ax.transAxes,
+                ha="center", va="center", fontsize=7, color="#777777")
+        ax.text(fx, fy - 0.010, txt_b, transform=ax.transAxes,
+                ha="center", va="center", fontsize=7, color="#e07b39")
+    ax.legend(loc="lower center", bbox_to_anchor=(0.5, -0.24),
               ncol=2, fontsize=9, frameon=False)
-    fig.tight_layout()
+    fig.subplots_adjust(left=0.16, right=0.84, top=0.90, bottom=0.16)
     for base in ("latex/figures", "Presentation/figures",
                  "code/stata/output/figures"):
         fig.savefig(f"{base}/{nom_fichier}")

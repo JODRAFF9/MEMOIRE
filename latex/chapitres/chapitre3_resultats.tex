@@ -423,24 +423,70 @@ chez les enfants initialement les plus privés.
   {\footnotesize \textbf{Source :} Calcul de l'auteur, EHCVM. $^{*}p<0{,}10$ ; $^{**}p<0{,}05$. Un tiret signale un seuil sans variation dans le groupe.}
 \end{table}
 
+\subsubsection{Sensibilité à la sélection cachée}
+
+Le tableau~\ref{tab:rosenbaum} rapporte les bornes de Rosenbaum,
+calculées sur les paires du plus proche voisin dans chaque groupe d'âge :
+pour chaque valeur du paramètre $\Gamma$, la p-valeur de l'effet dans le
+scénario le plus défavorable, celui où le facteur inobservé joue
+entièrement contre l'effet estimé. Chez les enfants de 0 à 4 ans et de 5
+à 14 ans, l'effet apparié résiste très au-delà du repère usuel : la
+p-valeur défavorable ne franchit le seuil de 10\,\% qu'entre 2,25 et
+2,50 chez les premiers et entre 2,00 et 2,25 chez les seconds. Pour
+expliquer l'effet par la seule sélection cachée, il faudrait donc un
+facteur inobservé qui plus que double les cotes de traitement de deux
+enfants observablement identiques, alors même que le score conditionne
+déjà sur le niveau initial de privations : la valeur critique dépasse
+largement le repère de 1,4 des études empiriques, ce qui signe une
+robustesse forte. Chez les adolescents, l'effet apparié n'est
+significatif qu'au seuil de 10\,\% en l'absence de tout biais et se
+renverse dès que $\Gamma$ atteint 1,25, confirmation que ce groupe ne
+porte aucune conclusion.
+
+\begin{table}[H]
+  \centering
+  \caption{Bornes de Rosenbaum, p-valeur du scénario défavorable selon le paramètre \texorpdfstring{$\Gamma$}{Gamma}}
+  \label{tab:rosenbaum}
+  \zebre
+  \begin{tabular}{|l|c|c|c|}
+    \hline
+\entete $\Gamma$ & 0-4 ans & 5-14 ans & 15-17 ans \\
+    \hline
+    1,00 & 0,000 & 0,000 & 0,075 \\ \hline
+    1,25 & 0,000 & 0,000 & 0,189 \\ \hline
+    1,50 & 0,000 & 0,000 & 0,332 \\ \hline
+    1,75 & 0,000 & 0,000 & 0,476 \\ \hline
+    2,00 & 0,000 & 0,006 & 0,604 \\ \hline
+    2,25 & 0,015 & 0,221 & 0,709 \\ \hline
+    2,50 & 0,139 & 0,783 & 0,791 \\
+    \hline
+  \end{tabular}
+
+  {\footnotesize \textbf{Source :} Calcul de l'auteur, EHCVM. Test des
+  rangs signés de Wilcoxon sur les paires du plus proche voisin, 751,
+  1\,442 et 35 paires respectivement.}
+\end{table}
+
 \subsection{Effets par dimension et par indicateur}
 
 L'analyse par dimension décompose l'effet sur les sept dimensions MODA,
 estimé en niveaux de la seconde édition séparément dans chaque groupe
 d'âge, les graphiques~\ref{fig:effets_dim} à \ref{fig:effets_dim_g3}
-donnant un graphique par groupe. Les valeurs commentées ici sont
-estimées sur l'ensemble des enfants appariés. Une seule dimension ressort nettement, la
-nutrition : la part d'enfants en insécurité alimentaire est inférieure de
-12,6 points chez les bénéficiaires stables, effet significatif au seuil de
-1\,\% et retrouvé avec la même ampleur par les trois algorithmes.
-L'assainissement suit, avec un recul de 5,7 points qui manque de peu le
-seuil de 10\,\% avec le noyau mais l'atteint avec le k-NN et le seuil de
-5\,\% avec le caliper. Les cinq autres dimensions présentent des
-coefficients proches de zéro et non significatifs : les privations d'eau,
-de logement, de santé, de protection et d'éducation ne distinguent pas les
-bénéficiaires de leurs témoins appariés. Le volet dimensionnel de
-l'hypothèse H2 est ainsi validé, l'effet des transferts étant tout sauf
-uniforme entre dimensions.
+donnant un graphique par groupe. Une seule dimension ressort nettement,
+la nutrition, et elle ressort dans les deux groupes où la puissance le
+permet : la part d'enfants en insécurité alimentaire est inférieure de
+11,0 points chez les bénéficiaires de 0 à 4 ans, effet significatif au
+seuil de 5\,\%, et de 13,7 points chez ceux de 5 à 14 ans, au seuil de
+1\,\%. L'assainissement suit chez les 5-14 ans, avec un recul de 6,1
+points significatif au seuil de 10\,\%. Toutes les autres dimensions,
+dans les trois groupes, présentent des coefficients qui ne se
+distinguent pas de zéro, et aucun effet dimensionnel n'est établi chez
+les adolescents. Le volet dimensionnel de l'hypothèse H2 est ainsi
+validé, l'effet des transferts étant tout sauf uniforme entre
+dimensions, et la lecture par âge ajoute un enseignement : le canal
+alimentaire protège aussi les plus jeunes, chez qui l'effet sur le
+nombre total de privations restait pourtant imprécis, leurs autres
+privations dominantes étant hors de portée du budget.
 
 \begin{figure}[H]
   \centering
@@ -469,18 +515,21 @@ uniforme entre dimensions.
   {\footnotesize \textbf{Source :} Calcul de l'auteur, EHCVM.}
 \end{figure}
 
-La lecture par indicateur précise l'origine de ces effets. Au sein de la
-nutrition, l'effet est porté par l'insécurité alimentaire mesurée par
-l'échelle FIES, seule composante de la dimension. Au sein du logement, le
-surpeuplement recule de 3,1 points chez les bénéficiaires, effet
-significatif au seuil de 5\,\% que la dimension agrégée masque, la
-gestion des ordures ne bougeant pas. Aucun des onze autres indicateurs ne
-présente d'écart significatif, qu'il s'agisse des composantes de l'eau, de
-la santé, de la protection ou de l'éducation. Le canal budgétaire ressort
-ainsi avec netteté : les transferts améliorent d'abord ce qui dépend de la
-dépense courante du ménage, l'alimentation au premier chef, et n'ont pas
-de prise mesurable sur les privations qui supposent une infrastructure ou
-une offre publique.
+La lecture par indicateur, conduite elle aussi par groupe d'âge, précise
+l'origine de ces effets. Au sein de la nutrition, l'effet est porté par
+l'insécurité alimentaire mesurée par l'échelle FIES, seule composante de
+la dimension. Au sein du logement des 5-14 ans, le surpeuplement recule
+de 4,0 points chez les bénéficiaires, effet significatif au seuil de
+1\,\% que la dimension agrégée masque, la gestion des ordures ne
+bougeant pas. Chez les adolescents, seule la source d'eau non améliorée
+recule, de 11,8 points au seuil de 10\,\%, coefficient isolé qu'un
+effectif de deux cent cinquante-sept observations invite à ne pas
+surinterpréter. Aucun autre indicateur ne présente d'écart significatif
+dans aucun groupe. Le canal budgétaire ressort ainsi avec netteté : les
+transferts améliorent d'abord ce qui dépend de la dépense courante du
+ménage, l'alimentation au premier chef, et n'ont pas de prise mesurable
+sur les privations qui supposent une infrastructure ou une offre
+publique.
 
 \subsection{Hétérogénéité des effets}
 
@@ -521,25 +570,27 @@ des témoins appariés de son groupe d'âge. Le tableau
   \caption{Hétérogénéité de l'ATT selon le montant annuel des transferts}
   \label{tab:hetero_montant}
   \nozebre
-  \begin{tabular}{|l|c|c|}
+  \begin{tabular}{|l|c|c|c|}
     \hline
-\entete Quintile de montant & 0-4 ans & 5-14 ans \\
+\entete Quintile de montant & 0-4 ans & 5-14 ans & 15-17 ans \\
     \hline
-    Q1 (5\,000 à 180\,000 FCFA)        & \makecell{$0{,}554^{*}$\\$(0{,}318)$}  & \makecell{$0{,}353$\\$(0{,}224)$} \\ \hline
-    Q2 (195\,000 à 720\,000)           & \makecell{$0{,}458$\\$(0{,}292)$}      & \makecell{$0{,}392$\\$(0{,}253)$} \\ \hline
-    Q3 (745\,000 à 1\,200\,000)        & \makecell{-$0{,}367^{*}$\\$(0{,}202)$} & \makecell{-$0{,}106$\\$(0{,}302)$} \\ \hline
-    Q4 (1\,250\,000 à 2\,400\,000)     & \makecell{-$0{,}607^{***}$\\$(0{,}182)$} & \makecell{-$0{,}890^{***}$\\$(0{,}133)$} \\ \hline
-    Q5 (2\,490\,000 à 8\,400\,000)     & \makecell{-$0{,}752^{***}$\\$(0{,}199)$} & \makecell{-$0{,}599^{**}$\\$(0{,}233)$} \\
+    Q1 (5\,000 à 180\,000 FCFA)        & \makecell{$0{,}554^{*}$\\$(0{,}318)$}  & \makecell{$0{,}353$\\$(0{,}224)$} & \makecell{-$0{,}192$\\$(0{,}854)$} \\ \hline
+    Q2 (195\,000 à 720\,000)           & \makecell{$0{,}458$\\$(0{,}292)$}      & \makecell{$0{,}392$\\$(0{,}253)$} & \makecell{$0{,}758$\\$(0{,}563)$} \\ \hline
+    Q3 (745\,000 à 1\,200\,000)        & \makecell{-$0{,}367^{*}$\\$(0{,}202)$} & \makecell{-$0{,}106$\\$(0{,}302)$} & \makecell{$0{,}308$\\$(0{,}475)$} \\ \hline
+    Q4 (1\,250\,000 à 2\,400\,000)     & \makecell{-$0{,}607^{***}$\\$(0{,}182)$} & \makecell{-$0{,}890^{***}$\\$(0{,}133)$} & \makecell{-$0{,}242$\\$(0{,}588)$} \\ \hline
+    Q5 (2\,490\,000 à 8\,400\,000)     & \makecell{-$0{,}752^{***}$\\$(0{,}199)$} & \makecell{-$0{,}599^{**}$\\$(0{,}233)$} & \makecell{-$0{,}109$\\$(0{,}593)$} \\
     \hline
   \end{tabular}
 
   {\footnotesize \textbf{Source :} Calcul de l'auteur, EHCVM. Écarts-types
   clusterisés par grappe entre parenthèses. $^{*}p<0{,}10$,
-  $^{**}p<0{,}05$, $^{***}p<0{,}01$. Le groupe des 15-17 ans est écarté,
-  chaque quintile y comptant moins de dix enfants traités.}
+  $^{**}p<0{,}05$, $^{***}p<0{,}01$. Chaque quintile des 15-17 ans compte
+  moins de dix enfants traités.}
 \end{table}
 
-Le gradient est net et de même forme dans les deux groupes d'âge : les
+Le gradient est net et de même forme dans les deux premiers groupes
+d'âge, tandis que chez les adolescents aucun quintile ne se distingue,
+chacun reposant sur moins de dix enfants traités : les
 deux premiers quintiles, jusqu'à environ sept cent mille francs par an,
 présentent des coefficients positifs, dont un seul atteint le seuil de
 10\,\%, tandis que l'effet protecteur se concentre entièrement dans la
