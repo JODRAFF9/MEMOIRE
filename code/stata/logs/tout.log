@@ -2882,7 +2882,8 @@ Enfants sans score de propension (ecartes) : 64
   Coefficient de chevauchement : 0.413
 
 . 
-. /* (v) Densites du score, par groupe d'age, AVANT appariement */
+. /* (v) Densites du score, AVANT appariement : un graphique distinct par
+>    groupe d'age, exporte separement (pas de combinaison de cadres) */
 . set dp comma
 
 . forvalues g = 1/3 {
@@ -2892,24 +2893,16 @@ Enfants sans score de propension (ecartes) : 64
 >          lcolor(gs9) lwidth(medthick)) ///
 >         (kdensity pscore if D == 1 & grp_psm == `g', ///
 >          lcolor(orange) lwidth(medthick)), ///
->         legend(off) ///
+>         legend(order(1 "Non bénéficiaires" 2 "Bénéficiaires") ///
+>                position(6) rows(1) size(small)) ///
 >         xtitle("Score de propension") ytitle("Densité") ///
 >         xlabel(, format(%3.1f)) ///
->         title("`titg'", size(medium)) ///
->         graphregion(color(white)) plotregion(color(white)) ///
->         name(ov`g', replace)
-  4. }
-
-. graph combine ov1 ov2 ov3, rows(1) ///
->     note("Gris : non bénéficiaires ; orange : bénéficiaires", size(small)) ///
->     graphregion(color(white)) ///
->     saving("$OUTPUT/overlap_groupes.gph", replace)
-file code/stata/output/overlap_groupes.gph saved
-
-. graph export "$OUTPUT/figures/fig_overlap_groupes.pdf", replace
-file code/stata/output/figures/fig_overlap_groupes.pdf saved as PDF format
-
-. graph drop ov1 ov2 ov3
+>         graphregion(color(white)) plotregion(color(white))
+  4.     graph export "$OUTPUT/figures/fig_overlap_avant_g`g'.pdf", replace
+  5. }
+file code/stata/output/figures/fig_overlap_avant_g1.pdf saved as PDF format
+file code/stata/output/figures/fig_overlap_avant_g2.pdf saved as PDF format
+file code/stata/output/figures/fig_overlap_avant_g3.pdf saved as PDF format
 
 . 
 . /* Densite d'ensemble (tous groupes confondus), conservee pour la
@@ -4541,6 +4534,7 @@ file code/stata/temp/poids_caliper.dta saved
   dont traites : 2228
 
 . 
+. /* Un graphique distinct par groupe d'age, exporte separement */
 . set dp comma
 
 . forvalues g = 1/3 {
@@ -4550,27 +4544,21 @@ file code/stata/temp/poids_caliper.dta saved
 >          lcolor(gs9) lwidth(medthick)) ///
 >         (kdensity pscore if D == 1 & grp_psm == `g' [aw=$POIDS_PRINCIPAL], ///
 >          lcolor(orange) lwidth(medthick)), ///
->         legend(off) ///
+>         legend(order(1 "Non bénéficiaires (pondérés)" 2 "Bénéficiaires") ///
+>                position(6) rows(1) size(small)) ///
 >         xtitle("Score de propension") ytitle("Densité") ///
 >         xlabel(, format(%3.1f)) ///
->         title("`titg'", size(medium)) ///
->         graphregion(color(white)) plotregion(color(white)) ///
->         name(ova`g', replace)
-  4. }
-
-. graph combine ova1 ova2 ova3, rows(1) ///
->     note("Gris : non bénéficiaires (pondérés par l'appariement) ; orange : bénéficiaires", size(small)) ///
->     graphregion(color(white))
+>         graphregion(color(white)) plotregion(color(white))
+  4.     graph export "$OUTPUT/figures/fig_overlap_apres_g`g'.pdf", replace
+  5. }
+file code/stata/output/figures/fig_overlap_apres_g1.pdf saved as PDF format
+file code/stata/output/figures/fig_overlap_apres_g2.pdf saved as PDF format
+file code/stata/output/figures/fig_overlap_apres_g3.pdf saved as PDF format
 
 . set dp period
 
-. graph export "$OUTPUT/figures/fig_overlap_apres.pdf", replace
-file code/stata/output/figures/fig_overlap_apres.pdf saved as PDF format
-
-. graph drop ova1 ova2 ova3
-
-. di "  >>> fig_overlap_apres.pdf sauvegarde (trois panneaux, un par groupe)"
-  >>> fig_overlap_apres.pdf sauvegarde (trois panneaux, un par groupe)
+. di "  >>> fig_overlap_apres_g1 a g3 sauvegardes (un par groupe)"
+  >>> fig_overlap_apres_g1 a g3 sauvegardes (un par groupe)
 
 . di "      Les resultats des deux autres methodes restent presentes"
       Les resultats des deux autres methodes restent presentes
@@ -5015,6 +5003,89 @@ Group variable: D (Traitement : transfert de migrant recu (1=oui))
   educ : assai= 14.4 eau=  6.0 logem= 15.0 nutri= 17.2 sante= 23.0 protect= 16.5 educ= 23.1
 
 . 
+. /* Chevauchement tridimensionnel : les trois dimensions du cadre de vie
+>    les plus liees (logement, nutrition, assainissement ; la sante, quasi
+>    universelle, ne discrimine pas). Les huit regions du diagramme :
+>    combo3 = 4*logement + 2*nutrition + assainissement, de 0 (aucune des
+>    trois) a 7 (les trois a la fois). */
+. di _newline "=== Chevauchement tridimensionnel logement x nutrition x assainissement ==="
+
+=== Chevauchement tridimensionnel logement x nutrition x assainissement ===
+
+. forvalues tt = 0/1 {
+  2.     quietly gen byte combo3 = 4*dim_logem + 2*dim_nutri + dim_assai ///
+>         if t == `tt' & !missing(dim_logem) & !missing(dim_nutri) & !missing(dim_assai)
+  3.     label define combo3lbl 0 "aucune des trois" 1 "assainissement seul" ///
+>         2 "nutrition seule" 3 "nutrition et assainissement" ///
+>         4 "logement seul" 5 "logement et assainissement" ///
+>         6 "logement et nutrition" 7 "les trois a la fois", replace
+  4.     label values combo3 combo3lbl
+  5.     di "  -- edition t=`tt' --"
+  6.     tab combo3
+  7.     quietly drop combo3
+  8. }
+  -- edition t=0 --
+
+                     combo3 |      Freq.     Percent        Cum.
+----------------------------+-----------------------------------
+           aucune des trois |      1,232        9.12        9.12
+        assainissement seul |        444        3.29       12.40
+            nutrition seule |      1,215        8.99       21.40
+nutrition et assainissement |      1,055        7.81       29.21
+              logement seul |      1,032        7.64       36.84
+ logement et assainissement |        925        6.85       43.69
+      logement et nutrition |      2,280       16.88       60.57
+        les trois a la fois |      5,328       39.43      100.00
+----------------------------+-----------------------------------
+                      Total |     13,511      100.00
+  -- edition t=1 --
+
+                     combo3 |      Freq.     Percent        Cum.
+----------------------------+-----------------------------------
+           aucune des trois |      1,899       14.06       14.06
+        assainissement seul |        687        5.08       19.14
+            nutrition seule |      1,768       13.09       32.23
+nutrition et assainissement |      1,448       10.72       42.94
+              logement seul |        961        7.11       50.06
+ logement et assainissement |      1,023        7.57       57.63
+      logement et nutrition |      1,657       12.26       69.89
+        les trois a la fois |      4,068       30.11      100.00
+----------------------------+-----------------------------------
+                      Total |     13,511      100.00
+
+. 
+. /* Privation dans une dimension et dans k autres (decomposition MODA) :
+>    pour chaque dimension, part des enfants prives dans cette dimension et
+>    dans exactement k autres, en % de l'ensemble des enfants. La somme de
+>    la colonne redonne le taux de privation de la dimension. */
+. di _newline "=== Privation dans une dimension et dans k autres (%, edition 2018) ==="
+
+=== Privation dans une dimension et dans k autres (%, edition 2018) ===
+
+. quietly gen byte tot7 = dim_assai + dim_eau + dim_logem + dim_nutri + ///
+>     dim_sante + dim_protect + dim_educ
+
+. foreach d1 of local dims_ov {
+  2.     quietly count if t == 0 & !missing(tot7)
+  3.     local nn = r(N)
+  4.     local ligne "  `d1' :"
+  5.     forvalues k = 0/6 {
+  6.         quietly count if t == 0 & dim_`d1' == 1 & tot7 - dim_`d1' == `k'
+  7.         local ligne "`ligne' +`k'=`: display %5.1f 100*r(N)/`nn''"
+  8.     }
+  9.     di "`ligne'"
+ 10. }
+  assai : +0=  0.1 +1=  1.5 +2=  6.3 +3= 14.2 +4= 17.9 +5= 13.1 +6=  4.2
+  eau : +0=  0.0 +1=  0.3 +2=  1.5 +3=  3.5 +4=  7.1 +5=  8.3 +6=  4.2
+  logem : +0=  0.1 +1=  3.2 +2= 10.6 +3= 18.8 +4= 20.4 +5= 13.4 +6=  4.2
+  nutri : +0=  0.2 +1=  4.5 +2= 11.9 +3= 19.0 +4= 20.0 +5= 13.3 +6=  4.2
+  sante : +0=  4.8 +1= 11.4 +2= 18.8 +3= 23.1 +4= 22.1 +5= 13.8 +6=  4.2
+  protect : +0=  0.2 +1=  2.1 +2=  5.1 +3=  9.4 +4= 15.6 +5= 12.6 +6=  4.2
+  educ : +0=  0.1 +1=  0.7 +2=  2.7 +3=  4.8 +4=  7.5 +5=  8.1 +6=  4.2
+
+. quietly drop tot7
+
+. 
 . di _newline "=== Enchassement : parmi les prives d'une dimension, part cumulant >=4 privations ==="
 
 === Enchassement : parmi les prives d'une dimension, part cumulant >=4 privations ===
@@ -5456,95 +5527,11 @@ Linear regression                               Number of obs     =        257
 >    moderateur est examine par groupe d'age, seuls perimetre ou l'ATT a
 >    une interpretation, avec le test d'interaction correspondant. */
 . 
-. di _newline "=== Heterogeneite par milieu (niveaux 2021, par groupe d'age) ==="
-
-=== Heterogeneite par milieu (niveaux 2021, par groupe d'age) ===
-
-. gen byte urban = (milieu == 1)
-
-. forvalues g = 1/3 {
-  2.     local titg : label grp `g'
-  3.     di _newline "-- `titg' --"
-  4.     foreach mil in 1 0 {
-  5.         local lab_mil = cond(`mil' == 1, "Urbain", "Rural ")
-  6.         quietly count if urban == `mil' & groupe_base == `g' & D == 1
-  7.         if r(N) > 30 {
-  8.             quietly regress nb_dep i.D [aw=$POIDS_PRINCIPAL] ///
->                 if urban == `mil' & groupe_base == `g', vce(cluster grappe)
-  9.             di "  `lab_mil' : ATT = " %8.4f _b[1.D] "  SE = " %8.4f _se[1.D] ///
->                "  p = " %6.4f 2*ttail(e(df_r), abs(_b[1.D]/_se[1.D]))
- 10.         }
- 11.         else di "  `lab_mil' : effectif traite insuffisant (n=" r(N) ")"
- 12.     }
- 13.     quietly regress nb_dep i.D##i.urban [aw=$POIDS_PRINCIPAL] ///
->         if groupe_base == `g', vce(cluster grappe)
- 14.     quietly lincom 1.D#1.urban
- 15.     di "  Diff ATT (urbain - rural) : " %8.4f r(estimate) "  p = " %6.4f r(p)
- 16. }
-
--- 0-4 ans --
-  Urbain : ATT =  -0.1526  SE =   0.1295  p = 0.2399
-  Rural  : ATT =  -0.1021  SE =   0.1894  p = 0.5903
-  Diff ATT (urbain - rural) :  -0.0504  p = 0.8260
-
--- 5-14 ans --
-  Urbain : ATT =  -0.1829  SE =   0.1243  p = 0.1422
-  Rural  : ATT =  -0.2034  SE =   0.1732  p = 0.2413
-  Diff ATT (urbain - rural) :   0.0205  p = 0.9234
-
--- 15-17 ans --
-  Urbain : effectif traite insuffisant (n=20)
-  Rural  : effectif traite insuffisant (n=15)
-  Diff ATT (urbain - rural) :   0.0214  p = 0.9717
-
-. drop urban
-
-. 
-. /* -- Par genre du chef de menage (hgender : 1 homme, 2 femme) -- */
-. di _newline "=== Heterogeneite par genre du chef (niveaux 2021, par groupe d'age) ==="
-
-=== Heterogeneite par genre du chef (niveaux 2021, par groupe d'age) ===
-
-. gen byte chef_fem = (hgender == 2) if !missing(hgender)
-
-. forvalues g = 1/3 {
-  2.     local titg : label grp `g'
-  3.     di _newline "-- `titg' --"
-  4.     foreach h in 0 1 {
-  5.         local lab_h = cond(`h' == 0, "Chef homme", "Chef femme")
-  6.         quietly count if chef_fem == `h' & groupe_base == `g' & D == 1
-  7.         if r(N) > 30 {
-  8.             quietly regress nb_dep i.D [aw=$POIDS_PRINCIPAL] ///
->                 if chef_fem == `h' & groupe_base == `g', vce(cluster grappe)
-  9.             di "  `lab_h' : ATT = " %8.4f _b[1.D] "  SE = " %8.4f _se[1.D] ///
->                "  p = " %6.4f 2*ttail(e(df_r), abs(_b[1.D]/_se[1.D]))
- 10.         }
- 11.         else di "  `lab_h' : effectif traite insuffisant (n=" r(N) ")"
- 12.     }
- 13.     quietly regress nb_dep i.D##i.chef_fem [aw=$POIDS_PRINCIPAL] ///
->         if groupe_base == `g', vce(cluster grappe)
- 14.     quietly lincom 1.D#1.chef_fem
- 15.     di "  Diff ATT (chef femme - chef homme) : " %8.4f r(estimate) ///
->        "  p = " %6.4f r(p)
- 16. }
-
--- 0-4 ans --
-  Chef homme : ATT =  -0.1341  SE =   0.1525  p = 0.3794
-  Chef femme : ATT =  -0.1280  SE =   0.1983  p = 0.5191
-  Diff ATT (chef femme - chef homme) :   0.0061  p = 0.9801
-
--- 5-14 ans --
-  Chef homme : ATT =  -0.1528  SE =   0.1462  p = 0.2966
-  Chef femme : ATT =  -0.2842  SE =   0.1426  p = 0.0470
-  Diff ATT (chef femme - chef homme) :  -0.1314  p = 0.5157
-
--- 15-17 ans --
-  Chef homme : effectif traite insuffisant (n=24)
-  Chef femme : effectif traite insuffisant (n=11)
-  Diff ATT (chef femme - chef homme) :  -0.1168  p = 0.8668
-
-. drop chef_fem
-
+. /* Le milieu de residence et le genre du chef figurent parmi les
+>    covariables du score de propension : l'appariement les equilibre entre
+>    traites et temoins, et aucune heterogeneite n'est examinee selon ces
+>    variables. L'heterogeneite porte sur les dimensions, les indicateurs
+>    et le montant recu, chacun par groupe d'age. */
 . 
 . /* Les trois ATT par groupe d'age sont-ils egaux ? Le test ne compare pas
 >    des niveaux de nb_dep entre grilles, mais des ECARTS traites-temoins :
@@ -5676,16 +5663,17 @@ file C:\Users\Bmd\AppData\Local\Temp\ST_4a78_000015.tmp saved as .dta format
   4.     forvalues q = 1/5 {
   5.         quietly count if q_montant == `q' & groupe_base == `g' & ///
 >             !missing($POIDS_PRINCIPAL)
-  6.         if r(N) > 30 {
-  7.             quietly regress nb_dep i.D [aw=$POIDS_PRINCIPAL] ///
+  6.         local n_tr = r(N)
+  7.         if `n_tr' > 1 {
+  8.             quietly regress nb_dep i.D [aw=$POIDS_PRINCIPAL] ///
 >                 if (D == 0 | q_montant == `q') & groupe_base == `g', ///
 >                 vce(cluster grappe)
-  8.             di "  Q`q' : ATT = " %8.4f _b[1.D] "  SE = " %8.4f _se[1.D] ///
+  9.             di "  Q`q' : ATT = " %8.4f _b[1.D] "  SE = " %8.4f _se[1.D] ///
 >                "  p = " %6.4f 2*ttail(e(df_r), abs(_b[1.D]/_se[1.D]))
-  9.         }
- 10.         else di "  Q`q' : effectif traite insuffisant (n=" r(N) ")"
- 11.     }
- 12. }
+ 10.         }
+ 11.         else di "  Q`q' : effectif traite insuffisant (n=" `n_tr' ")"
+ 12.     }
+ 13. }
 
 -- 0-4 ans --
   Q1 : ATT =   0.5538  SE =   0.3175  p = 0.0816
@@ -5702,40 +5690,13 @@ file C:\Users\Bmd\AppData\Local\Temp\ST_4a78_000015.tmp saved as .dta format
   Q5 : ATT =  -0.5985  SE =   0.2328  p = 0.0104
 
 -- 15-17 ans --
-  Q1 : effectif traite insuffisant (n=4)
-  Q2 : effectif traite insuffisant (n=5)
-  Q3 : effectif traite insuffisant (n=4)
-  Q4 : effectif traite insuffisant (n=5)
-  Q5 : effectif traite insuffisant (n=3)
+  Q1 : ATT =  -0.1922  SE =   0.8542  p = 0.8223
+  Q2 : ATT =   0.7578  SE =   0.5632  p = 0.1804
+  Q3 : ATT =   0.3078  SE =   0.4747  p = 0.5177
+  Q4 : ATT =  -0.2422  SE =   0.5882  p = 0.6811
+  Q5 : ATT =  -0.1089  SE =   0.5925  p = 0.8545
 
 . 
-. /* Test continu : le nombre de privations de 2021 varie-t-il avec le
->    logarithme du montant chez les traites ? Plus puissant que la
->    comparaison par quintiles, qui decoupe l'information. */
-. di _newline "Effet dose-reponse (montant en logarithme, enfants traites) :"
-
-Effet dose-reponse (montant en logarithme, enfants traites) :
-
-. quietly gen double log_montant = log(montant_transf) if montant_transf > 0
-
-. forvalues g = 1/3 {
-  2.     local titg : label grp `g'
-  3.     quietly count if D == 1 & !missing(log_montant) & groupe_base == `g'
-  4.     if r(N) > 30 {
-  5.         quietly regress nb_dep c.log_montant [aw=$POIDS_PRINCIPAL] ///
->             if D == 1 & groupe_base == `g', vce(cluster grappe)
-  6.         di "  `titg' : pente = " %8.4f _b[log_montant] ///
->            "  SE = " %8.4f _se[log_montant] ///
->            "  p = " %6.4f 2*ttail(e(df_r), abs(_b[log_montant]/_se[log_montant]))
-  7.     }
-  8.     else di "  `titg' : effectif insuffisant (n=" r(N) ")"
-  9. }
-  0-4 ans : pente =  -0.3121  SE =   0.0732  p = 0.0000
-  5-14 ans : pente =  -0.2732  SE =   0.0557  p = 0.0000
-  15-17 ans : effectif insuffisant (n=21)
-
-. drop log_montant
-
 . 
 . /* ============================================================
 >    7. Robustesse
@@ -6772,15 +6733,15 @@ Number of observations (_N) was 0, now 2.
 >        (connected H_benef annee, lcolor(orange) mcolor(orange) msymbol(circle) ///
 >         lwidth(medthick) mlabel(lbl_b) mlabcolor(black) mlabpos(12) ///
 >         mlabgap(2) mlabsize(small)), ///
->     xlabel(2018 2021) xscale(range(2017.7 2021.3)) xtitle("Édition EHCVM") ///
->     ytitle("Incidence de pauvreté multidimensionnelle H (%)") ///
->     ylabel(40(5)70, grid) yscale(range(38 72)) ///
->     legend(order(1 "Non-bénéficiaires" 2 "Bénéficiaires") pos(6) rows(1)) ///
+>     xlabel(2018 2021, labsize(medlarge)) xscale(range(2017.7 2021.3)) ///
+>     xtitle("Édition EHCVM", size(medlarge)) ///
+>     ytitle("Incidence de pauvreté multidimensionnelle H (%)", size(medlarge) margin(right)) ///
+>     ylabel(40(5)70, grid angle(0) labsize(medlarge)) yscale(range(38 72)) ///
+>     legend(order(1 "Non-bénéficiaires" 2 "Bénéficiaires") pos(6) rows(1) ///
+>            size(medium) symxsize(8) colgap(6)) ///
 >     graphregion(color(white)) plotregion(color(white))
 
 . set dp period
-
-. graph display, scale(1.35)   /* texte agrandi pour la projection */
 
 . graph export "$OUTPUT/figures/fig_evolution_ipm.pdf", replace
 file code/stata/output/figures/fig_evolution_ipm.pdf saved as PDF format
@@ -6845,14 +6806,15 @@ Number of observations (_N) was 0, now 8.
 >     (scatter pct_2021 x_2021, msymbol(none) mlabel(lbl_21) ///
 >      mlabpos(12) mlabcolor(black) mlabsize(vsmall)) ///
 >     , xline(4.5, lcolor(red) lpattern(dash) lwidth(medthick)) ///
->     xlabel(0(1)7) xtitle("Nombre de dimensions en privation (sur 7)") ///
->     ylabel(0(5)30, grid) ytitle("Part des enfants (%)") ///
->     legend(order(1 "EHCVM I (2018-19)" 2 "EHCVM II (2021-22)") pos(6) rows(1)) ///
+>     xlabel(0(1)7, labsize(medlarge)) ///
+>     xtitle("Nombre de dimensions en privation (sur 7)", size(medlarge)) ///
+>     ylabel(0(5)30, grid angle(0) labsize(medlarge)) ///
+>     ytitle("Part des enfants (%)", size(medlarge) margin(right)) ///
+>     legend(order(1 "EHCVM I (2018-19)" 2 "EHCVM II (2021-22)") pos(6) ///
+>            rows(1) size(medium) symxsize(8) colgap(6)) ///
 >     graphregion(color(white)) plotregion(color(white))
 
 . set dp period
-
-. graph display, scale(1.35)   /* texte agrandi pour la projection */
 
 . graph export "$OUTPUT/figures/fig_distrib_dimensions.pdf", replace
 file code/stata/output/figures/fig_distrib_dimensions.pdf saved as PDF format
@@ -7232,53 +7194,113 @@ file C:\Users\Bmd\AppData\Local\Temp\ST_4a78_00001a.tmp saved as .dta format
 
 . 
 . /* ── ATT par dimension, trois methodes d'appariement ───────────
->    Verifie que la lecture dimensionnelle ne depend pas de l'algorithme. */
+>    Comme toute l'heterogeneite, la lecture dimensionnelle est conduite
+>    par groupe d'age : trois sorties par dimension et par methode. Une
+>    dimension sans variance dans un groupe (education des 0-4 ans, nulle
+>    par construction) est signalee plutot qu'estimee. */
 . local dims assai eau logem nutri sante protect educ
 
-. di _newline "=== ATT par dimension, comparaison des trois appariements ==="
+. di _newline "=== ATT par dimension, trois appariements, par groupe d'age ==="
 
-=== ATT par dimension, comparaison des trois appariements ===
+=== ATT par dimension, trois appariements, par groupe d'age ===
 
 . foreach poids_var in weight_knn weight_kernel weight_caliper {
   2.     di _newline "--- `poids_var' ---"
-  3.     foreach dim of local dims {
-  4.         quietly count if !missing(`poids_var') & `poids_var' > 0
-  5.         if r(N) > 0 {
-  6.             quietly regress dim_`dim' i.D [aw=`poids_var'] ///
->                 if `poids_var' > 0, vce(cluster grappe)
-  7.             di "  dim_`dim' : ATT=" %8.4f _b[1.D] ///
->                "  SE=" %7.4f _se[1.D] ///
->                "  p=" %6.4f 2*ttail(e(df_r), abs(_b[1.D]/_se[1.D]))
-  8.         }
-  9.     }
- 10. }
+  3.     forvalues g = 1/3 {
+  4.         local titg : label grp `g'
+  5.         di "  -- `titg' --"
+  6.         foreach dim of local dims {
+  7.             quietly summarize dim_`dim' ///
+>                 if !missing(`poids_var') & `poids_var' > 0 & groupe_base == `g'
+  8.             if r(N) > 0 & r(sd) > 0 {
+  9.                 quietly regress dim_`dim' i.D [aw=`poids_var'] ///
+>                     if `poids_var' > 0 & groupe_base == `g', vce(cluster grappe)
+ 10.                 di "    dim_`dim' : ATT=" %8.4f _b[1.D] ///
+>                    "  SE=" %7.4f _se[1.D] ///
+>                    "  p=" %6.4f 2*ttail(e(df_r), abs(_b[1.D]/_se[1.D]))
+ 11.             }
+ 12.             else di "    dim_`dim' : sans variance dans ce groupe."
+ 13.         }
+ 14.     }
+ 15. }
 
 --- weight_knn ---
-  dim_assai : ATT= -0.0692  SE= 0.0361  p=0.0557
-  dim_eau : ATT= -0.0075  SE= 0.0334  p=0.8222
-  dim_logem : ATT= -0.0123  SE= 0.0386  p=0.7491
-  dim_nutri : ATT= -0.1366  SE= 0.0382  p=0.0004
-  dim_sante : ATT=  0.0070  SE= 0.0112  p=0.5335
-  dim_protect : ATT= -0.0120  SE= 0.0220  p=0.5874
-  dim_educ : ATT= -0.0002  SE= 0.0165  p=0.9892
+  -- 0-4 ans --
+    dim_assai : ATT= -0.0453  SE= 0.0437  p=0.3007
+    dim_eau : ATT= -0.0250  SE= 0.0431  p=0.5623
+    dim_logem : ATT=  0.0240  SE= 0.0473  p=0.6129
+    dim_nutri : ATT= -0.1195  SE= 0.0433  p=0.0060
+    dim_sante : ATT=  0.0107  SE= 0.0130  p=0.4125
+    dim_protect : ATT=  0.0047  SE= 0.0295  p=0.8744
+    dim_educ : sans variance dans ce groupe.
+  -- 5-14 ans --
+    dim_assai : ATT= -0.0810  SE= 0.0383  p=0.0349
+    dim_eau : ATT=  0.0038  SE= 0.0309  p=0.9017
+    dim_logem : ATT= -0.0347  SE= 0.0390  p=0.3750
+    dim_nutri : ATT= -0.1484  SE= 0.0413  p=0.0004
+    dim_sante : ATT=  0.0052  SE= 0.0126  p=0.6789
+    dim_protect : ATT= -0.0199  SE= 0.0263  p=0.4507
+    dim_educ : ATT=  0.0019  SE= 0.0254  p=0.9402
+  -- 15-17 ans --
+    dim_assai : ATT= -0.1000  SE= 0.1122  p=0.3750
+    dim_eau : ATT= -0.1000  SE= 0.0758  p=0.1902
+    dim_logem : ATT=  0.1286  SE= 0.1026  p=0.2136
+    dim_nutri : ATT= -0.0143  SE= 0.1168  p=0.9029
+    dim_sante : sans variance dans ce groupe.
+    dim_protect : ATT= -0.0571  SE= 0.1119  p=0.6109
+    dim_educ : ATT= -0.0929  SE= 0.1006  p=0.3586
 
 --- weight_kernel ---
-  dim_assai : ATT= -0.0568  SE= 0.0349  p=0.1038
-  dim_eau : ATT=  0.0023  SE= 0.0322  p=0.9426
-  dim_logem : ATT=  0.0005  SE= 0.0378  p=0.9901
-  dim_nutri : ATT= -0.1259  SE= 0.0380  p=0.0010
-  dim_sante : ATT=  0.0116  SE= 0.0110  p=0.2931
-  dim_protect : ATT=  0.0070  SE= 0.0215  p=0.7455
-  dim_educ : ATT= -0.0024  SE= 0.0143  p=0.8695
+  -- 0-4 ans --
+    dim_assai : ATT= -0.0476  SE= 0.0410  p=0.2464
+    dim_eau : ATT= -0.0002  SE= 0.0375  p=0.9965
+    dim_logem : ATT=  0.0194  SE= 0.0465  p=0.6772
+    dim_nutri : ATT= -0.1103  SE= 0.0442  p=0.0129
+    dim_sante : ATT=  0.0147  SE= 0.0148  p=0.3220
+    dim_protect : ATT=  0.0099  SE= 0.0284  p=0.7272
+    dim_educ : sans variance dans ce groupe.
+  -- 5-14 ans --
+    dim_assai : ATT= -0.0613  SE= 0.0361  p=0.0894
+    dim_eau : ATT=  0.0060  SE= 0.0315  p=0.8483
+    dim_logem : ATT= -0.0125  SE= 0.0368  p=0.7338
+    dim_nutri : ATT= -0.1368  SE= 0.0395  p=0.0006
+    dim_sante : ATT=  0.0102  SE= 0.0119  p=0.3898
+    dim_protect : ATT=  0.0060  SE= 0.0238  p=0.8018
+    dim_educ : ATT= -0.0017  SE= 0.0220  p=0.9401
+  -- 15-17 ans --
+    dim_assai : ATT= -0.0668  SE= 0.1075  p=0.5352
+    dim_eau : ATT= -0.0972  SE= 0.0767  p=0.2067
+    dim_logem : ATT=  0.1306  SE= 0.1002  p=0.1941
+    dim_nutri : ATT= -0.0117  SE= 0.1132  p=0.9181
+    dim_sante : ATT=  0.0006  SE= 0.0004  p=0.1765
+    dim_protect : ATT= -0.0306  SE= 0.1097  p=0.7807
+    dim_educ : ATT= -0.0815  SE= 0.0973  p=0.4035
 
 --- weight_caliper ---
-  dim_assai : ATT= -0.0778  SE= 0.0364  p=0.0331
-  dim_eau : ATT= -0.0091  SE= 0.0347  p=0.7933
-  dim_logem : ATT= -0.0030  SE= 0.0405  p=0.9404
-  dim_nutri : ATT= -0.1334  SE= 0.0380  p=0.0005
-  dim_sante : ATT=  0.0116  SE= 0.0111  p=0.2956
-  dim_protect : ATT= -0.0116  SE= 0.0229  p=0.6148
-  dim_educ : ATT=  0.0045  SE= 0.0171  p=0.7905
+  -- 0-4 ans --
+    dim_assai : ATT= -0.0866  SE= 0.0445  p=0.0525
+    dim_eau : ATT= -0.0358  SE= 0.0448  p=0.4245
+    dim_logem : ATT=  0.0060  SE= 0.0494  p=0.9039
+    dim_nutri : ATT= -0.1418  SE= 0.0430  p=0.0011
+    dim_sante : ATT=  0.0179  SE= 0.0142  p=0.2094
+    dim_protect : ATT= -0.0045  SE= 0.0325  p=0.8905
+    dim_educ : sans variance dans ce groupe.
+  -- 5-14 ans --
+    dim_assai : ATT= -0.0728  SE= 0.0382  p=0.0569
+    dim_eau : ATT=  0.0070  SE= 0.0325  p=0.8282
+    dim_logem : ATT= -0.0110  SE= 0.0411  p=0.7897
+    dim_nutri : ATT= -0.1323  SE= 0.0408  p=0.0013
+    dim_sante : ATT=  0.0086  SE= 0.0126  p=0.4948
+    dim_protect : ATT= -0.0136  SE= 0.0260  p=0.6001
+    dim_educ : ATT=  0.0110  SE= 0.0266  p=0.6801
+  -- 15-17 ans --
+    dim_assai : ATT= -0.0938  SE= 0.1230  p=0.4492
+    dim_eau : ATT= -0.0938  SE= 0.0965  p=0.3353
+    dim_logem : ATT=  0.1250  SE= 0.1242  p=0.3183
+    dim_nutri : ATT=  0.0000  SE= 0.1310  p=1.0000
+    dim_sante : sans variance dans ce groupe.
+    dim_protect : ATT= -0.0938  SE= 0.1252  p=0.4569
+    dim_educ : ATT= -0.1563  SE= 0.1162  p=0.1841
 
 . 
 . if "$POIDS_PRINCIPAL" == "" | "$POIDS_PRINCIPAL" == "weight_" {
@@ -7291,210 +7313,223 @@ file C:\Users\Bmd\AppData\Local\Temp\ST_4a78_00001a.tmp saved as .dta format
 (8 observations deleted)
 
 . 
-. /* ATT en niveaux de 2021 pour chaque dimension (poids d'appariement PSM
->    uniquement, pas de poids d'enquete ; erreurs-types clusterisees grappe) */
+. /* ATT en niveaux de 2021 pour chaque dimension et chaque groupe d'age
+>    (poids d'appariement PSM uniquement ; erreurs-types clusterisees
+>    grappe). Les estimations alimentent le graphique a trois panneaux. */
 . local dims    assai eau logem nutri sante protect educ
 
 . local n_dims  7
 
 . 
-. matrix ATT  = J(`n_dims', 1, .)
+. tempname postdim
 
-. matrix LB   = J(`n_dims', 1, .)
+. tempfile dimres
 
-. matrix UB   = J(`n_dims', 1, .)
+. postfile `postdim' byte g byte idim double att lb ub using `dimres'
+
+. di _newline "=== ATT par dimension, methode retenue ($METHODE), par groupe ==="
+
+=== ATT par dimension, methode retenue (kernel), par groupe ===
+
+. forvalues g = 1/3 {
+  2.     local titg : label grp `g'
+  3.     di "  -- `titg' --"
+  4.     local i = 0
+  5.     foreach dim of local dims {
+  6.         local ++i
+  7.         quietly summarize dim_`dim' if groupe_base == `g'
+  8.         if r(N) > 0 & r(sd) > 0 {
+  9.             quietly regress dim_`dim' i.D [aw=$POIDS_PRINCIPAL] ///
+>                 if groupe_base == `g', vce(cluster grappe)
+ 10.             post `postdim' (`g') (`i') (_b[1.D]) ///
+>                 (_b[1.D] - 1.96*_se[1.D]) (_b[1.D] + 1.96*_se[1.D])
+ 11.             di "    dim_`dim' : ATT=" %8.4f _b[1.D] "  SE=" %7.4f _se[1.D] ///
+>                "  p=" %6.4f 2*ttail(e(df_r), abs(_b[1.D]/_se[1.D]))
+ 12.         }
+ 13.         else {
+ 14.             post `postdim' (`g') (`i') (.) (.) (.)
+ 15.             di "    dim_`dim' : sans variance dans ce groupe."
+ 16.         }
+ 17.     }
+ 18. }
+  -- 0-4 ans --
+    dim_assai : ATT= -0.0476  SE= 0.0410  p=0.2464
+    dim_eau : ATT= -0.0002  SE= 0.0375  p=0.9965
+    dim_logem : ATT=  0.0194  SE= 0.0465  p=0.6772
+    dim_nutri : ATT= -0.1103  SE= 0.0442  p=0.0129
+    dim_sante : ATT=  0.0147  SE= 0.0148  p=0.3220
+    dim_protect : ATT=  0.0099  SE= 0.0284  p=0.7272
+    dim_educ : sans variance dans ce groupe.
+  -- 5-14 ans --
+    dim_assai : ATT= -0.0613  SE= 0.0361  p=0.0894
+    dim_eau : ATT=  0.0060  SE= 0.0315  p=0.8483
+    dim_logem : ATT= -0.0125  SE= 0.0368  p=0.7338
+    dim_nutri : ATT= -0.1368  SE= 0.0395  p=0.0006
+    dim_sante : ATT=  0.0102  SE= 0.0119  p=0.3898
+    dim_protect : ATT=  0.0060  SE= 0.0238  p=0.8018
+    dim_educ : ATT= -0.0017  SE= 0.0220  p=0.9401
+  -- 15-17 ans --
+    dim_assai : ATT= -0.0668  SE= 0.1075  p=0.5352
+    dim_eau : ATT= -0.0972  SE= 0.0767  p=0.2067
+    dim_logem : ATT=  0.1306  SE= 0.1002  p=0.1941
+    dim_nutri : ATT= -0.0117  SE= 0.1132  p=0.9181
+    dim_sante : ATT=  0.0006  SE= 0.0004  p=0.1765
+    dim_protect : ATT= -0.0306  SE= 0.1097  p=0.7807
+    dim_educ : ATT= -0.0815  SE= 0.0973  p=0.4035
+
+. postclose `postdim'
 
 . 
-. local i = 0
-
-. foreach dim of local dims {
-  2.     local ++i
-  3.     quietly regress dim_`dim' i.D [aw=$POIDS_PRINCIPAL], vce(cluster grappe)
-  4.     matrix ATT[`i',1] = _b[1.D]
-  5.     matrix LB[`i',1]  = _b[1.D] - 1.96*_se[1.D]
-  6.     matrix UB[`i',1]  = _b[1.D] + 1.96*_se[1.D]
-  7.     di "  dim_`dim' : ATT=" %8.4f _b[1.D] "  SE=" %7.4f _se[1.D] ///
->        "  p=" %6.4f 2*ttail(e(df_r), abs(_b[1.D]/_se[1.D]))
-  8. }
-  dim_assai : ATT= -0.0568  SE= 0.0349  p=0.1038
-  dim_eau : ATT=  0.0023  SE= 0.0322  p=0.9426
-  dim_logem : ATT=  0.0005  SE= 0.0378  p=0.9901
-  dim_nutri : ATT= -0.1259  SE= 0.0380  p=0.0010
-  dim_sante : ATT=  0.0116  SE= 0.0110  p=0.2931
-  dim_protect : ATT=  0.0070  SE= 0.0215  p=0.7455
-  dim_educ : ATT= -0.0024  SE= 0.0143  p=0.8695
-
-. 
-. /* ── ATT par INDICATEUR ──────────────────────────────────────
+. /* ── ATT par INDICATEUR, par groupe d'age ────────────────────
 >    La dimension agrege ses indicateurs par la regle de l'union : elle
 >    passe a 1 des qu'un seul indicateur est positif. Un effet nul sur la
 >    dimension peut donc masquer deux mouvements de sens contraire, et un
 >    effet significatif ne dit pas lequel des indicateurs le porte.
->    L'estimation est reprise indicateur par indicateur, sur le meme panel
->    apparie et avec la meme specification. Chaque indicateur n'est defini
->    que sur les groupes d'age auxquels il s'applique : la regression porte
->    sur les enfants pour lesquels il n'est pas manquant, et l'effectif
->    affiche permet de le verifier. */
+>    L'estimation est reprise indicateur par indicateur, dans chaque groupe
+>    d'age, sur le meme panel apparie et avec la meme specification. Un
+>    indicateur sans variance dans un groupe est signale. */
 . 
-. di _newline "=== ATT par indicateur, niveaux 2021 ($METHODE) ==="
+. di _newline "=== ATT par indicateur, niveaux 2021 ($METHODE), par groupe ==="
 
-=== ATT par indicateur, niveaux 2021 (kernel) ===
+=== ATT par indicateur, niveaux 2021 (kernel), par groupe ===
 
-. di "  indicateur          n        ATT       SE        p"
-  indicateur          n        ATT       SE        p
+. forvalues g = 1/3 {
+  2.     local titg : label grp `g'
+  3.     di _newline "  -- `titg' --"
+  4.     di "    indicateur          n        ATT       SE        p"
+  5.     foreach ind in m_toilet m_partag_toi m_eau_source m_eau_temps ///
+>                    m_ordures m_surpeup m_securite m_combust m_sante_acces ///
+>                    m_acte_nais m_trav_enf m_scol m_alfab {
+  6.         quietly summarize `ind' if groupe_base == `g'
+  7.         local n_ind = r(N)
+  8.         if `n_ind' > 0 & r(sd) > 0 {
+  9.             quietly regress `ind' i.D [aw=$POIDS_PRINCIPAL] ///
+>                 if groupe_base == `g', vce(cluster grappe)
+ 10.             di "    " %-16s "`ind'" %8.0f `n_ind' %10.4f _b[1.D] ///
+>                %9.4f _se[1.D] %9.4f 2*ttail(e(df_r), abs(_b[1.D]/_se[1.D]))
+ 11.         }
+ 12.         else di "    " %-16s "`ind'" "   sans variance ou non renseigne."
+ 13.     }
+ 14. }
 
-. 
-. foreach ind in m_toilet m_partag_toi m_eau_source m_eau_temps ///
->                m_ordures m_surpeup m_securite m_combust m_sante_acces ///
->                m_acte_nais m_trav_enf m_scol m_alfab {
-  2.     quietly count if !missing(`ind')
-  3.     local n_ind = r(N)
-  4.     if `n_ind' > 0 {
-  5.         quietly regress `ind' i.D [aw=$POIDS_PRINCIPAL], vce(cluster grappe)
-  6.         di "  " %-16s "`ind'" %8.0f `n_ind' %10.4f _b[1.D] ///
->            %9.4f _se[1.D] %9.4f 2*ttail(e(df_r), abs(_b[1.D]/_se[1.D]))
-  7.     }
-  8.     else {
-  9.         di "  " %-16s "`ind'" "   non renseigne sur le panel"
- 10.     }
- 11. }
-  m_toilet           13503   -0.0509   0.0354   0.1510
-  m_partag_toi       12191    0.0088   0.0178   0.6207
-  m_eau_source       13503   -0.0039   0.0163   0.8101
-  m_eau_temps        13503   -0.0038   0.0297   0.8988
-  m_ordures          13503    0.0084   0.0364   0.8181
-  m_surpeup          13503   -0.0307   0.0127   0.0156
-  m_securite         13503   -0.1259   0.0380   0.0010
-  m_combust          13503    0.0028   0.0177   0.8729
-  m_sante_acces      13503   -0.0222   0.0293   0.4488
-  m_acte_nais        13503    0.0010   0.0203   0.9593
-  m_trav_enf         13503    0.0165   0.0199   0.4072
-  m_scol             13503    0.0017   0.0172   0.9208
-  m_alfab            13503   -0.0015   0.0046   0.7406
+  -- 0-4 ans --
+    indicateur          n        ATT       SE        p
+    m_toilet            4762   -0.0445   0.0416   0.2851
+    m_partag_toi        4252    0.0258   0.0228   0.2582
+    m_eau_source        4762   -0.0061   0.0223   0.7826
+    m_eau_temps         4762    0.0000   0.0331   0.9992
+    m_ordures           4762    0.0192   0.0443   0.6651
+    m_surpeup           4762   -0.0165   0.0161   0.3051
+    m_securite          4762   -0.1103   0.0442   0.0129
+    m_combust           4762    0.0080   0.0209   0.7013
+    m_sante_acces       4762   -0.0026   0.0317   0.9347
+    m_acte_nais         4762    0.0100   0.0284   0.7257
+    m_trav_enf          4762    0.0282   0.0207   0.1733
+    m_scol              4762    0.0262   0.0264   0.3207
+    m_alfab             4762   -0.0011   0.0034   0.7478
 
-. 
-. /* Construire dataset pour le graphique */
-. clear
+  -- 5-14 ans --
+    indicateur          n        ATT       SE        p
+    m_toilet            8484   -0.0541   0.0361   0.1341
+    m_partag_toi        7701   -0.0012   0.0179   0.9482
+    m_eau_source        8484    0.0000   0.0144   0.9993
+    m_eau_temps         8484   -0.0049   0.0297   0.8681
+    m_ordures           8484    0.0009   0.0359   0.9791
+    m_surpeup           8484   -0.0400   0.0126   0.0016
+    m_securite          8484   -0.1368   0.0395   0.0006
+    m_combust           8484   -0.0001   0.0189   0.9946
+    m_sante_acces       8484   -0.0330   0.0307   0.2835
+    m_acte_nais         8484   -0.0032   0.0189   0.8660
+    m_trav_enf          8484    0.0115   0.0229   0.6146
+    m_scol              8484   -0.0095   0.0183   0.6038
+    m_alfab             8484    0.0001   0.0068   0.9849
 
-. set obs `n_dims'
-Number of observations (_N) was 0, now 7.
-
-. gen ordre = _n
-
-. gen str12 dim = ""
-(7 missing values generated)
-
-. replace dim = "Assainissement" in 1
-variable dim was str12 now str14
-(1 real change made)
-
-. replace dim = "Eau"            in 2
-(1 real change made)
-
-. replace dim = "Logement"       in 3
-(1 real change made)
-
-. replace dim = "Nutrition"      in 4
-(1 real change made)
-
-. replace dim = "Santé"          in 5
-(1 real change made)
-
-. replace dim = "Protection"     in 6
-(1 real change made)
-
-. replace dim = "Éducation"      in 7
-(1 real change made)
-
-. gen att = .
-(7 missing values generated)
-
-. gen lb  = .
-(7 missing values generated)
-
-. gen ub  = .
-(7 missing values generated)
-
-. forvalues i = 1/`n_dims' {
-  2.     replace att = ATT[`i',1]*100 in `i'
-  3.     replace lb  = LB[`i',1]*100  in `i'
-  4.     replace ub  = UB[`i',1]*100  in `i'
-  5. }
-(1 real change made)
-(1 real change made)
-(1 real change made)
-(1 real change made)
-(1 real change made)
-(1 real change made)
-(1 real change made)
-(1 real change made)
-(1 real change made)
-(1 real change made)
-(1 real change made)
-(1 real change made)
-(1 real change made)
-(1 real change made)
-(1 real change made)
-(1 real change made)
-(1 real change made)
-(1 real change made)
-(1 real change made)
-(1 real change made)
-(1 real change made)
+  -- 15-17 ans --
+    indicateur          n        ATT       SE        p
+    m_toilet             257   -0.0539   0.1070   0.6153
+    m_partag_toi         238    0.0565   0.0498   0.2575
+    m_eau_source         257   -0.1183   0.0650   0.0703
+    m_eau_temps          257   -0.0380   0.0510   0.4575
+    m_ordures            257    0.0830   0.0958   0.3876
+    m_surpeup            257    0.0457   0.0400   0.2544
+    m_securite           257   -0.0117   0.1132   0.9181
+    m_combust            257    0.0128   0.0544   0.8137
+    m_sante_acces        257    0.0022   0.0637   0.9727
+    m_acte_nais          257   -0.0159   0.0461   0.7303
+    m_trav_enf           257   -0.0306   0.1097   0.7807
+    m_scol               257   -0.0620   0.0691   0.3710
+    m_alfab              257   -0.0797   0.0804   0.3229
 
 . 
-. /* Trier par ATT croissant et réaffecter le rang */
-. sort att
+. /* Graphique a trois panneaux, un par groupe d'age, ordre des dimensions
+>    fixe pour rester comparable d'un panneau a l'autre */
+. use `dimres', clear
 
-. replace ordre = _n
-(6 real changes made)
+. gen str14 dimlab = ""
+(21 missing values generated)
 
-. 
-. /* Construire les labels ylabel à partir des valeurs de dim triées */
+. replace dimlab = "Assainissement" if idim == 1
+(3 real changes made)
+
+. replace dimlab = "Eau"            if idim == 2
+(3 real changes made)
+
+. replace dimlab = "Logement"       if idim == 3
+(3 real changes made)
+
+. replace dimlab = "Nutrition"      if idim == 4
+(3 real changes made)
+
+. replace dimlab = "Santé"          if idim == 5
+(3 real changes made)
+
+. replace dimlab = "Protection"     if idim == 6
+(3 real changes made)
+
+. replace dimlab = "Éducation"      if idim == 7
+(3 real changes made)
+
+. foreach v in att lb ub {
+  2.     replace `v' = `v'*100
+  3. }
+(20 real changes made)
+(20 real changes made)
+(20 real changes made)
+
 . local ylab_str ""
 
-. forvalues i = 1/`n_dims' {
-  2.     local lbl = dim[`i']
+. forvalues i = 1/7 {
+  2.     local lbl = dimlab[`i']
   3.     local ylab_str `"`ylab_str' `i' "`lbl'""'
   4. }
 
-. 
-. /* Etiquettes de valeur (virgule decimale), placees au-dela des IC */
-. gen str8 lbl_att = subinstr(string(att, "%4.1f"), ".", ",", 1)
-
-. gen xlbl = ub + 1.2 if att >= 0
-(3 missing values generated)
-
-. replace xlbl = lb - 1.2 if att < 0
-(3 real changes made)
-
-. 
-. /* Graphique à barres horizontales avec IC 95 % */
+. /* Un graphique distinct par groupe d'age, exporte separement */
 . set dp comma
 
-. twoway ///
->     (bar att ordre, horizontal barwidth(0.6) color(gs9)) ///
->     (rcap lb ub ordre, horizontal lcolor(orange) lwidth(medthick) msize(medium)) ///
->     (scatter ordre xlbl, msymbol(none) mlabel(lbl_att) ///
->      mlabpos(0) mlabcolor(black) mlabsize(small)), ///
->     ylab(`ylab_str', angle(0) noticks) ///
->     yscale(range(0.5 7.5)) ///
->     ytitle("") xtitle("ATT (points de pourcentage)") ///
->     xlabel(, format(%4.1f)) ///
->     xline(0, lcolor(black) lpattern(dash)) ///
->     legend(off) ///
->     graphregion(color(white)) plotregion(color(white))
+. forvalues g = 1/3 {
+  2.     local titg : label grp `g'
+  3.     quietly twoway ///
+>         (bar att idim if g == `g', horizontal barwidth(0.6) color(gs9)) ///
+>         (rcap lb ub idim if g == `g', horizontal lcolor(orange) ///
+>          lwidth(medthick) msize(medium)), ///
+>         ylab(`ylab_str', angle(0) noticks) ///
+>         yscale(range(0.5 7.5)) ///
+>         ytitle("") xtitle("ATT (points de pourcentage)") ///
+>         xlabel(, format(%4.0f)) ///
+>         xline(0, lcolor(black) lpattern(dash)) ///
+>         legend(off) ///
+>         note("Barres : ATT ; segments : IC à 95 %", size(small)) ///
+>         graphregion(color(white)) plotregion(color(white))
+  4.     graph export "$OUTPUT/figures/fig_effets_dim_g`g'.pdf", replace
+  5. }
+file code/stata/output/figures/fig_effets_dim_g1.pdf saved as PDF format
+file code/stata/output/figures/fig_effets_dim_g2.pdf saved as PDF format
+file code/stata/output/figures/fig_effets_dim_g3.pdf saved as PDF format
 
-. 
 . set dp period
 
-. graph display, scale(1.35)   /* texte agrandi pour la projection */
-
-. graph export "$OUTPUT/figures/fig_effets_dim.pdf", replace
-file code/stata/output/figures/fig_effets_dim.pdf saved as PDF format
-
-. di ">>> fig_effets_dim.pdf sauvegardé dans $OUTPUT/figures/"
->>> fig_effets_dim.pdf sauvegardé dans code/stata/output/figures/
+. di ">>> fig_effets_dim_g1 a g3 sauvegardes (un par groupe)"
+>>> fig_effets_dim_g1 a g3 sauvegardes (un par groupe)
 
 . di ">>> 07_effets_dim.do terminé."
 >>> 07_effets_dim.do terminé.
@@ -7753,11 +7788,27 @@ file code/stata/output/figures/fig_dim_15_17.pdf saved as PDF format
     ok fig_distrib_dimensions.pdf
     ok fig_distrib_nbdep.pdf
     ok fig_effets_dim.pdf
+    ok fig_effets_dim_g1.pdf
+    ok fig_effets_dim_g2.pdf
+    ok fig_effets_dim_g3.pdf
     ok fig_evolution_ipm.pdf
     ok fig_overlap_apres.pdf
+    ok fig_overlap_apres_g1.pdf
+    ok fig_overlap_apres_g2.pdf
+    ok fig_overlap_apres_g3.pdf
+    ok fig_overlap_avant_g1.pdf
+    ok fig_overlap_avant_g2.pdf
+    ok fig_overlap_avant_g3.pdf
     ok fig_overlap_groupes.pdf
     ok fig_placebo_dd.pdf
     ok fig_profil_statut.pdf
+    ok fig_radar_0_4.pdf
+    ok fig_radar_15_17.pdf
+    ok fig_radar_5_14.pdf
+    ok fig_radar_ensemble.pdf
+    ok fig_venn_beneficiaires.pdf
+    ok fig_venn_ensemble.pdf
+    ok fig_venn_nonbeneficiaires.pdf
 
 . /* Graphique de support commun (a la racine de output) */
 . capture copy "$OUTPUT/overlap_panel.pdf" "latex/figures/overlap_panel.pdf", replace
