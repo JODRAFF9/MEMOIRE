@@ -884,22 +884,22 @@
         \color{white}Sous-groupe & \color{white}Non-bénéf. & \color{white}Bénéf. & \color{white}Non-bénéf. & \color{white}Bénéf. \\
         \midrule
         \rowcolor{presvert!7}
-        0-4 ans   & 60,5 & 36,7 & 62,6 & 45,7 \\
-        5-14 ans  & 70,4 & 50,8 & 59,6 & 40,7 \\
+        0-4 ans   & 56,9 & 24,5 & 47,2 & 21,7 \\
+        5-14 ans  & 71,5 & 36,5 & 61,9 & 33,2 \\
         \rowcolor{presvert!7}
-        15-17 ans & 58,1 & 59,9 & 53,5 & 44,6 \\
+        15-17 ans & 67,1 & 36,8 & 59,6 & 33,6 \\
         \midrule
-        Chef homme & 68,3 & 50,0 & 61,9 & 46,0 \\
+        Chef homme & 68,9 & 37,8 & 59,2 & 35,3 \\
         \rowcolor{presvert!7}
-        Chef femme & 59,3 & 38,7 & 54,2 & 35,6 \\
+        Chef femme & 53,3 & 22,3 & 44,0 & 18,0 \\
         \bottomrule
       \end{tabular}
 
       \smallskip
-      \bandeau{presorange}{0.95\linewidth}{L'écart se referme chez les 0-4 ans}{%
-        L'avantage des bénéficiaires passe de 23,7 à 16,9 points, tiré par la
-        nutrition. Les 15-17 ans, 441 enfants suivis, appellent une lecture
-        prudente.}
+      \bandeau{presorange}{0.95\linewidth}{Un avantage initial massif qui se resserre}{%
+        Chez les 0-4 ans, l'écart passe de 32,4 à 25,5 points : les
+        non-bénéficiaires, partis de plus haut, reculent plus vite. Les
+        15-17 ans, 441 enfants suivis, appellent une lecture prudente.}
     \end{column}
     \begin{column}{0.45\textwidth}
       \scriptsize
@@ -936,6 +936,39 @@
   \includegraphics[width=0.72\linewidth, height=0.74\textheight,
                    keepaspectratio]{figures/fig_evolution_ipm.pdf}
   {\scriptsize\color{presgris}\textit{Source :} EHCVM, calculs de l'auteur.}
+\end{frame}
+
+\begin{frame}{Profils de privation par dimension et par statut}
+  \centering
+  \includegraphics[width=0.72\linewidth,height=0.72\textheight,
+                   keepaspectratio]{figures/fig_radar_ensemble.pdf}
+
+  {\scriptsize\color{presgris}Gris : non-bénéficiaires ; orange :
+   bénéficiaires ; trait plein : EHCVM I ; pointillé : EHCVM II.
+   \textit{Source :} EHCVM, calculs de l'auteur.}
+\end{frame}
+
+\begin{frame}{Chevauchement des privations selon le statut}
+  \centering
+  \begin{columns}[T]
+    \begin{column}{0.49\textwidth}
+      \centering
+      \includegraphics[width=\linewidth,height=0.55\textheight,
+                       keepaspectratio]{figures/fig_venn_nonbeneficiaires.pdf}\\[2pt]
+      {\scriptsize\color{presgris}Non-bénéficiaires}
+    \end{column}
+    \begin{column}{0.49\textwidth}
+      \centering
+      \includegraphics[width=\linewidth,height=0.55\textheight,
+                       keepaspectratio]{figures/fig_venn_beneficiaires.pdf}\\[2pt]
+      {\scriptsize\color{presgris}Bénéficiaires stables}
+    \end{column}
+  \end{columns}
+  \smallskip
+  \bandeau{presorange}{0.93\linewidth}{Le noyau dur du cumul sépare les deux groupes}{%
+    Le triple cumul logement, nutrition et assainissement touche
+    \chiffre{43,9\,\%} des enfants de non-bénéficiaires contre
+    \chiffre{17,1\,\%} chez les bénéficiaires stables.}
 \end{frame}
 
 \subsection{Qualité de l'appariement}
@@ -1006,8 +1039,8 @@
       {\scriptsize\color{presgris}Enfants de 5 à 14 ans}
     \end{column}
     \begin{column}{0.36\textwidth}
-      \bandeau{presorange}{0.93\linewidth}{Un seul effet sectoriel significatif}{%
-    L'insécurité alimentaire est inférieure de \chiffre{$12{,}6$}~points chez les bénéficiaires, au seuil de 1\,\%, quel que soit l'algorithme. Les six autres dimensions ne bougent pas.}
+      \bandeau{presorange}{0.93\linewidth}{Un seul effet sectoriel net, dans deux groupes}{%
+    L'insécurité alimentaire est inférieure de \chiffre{$11{,}0$}~points chez les bénéficiaires de 0-4 ans (seuil de 5\,\%) et de \chiffre{$13{,}7$}~points chez les 5-14 ans (seuil de 1\,\%). Les autres dimensions ne bougent pas.}
     \end{column}
   \end{columns}
   \bandeau{presvert}{0.93\linewidth}{Lecture}{%
@@ -1048,18 +1081,18 @@
   \begin{table}
     \centering
     \renewcommand{\arraystretch}{1.15}
-    \begin{tabular}{@{}lcc@{}}
+    \begin{tabular}{@{}lccc@{}}
       \toprule
       \rowcolor{presvert!88!black}
-      \color{white}Quintile de montant annuel & \color{white}0-4 ans & \color{white}5-14 ans \\
+      \color{white}Quintile de montant annuel & \color{white}0-4 ans & \color{white}5-14 ans & \color{white}15-17 ans \\
       \midrule
-      Q1 (5\,000 à 180\,000 FCFA)     & $0{,}554^{*}$ & $0{,}353$ \\
+      Q1 (5\,000 à 180\,000 FCFA)     & $0{,}554^{*}$ & $0{,}353$ & -$0{,}192$ \\
       \rowcolor{presvert!7}
-      Q2 (195\,000 à 720\,000)        & $0{,}458$ & $0{,}392$ \\
-      Q3 (745\,000 à 1\,200\,000)     & -$0{,}367^{*}$ & -$0{,}106$ \\
+      Q2 (195\,000 à 720\,000)        & $0{,}458$ & $0{,}392$ & $0{,}758$ \\
+      Q3 (745\,000 à 1\,200\,000)     & -$0{,}367^{*}$ & -$0{,}106$ & $0{,}308$ \\
       \rowcolor{presvert!7}
-      Q4 (1\,250\,000 à 2\,400\,000)  & -$0{,}607^{***}$ & -$0{,}890^{***}$ \\
-      Q5 (2\,490\,000 à 8\,400\,000)  & -$0{,}752^{***}$ & -$0{,}599^{**}$ \\
+      Q4 (1\,250\,000 à 2\,400\,000)  & -$0{,}607^{***}$ & -$0{,}890^{***}$ & -$0{,}242$ \\
+      Q5 (2\,490\,000 à 8\,400\,000)  & -$0{,}752^{***}$ & -$0{,}599^{**}$ & -$0{,}109$ \\
       \bottomrule
     \end{tabular}
      {\scriptsize\color{presgris} $^{*}p<0{,}10$, $^{**}p<0{,}05$, $^{***}p<0{,}01$.
