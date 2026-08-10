@@ -627,6 +627,53 @@ lorsqu'elles se confondent. L'ensemble de ces indicateurs est calculé dans
 chaque groupe d'âge, avant et après appariement, pour chacun des trois
 algorithmes.
 
+\subsubsection{Test de sensibilité de Rosenbaum}
+\label{subsec:rosenbaum}
+
+Les indicateurs précédents jugent l'équilibre sur les covariables
+observées, mais ne disent rien de la sélection sur l'inobservable, contre
+laquelle l'hypothèse d'indépendance conditionnelle reste invérifiable. Le
+test de sensibilité de \textcite{rosenbaum2002} ne lève pas cette
+hypothèse~; il en mesure la fragilité, en répondant à la question
+suivante : quelle intensité de sélection cachée faudrait-il pour renverser
+la conclusion ? Le principe consiste à supposer qu'un facteur non observé
+$u_i$ influence à la fois la réception du traitement et le résultat, et à
+borner son influence sur les chances de traitement. Sous ce modèle, la
+probabilité de traitement s'écrit
+\begin{equation}
+  P(D_i = 1 \mid x_i, u_i) = \frac{\exp\left(\kappa(x_i) + \gamma u_i\right)}
+        {1 + \exp\left(\kappa(x_i) + \gamma u_i\right)},
+  \qquad u_i \in [0~;~1],
+  \label{eq:rosenbaum_modele}
+\end{equation}
+où $\kappa$ capte l'effet des covariables observées et $\gamma$ celui du
+facteur caché. Pour deux enfants $i$ et $j$ appariés sur les mêmes
+covariables observées, le rapport de leurs cotes de traitement est alors
+borné par un paramètre unique $\Gamma = e^{\gamma}$,
+\begin{equation}
+  \frac{1}{\Gamma} \;\leq\;
+  \frac{\pi_i (1 - \pi_j)}{\pi_j (1 - \pi_i)}
+  \;\leq\; \Gamma,
+  \label{eq:rosenbaum_bornes}
+\end{equation}
+où $\pi_i$ désigne la probabilité de traitement de l'enfant $i$
+conditionnelle aux covariables et au facteur caché. Lorsque
+$\Gamma = 1$, il n'existe aucune sélection cachée et l'inférence usuelle
+s'applique~; à mesure que $\Gamma$ s'élève, deux enfants observablement
+identiques peuvent différer de plus en plus dans leurs chances de recevoir
+le traitement, et le test recalcule, pour chaque valeur de $\Gamma$, les
+bornes supérieure et inférieure de la p-valeur de l'effet estimé, à
+partir de la statistique des rangs signés de Wilcoxon calculée sur les
+paires appariées. La valeur critique de $\Gamma$ à laquelle la borne
+supérieure de la p-valeur franchit le seuil de 10\,\% mesure la
+robustesse du résultat : un effet qui ne se renverse qu'à un $\Gamma$
+élevé exigerait, pour être expliqué par la sélection cachée, un facteur
+inobservé multipliant fortement les cotes de traitement, ce qu'aucune
+covariable observée ne fait après conditionnement sur le niveau initial
+de privations. Le test est conduit sur les paires du plus proche voisin
+dans chaque groupe d'âge, l'appariement par noyau ne définissant pas de
+paires discrètes.
+
 \subsubsection{Estimation par groupe d'âge}
 Le score de propension et l'appariement ne sont pas estimés sur l'ensemble des
 enfants, mais séparément à l'intérieur de chacun des trois groupes d'âge MODA,
@@ -777,8 +824,10 @@ Le choix du design des bénéficiaires stables y répond aussi, ces ménages
 Les analyses d'hétérogénéité estiment l'impact séparément selon le milieu
 de résidence, le genre du chef de ménage, chaque dimension et chaque
 indicateur de privation, et le quintile de montant reçu. La robustesse est
-éprouvée de trois façons : par la définition du traitement, l'estimation
+éprouvée de quatre façons : par la définition du traitement, l'estimation
 étant reprise avec le traitement fixé à la seule période de base,
 bénéficiaires transitoires inclus~; par la sensibilité au seuil de
-privation $k$~; et par la comparaison des trois algorithmes d'appariement,
-l'effet étant réestimé avec chacun des trois jeux de poids.
+privation $k$~; par la comparaison des trois algorithmes d'appariement,
+l'effet étant réestimé avec chacun des trois jeux de poids~; et par le
+test de sensibilité de Rosenbaum, qui mesure l'intensité de sélection
+cachée nécessaire pour renverser la conclusion.

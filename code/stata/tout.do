@@ -2241,6 +2241,38 @@ foreach poids_var in weight_knn weight_kernel weight_caliper {
     }
 }
 
+/* ── Test de sensibilite de Rosenbaum (bornes sur la selection cachee)
+   Quel facteur inobserve, multipliant les cotes de traitement par Gamma,
+   faudrait-il pour renverser la conclusion ? Le test exige des paires
+   discretes : il est conduit sur l'appariement au plus proche voisin,
+   dans chaque groupe d'age, sur la difference de nb_dep entre chaque
+   traite et son temoin apparie. Installation : ssc install rbounds */
+capture which rbounds
+if _rc {
+    di _newline "(!) commande rbounds absente : ssc install rbounds pour le test de Rosenbaum."
+}
+else {
+    di _newline "=== Test de sensibilite de Rosenbaum (plus proche voisin, par groupe) ==="
+    forvalues g = 1/3 {
+        local titg : label grp `g'
+        preserve
+            quietly keep if groupe_base == `g' & !missing(nb_dep, pscore)
+            capture noisily psmatch2 D, pscore(pscore) neighbor(1) common
+            if _rc == 0 {
+                quietly gen double diff_rb = nb_dep - nb_dep[_n1] ///
+                    if D == 1 & _support == 1 & !missing(_n1)
+                quietly count if !missing(diff_rb)
+                if r(N) > 30 {
+                    di _newline "-- `titg' (paires : " r(N) ") --"
+                    rbounds diff_rb, gamma(1 (0.25) 2.5)
+                }
+                else di "  `titg' : paires insuffisantes (n=" r(N) ")"
+            }
+            else di "  `titg' : appariement 1-NN non calculable (r(" _rc "))."
+        restore
+    }
+}
+
 /* ============================================================
    8. Robustesse : definition alternative du traitement
       (traitement defini a la periode de base, transitoires inclus)
