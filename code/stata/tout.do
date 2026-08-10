@@ -1964,6 +1964,25 @@ forvalues tt = 0/1 {
     quietly drop combo3
 }
 
+/* Privation dans une dimension et dans k autres (decomposition MODA) :
+   pour chaque dimension, part des enfants prives dans cette dimension et
+   dans exactement k autres, en % de l'ensemble des enfants. La somme de
+   la colonne redonne le taux de privation de la dimension. */
+di _newline "=== Privation dans une dimension et dans k autres (%, edition 2018) ==="
+quietly gen byte tot7 = dim_assai + dim_eau + dim_logem + dim_nutri + ///
+    dim_sante + dim_protect + dim_educ
+foreach d1 of local dims_ov {
+    quietly count if t == 0 & !missing(tot7)
+    local nn = r(N)
+    local ligne "  `d1' :"
+    forvalues k = 0/6 {
+        quietly count if t == 0 & dim_`d1' == 1 & tot7 - dim_`d1' == `k'
+        local ligne "`ligne' +`k'=`: display %5.1f 100*r(N)/`nn''"
+    }
+    di "`ligne'"
+}
+quietly drop tot7
+
 di _newline "=== Enchassement : parmi les prives d'une dimension, part cumulant >=4 privations ==="
 forvalues tt = 0/1 {
     di "  -- edition t=`tt' --"
