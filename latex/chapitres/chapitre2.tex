@@ -3,9 +3,11 @@
 
 Cette section présente les données et la méthodologie de la recherche. La
 pauvreté multidimensionnelle des enfants est mesurée par l'approche MODA de
-l'UNICEF, qui sert de variable de résultat. L'impact des transferts est estimé par appariement sur score de propension
-(PSM) en niveaux de la seconde édition, la famille en trajectoires (double
-différence) étant conservée en robustesse.
+l'UNICEF, qui sert de variable de résultat. L'impact des transferts est
+estimé par appariement sur score de propension (PSM) en niveaux de la
+seconde édition, la robustesse du résultat étant éprouvée par la définition
+du traitement, le seuil de privation, les trois algorithmes d'appariement
+et le test de sensibilité de Rosenbaum.
 
 % ─────────────────────────────────────────────────────────────────────────────
 \subsection{Sources de données}
@@ -281,7 +283,7 @@ cherche à estimer l'effet, et la conserver imputerait aux transferts une
 privation que le départ du parent produit mécaniquement. Le travail des
 enfants est en contrepartie mesuré jusqu'à dix-sept ans, sans quoi les
 adolescents n'auraient aucun indicateur de protection et seraient évalués
-sur six dimensions au lieu de sept, rendant le seuil $k = 4$ non comparable
+sur six dimensions au lieu de sept, rendant le seuil de quatre dimensions non comparable
 entre groupes d'âge.
 
 L'éducation retient la non-scolarisation pour les 5 à 14 ans et
@@ -289,31 +291,42 @@ l'illettrisme pour les 15 à 17 ans, l'indicateur suivant ainsi le stade du
 parcours. Elle n'est pas applicable avant cinq ans, ce qui explique que le
 groupe des 0 à 4 ans soit évalué sur six dimensions et onze indicateurs.
 
-Pour chaque enfant $i$ et chaque dimension $j \in \{1, \ldots, 7\}$, la variable
-de privation est $d_{ij} = \mathbf{1}[\text{privé dans au moins un indicateur
-de la dimension } j]$. Le score de privation
-de l'enfant $i$ est le nombre de dimensions dans lesquelles il est privé :
+Pour chaque enfant et chaque dimension, une variable de privation binaire
+est d'abord définie,
 \begin{equation}
-  s_i = \sum_{j=1}^{7} d_{ij}.
+  d_{ij} = \mathbf{1}\left[\text{privé dans au moins un indicateur de la
+  dimension } j\right],
+  \label{eq:dij}
+\end{equation}
+où $d_{ij}$ vaut un si l'enfant $i$ est privé dans au moins un indicateur
+de la dimension $j$ et zéro sinon, $\mathbf{1}[\cdot]$ désignant la
+fonction indicatrice. Le score de privation
+de l'enfant est le nombre de dimensions dans lesquelles il est privé :
+\begin{equation}
+  s_i = \sum_{j=1}^{7} d_{ij},
   \label{eq:score_moda}
 \end{equation}
+où $s_i$ compte, de zéro à sept, les dimensions en privation de
+l'enfant $i$.
 
 Trois indices se déduisent de la matrice des privations, chacun répondant
 à une question distincte. Le taux de privation par dimension mesure la part d'enfants privés dans
 chaque dimension :
 \begin{equation}
-  H_j = \frac{1}{n} \sum_{i=1}^{n} d_{ij}.
+  H_j = \frac{1}{n} \sum_{i=1}^{n} d_{ij},
   \label{eq:hj}
 \end{equation}
-L'incidence de la pauvreté multidimensionnelle $H$ est la part
+où $n$ désigne le nombre d'enfants du groupe considéré et $d_{ij}$ la
+privation de l'enfant $i$ dans la dimension $j$. L'incidence de la pauvreté multidimensionnelle $H$ est la part
 d'enfants privés dans au moins $k$ dimensions simultanément :
 \begin{equation}
-  H = \frac{1}{n} \sum_{i=1}^{n} \mathbf{1}\left[s_i \geq k\right].
+  H = \frac{1}{n} \sum_{i=1}^{n} \mathbf{1}\left[s_i \geq k\right],
   \label{eq:pk}
 \end{equation}
-Conformément à la méthodologie MODA Sénégal, un enfant compte comme
+où $s_i$ est le score de privation de l'enfant $i$ et $k$ le seuil
+inter-dimensionnel. Conformément à la méthodologie MODA Sénégal, un enfant compte comme
 multidimensionnellement pauvre dès lors qu'il
-cumule au moins 4 privations sur les 7 dimensions ($k = 4$).
+cumule au moins quatre privations sur les sept dimensions, le seuil $k$ étant fixé à quatre.
 L'intensité moyenne des privations parmi les enfants pauvres est :
 \begin{equation}
   A = \frac{1}{q} \sum_{i:\,s_i \geq k} \frac{s_i}{7},
@@ -323,17 +336,18 @@ où $q$ est le nombre d'enfants pauvres. L'indice synthétique $M_0$
 mesure enfin la pauvreté multidimensionnelle ajustée pour l'intensité,
 comme produit des deux indices précédents :
 \begin{equation}
-  M_0 = H \times A.
+  M_0 = H \times A,
   \label{eq:m0}
 \end{equation}
+où $H$ est l'incidence et $A$ l'intensité définies ci-dessus.
 
 L'approche MODA fournit ainsi la variable d'impact principale, le nombre
 de dimensions en privation $s_i$, de 0 à 7. Ce choix découle de la nature
-du seuil~: $k = 4$ est une convention, et un effet mesuré sur le seul
+du seuil~: la valeur de quatre retenue pour $k$ est une convention, et un effet mesuré sur le seul
 franchissement du seuil resterait aveugle aux déplacements qui ne le
 franchissent pas, un enfant passant de deux à trois privations, ou de cinq
 à six, ne changeant pas de statut. Le comptage capte toute l'échelle du
-cumul. L'indicateur binaire de pauvreté au seuil $k = 4$, l'incidence $H$,
+cumul. L'indicateur binaire de pauvreté au seuil de quatre dimensions, l'incidence $H$,
 l'intensité $A$ et l'indice ajusté $M_0$ servent de mesures
 complémentaires, comparables aux statistiques officielles et décomposables
 par milieu, région et groupe d'âge.
@@ -352,12 +366,12 @@ nombre d'indicateurs variant d'une dimension à l'autre, si bien qu'une
 règle de majorité aboutirait à des exigences différentes selon les
 dimensions.
 
-Le seuil inter-dimensionnel $k = 4$ retient trois justifications
+Le seuil inter-dimensionnel de quatre dimensions retient trois justifications
 convergentes. La première est institutionnelle : il s'agit du seuil de la
 méthodologie MODA Sénégal \parencite{ansd2024}, ce qui rend les résultats
 directement comparables aux statistiques officielles. La deuxième est
 empirique : la distribution du nombre de privations cumulées, donnée en
-annexe (graphique~\ref{fig:distrib_dimensions}), place $k = 4$ au voisinage de
+annexe (graphique~\ref{fig:distrib_dimensions}), place ce seuil au voisinage de
 son mode aux deux éditions, sans discontinuité qui désignerait un autre
 seuil comme plus naturel. La troisième est méthodologique :
 \textcite{alkire2011} rappellent que le choix de $k$ est normatif et ne se
@@ -434,14 +448,23 @@ appariées le rend possible.
 
 Pour chaque enfant $i$, on définit deux résultats potentiels, $Y_i(1)$ la
 mesure de pauvreté MODA si le ménage reçoit des transferts, et
-$Y_i(0)$ si le ménage n'en reçoit pas. On observe seulement $Y_i = D_i \cdot
-Y_i(1) + (1 - D_i) \cdot Y_i(0)$. Le paramètre d'intérêt est l'effet moyen
+$Y_i(0)$ si le ménage n'en reçoit pas. Le résultat observé ne révèle
+jamais que l'un des deux,
+\begin{equation}
+  Y_i = D_i \cdot Y_i(1) + (1 - D_i) \cdot Y_i(0),
+  \label{eq:observe}
+\end{equation}
+où $Y_i$ désigne le résultat observé de l'enfant $i$ et $D_i$ sa variable
+de traitement, qui vaut un pour un enfant de ménage bénéficiaire et zéro
+sinon. Le paramètre d'intérêt est l'effet moyen
 du traitement sur les traités (ATT) :
 \begin{equation}
-  \tau_{ATT} = \E\left[Y_i(1) - Y_i(0) \mid D_i = 1\right].
+  \tau_{ATT} = \E\left[Y_i(1) - Y_i(0) \mid D_i = 1\right],
   \label{eq:att}
 \end{equation}
-L'estimateur naïf est biaisé car les enfants de ménages bénéficiaires et ceux
+où $\E[\cdot]$ désigne l'espérance, $Y_i(1)$ et $Y_i(0)$ les deux
+résultats potentiels et où le conditionnement restreint la moyenne aux
+seuls enfants traités. L'estimateur naïf est biaisé car les enfants de ménages bénéficiaires et ceux
 de ménages non bénéficiaires diffèrent systématiquement sur des
 caractéristiques observables et inobservables (biais de sélection).
 
@@ -454,7 +477,7 @@ différents dès le départ, il construit pour chaque enfant bénéficiaire un
 contrefactuel crédible à partir d'enfants non bénéficiaires aux
 caractéristiques observables similaires.
 
-L'unité $i$ est l'enfant. On pose ainsi $D_i = 1$ si l'enfant $i$
+L'unité $i$ est l'enfant. La variable de traitement $D_i$ vaut ainsi un si l'enfant $i$
 vit dans un ménage bénéficiaire à la période de base, et le score de propension
 $p(X_i)$ s'interprète comme la probabilité qu'un enfant de caractéristiques
 $X_i$ vive dans un ménage bénéficiaire. Le vecteur $X_i$
@@ -465,30 +488,37 @@ soit comparé à des enfants évalués sur les mêmes dimensions. Le PSM repose 
 conditionnelle (CIA). Conditionnellement aux covariables observées $X_i$,
 les résultats potentiels sont indépendants du traitement,
 \begin{equation}
-  \left(Y_i(0),\, Y_i(1)\right) \perp D_i \mid X_i.
+  \left(Y_i(0),\, Y_i(1)\right) \perp D_i \mid X_i,
   \label{eq:cia}
 \end{equation}
-La seconde est le support commun, qui exige que la probabilité de recevoir
+où $Y_i(0)$ et $Y_i(1)$ désignent les résultats potentiels, $D_i$ la
+variable de traitement, $X_i$ le vecteur des covariables observées et où
+le symbole $\perp$ note l'indépendance conditionnelle. La seconde est le
+support commun, qui exige que la probabilité de recevoir
 le traitement reste strictement comprise entre zéro et un pour toute
 valeur des covariables,
 \begin{equation}
   0 < P(D_i = 1 \mid X_i) < 1,
   \label{eq:support}
 \end{equation}
-garantissant que l'appariement est réalisable pour chaque traité.
+où $P(D_i = 1 \mid X_i)$ désigne la probabilité de recevoir le traitement
+conditionnelle aux covariables, ce qui garantit que l'appariement est
+réalisable pour chaque traité.
 Si la CIA est satisfaite pour $X_i$, elle l'est aussi pour le score de
 propension $p(X_i)$, défini comme la probabilité de traitement
 conditionnelle aux covariables.
-Le score est estimé par un modèle logit, séparément dans chaque groupe
-d'âge $g \in \{1, 2, 3\}$ :
+Le score est estimé par un modèle logit, séparément dans chacun des trois
+groupes d'âge, indexés par $g$ :
 \begin{equation}
   p_g(X_i) = P\left(D_i = 1 \mid X_i,\, G_i = g\right)
            = \frac{\exp\left(\beta_{0g} + X_i'\beta_g\right)}
                   {1 + \exp\left(\beta_{0g} + X_i'\beta_g\right)},
   \label{eq:logit}
 \end{equation}
-où $G_i$ désigne le groupe d'âge de l'enfant à la période de base et où les
-coefficients $\beta_g$ sont propres à chaque groupe. Le vecteur $X_i$
+où $p_g(X_i)$ désigne le score de propension du groupe $g$, $G_i$ le
+groupe d'âge de l'enfant à la période de base, $\beta_{0g}$ la constante
+du modèle et $\beta_g$ le vecteur de coefficients, propres à chaque
+groupe. Le vecteur $X_i$
 comprend le nombre de privations de l'enfant à la période de base, son
 genre, le milieu de résidence, la région, ainsi que le genre, l'âge en
 classes, le niveau d'éducation et le statut matrimonial du chef de ménage,
@@ -567,18 +597,21 @@ $x$ s'en déduit,
 \begin{equation}
   \Delta(x) = 100 \times
   \left(1 - \frac{\left|\mathrm{SMD}_{\text{après}}(x)\right|}
-                 {\left|\mathrm{SMD}_{\text{avant}}(x)\right|}\right).
+                 {\left|\mathrm{SMD}_{\text{avant}}(x)\right|}\right),
   \label{eq:reduction_biais}
 \end{equation}
+où $\mathrm{SMD}_{\text{avant}}$ et $\mathrm{SMD}_{\text{après}}$
+désignent la statistique calculée avant et après appariement.
 
 Le deuxième est le biais standardisé moyen résiduel, moyenne des valeurs
 absolues des SMD sur l'ensemble des $K$ covariables après appariement,
 \begin{equation}
   \bar{B} = \frac{1}{K} \sum_{k=1}^{K}
-            \left|\mathrm{SMD}_{\text{après}}(x_k)\right|.
+            \left|\mathrm{SMD}_{\text{après}}(x_k)\right|,
   \label{eq:biais_moyen}
 \end{equation}
-C'est cet indicateur synthétique, moyenné sur les trois groupes d'âge et
+où $K$ désigne le nombre de covariables et $x_k$ la $k$-ième d'entre
+elles. C'est cet indicateur synthétique, moyenné sur les trois groupes d'âge et
 pondéré par leurs effectifs, qui départage les algorithmes d'appariement,
 un seuil de 5\,\% étant usuellement considéré comme le signe d'un bon
 équilibre global.
@@ -622,7 +655,9 @@ située sous le minimum des deux densités estimées,
   \mathrm{OVL} = \int \min\left(\hat{f}_T(p),\, \hat{f}_C(p)\right) dp,
   \label{eq:ovl}
 \end{equation}
-compris entre zéro lorsque les distributions sont disjointes et un
+où $\hat{f}_T$ et $\hat{f}_C$ désignent les densités estimées du score
+chez les traités et chez les témoins et $p$ la valeur du score. Ce
+coefficient vaut zéro lorsque les distributions sont disjointes et un
 lorsqu'elles se confondent. L'ensemble de ces indicateurs est calculé dans
 chaque groupe d'âge, avant et après appariement, pour chacun des trois
 algorithmes.
@@ -649,7 +684,7 @@ probabilité de traitement s'écrit
 où $\kappa$ capte l'effet des covariables observées et $\gamma$ celui du
 facteur caché. Pour deux enfants $i$ et $j$ appariés sur les mêmes
 covariables observées, le rapport de leurs cotes de traitement est alors
-borné par un paramètre unique $\Gamma = e^{\gamma}$,
+borné par un paramètre unique $\Gamma$, exponentielle de $\gamma$,
 \begin{equation}
   \frac{1}{\Gamma} \;\leq\;
   \frac{\pi_i (1 - \pi_j)}{\pi_j (1 - \pi_i)}
@@ -657,22 +692,34 @@ borné par un paramètre unique $\Gamma = e^{\gamma}$,
   \label{eq:rosenbaum_bornes}
 \end{equation}
 où $\pi_i$ désigne la probabilité de traitement de l'enfant $i$
-conditionnelle aux covariables et au facteur caché. Lorsque
-$\Gamma = 1$, il n'existe aucune sélection cachée et l'inférence usuelle
-s'applique~; à mesure que $\Gamma$ s'élève, deux enfants observablement
-identiques peuvent différer de plus en plus dans leurs chances de recevoir
-le traitement, et le test recalcule, pour chaque valeur de $\Gamma$, les
-bornes supérieure et inférieure de la p-valeur de l'effet estimé, à
-partir de la statistique des rangs signés de Wilcoxon calculée sur les
-paires appariées. La valeur critique de $\Gamma$ à laquelle la borne
-supérieure de la p-valeur franchit le seuil de 10\,\% mesure la
-robustesse du résultat : un effet qui ne se renverse qu'à un $\Gamma$
-élevé exigerait, pour être expliqué par la sélection cachée, un facteur
-inobservé multipliant fortement les cotes de traitement, ce qu'aucune
-covariable observée ne fait après conditionnement sur le niveau initial
-de privations. Le test est conduit sur les paires du plus proche voisin
-dans chaque groupe d'âge, l'appariement par noyau ne définissant pas de
-paires discrètes.
+conditionnelle aux covariables et au facteur caché. Le paramètre
+$\Gamma$ se lit comme le rapport maximal des cotes de traitement de deux
+enfants appariés sur les mêmes caractéristiques observées : lorsque
+$\Gamma$ vaut un, les facteurs cachés sont identiques pour les deux enfants,
+il n'existe aucune sélection cachée et l'inférence usuelle s'applique~;
+lorsque $\Gamma$ dépasse un, deux enfants observablement identiques
+peuvent différer dans leurs chances de recevoir le traitement, et cette
+sélection cachée peut affecter la validité de l'estimation.
+
+Le test consiste à simuler la présence d'un tel biais en faisant croître
+$\Gamma$ par pas réguliers à partir de un. À chaque valeur de $\Gamma$,
+trois éléments sont recalculés à partir de la statistique des rangs
+signés de Wilcoxon sur les paires appariées : la borne supérieure de la
+p-valeur, correspondant au scénario le plus défavorable où le facteur
+caché joue entièrement contre l'effet estimé~; sa borne inférieure,
+correspondant au scénario le plus favorable où il le renforce~; et
+l'encadrement de l'effet du traitement lui-même dans ces deux scénarios.
+La valeur critique de $\Gamma$ est celle à partir de laquelle la borne
+supérieure de la p-valeur franchit le seuil de 10\,\%, c'est-à-dire le
+point à partir duquel l'effet cesse d'être significatif dans le scénario
+défavorable. Plus cette valeur critique est élevée, plus le résultat est
+robuste : un effet qui ne se renverse qu'à un $\Gamma$ élevé exigerait,
+pour être expliqué par la sélection cachée, un facteur inobservé
+multipliant fortement les cotes de traitement, ce qu'aucune covariable
+observée ne fait après conditionnement sur le niveau initial de
+privations. Le test est conduit sur les paires du plus proche voisin dans
+chaque groupe d'âge, l'appariement par noyau ne définissant pas de paires
+discrètes.
 
 \subsubsection{Estimation par groupe d'âge}
 Le score de propension et l'appariement ne sont pas estimés sur l'ensemble des
@@ -707,7 +754,7 @@ où $T_g$ et $C_g$ désignent les traités et les témoins du groupe et où les
 poids $w_{ij}$, positifs et de somme un pour chaque traité, définissent
 l'algorithme d'appariement. Trois algorithmes sont mis en œuvre.
 
-Le premier est l'appariement aux $k$ plus proches voisins, avec $k=4$ et
+Le premier est l'appariement aux $k$ plus proches voisins, le nombre de voisins étant fixé à quatre et l'appariement
 avec remise. Chaque enfant traité est comparé aux quatre témoins dont le
 score est le plus proche du sien, qui reçoivent chacun un poids d'un
 quart, un même témoin pouvant servir à plusieurs traités. Le
@@ -726,8 +773,10 @@ support en les pondérant par leur proximité au traité,
   K(u) = \frac{3}{4}\left(1 - u^2\right)\mathbf{1}\{|u| < 1\},
   \label{eq:kernel}
 \end{equation}
-où $K$ est le noyau d'Epanechnikov et $h$ la fenêtre de lissage, fixée à
-0,06. Chaque témoin dont le score se situe à moins de $h$ du traité
+où $w_{ij}$ est le poids du témoin $j$ dans le contrefactuel du traité
+$i$, $p_i$ et $p_j$ leurs scores de propension, $K$ le noyau
+d'Epanechnikov, $u$ son argument normalisé et $h$ la fenêtre de lissage,
+fixée à 0,06. Chaque témoin dont le score se situe à moins de $h$ du traité
 contribue au contrefactuel, avec un poids qui décroît avec la distance et
 s'annule au bord de la fenêtre. En exploitant toute l'information du
 voisinage plutôt que quelques observations, cet estimateur atteint la
@@ -736,8 +785,8 @@ relativement éloignés pouvant peser dans le contrefactuel si la fenêtre
 est trop large.
 
 Le troisième est l'appariement avec caliper, au plus proche voisin sans
-remise sous la contrainte $|p_i - p_j| < \varepsilon$, avec
-$\varepsilon = 0{,}05$. Chaque traité est associé à un unique témoin,
+remise sous la contrainte que l'écart des deux scores reste inférieur à un
+rayon $\varepsilon$ fixé à 0,05. Chaque traité est associé à un unique témoin,
 jamais réutilisé, et tout traité sans témoin à moins de $\varepsilon$ est
 écarté de l'estimation. C'est l'algorithme le plus exigeant sur la qualité
 de chaque paire, et le plus coûteux en échantillon, la contrainte de
