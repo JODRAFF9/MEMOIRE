@@ -2157,25 +2157,6 @@ forvalues g = 1/3 {
     }
 }
 
-/* Test continu : le nombre de privations de 2021 varie-t-il avec le
-   logarithme du montant chez les traites ? Plus puissant que la
-   comparaison par quintiles, qui decoupe l'information. */
-di _newline "Effet dose-reponse (montant en logarithme, enfants traites) :"
-quietly gen double log_montant = log(montant_transf) if montant_transf > 0
-forvalues g = 1/3 {
-    local titg : label grp `g'
-    quietly count if D == 1 & !missing(log_montant) & groupe_base == `g'
-    local n_tr = r(N)
-    if `n_tr' > 2 {
-        quietly regress nb_dep c.log_montant [aw=$POIDS_PRINCIPAL] ///
-            if D == 1 & groupe_base == `g', vce(cluster grappe)
-        di "  `titg' : pente = " %8.4f _b[log_montant] ///
-           "  SE = " %8.4f _se[log_montant] ///
-           "  p = " %6.4f 2*ttail(e(df_r), abs(_b[log_montant]/_se[log_montant]))
-    }
-    else di "  `titg' : effectif insuffisant (n=" `n_tr' ")"
-}
-drop log_montant
 
 /* ============================================================
    7. Robustesse
