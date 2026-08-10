@@ -344,6 +344,12 @@
   uniquename=false
 ]{biblatex}
 \addbibresource{references.bib}
+% Le style apa relie les deux derniers auteurs par « & » dans les
+% citations entre parentheses et dans la bibliographie : on impose
+% « et » partout, par coherence avec les citations narratives.
+\DeclareDelimFormat{finalnamedelim}{\addspace et\addspace}
+\DeclareDelimFormat[parencite,parentext]{finalnamedelim}{\addspace et\addspace}
+\DeclareDelimFormat[bib,biblist]{finalnamedelim}{\addspace et\addspace}
 
 % Noms d'auteurs en casse normale (ni gras ni petites capitales) dans les
 % citations et la bibliographie : \textnormal annule un éventuel \scshape ambiant
