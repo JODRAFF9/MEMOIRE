@@ -319,8 +319,13 @@ L'intensité moyenne des privations parmi les enfants pauvres est :
   A = \frac{1}{q} \sum_{i:\,s_i \geq k} \frac{s_i}{7},
   \label{eq:intensite_moda}
 \end{equation}
-où $q$ est le nombre d'enfants pauvres. L'indice synthétique $M_0 = H \times A$
-mesure la pauvreté multidimensionnelle ajustée pour l'intensité.
+où $q$ est le nombre d'enfants pauvres. L'indice synthétique $M_0$
+mesure enfin la pauvreté multidimensionnelle ajustée pour l'intensité,
+comme produit des deux indices précédents :
+\begin{equation}
+  M_0 = H \times A.
+  \label{eq:m0}
+\end{equation}
 
 L'approche MODA fournit ainsi la variable d'impact principale, le nombre
 de dimensions en privation $s_i$, de 0 à 7. Ce choix découle de la nature
@@ -463,10 +468,17 @@ les résultats potentiels sont indépendants du traitement,
   \left(Y_i(0),\, Y_i(1)\right) \perp D_i \mid X_i.
   \label{eq:cia}
 \end{equation}
-La seconde est le support commun, $0 < P(D_i = 1 \mid X_i) < 1$,
+La seconde est le support commun, qui exige que la probabilité de recevoir
+le traitement reste strictement comprise entre zéro et un pour toute
+valeur des covariables,
+\begin{equation}
+  0 < P(D_i = 1 \mid X_i) < 1,
+  \label{eq:support}
+\end{equation}
 garantissant que l'appariement est réalisable pour chaque traité.
-Si la CIA est satisfaite pour $X_i$,
-elle l'est aussi pour le score de propension $p(X_i) = P(D_i = 1 \mid X_i)$.
+Si la CIA est satisfaite pour $X_i$, elle l'est aussi pour le score de
+propension $p(X_i)$, défini comme la probabilité de traitement
+conditionnelle aux covariables.
 Le score est estimé par un modèle logit, séparément dans chaque groupe
 d'âge $g \in \{1, 2, 3\}$ :
 \begin{equation}
@@ -579,9 +591,10 @@ Si l'appariement a fonctionné, les covariables ne prédisent plus le
 traitement, le pseudo-$R^2$ s'effondre et le test joint cesse de rejeter.
 
 Le quatrième réunit les deux statistiques synthétiques de
-\textcite{rubin2001}, calculées sur l'indice linéaire du score
-$\ell_i = X_i'\hat{\beta}$ : la différence standardisée $B_R$ des indices
-et le rapport $R$ de leurs variances,
+\textcite{rubin2001}, calculées sur l'indice linéaire du score, produit
+du vecteur de covariables et des coefficients estimés du logit : la
+différence standardisée $B_R$ des indices et le rapport $R$ de leurs
+variances,
 \begin{equation}
   B_R = 100 \times \frac{\bar{\ell}_T - \bar{\ell}_C}
         {\sqrt{\dfrac{s_{\ell,T}^2 + s_{\ell,C}^2}{2}}},
@@ -597,8 +610,9 @@ position des deux distributions de score, la seconde leur écart de
 dispersion, qu'une moyenne bien alignée peut masquer.
 
 Le cinquième porte sur le support commun lui-même. La région de
-recouvrement des scores est l'intervalle
-$[\max(p_T^{\min}, p_C^{\min})~;~\min(p_T^{\max}, p_C^{\max})]$, et la part
+recouvrement des scores est l'intervalle allant du plus élevé des deux
+minima au plus faible des deux maxima observés chez les traités et chez
+les témoins, et la part
 des traités située hors de cet intervalle mesure la population pour
 laquelle aucun contrefactuel n'existe, une part supérieure à 5\,\%
 restreignant la portée de l'effet estimé. Le degré de recouvrement des
@@ -648,8 +662,8 @@ l'algorithme d'appariement. Trois algorithmes sont mis en œuvre.
 
 Le premier est l'appariement aux $k$ plus proches voisins, avec $k=4$ et
 avec remise. Chaque enfant traité est comparé aux quatre témoins dont le
-score est le plus proche du sien, qui reçoivent chacun un poids
-$w_{ij} = 1/4$, un même témoin pouvant servir à plusieurs traités. Le
+score est le plus proche du sien, qui reçoivent chacun un poids d'un
+quart, un même témoin pouvant servir à plusieurs traités. Le
 recours à quatre voisins plutôt qu'à un seul stabilise le contrefactuel en
 moyennant le bruit propre à chaque témoin, au prix d'une comparaison un
 peu moins proche~; la remise garantit que chaque traité obtient les
