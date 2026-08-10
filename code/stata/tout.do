@@ -1445,7 +1445,8 @@ forvalues g = 1/3 {
     }
 }
 
-/* (v) Densites du score, par groupe d'age, AVANT appariement */
+/* (v) Densites du score, AVANT appariement : un graphique distinct par
+   groupe d'age, exporte separement (pas de combinaison de cadres) */
 set dp comma
 forvalues g = 1/3 {
     local titg : label grp `g'
@@ -1454,19 +1455,13 @@ forvalues g = 1/3 {
          lcolor(gs9) lwidth(medthick)) ///
         (kdensity pscore if D == 1 & grp_psm == `g', ///
          lcolor(orange) lwidth(medthick)), ///
-        legend(off) ///
+        legend(order(1 "Non bénéficiaires" 2 "Bénéficiaires") ///
+               position(6) rows(1) size(small)) ///
         xtitle("Score de propension") ytitle("Densité") ///
         xlabel(, format(%3.1f)) ///
-        title("`titg'", size(medium)) ///
-        graphregion(color(white)) plotregion(color(white)) ///
-        name(ov`g', replace)
+        graphregion(color(white)) plotregion(color(white))
+    graph export "$OUTPUT/figures/fig_overlap_avant_g`g'.pdf", replace
 }
-graph combine ov1 ov2 ov3, rows(1) ///
-    note("Gris : non bénéficiaires ; orange : bénéficiaires", size(small)) ///
-    graphregion(color(white)) ///
-    saving("$OUTPUT/overlap_groupes.gph", replace)
-graph export "$OUTPUT/figures/fig_overlap_groupes.pdf", replace
-graph drop ov1 ov2 ov3
 
 /* Densite d'ensemble (tous groupes confondus), conservee pour la
    comparaison avec la version anterieure du rapport */
@@ -1749,6 +1744,7 @@ di _newline "  Enfants sur support commun apres appariement : " _N
 quietly count if D == 1
 di "  dont traites : " r(N)
 
+/* Un graphique distinct par groupe d'age, exporte separement */
 set dp comma
 forvalues g = 1/3 {
     local titg : label grp `g'
@@ -1757,20 +1753,15 @@ forvalues g = 1/3 {
          lcolor(gs9) lwidth(medthick)) ///
         (kdensity pscore if D == 1 & grp_psm == `g' [aw=$POIDS_PRINCIPAL], ///
          lcolor(orange) lwidth(medthick)), ///
-        legend(off) ///
+        legend(order(1 "Non bénéficiaires (pondérés)" 2 "Bénéficiaires") ///
+               position(6) rows(1) size(small)) ///
         xtitle("Score de propension") ytitle("Densité") ///
         xlabel(, format(%3.1f)) ///
-        title("`titg'", size(medium)) ///
-        graphregion(color(white)) plotregion(color(white)) ///
-        name(ova`g', replace)
+        graphregion(color(white)) plotregion(color(white))
+    graph export "$OUTPUT/figures/fig_overlap_apres_g`g'.pdf", replace
 }
-graph combine ova1 ova2 ova3, rows(1) ///
-    note("Gris : non bénéficiaires (pondérés par l'appariement) ; orange : bénéficiaires", size(small)) ///
-    graphregion(color(white))
 set dp period
-graph export "$OUTPUT/figures/fig_overlap_apres.pdf", replace
-graph drop ova1 ova2 ova3
-di "  >>> fig_overlap_apres.pdf sauvegarde (trois panneaux, un par groupe)"
+di "  >>> fig_overlap_apres_g1 a g3 sauvegardes (un par groupe)"
 di "      Les resultats des deux autres methodes restent presentes"
 di "      integralement dans la section robustesse."
 
@@ -2586,13 +2577,14 @@ twoway (connected H_nonbenef annee, lcolor(gs9) mcolor(gs9) msymbol(square) ///
        (connected H_benef annee, lcolor(orange) mcolor(orange) msymbol(circle) ///
         lwidth(medthick) mlabel(lbl_b) mlabcolor(black) mlabpos(12) ///
         mlabgap(2) mlabsize(small)), ///
-    xlabel(2018 2021) xscale(range(2017.7 2021.3)) xtitle("Édition EHCVM") ///
-    ytitle("Incidence de pauvreté multidimensionnelle H (%)") ///
-    ylabel(40(5)70, grid) yscale(range(38 72)) ///
-    legend(order(1 "Non-bénéficiaires" 2 "Bénéficiaires") pos(6) rows(1)) ///
+    xlabel(2018 2021, labsize(medlarge)) xscale(range(2017.7 2021.3)) ///
+    xtitle("Édition EHCVM", size(medlarge)) ///
+    ytitle("Incidence de pauvreté multidimensionnelle H (%)", size(medlarge) margin(right)) ///
+    ylabel(40(5)70, grid angle(0) labsize(medlarge)) yscale(range(38 72)) ///
+    legend(order(1 "Non-bénéficiaires" 2 "Bénéficiaires") pos(6) rows(1) ///
+           size(medium) symxsize(8) colgap(6)) ///
     graphregion(color(white)) plotregion(color(white))
 set dp period
-graph display, scale(1.35)   /* texte agrandi pour la projection */
 graph export "$OUTPUT/figures/fig_evolution_ipm.pdf", replace
 di ">>> fig_evolution_ipm.pdf sauvegardé"
 
@@ -2634,12 +2626,14 @@ graph twoway ///
     (scatter pct_2021 x_2021, msymbol(none) mlabel(lbl_21) ///
      mlabpos(12) mlabcolor(black) mlabsize(vsmall)) ///
     , xline(4.5, lcolor(red) lpattern(dash) lwidth(medthick)) ///
-    xlabel(0(1)7) xtitle("Nombre de dimensions en privation (sur 7)") ///
-    ylabel(0(5)30, grid) ytitle("Part des enfants (%)") ///
-    legend(order(1 "EHCVM I (2018-19)" 2 "EHCVM II (2021-22)") pos(6) rows(1)) ///
+    xlabel(0(1)7, labsize(medlarge)) ///
+    xtitle("Nombre de dimensions en privation (sur 7)", size(medlarge)) ///
+    ylabel(0(5)30, grid angle(0) labsize(medlarge)) ///
+    ytitle("Part des enfants (%)", size(medlarge) margin(right)) ///
+    legend(order(1 "EHCVM I (2018-19)" 2 "EHCVM II (2021-22)") pos(6) ///
+           rows(1) size(medium) symxsize(8) colgap(6)) ///
     graphregion(color(white)) plotregion(color(white))
 set dp period
-graph display, scale(1.35)   /* texte agrandi pour la projection */
 graph export "$OUTPUT/figures/fig_distrib_dimensions.pdf", replace
 di ">>> fig_distrib_dimensions.pdf sauvegardé"
 
@@ -2949,6 +2943,7 @@ forvalues i = 1/7 {
     local lbl = dimlab[`i']
     local ylab_str `"`ylab_str' `i' "`lbl'""'
 }
+/* Un graphique distinct par groupe d'age, exporte separement */
 set dp comma
 forvalues g = 1/3 {
     local titg : label grp `g'
@@ -2956,23 +2951,18 @@ forvalues g = 1/3 {
         (bar att idim if g == `g', horizontal barwidth(0.6) color(gs9)) ///
         (rcap lb ub idim if g == `g', horizontal lcolor(orange) ///
          lwidth(medthick) msize(medium)), ///
-        ylab(`ylab_str', angle(0) noticks labsize(small)) ///
+        ylab(`ylab_str', angle(0) noticks) ///
         yscale(range(0.5 7.5)) ///
-        ytitle("") xtitle("ATT (pp)", size(small)) ///
-        xlabel(, format(%4.0f) labsize(small)) ///
+        ytitle("") xtitle("ATT (points de pourcentage)") ///
+        xlabel(, format(%4.0f)) ///
         xline(0, lcolor(black) lpattern(dash)) ///
         legend(off) ///
-        title("`titg'", size(medium)) ///
-        graphregion(color(white)) plotregion(color(white)) ///
-        name(dimeff`g', replace)
+        note("Barres : ATT ; segments : IC à 95 %", size(small)) ///
+        graphregion(color(white)) plotregion(color(white))
+    graph export "$OUTPUT/figures/fig_effets_dim_g`g'.pdf", replace
 }
-graph combine dimeff1 dimeff2 dimeff3, rows(1) ///
-    note("Barres : ATT en points de pourcentage ; segments : IC a 95 %", size(small)) ///
-    graphregion(color(white))
 set dp period
-graph export "$OUTPUT/figures/fig_effets_dim.pdf", replace
-graph drop dimeff1 dimeff2 dimeff3
-di ">>> fig_effets_dim.pdf sauvegarde (trois panneaux, un par groupe)"
+di ">>> fig_effets_dim_g1 a g3 sauvegardes (un par groupe)"
 di ">>> 07_effets_dim.do terminé."
 
 /* ── Fig : taux de privation par dimension, ensemble et par groupe ──

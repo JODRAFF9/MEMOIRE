@@ -155,8 +155,9 @@ recouvrement~; la part des bénéficiaires situés hors de cette région, que
 l'appariement écarte faute de contrefactuel~; et le coefficient de
 chevauchement, aire située sous le minimum des deux densités, compris
 entre zéro lorsque les distributions sont disjointes et un lorsqu'elles se
-confondent. Le tableau~\ref{tab:support} rassemble ces éléments et le
-graphique~\ref{fig:overlap_groupes} montre les densités avant appariement.
+confondent. Le tableau~\ref{tab:support} rassemble ces éléments et les
+graphiques~\ref{fig:overlap_groupes} à \ref{fig:overlap_g3} montrent
+les densités avant appariement, un graphique par groupe d'âge.
 
 \begin{table}[H]
   \centering
@@ -178,9 +179,27 @@ graphique~\ref{fig:overlap_groupes} montre les densités avant appariement.
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=\linewidth]{figures/fig_overlap_groupes.pdf}
-  \caption{Densités des scores de propension avant appariement, par groupe d'âge}
+  \includegraphics[width=0.72\linewidth]{figures/fig_overlap_avant_g1.pdf}
+  \caption{Densités des scores de propension avant appariement, enfants de 0 à 4 ans}
   \label{fig:overlap_groupes}
+
+  {\footnotesize \textbf{Source :} Calcul de l'auteur, EHCVM.}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.72\linewidth]{figures/fig_overlap_avant_g2.pdf}
+  \caption{Densités des scores de propension avant appariement, enfants de 5 à 14 ans}
+  \label{fig:overlap_g2}
+
+  {\footnotesize \textbf{Source :} Calcul de l'auteur, EHCVM.}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.72\linewidth]{figures/fig_overlap_avant_g3.pdf}
+  \caption{Densités des scores de propension avant appariement, enfants de 15 à 17 ans}
+  \label{fig:overlap_g3}
 
   {\footnotesize \textbf{Source :} Calcul de l'auteur, EHCVM.}
 \end{figure}
@@ -192,18 +211,37 @@ estimé vaut pour l'ensemble d'entre eux. Le constat est différent chez les
 adolescents, où plus d'un traité sur cinq se situe au-delà du score
 maximal observé chez les témoins : l'effet n'y est identifié que sur la
 sous-population effectivement appariable, restriction qui s'ajoute à la
-faiblesse des effectifs. Le graphique~\ref{fig:overlap_apres} montre les
-densités après appariement, celle des témoins étant pondérée par les
-poids du noyau : dans les deux premiers groupes, les deux courbes se
-superposent presque exactement là où elles se croisaient à peine avant
-appariement, signe que la pondération a bien reconstruit la distribution
-des scores des traités chez les témoins.
+faiblesse des effectifs. Les graphiques~\ref{fig:overlap_apres} à \ref{fig:overlap_apres_g3}
+montrent les densités après appariement dans chacun des trois groupes,
+celle des témoins étant pondérée par les poids du noyau : dans les deux
+premiers groupes, les deux courbes se superposent presque exactement là
+où elles se croisaient à peine avant appariement, signe que la
+pondération a bien reconstruit la distribution des scores des traités
+chez les témoins.
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=\linewidth]{figures/fig_overlap_apres.pdf}
-  \caption{Densités des scores de propension après appariement, par groupe d'âge}
+  \includegraphics[width=0.72\linewidth]{figures/fig_overlap_apres_g1.pdf}
+  \caption{Densités des scores de propension après appariement, enfants de 0 à 4 ans}
   \label{fig:overlap_apres}
+
+  {\footnotesize \textbf{Source :} Calcul de l'auteur, EHCVM.}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.72\linewidth]{figures/fig_overlap_apres_g2.pdf}
+  \caption{Densités des scores de propension après appariement, enfants de 5 à 14 ans}
+  \label{fig:overlap_apres_g2}
+
+  {\footnotesize \textbf{Source :} Calcul de l'auteur, EHCVM.}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.72\linewidth]{figures/fig_overlap_apres_g3.pdf}
+  \caption{Densités des scores de propension après appariement, enfants de 15 à 17 ans}
+  \label{fig:overlap_apres_g3}
 
   {\footnotesize \textbf{Source :} Calcul de l'auteur, EHCVM.}
 \end{figure}
@@ -387,9 +425,11 @@ chez les enfants initialement les plus privés.
 
 \subsection{Effets par dimension et par indicateur}
 
-L'analyse par dimension (graphique~\ref{fig:effets_dim}) décompose l'effet
-sur les sept dimensions MODA, estimé en niveaux de la seconde édition sur
-l'ensemble des enfants appariés. Une seule dimension ressort nettement, la
+L'analyse par dimension décompose l'effet sur les sept dimensions MODA,
+estimé en niveaux de la seconde édition séparément dans chaque groupe
+d'âge, les graphiques~\ref{fig:effets_dim} à \ref{fig:effets_dim_g3}
+donnant un graphique par groupe. Les valeurs commentées ici sont
+estimées sur l'ensemble des enfants appariés. Une seule dimension ressort nettement, la
 nutrition : la part d'enfants en insécurité alimentaire est inférieure de
 12,6 points chez les bénéficiaires stables, effet significatif au seuil de
 1\,\% et retrouvé avec la même ampleur par les trois algorithmes.
@@ -404,9 +444,27 @@ uniforme entre dimensions.
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.85\linewidth]{figures/fig_effets_dim.pdf}
-  \caption{Impact des transferts par dimension MODA en niveaux de la seconde édition, IC 95\,\%}
+  \includegraphics[width=0.72\linewidth]{figures/fig_effets_dim_g1.pdf}
+  \caption{Impact des transferts par dimension MODA, enfants de 0 à 4 ans}
   \label{fig:effets_dim}
+
+  {\footnotesize \textbf{Source :} Calcul de l'auteur, EHCVM.}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.72\linewidth]{figures/fig_effets_dim_g2.pdf}
+  \caption{Impact des transferts par dimension MODA, enfants de 5 à 14 ans}
+  \label{fig:effets_dim_g2}
+
+  {\footnotesize \textbf{Source :} Calcul de l'auteur, EHCVM.}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.72\linewidth]{figures/fig_effets_dim_g3.pdf}
+  \caption{Impact des transferts par dimension MODA, enfants de 15 à 17 ans}
+  \label{fig:effets_dim_g3}
 
   {\footnotesize \textbf{Source :} Calcul de l'auteur, EHCVM.}
 \end{figure}
