@@ -456,14 +456,14 @@
             durable aux transferts sur le nombre de privations, séparément
             dans chaque groupe d'âge.
       \item[{\color{presvert}\faBullseye}] Analyser l'hétérogénéité de cet
-            impact selon les dimensions et indicateurs, le milieu, le genre
-            du chef et le montant reçu.
+            impact selon les dimensions et indicateurs de privation et
+            selon le montant reçu.
     \end{itemize}
   \end{block}
   \begin{block}{Hypothèses de recherche}
     \begin{enumerate}
       \item[H1] Une exposition durable aux transferts réduit significativement la pauvreté multidimensionnelle des enfants, dans chaque groupe d'âge.
-      \item[H2] L'effet est hétérogène selon les dimensions et indicateurs, le milieu, le genre du chef de ménage et le montant reçu.
+      \item[H2] L'effet est hétérogène selon les dimensions et indicateurs de privation et selon le montant reçu.
     \end{enumerate}
   \end{block}
 \end{frame}
@@ -831,8 +831,8 @@
    bénéficiaires aux deux éditions contre jamais bénéficiaires.\ \
    \textbf{\color{presor}Robustesse} : trois algorithmes d'appariement, seuil
    $k$ de 1 à 7, estimation sans appariement.\ \
-   \textbf{\color{presor}Hétérogénéité} : les sept dimensions, le milieu, le
-   genre du chef, l'âge de l'enfant, le montant reçu.}
+   \textbf{\color{presor}Hétérogénéité} : les sept dimensions, les treize
+   indicateurs, le montant reçu, chacun par groupe d'âge.}
 \end{frame}
 
 % ============================================================
@@ -1013,40 +1013,32 @@
     Le canal budgétaire domine : les transferts protègent ce qui dépend de la dépense courante, l'alimentation au premier chef, et n'ont pas de prise sur les privations d'infrastructure.}
 \end{frame}
 
-\begin{frame}{Hétérogénéité de l'effet selon les sous-groupes}
+\begin{frame}{Périmètre de l'hétérogénéité et égalité entre groupes d'âge}
+  \begin{block}{Pourquoi ni le milieu ni le genre du chef ?}
+    Ces variables figurent dans le score de propension : l'appariement les
+    équilibre entre traités et témoins, et l'effet est déjà estimé
+    conditionnellement à elles. L'hétérogénéité porte sur les dimensions,
+    les indicateurs et le montant reçu, chacun par groupe d'âge.
+  \end{block}
   \centering
-  \scriptsize
-  \renewcommand{\arraystretch}{1.15}
+  \renewcommand{\arraystretch}{1.25}
   \setlength{\tabcolsep}{10pt}
-  \begin{tabular}{@{}lcc@{}}
+  \begin{tabular}{@{}lc@{}}
     \toprule
     \rowcolor{presvert!88!black}
-    \color{white}Sous-groupe & \color{white}0-4 ans & \color{white}5-14 ans \\
+    \color{white}Égalité des trois ATT & \color{white}$p$-valeur \\
     \midrule
-    \rowcolor{presvert!18}
-    \multicolumn{3}{@{}l@{}}{\textbf{Par milieu de résidence}} \\
-    \quad Milieu urbain & -$0{,}153$ & -$0{,}183$ \\
     \rowcolor{presvert!7}
-    \quad Milieu rural  & -$0{,}102$ & -$0{,}203$ \\
-    \quad Test d'égalité ($p$-valeur) & 0,826 & 0,923 \\
-    \midrule
-    \rowcolor{presvert!18}
-    \multicolumn{3}{@{}l@{}}{\textbf{Par genre du chef de ménage}} \\
-    \quad Chef homme & -$0{,}134$ & -$0{,}153$ \\
-    \rowcolor{presorange!16}
-    \quad Chef femme & -$0{,}128$ & -$0{,}284^{**}$ \\
-    \quad Test d'égalité ($p$-valeur) & 0,980 & 0,516 \\
-    \midrule
-    \rowcolor{presvert!18}
-    \multicolumn{3}{@{}l@{}}{\textbf{Entre groupes d'âge}} \\
-    \quad Test joint d'égalité des trois ATT & \multicolumn{2}{c}{$p=0{,}748$} \\
+    Test joint d'égalité & 0,748 \\
+    Écart 5-14 ans contre 0-4 ans & 0,447 \\
+    \rowcolor{presvert!7}
+    Écart 15-17 ans contre 0-4 ans & 0,893 \\
     \bottomrule
   \end{tabular}
-
   \par\smallskip
-  {\scriptsize\color{presgris} $^{**}p<0{,}05$. 15-17 ans écartés (moins de
-   30 traités par strate).
-   \textit{Source :} EHCVM, calculs de l'auteur.}
+  {\scriptsize\color{presgris}\textit{Source :} EHCVM, calculs de l'auteur.}\\
+  L'effet est établi chez les 5-14 ans sans que son ampleur soit
+  statistiquement supérieure à celle des autres groupes.
 \end{frame}
 
 
@@ -1119,8 +1111,8 @@
   \end{tabular}
   \par\smallskip
   {\scriptsize\color{presgris}\textit{Source :} EHCVM, calculs de l'auteur.}\\
-  L'hétérogénéité n'est établie ni par milieu ni par tranche d'âge ;
-   elle l'est selon le montant reçu, avec un gradient dose-réponse net.
+  L'hétérogénéité n'est pas établie entre tranches d'âge ;
+   elle l'est selon la dimension et le montant reçu, avec un gradient dose-réponse net.
 \end{frame}
 
 \begin{frame}{Sensibilité à la définition du traitement}

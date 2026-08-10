@@ -2082,55 +2082,11 @@ restore
    moderateur est examine par groupe d'age, seuls perimetre ou l'ATT a
    une interpretation, avec le test d'interaction correspondant. */
 
-di _newline "=== Heterogeneite par milieu (niveaux 2021, par groupe d'age) ==="
-gen byte urban = (milieu == 1)
-forvalues g = 1/3 {
-    local titg : label grp `g'
-    di _newline "-- `titg' --"
-    foreach mil in 1 0 {
-        local lab_mil = cond(`mil' == 1, "Urbain", "Rural ")
-        quietly count if urban == `mil' & groupe_base == `g' & D == 1
-        local n_tr = r(N)
-        if `n_tr' > 1 {
-            quietly regress nb_dep i.D [aw=$POIDS_PRINCIPAL] ///
-                if urban == `mil' & groupe_base == `g', vce(cluster grappe)
-            di "  `lab_mil' : ATT = " %8.4f _b[1.D] "  SE = " %8.4f _se[1.D] ///
-               "  p = " %6.4f 2*ttail(e(df_r), abs(_b[1.D]/_se[1.D]))
-        }
-        else di "  `lab_mil' : effectif traite insuffisant (n=" `n_tr' ")"
-    }
-    quietly regress nb_dep i.D##i.urban [aw=$POIDS_PRINCIPAL] ///
-        if groupe_base == `g', vce(cluster grappe)
-    quietly lincom 1.D#1.urban
-    di "  Diff ATT (urbain - rural) : " %8.4f r(estimate) "  p = " %6.4f r(p)
-}
-drop urban
-
-/* -- Par genre du chef de menage (hgender : 1 homme, 2 femme) -- */
-di _newline "=== Heterogeneite par genre du chef (niveaux 2021, par groupe d'age) ==="
-gen byte chef_fem = (hgender == 2) if !missing(hgender)
-forvalues g = 1/3 {
-    local titg : label grp `g'
-    di _newline "-- `titg' --"
-    foreach h in 0 1 {
-        local lab_h = cond(`h' == 0, "Chef homme", "Chef femme")
-        quietly count if chef_fem == `h' & groupe_base == `g' & D == 1
-        local n_tr = r(N)
-        if `n_tr' > 1 {
-            quietly regress nb_dep i.D [aw=$POIDS_PRINCIPAL] ///
-                if chef_fem == `h' & groupe_base == `g', vce(cluster grappe)
-            di "  `lab_h' : ATT = " %8.4f _b[1.D] "  SE = " %8.4f _se[1.D] ///
-               "  p = " %6.4f 2*ttail(e(df_r), abs(_b[1.D]/_se[1.D]))
-        }
-        else di "  `lab_h' : effectif traite insuffisant (n=" `n_tr' ")"
-    }
-    quietly regress nb_dep i.D##i.chef_fem [aw=$POIDS_PRINCIPAL] ///
-        if groupe_base == `g', vce(cluster grappe)
-    quietly lincom 1.D#1.chef_fem
-    di "  Diff ATT (chef femme - chef homme) : " %8.4f r(estimate) ///
-       "  p = " %6.4f r(p)
-}
-drop chef_fem
+/* Le milieu de residence et le genre du chef figurent parmi les
+   covariables du score de propension : l'appariement les equilibre entre
+   traites et temoins, et aucune heterogeneite n'est examinee selon ces
+   variables. L'heterogeneite porte sur les dimensions, les indicateurs
+   et le montant recu, chacun par groupe d'age. */
 
 /* Les trois ATT par groupe d'age sont-ils egaux ? Le test ne compare pas
    des niveaux de nb_dep entre grilles, mais des ECARTS traites-temoins :
