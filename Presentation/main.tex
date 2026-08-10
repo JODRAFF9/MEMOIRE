@@ -167,6 +167,32 @@
 % Relief commun aux cartouches : une ombre portee tres douce
 \tikzset{relief/.style={blur shadow={shadow blur steps=8, shadow xshift=0.6pt,
                                      shadow yshift=-0.9pt, shadow opacity=22}}}
+
+% Styles parametres des schemas tikz. Definis dans le preambule : un
+% style avec parametre (#1) ne peut pas etre defini a l'interieur d'une
+% frame beamer, dont le contenu est collecte comme corps de macro.
+\tikzset{
+  motif/.style={relief, rounded corners=6pt, draw=#1, line width=1.1pt, fill=#1!8,
+                minimum width=3.85cm, minimum height=3.05cm, anchor=north west},
+  motif/.default=presvert,
+  groupefiltre/.style={relief, rounded corners=5pt, draw=#1, line width=1pt, fill=#1!8,
+                       minimum width=4.9cm, minimum height=1.6cm, anchor=north west},
+  groupefiltre/.default=presvert,
+  groupedef/.style={relief, rounded corners=5pt, draw=#1, line width=1pt, fill=#1!8,
+                    minimum width=4.7cm, minimum height=1.9cm, anchor=north west},
+  groupedef/.default=presvert,
+  hexa/.style={relief, regular polygon, regular polygon sides=6, draw=#1!60!black,
+               line width=1pt, fill=#1, text=white, inner sep=0pt,
+               minimum size=0.9cm, font=\small},
+  hexa/.default=presvert,
+  etape/.style={rounded corners=6pt, draw=#1, line width=1.1pt, fill=#1!8,
+                minimum width=4.0cm, minimum height=2.2cm},
+  etape/.default=presvert,
+  planresume/.style={font=\scriptsize, text=presgris, anchor=north west,
+                     text width=3.5cm, align=left, inner sep=0pt,
+                     execute at begin node={\hyphenpenalty=10000
+                       \exhyphenpenalty=10000 \tolerance=9999
+                       \emergencystretch=1em}}}
 % Icones vectorielles des dimensions du bien-etre (compatible XeLaTeX)
 \usepackage{fontawesome5}
 
@@ -377,23 +403,19 @@
   \begin{tikzpicture}[
       numero/.style = {font=\fontsize{42}{42}\selectfont\bfseries, text=presvert!22,
                        anchor=north west},
-      titre/.style  = {font=\small\bfseries, text=presvert, anchor=north west},
-      resume/.style = {font=\scriptsize\hyphenpenalty=10000\exhyphenpenalty=10000
-                            \tolerance=9999\emergencystretch=1em,
-                       text=presgris, anchor=north west,
-                       text width=3.5cm, align=left, inner sep=0pt}
+      titre/.style  = {font=\small\bfseries, text=presvert, anchor=north west}
     ]
     \foreach \i/\x/\y/\t/\r in {%
-      1/0/0/{Introduction}/{Contexte, problématique\\et objectifs},
-      2/4.2/0/{Revue de la littérature}/{Motivations, effets\\documentés et lacune},
-      3/8.4/0/{Cadre méthodologique}/{Données, mesure MODA\\et identification},
-      4/0/-2.9/{Résultats empiriques}/{Effet moyen, dimensions\\et montants},
-      5/4.2/-2.9/{Robustesse et discussion}/{Ce qui tient et\\comment le lire},
-      6/8.4/-2.9/{Conclusion}/{Enseignements et\\recommandations}}
+      1/0/0/{Introduction}/{Contexte, problématique et objectifs},
+      2/4.2/0/{Revue de la littérature}/{Motivations, effets documentés et lacune},
+      3/8.4/0/{Cadre méthodologique}/{Données, mesure MODA et identification},
+      4/0/-2.9/{Résultats empiriques}/{Effet moyen, dimensions et montants},
+      5/4.2/-2.9/{Robustesse et discussion}/{Ce qui tient et comment le lire},
+      6/8.4/-2.9/{Conclusion}/{Enseignements et recommandations}}
       {
         \node[numero] at (\x,\y) {\i};
         \node[titre]  at (\x+0.95,\y-0.28) {\t};
-        \node[resume] at (\x+0.95,\y-0.82) {\r};
+        \node[planresume] at (\x+0.95,\y-0.82) {\r};
         \draw[presorange, line width=1pt] (\x+0.98,\y-0.72) -- (\x+1.55,\y-0.72);
       }
   \end{tikzpicture}
@@ -446,10 +468,12 @@
 
 \begin{frame}{Objectifs et hypothèses}
   \small
+  \setlength{\parskip}{2pt}
   \bandeau{presvert}{0.93\linewidth}{Objectif général}{%
     {\color{presorange}\faBullseye}~Évaluer l'impact des transferts de migrants sur la pauvreté multidimensionnelle des enfants au Sénégal.}
   \begin{block}{Objectifs spécifiques}
     \begin{itemize}
+      \setlength{\itemsep}{1pt}
       \item[{\color{presvert}\faBullseye}] Construire un indice de pauvreté
             multidimensionnelle adapté aux enfants sénégalais.
       \item[{\color{presvert}\faBullseye}] Estimer l'impact d'une exposition
@@ -462,6 +486,7 @@
   \end{block}
   \begin{block}{Hypothèses de recherche}
     \begin{enumerate}
+      \setlength{\itemsep}{1pt}
       \item[H1] Une exposition durable aux transferts réduit significativement la pauvreté multidimensionnelle des enfants, dans chaque groupe d'âge.
       \item[H2] L'effet est hétérogène selon les dimensions et indicateurs de privation et selon le montant reçu.
     \end{enumerate}
@@ -476,10 +501,8 @@
 
 \begin{frame}{Théorie sur la motivation des transferts de migrants}
   \centering
+  \vspace{-0.15cm}
   \begin{tikzpicture}[
-      motif/.style  = {relief, rounded corners=6pt, draw=#1, line width=1.1pt, fill=#1!8,
-                       minimum width=3.85cm, minimum height=3.05cm, anchor=north west},
-      motif/.default = presvert,
       titre/.style  = {font=\small\bfseries, anchor=north, text width=3.45cm,
                        align=center},
       detail/.style = {font=\scriptsize, text=presgris, anchor=north,
@@ -572,9 +595,6 @@
       vague/.style  = {relief, rounded corners=6pt, draw=presvert, line width=1.1pt,
                        fill=presvert!8, minimum width=4.0cm, minimum height=1.5cm,
                        anchor=north west},
-      groupe/.style = {relief, rounded corners=5pt, draw=#1, line width=1pt, fill=#1!8,
-                       minimum width=4.9cm, minimum height=1.6cm, anchor=north west},
-      groupe/.default = presvert,
       titre/.style  = {font=\small\bfseries, anchor=north},
       detail/.style = {font=\scriptsize, text=presgris, anchor=north,
                        text width=4.4cm, align=center}
@@ -592,14 +612,14 @@
     \node[font=\scriptsize\bfseries, text=presorange, anchor=south, align=center]
       at ([yshift=2mm]$(v1.east)!0.5!(v2.west)$) {6\,127 ménages\\ retrouvés};
 
-    \node[groupe=presorange] (t) at (0,-2.3) {};
+    \node[groupefiltre=presorange] (t) at (0,-2.3) {};
     \node[titre, text=presorange] at ([yshift=-0.18cm]t.north) {Traités};
     \node[detail] at ([yshift=-0.64cm]t.north)
       {Transfert reçu de l'étranger, quel que soit le lien de l'expéditeur};
     \node[font=\scriptsize\bfseries, text=presorange, anchor=south east]
       at ([shift={(-0.15,0.08)}]t.south east) {2\,638 enfants};
 
-    \node[groupe=presgris] (c) at (5.9,-2.3) {};
+    \node[groupefiltre=presgris] (c) at (5.9,-2.3) {};
     \node[titre, text=presgris] at ([yshift=-0.18cm]c.north) {Témoins};
     \node[detail] at ([yshift=-0.64cm]c.north)
       {Aucun transfert de ce type en 2018};
@@ -619,10 +639,6 @@
   \centering
   \vspace{-0.15cm}
   \begin{tikzpicture}[
-      hexa/.style   = {relief, regular polygon, regular polygon sides=6, draw=#1!60!black,
-                       line width=1pt, fill=#1, text=white, inner sep=0pt,
-                       minimum size=0.9cm, font=\small},
-      hexa/.default = presvert,
       etiq/.style   = {below=1mm, font=\scriptsize, text=presor}
     ]
     \node[hexa=dimassain] (d1) at (0,0)      {\faShower};    \node[etiq] at (d1.south) {Assainissement};
@@ -797,14 +813,11 @@
   \footnotesize
   \centering
   \begin{tikzpicture}[
-      groupe/.style = {relief, rounded corners=5pt, draw=#1, line width=1pt, fill=#1!8,
-                       minimum width=4.7cm, minimum height=1.9cm, anchor=north west},
-      groupe/.default = presvert,
       titre/.style  = {font=\small\bfseries, anchor=north west},
       detail/.style = {font=\scriptsize, text=presgris, anchor=north west,
                        text width=3.4cm, align=left}
     ]
-    \node[groupe=presorange] (t) at (0,0) {};
+    \node[groupedef=presorange] (t) at (0,0) {};
     \node[text=presorange, font=\Large] at ([shift={(0.55,-0.62)}]t.north west) {\faHandHoldingUsd};
     \node[titre, text=presorange] at ([shift={(1.15,-0.18)}]t.north west) {Bénéficiaires stables};
     \node[detail] at ([shift={(1.15,-0.55)}]t.north west)
@@ -812,7 +825,7 @@
     \node[font=\scriptsize\bfseries, text=presorange, anchor=south east]
       at ([shift={(-0.2,0.12)}]t.south east) {1\,482 enfants};
 
-    \node[groupe=presgris] (c) at (5.4,0) {};
+    \node[groupedef=presgris] (c) at (5.4,0) {};
     \node[text=presgris, font=\Large] at ([shift={(0.55,-0.62)}]c.north west) {\faHome};
     \node[titre, text=presgris] at ([shift={(1.15,-0.18)}]c.north west) {Jamais bénéficiaires};
     \node[detail] at ([shift={(1.15,-0.55)}]c.north west)
@@ -905,7 +918,7 @@
       \scriptsize
       \centering
       \renewcommand{\arraystretch}{1.15}
-      \setlength{\tabcolsep}{5pt}
+      \setlength{\tabcolsep}{4pt}
       \begin{tabular}{@{}lccc@{}}
         \toprule
         \rowcolor{presvert!88!black}
@@ -933,7 +946,7 @@
 
 \begin{frame}{Évolution de l'incidence selon le statut du ménage}
   \centering
-  \includegraphics[width=0.72\linewidth, height=0.74\textheight,
+  \includegraphics[width=0.72\linewidth, height=0.70\textheight,
                    keepaspectratio]{figures/fig_evolution_ipm.pdf}
   {\scriptsize\color{presgris}\textit{Source :} EHCVM, calculs de l'auteur.}
 \end{frame}
@@ -953,13 +966,13 @@
   \begin{columns}[T]
     \begin{column}{0.49\textwidth}
       \centering
-      \includegraphics[width=\linewidth,height=0.55\textheight,
+      \includegraphics[width=\linewidth,height=0.50\textheight,
                        keepaspectratio]{figures/fig_venn_nonbeneficiaires.pdf}\\[2pt]
       {\scriptsize\color{presgris}Non-bénéficiaires}
     \end{column}
     \begin{column}{0.49\textwidth}
       \centering
-      \includegraphics[width=\linewidth,height=0.55\textheight,
+      \includegraphics[width=\linewidth,height=0.50\textheight,
                        keepaspectratio]{figures/fig_venn_beneficiaires.pdf}\\[2pt]
       {\scriptsize\color{presgris}Bénéficiaires stables}
     \end{column}
@@ -1039,7 +1052,7 @@
       {\scriptsize\color{presgris}Enfants de 5 à 14 ans}
     \end{column}
     \begin{column}{0.36\textwidth}
-      \bandeau{presorange}{0.93\linewidth}{Un seul effet sectoriel net, dans deux groupes}{%
+      \bandeau{presorange}{0.93\linewidth}{Un effet sectoriel net}{%
     L'insécurité alimentaire est inférieure de \chiffre{$11{,}0$}~points chez les bénéficiaires de 0-4 ans (seuil de 5\,\%) et de \chiffre{$13{,}7$}~points chez les 5-14 ans (seuil de 1\,\%). Les autres dimensions ne bougent pas.}
     \end{column}
   \end{columns}
@@ -1077,10 +1090,11 @@
 
 
 \begin{frame}{Effet selon le montant des transferts reçus}
-  \small
+  \scriptsize
   \begin{table}
     \centering
     \renewcommand{\arraystretch}{1.15}
+    \setlength{\tabcolsep}{4pt}
     \begin{tabular}{@{}lccc@{}}
       \toprule
       \rowcolor{presvert!88!black}
@@ -1153,7 +1167,7 @@
   \vfill
   \begin{columns}[T]
     \begin{column}{0.475\textwidth}
-      \bandeau{presorange}{0.93\linewidth}{Résultat sous cette définition}{%
+      \bandeau{presorange}{0.93\linewidth}{Sous cette définition}{%
     Avec le traitement fixé à la seule période de base, transitoires inclus, la DD brute donne $0{,}043^{**}$ et le PSM-DD -$0{,}028$, non significatif : la dilution efface l'effet, qui tient à la durée d'exposition.}
     \end{column}
     \begin{column}{0.475\textwidth}
@@ -1167,9 +1181,6 @@
 \begin{frame}{Discussion}
   \centering
   \begin{tikzpicture}[
-      etape/.style  = {rounded corners=6pt, draw=#1, line width=1.1pt, fill=#1!8,
-                       minimum width=4.0cm, minimum height=2.2cm},
-      etape/.default = presvert,
       titre/.style  = {font=\small\bfseries, anchor=north, text width=3.6cm,
                        align=center},
       detail/.style = {font=\scriptsize, text=presgris, anchor=north,
