@@ -425,14 +425,98 @@ chez les enfants initialement les plus privés.
 
 \subsubsection{Sensibilité à la sélection cachée}
 
-Le tableau~\ref{tab:rosenbaum} rapporte les bornes de Rosenbaum,
-calculées sur les paires du plus proche voisin dans chaque groupe d'âge :
-pour chaque valeur du paramètre $\Gamma$, la p-valeur de l'effet dans le
-scénario le plus défavorable, celui où le facteur inobservé joue
-entièrement contre l'effet estimé. Chez les enfants de 0 à 4 ans et de 5
-à 14 ans, l'effet apparié résiste très au-delà du repère usuel : la
-p-valeur défavorable ne franchit le seuil de 10\,\% qu'entre 2,25 et
-2,50 chez les premiers et entre 2,00 et 2,25 chez les seconds. Pour
+Les tableaux~\ref{tab:rosenbaum1} à \ref{tab:rosenbaum3} rapportent les
+sorties brutes du test de Rosenbaum, calculées sur les paires du plus
+proche voisin dans chaque groupe d'âge : pour chaque valeur du paramètre
+$\Gamma$, les bornes supérieure et inférieure de la p-valeur du test des
+rangs signés de Wilcoxon, l'encadrement de l'estimateur ponctuel de
+Hodges-Lehmann et l'intervalle de confiance à 95\,\% qui en découle.
+L'effet estimé étant négatif, le scénario défavorable est celui de la
+borne inférieure de la p-valeur, où le facteur inobservé joue contre
+l'effet.
+
+\begin{table}[H]
+  \centering
+  \caption{Bornes de Rosenbaum, enfants de 0 à 4 ans}
+  \label{tab:rosenbaum1}
+  \zebre
+  \small
+  \begin{tabular}{|l|c|c|c|c|c|c|}
+    \hline
+\entete $\Gamma$ & $sig^{+}$ & $sig^{-}$ & $\hat{t}^{+}$ & $\hat{t}^{-}$ & $IC^{+}$ & $IC^{-}$ \\
+    \hline
+    1,00 & 0,000 & 0,000 & -1,0 & -1,0 & -1,0 & -0,5 \\ \hline
+    1,25 & 0,000 & 0,000 & -1,0 & -0,5 & -1,0 & -0,5 \\ \hline
+    1,50 & 0,000 & 0,000 & -1,0 & -0,5 & -1,5 & -0,5 \\ \hline
+    1,75 & 0,000 & 0,000 & -1,5 & -0,5 & -1,5 & 0,0 \\ \hline
+    2,00 & 0,000 & 0,000 & -1,5 & -0,5 & -1,5 & 0,0 \\ \hline
+    2,25 & 0,000 & 0,015 & -1,5 & 0,0 & -1,5 & 0,0 \\ \hline
+    2,50 & 0,000 & 0,139 & -1,5 & 0,0 & -2,0 & 0,0 \\
+    \hline
+  \end{tabular}
+
+  {\footnotesize \textbf{Source :} Calcul de l'auteur, EHCVM. 751 paires
+  du plus proche voisin. $sig^{+}$ et $sig^{-}$ : bornes supérieure et
+  inférieure de la p-valeur ; $\hat{t}^{+}$ et $\hat{t}^{-}$ : bornes de
+  l'estimateur de Hodges-Lehmann ; $IC^{+}$ et $IC^{-}$ : bornes de
+  l'intervalle de confiance à 95\,\%.}
+\end{table}
+
+\begin{table}[H]
+  \centering
+  \caption{Bornes de Rosenbaum, enfants de 5 à 14 ans}
+  \label{tab:rosenbaum2}
+  \zebre
+  \small
+  \begin{tabular}{|l|c|c|c|c|c|c|}
+    \hline
+\entete $\Gamma$ & $sig^{+}$ & $sig^{-}$ & $\hat{t}^{+}$ & $\hat{t}^{-}$ & $IC^{+}$ & $IC^{-}$ \\
+    \hline
+    1,00 & 0,000 & 0,000 & -1,0 & -1,0 & -1,0 & -0,5 \\ \hline
+    1,25 & 0,000 & 0,000 & -1,0 & -0,5 & -1,0 & -0,5 \\ \hline
+    1,50 & 0,000 & 0,000 & -1,0 & -0,5 & -1,5 & -0,5 \\ \hline
+    1,75 & 0,000 & 0,000 & -1,5 & -0,5 & -1,5 & 0,0 \\ \hline
+    2,00 & 0,000 & 0,006 & -1,5 & 0,0 & -1,5 & 0,0 \\ \hline
+    2,25 & 0,000 & 0,221 & -1,5 & 0,0 & -1,5 & 0,0 \\ \hline
+    2,50 & 0,000 & 0,783 & -1,5 & 0,0 & -1,5 & 0,0 \\
+    \hline
+  \end{tabular}
+
+  {\footnotesize \textbf{Source :} Calcul de l'auteur, EHCVM. 1\,442
+  paires du plus proche voisin. Mêmes notations qu'au
+  tableau~\ref{tab:rosenbaum1}.}
+\end{table}
+
+\begin{table}[H]
+  \centering
+  \caption{Bornes de Rosenbaum, enfants de 15 à 17 ans}
+  \label{tab:rosenbaum3}
+  \zebre
+  \small
+  \begin{tabular}{|l|c|c|c|c|c|c|}
+    \hline
+\entete $\Gamma$ & $sig^{+}$ & $sig^{-}$ & $\hat{t}^{+}$ & $\hat{t}^{-}$ & $IC^{+}$ & $IC^{-}$ \\
+    \hline
+    1,00 & 0,075 & 0,075 & -0,5 & -0,5 & -1,0 & 0,0 \\ \hline
+    1,25 & 0,022 & 0,189 & -0,5 & -0,5 & -1,5 & 0,5 \\ \hline
+    1,50 & 0,006 & 0,332 & -1,0 & 0,0 & -1,5 & 0,5 \\ \hline
+    1,75 & 0,002 & 0,476 & -1,0 & 0,0 & -1,5 & 0,5 \\ \hline
+    2,00 & 0,000 & 0,604 & -1,0 & 0,0 & -1,5 & 1,0 \\ \hline
+    2,25 & 0,000 & 0,709 & -1,0 & 0,0 & -2,0 & 1,0 \\ \hline
+    2,50 & 0,000 & 0,791 & -1,0 & 0,5 & -2,0 & 1,0 \\
+    \hline
+  \end{tabular}
+
+  {\footnotesize \textbf{Source :} Calcul de l'auteur, EHCVM. 35 paires
+  du plus proche voisin. Mêmes notations qu'au
+  tableau~\ref{tab:rosenbaum1}.}
+\end{table}
+
+Chez les enfants de 0 à 4 ans et de 5 à 14 ans, l'effet apparié résiste
+très au-delà du repère usuel : la p-valeur défavorable ne franchit le
+seuil de 10\,\% qu'entre 2,25 et 2,50 chez les premiers et entre 2,00
+et 2,25 chez les seconds, et l'estimateur de Hodges-Lehmann reste borné
+entre une privation et demie et zéro sur tout l'intervalle exploré. Pour
 expliquer l'effet par la seule sélection cachée, il faudrait donc un
 facteur inobservé qui plus que double les cotes de traitement de deux
 enfants observablement identiques, alors même que le score conditionne
@@ -442,30 +526,6 @@ robustesse forte. Chez les adolescents, l'effet apparié n'est
 significatif qu'au seuil de 10\,\% en l'absence de tout biais et se
 renverse dès que $\Gamma$ atteint 1,25, confirmation que ce groupe ne
 porte aucune conclusion.
-
-\begin{table}[H]
-  \centering
-  \caption{Bornes de Rosenbaum, p-valeur du scénario défavorable selon le paramètre \texorpdfstring{$\Gamma$}{Gamma}}
-  \label{tab:rosenbaum}
-  \zebre
-  \begin{tabular}{|l|c|c|c|}
-    \hline
-\entete $\Gamma$ & 0-4 ans & 5-14 ans & 15-17 ans \\
-    \hline
-    1,00 & 0,000 & 0,000 & 0,075 \\ \hline
-    1,25 & 0,000 & 0,000 & 0,189 \\ \hline
-    1,50 & 0,000 & 0,000 & 0,332 \\ \hline
-    1,75 & 0,000 & 0,000 & 0,476 \\ \hline
-    2,00 & 0,000 & 0,006 & 0,604 \\ \hline
-    2,25 & 0,015 & 0,221 & 0,709 \\ \hline
-    2,50 & 0,139 & 0,783 & 0,791 \\
-    \hline
-  \end{tabular}
-
-  {\footnotesize \textbf{Source :} Calcul de l'auteur, EHCVM. Test des
-  rangs signés de Wilcoxon sur les paires du plus proche voisin, 751,
-  1\,442 et 35 paires respectivement.}
-\end{table}
 
 \subsection{Effets par dimension et par indicateur}
 

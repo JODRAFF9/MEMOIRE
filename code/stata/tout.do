@@ -2009,6 +2009,17 @@ forvalues tt = 0/1 {
     }
 }
 
+/* Distribution du nombre de privations, par groupe d'age et edition */
+di _newline "=== Distribution du nombre de privations par groupe d'age ==="
+forvalues g = 1/3 {
+    local titg : label grp `g'
+    di "  -- `titg' --"
+    forvalues tt = 0/1 {
+        di "    edition t=`tt' :"
+        tab nb_dep if t == `tt' & groupe_base == `g'
+    }
+}
+
 /* Distribution du nombre de privations, par statut et edition */
 di _newline "=== Distribution du nombre de privations (nb_dep) ==="
 forvalues tt = 0/1 {
